@@ -1,0 +1,22 @@
+如何查看和分享这个动画
+
+直接打开 animation-standalone.html 即可离线播放。
+
+希望让 ChatGPT review 时：
+1. 解压 ChatGPT-Pro-upload.zip。
+2. 将 00–08 开头的九张 JPG 和 execution-events.txt 上传到同一个对话。
+3. 配上这段说明：
+
+请按编号阅读这九张连续关键帧，并结合 execution-events.txt 中的 63 个播放阶段，review 这个预期成果演示。轨迹从空图开始，reasoning、action、observation 分别成为节点，再压缩子图、合并 PDF 与 JPG 两个子图，保留节点参数和对外连接，继续执行后续任务。请关注三类节点是否容易区分、谓词参数是否准确、压缩后能否理解原来的依赖。原始内容来自真实轨迹；子图、语义谓词和压缩时点由分镜编排。这个案例有 14 个 reasoning、28 个 action 和 14 个 observation；同一 event 的多次调用共享一块批量反馈。
+
+需要修改动画时，再提供 animation-source.txt。该文件包含完整 HTML、CSS、JavaScript 和案例数据。
+
+文件用途：
+- 00–08 开头的 JPG：浏览器截图，按动画时间排列。
+- execution-events.txt：完整时间轴、三类节点、调用反馈对应、带参数的谓词实例、分组与原始记录。
+- animation-standalone.html：独立播放网页。
+- animation-source.txt：与独立网页相同的源码，便于作为文本阅读和修改。
+- keyframes.json：截图文件名、时间和阶段说明。
+- process-preview.jpg：四幅关键画面的概览。
+
+图中的实线表示调用与反馈的对应，虚线表示分镜中的语义谓词。点击节点可看原始内容与谓词参数；摘要可以逐层展开。

@@ -1,0 +1,114 @@
+[
+  {
+    "name": "IS_PLAN",
+    "definition": "The reasoning explicitly states intended future steps.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The recorded agent text stating the plan."
+      }
+    ],
+    "assertion_conditions": [
+      "The text specifies intended actions, order or goals."
+    ],
+    "exclusion_conditions": [
+      "A retrospective report alone does not state a plan."
+    ]
+  },
+  {
+    "name": "USES_OBSERVATION_AS_INPUT",
+    "definition": "The action takes an identifiable value or payload supplied by the observation as an operational input.",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The invocation receiving the input."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The earlier tool result supplying the value or payload."
+      }
+    ],
+    "assertion_conditions": [
+      "An argument or input payload can be traced to the observation."
+    ],
+    "exclusion_conditions": [
+      "Adjacency and shared topics alone do not establish input use.",
+      "Information used only to choose an action does not satisfy this predicate."
+    ]
+  },
+  {
+    "name": "GUIDES_ACTION_CHOICE",
+    "definition": "The observation supplies the explicit basis for choosing the action.",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The earlier result carrying the decision evidence."
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The later invocation selected on that basis."
+      }
+    ],
+    "assertion_conditions": [
+      "Recorded evidence links the observation to the choice of this action."
+    ],
+    "exclusion_conditions": [
+      "The result of the same invocation cannot justify the invocation already issued."
+    ]
+  },
+  {
+    "name": "DERIVES_CONCLUSION",
+    "definition": "The reasoning states a conclusion derived from the specified observations.",
+    "parameters": [
+      {
+        "name": "inputs",
+        "type": "observation[]",
+        "description": "The tool results used as premises."
+      },
+      {
+        "name": "conclusion",
+        "type": "reasoning",
+        "description": "The recorded conclusion and its derivation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies how the observations support its conclusion."
+    ],
+    "exclusion_conditions": [
+      "A shared topic without a traceable derivation is insufficient."
+    ]
+  },
+  {
+    "name": "CONFIRMS_REPAIR",
+    "definition": "The check observation confirms that the repair action resolved the failure shown in the earlier observation.",
+    "parameters": [
+      {
+        "name": "repair",
+        "type": "action",
+        "description": "The invocation attempting a repair."
+      },
+      {
+        "name": "failure",
+        "type": "observation",
+        "description": "The earlier observed failure."
+      },
+      {
+        "name": "check",
+        "type": "observation",
+        "description": "The later result verifying the repaired condition."
+      }
+    ],
+    "assertion_conditions": [
+      "The failure, repair and subsequent check refer to the same relevant condition and environment.",
+      "The check reports successful resolution of that failure."
+    ],
+    "exclusion_conditions": [
+      "Attempting a repair or merely running a check does not establish success."
+    ]
+  }
+]

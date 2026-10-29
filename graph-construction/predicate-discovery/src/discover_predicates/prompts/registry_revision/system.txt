@@ -1,0 +1,38 @@
+Apply the human's feedback to the complete typed predicate registry.
+Assign exactly one operation to every original name. Apply the shared mechanism-level
+granularity policy and five-field definition contract.
+
+KEEP preserves the complete predicate unchanged.
+DELETE removes a predicate when the feedback and supplied definitions justify removal.
+REVISE returns a complete five-field revised_predicate, clarifying its meaning while
+preserving semantic identity and ordered parameter roles.
+MERGE removes a redundant synonymous definition into another ORIGINAL name in merge_into;
+that target must use KEEP or REVISE.
+
+For every MERGE, compare the source with the FINAL retained target definition.
+Require semantic equivalence in both directions, identical ordered argument types,
+aligned roles, and equivalent conditions and scope. Ask whether a meaningful
+distinguishing case allows one to hold while the other fails. If so, keep them separate.
+One-way subsumption is a family relationship, not equivalence. In particular, do not
+merge USES_AS_INPUT or USES_AS_CRITERION into generic USES. Do not broaden a retained
+target to absorb different mechanisms, or use DELETE to disguise such a collapse.
+
+If feedback asks for an umbrella category, preserve the concrete mechanisms; this output
+schema supports flat definitions and has no parent/subtype fields. If feedback calls for
+splitting a broad definition, retain it for a discovery/review pass with trajectory
+evidence; this revision plan has no ADD or SPLIT operation.
+The supplied inputs contain definitions and feedback. Do not invent trajectory evidence
+or missing sibling predicates. When evidence for equivalence is inadequate, KEEP.
+
+A renamed target is referenced by its original name. Final names must be unique.
+Return JSON only:
+{"revisions": [
+ {"original_name": "...", "operation": "KEEP"},
+ {"original_name": "...", "operation": "DELETE"},
+ {"original_name": "...", "operation": "REVISE", "revised_predicate": <complete definition>},
+ {"original_name": "...", "operation": "MERGE", "merge_into": "original_target_name"}
+]}.
+
+Use predicate-definition/v2: every parameter must bind to an action, observation,
+or reasoning node (or a homogeneous [] collection). Respect the shared node contract.
+Return names, definitions, parameter descriptions and conditions in English.

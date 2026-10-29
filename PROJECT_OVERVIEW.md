@@ -1,6 +1,6 @@
 # 基于层级轨迹图与 Shapley 分析的 Agent 上下文管理
 
-本文介绍项目目标、技术路线与当前进展。更新日期：2026-09-30。
+本文介绍项目目标、技术路线与当前进展。更新日期：2026-10-13。
 
 ## 项目目标
 
@@ -71,16 +71,16 @@ flowchart TD
 
 ## 已有图示与当前进展
 
-下面展示根目录 [trajectory.json](trajectory.json) 对应的已有图页面截图，可以观察任务的展开关系和子图之间的信息依赖。
+下面展示[示例轨迹](graph-construction/examples/trajectory.json) 对应的已有图页面截图，可以观察任务的展开关系和子图之间的信息依赖。
 
 [![trajectory.json 的层级任务图网页截图](docs/assets/trajectory-graph-overview.png)](docs/assets/trajectory-graph-overview.png)
 
 图中展示文档分类与金额提取任务：整条轨迹构成外层大图，内部展开为 OCR 准备、文档分类与提取、清理临时文件等子图，蓝色箭头表示任务间的信息依赖。点击图片可查看原尺寸。
 
-截图来自本地已有页面 `trajectory-graph/runs/frontier-test/tree.html`，已核对其记录的源文件哈希与根目录 `trajectory.json` 一致。该旧版页面包含 9 个任务、14 个 Agent 回合，蓝色回合框可能包含多个 tool call；本项目当前采用的原子粒度为单个 tool call。截图用于展示已有层级图的组织与交互形式。
+截图来自本地已有页面 `graph-construction/trajectory-graph/runs/frontier-test/tree.html`，已核对其记录的源文件哈希与`graph-construction/examples/trajectory.json` 一致。该旧版页面包含 9 个任务、14 个 Agent 回合，蓝色回合框可能包含多个 tool call；本项目当前采用的原子粒度为单个 tool call。截图用于展示已有层级图的组织与交互形式。
 
-当前已有轨迹读取、层级任务归并、信息依赖构建、结构化结果输出和网页展示等实现。语义边类型发现模块也已有原型，可辅助研究子图之间关系的表达。Shapley 卸载实验与在线管理效果尚待验证。
+当前已有轨迹读取、层级任务归并、信息依赖构建、结构化结果输出和网页展示等实现。RZP 源码已引入 `graph-construction/predicate-discovery/`，可直接在父仓库修改；当前发现流程支持有序类型参数、成立条件与排除条件，输出谓词定义。实例抽取、规则执行及与建图模块的接合待实现。Shapley 卸载实验与在线管理效果尚待验证。
 
-相关实现说明：[轨迹建图](trajectory-graph/README.md)、[边类型发现](https://github.com/ZPRRR2004/llm_Iterative_Edge_Type/blob/main/src/build_edges/README.md)。
+相关实现说明：[轨迹建图](graph-construction/trajectory-graph/README.md)、[谓词定义发现](graph-construction/predicate-discovery/README.md)。
 
 补充材料：[RESEARCH_REVIEW.md](RESEARCH_REVIEW.md) 记录待审核的论文调研与备选方案，[TODO.md](TODO.md) 记录待办事项。

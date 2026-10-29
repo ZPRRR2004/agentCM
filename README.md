@@ -1,155 +1,106 @@
 # agentCM
 
-`agentCM` 用于把 Agent 执行轨迹整理为可审查的层级任务树和信息依赖图。当前仓库主要包含 `trajectory-graph`：它读取 ATIF-v1.7 trajectory，保留原始调用证据，生成结构化 JSON 和可交互的离线 HTML 页面。
-
-项目目标与研究路线见[项目介绍](PROJECT_OVERVIEW.md)；相关工作和待审核方案见[研究调研与方案评审](RESEARCH_REVIEW.md)，待办事项见 [TODO](TODO.md)。
-
-## 轨迹动画
-
-[在线播放](https://tychenn.github.io/agentCM/)展示轨迹从空图开始，随主 Agent 的行动构建，并逐层折叠子图、合并高层摘要和保留依赖。案例沿用本仓库的 `trajectory.json`；分组、依赖与压缩事件属于明确标注的演示设计。
-
-动画源码与修改方法见 [`trajectory-animation/`](trajectory-animation/README.md)。[完整执行事件](https://tychenn.github.io/agentCM/share-with-chatgpt/execution-events.txt)与[关键帧材料包](https://tychenn.github.io/agentCM/share-with-chatgpt/ChatGPT-Pro-upload.zip)可供阅读、讨论和交给 ChatGPT 分析。GitHub Pages 由 `.github/workflows/trajectory-pages.yml` 自动发布。
-
-当前支持两类输入：
-
-| 适配器 | Agent | 原子结点 |
-| --- | --- | --- |
-| `terminal-bench-2.0` | `terminus-2` | 一个 agent event |
-| `terminal-bench-4.0` | `claude-code` | 一个 tool call |
+研究如何将 Agent 执行轨迹组织为层级子图，再通过受控续跑与 Shapley 分析评价上下文卸载的影响。项目路线见 [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md)，协作约定见 [AGENT.md](AGENT.md)，实施顺序见 [TODO.md](TODO.md)。本地研究总文件位于代码仓库外的 `../AgentCM_项目总文件.md`。
 
 ## 仓库结构
 
 ```text
 agentCM/
-├── README.md
-├── PROJECT_OVERVIEW.md                # 项目介绍与图示
-├── RESEARCH_REVIEW.md                 # 待审核的调研与方案
-├── TODO.md                           # 项目待办
-├── trajectory.json                   # Terminal-Bench 2.0 示例轨迹
-├── trajectory-animation/             # 可编辑的轨迹生长与层级压缩动画
-├── reproductions/                    # 外部工作的复现项目
-├── rzp/                              # 边类型发现仓库，Git submodule
-├── trajectory-graph/                 # 轨迹建图程序
-│   ├── README.md                     # 设计、Prompt 和数据结构说明
-│   ├── run.py                        # 源码目录下的命令行入口
-│   ├── src/trajectory_graph/
-│   └── tests/
-└── terminal-bench-trajectory-datasets/  # 本地数据集，不纳入 Git
+├── AGENT.md                          # 协作偏好与工作边界
+├── AGENTS.md                         # Agent 工具入口
+├── PROJECT_OVERVIEW.md               # 研究路线
+├── RESEARCH_REVIEW.md                # 待审核的研究建议
+├── TODO.md
+├── datasets/                         # 官方完整数据集、下载校验、来源与版本
+├── graph-construction/               # 建图相关实现
+│   ├── README.md                     # 模块职责与数据流
+│   ├── workbench/                    # 本地实验、任务、谓词审核与 Prompt 工作台
+│   ├── predicate-discovery/          # 基于 RZP 的离线谓词定义发现
+│   ├── trajectory-graph/             # 轨迹规范化、任务树、信息依赖图
+│   ├── demos/trajectory-animation/   # 可编辑的轨迹生长与压缩演示
+│   └── examples/trajectory.json      # 原始示例轨迹
+└── reproductions/                    # 外部工作的独立复现
 ```
 
-更完整的算法说明、输出 Schema、DeepSeek Prompt 和校验规则见 [`trajectory-graph/README.md`](trajectory-graph/README.md)。
+`predicate-discovery` 从 RZP 上游 `cb32e964d262854ec5a0fe135f6a05505aa8c532` 引入，已转换为父仓库直接管理的普通源码。后续修改与本仓库一起提交。来源、改动和历史兼容边界见 [UPSTREAM.md](graph-construction/predicate-discovery/UPSTREAM.md)。
 
-## 在另一处获取完整代码
+## 当前实现
 
-克隆时同时初始化子模块：
+| 模块 | 已有能力 | 边界 |
+| --- | --- | --- |
+| [实验工作台](graph-construction/workbench/README.md) | 实验创建/运行/恢复、批次反馈、定义与轨迹审核、任务看板、Prompt 工作副本与快照 | 本机服务，接入当前谓词定义发现流程 |
+| [谓词发现](graph-construction/predicate-discovery/README.md) | 预处理、窗口划分、三类节点展开、发现/比较/审核、批量人工反馈；参数限定 action/observation/reasoning | 当前输出节点、调用返回边与谓词定义，后续实验绑定语义实例 |
+| [轨迹建图](graph-construction/trajectory-graph/README.md) | ATIF 输入、语义标注、有序任务树、依赖证据、离线 HTML | 尚未消费新谓词库；混合归并、在线增量构图待实现 |
+| [轨迹动画](graph-construction/demos/trajectory-animation/README.md) | 生长、叶子压缩、高层归并、逐层展开 | 分组、依赖和压缩事件为人工演示设计 |
+
+当前工作台从 event 中分别建立 action、observation 和 reasoning 节点，见[节点与谓词协议 v2](graph-construction/predicate-discovery/docs/predicate-definition-v2.md)。独立的历史任务树原型中，`terminal-bench-2.0` 适配器以 agent event 为原子，`terminal-bench-4.0` 适配器以 tool call 为原子。Shapley 卸载实验、训练及在线效果尚待验证。
+
+## 开始使用
+
+打开本地实验网站：
+
+```bash
+python3 graph-construction/workbench/run.py
+```
+
+访问 <http://127.0.0.1:8765>，在“数据集”浏览官方完整 89 个任务。已接入完整公开执行轨迹，可先运行字段预处理并对照前后内容，再填写切分参数、发现并逐批审核谓词；步骤见[工作台说明](graph-construction/workbench/README.md)。
+
+保持启动工作台的终端打开，网站就会一直运行。关闭网页不影响实验；关闭该终端或按 Ctrl+C 会停止服务和实验，已保存的进度可在下次打开后继续。macOS 也可以双击上一级项目目录中的 `打开 AgentCM 工作台.command`。
+
+工作台使用 Python 3.11+，数据集下载器使用 Python 3.12+；本地测试使用标准库。实际模型调用需要配置对应模块的 `.env` 或环境变量，密钥文件不会进入 Git。两套程序目前保留各自入口与配置。
+
+检查示例轨迹，无模型调用：
+
+```bash
+cd graph-construction/trajectory-graph
+python run.py inspect --adapter terminal-bench-2.0 --input ../examples/trajectory.json
+```
+
+真实构图与渲染：
+
+```bash
+python run.py build --adapter terminal-bench-2.0 \
+  --input ../examples/trajectory.json --output runs/terminal-bench-2.0/example
+python run.py render --input runs/terminal-bench-2.0/example
+```
+
+谓词发现的输入、配置和启动命令见[模块说明](graph-construction/predicate-discovery/README.md)；第一轮优先 review [谓词定义协议](graph-construction/predicate-discovery/docs/predicate-definition-v1.md)。
+
+## 本地验证
+
+在仓库根目录执行：
+
+```bash
+(cd graph-construction/trajectory-graph && PYTHONPATH=src python -m unittest discover -s tests -v)
+(cd graph-construction/predicate-discovery && python -m unittest discover -s tests -v)
+python graph-construction/demos/trajectory-animation/build_data.py
+node graph-construction/demos/trajectory-animation/tests/state.cjs
+(cd graph-construction/workbench && python3 -m unittest discover -s tests -v)
+```
+
+测试使用模拟模型响应；这些检查覆盖结构和流程，不代表真实模型的谓词发现质量。
+
+## 获取代码与本地资产
 
 ```bash
 git clone --recurse-submodules https://github.com/tychenn/agentCM.git
-cd agentCM
 ```
 
-如果已经克隆过仓库：
+当前仅 [Traceview](reproductions/traceview/README.md) 保留子模块形式，路径为 `reproductions/traceview/source/`，固定版本 `4b55f40efb495b9f7801ce9d25f473ed5ee2dffb`。已有克隆可运行 `git submodule update --init --recursive`。
+
+数据集统一放在 [datasets/](datasets/README.md)，当前只注册官方完整的 `terminal-bench-2.1`：89 个任务、1,101 个原版文件。来源版本和路径登记在 [catalog.json](datasets/catalog.json)，逐文件摘要见 `datasets/terminal-bench-2.1/source-manifest.json`。下载的上游 `source/`、运行产物、缓存和密钥文件由 Git 忽略。
 
 ```bash
-git pull --ff-only
-git submodule update --init --recursive
+python3 datasets/download.py
+python3 datasets/download.py --verify-only
 ```
 
-父仓库固定以下子模块版本，完整克隆会获取对应源码：
+2026-10-16 按用户要求，20 任务子集、19 条预处理轨迹及旧数据目录已移出仓库；原版文件从官方固定 commit 下载并逐文件校验。RZP 旧关系类型实验与仓库内旧导入备份的清理记录保留在来源说明中。
 
-| 路径 | 来源 | 固定 commit |
-| --- | --- | --- |
-| `rzp/` | [llm_Iterative_Edge_Type](https://github.com/ZPRRR2004/llm_Iterative_Edge_Type) | `cb32e964d262854ec5a0fe135f6a05505aa8c532` |
-| `reproductions/traceview/source/` | [agent-traj-visualization](https://github.com/SOAR-Lab/agent-traj-visualization) | `4b55f40efb495b9f7801ce9d25f473ed5ee2dffb` |
+## 演示与复现
 
-子模块保持各自的 Git 历史和远程地址。修改子模块代码后，需要先在该子模块中提交并推送，再在父仓库提交更新后的版本指针。可用 `git submodule status --recursive` 检查当前版本。
+[在线播放](https://tychenn.github.io/agentCM/)由 GitHub Pages 工作流发布；本地调整目录不会自动更新线上版本。动画源码和工作流已使用新目录。
 
-根仓库忽略的本地数据集、`trajectory-graph/runs/` 运行产物、虚拟环境、缓存和 `.env` 不随克隆迁移。新环境需另行准备数据与密钥，并按各项目说明安装依赖。子模块自身已经提交的文件按其固定版本获取。
+外部工作的独立复现放入 [reproductions/](reproductions/README.md)，以其中的模板记录来源、版本、命令和实际结果。
 
-## 复现项目
-
-外部工作的代码、复现记录和实验结论统一放在 [`reproductions/`](reproductions/) 中。每项工作使用独立目录，并记录原始论文或项目地址、上游代码版本、环境、命令、预期结果、实际结果和必要改动。
-
-新建项目时复制 [`reproductions/_template/README.md`](reproductions/_template/README.md) 作为记录模板。数据集、模型权重、检查点和运行产物分别放入 `_datasets/`、`_artifacts/`、`_checkpoints/` 等本地目录，这些目录不会提交到 Git。
-
-## 环境要求
-
-- Python 3.10 或以上版本
-- 运行测试和本地检查无需安装第三方依赖
-- 执行 `build` 需要可用的 DeepSeek API Key
-
-在 `trajectory-graph/.env` 中配置模型访问参数：
-
-```dotenv
-DEEPSEEK_API_KEY=your_api_key
-DEEPSEEK_MODEL=deepseek-flash
-DEEPSEEK_BASE_URL=https://api.deepseek.com
-```
-
-`.env` 已加入忽略规则，不会提交到 Git。
-
-## 快速开始
-
-进入子项目目录：
-
-```bash
-cd trajectory-graph
-```
-
-先检查示例轨迹的格式和规模。这个命令不会调用模型：
-
-```bash
-python run.py inspect \
-  --adapter terminal-bench-2.0 \
-  --input ../trajectory.json
-```
-
-生成任务树和信息依赖图：
-
-```bash
-python run.py build \
-  --adapter terminal-bench-2.0 \
-  --input ../trajectory.json \
-  --output ./runs/terminal-bench-2.0/frontier-test
-```
-
-生成离线可视化页面：
-
-```bash
-python run.py render \
-  --input ./runs/terminal-bench-2.0/frontier-test
-```
-
-完成后用浏览器打开：
-
-```text
-trajectory-graph/runs/terminal-bench-2.0/frontier-test/tree.html
-```
-
-## 主要输出
-
-| 文件 | 内容 |
-| --- | --- |
-| `normalized_trace.json` | 规范化后的原始轨迹和证据引用 |
-| `turn_nodes.json` | 原子结点及语义标注 |
-| `execution_tree.json` | 有序层级任务树 |
-| `dependency_evidence.json` | 原子结点之间的信息来源证据 |
-| `local_graphs.json` | 投影到任务层级的局部依赖图 |
-| `tree.html` | 可展开查看任务和证据的离线页面 |
-
-运行产物默认保存在 `trajectory-graph/runs/`，该目录不纳入 Git。
-
-## 开发检查
-
-```bash
-cd trajectory-graph
-PYTHONPATH=src python -m unittest discover -s tests -v
-python -m compileall -q run.py src tests
-node --check src/trajectory_graph/web/tree.js
-```
-
-当前测试使用模拟 transport，不会发送真实 DeepSeek 请求。
-
-## 本地数据集
-
-`terminal-bench-trajectory-datasets/` 体积较大，已在根目录 `.gitignore` 中排除。克隆本仓库后如需运行 Terminal-Bench 4.0 case，请自行准备对应的 ATIF-v1.7 trajectory，并通过 `--input` 指定文件路径。
+2026-10-16：`terminal-bench-2.1` 已接入覆盖全部 89 任务的 91 条公开执行轨迹（含两项基础设施重跑），共 8,139 个事件。来源与复现见 [datasets/README.md](datasets/README.md)。切分参数由用户填写；工作台支持先保存草稿、后绑定轨迹。

@@ -1,0 +1,33 @@
+Review typed predicate definitions using the full current Context Window, original
+candidates, Comparison results, and the registry snapshot. Comparison is preliminary:
+reassess all candidates, including existing/new/uncertain, against detailed evidence
+and the shared mechanism-level granularity policy.
+
+Task A: accept supported, reusable new predicates in accepted_predicates.
+- Refine an overly broad candidate into the mechanism actually supported by the window.
+  Split it into multiple definitions only when each distinct mechanism has evidence.
+- Generalize overly specific tool/resource labels that share the same mechanism.
+- Preserve roles, applicability conditions, scope, and attempt-versus-success distinctions.
+- Use a distinguishing case to check whether a proposed collapse would lose meaning.
+- Compare the resulting definitions against the entire registry. Accept a precise
+  mechanism even when a broad family such as USES covers it. Suppress an actual semantic
+  duplicate; keep a distinct predicate under a distinct name if names collide.
+- Discard unsupported candidates. Do not invent new mechanisms to fill out the examples.
+
+Task B: revise a matched registry predicate only when its existing definition needs
+clarification. original_name must occur in Comparison's matched_existing_name entries.
+Return at most one revision per original name. Preserve semantic identity and ordered
+parameter meaning. Do not broaden or narrow an existing predicate to absorb another
+mechanism. If an existing match was actually one-way subsumption, correct the
+classification through Task A and preserve the original registry definition.
+
+Use the shared five-field schema. Explicitly check unary roles, multi-argument and
+collection signatures, and essential scope. Multiple supported predicates may coexist
+on the same events. An empty candidate list requires both output arrays to be empty.
+Names must be unique after the update. Return JSON only:
+{"accepted_predicates": [<complete definitions>],
+ "revised_existing_predicates": [{"original_name": "...", "revised_predicate": <complete definition>}]}.
+
+Use predicate-definition/v2: every parameter must bind to an action, observation,
+or reasoning node (or a homogeneous [] collection). Respect the shared node contract.
+Return names, definitions, parameter descriptions and conditions in English.

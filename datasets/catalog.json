@@ -1,0 +1,28 @@
+{
+  "schema": "agentcm-datasets/v2",
+  "datasets": [
+    {
+      "id": "terminal-bench-2.1",
+      "name": "terminal-bench-2.1",
+      "format": "harbor-tasks",
+      "description": "官方完整的 89 个任务，包含原版说明、环境、参考解法和验证脚本。",
+      "tasks_path": "terminal-bench-2.1/source/tasks",
+      "source_path": "terminal-bench-2.1/source",
+      "manifest_path": "terminal-bench-2.1/source-manifest.json",
+      "expected_tasks": 89,
+      "source": {
+        "repository": "https://github.com/harbor-framework/terminal-bench-2-1",
+        "commit": "7131e4375048a0e408a8fb404b5f499d726b695b"
+      },
+      "normalized_path": "terminal-bench-2.1/trajectories/qwen3.8-27b-xhigh/normalized",
+      "trajectory_source": {
+        "label": "Lottolabs · Qwen3.8-27B · xhigh · 89 任务 + 2 次基础设施重跑",
+        "repository": "https://huggingface.co/datasets/Lottolabs/terminal-bench-2.1-qwen3.8-27b-traces",
+        "revision": "dbf15f8e97ec7510c55f97fd66748888b2a27ad5",
+        "task_count": 89,
+        "trajectory_count": 91,
+        "manifest_path": "terminal-bench-2.1/trajectories/qwen3.8-27b-xhigh/normalization-manifest.json"
+      }
+    }
+  ]
+}

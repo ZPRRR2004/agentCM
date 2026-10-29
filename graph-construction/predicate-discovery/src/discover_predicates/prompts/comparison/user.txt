@@ -1,0 +1,8 @@
+Compare the typed predicate candidates against the existing registry.
+Candidate predicates:
+{{candidate_predicates}}
+
+Existing registry:
+{{existing_registry}}
+
+Return existing/new/uncertain with complete accounting and unchanged candidate definitions.

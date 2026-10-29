@@ -1,0 +1,8 @@
+Apply this feedback to every predicate while preserving meaningful parameter roles.
+Human Feedback:
+{{human_feedback}}
+
+Current predicate registry:
+{{existing_registry}}
+
+Return the complete revision plan using KEEP/DELETE/REVISE/MERGE.

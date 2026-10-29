@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#173d38" />
+    <title>AgentCM · Research Workbench</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%23173d38'/%3E%3Cpath d='M12 34 24 12l12 22M17 27h14' fill='none' stroke='%23ccedaa' stroke-width='4'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <a href="#overview" class="brand"
+        ><span class="brand-mark">A<span>·</span></span
+        ><span>AgentCM<small>RESEARCH WORKBENCH</small></span></a
+      >
+      <div class="workspace-label">工作空间 <span>LOCAL</span></div>
+      <nav aria-label="主导航" id="navigation"></nav>
+      <div class="sidebar-project">
+        <span class="eyebrow">CURRENT FOCUS</span><strong>从轨迹到语义</strong>
+        <p>发现 · 审核 · 迭代<br />让每一个定义都有迹可循。</p>
+        <div class="mini-flow">
+          <i></i><span></span><i></i><span></span><i></i>
+        </div>
+      </div>
+      <a href="#settings" class="connection" id="connection"
+        ><i class="dot"></i><span>读取模型配置…</span></a
+      >
+      <div class="sidebar-foot">Agent Context Management <span>v0.1</span></div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <span class="breadcrumb">工作空间</span><span class="slash">/</span
+          ><strong id="page-label">研究概览</strong>
+        </div>
+        <div class="topbar-right">
+          <span class="local-pill"><i class="dot"></i> 本地工作台</span
+          ><button
+            class="avatar"
+            data-action="navigate"
+            data-view="settings"
+            aria-label="模型设置"
+          >
+            TY
+          </button>
+        </div>
+      </header>
+      <main id="main"><div class="empty">正在读取仓库中的实验记录…</div></main>
+      <footer class="main-footer">
+        <span>AgentCM / 图结构上下文研究</span
+        ><span id="sync-status">连接本地仓库</span>
+      </footer>
+    </div>
+    <dialog id="modal"><div id="modal-content"></div></dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
