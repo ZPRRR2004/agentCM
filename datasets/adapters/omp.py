@@ -110,7 +110,7 @@ def convert_trace(raw, task_id, instruction, source_file):
 def convert_dataset(destination, tasks_directory):
     destination, tasks_directory = Path(destination), Path(tasks_directory)
     source = destination / 'source'
-    manifest = json.loads((destination / 'source-manifest.json').read_text())
+    manifest = json.loads((destination / 'source-manifest.json').read_text(encoding='utf-8'))
     for entry in manifest['files']:
         if digest((source / entry['path']).read_bytes()) != entry['sha256']:
             raise ValueError('Source content changed: ' + entry['path'])
@@ -125,12 +125,12 @@ def convert_dataset(destination, tasks_directory):
         relative = path.relative_to(source)
         run, task_id = relative.parts[0], relative.parts[2]
         task = source / run / 'traces' / task_id
-        instruction = (task / 'instruction.txt').read_text()
-        official = (tasks_directory / task_id / 'instruction.md').read_text()
+        instruction = (task / 'instruction.txt').read_text(encoding='utf-8')
+        official = (tasks_directory / task_id / 'instruction.md').read_text(encoding='utf-8')
         matched = instruction.strip() == official.strip()
         if not matched:
             mismatches.append(run + '/' + task_id)
-        result = json.loads((task / 'result.json').read_text())
+        result = json.loads((task / 'result.json').read_text(encoding='utf-8'))
         data = convert_trace(path.read_bytes(), task_id, instruction, relative.as_posix())
         data['metadata'].update(run=run, model='qwen3.8-27b', reasoning_effort='xhigh',
                                 repository=manifest['repository'], revision=manifest['revision'],
@@ -138,7 +138,8 @@ def convert_dataset(destination, tasks_directory):
         identity = run + '__' + task_id
         data['query']['title'] = task_id + (' · 基础设施重跑' if run != 'xhigh' else '')
         output = normalized / (identity + '.json')
-        output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+        output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n',
+                          encoding='utf-8', newline='\n')
         rows.append({'id': identity, 'task_id': task_id, 'run': run, 'events': len(data['events']),
                      'sha256': digest(output.read_bytes()), 'passed': result.get('pass'),
                      'scored': result.get('scored'), 'instruction_matches_official': matched,
@@ -150,5 +151,6 @@ def convert_dataset(destination, tasks_directory):
               'event_count': sum(r['events'] for r in rows), 'instruction_mismatches': mismatches,
               'empty_trajectories': [r['id'] for r in rows if not r['events']],
               'trajectories': rows}
-    (destination / 'normalization-manifest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+    (destination / 'normalization-manifest.json').write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
     return {k: v for k, v in report.items() if k != 'trajectories'}

@@ -44,30 +44,60 @@ def validate(source, entries, expected_tasks):
     return tasks
 
 
+def extract_archive(package, destination):
+    """Extract only regular files/directories, including on Python 3.10."""
+    destination = destination.resolve()
+    destination.mkdir(parents=True, exist_ok=True)
+    for member in package:
+        target = (destination / member.name).resolve()
+        if not target.is_relative_to(destination):
+            raise ValueError('Archive path escapes extraction directory: ' + member.name)
+        if member.isdir():
+            target.mkdir(parents=True, exist_ok=True)
+        elif member.isfile() and target != destination:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with package.extractfile(member) as content, target.open('xb') as output:
+                shutil.copyfileobj(content, output)
+            target.chmod(member.mode & 0o777)
+        else:
+            raise ValueError('Archive contains an unsupported entry: ' + member.name)
+
+
 def download(dataset, verify_only=False):
     source = contained(dataset['source_path'])
     manifest_path = contained(dataset['manifest_path'])
-    if verify_only:
-        manifest = json.loads(manifest_path.read_text())
+    manifest = None
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
         if manifest['commit'] != dataset['source']['commit']:
             raise ValueError('Manifest commit differs from catalog')
+        if manifest['repository'] != dataset['source']['repository']:
+            raise ValueError('Manifest repository differs from catalog')
+        if manifest['task_count'] != dataset['expected_tasks']:
+            raise ValueError('Manifest task count differs from catalog')
+    if verify_only:
+        if manifest is None or not source.is_dir():
+            raise ValueError('Dataset content is missing; run without --verify-only to download it')
         tasks = validate(source, manifest['files'], dataset['expected_tasks'])
         print(f'PASS: {len(tasks)} tasks, {len(manifest["files"])} files match official Git blobs.', flush=True)
         return
-    if source.exists() or manifest_path.exists():
+    if source.exists():
         raise ValueError('Source already exists; run --verify-only to verify it')
     repo = dataset['source']['repository'].removeprefix('https://github.com/')
     commit = dataset['source']['commit']
     if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo) or not re.fullmatch(r'[a-f0-9]{40}', commit):
         raise ValueError('Expected a pinned GitHub repository and 40-character commit')
-    with request(f'https://api.github.com/repos/{repo}/git/trees/{commit}?recursive=1') as response:
-        tree = json.load(response)
-    if tree.get('truncated'):
-        raise ValueError('GitHub returned a truncated inventory')
-    if any(p['type'] == 'commit' for p in tree['tree']):
-        raise ValueError('Submodule content requires an explicit source manifest')
-    entries = [{'path': p['path'], 'size': p['size'], 'git_blob_sha1': p['sha'], 'mode': p['mode']}
-               for p in tree['tree'] if p['type'] == 'blob']
+    if manifest is not None:
+        entries = manifest['files']
+    else:
+        with request(f'https://api.github.com/repos/{repo}/git/trees/{commit}?recursive=1') as response:
+            tree = json.load(response)
+        if tree.get('truncated'):
+            raise ValueError('GitHub returned a truncated inventory')
+        if any(p['type'] == 'commit' for p in tree['tree']):
+            raise ValueError('Submodule content requires an explicit source manifest')
+        entries = [{'path': p['path'], 'size': p['size'], 'git_blob_sha1': p['sha'], 'mode': p['mode']}
+                   for p in tree['tree'] if p['type'] == 'blob']
     source.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='agentcm-dataset-') as temporary:
         temporary = Path(temporary)
@@ -82,14 +112,16 @@ def download(dataset, verify_only=False):
                 size += len(chunk)
                 if size % (5 * 1024 * 1024) == 0:
                     print(f'Downloaded {size // (1024*1024)} MiB', flush=True)
+        if manifest is not None and digest.hexdigest() != manifest['archive_sha256']:
+            raise ValueError('Archive SHA-256 differs from the saved manifest')
         extracted = temporary / 'extracted'
         with tarfile.open(archive) as package:
-            package.extractall(extracted, filter='data')
+            extract_archive(package, extracted)
         roots = list(extracted.iterdir())
         if len(roots) != 1:
             raise ValueError('Unexpected archive layout')
         tasks = validate(roots[0], entries, dataset['expected_tasks'])
-        manifest = {
+        imported_manifest = {
             'dataset_id': dataset['id'], 'repository': dataset['source']['repository'],
             'commit': commit, 'archive_url': archive_url, 'archive_sha256': digest.hexdigest(),
             'task_count': len(tasks), 'task_ids': [p.name for p in tasks],
@@ -98,7 +130,9 @@ def download(dataset, verify_only=False):
             'files': entries,
         }
         shutil.move(str(roots[0]), str(source))
-        manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
+        if manifest is None:
+            manifest_path.write_text(json.dumps(imported_manifest, ensure_ascii=False, indent=2) + '\n',
+                                     encoding='utf-8', newline='\n')
     print(f'Imported {len(tasks)} official tasks / {len(entries)} original files into {source}', flush=True)
 
 
@@ -107,7 +141,7 @@ def main():
     parser.add_argument('--dataset', default='terminal-bench-2.1')
     parser.add_argument('--verify-only', action='store_true')
     args = parser.parse_args()
-    catalog = json.loads((ROOT / 'catalog.json').read_text())
+    catalog = json.loads((ROOT / 'catalog.json').read_text(encoding='utf-8'))
     dataset = next(d for d in catalog['datasets'] if d['id'] == args.dataset)
     download(dataset, args.verify_only)
 

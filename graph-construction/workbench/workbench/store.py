@@ -334,7 +334,7 @@ class Workspace:
             raise ValueError('请先在模型设置中填写 API Key')
         env = dict(os.environ, DEEPSEEK_API_KEY=settings['api_key'],
                    DEEPSEEK_MODEL=meta['model'], DEEPSEEK_BASE_URL=meta['base_url'],
-                   PYTHONUNBUFFERED='1')
+                   PYTHONUNBUFFERED='1', PYTHONUTF8='1')
         pending = read(root / 'pending_feedback.json', {})
         submitted = read(root / 'feedback.json', {})
         if not pending or pending.get('token') != submitted.get('token'):

@@ -20,7 +20,7 @@ macOS 推荐双击项目根目录的 [打开 AgentCM 工作台.command](../../..
 
 ### 命令行启动
 
-macOS / Linux，Python 3.11+；运行网站只使用 Python 标准库与浏览器。
+Windows / macOS / Linux，Python 3.11+；运行网站只使用 Python 标准库与浏览器。
 
 ```bash
 cd graph-construction/workbench
@@ -28,6 +28,14 @@ python3 run.py
 ```
 
 打开 <http://127.0.0.1:8765>。使用 `--port 8766` 更换端口，`--data-dir /absolute/path` 指定独立工作空间。命令行同样保持运行，直到 Ctrl+C 或关闭终端。一个数据目录同时由一个服务管理。高级用法中，显式传入 `--idle-timeout` 才会启用旧的按网页开关模式；`--startup-timeout` 仅在该模式下生效。
+
+Windows PowerShell 可在仓库根目录直接启动（`python3` 需要指向 Python 3.11+）：
+
+```powershell
+python3 -X utf8 graph-construction/workbench/run.py
+```
+
+Windows 使用标准库 `msvcrt` 保持单实例文件锁；实验子进程启用 UTF-8，保留中文日志。macOS 双击入口和旧后台服务兼容入口继续使用原有方式。
 
 本机系统 Python 受 Xcode 环境影响时，可使用已安装的运行时：
 

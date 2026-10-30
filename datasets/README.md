@@ -33,7 +33,7 @@ datasets/
                 └── tests/
 ```
 
-上游文件逐字节保留；项目自己的配置、清单和说明放在 `source/` 外。源码快照不包含嵌套 Git 仓库。脚本执行需要 Python 3.12+。
+上游文件逐字节保留；项目自己的配置、清单和说明放在 `source/` 外。源码快照不包含嵌套 Git 仓库。下载与转换脚本使用 Python 3.10+，支持 Windows；文本文件按 UTF-8 读取，生成的 JSON 使用 UTF-8 和 LF 换行。
 
 ## 下载与校验
 
@@ -46,6 +46,10 @@ python3 -m unittest discover -s datasets/tests -v
 ```
 
 下载器使用官方仓库的固定 commit 获取完整归档和 Git 树，核对每个文件的 Git blob SHA-1、完整文件清单、89 个任务数量，以及每个任务的说明、配置、环境、参考解法和测试目录。额外记录下载归档的 SHA-256。
+
+新克隆包含来源清单，原版 `source/` 由 Git 忽略。此时直接运行下载器，它会使用已有清单恢复原版文件，核对归档 SHA-256 和逐文件 Git blob 摘要，并保留清单原文。已有 `source/` 时使用 `--verify-only`。解包只接受目标目录内的普通文件和目录，保留可执行权限，不接受链接或越界路径。
+
+Windows PowerShell 在仓库根目录使用 `python datasets/download.py`；若已进入 `datasets/`，使用 `python .\download.py`。数据下载和轨迹转换可以在 Windows 执行；工作台也支持 Windows，需要 Python 3.11+，启动方法见 [工作台说明](../graph-construction/workbench/README.md)。
 
 数据集注册格式为 `agentcm-datasets/v2`。工作台通过 `format: harbor-tasks` 读取原版任务，在“数据集”页面展示说明、配置、文件清单、类别与难度。任务脚本按文本读取。
 

@@ -1,6 +1,5 @@
 """Loopback-only JSON API and static application server."""
 import json
-import fcntl
 import mimetypes
 import os
 import re
@@ -15,6 +14,16 @@ from .store import Workspace
 from . import splitting, preprocessing, experiment_lifecycle
 from .split_preview import preview as split_preview
 from .browser_sessions import BrowserSessions
+
+
+def _file_lock(file, unlock=False):
+    if os.name == 'nt':
+        import msvcrt
+        file.seek(0)
+        msvcrt.locking(file.fileno(), msvcrt.LK_UNLCK if unlock else msvcrt.LK_NBLCK, 1)
+    else:
+        import fcntl
+        fcntl.flock(file, fcntl.LOCK_UN if unlock else fcntl.LOCK_EX | fcntl.LOCK_NB)
 
 
 def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_timeout=120, session_mode='manual'):
@@ -198,7 +207,7 @@ def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_ti
 
     lockfile = (workspace.data / '.server.lock').open('a')
     try:
-        fcntl.flock(lockfile, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        _file_lock(lockfile)
     except OSError:
         lockfile.close()
         raise ValueError('这个工作目录已经有运行中的工作台，请打开原来的地址')
@@ -229,7 +238,7 @@ def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_ti
                 sessions.close_all()
             super().server_close()
             if not lockfile.closed:
-                fcntl.flock(lockfile, fcntl.LOCK_UN)
+                _file_lock(lockfile, unlock=True)
                 lockfile.close()
 
     server = LocalServer(('127.0.0.1', port), Handler)
@@ -240,7 +249,8 @@ def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_ti
 def serve(port, data_dir, *, idle_timeout=None, startup_timeout=120, on_ready=None):
     server = make_server(port, data_dir, idle_timeout=idle_timeout,
                          startup_timeout=startup_timeout, session_mode='terminal')
-    signals = (signal.SIGINT, signal.SIGTERM, signal.SIGHUP)
+    signals = tuple(getattr(signal, name) for name in ('SIGINT', 'SIGTERM', 'SIGHUP', 'SIGBREAK')
+                    if hasattr(signal, name))
     previous = {s: signal.getsignal(s) for s in signals}
     stopping = False
     def shutdown(signum, frame):

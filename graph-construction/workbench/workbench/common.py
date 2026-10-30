@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import time
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -18,9 +19,23 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
+def _windows_io(operation):
+    # Windows can briefly deny access while another process replaces/deletes a file.
+    for attempt in range(5):
+        try:
+            return operation()
+        except PermissionError:
+            if os.name != 'nt' or attempt == 4:
+                raise
+            time.sleep(.01)
+
+
 def read(path, default=None):
     path = Path(path)
-    return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else default
+    try:
+        return _windows_io(lambda: json.loads(path.read_text(encoding='utf-8')) if path.is_file() else default)
+    except FileNotFoundError:
+        return default
 
 
 def write(path, value, private=False):
@@ -31,7 +46,7 @@ def write(path, value, private=False):
     with os.fdopen(fd, 'w', encoding='utf-8') as stream:
         json.dump(value, stream, ensure_ascii=False, indent=2)
         stream.write('\n')
-    os.replace(temporary, path)
+    _windows_io(lambda: os.replace(temporary, path))
 
 
 def text_field(value, key, default='', limit=20000):
