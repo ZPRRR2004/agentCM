@@ -1,0 +1,303 @@
+{
+  "stage": "comparison",
+  "window_file": "xhigh__configure-git-webserver__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T03:43:39.532862+00:00",
+  "duration_seconds": 30.547,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T03:43:08.986623+00:00",
+      "duration_seconds": 30.531,
+      "raw_response": {
+        "id": "97f121bc-2ec5-48ba-8a9a-8585430e8052",
+        "object": "chat.completion",
+        "created": 1793418194,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"existing\":[{\"candidate_name\":\"IS_PLAN\",\"matched_existing_name\":\"IS_EXECUTION_PLAN\"}],\"new\":[{\"name\":\"ANTICIPATES_FAILURE_MODE\",\"definition\":\"The reasoning predicts a specific way that a default or naive configuration would fail, and explains the mechanism of that failure before any such failure has been observed.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text predicting a concrete failure mechanism and its consequence.\"}],\"assertion_conditions\":[\"The reasoning names a concrete failure mode (e.g., an account being unusable for key authentication, a commit finding nothing to commit, stale deployed content blocking a later push).\",\"The reasoning explains why default behavior produces that failure, independent of any error already observed.\"],\"exclusion_conditions\":[\"The text reacts to a failure that has already been observed in a tool result.\",\"The text offers generic caution or best-practice advice without identifying a specific failure mechanism.\"]},{\"name\":\"DERIVES_ENVIRONMENT_CONSTRAINT\",\"definition\":\"The reasoning interprets the content of a prior observation to establish capabilities, absences, or structural constraints of the environment that then shape the chosen approach.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text drawing capability or constraint conclusions from observed environment state.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result whose content supplies the environment facts being interpreted.\"}],\"assertion_conditions\":[\"The reasoning states specific environment facts that can be traced to the content of the observation (available and missing tools, package manager reachability, process supervision model, user accounts, file layout).\",\"Those facts are treated as constraints or enablers that condition how the agent proceeds.\"],\"exclusion_conditions\":[\"The reasoning merely repeats or paraphrases the raw observation without drawing a constraint.\",\"The observation only confirms that a command ran successfully and yields no environment fact.\",\"The nodes are merely temporally adjacent or topically similar.\"]},{\"name\":\"ALIGNS_PROVISIONED_NAMES_WITH_REQUEST\",\"definition\":\"The action creates or registers an account, filesystem path, hostname mapping, or listening endpoint whose identifier exactly matches the identifier that the requester's unmodified commands will address, so those commands resolve to the provisioned resource.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The provisioning action that establishes a named resource and fixes its identifier.\"}],\"assertion_conditions\":[\"The action establishes a named resource such as a user account, repository path, local hostname entry, or service port.\",\"The identifier chosen in the action equals the identifier appearing in the requester's commands (account name, repository path, host alias, port number).\"],\"exclusion_conditions\":[\"The resource is created under an arbitrary or default identifier unrelated to the requester's commands.\",\"The chosen identifier differs from the requested one or would require the requester to alter their commands.\",\"The action only installs or inspects software without fixing the name of a resource.\"]},{\"name\":\"INSTALLS_MISSING_DEPENDENCIES\",\"definition\":\"The action installs software packages that supply capabilities which the reasoning had identified as absent from the environment, and the installation precedes the first attempt to use those capabilities.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The package installation action supplying the absent capabilities.\"},{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text that identified the specific capabilities as missing.\"}],\"assertion_conditions\":[\"The reasoning records specific tools or services as absent or unusable in the environment.\",\"The action installs packages that provide those tools or services.\",\"The installation occurs before any action that depends on them.\"],\"exclusion_conditions\":[\"Packages are installed without any preceding identification of a gap.\",\"The gap is identified but no installation is attempted within the window.\",\"The action only refreshes or inspects package metadata without installing.\"]},{\"name\":\"MITIGATES_ANTICIPATED_PITFALL\",\"definition\":\"The action applies a concrete countermeasure, visible in its own arguments, that neutralizes a specific failure mechanism the reasoning had predicted for a default configuration.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action whose arguments contain the countermeasure.\"},{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The earlier agent text predicting the failure mechanism the countermeasure addresses.\"}],\"assertion_conditions\":[\"The reasoning predicts a specific failure mechanism for the default configuration.\",\"The action contains an explicit flag, option, marker, permission setting, or resolution entry that directly prevents that mechanism.\",\"The correspondence is traceable by content, not merely by topic or proximity.\"],\"exclusion_conditions\":[\"The action performs only a generic implementation step with no countermeasure in its arguments.\",\"The action's arguments do not reference the predicted failure mechanism.\",\"The reasoning mentions a risk without prescribing or implying any countermeasure.\"]},{\"name\":\"WRITES_SERVICE_CONFIGURATION\",\"definition\":\"The action creates or replaces the configuration of a service itself, so that when the service starts it exposes a particular listening endpoint and serves a particular directory.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The file-write action that authors the service's own configuration.\"}],\"assertion_conditions\":[\"The write targets a configuration path belonging to a server or daemon.\",\"The written content specifies a listen address or port and a served root directory.\"],\"exclusion_conditions\":[\"The write targets application content, a deployment script, or an unrelated file rather than the service's own configuration.\",\"The written content does not specify an endpoint or a served root.\"]},{\"name\":\"AUTHORS_PUSH_DEPLOY_HOOK\",\"definition\":\"The action writes an executable hook script that is triggered when a repository receives pushes and that materializes the pushed revision into a separate working directory intended for serving.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The file-write action producing the receive-side hook script.\"}],\"assertion_conditions\":[\"The script is written into a repository's hook location and marked executable.\",\"The script reads pushed references and checks out the pushed branch into a designated work tree distinct from the repository directory.\"],\"exclusion_conditions\":[\"The write produces a server configuration file rather than a receive-side hook.\",\"The script operates directly on the repository directory with no separate target work tree.\",\"The action performs a one-off manual checkout instead of installing a triggered script.\"]},{\"name\":\"MODIFIES_OBSERVED_CONFIGURATION\",\"definition\":\"The action replaces or rewrites a file whose existing content was returned by an earlier observation, using the revealed content to decide what to preserve or change.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The write action that rewrites the previously observed file.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result that returned the file's existing content.\"}],\"assertion_conditions\":[\"The observation returned the actual content of a configuration file, not merely its presence.\",\"The action writes to that same path.\",\"The written content preserves or deliberately alters directives that were visible in the observed content.\"],\"exclusion_conditions\":[\"The action writes a file whose content was never observed.\",\"The observation only lists a directory or reports file metadata.\",\"The write targets a different path than the observed file.\"]},{\"name\":\"CONFIRMS_SERVICE_STARTED\",\"definition\":\"The observation reports both successful validation of a service's configuration and the presence of running process(es) for services whose launch the action had invoked.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action that validated configuration and launched the services.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting the validation outcome and running processes.\"}],\"assertion_conditions\":[\"The observation contains an explicit configuration-test success message for the service.\",\"The observation contains a process listing showing the launched daemon(s) as running.\",\"The validated and launched services correspond to those invoked by the action.\"],\"exclusion_conditions\":[\"Only configuration validation succeeds with no process evidence.\",\"Processes appear that were started outside the action in question.\",\"The output reports a configuration or startup error.\"]},{\"name\":\"WIRES_PUSH_TO_SERVED_ROOT\",\"definition\":\"Three actions jointly establish a deployment chain in which a receive hook checks pushed content out into a directory that a web service is configured to serve on the required port, so that pushing commits makes that content retrievable over HTTP.\",\"parameters\":[{\"name\":\"hook_action\",\"type\":\"action\",\"description\":\"The action authoring the receive hook whose checkout target is the serving directory.\"},{\"name\":\"service_config_action\",\"type\":\"action\",\"description\":\"The action configuring the web service's listen port and document root.\"},{\"name\":\"target_dir_action\",\"type\":\"action\",\"description\":\"The action preparing the serving directory that the hook writes into.\"}],\"assertion_conditions\":[\"The checkout path used by the hook action matches the serving directory prepared by the target_dir_action.\",\"The document root in the service configuration action matches that same directory.\",\"The service configuration specifies the required listening port.\",\"Each link of the chain is evidenced in the content of the respective action.\"],\"exclusion_conditions\":[\"The hook checkout path, prepared directory, and document root differ from one another.\",\"A web service is configured to serve a root that no hook populates.\",\"A hook checks content out but no service serves that location.\",\"Any of the three links is missing, so the chain would not deliver pushed content over HTTP.\"]}],\"uncertain\":[]}",
+              "reasoning_content": "We need compare candidates to existing registry. Need return JSON only with existing matched, new complete defs, uncertain complete defs. Need classify each candidate exactly once.\n\nWe need assess semantic equivalence with existing definitions under aligned roles/types. Candidates 11? Let's list.\n\nCandidates:\n1 IS_PLAN\n2 ANTICIPATES_FAILURE_MODE\n3 DERIVES_ENVIRONMENT_CONSTRAINT\n4 ALIGNS_PROVISIONED_NAMES_WITH_REQUEST\n5 INSTALLS_MISSING_DEPENDENCIES\n6 MITIGATES_ANTICIPATED_PITFALL\n7 WRITES_SERVICE_CONFIGURATION\n8 AUTHORS_PUSH_DEPLOY_HOOK\n9 MODIFIES_OBSERVED_CONFIGURATION\n10 CONFIRMS_SERVICE_STARTED\n11 WIRES_PUSH_TO_SERVED_ROOT\n\nExisting registry has 12 predicates: IS_EXECUTION_PLAN, IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT, GUIDES_ACTION_CONTENT, REPLACES_DEFECTIVE_CONTENT_OBSERVED, CHECKS_TOOL_AVAILABILITY, PERFORMS_PRIMARY_BUILD, INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT, IS_INVOCATION_ERROR_OBSERVATION, CORRECTS_FAILED_INVOCATION, CONFIRMS_CORRECTED_VERIFICATION, ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION, ASSERTS_TASK_COMPLETION_WITH_EVIDENCE.\n\nNeed determine exact semantic equivalence. Candidate 1 IS_PLAN vs IS_EXECUTION_PLAN: likely equivalent? IS_PLAN definition: \"reasoning expresses intended future course of action—an ordered set of steps the agent commits to taking—rather than reporting completed work or stating a conclusion.\" Existing IS_EXECUTION_PLAN: \"reasoning explicitly expresses an intended future action or ordered sequence of actions that agent intends to perform next.\" Same ordered roles one reasoning. Assertion conditions similar. Candidate's assertion says \"at least one concrete future action\" and \"sequenced or prioritized as an approach\". Existing says at least one action; ordered sequence. Does candidate require \"sequenced or prioritized\" while existing allows single action. Is this additional restriction? Could still be equivalent? For predicate equivalence both directions: if existing holds for one action not sequenced, candidate may not? Candidate assertion: \"The intended actions are sequenced or prioritized as an approach to request.\" If only one action, maybe not sequenced. But definition says ordered set; example says at least one. Existing also \"intended future action or ordered sequence\". Candidate more restrictive? Need exact equivalence in both directions. Hmm maybe semantic equivalent enough? It's essentially plan. Existing \"IS_EXECUTION_PLAN\" covers candidate. The task says existing if semantically equivalent in both directions. Candidate requires \"ordered set of steps\" maybe not identical to single action. But candidate assertion condition says at least one concrete future action + sequenced/prioritized. Existing covers at least one action. If candidate's \"ordered set\" requires multiple? \"ordered set\" could be one? It says ordered set of steps, but assertion allows at least one. Existing definition explicitly \"action or ordered sequence\". I'd say candidate is equivalent enough to IS_EXECUTION_PLAN. It may be more specific but same mechanism. Could be existing. Need compare carefully: \"rather than reporting completed work...\" same. I will mark existing matched IS_EXECUTION_PLAN.\n\n2 ANTICIPATES_FAILURE_MODE: no existing predicate about predicting failure mechanism. New. Need check if existing maybe \"GUIDES_ACTION_CONTENT\" no, \"MITIGATES...\" no. New.\n\n3 DERIVES_ENVIRONMENT_CONSTRAINT: binary reasoning+observation. Existing IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT is reasoning+observation but identifies defect/deficiency in observed content requiring correction, not environment constraints/capabilities. GUIDES_ACTION_CONTENT is reasoning+action. No exact. Could be new. Need consider \"IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT\" broader? It pinpoints deficiency in content. Candidate interprets content to establish capabilities/absences/constraints. A missing tool is a deficiency? It states facts traceable to observation, treated as constraints/enablers. Existing requires deficiency in artifact content and must be corrected. Candidate includes environment facts (available/missing tools, package manager reachability) and can shape approach, not necessarily deficiency. Not equivalent. New.\n\n4 ALIGNS_PROVISIONED_NAMES_WITH_REQUEST: action-only. No existing. New. Need check maybe no.\n\n5 INSTALLS_MISSING_DEPENDENCIES: action+reasoning. Existing CHECKS_TOOL_AVAILABILITY action-only; no installs. No. New.\n\n6 MITIGATES_ANTICIPATED_PITFALL: action+reasoning. No existing. New.\n\n7 WRITES_SERVICE_CONFIGURATION: action-only. No existing. New.\n\n8 AUTHORS_PUSH_DEPLOY_HOOK: action-only. No existing. New.\n\n9 MODIFIES_OBSERVED_CONFIGURATION: action+observation. Existing REPLACES_DEFECTIVE_CONTENT_OBSERVED: action+observation, but requires observation returns deficient content lack required elements and action supplies missing content. Candidate broader: action replaces/rewrites file whose existing content returned by observation, using revealed content to decide preserve/change. It doesn't require deficiency. Could be new? There is overlap. Need equivalence? Existing is narrower, requires defective content and fills identified gap. Candidate does not require defect, just observed config modification. One-way? Candidate is broader. Existing may not hold for non-defective modifications. Are they semantically equivalent? No. Could candidate be a generalized version of existing? The rule: new when distinguishable mechanism no equivalent registry definition. \"MODIFIES_OBSERVED_CONFIGURATION\" general mechanism rewrites observed file; existing \"REPLACES_DEFECTIVE_CONTENT_OBSERVED\" is specific defect repair. Candidate may capture additional meaningful distinction. Is it equivalent to REPLACES_DEFECTIVE_CONTENT_OBSERVED? No, because candidate doesn't require deficiency. Could be new OR uncertain? Need decide. The candidate is supported mechanism. Existing registry has precise predicate for modifying observed defective content. Candidate is broader \"Modifies observed configuration\", but could include same cases. Is this a distinct mechanism? It says action replaces/rewrites file whose existing content was returned by earlier observation, using revealed content to decide preserve/change. This is a different mechanism (observed file modification) and does not require defect. It is a distinguishable mechanism. New. But could be considered overly broad? It has clear conditions. New likely. However \"MODIFIES_OBSERVED_CONFIGURATION\" is action + observation. Existing REPLACES_DEFECTIVE_CONTENT_OBSERVED is also action+observation. Need maybe candidate is equivalent to existing if existing's \"deficient content\" is just one case of \"existing content was returned... decide preserve/change\"? No, not equivalent. So new. But let's think if under granularity \"new when established semantic distinction exists despite same name; Review can choose distinct name.\" Yes new.\n\n10 CONFIRMS_SERVICE_STARTED: action+observation. Existing no service-specific. Could maybe equivalent to \"INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT\" no. New.\n\n11 WIRES_PUSH_TO_SERVED_ROOT: ternary action+action+action. Existing no ternary? CONFIRMS_CORRECTED_VERIFICATION is ternary but different. No. New.\n\nNeed ensure no candidate is existing other than maybe 1. Need maybe candidate 9 considered uncertain due to overlap? We need \"uncertain: mechanism, boundary, or role mapping ambiguous, equivalence cannot be established, or candidate itself overly broad family requiring refinement.\" Candidate 9 boundary with existing REPLACES_DEFECTIVE_CONTENT_OBSERVED. Is it ambiguous? The mechanism is clear; equivalence not established but we can determine not equivalent due to lack of deficiency requirement. New seems appropriate. But maybe because \"MODIFIES_OBSERVED_CONFIGURATION\" is broader than existing and could include existing, but not equivalent. The instructions: \"NEW: candidate expresses a supported, distinguishable mechanism with no equivalent registry definition. A precise USES_AS_INPUT candidate remains new when registry contains only generic USES: one-way subsumption does not establish equivalence.\" Candidate 9 precise? It is broad but supported. It expresses modifying observed configuration. Existing precise defective replacement. Candidate is broad; can be new if distinguishable. If candidate overly broad family requiring refinement, uncertain. Is \"MODIFIES_OBSERVED_CONFIGURATION\" overly broad? It's a specific mechanism: action rewrites file whose content was observed. Not overly broad family? It is general but clear. New.\n\nNeed output definitions exactly copy candidate defs for new/uncertain. For existing only candidate_name and matched_existing_name. For new, complete original definitions. Need include all new candidates with full fields exactly. No uncertain? Could be none. Need decide if any candidate uncertain. Let's examine each more thoroughly to avoid missing existing equivalence.\n\nCandidate 1 IS_PLAN vs IS_EXECUTION_PLAN:\n- Same parameter type reasoning.\n- Definition: candidate \"intended future course of action—an ordered set of steps the agent commits to taking—rather than reporting completed work or stating a conclusion about observed state.\" Existing \"explicitly expresses an intended future action or ordered sequence of actions that agent intends to perform next in service of task.\"\n- Assertion candidate: at least one concrete future action; intended actions are sequenced or prioritized as an approach. Existing: explicitly names at least one action still to be performed; intended action presented as own next step not hypothetical/rejected.\n- Exclusion similar.\nCould candidate require sequencing/prioritization, existing allows single action. Is that a meaningful distinction? If plan is single action, existing holds, candidate maybe? Candidate definition \"ordered set of steps\" but assertion says \"intended actions are sequenced or prioritized as an approach\"—if only one action, it can be prioritized? Possibly. \"At least one\" not \"at least two\". The order condition might be vacuous. Existing includes \"ordered sequence\" too. I'd call equivalent. The name different but semantic same. Existing.\n\nCandidate 2 ANTICIPATES_FAILURE_MODE: no existing about anticipating. New.\n\nCandidate 3 DERIVES_ENVIRONMENT_CONSTRAINT: existing IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT? Let's compare:\n- Both reasoning+observation.\n- Existing: reasoning analyzes content returned by observation and pinpoints concrete deficiency in that content that must be corrected for task to succeed. Assertion: observation returns actual content of artifact; reasoning names specific missing/incomplete/erroneous portions.\n- Candidate: reasoning interprets content of prior observation to establish capabilities, absences, or structural constraints of environment that shape chosen approach. Assertion: reasoning states specific environment facts traceable to observation (available/missing tools, package manager reachability, process supervision, user accounts, file layout); treated as constraints/enablers. Exclusion: merely repeats raw observation; observation only confirms command success and yields no environment fact; temporal adjacency.\nIs \"identifies missing tools\" a deficiency in observed content? Existing specifically content of artifact, not environment facts. Candidate can include missing tools. Existing \"must be corrected for task to succeed\" and \"deficient artifact\". Not equivalent. New.\n\nCandidate 4 ALIGNS_PROVISIONED_NAMES_WITH_REQUEST: action-only. Could be equivalent to something? No.\n\nCandidate 5 INSTALLS_MISSING_DEPENDENCIES: action+reasoning. Existing CHECKS_TOOL_AVAILABILITY action-only; no. New.\n\nCandidate 6 MITIGATES_ANTICIPATED_PITFALL: action+reasoning. Existing GUIDES_ACTION_CONTENT action+reasoning. Let's compare: GUIDES_ACTION_CONTENT: reasoning specifies concrete content/form of operation subsequent action carries out; action payload traceable to reasoning. MITIGATES_ANTICIPATED_PITFALL: action applies countermeasure visible in arguments neutralizing specific failure mechanism reasoning predicted. Both action+reasoning and reasoning guides action content? MITIGATES is more specific: action's arguments contain countermeasure to predicted failure. Is it a distinct mechanism from GUIDES_ACTION_CONTENT? Existing broader \"reasoning specifies concrete content/form of operation\"; candidate requires reasoning predicts failure and action countermeasure. Not equivalent. Candidate new. Could be a specialization; new if distinguishable? The instructions: \"A specific mechanism may coexist with a broader one when captures additional meaningful distinction.\" New. Good.\n\nCandidate 7 WRITES_SERVICE_CONFIGURATION: action-only. No.\n\nCandidate 8 AUTHORS_PUSH_DEPLOY_HOOK: action-only. No.\n\nCandidate 9 MODIFIES_OBSERVED_CONFIGURATION: action+observation. Need decide new vs existing vs uncertain. Let's compare with REPLACES_DEFECTIVE_CONTENT_OBSERVED:\n- Existing: modification action rewrites very resource whose deficient content was reported by earlier observation, supplying content that fills identified gap. Assertion: observation returns content of specific named resource that lacks required elements; action targets same resource and supplies missing content replacing deficient portion; action precedes confirmation. Exclusion: different resource; read-only; unrelated observation.\n- Candidate: action replaces or rewrites a file whose existing content was returned by earlier observation, using revealed content to decide what to preserve or change. Assertion: observation returned actual content of config file, not merely presence; action writes same path; written content preserves or deliberately alters directives visible in observed content. Exclusion: writes file content never observed; observation only lists directory/metadata; write different path.\nThe candidate is broader but still precise. Does it express \"supported, distinguishable mechanism with no equivalent registry definition\"? Yes, modifying observed configuration not necessarily defective. It is a general mechanism. But could it be considered an \"overly broad family requiring refinement\" because it encompasses any config modification? It is not too broad? It has specific roles. The registry has a similar but narrower predicate. New likely. If we mark uncertain, we need include full candidate. But I think new.\n\nCandidate 10 CONFIRMS_SERVICE_STARTED: action+observation. No existing service-specific. New.\n\nCandidate 11 WIRES_PUSH_TO_SERVED_ROOT: ternary. No existing. New.\n\nNeed ensure output JSON schema exactly: {\"existing\":[...],\"new\":[...],\"uncertain\":[...]}.\n\nNeed include all new candidate definitions exactly. Since \"Copy every new/uncertain candidate definition exactly. Do not revise candidates or registry during Comparison.\" So we must copy full candidate objects as given, unchanged. Need ensure JSON valid. Could include long definitions.\n\nNeed decide whether to include uncertain empty. Yes.\n\nLet's craft. Existing list with one object. New list with 10 candidate definitions in original order? The prompt says account every candidate exactly once. We can order new as candidates order excluding existing. Need preserve complete original definitions. Let's produce JSON only.\n\nNeed ensure no extra text. Let's prepare carefully.\n\nCandidate 1 existing:\n{\"candidate_name\":\"IS_PLAN\",\"matched_existing_name\":\"IS_EXECUTION_PLAN\"}\n\nNew: 2-11 full.\n\nLet's verify exact copy for each. I'll copy from prompt. Need maintain fields: name, definition, parameters array each name/type/description, assertion_conditions, exclusion_conditions. Ensure no typos? We can copy.\n\nLet's write final JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 7240,
+          "completion_tokens": 5301,
+          "total_tokens": 12541,
+          "prompt_tokens_details": {
+            "cached_tokens": 1664
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3287
+          },
+          "prompt_cache_hit_tokens": 1664,
+          "prompt_cache_miss_tokens": 5576
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"existing\":[{\"candidate_name\":\"IS_PLAN\",\"matched_existing_name\":\"IS_EXECUTION_PLAN\"}],\"new\":[{\"name\":\"ANTICIPATES_FAILURE_MODE\",\"definition\":\"The reasoning predicts a specific way that a default or naive configuration would fail, and explains the mechanism of that failure before any such failure has been observed.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text predicting a concrete failure mechanism and its consequence.\"}],\"assertion_conditions\":[\"The reasoning names a concrete failure mode (e.g., an account being unusable for key authentication, a commit finding nothing to commit, stale deployed content blocking a later push).\",\"The reasoning explains why default behavior produces that failure, independent of any error already observed.\"],\"exclusion_conditions\":[\"The text reacts to a failure that has already been observed in a tool result.\",\"The text offers generic caution or best-practice advice without identifying a specific failure mechanism.\"]},{\"name\":\"DERIVES_ENVIRONMENT_CONSTRAINT\",\"definition\":\"The reasoning interprets the content of a prior observation to establish capabilities, absences, or structural constraints of the environment that then shape the chosen approach.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text drawing capability or constraint conclusions from observed environment state.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result whose content supplies the environment facts being interpreted.\"}],\"assertion_conditions\":[\"The reasoning states specific environment facts that can be traced to the content of the observation (available and missing tools, package manager reachability, process supervision model, user accounts, file layout).\",\"Those facts are treated as constraints or enablers that condition how the agent proceeds.\"],\"exclusion_conditions\":[\"The reasoning merely repeats or paraphrases the raw observation without drawing a constraint.\",\"The observation only confirms that a command ran successfully and yields no environment fact.\",\"The nodes are merely temporally adjacent or topically similar.\"]},{\"name\":\"ALIGNS_PROVISIONED_NAMES_WITH_REQUEST\",\"definition\":\"The action creates or registers an account, filesystem path, hostname mapping, or listening endpoint whose identifier exactly matches the identifier that the requester's unmodified commands will address, so those commands resolve to the provisioned resource.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The provisioning action that establishes a named resource and fixes its identifier.\"}],\"assertion_conditions\":[\"The action establishes a named resource such as a user account, repository path, local hostname entry, or service port.\",\"The identifier chosen in the action equals the identifier appearing in the requester's commands (account name, repository path, host alias, port number).\"],\"exclusion_conditions\":[\"The resource is created under an arbitrary or default identifier unrelated to the requester's commands.\",\"The chosen identifier differs from the requested one or would require the requester to alter their commands.\",\"The action only installs or inspects software without fixing the name of a resource.\"]},{\"name\":\"INSTALLS_MISSING_DEPENDENCIES\",\"definition\":\"The action installs software packages that supply capabilities which the reasoning had identified as absent from the environment, and the installation precedes the first attempt to use those capabilities.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The package installation action supplying the absent capabilities.\"},{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text that identified the specific capabilities as missing.\"}],\"assertion_conditions\":[\"The reasoning records specific tools or services as absent or unusable in the environment.\",\"The action installs packages that provide those tools or services.\",\"The installation occurs before any action that depends on them.\"],\"exclusion_conditions\":[\"Packages are installed without any preceding identification of a gap.\",\"The gap is identified but no installation is attempted within the window.\",\"The action only refreshes or inspects package metadata without installing.\"]},{\"name\":\"MITIGATES_ANTICIPATED_PITFALL\",\"definition\":\"The action applies a concrete countermeasure, visible in its own arguments, that neutralizes a specific failure mechanism the reasoning had predicted for a default configuration.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action whose arguments contain the countermeasure.\"},{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The earlier agent text predicting the failure mechanism the countermeasure addresses.\"}],\"assertion_conditions\":[\"The reasoning predicts a specific failure mechanism for the default configuration.\",\"The action contains an explicit flag, option, marker, permission setting, or resolution entry that directly prevents that mechanism.\",\"The correspondence is traceable by content, not merely by topic or proximity.\"],\"exclusion_conditions\":[\"The action performs only a generic implementation step with no countermeasure in its arguments.\",\"The action's arguments do not reference the predicted failure mechanism.\",\"The reasoning mentions a risk without prescribing or implying any countermeasure.\"]},{\"name\":\"WRITES_SERVICE_CONFIGURATION\",\"definition\":\"The action creates or replaces the configuration of a service itself, so that when the service starts it exposes a particular listening endpoint and serves a particular directory.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The file-write action that authors the service's own configuration.\"}],\"assertion_conditions\":[\"The write targets a configuration path belonging to a server or daemon.\",\"The written content specifies a listen address or port and a served root directory.\"],\"exclusion_conditions\":[\"The write targets application content, a deployment script, or an unrelated file rather than the service's own configuration.\",\"The written content does not specify an endpoint or a served root.\"]},{\"name\":\"AUTHORS_PUSH_DEPLOY_HOOK\",\"definition\":\"The action writes an executable hook script that is triggered when a repository receives pushes and that materializes the pushed revision into a separate working directory intended for serving.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The file-write action producing the receive-side hook script.\"}],\"assertion_conditions\":[\"The script is written into a repository's hook location and marked executable.\",\"The script reads pushed references and checks out the pushed branch into a designated work tree distinct from the repository directory.\"],\"exclusion_conditions\":[\"The write produces a server configuration file rather than a receive-side hook.\",\"The script operates directly on the repository directory with no separate target work tree.\",\"The action performs a one-off manual checkout instead of installing a triggered script.\"]},{\"name\":\"MODIFIES_OBSERVED_CONFIGURATION\",\"definition\":\"The action replaces or rewrites a file whose existing content was returned by an earlier observation, using the revealed content to decide what to preserve or change.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The write action that rewrites the previously observed file.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result that returned the file's existing content.\"}],\"assertion_conditions\":[\"The observation returned the actual content of a configuration file, not merely its presence.\",\"The action writes to that same path.\",\"The written content preserves or deliberately alters directives that were visible in the observed content.\"],\"exclusion_conditions\":[\"The action writes a file whose content was never observed.\",\"The observation only lists a directory or reports file metadata.\",\"The write targets a different path than the observed file.\"]},{\"name\":\"CONFIRMS_SERVICE_STARTED\",\"definition\":\"The observation reports both successful validation of a service's configuration and the presence of running process(es) for services whose launch the action had invoked.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action that validated configuration and launched the services.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting the validation outcome and running processes.\"}],\"assertion_conditions\":[\"The observation contains an explicit configuration-test success message for the service.\",\"The observation contains a process listing showing the launched daemon(s) as running.\",\"The validated and launched services correspond to those invoked by the action.\"],\"exclusion_conditions\":[\"Only configuration validation succeeds with no process evidence.\",\"Processes appear that were started outside the action in question.\",\"The output reports a configuration or startup error.\"]},{\"name\":\"WIRES_PUSH_TO_SERVED_ROOT\",\"definition\":\"Three actions jointly establish a deployment chain in which a receive hook checks pushed content out into a directory that a web service is configured to serve on the required port, so that pushing commits makes that content retrievable over HTTP.\",\"parameters\":[{\"name\":\"hook_action\",\"type\":\"action\",\"description\":\"The action authoring the receive hook whose checkout target is the serving directory.\"},{\"name\":\"service_config_action\",\"type\":\"action\",\"description\":\"The action configuring the web service's listen port and document root.\"},{\"name\":\"target_dir_action\",\"type\":\"action\",\"description\":\"The action preparing the serving directory that the hook writes into.\"}],\"assertion_conditions\":[\"The checkout path used by the hook action matches the serving directory prepared by the target_dir_action.\",\"The document root in the service configuration action matches that same directory.\",\"The service configuration specifies the required listening port.\",\"Each link of the chain is evidenced in the content of the respective action.\"],\"exclusion_conditions\":[\"The hook checkout path, prepared directory, and document root differ from one another.\",\"A web service is configured to serve a root that no hook populates.\",\"A hook checks content out but no service serves that location.\",\"Any of the three links is missing, so the chain would not deliver pushed content over HTTP.\"]}],\"uncertain\":[]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "existing": [
+      {
+        "candidate_name": "IS_PLAN",
+        "matched_existing_name": "IS_EXECUTION_PLAN"
+      }
+    ],
+    "new": [
+      {
+        "name": "ANTICIPATES_FAILURE_MODE",
+        "definition": "The reasoning predicts a specific way that a default or naive configuration would fail, and explains the mechanism of that failure before any such failure has been observed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text predicting a concrete failure mechanism and its consequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a concrete failure mode (e.g., an account being unusable for key authentication, a commit finding nothing to commit, stale deployed content blocking a later push).",
+          "The reasoning explains why default behavior produces that failure, independent of any error already observed."
+        ],
+        "exclusion_conditions": [
+          "The text reacts to a failure that has already been observed in a tool result.",
+          "The text offers generic caution or best-practice advice without identifying a specific failure mechanism."
+        ]
+      },
+      {
+        "name": "DERIVES_ENVIRONMENT_CONSTRAINT",
+        "definition": "The reasoning interprets the content of a prior observation to establish capabilities, absences, or structural constraints of the environment that then shape the chosen approach.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text drawing capability or constraint conclusions from observed environment state."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The earlier tool result whose content supplies the environment facts being interpreted."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states specific environment facts that can be traced to the content of the observation (available and missing tools, package manager reachability, process supervision model, user accounts, file layout).",
+          "Those facts are treated as constraints or enablers that condition how the agent proceeds."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or paraphrases the raw observation without drawing a constraint.",
+          "The observation only confirms that a command ran successfully and yields no environment fact.",
+          "The nodes are merely temporally adjacent or topically similar."
+        ]
+      },
+      {
+        "name": "ALIGNS_PROVISIONED_NAMES_WITH_REQUEST",
+        "definition": "The action creates or registers an account, filesystem path, hostname mapping, or listening endpoint whose identifier exactly matches the identifier that the requester's unmodified commands will address, so those commands resolve to the provisioned resource.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The provisioning action that establishes a named resource and fixes its identifier."
+          }
+        ],
+        "assertion_conditions": [
+          "The action establishes a named resource such as a user account, repository path, local hostname entry, or service port.",
+          "The identifier chosen in the action equals the identifier appearing in the requester's commands (account name, repository path, host alias, port number)."
+        ],
+        "exclusion_conditions": [
+          "The resource is created under an arbitrary or default identifier unrelated to the requester's commands.",
+          "The chosen identifier differs from the requested one or would require the requester to alter their commands.",
+          "The action only installs or inspects software without fixing the name of a resource."
+        ]
+      },
+      {
+        "name": "INSTALLS_MISSING_DEPENDENCIES",
+        "definition": "The action installs software packages that supply capabilities which the reasoning had identified as absent from the environment, and the installation precedes the first attempt to use those capabilities.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The package installation action supplying the absent capabilities."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that identified the specific capabilities as missing."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning records specific tools or services as absent or unusable in the environment.",
+          "The action installs packages that provide those tools or services.",
+          "The installation occurs before any action that depends on them."
+        ],
+        "exclusion_conditions": [
+          "Packages are installed without any preceding identification of a gap.",
+          "The gap is identified but no installation is attempted within the window.",
+          "The action only refreshes or inspects package metadata without installing."
+        ]
+      },
+      {
+        "name": "MITIGATES_ANTICIPATED_PITFALL",
+        "definition": "The action applies a concrete countermeasure, visible in its own arguments, that neutralizes a specific failure mechanism the reasoning had predicted for a default configuration.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action whose arguments contain the countermeasure."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The earlier agent text predicting the failure mechanism the countermeasure addresses."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning predicts a specific failure mechanism for the default configuration.",
+          "The action contains an explicit flag, option, marker, permission setting, or resolution entry that directly prevents that mechanism.",
+          "The correspondence is traceable by content, not merely by topic or proximity."
+        ],
+        "exclusion_conditions": [
+          "The action performs only a generic implementation step with no countermeasure in its arguments.",
+          "The action's arguments do not reference the predicted failure mechanism.",
+          "The reasoning mentions a risk without prescribing or implying any countermeasure."
+        ]
+      },
+      {
+        "name": "WRITES_SERVICE_CONFIGURATION",
+        "definition": "The action creates or replaces the configuration of a service itself, so that when the service starts it exposes a particular listening endpoint and serves a particular directory.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The file-write action that authors the service's own configuration."
+          }
+        ],
+        "assertion_conditions": [
+          "The write targets a configuration path belonging to a server or daemon.",
+          "The written content specifies a listen address or port and a served root directory."
+        ],
+        "exclusion_conditions": [
+          "The write targets application content, a deployment script, or an unrelated file rather than the service's own configuration.",
+          "The written content does not specify an endpoint or a served root."
+        ]
+      },
+      {
+        "name": "AUTHORS_PUSH_DEPLOY_HOOK",
+        "definition": "The action writes an executable hook script that is triggered when a repository receives pushes and that materializes the pushed revision into a separate working directory intended for serving.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The file-write action producing the receive-side hook script."
+          }
+        ],
+        "assertion_conditions": [
+          "The script is written into a repository's hook location and marked executable.",
+          "The script reads pushed references and checks out the pushed branch into a designated work tree distinct from the repository directory."
+        ],
+        "exclusion_conditions": [
+          "The write produces a server configuration file rather than a receive-side hook.",
+          "The script operates directly on the repository directory with no separate target work tree.",
+          "The action performs a one-off manual checkout instead of installing a triggered script."
+        ]
+      },
+      {
+        "name": "MODIFIES_OBSERVED_CONFIGURATION",
+        "definition": "The action replaces or rewrites a file whose existing content was returned by an earlier observation, using the revealed content to decide what to preserve or change.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The write action that rewrites the previously observed file."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The earlier tool result that returned the file's existing content."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation returned the actual content of a configuration file, not merely its presence.",
+          "The action writes to that same path.",
+          "The written content preserves or deliberately alters directives that were visible in the observed content."
+        ],
+        "exclusion_conditions": [
+          "The action writes a file whose content was never observed.",
+          "The observation only lists a directory or reports file metadata.",
+          "The write targets a different path than the observed file."
+        ]
+      },
+      {
+        "name": "CONFIRMS_SERVICE_STARTED",
+        "definition": "The observation reports both successful validation of a service's configuration and the presence of running process(es) for services whose launch the action had invoked.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action that validated configuration and launched the services."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting the validation outcome and running processes."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains an explicit configuration-test success message for the service.",
+          "The observation contains a process listing showing the launched daemon(s) as running.",
+          "The validated and launched services correspond to those invoked by the action."
+        ],
+        "exclusion_conditions": [
+          "Only configuration validation succeeds with no process evidence.",
+          "Processes appear that were started outside the action in question.",
+          "The output reports a configuration or startup error."
+        ]
+      },
+      {
+        "name": "WIRES_PUSH_TO_SERVED_ROOT",
+        "definition": "Three actions jointly establish a deployment chain in which a receive hook checks pushed content out into a directory that a web service is configured to serve on the required port, so that pushing commits makes that content retrievable over HTTP.",
+        "parameters": [
+          {
+            "name": "hook_action",
+            "type": "action",
+            "description": "The action authoring the receive hook whose checkout target is the serving directory."
+          },
+          {
+            "name": "service_config_action",
+            "type": "action",
+            "description": "The action configuring the web service's listen port and document root."
+          },
+          {
+            "name": "target_dir_action",
+            "type": "action",
+            "description": "The action preparing the serving directory that the hook writes into."
+          }
+        ],
+        "assertion_conditions": [
+          "The checkout path used by the hook action matches the serving directory prepared by the target_dir_action.",
+          "The document root in the service configuration action matches that same directory.",
+          "The service configuration specifies the required listening port.",
+          "Each link of the chain is evidenced in the content of the respective action."
+        ],
+        "exclusion_conditions": [
+          "The hook checkout path, prepared directory, and document root differ from one another.",
+          "A web service is configured to serve a root that no hook populates.",
+          "A hook checks content out but no service serves that location.",
+          "Any of the three links is missing, so the chain would not deliver pushed content over HTTP."
+        ]
+      }
+    ],
+    "uncertain": []
+  },
+  "previous_calls": []
+}

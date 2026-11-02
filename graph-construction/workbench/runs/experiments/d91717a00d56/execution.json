@@ -1,0 +1,9 @@
+{
+  "run_id": "6b9f6c0831884982b1e4c808f16664cd",
+  "run_started_at": "2026-10-30T01:22:51.952281+00:00",
+  "stage": "completed",
+  "event": "completed",
+  "message": "实验已完成，结果已保存",
+  "updated_at": "2026-10-30T01:22:54.287629+00:00",
+  "trajectory_id": "xhigh__write-compressor"
+}

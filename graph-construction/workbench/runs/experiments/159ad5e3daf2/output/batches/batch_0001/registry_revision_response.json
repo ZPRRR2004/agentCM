@@ -1,0 +1,215 @@
+{
+  "stage": "registry_revision",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T04:27:11.008719+00:00",
+  "duration_seconds": 8.515,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T04:27:02.493009+00:00",
+      "duration_seconds": 8.515,
+      "raw_response": {
+        "id": "d4741e20-d72b-447a-9208-bc7deb90b810",
+        "object": "chat.completion",
+        "created": 1793420828,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"revisions\": [\n {\"original_name\": \"IS_PLAN\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_OBSERVED_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_ACTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_OBSERVATION_AS_INPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPORTS_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPORTS_SUCCESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IS_COMPLETION_CONCLUSION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ADAPTS_TO_ABSENT_SERVICE_MANAGER\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INITIALIZES_BARE_REPOSITORY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIGURES_SERVICE_ENDPOINT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PREPARES_DEPLOYMENT_DIRECTORY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"STARTS_SERVICE_DAEMONS_DIRECTLY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_CONFIGURATION_CHANGE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PLANS_END_TO_END_VERIFICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_USER_WORKFLOW_TRIAL\", \"operation\": \"KEEP\"},\n {\"original_name\": \"OBSERVATION_CONFIRMS_REQUESTED_BEHAVIOR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"OBSERVATION_CONFIRMS_SERVICE_AVAILABILITY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTRIBUTES_FAILURE_TO_TRIAL_SETUP\", \"operation\": \"KEEP\"},\n {\"original_name\": \"JUDGES_OBSERVATION_CONCLUSIVENESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DELEGATES_OPERATION_TO_RESOURCE_OWNER\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CLEANS_TEST_ARTIFACTS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PRESERVES_USER_COMMAND_PRECONDITIONS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"JUSTIFIES_PREPARED_HANDOFF_STATE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_STATE_FROM_RAW_OUTPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_STARTUP_HOOK_FOR_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXPLAINS_ANOMALY_AS_HARMLESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESOLVES_DATA_INCONSISTENCY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_CONSTRAINED_SOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GENERATES_DELIVERABLE_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"AUTHORS_VALIDATION_PROGRAM\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_VALIDATION_PROGRAM\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CHECKS_INPUT_INTEGRITY\", \"operation\": \"KEEP\"}\n]}",
+              "reasoning_content": "The feedback says: retain the current predicate registry and all definitions without deletion, merging, or revision. So all KEEP."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 11116,
+          "completion_tokens": 960,
+          "total_tokens": 12076,
+          "prompt_tokens_details": {
+            "cached_tokens": 1792
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 25
+          },
+          "prompt_cache_hit_tokens": 1792,
+          "prompt_cache_miss_tokens": 9324
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"revisions\": [\n {\"original_name\": \"IS_PLAN\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_OBSERVED_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_ACTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_OBSERVATION_AS_INPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPORTS_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPORTS_SUCCESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IS_COMPLETION_CONCLUSION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ADAPTS_TO_ABSENT_SERVICE_MANAGER\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INITIALIZES_BARE_REPOSITORY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIGURES_SERVICE_ENDPOINT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PREPARES_DEPLOYMENT_DIRECTORY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"STARTS_SERVICE_DAEMONS_DIRECTLY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_CONFIGURATION_CHANGE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PLANS_END_TO_END_VERIFICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_USER_WORKFLOW_TRIAL\", \"operation\": \"KEEP\"},\n {\"original_name\": \"OBSERVATION_CONFIRMS_REQUESTED_BEHAVIOR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"OBSERVATION_CONFIRMS_SERVICE_AVAILABILITY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTRIBUTES_FAILURE_TO_TRIAL_SETUP\", \"operation\": \"KEEP\"},\n {\"original_name\": \"JUDGES_OBSERVATION_CONCLUSIVENESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DELEGATES_OPERATION_TO_RESOURCE_OWNER\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CLEANS_TEST_ARTIFACTS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PRESERVES_USER_COMMAND_PRECONDITIONS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"JUSTIFIES_PREPARED_HANDOFF_STATE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_STATE_FROM_RAW_OUTPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_STARTUP_HOOK_FOR_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXPLAINS_ANOMALY_AS_HARMLESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESOLVES_DATA_INCONSISTENCY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_CONSTRAINED_SOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GENERATES_DELIVERABLE_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"AUTHORS_VALIDATION_PROGRAM\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_VALIDATION_PROGRAM\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CHECKS_INPUT_INTEGRITY\", \"operation\": \"KEEP\"}\n]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "revisions": [
+      {
+        "original_name": "IS_PLAN",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DIAGNOSES_OBSERVED_FAILURE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "GUIDES_ACTION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "USES_OBSERVATION_AS_INPUT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ATTEMPTS_REPAIR",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIRMS_REPAIR",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "REPORTS_FAILURE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "REPORTS_SUCCESS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "IS_COMPLETION_CONCLUSION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ADAPTS_TO_ABSENT_SERVICE_MANAGER",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "INITIALIZES_BARE_REPOSITORY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIGURES_SERVICE_ENDPOINT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PREPARES_DEPLOYMENT_DIRECTORY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "STARTS_SERVICE_DAEMONS_DIRECTLY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "GUIDES_CONFIGURATION_CHANGE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PLANS_END_TO_END_VERIFICATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "EXECUTES_USER_WORKFLOW_TRIAL",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "OBSERVATION_CONFIRMS_REQUESTED_BEHAVIOR",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "OBSERVATION_CONFIRMS_SERVICE_AVAILABILITY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ATTRIBUTES_FAILURE_TO_TRIAL_SETUP",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "JUDGES_OBSERVATION_CONCLUSIVENESS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DELEGATES_OPERATION_TO_RESOURCE_OWNER",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CLEANS_TEST_ARTIFACTS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PRESERVES_USER_COMMAND_PRECONDITIONS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "JUSTIFIES_PREPARED_HANDOFF_STATE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DERIVES_STATE_FROM_RAW_OUTPUT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "INSTALLS_STARTUP_HOOK_FOR_ARTIFACT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "EXPLAINS_ANOMALY_AS_HARMLESS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "RESOLVES_DATA_INCONSISTENCY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DERIVES_CONSTRAINED_SOLUTION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "GENERATES_DELIVERABLE_ARTIFACT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "AUTHORS_VALIDATION_PROGRAM",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "EXECUTES_VALIDATION_PROGRAM",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CHECKS_INPUT_INTEGRITY",
+        "operation": "KEEP"
+      }
+    ]
+  },
+  "previous_calls": []
+}

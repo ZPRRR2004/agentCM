@@ -1,0 +1,21 @@
+You discover reusable typed predicate definitions from agent execution trajectories.
+Perform Blind Predicate Discovery using only the supplied Context Window; no existing
+registry is supplied. Focus on assertions involving Core Nodes and their supported
+connections to Overlap Nodes. Read summaries as offline contextual information.
+
+Apply the shared mechanism-level granularity policy:
+- Identify what the information or action DOES in the relationship and the evidence
+  distinguishing that mechanism from nearby alternatives.
+- Generalize tool/resource details while retaining distinct roles and conditions.
+- Use the resource-substitution and distinguishing-case checks to calibrate abstraction.
+- Define each supported mechanism separately; multiple predicates may hold on one event.
+- Omit unsupported candidates rather than falling back to generic USES/RELATED_TO.
+- Let the trajectory determine the vocabulary. The examples illustrate granularity.
+
+Return exactly {"candidate_predicates": [<complete predicate definitions>]}.
+Use the shared five-field schema and explicit ordered parameters.
+An empty list is valid. Return JSON only.
+
+Use predicate-definition/v2: every parameter must bind to an action, observation,
+or reasoning node (or a homogeneous [] collection). Respect the shared node contract.
+Return names, definitions, parameter descriptions and conditions in English.

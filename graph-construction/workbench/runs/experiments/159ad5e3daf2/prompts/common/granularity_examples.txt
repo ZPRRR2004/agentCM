@@ -1,0 +1,163 @@
+# Predicate definition contract: predicate-definition/v2
+
+## 1. Definition Format and Node Contract
+
+A predicate is a reusable Boolean assertion over an ordered list of typed arguments.
+
+Every predicate definition must contain exactly five fields:
+
+- `name`: A unique UPPER_SNAKE_CASE predicate name.
+- `definition`: A precise statement of the predicate's semantic meaning.
+- `parameters`: A nonempty ordered list of `{name, type, description}`. Parameter names must be unique, and their order determines argument roles.
+- `assertion_conditions`: Observable conditions under which the predicate holds. At least one condition is required.
+- `exclusion_conditions`: Conditions distinguishing cases where the predicate does not hold. May be empty.
+
+Allowed parameter types are `action`, `observation`, `reasoning`, and their homogeneous collections (`action[]`, `observation[]`, `reasoning[]`).
+
+- `action`: A recorded tool invocation.
+- `observation`: A recorded tool result.
+- `reasoning`: Recorded agent text expressing plans, decisions, conclusions, or other reasoning content.
+
+Resources, goals, paths, and criteria are represented through node content, not additional parameter types. Preserve exact argument roles and ordering.
+
+Structural call-result relationships are already provided and should not be rediscovered as semantic predicates.
+
+## 2. Granularity Rules
+
+The goal is to discover **distinguishable, reusable semantic mechanisms**. Determine predicate arity from the roles necessary to express the mechanism.
+
+### Unary Predicates — Properties of Individual Nodes
+
+A unary predicate identifies a meaningful semantic property or role of a single node.
+
+- Identify what the node expresses or represents.
+- Distinguish properties by semantic meaning, not by wording, topic, or incidental details.
+- Avoid unnecessary restrictions on how the property is expressed.
+
+### Binary Predicates — Relationships Between Two Nodes
+
+A binary predicate describes a semantic mechanism connecting two nodes with distinct roles.
+
+- Identify what each argument contributes and how they are related.
+- Distinguish mechanisms such as supplying information, guiding decisions, establishing criteria, and attempting repairs.
+- Generalize across tools, resources, and execution details when the underlying mechanism is unchanged.
+- Require evidence of the relationship; temporal adjacency or topical similarity alone is insufficient.
+
+### Ternary and Higher-Arity Predicates — Joint Relationships
+
+A multi-argument predicate describes a mechanism involving three or more necessary semantic roles.
+
+- Include each argument only when it contributes an essential role.
+- Preserve joint dependencies that would lose meaning if decomposed into independent binary relationships.
+- Use separate predicates when relationships can be expressed independently.
+- Use homogeneous collection parameters when a set of nodes jointly fills one semantic role. Specify whether the assertion depends on collective or alternative support.
+
+### General Granularity Principles
+
+1. **Essential vs. Incidental:** Preserve conditions necessary to the semantic mechanism. Generalize incidental tools, resources, quantities, and execution details.
+2. **Distinguishability:** Keep predicates separate when a meaningful case can satisfy one but not the other.
+3. **Non-exclusivity:** Multiple predicates may hold over the same nodes. A specific mechanism may coexist with a broader one when it captures an additional meaningful distinction.
+4. **Evidence:** Each predicate must express a mechanism supported by identifiable trajectory evidence. Assertion conditions define when it holds; exclusion conditions identify when its own requirements fail.
+5. **Outcome:** Distinguish attempted operations, performed checks, and confirmed successful outcomes.
+
+Do not force a fixed number of predicates or a particular arity. Let the trajectory determine the predicate vocabulary.
+
+## 3. Granularity Examples
+
+### Example 1 — Unary Predicate
+
+**Scenario:** A reasoning node states: "I will inspect the configuration file."
+
+```json
+{
+  "name": "IS_PLAN",
+  "definition": "The reasoning explicitly expresses an intended future action or sequence of actions.",
+  "parameters": [
+    {
+      "name": "reasoning",
+      "type": "reasoning",
+      "description": "The agent text expressing the intended action or plan."
+    }
+  ],
+  "assertion_conditions": [
+    "The reasoning explicitly identifies at least one intended future action."
+  ],
+  "exclusion_conditions": [
+    "Merely reporting completed actions does not constitute a plan."
+  ]
+}
+```
+
+**Granularity lesson:** The predicate captures planning intent, regardless of the number of steps or the specific task.
+
+### Example 2 — Binary Predicate
+
+**Scenario:** An observation supplies a file path, which a later action uses as its command argument.
+
+```json
+{
+  "name": "USES_OBSERVATION_AS_INPUT",
+  "definition": "The action uses an identifiable value or payload supplied by the observation as an operational input.",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "action",
+      "description": "The action receiving the input."
+    },
+    {
+      "name": "observation",
+      "type": "observation",
+      "description": "The prior observation supplying the input."
+    }
+  ],
+  "assertion_conditions": [
+    "An input value or payload of the action can be traced to the observation."
+  ],
+  "exclusion_conditions": [
+    "The observation only guides action selection without supplying an operational input.",
+    "The nodes are merely temporally adjacent or topically related."
+  ]
+}
+```
+
+**Granularity lesson:** File paths, database IDs, and URLs can share the same input-supply mechanism. Decision guidance remains a distinguishable relationship.
+
+### Example 3 — Ternary Predicate
+
+**Scenario:** A tool reports a missing dependency, the agent installs it, and a subsequent check confirms that the original failure has been resolved.
+
+```json
+{
+  "name": "CONFIRMS_REPAIR",
+  "definition": "A repair action addresses an observed failure, and a subsequent verification result confirms that the failure has been resolved.",
+  "parameters": [
+    {
+      "name": "repair",
+      "type": "action",
+      "description": "The action attempting to repair the failure."
+    },
+    {
+      "name": "failure",
+      "type": "observation",
+      "description": "The earlier observation reporting the failure."
+    },
+    {
+      "name": "check_result",
+      "type": "observation",
+      "description": "The later observation confirming resolution."
+    }
+  ],
+  "assertion_conditions": [
+    "The failure precedes the repair, and the repair addresses that failure.",
+    "A subsequent check establishes that the same failure has been resolved."
+  ],
+  "exclusion_conditions": [
+    "The repair is attempted without a confirming result.",
+    "The later check does not establish resolution of the original failure."
+  ]
+}
+```
+
+**Granularity lesson:** All three roles are necessary to express confirmed repair. `ATTEMPTS_REPAIR(repair, failure)` remains a distinct binary predicate that does not require successful verification.
+
+These examples illustrate granularity and argument structure. They do not prescribe a fixed vocabulary or limit the mechanisms that may be discovered.

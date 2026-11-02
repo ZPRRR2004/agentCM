@@ -1,0 +1,255 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T04:14:16.835926+00:00",
+  "duration_seconds": 25.718,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T04:13:51.120777+00:00",
+      "duration_seconds": 25.672,
+      "raw_response": {
+        "id": "50b3dc7f-fc13-488a-bc82-1220ccb2670f",
+        "object": "chat.completion",
+        "created": 1793420036,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\":[{\"name\":\"IS_PLAN\",\"definition\":\"The reasoning explicitly expresses an intended future action or sequence of actions that the agent intends to carry out next.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text expressing the intended future action or sequence of actions.\"}],\"assertion_conditions\":[\"The reasoning identifies at least one action to be performed later (e.g., inspecting a file, writing content, compiling, verifying output).\",\"The intended action is stated prospectively rather than reported as already done.\"],\"exclusion_conditions\":[\"The reasoning only reports or summarizes actions already completed.\",\"The reasoning only restates file content or tool output without expressing an intended next action.\"]},{\"name\":\"DIAGNOSES_OBSERVED_FAILURE\",\"definition\":\"The reasoning explains the cause of a failure reported by an observation and derives a corrective approach from that explanation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text explaining why the observed failure occurred.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The observation reporting the failure being explained.\"}],\"assertion_conditions\":[\"The observation indicates that an invoked operation did not succeed.\",\"The reasoning identifies a concrete cause for the failure (e.g., how an option's argument is interpreted) and states what should be changed as a result.\"],\"exclusion_conditions\":[\"The reasoning merely notes that something failed without offering a causal explanation.\",\"The reasoning explains an unrelated issue or offers no corrective direction.\"]},{\"name\":\"GUIDES_ACTION\",\"definition\":\"The action's tool choice, target, or argument values instantiate an intent, diagnosis, or corrected approach explicitly stated in the reasoning.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text stating the plan, diagnosis, or corrected approach.\"},{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action whose tool, target, or arguments carry out that stated approach.\"}],\"assertion_conditions\":[\"The reasoning specifies the operation or correction to perform, and the action performs that same operation with matching target or arguments.\",\"A traceable correspondence exists between the described step and the executed parameters (command, path, or content).\"],\"exclusion_conditions\":[\"The action is unrelated to the described step or diverges from it in target or approach.\",\"The reasoning only reports prior results and the action is merely temporally adjacent.\"]},{\"name\":\"USES_OBSERVATION_AS_INPUT\",\"definition\":\"The action uses an identifiable value or payload supplied by a prior observation as an operational input.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action receiving the input.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The prior observation supplying the input value or payload.\"}],\"assertion_conditions\":[\"An argument, file content, path, or identifier of the action can be traced to content present in the observation.\",\"The observation precedes the action within the trajectory.\"],\"exclusion_conditions\":[\"The observation only guides action selection without supplying an operational input value.\",\"The nodes are merely temporally adjacent or topically related without a traceable value transfer.\"]},{\"name\":\"ATTEMPTS_REPAIR\",\"definition\":\"The action modifies the command, parameters, or content that previously produced an observed failure in order to address that failure.\",\"parameters\":[{\"name\":\"repair\",\"type\":\"action\",\"description\":\"The action attempting to repair the failure.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the failure.\"}],\"assertion_conditions\":[\"The failure observation precedes the repair action and indicates that the operation did not succeed.\",\"The action preserves the original goal while changing the element identified as faulty (e.g., an option's argument form, a path, or source content).\"],\"exclusion_conditions\":[\"The action repeats the failing invocation without any change.\",\"The action pursues a different goal unrelated to the reported failure.\",\"No confirming evidence is required for this predicate; confirmation is a separate mechanism.\"]},{\"name\":\"CONFIRMS_REPAIR\",\"definition\":\"A repair action addresses an observed failure, and a subsequent execution result confirms that the original failure has been resolved.\",\"parameters\":[{\"name\":\"repair\",\"type\":\"action\",\"description\":\"The action attempting to repair the failure.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the failure.\"},{\"name\":\"check_result\",\"type\":\"observation\",\"description\":\"The later observation establishing that the original failure no longer occurs.\"}],\"assertion_conditions\":[\"The failure precedes the repair, and the repair changes the failing element.\",\"The later result shows the target content being produced or loaded successfully, with no recurrence of the original error.\"],\"exclusion_conditions\":[\"The repair is attempted without any later result.\",\"The later output repeats the original error or otherwise fails to establish resolution.\"]},{\"name\":\"REPORTS_FAILURE\",\"definition\":\"The observation indicates that the invoked operation did not succeed.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result being evaluated for failure.\"}],\"assertion_conditions\":[\"The observation carries an error indication, a non-success exit status, or an explicit error message such as a missing file or unloadable module.\"],\"exclusion_conditions\":[\"The observation reports successful completion or plain data output without any error indication.\"]},{\"name\":\"REPORTS_SUCCESS\",\"definition\":\"The observation indicates that the invoked operation completed successfully.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result being evaluated for success.\"}],\"assertion_conditions\":[\"The observation contains an explicit success message, a clean completion with no error indication, or a listing of the expected produced artifacts.\"],\"exclusion_conditions\":[\"The observation reports an error or non-success exit status.\",\"The output is only a partial or ambiguous progress message.\"]},{\"name\":\"IS_COMPLETION_CONCLUSION\",\"definition\":\"The reasoning declares the overall objective achieved and cites the verification evidence that supports the claim.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text asserting task completion.\"}],\"assertion_conditions\":[\"The reasoning states that the requested objective has been fulfilled.\",\"It references concrete evidence obtained earlier, such as produced artifacts or verified output.\"],\"exclusion_conditions\":[\"The reasoning states plans or intermediate steps while work remains.\",\"The reasoning reports observations without concluding that the objective is achieved.\"]}]}",
+              "reasoning_content": "Let me analyze the trajectory for reusable predicates.\n\nKey mechanisms:\n\n1. Unary: reasoning node states intent/plan for future action — IS_PLAN. E.g., event-0001 reasoning \"I'll start by inspecting the incomplete proof file\". Could include.\n\n2. Unary: observation reports a failure/error — e.g., observation-1 event-0005 is_error true \"Can't find file plus_comm.vo.v on loadpath\". A predicate like OBSERVATION_REPORTS_FAILURE / IS_ERROR_RESULT.\n\n3. Binary: observation supplies value used as input to action — e.g., observation-1 (plus_comm.v content) → the write action content in event-0003. That's USES_OBSERVATION_AS_INPUT. Also the file listing → coqc. Also the reasoning diagnosed the error and the corrected command used module name derived from the error message.\n\n4. Binary: reasoning guides action — reasoning diagnoses error → subsequent corrective action (event-0005 observation error → event-0006 action retry with corrected flag). Reasoning-based repair.\n\n5. Binary: action attempts repair of failure observed — event-0005 invalid flag → event-0006 action using module name instead.\n\n6. Ternary: CONFIRMS_REPAIR — repair action (event-0006 action) addresses failure (event-0005 observation) and later observation confirms resolution (event-0006 observation-1 shows the theorem printed successfully). But the confirming observation is the return of the same action. Hmm, actually the repair action's own result confirms. That's fine: repair action, failure observation, check result observation (same action's result). Perhaps that's acceptable, but the check result is the action's result. In the example, the check was a separate verification. Here the retry succeeded and its own output confirms. I could define ATTEMPTS_REPAIR (binary) and VERIFIES_OUTCOME.\n\n7. Ternary: an action writes content derived from an observation (source file content) — could be USES_OBSERVATION_AS_INPUT.\n\n8. Binary: reasoning specifies a plan that subsequent action executes — GUIDES_ACTION? The example says \"Decision guidance remains a distinguishable relationship.\" So define INFORMS_ACTION (reasoning → action): the action's parameters/tool choice follow a plan or diagnosis stated in reasoning.\n\n9. Unary: observation reporting successful compilation / artifact production — CONFIRMS_ARTIFACT? Perhaps \"observation reports existence of a produced artifact\" — could be part of a ternary verification predicate: VERIFIES_OUTCOME(action, observation) etc.\n\n10. Another ternary: COMPLETES_INCOMPLETE_PROOF? Too task-specific (\"prove-plus-comm\")? The mechanism: an action fills admitted holes in a source artifact, and a later compilation observation confirms the artifact compiles. Too task-specific? Generalize: REPLACES_PLACEHOLDER... Hmm. Might be too specific but the mechanism \"repair via writing file content that eliminates admitted placeholders\" — I'd rather capture \"USES_OBSERVATION_AS_INPUT\" and \"CONFIRMS_SUCCESS_BY_ARTIFACT\".\n\n11. Unary reasoning: DIAGNOSES_FAILURE — reasoning explains cause of an observed error and proposes a corrected approach. That is distinct from IS_PLAN. Could be ternary: reasoning diagnoses an observation error and precedes a repair action. Maybe define binary: DIAGNOSES_ERROR(reasoning, observation) — reasoning identifies cause of the failure reported by observation.\n\n12. Binary: observation confirms success of preceding action — VERIFIES_OUTCOME. Perhaps we need a ternary CONFIRMS_REPAIR.\n\nLet me design a set:\n\nA. IS_PLAN (unary reasoning) — states intended future actions.\n\nB. PRECEDES_AS_DIAGNOSIS / DIAGNOSES_OBSERVED_FAILURE (binary: reasoning, observation) — reasoning explains the cause of an error reported by the observation and identifies corrective action.\n\nC. GUIDES_ACTION (binary: reasoning, action) — action executes/instantiates the intended step or diagnosed correction stated in the reasoning.\n\nD. USES_OBSERVATION_AS_INPUT (binary: action, observation) — an action parameter value (file content, path, module name) derived from an observation.\n\nE. ATTEMPTS_REPAIR (binary: action, observation) — action modifies command/content to address a failure reported by the observation.\n\nF. CONFIRMS_REPAIR (ternary: repair action, failure observation, check result observation) — check output shows the original failure resolved.\n\nG. REPORTS_FAILURE (unary observation) — the observation indicates the tool invocation failed.\n\nH. CONFIRMS_SUCCESS / REPORTS_SUCCESSFUL_OUTCOME? unary observation: output indicates operation succeeded (artifacts produced, no error). Distinguishable from G. Maybe \"REPORTS_ARTIFACT_PRODUCTION\" — observation lists expected output artifacts. Hmm, could be one unary: OBSERVATION_INDICATES_SUCCESS.\n\nI. Binary: VERIFIES_ARTIFACT (observation, action)? Eh.\n\nJ. Ternary: COMPLETES_TASK_BY_VERIFIED_REPAIR? Too much.\n\nK. Maybe unary reasoning: SUMMARIZES_COMPLETED_TASK (event-0007) — concluding report of completed work. Could be \"IS_CONCLUSION\" — reasoning concludes the task is complete with verification evidence. Distinguishable from plan. Maybe include as IS_COMPLETION_REPORT.\n\nLet me keep a reasonable set: 7-8 predicates.\n\nLet me check whether \"USES_OBSERVATION_AS_INPUT\" is supported: event-0003 write action content is derived from observation-1 (the read file content) — yes, the file content is reproduced with holes filled. Also action-1 in event-0006 uses module name `plus_comm` derived from the error message in observation-1 of event-0005 (the error said \"Can't find file plus_comm.vo.v\", implying -l wants module name without .vo). Yes, supported.\n\nGUIDES_ACTION: reasoning event-0002 gives full proof and plan → action event-0002 action-1 checks coqc; reasoning event-0003 → write action content matches the proof drafted in reasoning. Yes.\n\nDIAGNOSES_OBSERVED_FAILURE: reasoning event-0006 explains -l wants module name (diagnosis of error). Yes.\n\nATTEMPTS_REPAIR: event-0006 action modifies the command from `-l plus_comm.vo` to `-l plus_comm`. Yes.\n\nCONFIRMS_REPAIR: failure = event-0005 observation-1; repair = event-0006 action-1; check result = event-0006 observation-1 (proof printed, no error). Yes — holds within the same action, which is fine since the schema is about assertion of mechanism.\n\nAlso compilation: is there a failure? No, compilation succeeded first try. So repair only for the coqtop invocation.\n\nREPORTS_SUCCESS unary: observation-4 event-0004 lists plus_comm.vo produced; observation event-0003 says \"Successfully wrote\". Also event-0006 observation prints theorem. Could define \"REPORTS_OPERATION_SUCCESS\" with exclusion \"output contains error indication\".\n\nMaybe better: unary \"CONFIRMS_ARTIFACT_CREATION\": observation shows the expected output artifact exists (file listing / printed output). Hmm — that overlaps with success. I'll define a unary \"REPORTS_SUCCESSFUL_EXECUTION\" and maybe a separate binary \"VERIFIES_OUTCOME(action, observation)\" — hmm redundant with structural returns. Structural call-result relationships should not be rediscovered. So a binary \"confirms success of the action\" is just structural returns + success. Better skip binary, keep unary properties.\n\nMaybe a distinct mechanism: artifact inspection verification — an action inspects produced artifacts (listing files) to check the deliverable exists. That's a plan/verification mechanism: could define unary reasoning \"PROPOSES_VERIFICATION\"? Eh.\n\nI'll finalize:\n\n1. IS_PLAN (reasoning)\n2. IS_COMPLETION_CONCLUSION (reasoning) — concluding summary asserting task completion backed by verification evidence. Distinguish from plan.\n3. DIAGNOSES_OBSERVED_FAILURE (reasoning, observation)\n4. GUIDES_ACTION (reasoning, action)\n5. USES_OBSERVATION_AS_INPUT (action, observation)\n6. ATTEMPTS_REPAIR (action, observation)\n7. CONFIRMS_REPAIR (action, observation, observation) — ternary\n8. REPORTS_FAILURE (observation) — unary\n9. REPORTS_SUCCESS (observation) — unary\n\nMaybe merge 8 and 9? They're distinguishable (one holds, other doesn't), so keep separate.\n\nAlso maybe a binary: \"VERIFIES_ARTIFACT_EXISTENCE\" — action inspects artifacts. Task says output should be plus_comm.vo; action event-0004 combined compile + ls to verify. That's covered by GUIDES_ACTION with plan reasoning.\n\nAlso perhaps a ternary capturing: reasoning proposes a plan, action executes it, observation confirms success — chaining is decomposable, so skip.\n\nLet me write definitions carefully.\n\nNames: USE distinct names.\n\nIS_PLAN: unary.\nDIAGNOSES_FAILURE_CAUSE: binary reasoning, observation.\nGUIDES_ACTION: binary reasoning (guidance), action (executing action). Definition: the action's tool choice, target, or argument values instantiate an intent, diagnosis, or corrected approach expressed in the reasoning. Assertion: the reasoning explicitly states the step or correction and the action performs exactly that; identifier/paths match. Exclusion: reasoning that only reports prior results; topical similarity.\n\nUSES_OBSERVATION_AS_INPUT: as example.\n\nATTEMPTS_REPAIR: action modifies content/command/parameters to address a failure reported in the observation; observation precedes and indicates error; the action retains the same goal but changes the failing element. Exclusion: retry identical without change; unrelated action.\n\nCONFIRMS_REPAIR: ternary.\n\nREPORTS_FAILURE: observation whose raw output or error flag indicates the invoked operation did not succeed. Exclusion: success messages, plain data output.\n\nREPORTS_SUCCESS: observation whose output indicates the invoked operation completed successfully, e.g., success message, exit without error, produced artifacts listed. Exclusion: output containing error notification; ambiguous.\n\nIS_COMPLETION_CONCLUSION: reasoning that declares the task's objective achieved and cites verification evidence. Exclusion: intermediate plans, or statements that work remains.\n\nCheck parameter descriptions reference action/observation/reasoning nodes.\n\nWrite JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 8663,
+          "completion_tokens": 3625,
+          "total_tokens": 12288,
+          "prompt_tokens_details": {
+            "cached_tokens": 8448
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2275
+          },
+          "prompt_cache_hit_tokens": 8448,
+          "prompt_cache_miss_tokens": 215
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\":[{\"name\":\"IS_PLAN\",\"definition\":\"The reasoning explicitly expresses an intended future action or sequence of actions that the agent intends to carry out next.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text expressing the intended future action or sequence of actions.\"}],\"assertion_conditions\":[\"The reasoning identifies at least one action to be performed later (e.g., inspecting a file, writing content, compiling, verifying output).\",\"The intended action is stated prospectively rather than reported as already done.\"],\"exclusion_conditions\":[\"The reasoning only reports or summarizes actions already completed.\",\"The reasoning only restates file content or tool output without expressing an intended next action.\"]},{\"name\":\"DIAGNOSES_OBSERVED_FAILURE\",\"definition\":\"The reasoning explains the cause of a failure reported by an observation and derives a corrective approach from that explanation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text explaining why the observed failure occurred.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The observation reporting the failure being explained.\"}],\"assertion_conditions\":[\"The observation indicates that an invoked operation did not succeed.\",\"The reasoning identifies a concrete cause for the failure (e.g., how an option's argument is interpreted) and states what should be changed as a result.\"],\"exclusion_conditions\":[\"The reasoning merely notes that something failed without offering a causal explanation.\",\"The reasoning explains an unrelated issue or offers no corrective direction.\"]},{\"name\":\"GUIDES_ACTION\",\"definition\":\"The action's tool choice, target, or argument values instantiate an intent, diagnosis, or corrected approach explicitly stated in the reasoning.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text stating the plan, diagnosis, or corrected approach.\"},{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action whose tool, target, or arguments carry out that stated approach.\"}],\"assertion_conditions\":[\"The reasoning specifies the operation or correction to perform, and the action performs that same operation with matching target or arguments.\",\"A traceable correspondence exists between the described step and the executed parameters (command, path, or content).\"],\"exclusion_conditions\":[\"The action is unrelated to the described step or diverges from it in target or approach.\",\"The reasoning only reports prior results and the action is merely temporally adjacent.\"]},{\"name\":\"USES_OBSERVATION_AS_INPUT\",\"definition\":\"The action uses an identifiable value or payload supplied by a prior observation as an operational input.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action receiving the input.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The prior observation supplying the input value or payload.\"}],\"assertion_conditions\":[\"An argument, file content, path, or identifier of the action can be traced to content present in the observation.\",\"The observation precedes the action within the trajectory.\"],\"exclusion_conditions\":[\"The observation only guides action selection without supplying an operational input value.\",\"The nodes are merely temporally adjacent or topically related without a traceable value transfer.\"]},{\"name\":\"ATTEMPTS_REPAIR\",\"definition\":\"The action modifies the command, parameters, or content that previously produced an observed failure in order to address that failure.\",\"parameters\":[{\"name\":\"repair\",\"type\":\"action\",\"description\":\"The action attempting to repair the failure.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the failure.\"}],\"assertion_conditions\":[\"The failure observation precedes the repair action and indicates that the operation did not succeed.\",\"The action preserves the original goal while changing the element identified as faulty (e.g., an option's argument form, a path, or source content).\"],\"exclusion_conditions\":[\"The action repeats the failing invocation without any change.\",\"The action pursues a different goal unrelated to the reported failure.\",\"No confirming evidence is required for this predicate; confirmation is a separate mechanism.\"]},{\"name\":\"CONFIRMS_REPAIR\",\"definition\":\"A repair action addresses an observed failure, and a subsequent execution result confirms that the original failure has been resolved.\",\"parameters\":[{\"name\":\"repair\",\"type\":\"action\",\"description\":\"The action attempting to repair the failure.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the failure.\"},{\"name\":\"check_result\",\"type\":\"observation\",\"description\":\"The later observation establishing that the original failure no longer occurs.\"}],\"assertion_conditions\":[\"The failure precedes the repair, and the repair changes the failing element.\",\"The later result shows the target content being produced or loaded successfully, with no recurrence of the original error.\"],\"exclusion_conditions\":[\"The repair is attempted without any later result.\",\"The later output repeats the original error or otherwise fails to establish resolution.\"]},{\"name\":\"REPORTS_FAILURE\",\"definition\":\"The observation indicates that the invoked operation did not succeed.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result being evaluated for failure.\"}],\"assertion_conditions\":[\"The observation carries an error indication, a non-success exit status, or an explicit error message such as a missing file or unloadable module.\"],\"exclusion_conditions\":[\"The observation reports successful completion or plain data output without any error indication.\"]},{\"name\":\"REPORTS_SUCCESS\",\"definition\":\"The observation indicates that the invoked operation completed successfully.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result being evaluated for success.\"}],\"assertion_conditions\":[\"The observation contains an explicit success message, a clean completion with no error indication, or a listing of the expected produced artifacts.\"],\"exclusion_conditions\":[\"The observation reports an error or non-success exit status.\",\"The output is only a partial or ambiguous progress message.\"]},{\"name\":\"IS_COMPLETION_CONCLUSION\",\"definition\":\"The reasoning declares the overall objective achieved and cites the verification evidence that supports the claim.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text asserting task completion.\"}],\"assertion_conditions\":[\"The reasoning states that the requested objective has been fulfilled.\",\"It references concrete evidence obtained earlier, such as produced artifacts or verified output.\"],\"exclusion_conditions\":[\"The reasoning states plans or intermediate steps while work remains.\",\"The reasoning reports observations without concluding that the objective is achieved.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or sequence of actions that the agent intends to carry out next.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least one action to be performed later (e.g., inspecting a file, writing content, compiling, verifying output).",
+          "The intended action is stated prospectively rather than reported as already done."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports or summarizes actions already completed.",
+          "The reasoning only restates file content or tool output without expressing an intended next action."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_OBSERVED_FAILURE",
+        "definition": "The reasoning explains the cause of a failure reported by an observation and derives a corrective approach from that explanation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text explaining why the observed failure occurred."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The observation reporting the failure being explained."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation indicates that an invoked operation did not succeed.",
+          "The reasoning identifies a concrete cause for the failure (e.g., how an option's argument is interpreted) and states what should be changed as a result."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely notes that something failed without offering a causal explanation.",
+          "The reasoning explains an unrelated issue or offers no corrective direction."
+        ]
+      },
+      {
+        "name": "GUIDES_ACTION",
+        "definition": "The action's tool choice, target, or argument values instantiate an intent, diagnosis, or corrected approach explicitly stated in the reasoning.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text stating the plan, diagnosis, or corrected approach."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action whose tool, target, or arguments carry out that stated approach."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning specifies the operation or correction to perform, and the action performs that same operation with matching target or arguments.",
+          "A traceable correspondence exists between the described step and the executed parameters (command, path, or content)."
+        ],
+        "exclusion_conditions": [
+          "The action is unrelated to the described step or diverges from it in target or approach.",
+          "The reasoning only reports prior results and the action is merely temporally adjacent."
+        ]
+      },
+      {
+        "name": "USES_OBSERVATION_AS_INPUT",
+        "definition": "The action uses an identifiable value or payload supplied by a prior observation as an operational input.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action receiving the input."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The prior observation supplying the input value or payload."
+          }
+        ],
+        "assertion_conditions": [
+          "An argument, file content, path, or identifier of the action can be traced to content present in the observation.",
+          "The observation precedes the action within the trajectory."
+        ],
+        "exclusion_conditions": [
+          "The observation only guides action selection without supplying an operational input value.",
+          "The nodes are merely temporally adjacent or topically related without a traceable value transfer."
+        ]
+      },
+      {
+        "name": "ATTEMPTS_REPAIR",
+        "definition": "The action modifies the command, parameters, or content that previously produced an observed failure in order to address that failure.",
+        "parameters": [
+          {
+            "name": "repair",
+            "type": "action",
+            "description": "The action attempting to repair the failure."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The earlier observation reporting the failure."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the repair action and indicates that the operation did not succeed.",
+          "The action preserves the original goal while changing the element identified as faulty (e.g., an option's argument form, a path, or source content)."
+        ],
+        "exclusion_conditions": [
+          "The action repeats the failing invocation without any change.",
+          "The action pursues a different goal unrelated to the reported failure.",
+          "No confirming evidence is required for this predicate; confirmation is a separate mechanism."
+        ]
+      },
+      {
+        "name": "CONFIRMS_REPAIR",
+        "definition": "A repair action addresses an observed failure, and a subsequent execution result confirms that the original failure has been resolved.",
+        "parameters": [
+          {
+            "name": "repair",
+            "type": "action",
+            "description": "The action attempting to repair the failure."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The earlier observation reporting the failure."
+          },
+          {
+            "name": "check_result",
+            "type": "observation",
+            "description": "The later observation establishing that the original failure no longer occurs."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure precedes the repair, and the repair changes the failing element.",
+          "The later result shows the target content being produced or loaded successfully, with no recurrence of the original error."
+        ],
+        "exclusion_conditions": [
+          "The repair is attempted without any later result.",
+          "The later output repeats the original error or otherwise fails to establish resolution."
+        ]
+      },
+      {
+        "name": "REPORTS_FAILURE",
+        "definition": "The observation indicates that the invoked operation did not succeed.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result being evaluated for failure."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation carries an error indication, a non-success exit status, or an explicit error message such as a missing file or unloadable module."
+        ],
+        "exclusion_conditions": [
+          "The observation reports successful completion or plain data output without any error indication."
+        ]
+      },
+      {
+        "name": "REPORTS_SUCCESS",
+        "definition": "The observation indicates that the invoked operation completed successfully.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result being evaluated for success."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains an explicit success message, a clean completion with no error indication, or a listing of the expected produced artifacts."
+        ],
+        "exclusion_conditions": [
+          "The observation reports an error or non-success exit status.",
+          "The output is only a partial or ambiguous progress message."
+        ]
+      },
+      {
+        "name": "IS_COMPLETION_CONCLUSION",
+        "definition": "The reasoning declares the overall objective achieved and cites the verification evidence that supports the claim.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text asserting task completion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states that the requested objective has been fulfilled.",
+          "It references concrete evidence obtained earlier, such as produced artifacts or verified output."
+        ],
+        "exclusion_conditions": [
+          "The reasoning states plans or intermediate steps while work remains.",
+          "The reasoning reports observations without concluding that the objective is achieved."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

@@ -1,0 +1,56 @@
+Review typed predicate definitions using the full current Context Window, original candidates, Comparison results, and registry snapshot. Comparison is preliminary: reassess all candidates, including existing/new/uncertain, against detailed evidence and the shared mechanism-level granularity policy.
+
+**Priority: REUSE existing predicates > REVISE existing predicates > ACCEPT genuinely new predicates.**
+
+Maintain a compact, stable registry. Accept new predicates conservatively and prefer improving existing definitions whenever the underlying semantic mechanism is already represented.
+
+### Task A: Strict New Predicate Acceptance
+
+Review every original candidate.
+
+1. **Evidence:** Verify that the proposed mechanism is supported by the Context Window. Discard unsupported candidates.
+
+2. **Mechanism:** Identify the essential semantic mechanism and ordered argument roles. Generalize incidental tool/resource details, remove unnecessary restrictions, and preserve meaningful distinctions in scope and outcomes.
+
+3. **Registry coverage:** Compare the refined candidate against the entire registry. If an existing predicate already represents the same semantic mechanism, reuse it rather than introducing a duplicate.
+
+4. **Novelty verification:** Accept a new predicate only when ALL conditions hold:
+   - It is supported by identifiable trajectory evidence.
+   - It expresses a clearly distinguishable semantic mechanism.
+   - No existing predicate expresses an equivalent assertion under aligned ordered roles and parameter types.
+   - A meaningful distinguishing case demonstrates why the mechanism deserves an independent definition.
+   - Its distinction cannot be resolved by clarifying an existing predicate while preserving that predicate's semantic identity.
+
+5. **Final decision:** Suppress semantic duplicates, discard unsupported or ambiguously redundant candidates, and accept only genuinely new mechanisms.
+
+When novelty remains uncertain, do not accept the candidate. Registry stability takes priority over speculative expansion.
+
+A precise mechanism may coexist with a broader registered predicate when a genuine semantic distinction exists. Multiple predicates may hold on the same events.
+
+Split overly broad candidates only when each distinct mechanism has evidence. Do not create new predicates merely because examples differ in tools, resources, or incidental conditions.
+
+### Task B: Prefer Existing Predicate Revision
+
+When an existing predicate represents the candidate's underlying mechanism but its definition needs clarification, prefer revision over introducing a new predicate.
+
+- Clarify definitions, parameter roles, scope, and assertion/exclusion conditions.
+- Generalize unnecessarily specific descriptions while preserving semantic identity.
+- Preserve ordered parameter types and roles, essential conditions, and attempt-versus-success distinctions.
+- Do not broaden or narrow an existing predicate to absorb a genuinely different mechanism.
+- `original_name` must occur in Comparison's `matched_existing_name` entries.
+- Return at most one revision per original name.
+- Leave existing definitions unchanged when no meaningful clarification is needed.
+
+If Comparison incorrectly treated one-way subsumption as equivalence, correct the classification through Task A and preserve the original registry definition.
+
+### Final Requirements
+
+Minimize newly accepted predicates while preserving genuinely distinct semantic mechanisms. Verify unary, multi-argument, and collection signatures and essential scope.
+
+Use the shared five-field schema. All names must remain unique after the update. An empty candidate list requires both output arrays to be empty.
+
+Return JSON only:
+
+`{"accepted_predicates": [<complete definitions>], "revised_existing_predicates": [{"original_name": "...", "revised_predicate": <complete definition>}]}`
+
+Use predicate-definition/v2. Every parameter must bind to an action, observation, or reasoning node (or a homogeneous [] collection). Respect the shared node contract. Return all predicate content in English.

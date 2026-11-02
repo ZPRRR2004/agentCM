@@ -1,0 +1,293 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__hf-model-inference__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T06:15:59.825484+00:00",
+  "duration_seconds": 43.344,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T06:15:16.471660+00:00",
+      "duration_seconds": 43.328,
+      "raw_response": {
+        "id": "a9b3dad3-bb11-4e3d-ab86-98812324e344",
+        "object": "chat.completion",
+        "created": 1793427322,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or an ordered approach that the agent intends to carry out before those actions occur.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of steps.\"}], \"assertion_conditions\": [\"The reasoning uses prospective framing to identify at least one action or step the agent intends to take.\", \"The stated intent precedes the corresponding action rather than reporting a completed one.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already completed and their results.\", \"The reasoning only restates the task description without committing to an approach the agent will take.\"]}, {\"name\": \"IDENTIFIES_UNDERSPECIFIED_REQUIREMENT\", \"definition\": \"The reasoning detects an ambiguity, gap, or unstated edge case in the given requirements, weighs competing interpretations or their risks, and commits to one interpretation before implementing.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that flags the ambiguity and settles on an interpretation.\"}], \"assertion_conditions\": [\"The reasoning names a specific requirement that is ambiguous or underspecified.\", \"The reasoning considers at least two candidate interpretations or explicitly weighs the risk of each option.\", \"The reasoning commits to a chosen interpretation that later implementation follows.\"], \"exclusion_conditions\": [\"The reasoning merely paraphrases the requirements without identifying any ambiguity or gap.\", \"An ambiguity is mentioned but no interpretation is chosen and no alternatives are weighed.\", \"The reasoning describes a decision that is fully determined by explicit requirements.\"]}, {\"name\": \"GROUNDS_DECISION_IN_OBSERVATION\", \"definition\": \"The reasoning adopts or justifies a specific course of action (which approach, tool, or interpretation to use) using identifiable content of an observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the decision and the basis for it.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence on which the decision rests.\"}], \"assertion_conditions\": [\"The reasoning states a decision about what to do next.\", \"The reasoning relies on specific facts reported in the observation as the reason for that decision.\", \"The observation content logically bears on the chosen course of action.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without drawing a decision from it.\", \"The observation is unrelated to the stated decision or provides no identifiable support.\", \"The decision is presented with no reference to observed facts.\"]}, {\"name\": \"PROBE_RESOLVES_STATED_UNCERTAINTY\", \"definition\": \"An action is directed at resolving a specific uncertainty or unverified claim stated in reasoning, and the resulting observation supplies interpretable evidence about that uncertainty.\", \"parameters\": [{\"name\": \"uncertainty_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the unknown state or unverified claim.\"}, {\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action that targets the unknown state or claim.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome relevant to that uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific unknown property, capability, or unverified claim.\", \"The probe action is designed to reveal the value or status of that property or claim.\", \"The resulting observation contains a result that can be interpreted with respect to the identified uncertainty.\"], \"exclusion_conditions\": [\"The action is routine execution unrelated to any stated uncertainty.\", \"The observation does not address the property or claim being examined.\", \"No identifiable uncertainty or claim motivates the action.\"]}, {\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning explains why an observed failure or error occurred by naming a specific cause, rather than merely restating that the failure happened.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning containing the causal explanation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure or error being explained.\"}], \"assertion_conditions\": [\"The observation reports an error, rejection, or failed outcome.\", \"The reasoning names a specific cause for that failure.\", \"The causal attribution is connected to the content of the observation.\"], \"exclusion_conditions\": [\"The reasoning only repeats the error message or notes that something failed without explaining why.\", \"The reasoning attributes the failure to a cause that is not supported by the observation.\", \"No failure is reported in the corresponding observation.\"]}, {\"name\": \"RETRIES_WITH_CORRECTED_ACTION\", \"definition\": \"After a failed attempt, the reasoning identifies a correctable defect in that attempt, and a subsequent action repeats the same operation with the defect corrected.\", \"parameters\": [{\"name\": \"failed_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure of the prior attempt.\"}, {\"name\": \"corrective_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the defect and the intended correction.\"}, {\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The action repeating the operation with the correction applied.\"}], \"assertion_conditions\": [\"The observation shows that the preceding attempt failed.\", \"The reasoning identifies the specific defect to be fixed and indicates the operation will be attempted again.\", \"The retry action performs the same operation with the identified defect corrected.\"], \"exclusion_conditions\": [\"The reasoning abandons the operation instead of correcting and repeating it.\", \"The retry action does not address the defect named in the reasoning.\", \"No prior failure is present in the trajectory.\"]}, {\"name\": \"REPLACES_UNAVAILABLE_MEANS\", \"definition\": \"An observation shows that a preferred tool or capability is unavailable, and the reasoning selects a functionally different means to accomplish the same goal, which the subsequent action then performs.\", \"parameters\": [{\"name\": \"unavailability_observation\", \"type\": \"observation\", \"description\": \"The observation showing that the preferred tool or capability cannot be used.\"}, {\"name\": \"substitution_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the substitution and its equivalent purpose.\"}, {\"name\": \"alternative_action\", \"type\": \"action\", \"description\": \"The action carrying out the substituted means.\"}], \"assertion_conditions\": [\"The observation shows a tool or capability is absent or nonfunctional.\", \"The reasoning states that the preferred means cannot be used and names an alternative means for the same purpose.\", \"The alternative action implements that alternative means.\"], \"exclusion_conditions\": [\"The failure stems from malformed arguments or inputs rather than an unavailable capability.\", \"The subsequent action reuses the same unavailable tool.\", \"The alternative does not serve the same goal as the original means.\"]}, {\"name\": \"ATTRIBUTES_FAILURE_TO_TEST_INSTRUMENT\", \"definition\": \"The reasoning determines that an observed error originates in the checking procedure or its own inputs rather than in the artifact under test, leaving the artifact's behavior unrefuted.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning localizing the failure to the checking procedure.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the error raised during verification.\"}], \"assertion_conditions\": [\"The observation reports an error that occurred while a verification procedure was running.\", \"The reasoning locates the cause in the checking procedure or its inputs.\", \"The reasoning explicitly distinguishes that cause from the behavior of the artifact under test.\"], \"exclusion_conditions\": [\"The reasoning attributes the error to the artifact under test.\", \"The reasoning re-runs the check without attributing the error to either side.\", \"No verification error is reported.\"]}, {\"name\": \"CONFIRMS_REQUIREMENTS_SATISFIED\", \"definition\": \"The reasoning concludes that specified requirements have been satisfied, resting that conclusion on the collective evidence of one or more observations of executed checks whose results matched expectations.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning drawing the satisfaction conclusion from the collected results.\"}, {\"name\": \"observations\", \"type\": \"observation[]\", \"description\": \"The observations of executed checks that jointly support the conclusion; support is collective, not alternative.\"}], \"assertion_conditions\": [\"The reasoning refers to outcomes of executed checks and compares them with expected behavior.\", \"The reasoning explicitly concludes that the required behavior has been met.\", \"Each cited observation contributes a result that the conclusion depends on.\"], \"exclusion_conditions\": [\"The reasoning only lists raw results without drawing a satisfaction conclusion.\", \"The satisfaction conclusion is asserted with no supporting observed result.\", \"A cited check produced a failing or contradictory result that the reasoning leaves unresolved.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicates from this trajectory. Let's identify mechanisms:\n\n1. Unary: environment reconnaissance / state inspection — reasoning that expresses need to inspect environment before acting. Actually there is a distinction: reasoning that plans future action (IS_PLAN), and action that gathers environment state (probe/inspection).\n\n2. Binary: reasoning identifying environment assumption → action probing environment → observation reporting installed capabilities. Actually event-0001 could be a ternary: \"reasoning states uncertainty about available environment\" + action inspecting → observation. Let's use existing example? We shouldn't just copy TESTS_ASSUMPTION_WITH_PROBE blindly, but it's supported here: event-0001 reasoning \"First, let's check the current state of /app, the Python version, and the available packages\" → action ls/pip list → observation showing installed packages. That's an environment reconnaissance mechanism. But is it testing an assumption? Somewhat. Could define a distinct predicate: CAPABILITY_CHECK — action queries available tools/packages and observation reports availability, grounding subsequent plan.\n\n3. Binary: PLAN specifies preconditions/requirements — reasoning derives implementation approach from observation of capabilities (event-0002 reasoning uses observation-0001 to choose approach: snapshot_download since transformers available). That's GROUNDS_CONCLUSION_IN_OBSERVATION (like example 2).\n\n4. Binary: action failure (validation error) → reasoning diagnosing the cause and planning correction. Event-0004 observation error \"path must be a string (was missing)\" → event-0005 reasoning \"I forgot the path parameter. Retrying with path included.\" → subsequent corrected action. Ternary: DIAGNOSES_FAILURE_AND_RETRIES: observation (error), reasoning (diagnosis), action (corrected retry). Actually we could do a binary: reasoning diagnoses the cause of the error in observation. And a separate predicate linking reasoning to corrected retry action.\n\n5. Binary: action failure due to missing tool → reasoning substitutes alternative approach. Event-0007 observation \"curl: command not found\" → event-0008 reasoning \"curl isn't available. Instead, I'll use Python's urllib\" → action using urllib. Mechanism: SUBSTITUTES_ALTERNATIVE_ON_TOOL_UNAVAILABILITY. Ternary: (observation of unavailability, reasoning selecting alternative, action implementing alternative).\n\n6. Binary: reasoning attributes failure to test harness rather than artifact — \"The last failure was due to a bug in my test script, not a server issue.\" This is a distinguishing mechanism: ATTRIBUTES_FAILURE_TO_PROBE_NOT_SUBJECT. That's interesting and distinct: reasoning localizes an observed failure to the probing instrument rather than the target under verification. Good predicate.\n\n7. Reasoning concluding requirement satisfaction based on observation of results — CONFIRMS_REQUIREMENT_VIA_OBSERVATION. Event-0009 reasoning \"All the main test cases passed...\" based on observation-0008. Ternary maybe: requirement (reasoning) + verification action + observation. Hmm.\n\n8. Binary: verification action designed to exercise multiple cases including error paths — action enumerating test cases. Maybe skip.\n\n9. Unary: reasoning resolves ambiguity in spec by weighing hidden-test expectations — event-0002 reasoning discusses empty text ambiguity and chooses. Predicate: RESOLVES_AMBIGUOUS_REQUIREMENT_BY_RISK_JUDGMENT. Could be a unary on reasoning: the reasoning identifies an ambiguity in the specification and commits to an interpretation with justification. That's reusable and distinct. Good.\n\n10. Ternary: verification covering both success and error paths: action + observation jointly confirming spec conformance. Maybe define CHECK_VERIFIES_SPEC_CONFORMANCE as binary (action, observation)? Distinguish from probe testing assumption.\n\nLet's design a reasonable set (maybe 8-9 predicates). Keep each mechanism distinct.\n\nCandidates:\n\nA. IS_PLAN (unary reasoning): expresses intended future actions. Supported by event-0001, 0002, 0006, 0010.\n\nB. IDENTIFIES_SPEC_AMBIGUITY (unary reasoning): reasoning flags an underspecified/ambiguous requirement and weighs interpretations before committing. Evidence: event-0002 reasoning about empty text, error code 400. Assertion: reasoning names an ambiguity and considers alternatives/risks. Exclusion: reasoning just picks an approach without identifying competing interpretations.\n\nC. GROUNDS_DECISION_IN_OBSERVATION (binary reasoning, observation): conclusion/choice of approach based on observation content. Evidence: event-0002 reasoning uses event-0001 observation (\"Flask, torch, transformers installed\") to decide approach; event-0009 uses observation-0008 to conclude tests pass. Two instances — good.\n\nD. QUERIES_ENVIRONMENT_CAPABILITY (binary action, observation)? Actually the mechanism: an action whose purpose is to enumerate available tools/resources, with observation reporting availability. Hmm — the purpose is in reasoning. Maybe ternary: reasoning (assumption/uncertainty about environment) + action + observation. But we already have \"TESTS_ASSUMPTION_WITH_PROBE\"-like. Let me define PRECONDITION_DISCOVERY: reasoning identifies prerequisites unresolved + action inspects + observation reports availability, enabling plan. Ternary: (reasoning, action, observation).\n\nHmm, that could duplicate GROUNDS_DECISION_IN_OBSERVATION. But the distinguishing: D is about the action being aimed at establishing environment preconditions. That's a genuine mechanism: preflight reconnaissance. I'll define it as ternary with parameters: prerequisite_reasoning, inspection_action, inspection_result.\n\nE. DIAGNOSES_TOOL_FAILURE (binary reasoning, observation): reasoning identifies cause of observed error. Evidence: event-0005 reasoning (\"I forgot the path parameter\"), event-0008 reasoning (\"curl isn't available\"), event-0009 (\"bug in my test script\"). Good, three instances. Should we split into \"diagnoses\" vs \"attributes failure to instrument\"? Maybe a separate one for E2.\n\nF. RETRIES_WITH_CORRECTED_ARGUMENTS (binary action_original? no—) Hmm: mechanism connecting failed action attempt and subsequent corrected action, mediated by diagnosis. Ternary: (failed_observation, diagnosis_reasoning, retry_action). This is like \"CORRECTS_AND_RETRIES\". Good — evidence event-0004→0005, event-0007→0008, event-0008→0009.\n\nBut E and F overlap; F is ternary including diagnosis; E is binary diagnosis from observation. Both meaningful; keep both? F's diagnosis reasoning is the same node. Might be acceptable — non-exclusivity allowed. But maybe cleaner: keep DIAGNOSES_FAILURE_CAUSE (binary) and CORRECTIVE_RETRY_USES_DIAGNOSIS (ternary: observation, reasoning, action). Yes.\n\nG. SUBSTITUTES_ALTERNATIVE_APPROACH (binary reasoning, action?) Hmm — the substitution mechanism: an unavailable tool forces switching to an alternative means achieving the same end. Could be folded into F. But it's a distinct mechanism: not fixing an error in the same operation but replacing the instrument. Define as ternary: (limitation_observation, adaptation_reasoning, alternative_action)? Hmm, that's structurally identical to F. Distinguish: F is correcting a malformed request; G is replacing an unavailable capability with an alternative implementation. Given distinguishability rule, keep both but distinct names. Actually maybe merge into one: \"ADAPTS_AFTER_FAILURE\" covering both? The granularity policy says keep separate when meaningful case satisfies one but not other. A corrected retry (same tool, fixed args) vs substitution (different tool) are distinguishable. I'll keep both but make them precise.\n\nHmm, but F already can include \"different tool\". Let me limit F to same-operation retry with corrected parameters, and G to alternative means/instrument substitution.\n\nH. ISOLATES_FAULT_TO_PROBE (unary reasoning? or binary reasoning-observation): reasoning attributes an observed failure to the verification instrument rather than the artifact under test. Binary: (reasoning, observation). Distinguish from E (diagnoses failure cause generally). Hmm—maybe fold into E with a note. But E is \"identifies cause of failure\" — attributing to probe is a specific case. I'll fold: E covers cause identification. Skip H, or define it as specific: ATTRIBUTES_FAILURE_TO_INSTRUMENT. I think it's a meaningful and reusable mechanism in agent verification: distinguishing harness bug from target bug. Keep as separate binary with exclusion conditions.\n\nI. CONFIRMS_REQUIREMENT_SATISFACTION (binary reasoning, observation) — reasoning concludes that specified requirements are met based on observation of test output. Evidence: event-0009 reasoning lists passed cases. And evaluation of external binding in event-0010 reasoning? Event-0010 reasoning is a plan. Hmm. Keep I with (reasoning, observation[])? The conclusion drawn from a set of observations. Could use observation[] homogeneous collection with collective support. Let's do binary with observation[] maybe. Simpler: binary (reasoning, observation).\n\nJ. ACTION_EXERCISES_MULTIPLE_CASES — action designed as a multi-case test harness covering both valid and invalid inputs. Unary on action: VERIFICATION_HARNESS? Hmm, \"action scripts multiple input scenarios to exercise both acceptance and rejection paths\". Could be unary predicate on action: MULTI_CASE_VERIFICATION. Reasonable but maybe too operational. Skip? It's arguably a reusable mechanism: a single check covering success and failure paths. I'll skip to avoid bloat, or include as it's distinct. I'll skip.\n\nK. Unary on observation: reports capability/tool unavailability? Meh.\n\nL. Unary reasoning: DECISION_COMMITMENT? Already covered by ambiguity resolution.\n\nLet's also consider: reasoning that enumerates plan steps derived from task spec = IS_PLAN covers.\n\nAlso: ternary \"hypothesis about binding accessible externally verified by request via external IP\" — event-0010 reasoning: verify 0.0.0.0 binding; action POST to 172.17.0.2; observation 200. That's TESTS_ASSUMPTION_WITH_PROBE mechanism — action probing a config property and observation confirming. Could be covered by PRECONDITION_DISCOVERY? No — different: verifying a deployed service property. Let's define VERIFIES_CLAIM_WITH_TARGETED_REQUEST? Hmm, may be same as D (inspection action). D's inspection is passive enumeration; the external-IP test is an active functional verification of a deployed artifact. Could define CONFIRMS_DEPLOYED_BEHAVIOR (binary action, observation)? Hmm.\n\nI think a cleaner set:\n\n1. IS_PLAN (reasoning)\n2. RESOLVES_UNDERSPECIFIED_REQUIREMENT (reasoning) — identifies ambiguity + commits with justification\n3. GROUNDS_DECISION_IN_OBSERVATION (reasoning, observation)\n4. INSPECTS_ENVIRONMENT_FOR_PREREQUISITES (reasoning, action, observation) — ternary preflight\n5. DIAGNOSES_FAILURE_CAUSE (reasoning, observation)\n6. CORRECTIVE_RETRY_ADDRESSES_DIAGNOSED_CAUSE (reasoning, action) — hmm, need failed observation? Use ternary (observation_failure, reasoning_diagnosis, retry_action). Fine.\n7. SUBSTITUTES_ALTERNATIVE_MEANS_FOR_UNAVAILABLE_TOOL (observation, reasoning, action) ternary. Same shape as 6. To reduce duplication, maybe merge 6 and 7 into \"ADAPTS_AFTER_FAILURE_WITH_DIAGNOSIS\" with distinguishable conditions? Hmm. The instruction warns against superficial variations. A retry with fixed args vs switching instruments — is that superficial? Slightly different: one fixes an error, other replaces an unavailable capability. I'll keep 6 as retry-with-correction (parameter/location fix in the same operation) and 7 as capability substitution. Actually, to be safe against duplication criticism, I'll fold them into one predicate \"ADAPTS_ACTION_FROM_DIAGNOSED_FAILURE\" (failure observation, diagnosis reasoning, adapted action), with a note covering both corrected retry and alternative means? But distinguishability principle says keep separate when meaningful case satisfies one but not the other... Different mechanisms arguably. I'll keep both but named clearly:\n- RETRIES_CORRECTED_ACTION (failure_observation, diagnosis, retry_action): the retry uses the same operation with the diagnosed defect fixed.\n- REPLACES_UNAVAILABLE_MEANS (failure_observation, reasoning, alternative_action): the failure is missing capability, retry uses a different tool/mechanism to accomplish the same end.\n\nHmm, the second overlaps the first in the \"retry\" relation. Both are fine as separate predicates; a case can satisfy one and not the other.\n\n8. ATTRIBUTES_FAILURE_TO_TEST_INSTRUMENT (reasoning, observation) — reasoning localizes failure to the check itself rather than the system under test.\n9. CONFIRMS_REQUIREMENTS_FROM_VERIFICATION_RESULT (reasoning, observation[]) — reasoning claims spec requirements satisfied based on observed results.\n\nThat's 9. Maybe also 10: VERIFIES_DEPLOYMENT_PROPERTY (reasoning, action, observation) for external binding test — similar to 6/4. Event-0010: reasoning states an intent to verify 0.0.0.0 accessibility, action sends request to external IP, observation 200. This is TESTS_ASSUMPTION_WITH_PROBE. Should I include it? It's covered partly by 3 (grounds decision) — no, the flow is reasoning→action→observation. Include as ternary: TESTS_CONFIGURATION_CLAIM_WITH_PROBE (assumption_reasoning, probe_action, probe_result). But then 4 (preflight inspection) is a subtype of that... Hmm.\n\nDistinguish: 4 preflight inspection discovers unknown environment state (exploration); 10 verifies a claimed configuration property of a deployed artifact. Both ternary probe-like. Maybe merge into one predicate: PROBES_STATE_TO_RESOLVE_UNCERTAINTY (reasoning, action, observation) covering both discovery and verification. That's cleaner and matches example 3's lesson. But then 4 and 10 collapse. I think merging is better—granularity: identify what the info/action does: the action is a targeted probe whose result resolves a stated uncertainty. Yes, merge into one: TESTS_STATED_UNCERTAINTY_WITH_PROBE. Hmm but that's literally the example. Example says \"These examples illustrate semantic abstraction and argument structure. They do not prescribe a fixed predicate vocabulary\". It's fine to have similar predicate since supported. But maybe better to name distinctly: PROBE_RESOLVES_STATED_UNCERTAINTY.\n\nI'll include it, covering event-0001 (environment unknown → inspect → packages found) and event-0010 (binding claim → external request → 200).\n\nThen drop separate #4.\n\nFinal set (8):\n1. IS_PLAN\n2. IDENTIFIES_UNDERSPECIFIED_REQUIREMENT\n3. GROUNDS_DECISION_IN_OBSERVATION (binary: reasoning, observation)\n4. PROBE_RESOLVES_STATED_UNCERTAINTY (ternary: reasoning, action, observation)\n5. DIAGNOSES_FAILURE_CAUSE (binary: reasoning, observation)\n6. RETRIES_WITH_CORRECTED_ACTION (ternary: observation, reasoning, action)\n7. REPLACES_UNAVAILABLE_MEANS (ternary: observation, reasoning, action) — maybe risky duplicate. Consider whether to include. The curl→urllib substitution is a genuinely distinct mechanism: choosing an alternative instrument because the preferred one is absent. I'll include with clear exclusion: failure due to malformed inputs rather than absent capability → excluded.\n8. ATTRIBUTES_FAILURE_TO_TEST_INSTRUMENT\n9. CONFIRMS_REQUIREMENTS_SATISFIED (reasoning, observation[])\n\nThat's 9. Fine.\n\nAlso maybe a unary on action: IMPLEMENTS_SPECIFIED_COMPONENT? too operational. Skip.\n\nLet me write definitions carefully with ordered parameters and conditions.\n\nWrite JSON.\n\nPredicate 1:\nname IS_PLAN\ndefinition: The reasoning explicitly states one or more intended future actions or an ordered approach the agent intends to carry out before those actions occur.\nparams: reasoning.\nassertion: reasoning identifies at least one future action/step; uses prospective framing.\nexclusion: reasoning only reports completed actions or results; only restates the task without committing to an approach.\n\nPredicate 2:\nname IDENTIFIES_UNDERSPECIFIED_REQUIREMENT\ndefinition: The reasoning detects an ambiguity or gap in the given requirements, weighs competing interpretations or risks, and commits to one interpretation before implementing.\nparams: reasoning.\nassertion: names an ambiguity/underspecified aspect; considers at least two interpretations or the risk of hidden checks; commits to a chosen interpretation.\nexclusion: reasoning merely paraphrases requirements with no ambiguity noted; ambiguity noted but no commitment or no alternatives weighed.\n\nPredicate 3:\nname GROUNDS_DECISION_IN_OBSERVATION\ndefinition: The reasoning adopts or justifies a course of action (e.g., which approach/tool/interpretation to use) using identifiable content of an observation as support.\nparams: reasoning, observation.\nassertion conditions: reasoning states a decision about what to do next; reasoning cites/relies on specific observed facts; observation content logically bears on that decision.\nexclusion: reasoning repeats observation without deciding; observation unrelated; decision made before observation with no reference.\n\nPredicate 4:\nname PROBE_RESOLVES_STATED_UNCERTAINTY\ndefinition: An action is directed at resolving a specific uncertainty or unverified claim stated in reasoning, and the resulting observation supplies interpretable evidence about it.\nparams: uncertainty_reasoning, probe_action, probe_result.\nassertion: reasoning identifies specific unknown/unverified property; action is designed to reveal it; observation reports a result interpretable w.r.t. that property.\nexclusion: action unrelated; observation not interpretable; no uncertainty stated (routine execution).\n\nPredicate 5:\nname DIAGNOSES_FAILURE_CAUSE\ndefinition: the reasoning explains why an observed failure occurred, identifying a specific cause rather than merely noting the failure.\nparams: reasoning, observation.\nassertion: observation reports error/failed outcome; reasoning states a cause (missing argument, absent tool, harness bug); causal attribution specific.\nexclusion: reasoning only restates the error message; only notes failure without cause; cause attributed with no link to observation.\n\nPredicate 6:\nname RETRIES_WITH_CORRECTED_ACTION\ndefinition: after a failed attempt, reasoning identifies a correctable defect in the previous attempt and a subsequent action repeats the same operation with that defect fixed.\nparams: failed_observation, corrective_reasoning, retry_action.\nassertion: observation shows failure of prior action; reasoning names the defect to fix and intends to retry; retry action performs same operation with correction.\nexclusion: reasoning abandons operation; retry unrelated to diagnosis; no failure.\n\nPredicate 7:\nname REPLACES_UNAVAILABLE_MEANS\ndefinition: an observation shows a required tool/capability is unavailable, and reasoning selects a functionally different means to accomplish the same goal, which the subsequent action carries out.\nparams: unavailability_observation, substitution_reasoning, alternative_action.\nassertion: observation shows the tool/capability absent/nonfunctional; reasoning states the preferred means cannot be used and names an alternative serving same purpose; alternative action uses it.\nexclusion: failure due to malformed input rather than missing capability; retry uses same tool; alternative not functionally equivalent/goal-unrelated.\n\nPredicate 8:\nname ATTRIBUTES_FAILURE_TO_TEST_INSTRUMENT\ndefinition: The reasoning determines an observed failure originates in the checking procedure or its inputs rather than in the artifact under test, so the artifact's behavior remains unrefuted.\nparams: reasoning, observation.\nassertion: observation reports error during verification; reasoning locates cause in the test/check harness (bad argument type, script bug) and distinguishes that from the target's behavior.\nexclusion: reasoning attributes failure to target system; no failure; reasoning merely re-runs without attribution.\n\nPredicate 9:\nname CONFIRMS_REQUIREMENTS_SATISFIED\ndefinition: reasoning concludes that specified requirements have been satisfied, basing the conclusion on the collective evidence of one or more observations of executed checks.\nparams: reasoning, observations (observation[]).\nassertion: reasoning enumerates checks whose results match expected outcomes; explicitly draws satisfaction conclusion; each cited observation contributes.\nexclusion: reasoning only lists raw results without concluding; conclusion drawn with no supporting observation; some cited check failed and left unaddressed — hmm, exclusion: \"observed results contradict the claimed satisfaction\" is more like \"not satisfied\". Exclusion: \"reasoning admits a cited check failed without resolving it\".\n\nGood. Note support collective.\n\nWrite it."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 11831,
+          "completion_tokens": 6468,
+          "total_tokens": 18299,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4523
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 9911
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or an ordered approach that the agent intends to carry out before those actions occur.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of steps.\"}], \"assertion_conditions\": [\"The reasoning uses prospective framing to identify at least one action or step the agent intends to take.\", \"The stated intent precedes the corresponding action rather than reporting a completed one.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already completed and their results.\", \"The reasoning only restates the task description without committing to an approach the agent will take.\"]}, {\"name\": \"IDENTIFIES_UNDERSPECIFIED_REQUIREMENT\", \"definition\": \"The reasoning detects an ambiguity, gap, or unstated edge case in the given requirements, weighs competing interpretations or their risks, and commits to one interpretation before implementing.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that flags the ambiguity and settles on an interpretation.\"}], \"assertion_conditions\": [\"The reasoning names a specific requirement that is ambiguous or underspecified.\", \"The reasoning considers at least two candidate interpretations or explicitly weighs the risk of each option.\", \"The reasoning commits to a chosen interpretation that later implementation follows.\"], \"exclusion_conditions\": [\"The reasoning merely paraphrases the requirements without identifying any ambiguity or gap.\", \"An ambiguity is mentioned but no interpretation is chosen and no alternatives are weighed.\", \"The reasoning describes a decision that is fully determined by explicit requirements.\"]}, {\"name\": \"GROUNDS_DECISION_IN_OBSERVATION\", \"definition\": \"The reasoning adopts or justifies a specific course of action (which approach, tool, or interpretation to use) using identifiable content of an observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the decision and the basis for it.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence on which the decision rests.\"}], \"assertion_conditions\": [\"The reasoning states a decision about what to do next.\", \"The reasoning relies on specific facts reported in the observation as the reason for that decision.\", \"The observation content logically bears on the chosen course of action.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without drawing a decision from it.\", \"The observation is unrelated to the stated decision or provides no identifiable support.\", \"The decision is presented with no reference to observed facts.\"]}, {\"name\": \"PROBE_RESOLVES_STATED_UNCERTAINTY\", \"definition\": \"An action is directed at resolving a specific uncertainty or unverified claim stated in reasoning, and the resulting observation supplies interpretable evidence about that uncertainty.\", \"parameters\": [{\"name\": \"uncertainty_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the unknown state or unverified claim.\"}, {\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action that targets the unknown state or claim.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome relevant to that uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific unknown property, capability, or unverified claim.\", \"The probe action is designed to reveal the value or status of that property or claim.\", \"The resulting observation contains a result that can be interpreted with respect to the identified uncertainty.\"], \"exclusion_conditions\": [\"The action is routine execution unrelated to any stated uncertainty.\", \"The observation does not address the property or claim being examined.\", \"No identifiable uncertainty or claim motivates the action.\"]}, {\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning explains why an observed failure or error occurred by naming a specific cause, rather than merely restating that the failure happened.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning containing the causal explanation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure or error being explained.\"}], \"assertion_conditions\": [\"The observation reports an error, rejection, or failed outcome.\", \"The reasoning names a specific cause for that failure.\", \"The causal attribution is connected to the content of the observation.\"], \"exclusion_conditions\": [\"The reasoning only repeats the error message or notes that something failed without explaining why.\", \"The reasoning attributes the failure to a cause that is not supported by the observation.\", \"No failure is reported in the corresponding observation.\"]}, {\"name\": \"RETRIES_WITH_CORRECTED_ACTION\", \"definition\": \"After a failed attempt, the reasoning identifies a correctable defect in that attempt, and a subsequent action repeats the same operation with the defect corrected.\", \"parameters\": [{\"name\": \"failed_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure of the prior attempt.\"}, {\"name\": \"corrective_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the defect and the intended correction.\"}, {\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The action repeating the operation with the correction applied.\"}], \"assertion_conditions\": [\"The observation shows that the preceding attempt failed.\", \"The reasoning identifies the specific defect to be fixed and indicates the operation will be attempted again.\", \"The retry action performs the same operation with the identified defect corrected.\"], \"exclusion_conditions\": [\"The reasoning abandons the operation instead of correcting and repeating it.\", \"The retry action does not address the defect named in the reasoning.\", \"No prior failure is present in the trajectory.\"]}, {\"name\": \"REPLACES_UNAVAILABLE_MEANS\", \"definition\": \"An observation shows that a preferred tool or capability is unavailable, and the reasoning selects a functionally different means to accomplish the same goal, which the subsequent action then performs.\", \"parameters\": [{\"name\": \"unavailability_observation\", \"type\": \"observation\", \"description\": \"The observation showing that the preferred tool or capability cannot be used.\"}, {\"name\": \"substitution_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the substitution and its equivalent purpose.\"}, {\"name\": \"alternative_action\", \"type\": \"action\", \"description\": \"The action carrying out the substituted means.\"}], \"assertion_conditions\": [\"The observation shows a tool or capability is absent or nonfunctional.\", \"The reasoning states that the preferred means cannot be used and names an alternative means for the same purpose.\", \"The alternative action implements that alternative means.\"], \"exclusion_conditions\": [\"The failure stems from malformed arguments or inputs rather than an unavailable capability.\", \"The subsequent action reuses the same unavailable tool.\", \"The alternative does not serve the same goal as the original means.\"]}, {\"name\": \"ATTRIBUTES_FAILURE_TO_TEST_INSTRUMENT\", \"definition\": \"The reasoning determines that an observed error originates in the checking procedure or its own inputs rather than in the artifact under test, leaving the artifact's behavior unrefuted.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning localizing the failure to the checking procedure.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the error raised during verification.\"}], \"assertion_conditions\": [\"The observation reports an error that occurred while a verification procedure was running.\", \"The reasoning locates the cause in the checking procedure or its inputs.\", \"The reasoning explicitly distinguishes that cause from the behavior of the artifact under test.\"], \"exclusion_conditions\": [\"The reasoning attributes the error to the artifact under test.\", \"The reasoning re-runs the check without attributing the error to either side.\", \"No verification error is reported.\"]}, {\"name\": \"CONFIRMS_REQUIREMENTS_SATISFIED\", \"definition\": \"The reasoning concludes that specified requirements have been satisfied, resting that conclusion on the collective evidence of one or more observations of executed checks whose results matched expectations.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning drawing the satisfaction conclusion from the collected results.\"}, {\"name\": \"observations\", \"type\": \"observation[]\", \"description\": \"The observations of executed checks that jointly support the conclusion; support is collective, not alternative.\"}], \"assertion_conditions\": [\"The reasoning refers to outcomes of executed checks and compares them with expected behavior.\", \"The reasoning explicitly concludes that the required behavior has been met.\", \"Each cited observation contributes a result that the conclusion depends on.\"], \"exclusion_conditions\": [\"The reasoning only lists raw results without drawing a satisfaction conclusion.\", \"The satisfaction conclusion is asserted with no supporting observed result.\", \"A cited check produced a failing or contradictory result that the reasoning leaves unresolved.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or an ordered approach that the agent intends to carry out before those actions occur.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action or sequence of steps."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning uses prospective framing to identify at least one action or step the agent intends to take.",
+          "The stated intent precedes the corresponding action rather than reporting a completed one."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports actions already completed and their results.",
+          "The reasoning only restates the task description without committing to an approach the agent will take."
+        ]
+      },
+      {
+        "name": "IDENTIFIES_UNDERSPECIFIED_REQUIREMENT",
+        "definition": "The reasoning detects an ambiguity, gap, or unstated edge case in the given requirements, weighs competing interpretations or their risks, and commits to one interpretation before implementing.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that flags the ambiguity and settles on an interpretation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a specific requirement that is ambiguous or underspecified.",
+          "The reasoning considers at least two candidate interpretations or explicitly weighs the risk of each option.",
+          "The reasoning commits to a chosen interpretation that later implementation follows."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely paraphrases the requirements without identifying any ambiguity or gap.",
+          "An ambiguity is mentioned but no interpretation is chosen and no alternatives are weighed.",
+          "The reasoning describes a decision that is fully determined by explicit requirements."
+        ]
+      },
+      {
+        "name": "GROUNDS_DECISION_IN_OBSERVATION",
+        "definition": "The reasoning adopts or justifies a specific course of action (which approach, tool, or interpretation to use) using identifiable content of an observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the decision and the basis for it."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the evidence on which the decision rests."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a decision about what to do next.",
+          "The reasoning relies on specific facts reported in the observation as the reason for that decision.",
+          "The observation content logically bears on the chosen course of action."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or summarizes the observation without drawing a decision from it.",
+          "The observation is unrelated to the stated decision or provides no identifiable support.",
+          "The decision is presented with no reference to observed facts."
+        ]
+      },
+      {
+        "name": "PROBE_RESOLVES_STATED_UNCERTAINTY",
+        "definition": "An action is directed at resolving a specific uncertainty or unverified claim stated in reasoning, and the resulting observation supplies interpretable evidence about that uncertainty.",
+        "parameters": [
+          {
+            "name": "uncertainty_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying the unknown state or unverified claim."
+          },
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action that targets the unknown state or claim."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the outcome relevant to that uncertainty."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific unknown property, capability, or unverified claim.",
+          "The probe action is designed to reveal the value or status of that property or claim.",
+          "The resulting observation contains a result that can be interpreted with respect to the identified uncertainty."
+        ],
+        "exclusion_conditions": [
+          "The action is routine execution unrelated to any stated uncertainty.",
+          "The observation does not address the property or claim being examined.",
+          "No identifiable uncertainty or claim motivates the action."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_FAILURE_CAUSE",
+        "definition": "The reasoning explains why an observed failure or error occurred by naming a specific cause, rather than merely restating that the failure happened.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning containing the causal explanation."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the failure or error being explained."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an error, rejection, or failed outcome.",
+          "The reasoning names a specific cause for that failure.",
+          "The causal attribution is connected to the content of the observation."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only repeats the error message or notes that something failed without explaining why.",
+          "The reasoning attributes the failure to a cause that is not supported by the observation.",
+          "No failure is reported in the corresponding observation."
+        ]
+      },
+      {
+        "name": "RETRIES_WITH_CORRECTED_ACTION",
+        "definition": "After a failed attempt, the reasoning identifies a correctable defect in that attempt, and a subsequent action repeats the same operation with the defect corrected.",
+        "parameters": [
+          {
+            "name": "failed_observation",
+            "type": "observation",
+            "description": "The observation reporting the failure of the prior attempt."
+          },
+          {
+            "name": "corrective_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning naming the defect and the intended correction."
+          },
+          {
+            "name": "retry_action",
+            "type": "action",
+            "description": "The action repeating the operation with the correction applied."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation shows that the preceding attempt failed.",
+          "The reasoning identifies the specific defect to be fixed and indicates the operation will be attempted again.",
+          "The retry action performs the same operation with the identified defect corrected."
+        ],
+        "exclusion_conditions": [
+          "The reasoning abandons the operation instead of correcting and repeating it.",
+          "The retry action does not address the defect named in the reasoning.",
+          "No prior failure is present in the trajectory."
+        ]
+      },
+      {
+        "name": "REPLACES_UNAVAILABLE_MEANS",
+        "definition": "An observation shows that a preferred tool or capability is unavailable, and the reasoning selects a functionally different means to accomplish the same goal, which the subsequent action then performs.",
+        "parameters": [
+          {
+            "name": "unavailability_observation",
+            "type": "observation",
+            "description": "The observation showing that the preferred tool or capability cannot be used."
+          },
+          {
+            "name": "substitution_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the substitution and its equivalent purpose."
+          },
+          {
+            "name": "alternative_action",
+            "type": "action",
+            "description": "The action carrying out the substituted means."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation shows a tool or capability is absent or nonfunctional.",
+          "The reasoning states that the preferred means cannot be used and names an alternative means for the same purpose.",
+          "The alternative action implements that alternative means."
+        ],
+        "exclusion_conditions": [
+          "The failure stems from malformed arguments or inputs rather than an unavailable capability.",
+          "The subsequent action reuses the same unavailable tool.",
+          "The alternative does not serve the same goal as the original means."
+        ]
+      },
+      {
+        "name": "ATTRIBUTES_FAILURE_TO_TEST_INSTRUMENT",
+        "definition": "The reasoning determines that an observed error originates in the checking procedure or its own inputs rather than in the artifact under test, leaving the artifact's behavior unrefuted.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning localizing the failure to the checking procedure."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the error raised during verification."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an error that occurred while a verification procedure was running.",
+          "The reasoning locates the cause in the checking procedure or its inputs.",
+          "The reasoning explicitly distinguishes that cause from the behavior of the artifact under test."
+        ],
+        "exclusion_conditions": [
+          "The reasoning attributes the error to the artifact under test.",
+          "The reasoning re-runs the check without attributing the error to either side.",
+          "No verification error is reported."
+        ]
+      },
+      {
+        "name": "CONFIRMS_REQUIREMENTS_SATISFIED",
+        "definition": "The reasoning concludes that specified requirements have been satisfied, resting that conclusion on the collective evidence of one or more observations of executed checks whose results matched expectations.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning drawing the satisfaction conclusion from the collected results."
+          },
+          {
+            "name": "observations",
+            "type": "observation[]",
+            "description": "The observations of executed checks that jointly support the conclusion; support is collective, not alternative."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to outcomes of executed checks and compares them with expected behavior.",
+          "The reasoning explicitly concludes that the required behavior has been met.",
+          "Each cited observation contributes a result that the conclusion depends on."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only lists raw results without drawing a satisfaction conclusion.",
+          "The satisfaction conclusion is asserted with no supporting observed result.",
+          "A cited check produced a failing or contradictory result that the reasoning leaves unresolved."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

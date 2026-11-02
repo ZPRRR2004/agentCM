@@ -1,0 +1,292 @@
+{
+  "stage": "review",
+  "window_file": "xhigh__configure-git-webserver__window_0003.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T03:50:43.404010+00:00",
+  "duration_seconds": 36.828,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T03:50:06.566190+00:00",
+      "duration_seconds": 36.828,
+      "raw_response": {
+        "id": "7868e48c-eb47-4e88-b01e-85aed6cdd4a5",
+        "object": "chat.completion",
+        "created": 1793418612,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\": [{\"name\": \"EXPLAINS_OBSERVED_ANOMALY\", \"definition\": \"The reasoning gives a causal account of why a recorded observation returned an unexpected, empty, or otherwise puzzling result that is not itself an error, naming a concrete mechanism (tool or option semantics, symlink handling, process lifecycle) rather than treating the result as a failure of the underlying goal.\", \"parameters\": [{\"name\": \"explanation\", \"type\": \"reasoning\", \"description\": \"The agent text that accounts for the puzzling result.\"}, {\"name\": \"anomalous_observation\", \"type\": \"observation\", \"description\": \"The observation whose output was empty, missing, or contrary to expectation without reporting an error.\"}], \"assertion_conditions\": [\"The explanation explicitly refers to a result contained in the observation that deviated from expectation or left a property undetermined.\", \"The explanation identifies a concrete cause for that result, such as a command that does not follow symlinks, a shell lacking a numeric conversion function, or a non-reaping parent process.\"], \"exclusion_conditions\": [\"The reasoning merely restates or quotes the observation without a causal account.\", \"The reasoning only proposes the next action and gives no cause for the puzzling result.\", \"The referenced result is not present in the observation, so there is no traceable link between the two nodes.\", \"The observation reports a tool error or failing command; causal explanation of an error is a failure-diagnosis mechanism rather than an anomaly explanation.\"]}, {\"name\": \"REVERIFIES_WITH_ALTERNATIVE_MECHANISM\", \"definition\": \"A prior observation left a system property undetermined or contradicted expectation without reporting an error, and the action re-establishes that same property through a different tool, option, or access path rather than repeating the original check.\", \"parameters\": [{\"name\": \"recheck_action\", \"type\": \"action\", \"description\": \"The action performing the alternative re-verification.\"}, {\"name\": \"inconclusive_observation\", \"type\": \"observation\", \"description\": \"The earlier check whose output was empty, ambiguous, or insufficient to settle the property.\"}], \"assertion_conditions\": [\"The prior observation failed to reveal a property that the agent expected or needed to know, for example because it produced no output.\", \"The action inspects the same system property using a different command, option, or access path than the earlier check.\", \"The differing technique is what makes the property observable.\"], \"exclusion_conditions\": [\"The action reruns the identical command with identical options, adding no new observability.\", \"The action inspects a different property than the one left undetermined.\", \"The earlier observation was conclusive, so the action is routine verification rather than alternative re-verification.\", \"The earlier observation reported a tool error; correcting a failed invocation is a distinct mechanism.\"]}, {\"name\": \"RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE\", \"definition\": \"The reasoning raises doubt about whether an observed anomaly actually impairs a required capability, a probe action exercises exactly that capability, and the resulting observation demonstrates that the capability still works, providing grounds to dismiss the anomaly.\", \"parameters\": [{\"name\": \"doubt_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing uncertainty about whether the anomaly breaks functionality.\"}, {\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action that exercises the capability put in doubt.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome of the probe.\"}], \"assertion_conditions\": [\"The reasoning identifies an observed anomaly and questions whether it affects a required capability.\", \"The probe action directly exercises the capability that was questioned.\", \"The probe result shows the capability behaving successfully, providing grounds to treat the anomaly as harmless.\"], \"exclusion_conditions\": [\"The probe does not target the capability that was questioned.\", \"The probe result is failing, inconclusive, or unrelated to the doubt.\", \"No doubt about functionality is expressed; the probe is ordinary acceptance testing.\"]}, {\"name\": \"VERIFIES_ENUMERATED_STATE_ITEMS\", \"definition\": \"The reasoning itemizes discrete facets of system state to be confirmed, and the action performs a read-only inspection that reads back those same facets in one pass.\", \"parameters\": [{\"name\": \"checklist_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating the specific facets to be confirmed.\"}, {\"name\": \"inspection_action\", \"type\": \"action\", \"description\": \"The read-only action that reads back the enumerated state facets.\"}], \"assertion_conditions\": [\"The reasoning lists multiple discrete facets to confirm, such as services, listening ports, ownership or permissions, repository references, configuration contents, and endpoint status.\", \"The action issues read-only commands covering those same facets.\", \"The facets checked by the action can be mapped onto the enumerated items.\"], \"exclusion_conditions\": [\"The action mutates state rather than reading it back.\", \"The action checks facets that were not enumerated, or the reasoning gives only a general goal without itemized facets.\", \"The reasoning enumerates items but the action addresses only one of them.\"]}, {\"name\": \"PROVISIONS_DISPOSABLE_CREDENTIAL\", \"definition\": \"The action creates transient authentication material in a temporary location and installs it into the authentication path solely so that the login or authentication flow can be exercised during testing, without intending it as the end user's credential.\", \"parameters\": [{\"name\": \"provisioning_action\", \"type\": \"action\", \"description\": \"The action generating and installing the temporary credential.\"}], \"assertion_conditions\": [\"The action generates authentication material such as a key pair or token at a temporary path.\", \"The generated material is placed into the authentication path, such as an authorized-keys file, so that a test login can succeed.\", \"The material is distinct from the credential the end user is expected to configure.\"], \"exclusion_conditions\": [\"The action sets up the credential the end user will keep and use.\", \"The action only reads or inspects existing credentials without generating new material.\", \"Generated material is intended for permanent production use rather than a test of the authentication path.\"]}, {\"name\": \"REPLICATES_DOCUMENTED_USER_COMMANDS\", \"definition\": \"The reasoning lays out the exact command sequence the requester is expected to run, and the action executes that same sequence verbatim against the configured system in a fresh working location as an acceptance replay of the requester's workflow.\", \"parameters\": [{\"name\": \"sequence_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating the expected command sequence.\"}, {\"name\": \"replay_action\", \"type\": \"action\", \"description\": \"The action executing the documented command sequence.\"}], \"assertion_conditions\": [\"The reasoning enumerates the specific commands the requester will run, in order.\", \"The action executes those same commands, in the same order, rather than ad-hoc equivalents.\", \"The execution occurs in a clean location so the result reflects the requester's starting conditions.\"], \"exclusion_conditions\": [\"The action uses substitute commands that only approximate the documented workflow.\", \"The reasoning states general verification goals without listing a concrete command sequence.\", \"The action executes only a fragment of the documented sequence.\"]}, {\"name\": \"INSTALLS_STARTUP_HOOK\", \"definition\": \"The action modifies shell startup configuration so that a previously created helper is invoked automatically on future login or interactive shells, wiring the helper into the session lifecycle.\", \"parameters\": [{\"name\": \"hook_action\", \"type\": \"action\", \"description\": \"The action writing or appending the helper invocation into startup files.\"}], \"assertion_conditions\": [\"The action writes to shell startup configuration, such as a profile directory file or a shell rc file.\", \"The written content invokes a named helper, for example by its script path, so that it runs on subsequent shells.\", \"The invocation is written in a failure-tolerant form that does not disturb the session.\"], \"exclusion_conditions\": [\"The action only creates the helper file without wiring it into startup configuration.\", \"The startup file is edited for unrelated purposes such as environment variables, aliases, or PATH, with no helper invocation.\", \"The invocation is written into a one-off command rather than persistent startup configuration.\"]}, {\"name\": \"REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION\", \"definition\": \"An artifact such as a file, script, credential, or directory produced by one action is consumed as an operational input by a later action, creating a traceable cross-action dependency on that produced value.\", \"parameters\": [{\"name\": \"consumer_action\", \"type\": \"action\", \"description\": \"The later action whose command references the produced artifact.\"}, {\"name\": \"producer_action\", \"type\": \"action\", \"description\": \"The earlier action that created the artifact.\"}], \"assertion_conditions\": [\"The producer action creates a file, script, credential, or path at a specific location.\", \"The consumer action's command references that same location as an operational input, for example as a key path or a generated script path.\", \"The producer precedes the consumer, and no other node supplies the artifact.\"], \"exclusion_conditions\": [\"Both actions merely reference an artifact that pre-existed and was not created by the producer.\", \"The consumer action mentions the path only in narration without using it operationally.\", \"The artifact was created by an action outside the compared pair.\"]}, {\"name\": \"CONFIRMS_DEPLOYMENT_PIPELINE\", \"definition\": \"A publishing action successfully writes content into the configured deployment source, and a subsequent retrieval action reads that content back through the serving endpoint, with the result showing that the published content is actually being served.\", \"parameters\": [{\"name\": \"publish_action\", \"type\": \"action\", \"description\": \"The action that commits, pushes, or installs content into the repository or deployment source.\"}, {\"name\": \"retrieval_action\", \"type\": \"action\", \"description\": \"The action that fetches the content through the serving endpoint.\"}, {\"name\": \"served_result\", \"type\": \"observation\", \"description\": \"The observation reporting the retrieved content and the server response.\"}], \"assertion_conditions\": [\"The publishing action reports success in writing the content to the deployment source.\", \"The retrieval action addresses the serving endpoint that is supposed to expose that content after deployment.\", \"The served result contains the published content with a success status, showing that the publish-to-serve path works end to end.\"], \"exclusion_conditions\": [\"The retrieval occurs before the publishing action succeeds, so the served result cannot stem from that deployment.\", \"The served content differs from what was published.\", \"The retrieval reads a local copy or the repository directly rather than the serving endpoint.\"]}], \"revised_existing_predicates\": []}",
+              "reasoning_content": "Let me analyze the candidates against the context window and registry.\n\nThe context window (core nodes) covers events 19-28: port checking, service ensure script, startup hook wiring, final e2e, curl verification, final cleanup, final audit, anomaly investigation (symlink grep, zombie processes), final sweep, final summary.\n\nCandidates:\n\n1. EXPLAINS_OBSERVED_ANOMALY (reasoning, observation): event-0026 reasoning explains why `grep -r 'listen'` returned nothing (symlinks not followed) and explains zombie processes (PPID=1 non-reaping parent). Event-0027 reasoning also explains zombies. Is this distinct from existing DIAGNOSES_FAILURE_CAUSE? DIAGNOSES_FAILURE_CAUSE is about explaining a failure (error). Here it's explaining an anomalous/puzzling-but-not-failing result (empty output, defunct processes). Distinguishable? The semantic mechanism is similar but the role differs: explaining an anomaly that isn't a failure vs explaining a failure. There's a meaningful distinguishing case: an empty grep result isn't an error observation. Hmm. Would it be considered a semantic duplicate? The registry's DIAGNOSES_FAILURE_CAUSE excludes \"merely restates or quotes the error\". The anomaly here — grep returning nothing — not an error (is_error false). Zombie defunct processes — not technically an error either. So the mechanism \"accounts for unexpected observation result\" is distinct from \"explains a failure\". I think accept EXPLAINS_OBSERVED_ANOMALY, possibly rename? Name is fine. But I should consider whether it's overly broad. The candidate covers both empty-result anomaly and process-lifecycle anomaly. That's fine as one mechanism: causal explanation of a puzzling observation.\n\nActually, is it supported? event-0026 reasoning: \"grep -r 'listen' /etc/nginx/sites-enabled/ returned nothing! ... grep -r doesn't follow symlinks by default (without -R). That's why it was empty.\" Yes. Zombie explanation: PPID=1, sleep infinity doesn't reap. Yes. event-0027 reasoning explains zombies too. So supported.\n\n2. REVERIFIES_WITH_ALTERNATIVE_MECHANISM (action, observation): event-0026's action cats sites-enabled/default | grep listen (different approach), but the prior insufficient observation is event-0025's observation (grep -r returned nothing) — the observation is in the window. Yes: event-0025 observation includes \"== nginx listen ==\" with nothing. Then event-0026 action cats the file directly. Also event-0019 action uses grep on /proc/net/tcp with awk after mawk failure — but the earlier mawk observation isn't in window (previous summary mentions). Actually the event-0019 reasoning refers to prior failure (awk strtonum). The earlier observation isn't in the window. But event-0025/0026 pair is in window. So supported.\n\nIs REVERIFIES_WITH_ALTERNATIVE_MECHANISM distinct from existing CORRECTS_FAILED_INVOCATION? CORRECTS_FAILED_INVOCATION: retry after invocation error observation. Here no error was reported — the observation showed empty output without error. Distinguishable: empty result vs error. Accept, but maybe tighten to \"inconclusive/empty result rather than error\". Hmm, both CORRECTS_FAILED_INVOCATION (for error) and this for inconclusive. That's a meaningful distinguishing case. Accept.\n\nBut wait — does REVERIFIES_WITH_ALTERNATIVE_MECHANISM overlap with VERIFICATION_OBSERVES_EXPECTED_RESULT? No, different mechanism (re-establishing undetermined property via different technique).\n\n3. RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE (reasoning, action, observation): event-0026 reasoning doubts whether zombies impair functionality, then action does fresh ssh login, observation \"LOGIN-STILL-WORKS\". Also nginx config doubt resolved via cat? The primary case: zombie doubt → probe login → LOGIN-STILL-WORKS. Yes supported. Is it distinct? It's a specific ternary mechanism: doubt reasoning + probe action + confirming observation. Does it duplicate CONFIRMS_REPAIR? No — there's no failure. Does it duplicate VERIFICATION_OBSERVES_EXPECTED_RESULT? That's binary action+observation. This adds the doubt reasoning role. Meaningful? The mechanism: probing to resolve doubt about whether an anomaly impairs functionality. I think acceptable, though it might be somewhat narrow/specific. It is a distinguishable mechanism: targeted probe to dismiss an anomaly. I'd accept but perhaps consider merging with EXPLAINS_OBSERVED_ANOMALY? No, different (explanation vs empirical probe). Keep.\n\nHmm, but should we be careful about over-accepting? The task says accept supported reusable new predicates. I think this is supported and reusable.\n\n4. RESTORES_PRISTINE_STATE — matched existing RESTORES_PRISTINE_STATE in registry (binary: action + observation). Comparison says matched existing \"ATTEMPTS_TEST_STATE_CLEANUP\" — odd mismatch; the comparison matched_existing_name is ATTEMPTS_TEST_STATE_CLEANUP. The candidate is unary action. Registry has ATTEMPTS_TEST_STATE_CLEANUP (unary action, cleanup attempts) and RESTORES_PRISTINE_STATE (binary action + observation confirming). The candidate unary RESTORES_PRISTINE_STATE duplicates ATTEMPTS_TEST_STATE_CLEANUP semantically. Per instructions: \"If an existing match was actually one-way subsumption, correct the classification through Task A and preserve the original registry definition.\" Here the candidate is subsumed by existing ATTEMPTS_TEST_STATE_CLEANUP — it's essentially a duplicate of the cleanup-attempt mechanism. So discard (not accept), and do not revise since original registry definition needs no clarification. Also name collision with existing RESTORES_PRISTINE_STATE — accepting under same name would collide. So discard candidate 4.\n\n5. VERIFIES_ENUMERATED_STATE_ITEMS (action, reasoning): event-0025 reasoning enumerates 9 facets, action reads them back. Supported. Distinct from anything in registry? There's CHECKS_LISTENING_PORTS (specific), VERIFICATION_OBSERVES_EXPECTED_RESULT (binary action+observation). Is \"checklist-driven audit\" a distinct mechanism? Hmm. It connects a reasoning enumeration with an action that reads back those facets. Could be seen as a variant of GUIDES_ACTION_CONTENT (reasoning specifying content of action). GUIDES_ACTION_CONTENT: reasoning states a concrete intended operation or content, action's payload matches. That arguably subsumes VERIFIES_ENUMERATED_STATE_ITEMS. Hmm. Is checklist enumeration a distinguishable mechanism? The distinguishing feature: a multi-facet read-only audit mapped to enumerated items. GUIDES_ACTION_CONTENT is more general (content specification of any operation). Does the checklist predicate capture an additional meaningful distinction? Possibly: it's specifically verification/audit, read-only, multiple facets. But granularity rules say accept a precise mechanism even when a broad family covers it, when distinguishable and supported. Is it distinguishable? A case where GUIDES_ACTION_CONTENT holds but VERIFIES_ENUMERATED_STATE_ITEMS doesn't: reasoning specifies a concrete write operation (one facet). Conversely the checklist predicate requires multiple enumerated facets and read-only inspection. So distinguishable. I lean to accept, since it's supported (event-0025).\n\nHmm, but risk of being overly situation-specific. The question is whether it's a reusable semantic mechanism. \"Enumerated audit plan → multi-facet read-only check\" — that's a recognizable pattern. I'll accept.\n\n6. PROVISIONS_DISPOSABLE_CREDENTIAL (unary action): event-0021 action generates ssh-keygen -f /tmp/vkey and appends pubkey to authorized_keys; event-0026 similar with /tmp/zk. Supported. But does it duplicate TESTS_AUTHENTICATED_REMOTE_ACCESS? That's action+observation, requires login test. Here the provisioning action may include the login (event-0026) or not (event-0021). Distinguishable: generates temporary credential for testing. Existing registry has no predicate about transient test credentials. Accept? The mechanism: reusable \"provision ephemeral credential for test login\". I think accept.\n\nHmm, but is this \"essential vs incidental\"? The tool/resources (ssh-keygen, /tmp path) are incidental but the mechanism \"temporary test credential distinct from user's credential\" is meaningful. Accept.\n\n7. REPLICATES_DOCUMENTED_USER_COMMANDS (action, reasoning): event-0022 reasoning enumerates the user's exact 6 commands; action executes exactly those. Supported. Does it duplicate EXECUTES_END_TO_END_USER_WORKFLOW (unary action)? EXECUTES_END_TO_END_USER_WORKFLOW requires multi-stage workflow exercised by one action. REPLICATES_DOCUMENTED_USER_COMMANDS adds: the reasoning enumerating the requester's documented commands and verbatim execution. Distinguishable: a verbatim reproduction vs a multi-stage ad-hoc exercise. Also GUIDES_ACTION_CONTENT covers reasoning specifying action content — hmm, the enumeration of user commands guides the action verbatim. GUIDES_ACTION_CONTENT: reasoning specifies concrete content/form of operation; action payload matches. REPLICATES_DOCUMENTED_USER_COMMANDS is arguably a specialization of that, but with the distinguishing feature of being the requester's documented command sequence executed verbatim as acceptance replay. Is that a meaningful distinction? A distinguishing case: reasoning specifies a fix command (not user's documented sequence) → GUIDES holds, REPLICATES doesn't. The reverse: reasoning lists user's commands but the action executes with modifications → GUIDES might fail too. Hmm.\n\nI think accept REPLICATES_DOCUMENTED_USER_COMMANDS as a distinct mechanism (acceptance replay of the requester's exact commands). It's a recognizable reusable pattern.\n\n8. INSTALLS_STARTUP_HOOK (unary action): event-0021 writes /etc/profile.d and appends to .bashrc. Supported. Registry: INSTALLS_SERVICE_RECOVERY_HELPER is about creating the helper, not hooking into startup. Distinct mechanism: wiring into shell startup. Accept.\n\n9. REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION (consumer action, producer action): event-0020 writes /usr/local/bin/ensure-git-server-services; event-0021 action references it in profile.d and .bashrc. Also event-0021 creates /tmp/vkey and appends to authorized_keys in same action (same action, not cross-action). So supported via event-0020 action → event-0021 action referencing the script path. The observation of event-0020 confirms the write succeeded.\n\nIs this a semantic duplicate of USES_OBSERVATION_AS_INPUT? No — that's observation→action. Registry doesn't have action→action artifact reuse... Let me check. No. Accept? The mechanism \"artifact produced by one action consumed as input by later action\" — is that a semantic mechanism or a structural relationship? Structural call-result relationships are already provided; artifact reuse across actions is semantic-ish. Hmm. This is borderline: it's essentially cross-action data dependency, which is a semantic relationship (supplying information). The granularity example gives USES_OBSERVATION_AS_INPUT. Action→action artifact reuse is a distinct mechanism (producer→consumer). I'll accept.\n\nHmm, but is it too generic/structural? The example contract says structural call-result relationships should not be rediscovered. This is not a call-result relation; it's a data-flow relation. I'll accept but maybe refine to keep it precise. Actually, is it supported with clear evidence? event-0020 action writes /usr/local/bin/ensure-git-server-services; event-0021 command references that path in printf content. Yes.\n\n10. CONFIRMS_DEPLOYMENT_PIPELINE (publish action, retrieval action, served result observation): event-0022 push, event-0023 curl, observation hello world 200. Supported. Registry: EXECUTES_END_TO_END_USER_WORKFLOW (unary action — actually event-0022 action only includes clone/commit/push, not curl; the curl is a separate action event-0023). VERIFICATION_OBSERVES_EXPECTED_RESULT (binary action+observation: event-0023 curl → hello world). CONFIRMS_DEPLOYMENT_PIPELINE is ternary adding the publish action. Is it a meaningful distinct mechanism? Publish→serve confirmation across two actions. Distinguishable: VERIFICATION_OBSERVES_EXPECTED_RESULT holds for curl but with any prior config; CONFIRMS_DEPLOYMENT_PIPELINE requires the content to originate from a specific publish action. I'd accept — it's the deployment pipeline validation mechanism. There's also WIRES_PUSH_TO_SERVED_ROOT (static wiring), distinct.\n\nSo accept it.\n\nNow, which candidates to accept: EXPLAINS_OBSERVED_ANOMALY, REVERIFIES_WITH_ALTERNATIVE_MECHANISM, RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE, VERIFIES_ENUMERATED_STATE_ITEMS, PROVISIONS_DISPOSABLE_CREDENTIAL, REPLICATES_DOCUMENTED_USER_COMMANDS, INSTALLS_STARTUP_HOOK, REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION, CONFIRMS_DEPLOYMENT_PIPELINE. Discard RESTORES_PRISTINE_STATE (duplicate/subsumed by ATTEMPTS_TEST_STATE_CLEANUP).\n\nWait — should I be more conservative? Let me check each for potential duplication more strictly.\n\nEXPLAINS_OBSERVED_ANOMALY vs DIAGNOSES_FAILURE_CAUSE: The registry predicate requires \"failure reported by observation\". Event-0025 observation: grep -r listen returned nothing — that's not a reported failure, it's an empty result. Zombie processes — not a failure either. So distinguishable. Accept. But perhaps refine the definition slightly: \"causally explains an observation result that is unexpected, empty, or anomalous but not itself an error/failure\". I'll make it tighter to distinguish from DIAGNOSES_FAILURE_CAUSE.\n\nREVERIFIES_WITH_ALTERNATIVE_MECHANISM vs CORRECTS_FAILED_INVOCATION: registry's requires failure observation (error). Here the earlier check yielded empty/insufficient output without error. Distinguishable. Accept, with exclusion to distinguish.\n\nHmm, but both involve an observation and a retry action. Fine.\n\nRESOLVES_FUNCTIONAL_DOUBT_BY_PROBE vs CONFIRMS_REPAIR: no failure/repair. Distinct. Accept.\n\nVERIFIES_ENUMERATED_STATE_ITEMS: acceptable. But is it too tied to specific example? The definition is general enough: enumerated facets ↔ read-only inspection. Accept.\n\nPROVISIONS_DISPOSABLE_CREDENTIAL: accept.\n\nAlso consider: does PROVISIONS_DISPOSABLE_CREDENTIAL overlap with TESTS_AUTHENTICATED_REMOTE_ACCESS? The latter requires login + confirmation. The former requires generating temp credential installed into auth path. In event-0021, the same action does both. Multiple predicates may coexist. Fine.\n\nREPLICATES_DOCUMENTED_USER_COMMANDS: accept.\n\nINSTALLS_STARTUP_HOOK: accept.\n\nREUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION: accept. Should I rename to something like PRODUCES_ARTIFACT_CONSUMED_BY_LATER_ACTION? Name is fine as candidate name; keep. Ensure unique against registry — yes.\n\nCONFIRMS_DEPLOYMENT_PIPELINE: accept.\n\nAny Task B revisions? Comparison listed only in existing: RESTORES_PRISTINE_STATE matched to ATTEMPTS_TEST_STATE_CLEANUP. Should I revise ATTEMPTS_TEST_STATE_CLEANUP? Its definition covers removal/reset of test artifacts. In the window, event-0024 action deletes branch refs, gc, removes index, empties web root, resets authorized_keys, removes tmp keys — clearly matches. No clarification needed. So revisions empty.\n\nShould I revise anything else? No.\n\nNow let me draft complete definitions per schema (five fields: name, definition, parameters, assertion_conditions, exclusion_conditions).\n\nLet me write them carefully.\n\n1. EXPLAINS_OBSERVED_ANOMALY\nparameters: explanation (reasoning), anomalous_observation (observation).\nRefine: causal account of an unexpected/empty/puzzling but non-error result.\nAssertion: explanation refers to a result in the observation that deviated from expectation or left a property undetermined; identifies a concrete cause (tool semantics, symlink handling, process lifecycle); the anomalous result is not itself an error/failure report? Hmm, should I exclude errors? If I exclude errors, DIAGNOSES_FAILURE_CAUSE covers errors. Yes: exclusion \"The observation reports a tool error or failing command; explaining an error is handled by failure diagnosis.\" That keeps clean distinguishability.\n\n2. REVERIFIES_WITH_ALTERNATIVE_MECHANISM\nparameters: recheck_action (action), inconclusive_observation (observation).\nAssertion: prior observation left a property undetermined (empty/ambiguous output) without reporting an error; action inspects same property via different command/option/access path; difference makes property observable.\nExclusions: same command repeated; different property; earlier check conclusive or erroring (error-correction handled elsewhere).\n\n3. RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE\nparameters: doubt_reasoning (reasoning), probe_action (action), probe_result (observation).\nAssertion as candidate, plus the probe result demonstrates the capability working.\nExclusions: no doubt; probe not targeting; failing/inconclusive result; ordinary acceptance test not tied to anomaly.\n\n4. VERIFIES_ENUMERATED_STATE_ITEMS\nparameters: checklist_reasoning (reasoning), inspection_action (action). Candidate order was (inspection_action, checklist_reasoning). Keep candidate order? Ordering determines argument roles; either is fine. I'd put reasoning first then action for readability, but candidate order is inspection_action then checklist_reasoning. I'll keep reasoning first for consistency with mechanism (plan → action)? Hmm, changing order doesn't matter for a new predicate. I'll use checklist_reasoning first, inspection_action second. It's a new predicate, so no registry constraint.\n\n5. PROVISIONS_DISPOSABLE_CREDENTIAL\nparameters: provisioning_action (action).\n\n6. REPLICATES_DOCUMENTED_USER_COMMANDS\nparameters: sequence_reasoning (reasoning), replay_action (action).\n\n7. INSTALLS_STARTUP_HOOK\nparameters: hook_action (action).\n\n8. REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION\nparameters: consumer_action (action), producer_action (action).\n\n9. CONFIRMS_DEPLOYMENT_PIPELINE\nparameters: publish_action (action), retrieval_action (action), served_result (observation).\n\nCheck name uniqueness against registry: EXPLAINS_OBSERVED_ANOMALY no; REVERIFIES_WITH_ALTERNATIVE_MECHANISM no; RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE no; VERIFIES_ENUMERATED_STATE_ITEMS no; PROVISIONS_DISPOSABLE_CREDENTIAL no; REPLICATES_DOCUMENTED_USER_COMMANDS no; INSTALLS_STARTUP_HOOK no; REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION no; CONFIRMS_DEPLOYMENT_PIPELINE no. Good.\n\nNow write JSON.\n\nFor CONFIRMS_DEPLOYMENT_PIPELINE, note the served_result observation in event-0023 is separate from the retrieval action event-0023 action-1 — the action and observation are separate nodes, fine.\n\nWrite final definitions with English descriptions.\n\nLet me write the JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 26262,
+          "completion_tokens": 6696,
+          "total_tokens": 32958,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4354
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 24342
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\": [{\"name\": \"EXPLAINS_OBSERVED_ANOMALY\", \"definition\": \"The reasoning gives a causal account of why a recorded observation returned an unexpected, empty, or otherwise puzzling result that is not itself an error, naming a concrete mechanism (tool or option semantics, symlink handling, process lifecycle) rather than treating the result as a failure of the underlying goal.\", \"parameters\": [{\"name\": \"explanation\", \"type\": \"reasoning\", \"description\": \"The agent text that accounts for the puzzling result.\"}, {\"name\": \"anomalous_observation\", \"type\": \"observation\", \"description\": \"The observation whose output was empty, missing, or contrary to expectation without reporting an error.\"}], \"assertion_conditions\": [\"The explanation explicitly refers to a result contained in the observation that deviated from expectation or left a property undetermined.\", \"The explanation identifies a concrete cause for that result, such as a command that does not follow symlinks, a shell lacking a numeric conversion function, or a non-reaping parent process.\"], \"exclusion_conditions\": [\"The reasoning merely restates or quotes the observation without a causal account.\", \"The reasoning only proposes the next action and gives no cause for the puzzling result.\", \"The referenced result is not present in the observation, so there is no traceable link between the two nodes.\", \"The observation reports a tool error or failing command; causal explanation of an error is a failure-diagnosis mechanism rather than an anomaly explanation.\"]}, {\"name\": \"REVERIFIES_WITH_ALTERNATIVE_MECHANISM\", \"definition\": \"A prior observation left a system property undetermined or contradicted expectation without reporting an error, and the action re-establishes that same property through a different tool, option, or access path rather than repeating the original check.\", \"parameters\": [{\"name\": \"recheck_action\", \"type\": \"action\", \"description\": \"The action performing the alternative re-verification.\"}, {\"name\": \"inconclusive_observation\", \"type\": \"observation\", \"description\": \"The earlier check whose output was empty, ambiguous, or insufficient to settle the property.\"}], \"assertion_conditions\": [\"The prior observation failed to reveal a property that the agent expected or needed to know, for example because it produced no output.\", \"The action inspects the same system property using a different command, option, or access path than the earlier check.\", \"The differing technique is what makes the property observable.\"], \"exclusion_conditions\": [\"The action reruns the identical command with identical options, adding no new observability.\", \"The action inspects a different property than the one left undetermined.\", \"The earlier observation was conclusive, so the action is routine verification rather than alternative re-verification.\", \"The earlier observation reported a tool error; correcting a failed invocation is a distinct mechanism.\"]}, {\"name\": \"RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE\", \"definition\": \"The reasoning raises doubt about whether an observed anomaly actually impairs a required capability, a probe action exercises exactly that capability, and the resulting observation demonstrates that the capability still works, providing grounds to dismiss the anomaly.\", \"parameters\": [{\"name\": \"doubt_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing uncertainty about whether the anomaly breaks functionality.\"}, {\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action that exercises the capability put in doubt.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome of the probe.\"}], \"assertion_conditions\": [\"The reasoning identifies an observed anomaly and questions whether it affects a required capability.\", \"The probe action directly exercises the capability that was questioned.\", \"The probe result shows the capability behaving successfully, providing grounds to treat the anomaly as harmless.\"], \"exclusion_conditions\": [\"The probe does not target the capability that was questioned.\", \"The probe result is failing, inconclusive, or unrelated to the doubt.\", \"No doubt about functionality is expressed; the probe is ordinary acceptance testing.\"]}, {\"name\": \"VERIFIES_ENUMERATED_STATE_ITEMS\", \"definition\": \"The reasoning itemizes discrete facets of system state to be confirmed, and the action performs a read-only inspection that reads back those same facets in one pass.\", \"parameters\": [{\"name\": \"checklist_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating the specific facets to be confirmed.\"}, {\"name\": \"inspection_action\", \"type\": \"action\", \"description\": \"The read-only action that reads back the enumerated state facets.\"}], \"assertion_conditions\": [\"The reasoning lists multiple discrete facets to confirm, such as services, listening ports, ownership or permissions, repository references, configuration contents, and endpoint status.\", \"The action issues read-only commands covering those same facets.\", \"The facets checked by the action can be mapped onto the enumerated items.\"], \"exclusion_conditions\": [\"The action mutates state rather than reading it back.\", \"The action checks facets that were not enumerated, or the reasoning gives only a general goal without itemized facets.\", \"The reasoning enumerates items but the action addresses only one of them.\"]}, {\"name\": \"PROVISIONS_DISPOSABLE_CREDENTIAL\", \"definition\": \"The action creates transient authentication material in a temporary location and installs it into the authentication path solely so that the login or authentication flow can be exercised during testing, without intending it as the end user's credential.\", \"parameters\": [{\"name\": \"provisioning_action\", \"type\": \"action\", \"description\": \"The action generating and installing the temporary credential.\"}], \"assertion_conditions\": [\"The action generates authentication material such as a key pair or token at a temporary path.\", \"The generated material is placed into the authentication path, such as an authorized-keys file, so that a test login can succeed.\", \"The material is distinct from the credential the end user is expected to configure.\"], \"exclusion_conditions\": [\"The action sets up the credential the end user will keep and use.\", \"The action only reads or inspects existing credentials without generating new material.\", \"Generated material is intended for permanent production use rather than a test of the authentication path.\"]}, {\"name\": \"REPLICATES_DOCUMENTED_USER_COMMANDS\", \"definition\": \"The reasoning lays out the exact command sequence the requester is expected to run, and the action executes that same sequence verbatim against the configured system in a fresh working location as an acceptance replay of the requester's workflow.\", \"parameters\": [{\"name\": \"sequence_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating the expected command sequence.\"}, {\"name\": \"replay_action\", \"type\": \"action\", \"description\": \"The action executing the documented command sequence.\"}], \"assertion_conditions\": [\"The reasoning enumerates the specific commands the requester will run, in order.\", \"The action executes those same commands, in the same order, rather than ad-hoc equivalents.\", \"The execution occurs in a clean location so the result reflects the requester's starting conditions.\"], \"exclusion_conditions\": [\"The action uses substitute commands that only approximate the documented workflow.\", \"The reasoning states general verification goals without listing a concrete command sequence.\", \"The action executes only a fragment of the documented sequence.\"]}, {\"name\": \"INSTALLS_STARTUP_HOOK\", \"definition\": \"The action modifies shell startup configuration so that a previously created helper is invoked automatically on future login or interactive shells, wiring the helper into the session lifecycle.\", \"parameters\": [{\"name\": \"hook_action\", \"type\": \"action\", \"description\": \"The action writing or appending the helper invocation into startup files.\"}], \"assertion_conditions\": [\"The action writes to shell startup configuration, such as a profile directory file or a shell rc file.\", \"The written content invokes a named helper, for example by its script path, so that it runs on subsequent shells.\", \"The invocation is written in a failure-tolerant form that does not disturb the session.\"], \"exclusion_conditions\": [\"The action only creates the helper file without wiring it into startup configuration.\", \"The startup file is edited for unrelated purposes such as environment variables, aliases, or PATH, with no helper invocation.\", \"The invocation is written into a one-off command rather than persistent startup configuration.\"]}, {\"name\": \"REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION\", \"definition\": \"An artifact such as a file, script, credential, or directory produced by one action is consumed as an operational input by a later action, creating a traceable cross-action dependency on that produced value.\", \"parameters\": [{\"name\": \"consumer_action\", \"type\": \"action\", \"description\": \"The later action whose command references the produced artifact.\"}, {\"name\": \"producer_action\", \"type\": \"action\", \"description\": \"The earlier action that created the artifact.\"}], \"assertion_conditions\": [\"The producer action creates a file, script, credential, or path at a specific location.\", \"The consumer action's command references that same location as an operational input, for example as a key path or a generated script path.\", \"The producer precedes the consumer, and no other node supplies the artifact.\"], \"exclusion_conditions\": [\"Both actions merely reference an artifact that pre-existed and was not created by the producer.\", \"The consumer action mentions the path only in narration without using it operationally.\", \"The artifact was created by an action outside the compared pair.\"]}, {\"name\": \"CONFIRMS_DEPLOYMENT_PIPELINE\", \"definition\": \"A publishing action successfully writes content into the configured deployment source, and a subsequent retrieval action reads that content back through the serving endpoint, with the result showing that the published content is actually being served.\", \"parameters\": [{\"name\": \"publish_action\", \"type\": \"action\", \"description\": \"The action that commits, pushes, or installs content into the repository or deployment source.\"}, {\"name\": \"retrieval_action\", \"type\": \"action\", \"description\": \"The action that fetches the content through the serving endpoint.\"}, {\"name\": \"served_result\", \"type\": \"observation\", \"description\": \"The observation reporting the retrieved content and the server response.\"}], \"assertion_conditions\": [\"The publishing action reports success in writing the content to the deployment source.\", \"The retrieval action addresses the serving endpoint that is supposed to expose that content after deployment.\", \"The served result contains the published content with a success status, showing that the publish-to-serve path works end to end.\"], \"exclusion_conditions\": [\"The retrieval occurs before the publishing action succeeds, so the served result cannot stem from that deployment.\", \"The served content differs from what was published.\", \"The retrieval reads a local copy or the repository directly rather than the serving endpoint.\"]}], \"revised_existing_predicates\": []}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "EXPLAINS_OBSERVED_ANOMALY",
+        "definition": "The reasoning gives a causal account of why a recorded observation returned an unexpected, empty, or otherwise puzzling result that is not itself an error, naming a concrete mechanism (tool or option semantics, symlink handling, process lifecycle) rather than treating the result as a failure of the underlying goal.",
+        "parameters": [
+          {
+            "name": "explanation",
+            "type": "reasoning",
+            "description": "The agent text that accounts for the puzzling result."
+          },
+          {
+            "name": "anomalous_observation",
+            "type": "observation",
+            "description": "The observation whose output was empty, missing, or contrary to expectation without reporting an error."
+          }
+        ],
+        "assertion_conditions": [
+          "The explanation explicitly refers to a result contained in the observation that deviated from expectation or left a property undetermined.",
+          "The explanation identifies a concrete cause for that result, such as a command that does not follow symlinks, a shell lacking a numeric conversion function, or a non-reaping parent process."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely restates or quotes the observation without a causal account.",
+          "The reasoning only proposes the next action and gives no cause for the puzzling result.",
+          "The referenced result is not present in the observation, so there is no traceable link between the two nodes.",
+          "The observation reports a tool error or failing command; causal explanation of an error is a failure-diagnosis mechanism rather than an anomaly explanation."
+        ]
+      },
+      {
+        "name": "REVERIFIES_WITH_ALTERNATIVE_MECHANISM",
+        "definition": "A prior observation left a system property undetermined or contradicted expectation without reporting an error, and the action re-establishes that same property through a different tool, option, or access path rather than repeating the original check.",
+        "parameters": [
+          {
+            "name": "recheck_action",
+            "type": "action",
+            "description": "The action performing the alternative re-verification."
+          },
+          {
+            "name": "inconclusive_observation",
+            "type": "observation",
+            "description": "The earlier check whose output was empty, ambiguous, or insufficient to settle the property."
+          }
+        ],
+        "assertion_conditions": [
+          "The prior observation failed to reveal a property that the agent expected or needed to know, for example because it produced no output.",
+          "The action inspects the same system property using a different command, option, or access path than the earlier check.",
+          "The differing technique is what makes the property observable."
+        ],
+        "exclusion_conditions": [
+          "The action reruns the identical command with identical options, adding no new observability.",
+          "The action inspects a different property than the one left undetermined.",
+          "The earlier observation was conclusive, so the action is routine verification rather than alternative re-verification.",
+          "The earlier observation reported a tool error; correcting a failed invocation is a distinct mechanism."
+        ]
+      },
+      {
+        "name": "RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE",
+        "definition": "The reasoning raises doubt about whether an observed anomaly actually impairs a required capability, a probe action exercises exactly that capability, and the resulting observation demonstrates that the capability still works, providing grounds to dismiss the anomaly.",
+        "parameters": [
+          {
+            "name": "doubt_reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing uncertainty about whether the anomaly breaks functionality."
+          },
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action that exercises the capability put in doubt."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the outcome of the probe."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies an observed anomaly and questions whether it affects a required capability.",
+          "The probe action directly exercises the capability that was questioned.",
+          "The probe result shows the capability behaving successfully, providing grounds to treat the anomaly as harmless."
+        ],
+        "exclusion_conditions": [
+          "The probe does not target the capability that was questioned.",
+          "The probe result is failing, inconclusive, or unrelated to the doubt.",
+          "No doubt about functionality is expressed; the probe is ordinary acceptance testing."
+        ]
+      },
+      {
+        "name": "VERIFIES_ENUMERATED_STATE_ITEMS",
+        "definition": "The reasoning itemizes discrete facets of system state to be confirmed, and the action performs a read-only inspection that reads back those same facets in one pass.",
+        "parameters": [
+          {
+            "name": "checklist_reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating the specific facets to be confirmed."
+          },
+          {
+            "name": "inspection_action",
+            "type": "action",
+            "description": "The read-only action that reads back the enumerated state facets."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning lists multiple discrete facets to confirm, such as services, listening ports, ownership or permissions, repository references, configuration contents, and endpoint status.",
+          "The action issues read-only commands covering those same facets.",
+          "The facets checked by the action can be mapped onto the enumerated items."
+        ],
+        "exclusion_conditions": [
+          "The action mutates state rather than reading it back.",
+          "The action checks facets that were not enumerated, or the reasoning gives only a general goal without itemized facets.",
+          "The reasoning enumerates items but the action addresses only one of them."
+        ]
+      },
+      {
+        "name": "PROVISIONS_DISPOSABLE_CREDENTIAL",
+        "definition": "The action creates transient authentication material in a temporary location and installs it into the authentication path solely so that the login or authentication flow can be exercised during testing, without intending it as the end user's credential.",
+        "parameters": [
+          {
+            "name": "provisioning_action",
+            "type": "action",
+            "description": "The action generating and installing the temporary credential."
+          }
+        ],
+        "assertion_conditions": [
+          "The action generates authentication material such as a key pair or token at a temporary path.",
+          "The generated material is placed into the authentication path, such as an authorized-keys file, so that a test login can succeed.",
+          "The material is distinct from the credential the end user is expected to configure."
+        ],
+        "exclusion_conditions": [
+          "The action sets up the credential the end user will keep and use.",
+          "The action only reads or inspects existing credentials without generating new material.",
+          "Generated material is intended for permanent production use rather than a test of the authentication path."
+        ]
+      },
+      {
+        "name": "REPLICATES_DOCUMENTED_USER_COMMANDS",
+        "definition": "The reasoning lays out the exact command sequence the requester is expected to run, and the action executes that same sequence verbatim against the configured system in a fresh working location as an acceptance replay of the requester's workflow.",
+        "parameters": [
+          {
+            "name": "sequence_reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating the expected command sequence."
+          },
+          {
+            "name": "replay_action",
+            "type": "action",
+            "description": "The action executing the documented command sequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning enumerates the specific commands the requester will run, in order.",
+          "The action executes those same commands, in the same order, rather than ad-hoc equivalents.",
+          "The execution occurs in a clean location so the result reflects the requester's starting conditions."
+        ],
+        "exclusion_conditions": [
+          "The action uses substitute commands that only approximate the documented workflow.",
+          "The reasoning states general verification goals without listing a concrete command sequence.",
+          "The action executes only a fragment of the documented sequence."
+        ]
+      },
+      {
+        "name": "INSTALLS_STARTUP_HOOK",
+        "definition": "The action modifies shell startup configuration so that a previously created helper is invoked automatically on future login or interactive shells, wiring the helper into the session lifecycle.",
+        "parameters": [
+          {
+            "name": "hook_action",
+            "type": "action",
+            "description": "The action writing or appending the helper invocation into startup files."
+          }
+        ],
+        "assertion_conditions": [
+          "The action writes to shell startup configuration, such as a profile directory file or a shell rc file.",
+          "The written content invokes a named helper, for example by its script path, so that it runs on subsequent shells.",
+          "The invocation is written in a failure-tolerant form that does not disturb the session."
+        ],
+        "exclusion_conditions": [
+          "The action only creates the helper file without wiring it into startup configuration.",
+          "The startup file is edited for unrelated purposes such as environment variables, aliases, or PATH, with no helper invocation.",
+          "The invocation is written into a one-off command rather than persistent startup configuration."
+        ]
+      },
+      {
+        "name": "REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION",
+        "definition": "An artifact such as a file, script, credential, or directory produced by one action is consumed as an operational input by a later action, creating a traceable cross-action dependency on that produced value.",
+        "parameters": [
+          {
+            "name": "consumer_action",
+            "type": "action",
+            "description": "The later action whose command references the produced artifact."
+          },
+          {
+            "name": "producer_action",
+            "type": "action",
+            "description": "The earlier action that created the artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The producer action creates a file, script, credential, or path at a specific location.",
+          "The consumer action's command references that same location as an operational input, for example as a key path or a generated script path.",
+          "The producer precedes the consumer, and no other node supplies the artifact."
+        ],
+        "exclusion_conditions": [
+          "Both actions merely reference an artifact that pre-existed and was not created by the producer.",
+          "The consumer action mentions the path only in narration without using it operationally.",
+          "The artifact was created by an action outside the compared pair."
+        ]
+      },
+      {
+        "name": "CONFIRMS_DEPLOYMENT_PIPELINE",
+        "definition": "A publishing action successfully writes content into the configured deployment source, and a subsequent retrieval action reads that content back through the serving endpoint, with the result showing that the published content is actually being served.",
+        "parameters": [
+          {
+            "name": "publish_action",
+            "type": "action",
+            "description": "The action that commits, pushes, or installs content into the repository or deployment source."
+          },
+          {
+            "name": "retrieval_action",
+            "type": "action",
+            "description": "The action that fetches the content through the serving endpoint."
+          },
+          {
+            "name": "served_result",
+            "type": "observation",
+            "description": "The observation reporting the retrieved content and the server response."
+          }
+        ],
+        "assertion_conditions": [
+          "The publishing action reports success in writing the content to the deployment source.",
+          "The retrieval action addresses the serving endpoint that is supposed to expose that content after deployment.",
+          "The served result contains the published content with a success status, showing that the publish-to-serve path works end to end."
+        ],
+        "exclusion_conditions": [
+          "The retrieval occurs before the publishing action succeeds, so the served result cannot stem from that deployment.",
+          "The served content differs from what was published.",
+          "The retrieval reads a local copy or the repository directly rather than the serving endpoint."
+        ]
+      }
+    ],
+    "revised_existing_predicates": []
+  },
+  "previous_calls": []
+}

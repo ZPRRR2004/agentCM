@@ -1,0 +1,329 @@
+{
+  "stage": "review",
+  "window_file": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T03:42:15.472143+00:00",
+  "duration_seconds": 34.797,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T03:41:40.675792+00:00",
+      "duration_seconds": 34.781,
+      "raw_response": {
+        "id": "6959bd2a-259c-43ec-97df-d3d5750201ac",
+        "object": "chat.completion",
+        "created": 1793418106,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\":[{\"name\":\"IS_EXECUTION_PLAN\",\"definition\":\"The reasoning explicitly expresses an intended future action or ordered sequence of actions that the agent intends to perform next in service of the task.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text expressing the intended future action(s) or the plan to be carried out.\"}],\"assertion_conditions\":[\"The reasoning explicitly names at least one action that is still to be performed (e.g., inspecting a file, listing a workspace, compiling an artifact, verifying a result).\",\"The intended action is presented as the agent's own next step, not as a hypothetical or rejected alternative.\"],\"exclusion_conditions\":[\"Merely reporting actions that have already been completed does not constitute a plan.\",\"Restating the user's task requirements without committing to a next action is not a plan.\",\"Post-hoc summarization of finished work is not a plan.\"]},{\"name\":\"IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT\",\"definition\":\"The reasoning analyzes the content returned by an observation and pinpoints a concrete deficiency in that content that must be corrected for the task to succeed.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text performing the analysis and naming the deficiency.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier observation whose returned content contains the deficient artifact.\"}],\"assertion_conditions\":[\"The observation returns the actual content of an artifact (e.g., source text of a file) rather than mere metadata.\",\"The reasoning names specific missing, incomplete, or erroneous portions of that content (e.g., unresolved holes, absent steps, absent branches), rather than describing the content in general terms.\"],\"exclusion_conditions\":[\"The reasoning only restates or quotes the observed content without locating a deficiency.\",\"The reasoning discusses the artifact without any content from an observation having been supplied.\",\"The observation reports a tool failure rather than artifact content.\"]},{\"name\":\"GUIDES_ACTION_CONTENT\",\"definition\":\"The reasoning specifies the concrete content or form of an operation that a subsequent action then carries out, so that the action's payload is traceable to the reasoning.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text that decides what the operation should do or which content it should supply.\"},{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action that performs the operation whose content corresponds to the reasoning.\"}],\"assertion_conditions\":[\"The reasoning states a concrete intended operation or the concrete content to be produced (e.g., the exact replacement text, the exact command form).\",\"The action's payload matches that stated intent in substance, not merely in topic.\",\"The reasoning precedes the action.\"],\"exclusion_conditions\":[\"The reasoning only expresses a general goal while the action's content is fixed by a prior observation or by chance.\",\"The action diverges from what the reasoning specified.\",\"The reasoning is written after the action and only reports it.\"]},{\"name\":\"REPLACES_DEFECTIVE_CONTENT_OBSERVED\",\"definition\":\"A modification action rewrites the very resource whose deficient content was reported by an earlier observation, supplying content that fills the identified gap.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The modification action that writes or edits the resource.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier observation that returned the deficient content of that same resource.\"}],\"assertion_conditions\":[\"The observation returns content of a specific named resource (e.g., a file path) that lacks required elements.\",\"The action targets that same resource and supplies the content that was missing, replacing the deficient portion.\",\"The action precedes any confirmation of the resource's corrected state.\"],\"exclusion_conditions\":[\"The action targets a different resource than the one observed.\",\"The action is read-only or only inspects the resource.\",\"The observation is unrelated to the resource being written.\"]},{\"name\":\"CHECKS_TOOL_AVAILABILITY\",\"definition\":\"The action queries whether a required tool or toolchain executable is present and usable, as a precondition check before performing the primary task.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action invoking a presence or version query on the required tool.\"}],\"assertion_conditions\":[\"The invocation resolves the location of the executable or asks the tool for its version, rather than performing the primary task.\",\"The stated intent or surrounding reasoning links the check to a tool needed for the primary task.\"],\"exclusion_conditions\":[\"The action performs the primary task itself (e.g., running the compiler on the target artifact).\",\"The action queries an unrelated utility or an unrelated property of the environment.\"]},{\"name\":\"PERFORMS_PRIMARY_BUILD\",\"definition\":\"The action executes the build or compilation step on the target artifact as the main operation of the task, rather than checking prerequisites or inspecting outputs.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action running the build/compilation command on the target artifact.\"}],\"assertion_conditions\":[\"The command invokes the build tool on the target artifact path.\",\"The command optionally combines the build with listing of produced outputs in the same invocation.\"],\"exclusion_conditions\":[\"The action only queries tool availability or version.\",\"The action only loads or prints an already compiled artifact for inspection.\",\"The action only reads source text without building.\"]},{\"name\":\"INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT\",\"definition\":\"The observation resulting from a build or compilation command provides evidence that the build succeeded and that the compiled output artifact was produced.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation returning the build command's output.\"}],\"assertion_conditions\":[\"The observation is the result of a build/compilation invocation.\",\"The output contains no error indication and evidences the compiled output artifact, such as by listing it or a success marker.\"],\"exclusion_conditions\":[\"The output contains compiler errors or a nonzero exit indication.\",\"The output merely lists files without any build having been executed.\",\"The output comes from a verification or inspection command rather than a build.\"]},{\"name\":\"IS_INVOCATION_ERROR_OBSERVATION\",\"definition\":\"The observation reports an error caused by the malformed or misinterpreted form of the tool invocation, rather than by a defect in the artifact being processed.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation returning the failing tool output.\"}],\"assertion_conditions\":[\"The observation is marked as an error or shows a nonzero exit.\",\"The error message describes the tool's inability to interpret or locate something according to its argument convention (e.g., it looked for a file name derived from the supplied argument).\"],\"exclusion_conditions\":[\"The error indicates that the processed artifact itself is invalid or failed verification.\",\"The error reports an unavailable required tool or missing dependency.\",\"The observation reports success.\"]},{\"name\":\"CORRECTS_FAILED_INVOCATION\",\"definition\":\"A retry action pursues the same verification or inspection goal as a failed invocation while changing precisely the aspect of the invocation that the error identified.\",\"parameters\":[{\"name\":\"retry_action\",\"type\":\"action\",\"description\":\"The action that re-attempts the operation after the failure.\"},{\"name\":\"failure_observation\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the invocation error.\"}],\"assertion_conditions\":[\"The failure observation precedes the retry action, and the retry action targets the same overall goal.\",\"The retry action's parameters differ from the failed invocation in exactly the respect the error message indicated.\",\"The retry preserves the underlying resource being inspected or verified.\"],\"exclusion_conditions\":[\"The retry repeats the identical invocation that already failed.\",\"The action abandons the goal and does something unrelated.\",\"The action changes the artifact rather than the invocation form.\"]},{\"name\":\"CONFIRMS_CORRECTED_VERIFICATION\",\"definition\":\"A retry action addresses a specific invocation failure, and a later observation establishes that the intended verification result was obtained.\",\"parameters\":[{\"name\":\"retry_action\",\"type\":\"action\",\"description\":\"The action attempting to fix the failed invocation.\"},{\"name\":\"failure_observation\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the invocation failure.\"},{\"name\":\"confirmation_observation\",\"type\":\"observation\",\"description\":\"The later observation showing the intended verification output.\"}],\"assertion_conditions\":[\"The failure observation precedes the retry action, and the retry action corrects the identified invocation problem.\",\"The confirmation observation follows the retry action and contains the sought result (e.g., the queried declaration printed with its full content) without error.\"],\"exclusion_conditions\":[\"The retry is performed without any later observation demonstrating the sought result.\",\"The later observation still reports an error or an empty/irrelevant result.\",\"The later observation confirms something other than the failure's subject.\"]},{\"name\":\"ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION\",\"definition\":\"The action attempts to inspect the semantic content of an already produced compiled artifact by loading it or querying a declaration from it, rather than by rebuilding it or reading raw bytes.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action that attempts to load the compiled artifact or query a declaration from it.\"}],\"assertion_conditions\":[\"The invocation attempts to load a compiled artifact into the tool's environment or asks the tool to print/check a named declaration.\",\"The action is distinct from the build that produced the artifact and from file-listing or byte-level inspection.\"],\"exclusion_conditions\":[\"The action rebuilds the artifact from source.\",\"The action only lists files or checks file sizes/timestamps.\",\"The action reads source text instead of the compiled artifact.\"]},{\"name\":\"ASSERTS_TASK_COMPLETION_WITH_EVIDENCE\",\"definition\":\"The reasoning declares the overall task finished and backs the claim by citing the concrete artifacts produced and the verifications performed.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text concluding the task and citing its supporting evidence.\"}],\"assertion_conditions\":[\"The reasoning explicitly states that the task is complete or that all required steps are done.\",\"It references the concrete produced artifacts and the checks that were run to establish success.\"],\"exclusion_conditions\":[\"The reasoning describes an intermediate step or an open problem rather than final completion.\",\"The claim of completion cites no produced artifact or verification result.\",\"The reasoning admits that a required verification is still missing or failing.\"]}],\"revised_existing_predicates\":[]}",
+              "reasoning_content": "We need answer only JSON. Need review candidates. Registry empty. Need accept supported reusable predicates, refine/split/generalize. Need assess against trajectory.\n\nWe need produce accepted_predicates with precise definitions. There are 11 candidates. Need decide which mechanisms supported and reusable, not overly broad/specific. Since registry empty, no revisions. Need possibly drop unsupported/invented. Need ensure each predicate evidence.\n\nLet's list trajectory:\n- 0001 reasoning says check files, inspect file/workspace -> plan.\n- action read plus_comm.v -> observation incomplete proof with admits.\n- action bash ls -la workspace -> observation listing.\n- 0002 reasoning analyzes file, identifies admits/holes? It says \"Need to complete proof. Classic proof... Let me think... base case... inductive...\" It identifies missing steps? It notes after simpl goal etc; maybe not explicitly says file has admit? It quotes file and reasons. It is plan/analysis.\n- action which coqc && coqc --version -> observation version.\n- 0003 reasoning: \"Coq 8.18.0 is available. Now I'll write completed proof. Proof structure...\" action write plus_comm.v with complete proof.\n- 0004 reasoning \"Next compile ... verify plus_comm.vo generated\" action coqc plus_comm.v && ls...\n- obs success with .vo.\n- 0005 reasoning \"Compilation succeeded... Let's do final check... verify compiled proof... coqtop ...\"\n- action coqtop -l plus_comm.vo -> obs error Can't find file plus_comm.vo.v on loadpath, is_error true exit 1.\n- 0006 reasoning identifies -l expects module name, retry. action coqtop -l plus_comm -> obs prints theorem.\n- 0007 reasoning summary task complete with evidence.\n\nCandidates:\n1 IS_EXECUTION_PLAN unary reasoning. Supported multiple. Keep. Could rename? Candidate name fine. Definition/conditions okay. Need not revise. Is it too broad? It's generic planning. Example. Accept.\n\n2 IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT binary reasoning-observation. Supported by 0002 reasoning + 0001 observation. Does reasoning \"pinpoint a concrete deficiency\" maybe yes: notes \"admit\" missing base/inductive? It reasons base case... Actually 0002: quotes file containing \"Need to handle base case\" \"admit\"; says \"Need to complete the proof.\" It identifies missing steps: base case and inductive case. Yes. Keep. Could be \"ANALYZES_...\"? Fine. Maybe binary mechanism: reasoning diagnoses insufficiency in observed artifact content. Supported.\n\n3 GUIDES_ACTION_CONTENT binary reasoning-action. Supported: 0003 reasoning specifies proof structure and action writes exact proof; 0004 reasoning states compile, action does; 0005/6 maybe. But maybe candidate is overly broad? It means reasoning determines content/form of action. Several. Need ensure action payload traceable. Yes. Keep. Could be semantic duplicate with plan? No, plan is future action; guide action content is specific payload design. Both may coexist. Keep.\n\n4 REPLACES_DEFECTIVE_CONTENT_OBSERVED action-observation. Supported: 0003 write plus_comm.v after 0001 observation incomplete proof. But assertion \"supplies content that fills identified gap\" yes. However maybe it requires observation returns content lacking required elements. Yes. Keep. It is mechanism repair artifact by rewriting same file. Good.\n\n5 CHECKS_TOOL_AVAILABILITY unary action. Supported 0002 which coqc && coqc --version; explicitly check availability. Keep.\n\n6 PERFORMS_PRIMARY_BUILD unary action. Supported 0004 coqc plus_comm.v. Keep.\n\n7 INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT unary observation. Supported 0004 observation. Keep.\n\n8 IS_INVOCATION_ERROR_OBSERVATION unary observation. Supported 0005 error. Keep. Maybe too specific to invocation errors vs general tool error. Definition says malformed/misinterpreted invocation. Supported. Could be generalized to \"tool invocation error\" exactly. Keep.\n\n9 CORRECTS_FAILED_INVOCATION binary action-observation. Supported 0006 retry action after 0005. It changes -l plus_comm.vo to -l plus_comm, exactly aspect. Keep.\n\n10 CONFIRMS_CORRECTED_VERIFICATION ternary action-observation-observation. Supported 0006 retry action, 0005 failure, 0006 observation prints theorem. Keep. Need maybe parameter order retry_action, failure_observation, confirmation_observation. Good.\n\n11 ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION unary action. Supported 0005 action (attempts verification via coqtop loading .vo) and 0006 action. Name \"ATTEMPTS\" perhaps because 0005 failed. Definition says inspects semantic content. It is supported. But potential issue: 0005 action didn't actually load because invocation error; \"attempts\" handles. 0006 succeeds. Keep. Could generalize to \"inspects compiled artifact semantics\". Good.\n\n12 ASSERTS_TASK_COMPLETION_WITH_EVIDENCE unary reasoning. Supported 0007. Keep.\n\nNeed maybe split PERFORMS_PRIMARY_BUILD? No.\n\nNeed consider if any candidate is broad family duplicate. Registry empty, no duplicates. Need possibly accepted_predicates all 12. Need ensure only supported candidates, no invented. Need maybe revise names? We can just accept all if precise. But task asks \"Review typed predicate definitions... refine overly broad candidate... generalize overly specific...\" Need perhaps adjust some definitions to be more mechanism-level and not overfit to Coq. Should generalize tools/resources. Candidate definitions already mostly generic. Could improve. Need decide if all 12 are accepted. Maybe some are not reusable or semantically duplicate?\n\nLet's analyze granularity and possible overlaps:\n\n- IS_EXECUTION_PLAN vs GUIDES_ACTION_CONTENT: Plan is unary property of reasoning (intent future action). Guide is binary relation between reasoning and action content. Distinct. Both supported.\n\n- IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT vs REPLACES_DEFECTIVE_CONTENT_OBSERVED: First focuses diagnosis relation reasoning-observation. Second action-observation repair. Distinct.\n\n- CHECKS_TOOL_AVAILABILITY vs PERFORMS_PRIMARY_BUILD: distinct.\n\n- INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT unary observation vs PERFORMS_PRIMARY_BUILD action. Distinct. Could be \"successful build evidence\". Good.\n\n- IS_INVOCATION_ERROR_OBSERVATION vs CORRECTS_FAILED_INVOCATION vs CONFIRMS_CORRECTED_VERIFICATION. Distinct roles.\n\n- ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION vs PERFORMS_PRIMARY_BUILD: distinct (build vs inspect compiled). But 0005 action attempted load; 0006 action loads. Is \"action independently inspects semantic content of already produced compiled artifact by loading it or querying declaration\" yes. Good.\n\nPotential issue: CONFIRMS_CORRECTED_VERIFICATION ternary maybe overlaps with \"observation confirms result.\" It includes failure and retry and confirmation. Good. Could decompose? It preserves joint relationship. Keep.\n\nPotential issue: ASSERTS_TASK_COMPLETION_WITH_EVIDENCE requires citations of artifacts and checks. 0007 does. Reusable. Keep.\n\nNeed maybe use \"CHECKS_TOOL_AVAILABILITY\" action unary. The action `which coqc && coqc --version` also queries version. It is availability check. Good.\n\nNeed ensure each predicate has exclusion conditions, at least one assertion. Names unique. All types valid. Could return exactly candidates. But maybe need refine one: \"IS_EXECUTION_PLAN\" maybe should be \"IS_PLAN\" as in examples? Name candidate accepted. No need. \"PERFORMS_PRIMARY_BUILD\" may be too task-specific to build/compile; but mechanism is executing primary build. It's fine. Could generalize to \"PERFORMS_PRIMARY_OPERATION\" but that would be too broad and less useful. Keep.\n\nCould \"INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT\" require enumerating compiled artifact and empty marker; over-specific? It says \"and, where applicable, a success marker or empty marker file\" optional. General enough.\n\nPotential issue: \"ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION\" uses word \"attempts\"; the action that succeeds in 0006 is actual verification. Maybe predicate should be \"INSPECTS_COMPILED_ARTIFACT_CONTENT\" and holds for both attempts/success? But candidate is already name ATTEMPTS. We can accept with definition noting action may succeed or fail? The task says preserve attempt-versus-success distinctions. Here \"ATTEMPTS\" distinguishes from confirmed verification. Since 0005 action attempted but failed due invocation; 0006 action succeeds. If predicate holds for both, then it's \"attempts\" not success. The definition as given says independently inspects semantic content; it doesn't explicitly say success. It uses \"attempts\" name. Fine.\n\nNeed maybe include \"CONFIRMS_CORRECTED_VERIFICATION\" could be too specific to invocation error; but evidence. Keep.\n\nCould there be no need for revision array. Since registry empty.\n\nNeed output JSON only. Use exact schema. Need include complete definitions. Maybe we can slightly refine definitions to remove \"the tool\" over-specific? But preserve candidate. We can keep as is. Need ensure \"parameters\" description English. Good.\n\nHowever, before final, let's ensure no hidden requirement: \"Review typed predicate definitions using full current Context Window, original candidates, Comparison results, registry snapshot. Comparison preliminary: reassess all candidates, including existing/new/uncertain...\" All new. \"Task A accept supported reusable new predicates. Refine overly broad candidate into mechanism actually supported. Split if multiple distinct mechanisms. Generalize overly specific tool/resource labels. Preserve roles, applicability conditions, scope, and attempt-versus-success distinctions. Use distinguishing case... Compare against entire registry. Accept precise mechanism even when broad family covers it. Suppress actual semantic duplicate; keep distinct predicate under distinct name if names collide. Discard unsupported. Do not invent. Task B revise matched registry only if existing definition needs clarification. original_name must occur in matched_existing_name entries. Return at most one revision per original name.\" Registry empty, no revisions.\n\nNeed possibly discard `IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT`? Let's examine evidence: 0002 reasoning analyzes the observed file. Does it \"pinpoint a concrete deficiency\"? It says \"The file contents are as follows... Need to complete the proof. Classic proof... Let me think... base case... Inductive case... Complete file...\" It notes \"After intros n m and induction n... Base case... goal... resolved with... Inductive case...\" It identifies missing steps (base/inductive) but not explicitly \"admit holes\"? The observation content has admit and comments. It says \"The file needs base case and inductive step completed.\" Yes. Good.\n\nPotential issue `GUIDES_ACTION_CONTENT`: 0002 reasoning specifies full completed proof content, and 0003 action writes it. Strong support. Also 0003 reasoning says write; 0003 action. Good.\n\nPotential issue `REPLACES_DEFECTIVE_CONTENT_OBSERVED`: 0003 action write to plus_comm.v after observation 0001 from read plus_comm.v. The action supplies content filling gap. Strong. It doesn't require reasoning linking, just action/observation. Good.\n\nPotential issue `PERFORMS_PRIMARY_BUILD`: The action `coqc plus_comm.v && ls -la plus_comm.v*` compiles and lists. Good.\n\nPotential issue `INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT`: observation 0004 raw shows files, not explicitly no error, but exit 0 and .vo. Good.\n\nPotential issue `IS_INVOCATION_ERROR_OBSERVATION`: observation 0005 error \"Can't find file plus_comm.vo.v on loadpath\" due -l convention. is_error true. Good.\n\nPotential issue `CORRECTS_FAILED_INVOCATION`: retry action 0006 vs failure 0005, changes command from `coqtop -l plus_comm.vo` to `coqtop -l plus_comm`; same goal Print plus_comm. Good.\n\nPotential issue `CONFIRMS_CORRECTED_VERIFICATION`: confirmation obs 0006 displays theorem. Good.\n\nPotential issue `ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION`: 0005 action loads compiled artifact? It intended to load plus_comm.vo, but failed. 0006 action loads module. It is not rebuild and not file listing. Good.\n\nPotential issue `ASSERTS_TASK_COMPLETION_WITH_EVIDENCE`: 0007 does.\n\nAll 12 accepted. But need consider if any names collide with empty registry no. Names unique among accepted? All unique.\n\nCould there be a semantic duplicate between `INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT` and `PERFORMS_PRIMARY_BUILD`? One observation property vs action property. Distinct.\n\nCould `IS_EXECUTION_PLAN` and `GUIDES_ACTION_CONTENT` be considered duplicate? Distinguishing case: Reasoning may plan future action but action not carried out or payload not matching; or reasoning may specify action content but not present as \"next step\"? Actually guide action content requires action exists and matches. Plan may exist without action. Thus distinct.\n\nCould `IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT` and `REPLACES_DEFECTIVE_CONTENT_OBSERVED` be duplicate? One reasoning diagnoses, one action repairs. Distinguishing case: agent identifies defect but does not repair; or action repairs without reasoning identifying? Distinct.\n\nCould `CORRECTS_FAILED_INVOCATION` and `CONFIRMS_CORRECTED_VERIFICATION` duplicate? Ternary adds confirmation; binary does not require success. Distinguishing case: retry action without confirmation. Distinct.\n\nCould `ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION` overlap with `CONFIRMS...`? One unary action, one ternary. Different.\n\nNeed perhaps not include \"ASSERTS_TASK_COMPLETION_WITH_EVIDENCE\" because it may be a summary of final reasoning; but reusable. Good.\n\nNow produce JSON. Need no markdown. Ensure valid JSON. Could use compact or pretty. Return object with two arrays. Need include complete definitions. We can use original candidate definitions. Maybe refine wording slightly to be precise and avoid overfitting. But if we change names? No. Need maybe name \"IS_EXECUTION_PLAN\" okay. \"IS_EXECUTION_PLAN\" not \"IS_PLAN\". Fine.\n\nLet's craft final JSON. Need ensure no comments. Use double quotes. No trailing commas. All parameters types allowed. Include exclusion_conditions arrays. We'll include all 12.\n\nNeed decide if to alter `ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION` definition to explicitly \"attempts to inspect\" rather than \"inspects\" to match attempt. Candidate name \"ATTEMPTS\". We can adjust definition: \"The action attempts to inspect the semantic content of an already produced compiled artifact by loading it or querying a declaration from it, rather than by rebuilding it or reading raw bytes.\" This preserves attempt-vs-success. Assertion conditions: \"The invocation attempts to load...\" Good. That's a refinement. But original candidate definition says \"independently inspects...\" We can refine to \"attempts to inspect\" to clarify. Is that narrowing? It includes successes too? \"Attempts to inspect\" can hold even if succeeds. It's okay. But if action succeeds, it still attempts. Good.\n\nMaybe `CONFIRMS_CORRECTED_VERIFICATION` definition: \"A retry action addresses a specific invocation failure, and a later observation establishes that the intended verification result was obtained.\" Good.\n\nMaybe `IS_INVOCATION_ERROR_OBSERVATION` definition \"malformed or misinterpreted form of tool invocation\" good. Could generalize \"tool invocation error\" not artifact defect. Good.\n\nMaybe `INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT` \"The observation output of a build command reports no error and enumerates generated compiled artifact...\" It may be too specific to \"enumerates\" because a build success observation could simply show artifact. But evidence. It's okay. Could generalize \"provides evidence that the build succeeded and the compiled artifact was produced.\" Better mechanism-level. Let's refine:\nDefinition: \"The observation resulting from a build or compilation command provides evidence that the build succeeded and that the compiled output artifact was produced.\"\nAssertion: \"The observation is the result of a build/compilation invocation.\" \"The output contains no error indication and evidences the compiled output artifact, such as by listing it or a success marker.\" This is less over-specific. Good.\n\n`PERFORMS_PRIMARY_BUILD` definition: \"The action executes the build or compilation step on the target artifact as the main operation...\" Good.\n\n`CHECKS_TOOL_AVAILABILITY`: good.\n\n`ASSERTS_TASK_COMPLETION_WITH_EVIDENCE`: good.\n\nMaybe `GUIDES_ACTION_CONTENT` could be broad: It says reasoning specifies concrete content or form of operation, action payload traceable. Supported. Good.\n\nNeed ensure each definition's parameters description not too detailed. Fine.\n\nFinal should be JSON only. Use pretty print.\n\nLet's draft:\n\n{\n \"accepted_predicates\": [\n  {\n    \"name\": \"IS_EXECUTION_PLAN\",\n    ...\n  },\n ...\n ],\n \"revised_existing_predicates\": []\n}\n\nNeed maybe all original names. Let's ensure no missing. 12.\n\nPotential issue: The contract says \"Every predicate definition must contain exactly five fields\" for predicate. We include exactly five. Good.\n\nPotential issue: `parameters` nonempty. All. Good.\n\nPotential issue: `exclusion_conditions` may be empty? We include nonempty for all. Fine.\n\nLet's write."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 14335,
+          "completion_tokens": 6104,
+          "total_tokens": 20439,
+          "prompt_tokens_details": {
+            "cached_tokens": 256
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3870
+          },
+          "prompt_cache_hit_tokens": 256,
+          "prompt_cache_miss_tokens": 14079
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\":[{\"name\":\"IS_EXECUTION_PLAN\",\"definition\":\"The reasoning explicitly expresses an intended future action or ordered sequence of actions that the agent intends to perform next in service of the task.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text expressing the intended future action(s) or the plan to be carried out.\"}],\"assertion_conditions\":[\"The reasoning explicitly names at least one action that is still to be performed (e.g., inspecting a file, listing a workspace, compiling an artifact, verifying a result).\",\"The intended action is presented as the agent's own next step, not as a hypothetical or rejected alternative.\"],\"exclusion_conditions\":[\"Merely reporting actions that have already been completed does not constitute a plan.\",\"Restating the user's task requirements without committing to a next action is not a plan.\",\"Post-hoc summarization of finished work is not a plan.\"]},{\"name\":\"IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT\",\"definition\":\"The reasoning analyzes the content returned by an observation and pinpoints a concrete deficiency in that content that must be corrected for the task to succeed.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text performing the analysis and naming the deficiency.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier observation whose returned content contains the deficient artifact.\"}],\"assertion_conditions\":[\"The observation returns the actual content of an artifact (e.g., source text of a file) rather than mere metadata.\",\"The reasoning names specific missing, incomplete, or erroneous portions of that content (e.g., unresolved holes, absent steps, absent branches), rather than describing the content in general terms.\"],\"exclusion_conditions\":[\"The reasoning only restates or quotes the observed content without locating a deficiency.\",\"The reasoning discusses the artifact without any content from an observation having been supplied.\",\"The observation reports a tool failure rather than artifact content.\"]},{\"name\":\"GUIDES_ACTION_CONTENT\",\"definition\":\"The reasoning specifies the concrete content or form of an operation that a subsequent action then carries out, so that the action's payload is traceable to the reasoning.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text that decides what the operation should do or which content it should supply.\"},{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action that performs the operation whose content corresponds to the reasoning.\"}],\"assertion_conditions\":[\"The reasoning states a concrete intended operation or the concrete content to be produced (e.g., the exact replacement text, the exact command form).\",\"The action's payload matches that stated intent in substance, not merely in topic.\",\"The reasoning precedes the action.\"],\"exclusion_conditions\":[\"The reasoning only expresses a general goal while the action's content is fixed by a prior observation or by chance.\",\"The action diverges from what the reasoning specified.\",\"The reasoning is written after the action and only reports it.\"]},{\"name\":\"REPLACES_DEFECTIVE_CONTENT_OBSERVED\",\"definition\":\"A modification action rewrites the very resource whose deficient content was reported by an earlier observation, supplying content that fills the identified gap.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The modification action that writes or edits the resource.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier observation that returned the deficient content of that same resource.\"}],\"assertion_conditions\":[\"The observation returns content of a specific named resource (e.g., a file path) that lacks required elements.\",\"The action targets that same resource and supplies the content that was missing, replacing the deficient portion.\",\"The action precedes any confirmation of the resource's corrected state.\"],\"exclusion_conditions\":[\"The action targets a different resource than the one observed.\",\"The action is read-only or only inspects the resource.\",\"The observation is unrelated to the resource being written.\"]},{\"name\":\"CHECKS_TOOL_AVAILABILITY\",\"definition\":\"The action queries whether a required tool or toolchain executable is present and usable, as a precondition check before performing the primary task.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action invoking a presence or version query on the required tool.\"}],\"assertion_conditions\":[\"The invocation resolves the location of the executable or asks the tool for its version, rather than performing the primary task.\",\"The stated intent or surrounding reasoning links the check to a tool needed for the primary task.\"],\"exclusion_conditions\":[\"The action performs the primary task itself (e.g., running the compiler on the target artifact).\",\"The action queries an unrelated utility or an unrelated property of the environment.\"]},{\"name\":\"PERFORMS_PRIMARY_BUILD\",\"definition\":\"The action executes the build or compilation step on the target artifact as the main operation of the task, rather than checking prerequisites or inspecting outputs.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action running the build/compilation command on the target artifact.\"}],\"assertion_conditions\":[\"The command invokes the build tool on the target artifact path.\",\"The command optionally combines the build with listing of produced outputs in the same invocation.\"],\"exclusion_conditions\":[\"The action only queries tool availability or version.\",\"The action only loads or prints an already compiled artifact for inspection.\",\"The action only reads source text without building.\"]},{\"name\":\"INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT\",\"definition\":\"The observation resulting from a build or compilation command provides evidence that the build succeeded and that the compiled output artifact was produced.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation returning the build command's output.\"}],\"assertion_conditions\":[\"The observation is the result of a build/compilation invocation.\",\"The output contains no error indication and evidences the compiled output artifact, such as by listing it or a success marker.\"],\"exclusion_conditions\":[\"The output contains compiler errors or a nonzero exit indication.\",\"The output merely lists files without any build having been executed.\",\"The output comes from a verification or inspection command rather than a build.\"]},{\"name\":\"IS_INVOCATION_ERROR_OBSERVATION\",\"definition\":\"The observation reports an error caused by the malformed or misinterpreted form of the tool invocation, rather than by a defect in the artifact being processed.\",\"parameters\":[{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation returning the failing tool output.\"}],\"assertion_conditions\":[\"The observation is marked as an error or shows a nonzero exit.\",\"The error message describes the tool's inability to interpret or locate something according to its argument convention (e.g., it looked for a file name derived from the supplied argument).\"],\"exclusion_conditions\":[\"The error indicates that the processed artifact itself is invalid or failed verification.\",\"The error reports an unavailable required tool or missing dependency.\",\"The observation reports success.\"]},{\"name\":\"CORRECTS_FAILED_INVOCATION\",\"definition\":\"A retry action pursues the same verification or inspection goal as a failed invocation while changing precisely the aspect of the invocation that the error identified.\",\"parameters\":[{\"name\":\"retry_action\",\"type\":\"action\",\"description\":\"The action that re-attempts the operation after the failure.\"},{\"name\":\"failure_observation\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the invocation error.\"}],\"assertion_conditions\":[\"The failure observation precedes the retry action, and the retry action targets the same overall goal.\",\"The retry action's parameters differ from the failed invocation in exactly the respect the error message indicated.\",\"The retry preserves the underlying resource being inspected or verified.\"],\"exclusion_conditions\":[\"The retry repeats the identical invocation that already failed.\",\"The action abandons the goal and does something unrelated.\",\"The action changes the artifact rather than the invocation form.\"]},{\"name\":\"CONFIRMS_CORRECTED_VERIFICATION\",\"definition\":\"A retry action addresses a specific invocation failure, and a later observation establishes that the intended verification result was obtained.\",\"parameters\":[{\"name\":\"retry_action\",\"type\":\"action\",\"description\":\"The action attempting to fix the failed invocation.\"},{\"name\":\"failure_observation\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the invocation failure.\"},{\"name\":\"confirmation_observation\",\"type\":\"observation\",\"description\":\"The later observation showing the intended verification output.\"}],\"assertion_conditions\":[\"The failure observation precedes the retry action, and the retry action corrects the identified invocation problem.\",\"The confirmation observation follows the retry action and contains the sought result (e.g., the queried declaration printed with its full content) without error.\"],\"exclusion_conditions\":[\"The retry is performed without any later observation demonstrating the sought result.\",\"The later observation still reports an error or an empty/irrelevant result.\",\"The later observation confirms something other than the failure's subject.\"]},{\"name\":\"ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION\",\"definition\":\"The action attempts to inspect the semantic content of an already produced compiled artifact by loading it or querying a declaration from it, rather than by rebuilding it or reading raw bytes.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The action that attempts to load the compiled artifact or query a declaration from it.\"}],\"assertion_conditions\":[\"The invocation attempts to load a compiled artifact into the tool's environment or asks the tool to print/check a named declaration.\",\"The action is distinct from the build that produced the artifact and from file-listing or byte-level inspection.\"],\"exclusion_conditions\":[\"The action rebuilds the artifact from source.\",\"The action only lists files or checks file sizes/timestamps.\",\"The action reads source text instead of the compiled artifact.\"]},{\"name\":\"ASSERTS_TASK_COMPLETION_WITH_EVIDENCE\",\"definition\":\"The reasoning declares the overall task finished and backs the claim by citing the concrete artifacts produced and the verifications performed.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text concluding the task and citing its supporting evidence.\"}],\"assertion_conditions\":[\"The reasoning explicitly states that the task is complete or that all required steps are done.\",\"It references the concrete produced artifacts and the checks that were run to establish success.\"],\"exclusion_conditions\":[\"The reasoning describes an intermediate step or an open problem rather than final completion.\",\"The claim of completion cites no produced artifact or verification result.\",\"The reasoning admits that a required verification is still missing or failing.\"]}],\"revised_existing_predicates\":[]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "IS_EXECUTION_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or ordered sequence of actions that the agent intends to perform next in service of the task.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action(s) or the plan to be carried out."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly names at least one action that is still to be performed (e.g., inspecting a file, listing a workspace, compiling an artifact, verifying a result).",
+          "The intended action is presented as the agent's own next step, not as a hypothetical or rejected alternative."
+        ],
+        "exclusion_conditions": [
+          "Merely reporting actions that have already been completed does not constitute a plan.",
+          "Restating the user's task requirements without committing to a next action is not a plan.",
+          "Post-hoc summarization of finished work is not a plan."
+        ]
+      },
+      {
+        "name": "IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT",
+        "definition": "The reasoning analyzes the content returned by an observation and pinpoints a concrete deficiency in that content that must be corrected for the task to succeed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text performing the analysis and naming the deficiency."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The earlier observation whose returned content contains the deficient artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation returns the actual content of an artifact (e.g., source text of a file) rather than mere metadata.",
+          "The reasoning names specific missing, incomplete, or erroneous portions of that content (e.g., unresolved holes, absent steps, absent branches), rather than describing the content in general terms."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only restates or quotes the observed content without locating a deficiency.",
+          "The reasoning discusses the artifact without any content from an observation having been supplied.",
+          "The observation reports a tool failure rather than artifact content."
+        ]
+      },
+      {
+        "name": "GUIDES_ACTION_CONTENT",
+        "definition": "The reasoning specifies the concrete content or form of an operation that a subsequent action then carries out, so that the action's payload is traceable to the reasoning.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that decides what the operation should do or which content it should supply."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action that performs the operation whose content corresponds to the reasoning."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a concrete intended operation or the concrete content to be produced (e.g., the exact replacement text, the exact command form).",
+          "The action's payload matches that stated intent in substance, not merely in topic.",
+          "The reasoning precedes the action."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only expresses a general goal while the action's content is fixed by a prior observation or by chance.",
+          "The action diverges from what the reasoning specified.",
+          "The reasoning is written after the action and only reports it."
+        ]
+      },
+      {
+        "name": "REPLACES_DEFECTIVE_CONTENT_OBSERVED",
+        "definition": "A modification action rewrites the very resource whose deficient content was reported by an earlier observation, supplying content that fills the identified gap.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The modification action that writes or edits the resource."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The earlier observation that returned the deficient content of that same resource."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation returns content of a specific named resource (e.g., a file path) that lacks required elements.",
+          "The action targets that same resource and supplies the content that was missing, replacing the deficient portion.",
+          "The action precedes any confirmation of the resource's corrected state."
+        ],
+        "exclusion_conditions": [
+          "The action targets a different resource than the one observed.",
+          "The action is read-only or only inspects the resource.",
+          "The observation is unrelated to the resource being written."
+        ]
+      },
+      {
+        "name": "CHECKS_TOOL_AVAILABILITY",
+        "definition": "The action queries whether a required tool or toolchain executable is present and usable, as a precondition check before performing the primary task.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action invoking a presence or version query on the required tool."
+          }
+        ],
+        "assertion_conditions": [
+          "The invocation resolves the location of the executable or asks the tool for its version, rather than performing the primary task.",
+          "The stated intent or surrounding reasoning links the check to a tool needed for the primary task."
+        ],
+        "exclusion_conditions": [
+          "The action performs the primary task itself (e.g., running the compiler on the target artifact).",
+          "The action queries an unrelated utility or an unrelated property of the environment."
+        ]
+      },
+      {
+        "name": "PERFORMS_PRIMARY_BUILD",
+        "definition": "The action executes the build or compilation step on the target artifact as the main operation of the task, rather than checking prerequisites or inspecting outputs.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action running the build/compilation command on the target artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The command invokes the build tool on the target artifact path.",
+          "The command optionally combines the build with listing of produced outputs in the same invocation."
+        ],
+        "exclusion_conditions": [
+          "The action only queries tool availability or version.",
+          "The action only loads or prints an already compiled artifact for inspection.",
+          "The action only reads source text without building."
+        ]
+      },
+      {
+        "name": "INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT",
+        "definition": "The observation resulting from a build or compilation command provides evidence that the build succeeded and that the compiled output artifact was produced.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation returning the build command's output."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation is the result of a build/compilation invocation.",
+          "The output contains no error indication and evidences the compiled output artifact, such as by listing it or a success marker."
+        ],
+        "exclusion_conditions": [
+          "The output contains compiler errors or a nonzero exit indication.",
+          "The output merely lists files without any build having been executed.",
+          "The output comes from a verification or inspection command rather than a build."
+        ]
+      },
+      {
+        "name": "IS_INVOCATION_ERROR_OBSERVATION",
+        "definition": "The observation reports an error caused by the malformed or misinterpreted form of the tool invocation, rather than by a defect in the artifact being processed.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation returning the failing tool output."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation is marked as an error or shows a nonzero exit.",
+          "The error message describes the tool's inability to interpret or locate something according to its argument convention (e.g., it looked for a file name derived from the supplied argument)."
+        ],
+        "exclusion_conditions": [
+          "The error indicates that the processed artifact itself is invalid or failed verification.",
+          "The error reports an unavailable required tool or missing dependency.",
+          "The observation reports success."
+        ]
+      },
+      {
+        "name": "CORRECTS_FAILED_INVOCATION",
+        "definition": "A retry action pursues the same verification or inspection goal as a failed invocation while changing precisely the aspect of the invocation that the error identified.",
+        "parameters": [
+          {
+            "name": "retry_action",
+            "type": "action",
+            "description": "The action that re-attempts the operation after the failure."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The earlier observation reporting the invocation error."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the retry action, and the retry action targets the same overall goal.",
+          "The retry action's parameters differ from the failed invocation in exactly the respect the error message indicated.",
+          "The retry preserves the underlying resource being inspected or verified."
+        ],
+        "exclusion_conditions": [
+          "The retry repeats the identical invocation that already failed.",
+          "The action abandons the goal and does something unrelated.",
+          "The action changes the artifact rather than the invocation form."
+        ]
+      },
+      {
+        "name": "CONFIRMS_CORRECTED_VERIFICATION",
+        "definition": "A retry action addresses a specific invocation failure, and a later observation establishes that the intended verification result was obtained.",
+        "parameters": [
+          {
+            "name": "retry_action",
+            "type": "action",
+            "description": "The action attempting to fix the failed invocation."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The earlier observation reporting the invocation failure."
+          },
+          {
+            "name": "confirmation_observation",
+            "type": "observation",
+            "description": "The later observation showing the intended verification output."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the retry action, and the retry action corrects the identified invocation problem.",
+          "The confirmation observation follows the retry action and contains the sought result (e.g., the queried declaration printed with its full content) without error."
+        ],
+        "exclusion_conditions": [
+          "The retry is performed without any later observation demonstrating the sought result.",
+          "The later observation still reports an error or an empty/irrelevant result.",
+          "The later observation confirms something other than the failure's subject."
+        ]
+      },
+      {
+        "name": "ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION",
+        "definition": "The action attempts to inspect the semantic content of an already produced compiled artifact by loading it or querying a declaration from it, rather than by rebuilding it or reading raw bytes.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action that attempts to load the compiled artifact or query a declaration from it."
+          }
+        ],
+        "assertion_conditions": [
+          "The invocation attempts to load a compiled artifact into the tool's environment or asks the tool to print/check a named declaration.",
+          "The action is distinct from the build that produced the artifact and from file-listing or byte-level inspection."
+        ],
+        "exclusion_conditions": [
+          "The action rebuilds the artifact from source.",
+          "The action only lists files or checks file sizes/timestamps.",
+          "The action reads source text instead of the compiled artifact."
+        ]
+      },
+      {
+        "name": "ASSERTS_TASK_COMPLETION_WITH_EVIDENCE",
+        "definition": "The reasoning declares the overall task finished and backs the claim by citing the concrete artifacts produced and the verifications performed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text concluding the task and citing its supporting evidence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly states that the task is complete or that all required steps are done.",
+          "It references the concrete produced artifacts and the checks that were run to establish success."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes an intermediate step or an open problem rather than final completion.",
+          "The claim of completion cites no produced artifact or verification result.",
+          "The reasoning admits that a required verification is still missing or failing."
+        ]
+      }
+    ],
+    "revised_existing_predicates": []
+  },
+  "previous_calls": []
+}

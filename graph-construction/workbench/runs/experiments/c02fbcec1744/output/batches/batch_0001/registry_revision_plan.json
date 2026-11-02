@@ -1,0 +1,88 @@
+{
+  "revisions": [
+    {
+      "original_name": "USES_OBSERVATION_AS_INPUT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "USES_REASONING_AS_INPUT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "GUIDES_ACTION_CHOICE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ATTEMPTS_REPAIR",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONFIRMS_REPAIR",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DERIVES_CONCLUSION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_OBSERVED_DEFECT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IS_PLAN",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EXECUTES_PLANNED_STEP",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PROVISIONS_OBSERVED_MISSING_COMPONENT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "USES_REASONING_AS_CRITERION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_FAILURE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CLEANS_UP_TEST_ARTIFACTS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EXPLAINS_UNINFORMATIVE_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_REQUESTED_END_TO_END_FLOW",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "USES_REASONING_AS_AUDIT_CHECKLIST",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PROVISIONS_SERVICE_AUTORECOVERY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PROBES_SUSPECTED_ANOMALY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENCODES_CHECK_AS_SCRIPT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_WRITTEN_CONTENT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "AUDITS_INPUT_INTEGRITY",
+      "operation": "KEEP"
+    }
+  ]
+}

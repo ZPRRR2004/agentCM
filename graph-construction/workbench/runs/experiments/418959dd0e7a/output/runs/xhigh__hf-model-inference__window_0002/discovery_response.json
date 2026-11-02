@@ -1,0 +1,210 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__hf-model-inference__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T04:11:22.618733+00:00",
+  "duration_seconds": 30.25,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T04:10:52.363445+00:00",
+      "duration_seconds": 30.234,
+      "raw_response": {
+        "id": "5377bdee-5c9a-4be7-9522-669ed924da08",
+        "object": "chat.completion",
+        "created": 1793419858,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [\n  {\n    \"name\": \"ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS\",\n    \"definition\": \"The reasoning concludes that an observed failure originates in the agent's own verification code or its test-data construction rather than in the artifact or service under test, so the appropriate response is to correct the check instead of the target system.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text diagnosing the cause of the failure.\"\n      },\n      {\n        \"name\": \"failure\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the unsuccessful result being diagnosed.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning explicitly identifies the cause of the failure as a defect in the agent's own test code, script, or input handling.\",\n      \"The reasoning distinguishes that defect from a fault in the system being tested.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning attributes the failure to the target system's implementation.\",\n      \"The reasoning merely reports the failure or restates the error without assigning a cause.\",\n      \"The reasoning proposes a repair to the target system rather than to the test procedure.\"\n    ]\n  },\n  {\n    \"name\": \"REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT\",\n    \"definition\": \"After diagnosing a defect in the construction of a test input, the action repeats the same check with that input construction corrected, leaving the checked behavior and the target system unchanged.\",\n    \"parameters\": [\n      {\n        \"name\": \"action\",\n        \"type\": \"action\",\n        \"description\": \"The repeated invocation that exercises the same behavior with corrected input.\"\n      },\n      {\n        \"name\": \"diagnosis\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning that names the specific defect in the earlier test input and states the correction.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The diagnosis identifies a concrete defect in how the previous test request or input was formed (for example, an encoding or type mismatch).\",\n      \"The action exercises the same target behavior as the earlier attempt, with the identified input defect corrected.\",\n      \"The action does not modify the target system, only the test input.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action changes the behavior under test, the endpoint, or the scope of the check.\",\n      \"The action repairs or reconfigures the target system.\",\n      \"No prior diagnosis of a test-input defect is present.\"\n    ]\n  },\n  {\n    \"name\": \"ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING\",\n    \"definition\": \"An observation reports that the tool or command needed for a planned check is unavailable, and the agent selects an alternative mechanism that obtains the same verification property, which the subsequent action then uses.\",\n    \"parameters\": [\n      {\n        \"name\": \"unavailability\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting that the intended tool, command, or resource is missing or failed for availability reasons.\"\n      },\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text choosing a substitute mechanism that preserves the verification goal.\"\n      },\n      {\n        \"name\": \"action\",\n        \"type\": \"action\",\n        \"description\": \"The invocation that performs the check through the substitute mechanism.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The observation establishes unavailability of a specific tool or command rather than a failure of the property being checked.\",\n      \"The reasoning explicitly substitutes a different mechanism that targets the same property.\",\n      \"The action implements the substitute mechanism instead of the unavailable one.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The unavailable item is installed or restored and then used as originally planned.\",\n      \"The substitute check tests a different property than the original intent.\",\n      \"The failure reported is a genuine result about the system under test rather than a missing tool.\"\n    ]\n  },\n  {\n    \"name\": \"CONFIRMS_SERVICE_EXPOSURE_VIA_NONLOCAL_PROBE\",\n    \"definition\": \"The action contacts the running service through a non-loopback network address in order to confirm that it accepts connections on all interfaces, and the resulting observation shows a successful response from that address.\",\n    \"parameters\": [\n      {\n        \"name\": \"action\",\n        \"type\": \"action\",\n        \"description\": \"The request issued to the service using a non-loopback host address.\"\n      },\n      {\n        \"name\": \"result\",\n        \"type\": \"observation\",\n        \"description\": \"The observation containing the response received from that address.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The address targeted by the action is not the loopback address, showing that an externally reachable interface is being exercised.\",\n      \"The observation reports a successful response returned through that non-loopback address.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The request is sent only to a loopback address, which does not establish external reachability.\",\n      \"The probe verifies payload correctness only, without exercising a non-local interface.\",\n      \"Configuration or source files are inspected instead of contacting the running service.\",\n      \"The observation reports a failure to reach the service.\"\n    ]\n  },\n  {\n    \"name\": \"INDEPENDENTLY_CORROBORATES_PRIOR_RESULT\",\n    \"definition\": \"A later observation drawn from an independent source, such as runtime logs or process state, contains specific evidence that matches outcomes reported by earlier observations, thereby corroborating those results through a different channel.\",\n    \"parameters\": [\n      {\n        \"name\": \"corroborating\",\n        \"type\": \"observation\",\n        \"description\": \"The later observation from an independent source such as service logs or process metadata.\"\n      },\n      {\n        \"name\": \"prior_result\",\n        \"type\": \"observation\",\n        \"description\": \"The earlier observation whose reported outcome is being corroborated.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The corroborating observation comes from a different evidence source than the prior result, not a repetition of the same probe.\",\n      \"The corroborating observation contains concrete entries, values, or identifiers that correspond to the outcome reported earlier.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The two observations are merely topically similar or temporally adjacent without matching concrete values.\",\n      \"The later observation contradicts rather than matches the earlier result.\",\n      \"The later observation is a re-run of the same check against the same source.\"\n    ]\n  },\n  {\n    \"name\": \"ASSERTS_REQUIREMENTS_VERIFIED\",\n    \"definition\": \"The reasoning enumerates the task's stated requirements, ties each to concrete observed results, and concludes that every requirement is satisfied and the task is complete.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text giving the requirement-by-requirement completion assessment.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning lists multiple distinct requirements or deliverables of the task.\",\n      \"Each listed item is associated with a concrete observed outcome rather than an assumption or intention.\",\n      \"The reasoning explicitly concludes that the task is complete or that all requirements are met.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning describes planned future actions rather than completed verification.\",\n      \"Some enumerated requirements are left unverified or acknowledged as unresolved.\",\n      \"The reasoning reports individual results without concluding overall requirement satisfaction.\"\n    ]\n  }\n]}",
+              "reasoning_content": "Let me analyze the trajectory for reusable semantic mechanisms.\n\nAvailable nodes:\n\nOverlap nodes:\n- e9/reasoning: interprets test failure as test-script bug, plans re-test\n- e9/action-1: bash test non-JSON body\n- e9/observation-1: 400 error with JSON error body\n- e10/reasoning: plan to verify external binding + process stability\n- e10/action-1: bash test external IP + ps aux | grep\n- e10/observation-1: external IP 200 body; ps command not found (error)\n\nCore nodes:\n- e11/reasoning: external binding works; ps isn't installed but can verify via /proc\n- e11/action-1: ls /proc/114, cat cmdline, tail log\n- e11/observation-1: /proc/114 exists, log lines show 400s and 200\n- e12/reasoning: final verification summary — all requirements satisfied\n\nCandidate predicates:\n\n1. ATTRIBUTES_FAILURE_TO_TEST_HARNESS (binary: reasoning, observation) — reasoning concludes an observed failure originates from the agent's own verification script rather than the artifact under test, motivating a re-test rather than a repair. Distinguish from ATTEMPTS_REPAIR.\n\n2. IDENTIFIES_ALTERNATIVE_VERIFICATION_METHOD (binary: reasoning, observation) — reasoning observes a tool/command unavailable and proposes an alternative means to confirm the same property. e11: ps not found → verify via /proc. It's a distinct mechanism: recovering from an unavailable tool by substitution.\n\n3. SUBSTITUTES_UNAVAILABLE_TOOL (action, observation, reasoning?) Hmm — could be ternary: the failed observation (ps not found), the reasoning proposing alternative, and the alternative action. Actually let me define: PROPOSES_ALTERNATIVE_VERIFICATION(reasoning, unavailable_observation) — unary-ish binary.\n\nAlso could combine into: ADAPTS_CHECK_TO_AVAILABLE_MEANS(reasoning, failure_observation, action) ternary where action uses alternative mechanism. The action e11/action-1 uses /proc instead of ps. Is there explicit evidence in the action? The action command `ls -d /proc/114 && cat /proc/114/cmdline` — yes accessing /proc rather than ps. And the reasoning explicitly states \"`ps` isn't installed, but I can verify the process via /proc.\" So ternary works.\n\n4. CONFIRMS_REQUIREMENT_SATISFACTION (reasoning, observation) — reasoning cites specific empirical results and concludes that stated requirements are met. e12 reasoning summarizes all verified items; e11 reasoning concludes external binding works. Hmm. A predicate: VERIFICATION_CONCLUSION(reasoning, observation[]) — reasoning concludes that a specified requirement is satisfied based on observation evidence. Could be binary with observation.\n\n5. VALIDATES_BINDING_EXTERNALLY — too specific? Generalize: the action probes the service via a non-loopback network address to confirm the listener binds all interfaces; observation returns success. Maybe: TESTS_VIA_EXTERNAL_INTERFACE(action, observation)? Hmm, observation is the result. Actually predicate: CONFIRMS_NETWORK_REACHABILITY(action, observation) — action probes a network endpoint; observation shows a successful response from that address. This is essentially \"check config via runtime probe\". Could generalize to CONFIRMS_RUNTIME_BEHAVIOR(action, observation) — probing the running service through its public interface to verify operational behavior beyond static config. Distinguish from inspecting logs/config.\n\n6. INSPECTS_LOG_AS_EVIDENCE — action reading service log; observation shows access log lines evidencing past requests with status codes. Predicate: USES_RUNTIME_LOG_AS_EVIDENCE(reasoning?, action, observation)? Maybe a binary: OBSERVATION_EVIDENCES_REQUEST_OUTCOMES? Hmm.\n\nLet me be selective and define a reasonable set:\n\nA. UNARY: INTERPRETS_FAILURE_AS_HARNESS_BUG (reasoning) — hmm, but binary with observation is more informative. Actually as unary it captures a property of the reasoning node. But the mechanism connects reasoning to the failing observation. Binary is better: ATTRIBUTES_FAILURE_TO_OWN_TEST_CODE(reasoning, observation).\n\nB. UNARY: DECLARES_TASK_COMPLETE / ASSERTS_REQUIREMENTS_VERIFIED (reasoning). e12 reasoning enumerates each requirement with verified evidence and declares the task complete. Could be unary: FINAL_COMPLETION_ASSESSMENT. Conditions: explicitly enumerates requirements matched to evidence, declares completion. Distinguish from a plan.\n\nActually, better binary version: MAPS_EVIDENCE_TO_REQUIREMENT(reasoning, observation)? Hmm, e12 references multiple observations from prior events. Multi-argument with observation[] could work: CONCLUDES_TASK_COMPLETE(reasoning, observation[]) where observations are the evidence.\n\nC. Ternary: ADAPTS_VERIFICATION_TO_AVAILABLE_TOOLING(unavailable_observation, reasoning, action). The observation reports a tool unavailable; reasoning selects an alternative mechanism; action performs the alternative check. Distinguish from plain retry with same tool.\n\nD. Binary: CONFIRMS_REACHABILITY_VIA_NETWORK_PROBE(action, observation) — action sends a request to the service on a non-loopback address; observation returns a successful response, establishing that the service accepts external connections. Hmm, generalizing: the mechanism is \"probing a running service through a non-local address to verify interface binding.\" Alternative framing: it's just functional testing. But it's distinct from correctness testing; it's testing configuration/accessibility rather than business logic. Let's define: VERIFIES_SERVICE_ACCESSIBLE_VIA_NONLOCAL_ADDRESS.\n\nMaybe generalize more broadly: RUNTIME_PROBE_OF_DEPLOYED_SERVICE(action, observation) — an action invokes the running deployed service over the network to confirm operational readiness and configuration (binding), and the observation returns a successful response. Distinguishing case: static inspection of config files doesn't satisfy it.\n\nE. Binary: OBSERVATION_REVEALS_UNRELATED_TOOL_FAILURE? covered by C.\n\nF. SUCCESS_CONFIRMATION via log: LOG_EVIDENCE_OF_COMPLETED_REQUESTS(observation, action) — an observation of service logs showing request/status entries that corroborate earlier test results. Could be a binary: CORROBORATES_EARLIER_RESULTS(log_observation, earlier_observation). Hmm, that may be too specific. Perhaps define \"OBSERVATION_CORROBORATES_PRIOR_TEST_OUTCOME\": a later observation (runtime log, process listing) independently corroborates outcomes reported in earlier observations. That's a plausible mechanism: independent corroboration across different sources. Support: e11 log shows 172.17.0.2 POST 200 matching e10 external request 200; and 400s matching e9. Yes, evidence exists.\n\nG. Maybe unary: EVIDENCE_DRIVEN_NEXT_STEP_SELECTION? Too generic.\n\nAlso: is there a predicate about \"verifying process liveness via /proc rather than ps\"? That's part of C.\n\nAnother: after test failure, reasoning re-runs the same test with a corrected input encoding (bytes instead of str) — e9. Mechanism: RE-EXECUTES_CHECK_WITH_CORRECTED_INPUT(action, reasoning) — reasoning identifies a defect in the test input construction and the action repeats the same check with corrected input. Evidence: e9 reasoning says \"passing str instead of bytes to urllib... re-test with bytes\", action uses data=b\"not json at all\". This is distinct from C (tool substitution) and from ATTEMPTS_REPAIR (fixing the artifact). Actually it's similar in spirit to A but adds the re-execution. Let's define:\n\n- ATTRIBUTES_FAILURE_TO_TEST_SCRIPT(reasoning, observation) — binary.\n- REVERIFIES_WITH_CORRECTED_TEST(reasoning, action) — ternary? reasoning + action + the new observation confirming pass. Could be ternary: CONFIRMS_HARNESS_BUG_FIX(reasoning, action, observation). Hmm, that's very close to CONFIRMS_REPAIR in the example. But CONFIRMS_REPAIR is about repairing the artifact. Here the repair is to the test harness itself, and the confirmation shows the original failure was spurious. I can define a ternary: VALIDATES_SELF_DIAGNOSIS(diagnosis_reasoning, corrective_action, result_observation) — the agent's diagnosis that the failure was its own error is validated when the corrected test yields the expected behavior.\n\nHmm, that's arguably one mechanism. But maybe simpler: keep A (diagnosis attribution) binary and define RE-EXECUTES_TEST_WITH_CORRECTED_INPUT as binary (action, reasoning). Then the confirmation comes from observation anyway.\n\nI'll aim for ~6 predicates, well distinguished.\n\nFinal list:\n\n1. ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS (reasoning, observation) — reasoning concludes an observed failure stems from the agent's own test code/data handling rather than the artifact under test.\nExclusions: reasoning attributing failure to the artifact; merely retrying without attribution.\n\n2. RE-EXECUTES_CHECK_WITH_CORRECTED_INPUT (action, reasoning) — action repeats the same check with the identified defect in the harness input corrected. Conditions: reasoning identifies specific defect in test input construction; action performs substantively same check with corrected input; not a repair of the artifact.\nExclusions: changing the check's target or scope; fixing the service.\n\n3. ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING (reasoning, observation, action) — observation reports required tool/command unavailable, reasoning selects alternative means to obtain the same property, action uses the alternative.\nOrder parameters: observation (unavailable tool), reasoning (selection), action (alternative invocation). Conditions: same verification goal preserved; alternative mechanism differs. Exclusion: fallback that doesn't achieve same goal; installing the tool.\n\n4. CONFIRMS_NETWORK_EXPOSURE_BY_NONLOCAL_PROBE (action, observation) — action sends a request to the running service via a non-loopback address to confirm it listens on all interfaces; observation returns a successful response from that address. Distinguish from loopback-only tests and from config inspection.\n\n5. INDEPENDENTLY_CORROBORATES_PRIOR_RESULT (observation, observation) — later observation from an independent source (runtime log, process table) matches specific outcomes reported by earlier observations, corroborating them.\nExclusions: mere topical overlap; no matching concrete values.\n\n6. ASSESSES_REQUIREMENTS_AS_SATISFIED (reasoning, observation[]) — reasoning maps enumerated requirements to concrete evidence from the supplied observations and concludes all are met.\nConditions: requirement-by-requirement mapping; each mapped to identifiable result. Exclusion: unverified assumption; plan for future verification.\n\nHmm, in e12, the reasoning references many observations not all in the context window. The predicate uses observation[] with collective support. Fine. But maybe better make it generic: the reasoning enumerates requirements, each tied to evidence. The observation[] collection supplies evidence. Conditions: at least requirement-level mapping; conclusion of satisfaction. Let's require \"the reasoning refers to evidence results consistent with the supplied observations\" — careful: e12's summary references observations from earlier events (not in context). Hmm, in the context window, e12 reasoning itself contains the evidence in text form. The parameter observation[] — could be empty? Empty collection would break it. Maybe make it unary on reasoning: FINAL_COMPLETION_ASSESSMENT(reasoning) — reasoning enumerates requirements and declares each satisfied with cited concrete results, concluding the task is complete. Unary is safer and still a meaningful property distinct from IS_PLAN.\n\nI'll use the unary version: ASSERTS_REQUIREMENTS_VERIFIED.\n\nAlso #6 could include the e11 reasoning? No, e11 is smaller scale. Keep unary.\n\nLet me also consider a predicate about evidence-based next-step planning... skip.\n\nWrite definitions with five fields, careful.\n\nFor #3 parameters order: I'll do (observation, reasoning, action) — observation reports unavailability; reasoning chooses alternative; action performs it.\n\nNow check #2's evidence: e9 reasoning \"The last failure was due to a bug in my test script (passing str instead of bytes to urllib)... Let me re-test the non-JSON body case with bytes.\" Action uses data=b\"not json at all\". Yes.\n\nAlso could note #1 and #2 are distinct: #1 attribute, #2 re-execution.\n\nCheck #4 evidence: e10 action sends request to 172.17.0.2:5000; observation returns 200 with correct body. The purpose is verifying 0.0.0.0 binding. Good. Distinguish from regular functional testing: it uses non-loopback address explicitly to test binding/exposure. Should this predicate be about \"exposure verification\" rather than data correctness? Conditions: the address is not loopback and the intent/effect is to verify reachability from outside. Generalize to any service/port.\n\n#5: e11 observation log lines: 172.17.0.2 POST 200 matching e10's external request 200; 400 lines matching e9's non-JSON 400. Also /proc/114 existence corroborates process existence. Good.\n\nWrite JSON now."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4899,
+          "completion_tokens": 4504,
+          "total_tokens": 9403,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2893
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 2979
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [\n  {\n    \"name\": \"ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS\",\n    \"definition\": \"The reasoning concludes that an observed failure originates in the agent's own verification code or its test-data construction rather than in the artifact or service under test, so the appropriate response is to correct the check instead of the target system.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text diagnosing the cause of the failure.\"\n      },\n      {\n        \"name\": \"failure\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the unsuccessful result being diagnosed.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning explicitly identifies the cause of the failure as a defect in the agent's own test code, script, or input handling.\",\n      \"The reasoning distinguishes that defect from a fault in the system being tested.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning attributes the failure to the target system's implementation.\",\n      \"The reasoning merely reports the failure or restates the error without assigning a cause.\",\n      \"The reasoning proposes a repair to the target system rather than to the test procedure.\"\n    ]\n  },\n  {\n    \"name\": \"REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT\",\n    \"definition\": \"After diagnosing a defect in the construction of a test input, the action repeats the same check with that input construction corrected, leaving the checked behavior and the target system unchanged.\",\n    \"parameters\": [\n      {\n        \"name\": \"action\",\n        \"type\": \"action\",\n        \"description\": \"The repeated invocation that exercises the same behavior with corrected input.\"\n      },\n      {\n        \"name\": \"diagnosis\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning that names the specific defect in the earlier test input and states the correction.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The diagnosis identifies a concrete defect in how the previous test request or input was formed (for example, an encoding or type mismatch).\",\n      \"The action exercises the same target behavior as the earlier attempt, with the identified input defect corrected.\",\n      \"The action does not modify the target system, only the test input.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action changes the behavior under test, the endpoint, or the scope of the check.\",\n      \"The action repairs or reconfigures the target system.\",\n      \"No prior diagnosis of a test-input defect is present.\"\n    ]\n  },\n  {\n    \"name\": \"ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING\",\n    \"definition\": \"An observation reports that the tool or command needed for a planned check is unavailable, and the agent selects an alternative mechanism that obtains the same verification property, which the subsequent action then uses.\",\n    \"parameters\": [\n      {\n        \"name\": \"unavailability\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting that the intended tool, command, or resource is missing or failed for availability reasons.\"\n      },\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text choosing a substitute mechanism that preserves the verification goal.\"\n      },\n      {\n        \"name\": \"action\",\n        \"type\": \"action\",\n        \"description\": \"The invocation that performs the check through the substitute mechanism.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The observation establishes unavailability of a specific tool or command rather than a failure of the property being checked.\",\n      \"The reasoning explicitly substitutes a different mechanism that targets the same property.\",\n      \"The action implements the substitute mechanism instead of the unavailable one.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The unavailable item is installed or restored and then used as originally planned.\",\n      \"The substitute check tests a different property than the original intent.\",\n      \"The failure reported is a genuine result about the system under test rather than a missing tool.\"\n    ]\n  },\n  {\n    \"name\": \"CONFIRMS_SERVICE_EXPOSURE_VIA_NONLOCAL_PROBE\",\n    \"definition\": \"The action contacts the running service through a non-loopback network address in order to confirm that it accepts connections on all interfaces, and the resulting observation shows a successful response from that address.\",\n    \"parameters\": [\n      {\n        \"name\": \"action\",\n        \"type\": \"action\",\n        \"description\": \"The request issued to the service using a non-loopback host address.\"\n      },\n      {\n        \"name\": \"result\",\n        \"type\": \"observation\",\n        \"description\": \"The observation containing the response received from that address.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The address targeted by the action is not the loopback address, showing that an externally reachable interface is being exercised.\",\n      \"The observation reports a successful response returned through that non-loopback address.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The request is sent only to a loopback address, which does not establish external reachability.\",\n      \"The probe verifies payload correctness only, without exercising a non-local interface.\",\n      \"Configuration or source files are inspected instead of contacting the running service.\",\n      \"The observation reports a failure to reach the service.\"\n    ]\n  },\n  {\n    \"name\": \"INDEPENDENTLY_CORROBORATES_PRIOR_RESULT\",\n    \"definition\": \"A later observation drawn from an independent source, such as runtime logs or process state, contains specific evidence that matches outcomes reported by earlier observations, thereby corroborating those results through a different channel.\",\n    \"parameters\": [\n      {\n        \"name\": \"corroborating\",\n        \"type\": \"observation\",\n        \"description\": \"The later observation from an independent source such as service logs or process metadata.\"\n      },\n      {\n        \"name\": \"prior_result\",\n        \"type\": \"observation\",\n        \"description\": \"The earlier observation whose reported outcome is being corroborated.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The corroborating observation comes from a different evidence source than the prior result, not a repetition of the same probe.\",\n      \"The corroborating observation contains concrete entries, values, or identifiers that correspond to the outcome reported earlier.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The two observations are merely topically similar or temporally adjacent without matching concrete values.\",\n      \"The later observation contradicts rather than matches the earlier result.\",\n      \"The later observation is a re-run of the same check against the same source.\"\n    ]\n  },\n  {\n    \"name\": \"ASSERTS_REQUIREMENTS_VERIFIED\",\n    \"definition\": \"The reasoning enumerates the task's stated requirements, ties each to concrete observed results, and concludes that every requirement is satisfied and the task is complete.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text giving the requirement-by-requirement completion assessment.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning lists multiple distinct requirements or deliverables of the task.\",\n      \"Each listed item is associated with a concrete observed outcome rather than an assumption or intention.\",\n      \"The reasoning explicitly concludes that the task is complete or that all requirements are met.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning describes planned future actions rather than completed verification.\",\n      \"Some enumerated requirements are left unverified or acknowledged as unresolved.\",\n      \"The reasoning reports individual results without concluding overall requirement satisfaction.\"\n    ]\n  }\n]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS",
+        "definition": "The reasoning concludes that an observed failure originates in the agent's own verification code or its test-data construction rather than in the artifact or service under test, so the appropriate response is to correct the check instead of the target system.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text diagnosing the cause of the failure."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The observation reporting the unsuccessful result being diagnosed."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies the cause of the failure as a defect in the agent's own test code, script, or input handling.",
+          "The reasoning distinguishes that defect from a fault in the system being tested."
+        ],
+        "exclusion_conditions": [
+          "The reasoning attributes the failure to the target system's implementation.",
+          "The reasoning merely reports the failure or restates the error without assigning a cause.",
+          "The reasoning proposes a repair to the target system rather than to the test procedure."
+        ]
+      },
+      {
+        "name": "REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT",
+        "definition": "After diagnosing a defect in the construction of a test input, the action repeats the same check with that input construction corrected, leaving the checked behavior and the target system unchanged.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The repeated invocation that exercises the same behavior with corrected input."
+          },
+          {
+            "name": "diagnosis",
+            "type": "reasoning",
+            "description": "The reasoning that names the specific defect in the earlier test input and states the correction."
+          }
+        ],
+        "assertion_conditions": [
+          "The diagnosis identifies a concrete defect in how the previous test request or input was formed (for example, an encoding or type mismatch).",
+          "The action exercises the same target behavior as the earlier attempt, with the identified input defect corrected.",
+          "The action does not modify the target system, only the test input."
+        ],
+        "exclusion_conditions": [
+          "The action changes the behavior under test, the endpoint, or the scope of the check.",
+          "The action repairs or reconfigures the target system.",
+          "No prior diagnosis of a test-input defect is present."
+        ]
+      },
+      {
+        "name": "ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING",
+        "definition": "An observation reports that the tool or command needed for a planned check is unavailable, and the agent selects an alternative mechanism that obtains the same verification property, which the subsequent action then uses.",
+        "parameters": [
+          {
+            "name": "unavailability",
+            "type": "observation",
+            "description": "The observation reporting that the intended tool, command, or resource is missing or failed for availability reasons."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text choosing a substitute mechanism that preserves the verification goal."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The invocation that performs the check through the substitute mechanism."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation establishes unavailability of a specific tool or command rather than a failure of the property being checked.",
+          "The reasoning explicitly substitutes a different mechanism that targets the same property.",
+          "The action implements the substitute mechanism instead of the unavailable one."
+        ],
+        "exclusion_conditions": [
+          "The unavailable item is installed or restored and then used as originally planned.",
+          "The substitute check tests a different property than the original intent.",
+          "The failure reported is a genuine result about the system under test rather than a missing tool."
+        ]
+      },
+      {
+        "name": "CONFIRMS_SERVICE_EXPOSURE_VIA_NONLOCAL_PROBE",
+        "definition": "The action contacts the running service through a non-loopback network address in order to confirm that it accepts connections on all interfaces, and the resulting observation shows a successful response from that address.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The request issued to the service using a non-loopback host address."
+          },
+          {
+            "name": "result",
+            "type": "observation",
+            "description": "The observation containing the response received from that address."
+          }
+        ],
+        "assertion_conditions": [
+          "The address targeted by the action is not the loopback address, showing that an externally reachable interface is being exercised.",
+          "The observation reports a successful response returned through that non-loopback address."
+        ],
+        "exclusion_conditions": [
+          "The request is sent only to a loopback address, which does not establish external reachability.",
+          "The probe verifies payload correctness only, without exercising a non-local interface.",
+          "Configuration or source files are inspected instead of contacting the running service.",
+          "The observation reports a failure to reach the service."
+        ]
+      },
+      {
+        "name": "INDEPENDENTLY_CORROBORATES_PRIOR_RESULT",
+        "definition": "A later observation drawn from an independent source, such as runtime logs or process state, contains specific evidence that matches outcomes reported by earlier observations, thereby corroborating those results through a different channel.",
+        "parameters": [
+          {
+            "name": "corroborating",
+            "type": "observation",
+            "description": "The later observation from an independent source such as service logs or process metadata."
+          },
+          {
+            "name": "prior_result",
+            "type": "observation",
+            "description": "The earlier observation whose reported outcome is being corroborated."
+          }
+        ],
+        "assertion_conditions": [
+          "The corroborating observation comes from a different evidence source than the prior result, not a repetition of the same probe.",
+          "The corroborating observation contains concrete entries, values, or identifiers that correspond to the outcome reported earlier."
+        ],
+        "exclusion_conditions": [
+          "The two observations are merely topically similar or temporally adjacent without matching concrete values.",
+          "The later observation contradicts rather than matches the earlier result.",
+          "The later observation is a re-run of the same check against the same source."
+        ]
+      },
+      {
+        "name": "ASSERTS_REQUIREMENTS_VERIFIED",
+        "definition": "The reasoning enumerates the task's stated requirements, ties each to concrete observed results, and concludes that every requirement is satisfied and the task is complete.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text giving the requirement-by-requirement completion assessment."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning lists multiple distinct requirements or deliverables of the task.",
+          "Each listed item is associated with a concrete observed outcome rather than an assumption or intention.",
+          "The reasoning explicitly concludes that the task is complete or that all requirements are met."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes planned future actions rather than completed verification.",
+          "Some enumerated requirements are left unverified or acknowledged as unresolved.",
+          "The reasoning reports individual results without concluding overall requirement satisfaction."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

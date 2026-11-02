@@ -1,0 +1,261 @@
+{
+  "stage": "comparison",
+  "window_file": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-30T03:05:10.798137+00:00",
+  "duration_seconds": 12.704,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-30T03:04:58.081060+00:00",
+      "duration_seconds": 12.704,
+      "raw_response": {
+        "id": "6b55f13a-57a9-4c6e-8683-2b3a7d4d6a50",
+        "object": "chat.completion",
+        "created": 1793329503,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"existing\": [], \"new\": [{\"name\": \"USES_OBSERVATION_AS_INPUT\", \"definition\": \"The action takes an identifiable value or data payload (file text, file name, path, or other returned content) supplied by the specified prior observation and places it into the action's own arguments or payload.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation whose argument or payload receives the data.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The prior recorded tool result that supplies the value or data payload used by the action.\"}], \"assertion_conditions\": [\"The observation is recorded before the receiving action.\", \"The action's argument or payload can be traced to content of the observation, e.g. written file text reproduces the theorem statement and proof skeleton returned by an earlier read, or a command targets a file name/path reported by an earlier directory listing.\", \"The traceable item is an operational input of the action, not merely a topic shared with it.\"], \"exclusion_conditions\": [\"An observation consulted only to decide which action to perform, without contributing a value or payload to its arguments, does not satisfy this predicate.\", \"Temporal adjacency, event membership, or a shared subject without an observable input link does not satisfy this predicate.\"]}, {\"name\": \"USES_REASONING_AS_INPUT\", \"definition\": \"The action carries out an operation whose concrete argument content (exact text or commands) was specified beforehand in the specified reasoning node, so that the reasoning node supplies the material the action commits.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation that enacts the content declared in the reasoning node.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The prior agent text that states the concrete content (e.g. the exact file body or command) to be used.\"}], \"assertion_conditions\": [\"The reasoning node is recorded before the action.\", \"The reasoning text states concrete content to be used, not only a general intention or goal.\", \"The action's argument or payload matches that stated content closely enough that the reasoning node is its evident source.\"], \"exclusion_conditions\": [\"Reasoning that only expresses an intention or plan step without specifying the content does not satisfy this predicate.\", \"Reasoning used to judge or evaluate a result (a criterion) rather than to supply content does not satisfy this predicate.\"]}, {\"name\": \"GUIDES_ACTION_CHOICE\", \"definition\": \"The observation reports a diagnostic or probe outcome (an error, a failure message, or an environment/availability result) that is the stated basis for selecting the particular subsequent action or command rather than an alternative.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The recorded diagnostic or probe result that supplies the decision basis.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The later tool invocation whose selection is grounded in that diagnostic result.\"}], \"assertion_conditions\": [\"The observation precedes the guided action.\", \"Recorded text (reasoning or the action itself) links the observation's finding to the choice, e.g. an unresolved-argument error is followed by a corrected command, or a reported tool availability is cited as grounds for proceeding.\", \"The later action differs from what was previously attempted in a way responsive to the observation.\"], \"exclusion_conditions\": [\"An observation that merely provides a data value consumed as an argument does not satisfy this predicate; that is input supply.\", \"Returning an error without any responsive change in the following action does not satisfy this predicate.\", \"Calls issued in the same event as the observation cannot be guided by it.\"]}, {\"name\": \"ATTEMPTS_REPAIR\", \"definition\": \"The action is performed with the intent of removing a specific defect that is reported or visible in the specified failure observation, by altering the artifact or the command that exhibited the defect.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation intended to remedy the defect.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The recorded result exhibiting the defect (missing proof steps, an error message, a failed check).\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action.\", \"The defect is identifiable in the failure observation's content, e.g. placeholder proof holes, or an error naming a wrong module/file argument.\", \"The action's content or arguments are changed to address exactly that defect rather than repeating the prior operation unchanged.\"], \"exclusion_conditions\": [\"Re-running an identical operation without addressing the reported defect does not satisfy this predicate.\", \"An action unrelated to the observed defect does not satisfy this predicate.\", \"The predicate does not assert that the repair succeeded; success requires a separate confirming result.\"]}, {\"name\": \"CONFIRMS_REPAIR\", \"definition\": \"The check observation reports a result obtained after the repair action on the same subject, and that result shows the defect identified in the failure observation is no longer present.\", \"parameters\": [{\"name\": \"repair\", \"type\": \"action\", \"description\": \"The remedial action taken against the defect.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The earlier result that exhibited the defect being repaired.\"}, {\"name\": \"check\", \"type\": \"observation\", \"description\": \"The later result that assesses whether the defect persists.\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action, and the check observation follows it.\", \"The check concerns the same subject/version as the failure (same file, same command target, same theorem).\", \"The check reports a success signal for that subject, e.g. the target artifact being produced with a clean marker, or the compiled theorem being printed without error, rather than another error.\"], \"exclusion_conditions\": [\"A check that reports a new or persisting error does not satisfy this predicate.\", \"A check on an unrelated subject or an earlier version does not satisfy this predicate.\", \"The repair action alone, without a following successful check result, does not satisfy this predicate.\"]}, {\"name\": \"DERIVES_CONCLUSION\", \"definition\": \"The reasoning node states a verdict or outcome whose substantive basis is the findings reported in the given observations, which the reasoning text cites.\", \"parameters\": [{\"name\": \"inputs\", \"type\": \"observation[]\", \"description\": \"The prior recorded results whose findings support the conclusion.\"}, {\"name\": \"conclusion\", \"type\": \"reasoning\", \"description\": \"The agent text stating the resulting verdict or outcome.\"}], \"assertion_conditions\": [\"Every cited observation precedes the conclusion text.\", \"The conclusion text references the specific findings of those observations (e.g. compilation producing the expected artifact, printing the theorem successfully) as the grounds for its verdict.\", \"The observations are the substantive evidence for the verdict, not incidental context.\"], \"exclusion_conditions\": [\"Reasoning that proposes forthcoming steps rather than asserting an outcome does not satisfy this predicate.\", \"A verdict not grounded in the cited observation content, or grounded only in unrecorded expectations, does not satisfy this predicate.\", \"An observation that merely supplied an argument value does not by itself satisfy this predicate.\"]}, {\"name\": \"DIAGNOSES_OBSERVED_DEFECT\", \"definition\": \"The reasoning node inspects the content of the specified observation and identifies a specific defect or gap in it, explaining what is missing or wrong as a precondition for fixing it.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that states the diagnosis of the defect.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The recorded result whose content contains the defect being diagnosed.\"}], \"assertion_conditions\": [\"The observation precedes the diagnosing reasoning text.\", \"The reasoning text names the specific defective or incomplete element present in the observation content (e.g. placeholder holes that must be filled, an unresolved subgoal) and indicates what is required.\", \"The diagnosis refers to the observation's own content rather than to an assumed or future state.\"], \"exclusion_conditions\": [\"Reasoning that merely restates or summarizes the observation content without identifying a defect does not satisfy this predicate.\", \"Reasoning that reports a successful outcome, or that diagnoses something not visible in that observation, does not satisfy this predicate.\"]}, {\"name\": \"IS_PLAN\", \"definition\": \"The reasoning text states an intended ordered course of forthcoming steps, specifying what will be done next and in what order before results exist.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text containing the prospective step sequence.\"}], \"assertion_conditions\": [\"The text is future-directed and enumerates or sequences intended actions or subgoals (e.g. inspect the file, then complete the proof, then compile).\", \"The stated steps are presented as the approach to be carried out, not as completed work.\"], \"exclusion_conditions\": [\"Past-tense descriptions of what was already done, or final summaries of results, do not satisfy this predicate.\", \"A bare statement of the overall task without an intended sequence does not satisfy this predicate.\"]}], \"uncertain\": []}",
+              "reasoning_content": "Registry is empty. So every candidate is new. But I must check granularity/evidence — the instruction says \"When the registry is empty, classify every candidate as new; Review still checks its granularity and evidence.\" So all 8 go to new, copying definitions exactly.\n\nAlso check each candidate definition conforms to predicate-definition/v2: parameters bind to action/observation/reasoning or homogeneous []. Yes. ATTEMPTS_REPAIR has \"intent\" — fine.\n\nReturn JSON only."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4823,
+          "completion_tokens": 2091,
+          "total_tokens": 6914,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 103
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 4823
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"existing\": [], \"new\": [{\"name\": \"USES_OBSERVATION_AS_INPUT\", \"definition\": \"The action takes an identifiable value or data payload (file text, file name, path, or other returned content) supplied by the specified prior observation and places it into the action's own arguments or payload.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation whose argument or payload receives the data.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The prior recorded tool result that supplies the value or data payload used by the action.\"}], \"assertion_conditions\": [\"The observation is recorded before the receiving action.\", \"The action's argument or payload can be traced to content of the observation, e.g. written file text reproduces the theorem statement and proof skeleton returned by an earlier read, or a command targets a file name/path reported by an earlier directory listing.\", \"The traceable item is an operational input of the action, not merely a topic shared with it.\"], \"exclusion_conditions\": [\"An observation consulted only to decide which action to perform, without contributing a value or payload to its arguments, does not satisfy this predicate.\", \"Temporal adjacency, event membership, or a shared subject without an observable input link does not satisfy this predicate.\"]}, {\"name\": \"USES_REASONING_AS_INPUT\", \"definition\": \"The action carries out an operation whose concrete argument content (exact text or commands) was specified beforehand in the specified reasoning node, so that the reasoning node supplies the material the action commits.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation that enacts the content declared in the reasoning node.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The prior agent text that states the concrete content (e.g. the exact file body or command) to be used.\"}], \"assertion_conditions\": [\"The reasoning node is recorded before the action.\", \"The reasoning text states concrete content to be used, not only a general intention or goal.\", \"The action's argument or payload matches that stated content closely enough that the reasoning node is its evident source.\"], \"exclusion_conditions\": [\"Reasoning that only expresses an intention or plan step without specifying the content does not satisfy this predicate.\", \"Reasoning used to judge or evaluate a result (a criterion) rather than to supply content does not satisfy this predicate.\"]}, {\"name\": \"GUIDES_ACTION_CHOICE\", \"definition\": \"The observation reports a diagnostic or probe outcome (an error, a failure message, or an environment/availability result) that is the stated basis for selecting the particular subsequent action or command rather than an alternative.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The recorded diagnostic or probe result that supplies the decision basis.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The later tool invocation whose selection is grounded in that diagnostic result.\"}], \"assertion_conditions\": [\"The observation precedes the guided action.\", \"Recorded text (reasoning or the action itself) links the observation's finding to the choice, e.g. an unresolved-argument error is followed by a corrected command, or a reported tool availability is cited as grounds for proceeding.\", \"The later action differs from what was previously attempted in a way responsive to the observation.\"], \"exclusion_conditions\": [\"An observation that merely provides a data value consumed as an argument does not satisfy this predicate; that is input supply.\", \"Returning an error without any responsive change in the following action does not satisfy this predicate.\", \"Calls issued in the same event as the observation cannot be guided by it.\"]}, {\"name\": \"ATTEMPTS_REPAIR\", \"definition\": \"The action is performed with the intent of removing a specific defect that is reported or visible in the specified failure observation, by altering the artifact or the command that exhibited the defect.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation intended to remedy the defect.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The recorded result exhibiting the defect (missing proof steps, an error message, a failed check).\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action.\", \"The defect is identifiable in the failure observation's content, e.g. placeholder proof holes, or an error naming a wrong module/file argument.\", \"The action's content or arguments are changed to address exactly that defect rather than repeating the prior operation unchanged.\"], \"exclusion_conditions\": [\"Re-running an identical operation without addressing the reported defect does not satisfy this predicate.\", \"An action unrelated to the observed defect does not satisfy this predicate.\", \"The predicate does not assert that the repair succeeded; success requires a separate confirming result.\"]}, {\"name\": \"CONFIRMS_REPAIR\", \"definition\": \"The check observation reports a result obtained after the repair action on the same subject, and that result shows the defect identified in the failure observation is no longer present.\", \"parameters\": [{\"name\": \"repair\", \"type\": \"action\", \"description\": \"The remedial action taken against the defect.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The earlier result that exhibited the defect being repaired.\"}, {\"name\": \"check\", \"type\": \"observation\", \"description\": \"The later result that assesses whether the defect persists.\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action, and the check observation follows it.\", \"The check concerns the same subject/version as the failure (same file, same command target, same theorem).\", \"The check reports a success signal for that subject, e.g. the target artifact being produced with a clean marker, or the compiled theorem being printed without error, rather than another error.\"], \"exclusion_conditions\": [\"A check that reports a new or persisting error does not satisfy this predicate.\", \"A check on an unrelated subject or an earlier version does not satisfy this predicate.\", \"The repair action alone, without a following successful check result, does not satisfy this predicate.\"]}, {\"name\": \"DERIVES_CONCLUSION\", \"definition\": \"The reasoning node states a verdict or outcome whose substantive basis is the findings reported in the given observations, which the reasoning text cites.\", \"parameters\": [{\"name\": \"inputs\", \"type\": \"observation[]\", \"description\": \"The prior recorded results whose findings support the conclusion.\"}, {\"name\": \"conclusion\", \"type\": \"reasoning\", \"description\": \"The agent text stating the resulting verdict or outcome.\"}], \"assertion_conditions\": [\"Every cited observation precedes the conclusion text.\", \"The conclusion text references the specific findings of those observations (e.g. compilation producing the expected artifact, printing the theorem successfully) as the grounds for its verdict.\", \"The observations are the substantive evidence for the verdict, not incidental context.\"], \"exclusion_conditions\": [\"Reasoning that proposes forthcoming steps rather than asserting an outcome does not satisfy this predicate.\", \"A verdict not grounded in the cited observation content, or grounded only in unrecorded expectations, does not satisfy this predicate.\", \"An observation that merely supplied an argument value does not by itself satisfy this predicate.\"]}, {\"name\": \"DIAGNOSES_OBSERVED_DEFECT\", \"definition\": \"The reasoning node inspects the content of the specified observation and identifies a specific defect or gap in it, explaining what is missing or wrong as a precondition for fixing it.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that states the diagnosis of the defect.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The recorded result whose content contains the defect being diagnosed.\"}], \"assertion_conditions\": [\"The observation precedes the diagnosing reasoning text.\", \"The reasoning text names the specific defective or incomplete element present in the observation content (e.g. placeholder holes that must be filled, an unresolved subgoal) and indicates what is required.\", \"The diagnosis refers to the observation's own content rather than to an assumed or future state.\"], \"exclusion_conditions\": [\"Reasoning that merely restates or summarizes the observation content without identifying a defect does not satisfy this predicate.\", \"Reasoning that reports a successful outcome, or that diagnoses something not visible in that observation, does not satisfy this predicate.\"]}, {\"name\": \"IS_PLAN\", \"definition\": \"The reasoning text states an intended ordered course of forthcoming steps, specifying what will be done next and in what order before results exist.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text containing the prospective step sequence.\"}], \"assertion_conditions\": [\"The text is future-directed and enumerates or sequences intended actions or subgoals (e.g. inspect the file, then complete the proof, then compile).\", \"The stated steps are presented as the approach to be carried out, not as completed work.\"], \"exclusion_conditions\": [\"Past-tense descriptions of what was already done, or final summaries of results, do not satisfy this predicate.\", \"A bare statement of the overall task without an intended sequence does not satisfy this predicate.\"]}], \"uncertain\": []}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "existing": [],
+    "new": [
+      {
+        "name": "USES_OBSERVATION_AS_INPUT",
+        "definition": "The action takes an identifiable value or data payload (file text, file name, path, or other returned content) supplied by the specified prior observation and places it into the action's own arguments or payload.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation whose argument or payload receives the data."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The prior recorded tool result that supplies the value or data payload used by the action."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation is recorded before the receiving action.",
+          "The action's argument or payload can be traced to content of the observation, e.g. written file text reproduces the theorem statement and proof skeleton returned by an earlier read, or a command targets a file name/path reported by an earlier directory listing.",
+          "The traceable item is an operational input of the action, not merely a topic shared with it."
+        ],
+        "exclusion_conditions": [
+          "An observation consulted only to decide which action to perform, without contributing a value or payload to its arguments, does not satisfy this predicate.",
+          "Temporal adjacency, event membership, or a shared subject without an observable input link does not satisfy this predicate."
+        ]
+      },
+      {
+        "name": "USES_REASONING_AS_INPUT",
+        "definition": "The action carries out an operation whose concrete argument content (exact text or commands) was specified beforehand in the specified reasoning node, so that the reasoning node supplies the material the action commits.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that enacts the content declared in the reasoning node."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The prior agent text that states the concrete content (e.g. the exact file body or command) to be used."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning node is recorded before the action.",
+          "The reasoning text states concrete content to be used, not only a general intention or goal.",
+          "The action's argument or payload matches that stated content closely enough that the reasoning node is its evident source."
+        ],
+        "exclusion_conditions": [
+          "Reasoning that only expresses an intention or plan step without specifying the content does not satisfy this predicate.",
+          "Reasoning used to judge or evaluate a result (a criterion) rather than to supply content does not satisfy this predicate."
+        ]
+      },
+      {
+        "name": "GUIDES_ACTION_CHOICE",
+        "definition": "The observation reports a diagnostic or probe outcome (an error, a failure message, or an environment/availability result) that is the stated basis for selecting the particular subsequent action or command rather than an alternative.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The recorded diagnostic or probe result that supplies the decision basis."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The later tool invocation whose selection is grounded in that diagnostic result."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation precedes the guided action.",
+          "Recorded text (reasoning or the action itself) links the observation's finding to the choice, e.g. an unresolved-argument error is followed by a corrected command, or a reported tool availability is cited as grounds for proceeding.",
+          "The later action differs from what was previously attempted in a way responsive to the observation."
+        ],
+        "exclusion_conditions": [
+          "An observation that merely provides a data value consumed as an argument does not satisfy this predicate; that is input supply.",
+          "Returning an error without any responsive change in the following action does not satisfy this predicate.",
+          "Calls issued in the same event as the observation cannot be guided by it."
+        ]
+      },
+      {
+        "name": "ATTEMPTS_REPAIR",
+        "definition": "The action is performed with the intent of removing a specific defect that is reported or visible in the specified failure observation, by altering the artifact or the command that exhibited the defect.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation intended to remedy the defect."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The recorded result exhibiting the defect (missing proof steps, an error message, a failed check)."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the repair action.",
+          "The defect is identifiable in the failure observation's content, e.g. placeholder proof holes, or an error naming a wrong module/file argument.",
+          "The action's content or arguments are changed to address exactly that defect rather than repeating the prior operation unchanged."
+        ],
+        "exclusion_conditions": [
+          "Re-running an identical operation without addressing the reported defect does not satisfy this predicate.",
+          "An action unrelated to the observed defect does not satisfy this predicate.",
+          "The predicate does not assert that the repair succeeded; success requires a separate confirming result."
+        ]
+      },
+      {
+        "name": "CONFIRMS_REPAIR",
+        "definition": "The check observation reports a result obtained after the repair action on the same subject, and that result shows the defect identified in the failure observation is no longer present.",
+        "parameters": [
+          {
+            "name": "repair",
+            "type": "action",
+            "description": "The remedial action taken against the defect."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The earlier result that exhibited the defect being repaired."
+          },
+          {
+            "name": "check",
+            "type": "observation",
+            "description": "The later result that assesses whether the defect persists."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the repair action, and the check observation follows it.",
+          "The check concerns the same subject/version as the failure (same file, same command target, same theorem).",
+          "The check reports a success signal for that subject, e.g. the target artifact being produced with a clean marker, or the compiled theorem being printed without error, rather than another error."
+        ],
+        "exclusion_conditions": [
+          "A check that reports a new or persisting error does not satisfy this predicate.",
+          "A check on an unrelated subject or an earlier version does not satisfy this predicate.",
+          "The repair action alone, without a following successful check result, does not satisfy this predicate."
+        ]
+      },
+      {
+        "name": "DERIVES_CONCLUSION",
+        "definition": "The reasoning node states a verdict or outcome whose substantive basis is the findings reported in the given observations, which the reasoning text cites.",
+        "parameters": [
+          {
+            "name": "inputs",
+            "type": "observation[]",
+            "description": "The prior recorded results whose findings support the conclusion."
+          },
+          {
+            "name": "conclusion",
+            "type": "reasoning",
+            "description": "The agent text stating the resulting verdict or outcome."
+          }
+        ],
+        "assertion_conditions": [
+          "Every cited observation precedes the conclusion text.",
+          "The conclusion text references the specific findings of those observations (e.g. compilation producing the expected artifact, printing the theorem successfully) as the grounds for its verdict.",
+          "The observations are the substantive evidence for the verdict, not incidental context."
+        ],
+        "exclusion_conditions": [
+          "Reasoning that proposes forthcoming steps rather than asserting an outcome does not satisfy this predicate.",
+          "A verdict not grounded in the cited observation content, or grounded only in unrecorded expectations, does not satisfy this predicate.",
+          "An observation that merely supplied an argument value does not by itself satisfy this predicate."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_OBSERVED_DEFECT",
+        "definition": "The reasoning node inspects the content of the specified observation and identifies a specific defect or gap in it, explaining what is missing or wrong as a precondition for fixing it.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that states the diagnosis of the defect."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The recorded result whose content contains the defect being diagnosed."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation precedes the diagnosing reasoning text.",
+          "The reasoning text names the specific defective or incomplete element present in the observation content (e.g. placeholder holes that must be filled, an unresolved subgoal) and indicates what is required.",
+          "The diagnosis refers to the observation's own content rather than to an assumed or future state."
+        ],
+        "exclusion_conditions": [
+          "Reasoning that merely restates or summarizes the observation content without identifying a defect does not satisfy this predicate.",
+          "Reasoning that reports a successful outcome, or that diagnoses something not visible in that observation, does not satisfy this predicate."
+        ]
+      },
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning text states an intended ordered course of forthcoming steps, specifying what will be done next and in what order before results exist.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text containing the prospective step sequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The text is future-directed and enumerates or sequences intended actions or subgoals (e.g. inspect the file, then complete the proof, then compile).",
+          "The stated steps are presented as the approach to be carried out, not as completed work."
+        ],
+        "exclusion_conditions": [
+          "Past-tense descriptions of what was already done, or final summaries of results, do not satisfy this predicate.",
+          "A bare statement of the overall task without an intended sequence does not satisfy this predicate."
+        ]
+      }
+    ],
+    "uncertain": []
+  },
+  "previous_calls": []
+}

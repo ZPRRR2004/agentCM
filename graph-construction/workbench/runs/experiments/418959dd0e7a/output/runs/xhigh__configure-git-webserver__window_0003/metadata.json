@@ -1,0 +1,1062 @@
+{
+  "window_file": "xhigh__configure-git-webserver__window_0003.json",
+  "trajectory_id": "xhigh__configure-git-webserver",
+  "window_id": "window_0003",
+  "global_index": 3,
+  "prompt_version": "v0001",
+  "registry_snapshot": [
+    {
+      "name": "IS_EXECUTION_PLAN",
+      "definition": "The reasoning explicitly expresses an intended future action or ordered sequence of actions that the agent intends to perform next in service of the task.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text expressing the intended future action(s) or the plan to be carried out."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning explicitly names at least one action that is still to be performed (e.g., inspecting a file, listing a workspace, compiling an artifact, verifying a result).",
+        "The intended action is presented as the agent's own next step, not as a hypothetical or rejected alternative."
+      ],
+      "exclusion_conditions": [
+        "Merely reporting actions that have already been completed does not constitute a plan.",
+        "Restating the user's task requirements without committing to a next action is not a plan.",
+        "Post-hoc summarization of finished work is not a plan."
+      ]
+    },
+    {
+      "name": "IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT",
+      "definition": "The reasoning analyzes the content returned by an observation and pinpoints a concrete deficiency in that content that must be corrected for the task to succeed.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text performing the analysis and naming the deficiency."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The earlier observation whose returned content contains the deficient artifact."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation returns the actual content of an artifact (e.g., source text of a file) rather than mere metadata.",
+        "The reasoning names specific missing, incomplete, or erroneous portions of that content (e.g., unresolved holes, absent steps, absent branches), rather than describing the content in general terms."
+      ],
+      "exclusion_conditions": [
+        "The reasoning only restates or quotes the observed content without locating a deficiency.",
+        "The reasoning discusses the artifact without any content from an observation having been supplied.",
+        "The observation reports a tool failure rather than artifact content."
+      ]
+    },
+    {
+      "name": "GUIDES_ACTION_CONTENT",
+      "definition": "The reasoning specifies the concrete content or form of an operation that a subsequent action then carries out, so that the action's payload is traceable to the reasoning.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text that decides what the operation should do or which content it should supply."
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action that performs the operation whose content corresponds to the reasoning."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning states a concrete intended operation or the concrete content to be produced (e.g., the exact replacement text, the exact command form).",
+        "The action's payload matches that stated intent in substance, not merely in topic.",
+        "The reasoning precedes the action."
+      ],
+      "exclusion_conditions": [
+        "The reasoning only expresses a general goal while the action's content is fixed by a prior observation or by chance.",
+        "The action diverges from what the reasoning specified.",
+        "The reasoning is written after the action and only reports it."
+      ]
+    },
+    {
+      "name": "REPLACES_DEFECTIVE_CONTENT_OBSERVED",
+      "definition": "A modification action rewrites the very resource whose deficient content was reported by an earlier observation, supplying content that fills the identified gap.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The modification action that writes or edits the resource."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The earlier observation that returned the deficient content of that same resource."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation returns content of a specific named resource (e.g., a file path) that lacks required elements.",
+        "The action targets that same resource and supplies the content that was missing, replacing the deficient portion.",
+        "The action precedes any confirmation of the resource's corrected state."
+      ],
+      "exclusion_conditions": [
+        "The action targets a different resource than the one observed.",
+        "The action is read-only or only inspects the resource.",
+        "The observation is unrelated to the resource being written."
+      ]
+    },
+    {
+      "name": "CHECKS_TOOL_AVAILABILITY",
+      "definition": "The action queries whether a required tool or toolchain executable is present and usable, as a precondition check before performing the primary task.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action invoking a presence or version query on the required tool."
+        }
+      ],
+      "assertion_conditions": [
+        "The invocation resolves the location of the executable or asks the tool for its version, rather than performing the primary task.",
+        "The stated intent or surrounding reasoning links the check to a tool needed for the primary task."
+      ],
+      "exclusion_conditions": [
+        "The action performs the primary task itself (e.g., running the compiler on the target artifact).",
+        "The action queries an unrelated utility or an unrelated property of the environment."
+      ]
+    },
+    {
+      "name": "PERFORMS_PRIMARY_BUILD",
+      "definition": "The action executes the build or compilation step on the target artifact as the main operation of the task, rather than checking prerequisites or inspecting outputs.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action running the build/compilation command on the target artifact."
+        }
+      ],
+      "assertion_conditions": [
+        "The command invokes the build tool on the target artifact path.",
+        "The command optionally combines the build with listing of produced outputs in the same invocation."
+      ],
+      "exclusion_conditions": [
+        "The action only queries tool availability or version.",
+        "The action only loads or prints an already compiled artifact for inspection.",
+        "The action only reads source text without building."
+      ]
+    },
+    {
+      "name": "INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT",
+      "definition": "The observation resulting from a build or compilation command provides evidence that the build succeeded and that the compiled output artifact was produced.",
+      "parameters": [
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The observation returning the build command's output."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation is the result of a build/compilation invocation.",
+        "The output contains no error indication and evidences the compiled output artifact, such as by listing it or a success marker."
+      ],
+      "exclusion_conditions": [
+        "The output contains compiler errors or a nonzero exit indication.",
+        "The output merely lists files without any build having been executed.",
+        "The output comes from a verification or inspection command rather than a build."
+      ]
+    },
+    {
+      "name": "IS_INVOCATION_ERROR_OBSERVATION",
+      "definition": "The observation reports an error caused by the malformed or misinterpreted form of the tool invocation, rather than by a defect in the artifact being processed.",
+      "parameters": [
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The observation returning the failing tool output."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation is marked as an error or shows a nonzero exit.",
+        "The error message describes the tool's inability to interpret or locate something according to its argument convention (e.g., it looked for a file name derived from the supplied argument)."
+      ],
+      "exclusion_conditions": [
+        "The error indicates that the processed artifact itself is invalid or failed verification.",
+        "The error reports an unavailable required tool or missing dependency.",
+        "The observation reports success."
+      ]
+    },
+    {
+      "name": "CORRECTS_FAILED_INVOCATION",
+      "definition": "A retry action pursues the same verification or inspection goal as a failed invocation while changing precisely the aspect of the invocation that the error identified.",
+      "parameters": [
+        {
+          "name": "retry_action",
+          "type": "action",
+          "description": "The action that re-attempts the operation after the failure."
+        },
+        {
+          "name": "failure_observation",
+          "type": "observation",
+          "description": "The earlier observation reporting the invocation error."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure observation precedes the retry action, and the retry action targets the same overall goal.",
+        "The retry action's parameters differ from the failed invocation in exactly the respect the error message indicated.",
+        "The retry preserves the underlying resource being inspected or verified."
+      ],
+      "exclusion_conditions": [
+        "The retry repeats the identical invocation that already failed.",
+        "The action abandons the goal and does something unrelated.",
+        "The action changes the artifact rather than the invocation form."
+      ]
+    },
+    {
+      "name": "CONFIRMS_CORRECTED_VERIFICATION",
+      "definition": "A retry action addresses a specific invocation failure, and a later observation establishes that the intended verification result was obtained.",
+      "parameters": [
+        {
+          "name": "retry_action",
+          "type": "action",
+          "description": "The action attempting to fix the failed invocation."
+        },
+        {
+          "name": "failure_observation",
+          "type": "observation",
+          "description": "The earlier observation reporting the invocation failure."
+        },
+        {
+          "name": "confirmation_observation",
+          "type": "observation",
+          "description": "The later observation showing the intended verification output."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure observation precedes the retry action, and the retry action corrects the identified invocation problem.",
+        "The confirmation observation follows the retry action and contains the sought result (e.g., the queried declaration printed with its full content) without error."
+      ],
+      "exclusion_conditions": [
+        "The retry is performed without any later observation demonstrating the sought result.",
+        "The later observation still reports an error or an empty/irrelevant result.",
+        "The later observation confirms something other than the failure's subject."
+      ]
+    },
+    {
+      "name": "ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION",
+      "definition": "The action attempts to inspect the semantic content of an already produced compiled artifact by loading it or querying a declaration from it, rather than by rebuilding it or reading raw bytes.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action that attempts to load the compiled artifact or query a declaration from it."
+        }
+      ],
+      "assertion_conditions": [
+        "The invocation attempts to load a compiled artifact into the tool's environment or asks the tool to print/check a named declaration.",
+        "The action is distinct from the build that produced the artifact and from file-listing or byte-level inspection."
+      ],
+      "exclusion_conditions": [
+        "The action rebuilds the artifact from source.",
+        "The action only lists files or checks file sizes/timestamps.",
+        "The action reads source text instead of the compiled artifact."
+      ]
+    },
+    {
+      "name": "ASSERTS_TASK_COMPLETION_WITH_EVIDENCE",
+      "definition": "The reasoning declares the overall task finished and backs the claim by citing the concrete artifacts produced and the verifications performed.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text concluding the task and citing its supporting evidence."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning explicitly states that the task is complete or that all required steps are done.",
+        "It references the concrete produced artifacts and the checks that were run to establish success."
+      ],
+      "exclusion_conditions": [
+        "The reasoning describes an intermediate step or an open problem rather than final completion.",
+        "The claim of completion cites no produced artifact or verification result.",
+        "The reasoning admits that a required verification is still missing or failing."
+      ]
+    },
+    {
+      "name": "ANTICIPATES_FAILURE_MODE",
+      "definition": "The reasoning predicts a specific failure mechanism that a default or naive configuration would produce, and explains how that mechanism leads to the failure, before any such failure has been observed.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text predicting a concrete failure mechanism and its consequence."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning names a concrete failure mode that could arise from a default or naive setup, such as an account locked for key authentication, a commit finding no changes to record, stale deployed content preventing a later push, or a service unable to start without a supervisor.",
+        "The reasoning explains the causal mechanism by which the default behavior produces that failure.",
+        "The prediction is made before any observation in the trajectory reports that failure."
+      ],
+      "exclusion_conditions": [
+        "The text reacts to a failure that has already been observed in a tool result.",
+        "The text offers only generic caution or best-practice advice without identifying a specific failure mechanism.",
+        "The text predicts a failure that is unrelated to the configuration being implemented."
+      ]
+    },
+    {
+      "name": "DERIVES_ENVIRONMENT_CONSTRAINT",
+      "definition": "The reasoning interprets the content of a prior observation to establish a capability, absence, or structural constraint of the environment that conditions the chosen approach.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text drawing a capability or constraint conclusion from observed environment state."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The earlier tool result whose content supplies the environment facts being interpreted."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning states at least one specific environment fact that is traceable to the content of the observation, such as available or missing tools, package-manager reachability, process supervision model, user accounts, or filesystem layout.",
+        "The reasoning treats that fact as a constraint or enabler that affects how the agent proceeds."
+      ],
+      "exclusion_conditions": [
+        "The reasoning merely repeats or paraphrases the raw observation without drawing a constraint or capability conclusion.",
+        "The observation only confirms that a command ran successfully and supplies no environment fact.",
+        "The nodes are merely temporally adjacent or topically similar."
+      ]
+    },
+    {
+      "name": "ALIGNS_PROVISIONED_NAMES_WITH_REQUEST",
+      "definition": "The action creates or registers a named resource such as an account, filesystem path, hostname mapping, or listening endpoint under the exact identifier that the requester's unmodified commands will address, so those commands resolve to the provisioned resource.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The provisioning action that establishes a named resource and fixes its identifier."
+        }
+      ],
+      "assertion_conditions": [
+        "The action establishes a named resource such as a user account, repository path, local hostname entry, or service listening endpoint.",
+        "The identifier chosen in the action equals the identifier appearing in the requester's commands, such as an account name, repository path, host alias, or port number."
+      ],
+      "exclusion_conditions": [
+        "The resource is created under an arbitrary or default identifier unrelated to the requester's commands.",
+        "The chosen identifier differs from the requested one or would require the requester to alter the commands.",
+        "The action only installs or inspects software without fixing the name of a resource."
+      ]
+    },
+    {
+      "name": "INSTALLS_MISSING_DEPENDENCIES",
+      "definition": "The action installs software packages that provide capabilities which the reasoning had identified as absent from the environment, and the installation occurs before the first attempt to use those capabilities.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The package installation action supplying the absent capabilities."
+        },
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text that identified the specific capabilities as missing."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning records specific tools or services as absent or unusable in the environment.",
+        "The action installs packages that provide those tools or services.",
+        "The installation occurs before any action that depends on them."
+      ],
+      "exclusion_conditions": [
+        "Packages are installed without any preceding identification of a gap.",
+        "The gap is identified but no installation is attempted within the window.",
+        "The action only refreshes or inspects package metadata without installing."
+      ]
+    },
+    {
+      "name": "MITIGATES_ANTICIPATED_PITFALL",
+      "definition": "The action applies a concrete countermeasure, visible in its own arguments, that prevents a specific failure mechanism the reasoning had predicted for a default or naive configuration.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action whose arguments contain the countermeasure."
+        },
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The earlier agent text predicting the failure mechanism that the countermeasure addresses."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning predicts a specific failure mechanism for the default or naive configuration.",
+        "The action contains an explicit flag, option, marker, permission setting, configuration directive, or resolution entry that directly prevents that mechanism.",
+        "The correspondence between the countermeasure and the predicted mechanism is traceable by content, not merely by topic or proximity."
+      ],
+      "exclusion_conditions": [
+        "The action performs only a generic implementation step with no countermeasure in its arguments.",
+        "The action's arguments do not reference the predicted failure mechanism.",
+        "The reasoning mentions a risk without prescribing or implying any countermeasure."
+      ]
+    },
+    {
+      "name": "WRITES_SERVICE_CONFIGURATION",
+      "definition": "The action creates or replaces the configuration of a service itself, so that when the service starts it exposes a specified listening endpoint and serves a specified directory or resource root.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The file-write action that authors the service's own configuration."
+        }
+      ],
+      "assertion_conditions": [
+        "The write targets a configuration path belonging to a server or daemon.",
+        "The written content specifies a listen address or port and a served root directory or resource root."
+      ],
+      "exclusion_conditions": [
+        "The write targets application content, a deployment script, or an unrelated file rather than the service's own configuration.",
+        "The written content does not specify an endpoint or a served root.",
+        "The action only restarts or validates a service without authoring its configuration."
+      ]
+    },
+    {
+      "name": "AUTHORS_PUSH_DEPLOY_HOOK",
+      "definition": "The action writes an executable hook script that is triggered when a repository receives pushes and that materializes the pushed revision into a separate working directory intended for serving.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The file-write action producing the receive-side hook script."
+        }
+      ],
+      "assertion_conditions": [
+        "The script is written into a repository's hook location and marked executable.",
+        "The script reads pushed references and checks out the pushed branch into a designated work tree distinct from the repository directory."
+      ],
+      "exclusion_conditions": [
+        "The write produces a server configuration file rather than a receive-side hook.",
+        "The script operates directly on the repository directory with no separate target work tree.",
+        "The action performs a one-off manual checkout instead of installing a triggered script."
+      ]
+    },
+    {
+      "name": "MODIFIES_OBSERVED_CONFIGURATION",
+      "definition": "The action rewrites or replaces a configuration file whose existing content was returned by an earlier observation, and the written content reflects directives seen in that observation.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The write action that rewrites the previously observed configuration file."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The earlier tool result that returned the file's existing content."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation returned the actual content of a configuration file, not merely its presence or metadata.",
+        "The action writes to that same path.",
+        "The written content preserves or deliberately alters directives that were visible in the observed content."
+      ],
+      "exclusion_conditions": [
+        "The action writes a file whose content was never observed.",
+        "The observation only lists a directory or reports file metadata.",
+        "The write targets a different path than the observed file."
+      ]
+    },
+    {
+      "name": "CONFIRMS_SERVICE_STARTED",
+      "definition": "The observation establishes that a service whose launch the action invoked is actually running, providing post-launch evidence of successful startup rather than only configuration acceptance.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action that attempted to launch the service."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The tool result reporting evidence of the launched service's running state."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation contains process, PID, listener, or equivalent runtime evidence that the service launched by the action is running.",
+        "The observation does not report a startup error for that service.",
+        "The running service corresponds to the service whose launch the action invoked."
+      ],
+      "exclusion_conditions": [
+        "Only configuration validation succeeds, with no runtime evidence that the service is running.",
+        "Processes appear that were started outside the action in question.",
+        "The output reports a configuration or startup error."
+      ]
+    },
+    {
+      "name": "WIRES_PUSH_TO_SERVED_ROOT",
+      "definition": "Three actions jointly establish a deployment chain in which a receive hook checks pushed content out into a directory that a web service is configured to serve on a specified port, so that pushing commits makes that content retrievable over HTTP.",
+      "parameters": [
+        {
+          "name": "hook_action",
+          "type": "action",
+          "description": "The action authoring the receive hook whose checkout target is the serving directory."
+        },
+        {
+          "name": "service_config_action",
+          "type": "action",
+          "description": "The action configuring the web service's listen port and document root."
+        },
+        {
+          "name": "target_dir_action",
+          "type": "action",
+          "description": "The action preparing the serving directory that the hook writes into."
+        }
+      ],
+      "assertion_conditions": [
+        "The checkout path used by the hook action matches the serving directory prepared by the target_dir_action.",
+        "The document root in the service configuration action matches that same directory.",
+        "The service configuration specifies a listening port for HTTP access.",
+        "Each link of the chain is evidenced in the content of the respective action."
+      ],
+      "exclusion_conditions": [
+        "The hook checkout path, prepared directory, and document root differ from one another.",
+        "A web service is configured to serve a root that no hook populates.",
+        "A hook checks content out but no service serves that location.",
+        "Any of the three links is missing, so the chain would not deliver pushed content over HTTP."
+      ]
+    },
+    {
+      "name": "VALIDATES_SERVICE_CONFIGURATION",
+      "definition": "The action invokes a service's own configuration syntax or consistency check on its configuration files, and the observation reports that the configuration is valid.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that runs the service-specific configuration validation routine."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The tool result reporting the validation outcome for that service configuration."
+        }
+      ],
+      "assertion_conditions": [
+        "The action runs the service's own validation or test routine (e.g., a config-test flag or subcommand of the daemon) on its configuration before or alongside activation.",
+        "The observation explicitly reports that the syntax or consistency of that configuration is valid or successful."
+      ],
+      "exclusion_conditions": [
+        "The action only writes, starts, or restarts the service without running a configuration validity check.",
+        "The observation reports a validation failure or does not address configuration validity.",
+        "The check validates something other than the service's configuration (e.g., a repository or application setting)."
+      ]
+    },
+    {
+      "name": "CONFIGURES_HOSTNAME_RESOLUTION",
+      "definition": "The action modifies the system's hostname-to-address resolution mapping so that a symbolic host name resolves to a chosen address for subsequent commands.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that adds or updates the system name-resolution mapping."
+        }
+      ],
+      "assertion_conditions": [
+        "The action writes or updates a system name-resolution mapping, such as an entry in the hosts file.",
+        "The written mapping associates a host name with a network address that subsequent commands use to reach a service."
+      ],
+      "exclusion_conditions": [
+        "The action changes service-level virtual-host or server-name configuration rather than system hostname resolution.",
+        "The action writes a file that does not affect name resolution.",
+        "The action only reads the current name-resolution mapping."
+      ]
+    },
+    {
+      "name": "TESTS_AUTHENTICATED_REMOTE_ACCESS",
+      "definition": "The action installs or supplies a credential for a target account and performs a remote login using that credential, and the observation confirms that the login authenticated as the intended identity.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that provisions or installs the credential and attempts the remote login."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The tool result reporting whether the authenticated remote access succeeded and as which identity."
+        }
+      ],
+      "assertion_conditions": [
+        "The action creates, installs, or supplies a credential (e.g., a key pair or token) for a remote login test.",
+        "The action executes a remote access command using that credential.",
+        "The observation reports a successful authenticated identity or authenticated session for the intended account."
+      ],
+      "exclusion_conditions": [
+        "The action tests unauthenticated network reachability or only starts the login daemon.",
+        "The action prepares credentials but performs no login attempt.",
+        "The observation reports authentication failure, permission denial, or host verification failure."
+      ]
+    },
+    {
+      "name": "EXECUTES_END_TO_END_USER_WORKFLOW",
+      "definition": "The action reproduces the requester's end-to-end workflow by running operations from multiple interacting stages of that workflow in sequence, rather than exercising a single component in isolation.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that runs the multi-stage user workflow."
+        }
+      ],
+      "assertion_conditions": [
+        "The action includes operations belonging to at least two distinct stages of the requested workflow, such as producing and transmitting source-controlled content and retrieving content from the served endpoint.",
+        "The stages interact through the components being configured, so the invocation exercises their integration rather than a single isolated component."
+      ],
+      "exclusion_conditions": [
+        "The action performs only a single isolated check, such as a configuration syntax test, process listing, or port query.",
+        "The action only starts services without exercising the user-facing workflow.",
+        "The action only prepares files or configuration without running the workflow stages."
+      ]
+    },
+    {
+      "name": "DIAGNOSES_FAILURE_CAUSE",
+      "definition": "The reasoning explains why a previously observed failure occurred by identifying the specific cause or mechanism responsible for it.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text explaining the failure."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The earlier tool result reporting the failure."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning refers to the failure reported by the observation.",
+        "The reasoning identifies a causal explanation for the failure, such as an environment setting not carried into a subcommand, an ownership safety rule rejecting the operation, or a host verification rule blocking access."
+      ],
+      "exclusion_conditions": [
+        "The reasoning merely restates or quotes the error without causal analysis.",
+        "The reasoning plans a next action without explaining why the observed failure occurred.",
+        "The explanation concerns a failure other than the one reported by the paired observation."
+      ]
+    },
+    {
+      "name": "ATTEMPTS_REPAIR_OBSERVED_FAILURE",
+      "definition": "The action attempts to correct a previously observed failure by changing the operational condition responsible for it, such as configuration, execution context, environment, or credentials, rather than repeating the failing operation unchanged.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The corrective action being attempted."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The earlier tool result reporting the failure to be corrected."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation reports a failure that occurs before the action.",
+        "The action changes an operational condition relevant to that failure rather than repeating the identical failing operation unchanged."
+      ],
+      "exclusion_conditions": [
+        "The action is unrelated to the observed failure.",
+        "The action simply repeats the same failing operation with no corrective change.",
+        "The action only inspects or logs state without attempting a correction."
+      ]
+    },
+    {
+      "name": "CONFIRMS_REPAIR",
+      "definition": "A repair action addresses an observed failure, and a later observation establishes that the same failure has been resolved.",
+      "parameters": [
+        {
+          "name": "repair",
+          "type": "action",
+          "description": "The action attempting to repair the failure."
+        },
+        {
+          "name": "failure",
+          "type": "observation",
+          "description": "The earlier observation reporting the failure."
+        },
+        {
+          "name": "confirmation",
+          "type": "observation",
+          "description": "The later observation confirming that the failure has been resolved."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure observation precedes the repair action, and the repair action changes a condition relevant to that failure.",
+        "The confirmation observation occurs after the repair and reports success or a state inconsistent with the original failure, so the original failure is no longer reproduced."
+      ],
+      "exclusion_conditions": [
+        "No later observation confirms resolution of the original failure.",
+        "The later observation still reports the original failure or leaves the affected state unchanged.",
+        "The later observation confirms only an unrelated operation."
+      ]
+    },
+    {
+      "name": "ATTEMPTS_TEST_STATE_CLEANUP",
+      "definition": "The action removes or resets artifacts created while testing the requested workflow, such as temporary credentials, test clones, test commits or branches, and test-deployed content, to return the persistent state toward its pre-test condition.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The cleanup action targeting temporary test artifacts."
+        }
+      ],
+      "assertion_conditions": [
+        "The action targets artifacts created by the agent's own testing, such as test credentials, test clones, test branches or commits, or files deployed by a test push.",
+        "The action includes operations intended to restore the persistent state used by the requested workflow, such as clearing repository references, emptying the served root, or resetting the credential file."
+      ],
+      "exclusion_conditions": [
+        "The action removes ordinary runtime files unrelated to test artifacts.",
+        "The action only inspects test artifacts without deleting or resetting them.",
+        "The action deletes user data that was not produced by the agent's testing."
+      ]
+    },
+    {
+      "name": "RESTORES_PRISTINE_STATE",
+      "definition": "A cleanup action removes or resets temporary test artifacts, and the observation confirms that the targeted resources are absent, empty, or reset, leaving the relevant resource in its pre-test state.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The cleanup action that removes or resets temporary test artifacts."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The later tool result confirming that the targeted resources are absent, empty, or reset."
+        }
+      ],
+      "assertion_conditions": [
+        "The action performs cleanup of temporary test artifacts.",
+        "The observation shows the targeted artifacts absent, empty, or reset to their initial state, such as no remaining references, an empty served root, or an emptied credential file."
+      ],
+      "exclusion_conditions": [
+        "The observation shows that targeted test artifacts or test commits remain.",
+        "The observation reports that the cleanup operation itself failed and left the state unchanged.",
+        "The observation does not address the state of the cleaned resources."
+      ]
+    },
+    {
+      "name": "INSTALLS_SERVICE_RECOVERY_HELPER",
+      "definition": "The action creates a reusable helper that checks whether required service daemons are running and starts them when they are absent, so that service availability can be restored later without manual intervention.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that writes or installs the service recovery helper."
+        }
+      ],
+      "assertion_conditions": [
+        "The action writes or installs a script or helper containing service liveness checks and commands that start the services when they are not running.",
+        "The helper is intended to be invoked later to restore service availability."
+      ],
+      "exclusion_conditions": [
+        "The action writes ordinary application content or static service configuration without liveness or restart logic.",
+        "The action only starts services once without creating a reusable recovery helper.",
+        "The action merely documents how to restart the services rather than installing an executable helper."
+      ]
+    },
+    {
+      "name": "CHECKS_LISTENING_PORTS",
+      "definition": "The action inspects the system's socket or connection tables for designated service ports, and the observation reports whether those ports are in a listening state and on which interfaces.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that queries socket or connection tables for the service ports."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The tool result reporting listening state or bound interfaces for the inspected ports."
+        }
+      ],
+      "assertion_conditions": [
+        "The action queries socket or connection-table state filtered to the designated service ports.",
+        "The observation reports listening state or bound addresses for those ports."
+      ],
+      "exclusion_conditions": [
+        "The action checks only process existence without inspecting socket state.",
+        "The observation reports no port or socket state.",
+        "The query is not directed at the ports of the configured services."
+      ]
+    },
+    {
+      "name": "VERIFICATION_OBSERVES_EXPECTED_RESULT",
+      "definition": "The action performs a verification step that exercises the configured behavior, and the resulting observation contains the specific expected output, content, or state that demonstrates that behavior.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The verification step that exercises the behavior being checked."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The tool result containing the expected output, content, or state."
+        }
+      ],
+      "assertion_conditions": [
+        "The action deliberately exercises the configured behavior to verify it, such as retrieving served content, performing a login, or querying the live state.",
+        "The observation contains the specific expected value, content, or success marker, not merely a generic exit status, that demonstrates the verified behavior."
+      ],
+      "exclusion_conditions": [
+        "The observation reports an error or an unexpected value.",
+        "The observation reports only generic execution success without evidence of the expected behavior.",
+        "The action only writes configuration, starts a service, or checks syntax without exercising the behavior."
+      ]
+    }
+  ],
+  "completed_stages": [
+    "discovery",
+    "comparison",
+    "review"
+  ],
+  "accepted_predicates": [
+    {
+      "name": "EXPLAINS_OBSERVED_ANOMALY",
+      "definition": "The reasoning gives a causal account of why a recorded observation returned an unexpected, empty, or otherwise puzzling result that is not itself an error, naming a concrete mechanism (tool or option semantics, symlink handling, process lifecycle) rather than treating the result as a failure of the underlying goal.",
+      "parameters": [
+        {
+          "name": "explanation",
+          "type": "reasoning",
+          "description": "The agent text that accounts for the puzzling result."
+        },
+        {
+          "name": "anomalous_observation",
+          "type": "observation",
+          "description": "The observation whose output was empty, missing, or contrary to expectation without reporting an error."
+        }
+      ],
+      "assertion_conditions": [
+        "The explanation explicitly refers to a result contained in the observation that deviated from expectation or left a property undetermined.",
+        "The explanation identifies a concrete cause for that result, such as a command that does not follow symlinks, a shell lacking a numeric conversion function, or a non-reaping parent process."
+      ],
+      "exclusion_conditions": [
+        "The reasoning merely restates or quotes the observation without a causal account.",
+        "The reasoning only proposes the next action and gives no cause for the puzzling result.",
+        "The referenced result is not present in the observation, so there is no traceable link between the two nodes.",
+        "The observation reports a tool error or failing command; causal explanation of an error is a failure-diagnosis mechanism rather than an anomaly explanation."
+      ]
+    },
+    {
+      "name": "REVERIFIES_WITH_ALTERNATIVE_MECHANISM",
+      "definition": "A prior observation left a system property undetermined or contradicted expectation without reporting an error, and the action re-establishes that same property through a different tool, option, or access path rather than repeating the original check.",
+      "parameters": [
+        {
+          "name": "recheck_action",
+          "type": "action",
+          "description": "The action performing the alternative re-verification."
+        },
+        {
+          "name": "inconclusive_observation",
+          "type": "observation",
+          "description": "The earlier check whose output was empty, ambiguous, or insufficient to settle the property."
+        }
+      ],
+      "assertion_conditions": [
+        "The prior observation failed to reveal a property that the agent expected or needed to know, for example because it produced no output.",
+        "The action inspects the same system property using a different command, option, or access path than the earlier check.",
+        "The differing technique is what makes the property observable."
+      ],
+      "exclusion_conditions": [
+        "The action reruns the identical command with identical options, adding no new observability.",
+        "The action inspects a different property than the one left undetermined.",
+        "The earlier observation was conclusive, so the action is routine verification rather than alternative re-verification.",
+        "The earlier observation reported a tool error; correcting a failed invocation is a distinct mechanism."
+      ]
+    },
+    {
+      "name": "RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE",
+      "definition": "The reasoning raises doubt about whether an observed anomaly actually impairs a required capability, a probe action exercises exactly that capability, and the resulting observation demonstrates that the capability still works, providing grounds to dismiss the anomaly.",
+      "parameters": [
+        {
+          "name": "doubt_reasoning",
+          "type": "reasoning",
+          "description": "The agent text expressing uncertainty about whether the anomaly breaks functionality."
+        },
+        {
+          "name": "probe_action",
+          "type": "action",
+          "description": "The action that exercises the capability put in doubt."
+        },
+        {
+          "name": "probe_result",
+          "type": "observation",
+          "description": "The observation reporting the outcome of the probe."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning identifies an observed anomaly and questions whether it affects a required capability.",
+        "The probe action directly exercises the capability that was questioned.",
+        "The probe result shows the capability behaving successfully, providing grounds to treat the anomaly as harmless."
+      ],
+      "exclusion_conditions": [
+        "The probe does not target the capability that was questioned.",
+        "The probe result is failing, inconclusive, or unrelated to the doubt.",
+        "No doubt about functionality is expressed; the probe is ordinary acceptance testing."
+      ]
+    },
+    {
+      "name": "VERIFIES_ENUMERATED_STATE_ITEMS",
+      "definition": "The reasoning itemizes discrete facets of system state to be confirmed, and the action performs a read-only inspection that reads back those same facets in one pass.",
+      "parameters": [
+        {
+          "name": "checklist_reasoning",
+          "type": "reasoning",
+          "description": "The agent text enumerating the specific facets to be confirmed."
+        },
+        {
+          "name": "inspection_action",
+          "type": "action",
+          "description": "The read-only action that reads back the enumerated state facets."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning lists multiple discrete facets to confirm, such as services, listening ports, ownership or permissions, repository references, configuration contents, and endpoint status.",
+        "The action issues read-only commands covering those same facets.",
+        "The facets checked by the action can be mapped onto the enumerated items."
+      ],
+      "exclusion_conditions": [
+        "The action mutates state rather than reading it back.",
+        "The action checks facets that were not enumerated, or the reasoning gives only a general goal without itemized facets.",
+        "The reasoning enumerates items but the action addresses only one of them."
+      ]
+    },
+    {
+      "name": "PROVISIONS_DISPOSABLE_CREDENTIAL",
+      "definition": "The action creates transient authentication material in a temporary location and installs it into the authentication path solely so that the login or authentication flow can be exercised during testing, without intending it as the end user's credential.",
+      "parameters": [
+        {
+          "name": "provisioning_action",
+          "type": "action",
+          "description": "The action generating and installing the temporary credential."
+        }
+      ],
+      "assertion_conditions": [
+        "The action generates authentication material such as a key pair or token at a temporary path.",
+        "The generated material is placed into the authentication path, such as an authorized-keys file, so that a test login can succeed.",
+        "The material is distinct from the credential the end user is expected to configure."
+      ],
+      "exclusion_conditions": [
+        "The action sets up the credential the end user will keep and use.",
+        "The action only reads or inspects existing credentials without generating new material.",
+        "Generated material is intended for permanent production use rather than a test of the authentication path."
+      ]
+    },
+    {
+      "name": "REPLICATES_DOCUMENTED_USER_COMMANDS",
+      "definition": "The reasoning lays out the exact command sequence the requester is expected to run, and the action executes that same sequence verbatim against the configured system in a fresh working location as an acceptance replay of the requester's workflow.",
+      "parameters": [
+        {
+          "name": "sequence_reasoning",
+          "type": "reasoning",
+          "description": "The agent text enumerating the expected command sequence."
+        },
+        {
+          "name": "replay_action",
+          "type": "action",
+          "description": "The action executing the documented command sequence."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning enumerates the specific commands the requester will run, in order.",
+        "The action executes those same commands, in the same order, rather than ad-hoc equivalents.",
+        "The execution occurs in a clean location so the result reflects the requester's starting conditions."
+      ],
+      "exclusion_conditions": [
+        "The action uses substitute commands that only approximate the documented workflow.",
+        "The reasoning states general verification goals without listing a concrete command sequence.",
+        "The action executes only a fragment of the documented sequence."
+      ]
+    },
+    {
+      "name": "INSTALLS_STARTUP_HOOK",
+      "definition": "The action modifies shell startup configuration so that a previously created helper is invoked automatically on future login or interactive shells, wiring the helper into the session lifecycle.",
+      "parameters": [
+        {
+          "name": "hook_action",
+          "type": "action",
+          "description": "The action writing or appending the helper invocation into startup files."
+        }
+      ],
+      "assertion_conditions": [
+        "The action writes to shell startup configuration, such as a profile directory file or a shell rc file.",
+        "The written content invokes a named helper, for example by its script path, so that it runs on subsequent shells.",
+        "The invocation is written in a failure-tolerant form that does not disturb the session."
+      ],
+      "exclusion_conditions": [
+        "The action only creates the helper file without wiring it into startup configuration.",
+        "The startup file is edited for unrelated purposes such as environment variables, aliases, or PATH, with no helper invocation.",
+        "The invocation is written into a one-off command rather than persistent startup configuration."
+      ]
+    },
+    {
+      "name": "REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION",
+      "definition": "An artifact such as a file, script, credential, or directory produced by one action is consumed as an operational input by a later action, creating a traceable cross-action dependency on that produced value.",
+      "parameters": [
+        {
+          "name": "consumer_action",
+          "type": "action",
+          "description": "The later action whose command references the produced artifact."
+        },
+        {
+          "name": "producer_action",
+          "type": "action",
+          "description": "The earlier action that created the artifact."
+        }
+      ],
+      "assertion_conditions": [
+        "The producer action creates a file, script, credential, or path at a specific location.",
+        "The consumer action's command references that same location as an operational input, for example as a key path or a generated script path.",
+        "The producer precedes the consumer, and no other node supplies the artifact."
+      ],
+      "exclusion_conditions": [
+        "Both actions merely reference an artifact that pre-existed and was not created by the producer.",
+        "The consumer action mentions the path only in narration without using it operationally.",
+        "The artifact was created by an action outside the compared pair."
+      ]
+    },
+    {
+      "name": "CONFIRMS_DEPLOYMENT_PIPELINE",
+      "definition": "A publishing action successfully writes content into the configured deployment source, and a subsequent retrieval action reads that content back through the serving endpoint, with the result showing that the published content is actually being served.",
+      "parameters": [
+        {
+          "name": "publish_action",
+          "type": "action",
+          "description": "The action that commits, pushes, or installs content into the repository or deployment source."
+        },
+        {
+          "name": "retrieval_action",
+          "type": "action",
+          "description": "The action that fetches the content through the serving endpoint."
+        },
+        {
+          "name": "served_result",
+          "type": "observation",
+          "description": "The observation reporting the retrieved content and the server response."
+        }
+      ],
+      "assertion_conditions": [
+        "The publishing action reports success in writing the content to the deployment source.",
+        "The retrieval action addresses the serving endpoint that is supposed to expose that content after deployment.",
+        "The served result contains the published content with a success status, showing that the publish-to-serve path works end to end."
+      ],
+      "exclusion_conditions": [
+        "The retrieval occurs before the publishing action succeeds, so the served result cannot stem from that deployment.",
+        "The served content differs from what was published.",
+        "The retrieval reads a local copy or the repository directly rather than the serving endpoint."
+      ]
+    }
+  ],
+  "revised_existing_predicates": [],
+  "accepted_predicate_count": 9,
+  "revised_existing_predicate_count": 0,
+  "status": "completed",
+  "created_at": "2026-10-31T03:48:30.125098+00:00",
+  "updated_at": "2026-10-31T03:50:43.434706+00:00",
+  "failed_stage": null,
+  "error": null,
+  "registry_size_after": 43,
+  "completed_at": "2026-10-31T03:50:43.434706+00:00"
+}

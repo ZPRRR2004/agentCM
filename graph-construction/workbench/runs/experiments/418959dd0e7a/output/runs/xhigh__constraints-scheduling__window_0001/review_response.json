@@ -1,0 +1,271 @@
+{
+  "stage": "review",
+  "window_file": "xhigh__constraints-scheduling__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T03:55:45.593065+00:00",
+  "duration_seconds": 33.781,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T03:55:11.806298+00:00",
+      "duration_seconds": 33.781,
+      "raw_response": {
+        "id": "294e2258-7506-48a0-92b1-4490bf7c2e97",
+        "object": "chat.completion",
+        "created": 1793418917,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\": [{\"name\": \"DETECTS_SOURCE_CONTENT_MISMATCH\", \"definition\": \"The reasoning identifies that the content returned from a data source does not correspond to that source's declared or expected identity, by comparing source-level labels with identifiers or structure present in the returned content.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text identifying the mismatch between the declared source identity and the returned content.\"}], \"assertion_conditions\": [\"The reasoning compares a source's declared label, such as its file name or requested identity, with identifiers or structure present in the returned content.\", \"The reasoning states that the content actually corresponds to a different identity than the declared source.\"], \"exclusion_conditions\": [\"The reasoning only parses or summarizes the returned content without claiming an identity mismatch.\", \"The discrepancy is incidental formatting rather than a conflict between declared and observed source identity.\", \"The reasoning merely reports that a tool call returned an error.\"]}, {\"name\": \"RESOLVES_SOURCE_IDENTITY_AMBIGUITY\", \"definition\": \"The reasoning addresses conflicting or ambiguous source identities by considering the plausible mappings of the supplied data and adopting an interpretation whose conclusions hold under all of them, instead of committing to a single unverified mapping.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text resolving the ambiguity in source identity or data mapping.\"}], \"assertion_conditions\": [\"The reasoning makes the ambiguity explicit by considering at least two plausible mappings or interpretations of the supplied data.\", \"The reasoning adopts an interpretation or course of action whose result is invariant across those mappings, so the ambiguity no longer affects the task outcome.\"], \"exclusion_conditions\": [\"The reasoning selects one mapping without considering alternatives.\", \"The reasoning notes the ambiguity but takes no position that resolves it for the task.\", \"The reasoning merely restates the identity mismatch without drawing any consequence for how to proceed.\"]}, {\"name\": \"DERIVES_SOLUTION_FROM_OBSERVED_DATA\", \"definition\": \"The reasoning derives a candidate solution by extracting structured data from the payloads of observations and combining those extracted values in a computation or selection.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that analyzes the observation payloads and derives the candidate solution.\"}, {\"name\": \"observations\", \"type\": \"observation[]\", \"description\": \"The observations whose returned payloads are jointly analyzed to derive the candidate solution.\"}], \"assertion_conditions\": [\"The reasoning extracts specific values, records, events, or constraints from the content returned by the observations.\", \"The candidate solution depends on the collective payload content of the observations rather than on their success status alone.\", \"The reasoning computes or selects the candidate solution from those extracted values.\"], \"exclusion_conditions\": [\"The observations are used only to confirm that an action succeeded.\", \"The candidate solution is stated without using the observation payload data as operational input.\", \"The reasoning only draws a general environment constraint from a single observation rather than deriving a solution.\"]}, {\"name\": \"PROPOSES_CONCRETE_SOLUTION\", \"definition\": \"The reasoning states a specific, directly implementable solution or selection, such as a concrete value, configuration, or chosen item, rather than only describing requirements, criteria, or a search process.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text proposing the concrete solution or selection.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one concrete value, item, configuration, or outcome that constitutes the selected solution.\", \"The stated specificity is sufficient to implement or verify the solution directly.\"], \"exclusion_conditions\": [\"The reasoning only enumerates requirements, constraints, or candidate approaches without selecting one.\", \"The reasoning only restates a solution that was already implemented or observed rather than proposing it.\"]}, {\"name\": \"IMPLEMENTS_SELECTED_SOLUTION\", \"definition\": \"The action produces the task's deliverable artifact, and that artifact embodies the concrete solution previously selected in the reasoning.\", \"parameters\": [{\"name\": \"solution_action\", \"type\": \"action\", \"description\": \"The action that creates or modifies the deliverable artifact.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that selected the concrete solution.\"}], \"assertion_conditions\": [\"The reasoning states a concrete selected solution before the action.\", \"The artifact written or modified by the action contains the key values, structure, or decision of that selected solution.\", \"The artifact is the task's deliverable rather than auxiliary tooling, a test, or a diagnostic.\"], \"exclusion_conditions\": [\"The action creates a script, test, or diagnostic tool instead of the deliverable artifact.\", \"The reasoning contains only a general plan or multiple unselected options.\", \"The content of the action cannot be traced to the selected solution.\"]}, {\"name\": \"CREATES_VERIFICATION_ARTIFACT\", \"definition\": \"The action writes or rewrites a programmable artifact whose purpose is to automatically check another artifact or result against conditions specified in the reasoning.\", \"parameters\": [{\"name\": \"verification_action\", \"type\": \"action\", \"description\": \"The action creating or rewriting the verification artifact.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning specifying the checks or validation procedure to be encoded.\"}], \"assertion_conditions\": [\"The reasoning specifies checks or validation steps to be performed.\", \"The action writes a script, test, or equivalent programmable artifact containing those checks.\", \"The verification artifact is separate from the solution artifact it inspects.\"], \"exclusion_conditions\": [\"The action creates the task's deliverable artifact rather than a verification tool.\", \"The action only runs an already existing check without creating or rewriting it.\", \"The reasoning only states that verification should happen without defining any check content.\"]}, {\"name\": \"REPORTS_EXECUTION_FAILURE\", \"definition\": \"The observation indicates that an executed action or script did not complete successfully and supplies diagnostic evidence of the failure.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting failed execution or diagnostic error output.\"}], \"assertion_conditions\": [\"The observation is marked as an error or contains explicit failure output such as a traceback, error message, or failure summary.\", \"The failure concerns the execution of the invoked operation itself.\"], \"exclusion_conditions\": [\"The observation reports successful completion or normal output.\", \"The observation contains only a warning or an expected negative result.\", \"The observation reports an empty or unsuccessful search result that is a legitimate outcome of the operation rather than an execution failure.\"]}, {\"name\": \"CONFIRMS_VERIFICATION_SUCCESS\", \"definition\": \"The observation reports that a validation procedure completed and that the conditions it was meant to check were satisfied.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the successful validation result.\"}], \"assertion_conditions\": [\"The observation contains an explicit success statement or passing verdict for the validation.\", \"The reported result covers the conditions the validation was designed to check, not a single incidental assertion.\"], \"exclusion_conditions\": [\"The observation returns raw data, file contents, or a listing without any validation verdict.\", \"The observation reports a failing or only partially passing validation.\"]}, {\"name\": \"PERFORMS_INTEGRITY_CHECK\", \"definition\": \"The action inspects checksums, hashes, or modification metadata of named resources in order to establish whether protected inputs have remained unchanged.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action performing the integrity check.\"}], \"assertion_conditions\": [\"The action computes or retrieves checksums, hashes, sizes, or modification timestamps for named resources.\", \"The check is directed at confirming that those resources were not modified.\"], \"exclusion_conditions\": [\"The action merely reads or writes the content of the resources without inspecting integrity metadata.\", \"The action lists files for a purpose other than confirming that protected inputs are unchanged.\"]}, {\"name\": \"PROVIDES_INTEGRITY_EVIDENCE\", \"definition\": \"The observation returns checksums, hashes, or comparable metadata for named resources that allows their modification state to be assessed.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation providing integrity-relevant metadata for named resources.\"}], \"assertion_conditions\": [\"The observation contains integrity-relevant metadata such as checksums, hashes, sizes, or modification timestamps for named resources.\", \"The metadata is tied to specific named resources whose integrity is at issue.\"], \"exclusion_conditions\": [\"The observation contains only file contents, execution output, or success messages.\", \"The observation provides a bare directory listing with no integrity-relevant metadata.\"]}], \"revised_existing_predicates\": []}",
+              "reasoning_content": "Let me review the candidates and the registry.\n\nCandidates:\n1. IS_PLAN → matched IS_EXECUTION_PLAN. Supported: reasoning nodes express plans (\"First, let's start by reading the three calendar files...\"). Matched existing covers it. No revision needed (existing definition is fine). Actually we should not accept a new duplicate. Task A: suppress actual semantic duplicates. IS_PLAN is duplicate of IS_EXECUTION_PLAN → don't accept.\n\n2. DETECTS_SOURCE_CONTENT_MISMATCH → new. Evidence: event-0002 reasoning: \"Wait, interesting — the contents of the files don't match the file names.\" Strong evidence. Mechanism: reasoning detects mismatch between declared source label (filename) and content-level identifiers (UIDs/summaries). Registry: no existing predicate covers this. Is it a semantic duplicate of something? There's IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT — that's about deficiency in artifact content requiring correction. This is different: identity mismatch. Accept.\n\n3. RESOLVES_SOURCE_IDENTITY_AMBIGUITY → new. Evidence: the same reasoning considers alternative mappings and adopts a conservative union interpretation (\"in either interpretation, the meeting must avoid all events in all three files. So the union approach is safe\"). Supported. Distinguishable from DETECTS_SOURCE_CONTENT_MISMATCH (detection vs. resolution). Accept? It's a fairly specific mechanism but reusable: resolving ambiguity by a mapping-invariant interpretation. I think accept, refined to a general mechanism: \"reasoning considers multiple plausible interpretations of ambiguous data and adopts an interpretation whose conclusion holds under all of them.\" Yes.\n\n4. DERIVES_SOLUTION_FROM_OBSERVED_DATA → new. reasoning + observation[]. Evidence: event-0002 reasoning extracts all events from three observations, computes slot. Registry check: any similar? There's DERIVES_ENVIRONMENT_CONSTRAINT (reasoning+observation, env facts). Not the same. GUIDES_ACTION_CONTENT is different. I think accept. But is it too broad? \"computes candidate solution jointly using multiple observations\" — the mechanism is solution derivation from combined observation payloads. Supported clearly. Accept.\n\n5. PROPOSES_CONCRETE_SOLUTION → new. Evidence: event-0002 reasoning concludes \"Wednesday 11:00-12:00 UTC\". Registry: IS_EXECUTION_PLAN? no. ASSERTS_TASK_COMPLETION_WITH_EVIDENCE covers final summary, not proposal. Is there something like GUIDES_ACTION_CONTENT — reasoning specifies content of a subsequent action. PROPOSES_CONCRETE_SOLUTION is a unary property of reasoning stating a concrete selected solution. Hmm, is it distinguishable from IS_EXECUTION_PLAN? Yes — plan is future actions; proposal is a concrete solution/value. Accept? Possibly, but it borders on generic. I think it's supported and reusable. Accept.\n\n6. IMPLEMENTS_SELECTED_SOLUTION (action, reasoning) → new. Evidence: event-0002 action-1 writes the ICS file matching the selected slot. Registry: GUIDES_ACTION_CONTENT (reasoning, action) — reasoning specifies concrete content of subsequent action, action payload traceable. That's a broader mechanism. IMPLEMENTS_SELECTED_SOLUTION adds \"artifact realizes the selected solution\"—arguably subsumed by GUIDES_ACTION_CONTENT. Hmm. Granularity principles: accept a precise mechanism even when a broad family covers it. But is IMPLEMENTS_SELECTED_SOLUTION meaningfully distinct? GUIDES_ACTION_CONTENT covers any operation content traceability, whereas IMPLEMENTS_SELECTED_SOLUTION specifically: the action produces the deliverable artifact realizing the solution chosen in reasoning. This preserves an attempt-vs-success / deliverable distinction. I'd accept it, but I want to be careful about over-generation. Also WRITES... hmm, there are predicates like REPLACES_DEFECTIVE_CONTENT_OBSERVED. I think accepting is defensible: distinguishes the final deliverable realization from generic content guidance. However, note the parameter ordering: GUIDES_ACTION_CONTENT uses (reasoning, action); IMPLEMENTS_SELECTED_SOLUTION uses (solution_action, reasoning). Different names so fine.\n\nActually, let me consider whether accepting too many predicates dilutes. The instructions want precise mechanisms with evidence. I'll accept IMPLEMENTS_SELECTED_SOLUTION.\n\n7. CREATES_VERIFICATION_ARTIFACT (verification_action, reasoning) → new. Evidence: event-0003 reasoning specifies checks, action writes /tmp/verify_slot.py. Registry: no predicate for creating verification artifacts. There are predicates about verification actions (ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION is about loading compiled artifact). Accept.\n\n8. REPORTS_EXECUTION_FAILURE → new. Evidence: event-0004 observation-1 traceback, is_error true. Also event-0005 observation-1. Registry: IS_INVOCATION_ERROR_OBSERVATION exists — that's specifically about malformed tool invocation errors, not script tracebacks. So a general unary predicate on observation reporting execution failure with diagnostic evidence is distinct. Accept. But check: does IS_INVOCATION_ERROR_OBSERVATION subsume? No—different mechanism (invocation-form error vs. runtime failure of script). Accept REPORTS_EXECUTION_FAILURE.\n\n9. DIAGNOSES_OBSERVED_FAILURE → matched DIAGNOSES_FAILURE_CAUSE. Duplicate; existing covers. Don't accept. Should we revise? Existing definition is adequate. No revision.\n\n10. ATTEMPTS_REPAIR → matched ATTEMPTS_REPAIR_OBSERVED_FAILURE. Duplicate. No revision.\n\n11. CONFIRMS_REPAIR → matched CONFIRMS_REPAIR. Duplicate; and the registry version exists. Note the trajectory: event-0005 observation failed, repair in event-0006, confirmation in event-0007 \"ALL CHECKS PASSED\". Existing CONFIRMS_REPAIR matches. No revision needed.\n\n12. CONFIRMS_VERIFICATION_SUCCESS → new. Evidence: event-0007 observation-1 \"ALL CHECKS PASSED\". Registry: VERIFICATION_OBSERVES_EXPECTED_RESULT (action, observation) requires specific expected output. ChECKS... Is CONFIRMS_VERIFICATION_SUCCESS a duplicate? It's unary on observation: reports validation completed successfully with conditions satisfied. Distinct from VERIFICATION_OBSERVES_EXPECTED_RESULT which is binary. Hmm, semantic duplication risk: VERIFICATION_OBSERVES_EXPECTED_RESULT asserts action exercises behavior and observation contains expected outcome. CONFIRMS_VERIFICATION_SUCCESS is a unary property: observation contains explicit pass verdict of a validation procedure. Distinguishable? A case: observation \"ALL CHECKS PASSED\" from a self-written script, where the action is the run of the script — that pair satisfies both. But a case satisfying VERIFICATION_OBSERVES_EXPECTED_RESULT without CONFIRMS_VERIFICATION_SUCCESS: observation contains expected served content but no validation verdict. And vice versa? An observation reporting validation success without an action exercising behavior — but every observation has a returning action paired structurally. Hmm. The unary predicate is about the observation's content being an explicit validation verdict. I think it's a distinct, meaningful unary property. Accept? Let me consider whether to accept. It does capture \"validation verdict\" content. I'll accept.\n\n13. PERFORMS_INTEGRITY_CHECK (action) → new. Evidence: event-0008 action-2 `ls -la /app && md5sum ...` — the reasoning says \"final confirmation that the output file is correct and that the input calendar has not been modified\". Action computes checksums and lists timestamps. Supported. Registry: no integrity-check predicate. Accept. But refine: the candidate says \"file listings\" — listing alone without integrity purpose is excluded already. Keep, but define carefully: action computes checksums/hashes or retrieves modification metadata for named resources for the purpose of confirming they remain unmodified. Fine.\n\n14. PROVIDES_INTEGRITY_EVIDENCE (observation) → evidence: event-0008 observation-2 contains md5sums and timestamps. Accept as unary observation predicate. Both are supported, distinct (action vs observation).\n\n15. SUMMARIZES_COMPLETED_OUTCOME → matched ASSERTS_TASK_COMPLETION_WITH_EVIDENCE. Duplicate; existing fine (event-0009 reasoning declares task complete, cites artifacts and verification, input integrity). No accept, no revision.\n\nNow also consider whether some new candidates should be merged. E.g., DETECTS_SOURCE_CONTENT_MISMATCH and RESOLVES_SOURCE_IDENTITY_AMBIGUITY — distinct mechanisms (detection vs. conservative resolution). Keep separate.\n\nAny candidate overly broad that should be refined? DERIVES_SOLUTION_FROM_OBSERVED_DATA — candidate requires \"multiple observations\". The mechanism observed: reasoning jointly uses three calendar observations. Keep multi-observation collection requirement? The mechanism could be single observation too, but evidence is multi. I'll keep observation[] but phrase assertion conditions to require the collective contents of the observations. Actually maybe generalize: \"one or more observations\". Hmm — but then it becomes very broad. The evidence is that contents of multiple observations are combined. I'll define with observation[] and require that the derived solution depends on payload contents of the observations collectively (possibly more than one). Let me require at least two observations jointly supplying distinct data? The trajectory: three observations. To preserve a distinguishing mechanism vs. DERIVES_ENVIRONMENT_CONSTRAINT, require joint use of returned structured data to compute/select a candidate solution. I'll keep \"multiple observations\" in the definition since evidence supports collective use; the collection parameter allows that.\n\nPROPOSES_CONCRETE_SOLUTION unary reasoning — fine.\n\nNow check name collisions with registry: none of DETECTS_SOURCE_CONTENT_MISMATCH, RESOLVES_SOURCE_IDENTITY_AMBIGUITY, DERIVES_SOLUTION_FROM_OBSERVED_DATA, PROPOSES_CONCRETE_SOLUTION, IMPLEMENTS_SELECTED_SOLUTION, CREATES_VERIFICATION_ARTIFACT, REPORTS_EXECUTION_FAILURE, CONFIRMS_VERIFICATION_SUCCESS, PERFORMS_INTEGRITY_CHECK, PROVIDES_INTEGRITY_EVIDENCE exist in registry. Good.\n\nTask B: revisions. Only for names in matched_existing_name: IS_EXECUTION_PLAN, DIAGNOSES_FAILURE_CAUSE, ATTEMPTS_REPAIR_OBSERVED_FAILURE, CONFIRMS_REPAIR, ASSERTS_TASK_COMPLETION_WITH_EVIDENCE. Do any need clarification? I'd say none. Return empty revisions.\n\nHmm, but is there any concern that CONFIRMS_REPAIR in registry has parameter names (repair, failure, confirmation) vs candidate's names — semantic identity preserved. No revision.\n\nLet me now write final definitions.\n\nAccepted predicates (10):\n\n1. DETECTS_SOURCE_CONTENT_MISMATCH\n2. RESOLVES_SOURCE_IDENTITY_AMBIGUITY\n3. DERIVES_SOLUTION_FROM_OBSERVED_DATA\n4. PROPOSES_CONCRETE_SOLUTION\n5. IMPLEMENTS_SELECTED_SOLUTION\n6. CREATES_VERIFICATION_ARTIFACT\n7. REPORTS_EXECUTION_FAILURE\n8. CONFIRMS_VERIFICATION_SUCCESS\n9. PERFORMS_INTEGRITY_CHECK\n10. PROVIDES_INTEGRITY_EVIDENCE\n\nLet me double check PROPOSES_CONCRETE_SOLUTION vs GUIDES_ACTION_CONTENT: distinct (unary reasoning vs binary). Fine.\n\nConsider whether CONFIRMS_VERIFICATION_SUCCESS overlaps ASSERTS_TASK_COMPLETION_WITH_EVIDENCE? No, latter is reasoning.\n\nNow write definitions in v2 schema with five fields.\n\nFor IMPLEMENTS_SELECTED_SOLUTION parameters order: I'll use (solution_action, reasoning) as candidate. Fine.\n\nLet me craft each.\n\nDETECTS_SOURCE_CONTENT_MISMATCH:\ndefinition: \"The reasoning identifies that the content returned from a data source does not correspond to that source's declared or expected identity, by comparing source-level labels with content-level identifiers or structure.\"\nparameters: reasoning.\nassertion_conditions:\n- \"The reasoning compares a source's declared label (e.g., its file name or requested identity) with identifiers or structure present in the returned content.\"\n- \"The reasoning states that the returned content belongs to or matches a different identity than the declared source.\"\nexclusion_conditions:\n- \"The reasoning only parses or summarizes the returned content without claiming an identity mismatch.\"\n- \"The discrepancy is incidental formatting rather than a conflict between declared and observed source identity.\"\n- \"The reasoning merely reports that a tool call failed or returned an error.\"\n\nRESOLVES_SOURCE_IDENTITY_AMBIGUITY:\ndefinition: \"The reasoning addresses conflicting or ambiguous source identities by considering the plausible mappings and adopting an interpretation whose conclusions hold under all of them, rather than committing to one unverified mapping.\"\nparameters: reasoning.\nassertion:\n- \"The reasoning makes the ambiguity explicit by considering at least two plausible mappings or interpretations of the supplied data.\"\n- \"The reasoning adopts an interpretation or course of action whose result is invariant across those mappings, so the ambiguity no longer affects the outcome.\"\nexclusion:\n- \"The reasoning picks one mapping without considering alternatives.\"\n- \"The reasoning notes the ambiguity but takes no position that resolves it for the task.\"\n\nDERIVES_SOLUTION_FROM_OBSERVED_DATA:\ndefinition: \"The reasoning derives a candidate solution by extracting structured data from the payloads of observations and combining those extracted values in a computation or selection.\"\nparameters: reasoning, observations (observation[]).\nassertion:\n- \"The reasoning extracts specific values, records, events, or constraints from the content of the observations.\"\n- \"The candidate solution depends on the collective payload content of the observations rather than on their success status alone.\"\n- \"The reasoning computes or selects the candidate solution from those extracted values.\"\nexclusion:\n- \"The observations are used only to confirm that an action succeeded.\"\n- \"The candidate solution is stated without using observation payload data.\"\n- \"The reasoning only draws a general environment constraint from a single observation.\"\n\nPROPOSES_CONCRETE_SOLUTION:\ndefinition: \"The reasoning states a specific, directly implementable solution or selection — such as a concrete value, configuration, or chosen item — rather than only describing requirements, criteria, or a search process.\"\nparameters: reasoning.\nassertion:\n- \"The reasoning identifies at least one concrete value, item, configuration, or outcome that constitutes the selected solution.\"\n- \"The stated specificity is sufficient to implement or verify the solution directly.\"\nexclusion:\n- \"The reasoning only enumerates requirements, constraints, or candidate approaches without selecting one.\"\n- \"The reasoning only restates a solution already implemented or observed rather than proposing it.\"\nHmm — event-0002's proposal is in the same reasoning where it computes... fine.\n\nIMPLEMENTS_SELECTED_SOLUTION:\ndefinition: \"The action produces the deliverable artifact of the task, and that artifact embodies the concrete solution previously selected in the reasoning.\"\nparameters: solution_action, reasoning.\nassertion:\n- \"The reasoning states a concrete selected solution before the action.\"\n- \"The artifact written or modified by the action contains the key values, structure, or decision of that selected solution.\"\n- \"The artifact is the task's deliverable rather than auxiliary tooling, a test, or a diagnostic.\"\nexclusion:\n- \"The action creates a script, test, or diagnostic tool instead of the deliverable.\"\n- \"The reasoning contains only a general plan or multiple unselected options.\"\n- \"The action's content cannot be traced to the selected solution.\"\n\nCREATES_VERIFICATION_ARTIFACT:\ndefinition: \"The action writes or rewrites a programmable artifact whose purpose is to automatically check another artifact or result against conditions specified in the reasoning.\"\nparameters: verification_action, reasoning.\nassertion:\n- \"The reasoning specifies checks or validation steps to be performed.\"\n- \"The action writes a script, test, or equivalent programmable artifact containing those checks.\"\n- \"The verification artifact is separate from the solution artifact it inspects.\"\nexclusion:\n- \"The action creates the task's deliverable artifact rather than a verification tool.\"\n- \"The action only runs an existing check without creating or rewriting it.\"\n- \"The reasoning only says verification should happen without defining check content.\"\n\nREPORTS_EXECUTION_FAILURE:\ndefinition: \"The observation indicates that an executed action or script did not complete successfully and supplies diagnostic evidence of the failure.\"\nparameters: observation.\nassertion:\n- \"The observation is marked as an error or contains explicit failure output such as a traceback, error message, or failure summary.\"\n- \"The failure concerns the execution of the invoked operation rather than an expected negative outcome or an unavailable search result.\"\nexclusion:\n- \"The observation reports successful completion or normal output.\"\n- \"The observation contains only a warning or a legitimate negative result.\"\n- \"The observation reports success for a check that the agent later tightens.\" Hmm too specific. Better: \"The observation reports that a prerequisite tool is missing, which is an environment constraint rather than a runtime failure of the invoked operation.\" Hmm, missing dependency is a tool failure—that's arguably a failure observation too. Let me keep exclusion simpler: \"The observation reports an unsuccessful search or an empty result that is a valid outcome of the operation.\" Good.\n\nCONFIRMS_VERIFICATION_SUCCESS:\ndefinition: \"The observation reports that a validation procedure completed and that the conditions it checked were satisfied.\"\nparameters: observation.\nassertion:\n- \"The observation contains an explicit success statement or passing verdict for the validation.\"\n- \"The reported result covers the conditions the validation was meant to check, not a single incidental assertion.\"\nexclusion:\n- \"The observation returns raw data or a listing without a validation verdict.\"\n- \"The observation reports a failing or partial validation.\"\n\nPERFORMS_INTEGRITY_CHECK:\ndefinition: \"The action inspects checksums, hashes, or modification metadata of named resources in order to establish whether protected inputs have remained unchanged.\"\nparameters: action.\nassertion:\n- \"The action computes or retrieves checksums, hashes, sizes, or modification timestamps for named resources.\"\n- \"The check is directed at confirming that those resources were not modified.\"\nexclusion:\n- \"The action merely reads or writes the content of the resources without inspecting integrity metadata.\"\n- \"The action lists files for a purpose other than confirming that protected inputs are unchanged.\"\n\nPROVIDES_INTEGRITY_EVIDENCE:\ndefinition: \"The observation returns checksums, hashes, or comparable metadata for named resources that allows their modification state to be assessed.\"\nparameters: observation.\nassertion:\n- \"The observation contains integrity-relevant metadata such as checksums, hashes, sizes, or modification timestamps for named resources.\"\n- \"The metadata is tied to specific named resources whose integrity is at issue.\"\nexclusion:\n- \"The observation contains only file contents, execution output, or success messages.\"\n- \"The observation provides a bare directory listing with no integrity-relevant metadata.\"\n\nThat's it. Revised existing: empty array.\n\nDouble-check that CONFIRMS_REPAIR registry definition covers the trajectory (event-0005 failure, event-0006 repair write, event-0007 success). Yes. No revision.\n\nReturn JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 39657,
+          "completion_tokens": 6037,
+          "total_tokens": 45694,
+          "prompt_tokens_details": {
+            "cached_tokens": 1792
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4118
+          },
+          "prompt_cache_hit_tokens": 1792,
+          "prompt_cache_miss_tokens": 37865
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\": [{\"name\": \"DETECTS_SOURCE_CONTENT_MISMATCH\", \"definition\": \"The reasoning identifies that the content returned from a data source does not correspond to that source's declared or expected identity, by comparing source-level labels with identifiers or structure present in the returned content.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text identifying the mismatch between the declared source identity and the returned content.\"}], \"assertion_conditions\": [\"The reasoning compares a source's declared label, such as its file name or requested identity, with identifiers or structure present in the returned content.\", \"The reasoning states that the content actually corresponds to a different identity than the declared source.\"], \"exclusion_conditions\": [\"The reasoning only parses or summarizes the returned content without claiming an identity mismatch.\", \"The discrepancy is incidental formatting rather than a conflict between declared and observed source identity.\", \"The reasoning merely reports that a tool call returned an error.\"]}, {\"name\": \"RESOLVES_SOURCE_IDENTITY_AMBIGUITY\", \"definition\": \"The reasoning addresses conflicting or ambiguous source identities by considering the plausible mappings of the supplied data and adopting an interpretation whose conclusions hold under all of them, instead of committing to a single unverified mapping.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text resolving the ambiguity in source identity or data mapping.\"}], \"assertion_conditions\": [\"The reasoning makes the ambiguity explicit by considering at least two plausible mappings or interpretations of the supplied data.\", \"The reasoning adopts an interpretation or course of action whose result is invariant across those mappings, so the ambiguity no longer affects the task outcome.\"], \"exclusion_conditions\": [\"The reasoning selects one mapping without considering alternatives.\", \"The reasoning notes the ambiguity but takes no position that resolves it for the task.\", \"The reasoning merely restates the identity mismatch without drawing any consequence for how to proceed.\"]}, {\"name\": \"DERIVES_SOLUTION_FROM_OBSERVED_DATA\", \"definition\": \"The reasoning derives a candidate solution by extracting structured data from the payloads of observations and combining those extracted values in a computation or selection.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that analyzes the observation payloads and derives the candidate solution.\"}, {\"name\": \"observations\", \"type\": \"observation[]\", \"description\": \"The observations whose returned payloads are jointly analyzed to derive the candidate solution.\"}], \"assertion_conditions\": [\"The reasoning extracts specific values, records, events, or constraints from the content returned by the observations.\", \"The candidate solution depends on the collective payload content of the observations rather than on their success status alone.\", \"The reasoning computes or selects the candidate solution from those extracted values.\"], \"exclusion_conditions\": [\"The observations are used only to confirm that an action succeeded.\", \"The candidate solution is stated without using the observation payload data as operational input.\", \"The reasoning only draws a general environment constraint from a single observation rather than deriving a solution.\"]}, {\"name\": \"PROPOSES_CONCRETE_SOLUTION\", \"definition\": \"The reasoning states a specific, directly implementable solution or selection, such as a concrete value, configuration, or chosen item, rather than only describing requirements, criteria, or a search process.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text proposing the concrete solution or selection.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one concrete value, item, configuration, or outcome that constitutes the selected solution.\", \"The stated specificity is sufficient to implement or verify the solution directly.\"], \"exclusion_conditions\": [\"The reasoning only enumerates requirements, constraints, or candidate approaches without selecting one.\", \"The reasoning only restates a solution that was already implemented or observed rather than proposing it.\"]}, {\"name\": \"IMPLEMENTS_SELECTED_SOLUTION\", \"definition\": \"The action produces the task's deliverable artifact, and that artifact embodies the concrete solution previously selected in the reasoning.\", \"parameters\": [{\"name\": \"solution_action\", \"type\": \"action\", \"description\": \"The action that creates or modifies the deliverable artifact.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that selected the concrete solution.\"}], \"assertion_conditions\": [\"The reasoning states a concrete selected solution before the action.\", \"The artifact written or modified by the action contains the key values, structure, or decision of that selected solution.\", \"The artifact is the task's deliverable rather than auxiliary tooling, a test, or a diagnostic.\"], \"exclusion_conditions\": [\"The action creates a script, test, or diagnostic tool instead of the deliverable artifact.\", \"The reasoning contains only a general plan or multiple unselected options.\", \"The content of the action cannot be traced to the selected solution.\"]}, {\"name\": \"CREATES_VERIFICATION_ARTIFACT\", \"definition\": \"The action writes or rewrites a programmable artifact whose purpose is to automatically check another artifact or result against conditions specified in the reasoning.\", \"parameters\": [{\"name\": \"verification_action\", \"type\": \"action\", \"description\": \"The action creating or rewriting the verification artifact.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning specifying the checks or validation procedure to be encoded.\"}], \"assertion_conditions\": [\"The reasoning specifies checks or validation steps to be performed.\", \"The action writes a script, test, or equivalent programmable artifact containing those checks.\", \"The verification artifact is separate from the solution artifact it inspects.\"], \"exclusion_conditions\": [\"The action creates the task's deliverable artifact rather than a verification tool.\", \"The action only runs an already existing check without creating or rewriting it.\", \"The reasoning only states that verification should happen without defining any check content.\"]}, {\"name\": \"REPORTS_EXECUTION_FAILURE\", \"definition\": \"The observation indicates that an executed action or script did not complete successfully and supplies diagnostic evidence of the failure.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting failed execution or diagnostic error output.\"}], \"assertion_conditions\": [\"The observation is marked as an error or contains explicit failure output such as a traceback, error message, or failure summary.\", \"The failure concerns the execution of the invoked operation itself.\"], \"exclusion_conditions\": [\"The observation reports successful completion or normal output.\", \"The observation contains only a warning or an expected negative result.\", \"The observation reports an empty or unsuccessful search result that is a legitimate outcome of the operation rather than an execution failure.\"]}, {\"name\": \"CONFIRMS_VERIFICATION_SUCCESS\", \"definition\": \"The observation reports that a validation procedure completed and that the conditions it was meant to check were satisfied.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the successful validation result.\"}], \"assertion_conditions\": [\"The observation contains an explicit success statement or passing verdict for the validation.\", \"The reported result covers the conditions the validation was designed to check, not a single incidental assertion.\"], \"exclusion_conditions\": [\"The observation returns raw data, file contents, or a listing without any validation verdict.\", \"The observation reports a failing or only partially passing validation.\"]}, {\"name\": \"PERFORMS_INTEGRITY_CHECK\", \"definition\": \"The action inspects checksums, hashes, or modification metadata of named resources in order to establish whether protected inputs have remained unchanged.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action performing the integrity check.\"}], \"assertion_conditions\": [\"The action computes or retrieves checksums, hashes, sizes, or modification timestamps for named resources.\", \"The check is directed at confirming that those resources were not modified.\"], \"exclusion_conditions\": [\"The action merely reads or writes the content of the resources without inspecting integrity metadata.\", \"The action lists files for a purpose other than confirming that protected inputs are unchanged.\"]}, {\"name\": \"PROVIDES_INTEGRITY_EVIDENCE\", \"definition\": \"The observation returns checksums, hashes, or comparable metadata for named resources that allows their modification state to be assessed.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation providing integrity-relevant metadata for named resources.\"}], \"assertion_conditions\": [\"The observation contains integrity-relevant metadata such as checksums, hashes, sizes, or modification timestamps for named resources.\", \"The metadata is tied to specific named resources whose integrity is at issue.\"], \"exclusion_conditions\": [\"The observation contains only file contents, execution output, or success messages.\", \"The observation provides a bare directory listing with no integrity-relevant metadata.\"]}], \"revised_existing_predicates\": []}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "DETECTS_SOURCE_CONTENT_MISMATCH",
+        "definition": "The reasoning identifies that the content returned from a data source does not correspond to that source's declared or expected identity, by comparing source-level labels with identifiers or structure present in the returned content.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text identifying the mismatch between the declared source identity and the returned content."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning compares a source's declared label, such as its file name or requested identity, with identifiers or structure present in the returned content.",
+          "The reasoning states that the content actually corresponds to a different identity than the declared source."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only parses or summarizes the returned content without claiming an identity mismatch.",
+          "The discrepancy is incidental formatting rather than a conflict between declared and observed source identity.",
+          "The reasoning merely reports that a tool call returned an error."
+        ]
+      },
+      {
+        "name": "RESOLVES_SOURCE_IDENTITY_AMBIGUITY",
+        "definition": "The reasoning addresses conflicting or ambiguous source identities by considering the plausible mappings of the supplied data and adopting an interpretation whose conclusions hold under all of them, instead of committing to a single unverified mapping.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text resolving the ambiguity in source identity or data mapping."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning makes the ambiguity explicit by considering at least two plausible mappings or interpretations of the supplied data.",
+          "The reasoning adopts an interpretation or course of action whose result is invariant across those mappings, so the ambiguity no longer affects the task outcome."
+        ],
+        "exclusion_conditions": [
+          "The reasoning selects one mapping without considering alternatives.",
+          "The reasoning notes the ambiguity but takes no position that resolves it for the task.",
+          "The reasoning merely restates the identity mismatch without drawing any consequence for how to proceed."
+        ]
+      },
+      {
+        "name": "DERIVES_SOLUTION_FROM_OBSERVED_DATA",
+        "definition": "The reasoning derives a candidate solution by extracting structured data from the payloads of observations and combining those extracted values in a computation or selection.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that analyzes the observation payloads and derives the candidate solution."
+          },
+          {
+            "name": "observations",
+            "type": "observation[]",
+            "description": "The observations whose returned payloads are jointly analyzed to derive the candidate solution."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning extracts specific values, records, events, or constraints from the content returned by the observations.",
+          "The candidate solution depends on the collective payload content of the observations rather than on their success status alone.",
+          "The reasoning computes or selects the candidate solution from those extracted values."
+        ],
+        "exclusion_conditions": [
+          "The observations are used only to confirm that an action succeeded.",
+          "The candidate solution is stated without using the observation payload data as operational input.",
+          "The reasoning only draws a general environment constraint from a single observation rather than deriving a solution."
+        ]
+      },
+      {
+        "name": "PROPOSES_CONCRETE_SOLUTION",
+        "definition": "The reasoning states a specific, directly implementable solution or selection, such as a concrete value, configuration, or chosen item, rather than only describing requirements, criteria, or a search process.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text proposing the concrete solution or selection."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least one concrete value, item, configuration, or outcome that constitutes the selected solution.",
+          "The stated specificity is sufficient to implement or verify the solution directly."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only enumerates requirements, constraints, or candidate approaches without selecting one.",
+          "The reasoning only restates a solution that was already implemented or observed rather than proposing it."
+        ]
+      },
+      {
+        "name": "IMPLEMENTS_SELECTED_SOLUTION",
+        "definition": "The action produces the task's deliverable artifact, and that artifact embodies the concrete solution previously selected in the reasoning.",
+        "parameters": [
+          {
+            "name": "solution_action",
+            "type": "action",
+            "description": "The action that creates or modifies the deliverable artifact."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that selected the concrete solution."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a concrete selected solution before the action.",
+          "The artifact written or modified by the action contains the key values, structure, or decision of that selected solution.",
+          "The artifact is the task's deliverable rather than auxiliary tooling, a test, or a diagnostic."
+        ],
+        "exclusion_conditions": [
+          "The action creates a script, test, or diagnostic tool instead of the deliverable artifact.",
+          "The reasoning contains only a general plan or multiple unselected options.",
+          "The content of the action cannot be traced to the selected solution."
+        ]
+      },
+      {
+        "name": "CREATES_VERIFICATION_ARTIFACT",
+        "definition": "The action writes or rewrites a programmable artifact whose purpose is to automatically check another artifact or result against conditions specified in the reasoning.",
+        "parameters": [
+          {
+            "name": "verification_action",
+            "type": "action",
+            "description": "The action creating or rewriting the verification artifact."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning specifying the checks or validation procedure to be encoded."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning specifies checks or validation steps to be performed.",
+          "The action writes a script, test, or equivalent programmable artifact containing those checks.",
+          "The verification artifact is separate from the solution artifact it inspects."
+        ],
+        "exclusion_conditions": [
+          "The action creates the task's deliverable artifact rather than a verification tool.",
+          "The action only runs an already existing check without creating or rewriting it.",
+          "The reasoning only states that verification should happen without defining any check content."
+        ]
+      },
+      {
+        "name": "REPORTS_EXECUTION_FAILURE",
+        "definition": "The observation indicates that an executed action or script did not complete successfully and supplies diagnostic evidence of the failure.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting failed execution or diagnostic error output."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation is marked as an error or contains explicit failure output such as a traceback, error message, or failure summary.",
+          "The failure concerns the execution of the invoked operation itself."
+        ],
+        "exclusion_conditions": [
+          "The observation reports successful completion or normal output.",
+          "The observation contains only a warning or an expected negative result.",
+          "The observation reports an empty or unsuccessful search result that is a legitimate outcome of the operation rather than an execution failure."
+        ]
+      },
+      {
+        "name": "CONFIRMS_VERIFICATION_SUCCESS",
+        "definition": "The observation reports that a validation procedure completed and that the conditions it was meant to check were satisfied.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the successful validation result."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains an explicit success statement or passing verdict for the validation.",
+          "The reported result covers the conditions the validation was designed to check, not a single incidental assertion."
+        ],
+        "exclusion_conditions": [
+          "The observation returns raw data, file contents, or a listing without any validation verdict.",
+          "The observation reports a failing or only partially passing validation."
+        ]
+      },
+      {
+        "name": "PERFORMS_INTEGRITY_CHECK",
+        "definition": "The action inspects checksums, hashes, or modification metadata of named resources in order to establish whether protected inputs have remained unchanged.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action performing the integrity check."
+          }
+        ],
+        "assertion_conditions": [
+          "The action computes or retrieves checksums, hashes, sizes, or modification timestamps for named resources.",
+          "The check is directed at confirming that those resources were not modified."
+        ],
+        "exclusion_conditions": [
+          "The action merely reads or writes the content of the resources without inspecting integrity metadata.",
+          "The action lists files for a purpose other than confirming that protected inputs are unchanged."
+        ]
+      },
+      {
+        "name": "PROVIDES_INTEGRITY_EVIDENCE",
+        "definition": "The observation returns checksums, hashes, or comparable metadata for named resources that allows their modification state to be assessed.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation providing integrity-relevant metadata for named resources."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains integrity-relevant metadata such as checksums, hashes, sizes, or modification timestamps for named resources.",
+          "The metadata is tied to specific named resources whose integrity is at issue."
+        ],
+        "exclusion_conditions": [
+          "The observation contains only file contents, execution output, or success messages.",
+          "The observation provides a bare directory listing with no integrity-relevant metadata."
+        ]
+      }
+    ],
+    "revised_existing_predicates": []
+  },
+  "previous_calls": []
+}

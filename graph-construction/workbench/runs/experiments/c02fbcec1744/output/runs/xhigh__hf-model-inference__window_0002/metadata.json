@@ -1,0 +1,803 @@
+{
+  "window_file": "xhigh__hf-model-inference__window_0002.json",
+  "trajectory_id": "xhigh__hf-model-inference",
+  "window_id": "window_0002",
+  "global_index": 9,
+  "prompt_version": "v0001",
+  "registry_snapshot": [
+    {
+      "name": "USES_OBSERVATION_AS_INPUT",
+      "definition": "The action takes an identifiable value or data payload supplied by the specified prior observation and uses it as an operational input to the action's own arguments or payload.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation whose argument or payload receives the data."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The prior recorded tool result that supplies the value or data payload used by the action."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation is recorded before the receiving action.",
+        "The action's argument or payload can be traced to content of the observation, such as file text reproduced in a write operation or a file name/path used by a later command.",
+        "The traceable item is an operational input of the action, not merely a topic shared with it."
+      ],
+      "exclusion_conditions": [
+        "An observation consulted only to decide which action to perform, without contributing a value or payload to its arguments, does not satisfy this predicate.",
+        "Temporal adjacency, event membership, or a shared subject without an observable input link does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "USES_REASONING_AS_INPUT",
+      "definition": "The action performs an operation using concrete content, such as exact text or a command, that the specified prior reasoning node states, so that the reasoning node supplies the material the action commits.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that enacts the content declared in the reasoning node."
+        },
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The prior agent text that states the concrete content to be used, such as an exact file body or command."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning node is recorded before the action.",
+        "The reasoning text states concrete content to be used, not only a general intention, goal, or plan step.",
+        "The action's argument or payload matches that stated content closely enough that the reasoning node is its evident source."
+      ],
+      "exclusion_conditions": [
+        "Reasoning that only expresses an intention or plan step without specifying the content does not satisfy this predicate.",
+        "Reasoning used to judge or evaluate a result, rather than to supply content, does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "GUIDES_ACTION_CHOICE",
+      "definition": "The observation reports a diagnostic or probe outcome, such as an error, failure message, or environment/availability result, that is the stated basis for selecting the particular subsequent action or command rather than an alternative.",
+      "parameters": [
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The recorded diagnostic or probe result that supplies the decision basis."
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The later tool invocation whose selection is grounded in that diagnostic result."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation precedes the guided action.",
+        "Recorded text links the observation's finding to the choice, such as an error being followed by a corrected command or a reported environment result being cited as grounds for proceeding.",
+        "The later action differs from a previous attempt in a way responsive to the observation."
+      ],
+      "exclusion_conditions": [
+        "An observation that merely provides a data value consumed as an argument does not satisfy this predicate; that is input supply.",
+        "Returning an error without any responsive change in the following action does not satisfy this predicate.",
+        "Calls issued in the same event as the observation cannot be guided by it."
+      ]
+    },
+    {
+      "name": "ATTEMPTS_REPAIR",
+      "definition": "The action is performed with the intent of removing a specific defect that is reported or visible in the specified failure observation, by altering the artifact or the command that exhibited the defect.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation intended to remedy the defect."
+        },
+        {
+          "name": "failure",
+          "type": "observation",
+          "description": "The recorded result exhibiting the defect, such as missing proof steps, an error message, or a failed check."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure observation precedes the repair action.",
+        "The defect is identifiable in the failure observation's content, such as placeholder proof holes or an error naming a wrong module or file argument.",
+        "The action's content or arguments are changed to address exactly that defect rather than repeating the prior operation unchanged."
+      ],
+      "exclusion_conditions": [
+        "Re-running an identical operation without addressing the reported defect does not satisfy this predicate.",
+        "An action unrelated to the observed defect does not satisfy this predicate.",
+        "The predicate does not assert that the repair succeeded; success requires a separate confirming result."
+      ]
+    },
+    {
+      "name": "CONFIRMS_REPAIR",
+      "definition": "The check observation reports a result obtained after the repair action on the same subject, and that result shows the defect identified in the failure observation is no longer present.",
+      "parameters": [
+        {
+          "name": "repair",
+          "type": "action",
+          "description": "The remedial action taken against the defect."
+        },
+        {
+          "name": "failure",
+          "type": "observation",
+          "description": "The earlier result that exhibited the defect being repaired."
+        },
+        {
+          "name": "check",
+          "type": "observation",
+          "description": "The later result that assesses whether the defect persists."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure observation precedes the repair action, and the check observation follows it.",
+        "The check concerns the same subject or version as the failure, such as the same file, command target, or theorem.",
+        "The check reports a success signal for that subject, such as the target artifact being produced cleanly or the compiled theorem being printed without error, rather than another error."
+      ],
+      "exclusion_conditions": [
+        "A check that reports a new or persisting error does not satisfy this predicate.",
+        "A check on an unrelated subject or an earlier version does not satisfy this predicate.",
+        "The repair action alone, without a following successful check result, does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "DERIVES_CONCLUSION",
+      "definition": "The reasoning node states a verdict or outcome whose substantive basis is the findings reported in the specified observations, which the reasoning text cites.",
+      "parameters": [
+        {
+          "name": "inputs",
+          "type": "observation[]",
+          "description": "The prior recorded results whose findings support the conclusion."
+        },
+        {
+          "name": "conclusion",
+          "type": "reasoning",
+          "description": "The agent text stating the resulting verdict or outcome."
+        }
+      ],
+      "assertion_conditions": [
+        "Every cited observation precedes the conclusion text.",
+        "The conclusion text references the specific findings of those observations, such as successful artifact production or successful theorem printing, as the grounds for its verdict.",
+        "The observations are substantive evidence for the verdict, not incidental context."
+      ],
+      "exclusion_conditions": [
+        "Reasoning that proposes forthcoming steps rather than asserting an outcome does not satisfy this predicate.",
+        "A verdict not grounded in the cited observation content, or grounded only in unrecorded expectations, does not satisfy this predicate.",
+        "An observation that merely supplied an argument value does not by itself satisfy this predicate."
+      ]
+    },
+    {
+      "name": "DIAGNOSES_OBSERVED_DEFECT",
+      "definition": "The reasoning node inspects the content of the specified observation and identifies a specific defect or gap in it, explaining what is missing or wrong as a precondition for fixing it.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text that states the diagnosis of the defect."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The recorded result whose content contains the defect being diagnosed."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation precedes the diagnosing reasoning text.",
+        "The reasoning text names the specific defective or incomplete element present in the observation content, such as placeholder holes that must be filled or an unresolved subgoal, and indicates what is required.",
+        "The diagnosis refers to the observation's own content rather than to an assumed or future state."
+      ],
+      "exclusion_conditions": [
+        "Reasoning that merely restates or summarizes the observation content without identifying a defect does not satisfy this predicate.",
+        "Reasoning that reports a successful outcome, or that diagnoses something not visible in that observation, does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "IS_PLAN",
+      "definition": "The reasoning text states an intended ordered course of forthcoming steps, specifying what will be done next and in what order before results exist.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text containing the prospective step sequence."
+        }
+      ],
+      "assertion_conditions": [
+        "The text is future-directed and enumerates or sequences intended actions or subgoals, such as inspecting a file, then completing a proof, then compiling.",
+        "The stated steps are presented as the approach to be carried out, not as completed work."
+      ],
+      "exclusion_conditions": [
+        "Past-tense descriptions of what was already done, or final summaries of results, do not satisfy this predicate.",
+        "A bare statement of the overall task without an intended sequence does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "EXECUTES_PLANNED_STEP",
+      "definition": "The action performs or attempts the concrete operational step that the specified earlier reasoning text presents as an intended course of action, matching the step's described operation and target rather than merely sharing its topic.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The recorded tool invocation that performs or attempts the planned step."
+        },
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The earlier agent-authored reasoning text that states the intended operational step."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning node is recorded before the action and is planning or step-describing text, not the action's own observation and not a report of completed work.",
+        "The reasoning text describes the step concretely enough to identify its operation and target, such as updating package lists, installing named packages, creating an account with a stated shell, writing a file at a stated path, or validating and starting services.",
+        "The action's tool name and arguments correspond to that described operation and target; a plan may contain several steps and this action carries out one of them."
+      ],
+      "exclusion_conditions": [
+        "An action taken for reasons the reasoning never states, or one addressing a different part of the plan, does not satisfy this predicate.",
+        "Topic overlap or event co-occurrence without correspondence between the described step and the action's operation and target does not satisfy this predicate.",
+        "A planned step that no recorded action carries out establishes no instance of this predicate."
+      ]
+    },
+    {
+      "name": "PROVISIONS_OBSERVED_MISSING_COMPONENT",
+      "definition": "The action attempts to install, create, or otherwise provision one or more concrete components that the specified earlier observation reported as absent from the environment, so that the observation identifies the provisioning target.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that attempts to install, create, or provision the missing components."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The earlier recorded tool result whose content reports the absence of those components."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation's content reports the absence of the component or components, for example a lookup finding no executable for the named tools, or a package, account, or service listing that lacks them.",
+        "The action is a provisioning operation such as package installation, account creation, or service setup, and its arguments name the same components or the packages that provide them.",
+        "The absence-reporting observation precedes the provisioning action; extra dependencies or related packages may be included in the same provisioning action."
+      ],
+      "exclusion_conditions": [
+        "Provisioning a component that no recorded observation reported absent does not satisfy this predicate; the predicate does not rely on inferred absence.",
+        "An action that only inspects availability, or that consumes observed content as an input payload instead of provisioning a missing component, does not satisfy this predicate.",
+        "Remedying a recorded error or failed operation is an attempted-repair mechanism, not this absence-driven provisioning mechanism.",
+        "The predicate does not assert that provisioning succeeded; confirmation of availability would require a separate result."
+      ]
+    },
+    {
+      "name": "USES_REASONING_AS_CRITERION",
+      "definition": "The action performs a check whose expected outcome, target value, or acceptance condition is stated in the specified prior reasoning node, so that the reasoning content supplies the standard against which the check's result is judged.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The checking tool invocation that performs the verification."
+        },
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The prior agent text stating the expected outcome, target value, or acceptance condition for the check."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning node is recorded before the checking action.",
+        "The reasoning text states a concrete expected outcome, target value, or acceptance condition for the check, such as the value a requested resource should return or the state constant a probe should find, rather than only announcing that a check will be run.",
+        "The action's tool and arguments test exactly the subject or value named in the stated criterion, so the criterion governs what the check looks for."
+      ],
+      "exclusion_conditions": [
+        "A plan that only announces a check without stating what result would count as acceptable does not satisfy this predicate.",
+        "An expectation taken from the user request rather than from the reasoning node does not satisfy this predicate.",
+        "The observation reporting the check's actual outcome is evidence for the check, not the criterion itself; conclusions drawn from that outcome belong to a different mechanism.",
+        "Passing a value copied from the reasoning into the action's payload without using it as an acceptance standard is input supply, not criterion use."
+      ]
+    },
+    {
+      "name": "DIAGNOSES_FAILURE",
+      "definition": "The reasoning node explains the cause of the failure reported by the specified observation, identifying the condition or earlier step that produced it rather than merely restating the error.",
+      "parameters": [
+        {
+          "name": "diagnosis",
+          "type": "reasoning",
+          "description": "The agent text that explains why the observed operation failed."
+        },
+        {
+          "name": "failure",
+          "type": "observation",
+          "description": "The prior recorded result reporting the error, fatal condition, nonzero exit, or contradicting output."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure observation is recorded before the diagnosing reasoning text.",
+        "The observation reports an explicit error, fatal condition, nonzero exit status, or a result that contradicts the expected outcome.",
+        "The reasoning text names a cause for that failure and ties it to observable evidence in the failure output or in the recorded earlier operations that led to the failure."
+      ],
+      "exclusion_conditions": [
+        "Restating or quoting the error message without identifying a causal condition does not satisfy this predicate.",
+        "A reasoning node that only proposes a remedy without explaining why the failure occurred does not satisfy this predicate.",
+        "Explaining an unrelated result, or diagnosing a condition that the specified observation does not report, does not satisfy this predicate.",
+        "Merely pointing out that an item in an observation's content is missing or incomplete, without explaining why an operation failed, does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "CLEANS_UP_TEST_ARTIFACTS",
+      "definition": "The action deletes, resets, or empties artifacts that were created solely for verification, returning the environment to its pre-verification state, as the specified prior reasoning node intends.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that removes, resets, or empties the verification artifacts."
+        },
+        {
+          "name": "cleanup_intent",
+          "type": "reasoning",
+          "description": "The prior agent text stating that verification artifacts are to be removed or that the pre-verification state is to be restored."
+        }
+      ],
+      "assertion_conditions": [
+        "The cleanup-intent reasoning node is recorded before the action and states that artifacts of the verification are to be removed or reset, or that the environment should return to its pre-verification state.",
+        "The action removes, resets, or empties the artifacts named by that intent, such as test credentials, test clones, test commits or branches, or content served during the test, while leaving production configuration in place.",
+        "The removed items are traceable to a verification activity recorded earlier in the trajectory."
+      ],
+      "exclusion_conditions": [
+        "Removing unrelated files, or deleting data that was not created for verification, does not satisfy this predicate.",
+        "An action that remedies a failed operation without removing verification artifacts does not satisfy this predicate.",
+        "Announcing cleanup without a recorded action that removes or resets those artifacts establishes no instance of this predicate."
+      ]
+    },
+    {
+      "name": "EXPLAINS_UNINFORMATIVE_OBSERVATION",
+      "definition": "The reasoning node explains why the specified observation returned no usable output by attributing the deficiency to a property or behavior of the invoked tool or command, so that the empty output is treated as a tool artifact rather than as evidence about the state of the inspected system.",
+      "parameters": [
+        {
+          "name": "explanation",
+          "type": "reasoning",
+          "description": "The agent text that gives the tool-behavior cause for the deficient output."
+        },
+        {
+          "name": "result",
+          "type": "observation",
+          "description": "The earlier recorded tool result whose content was empty or lacked the entries the action intended to retrieve."
+        }
+      ],
+      "assertion_conditions": [
+        "The result is recorded before the explanation text and its raw content is empty or omits the entries the corresponding action was meant to retrieve.",
+        "The explanation names a concrete tool-behavior cause, such as a utility lacking a feature, an option that does not follow symbolic links, or a default implementation differing from the one assumed.",
+        "The explanation explicitly separates the tool artifact from evidence about the inspected system, so the absence of output is not read as absence of the inspected state."
+      ],
+      "exclusion_conditions": [
+        "Treating empty or missing output as proof that the inspected resource or state does not exist does not satisfy this predicate.",
+        "An explanation of a genuine target-system failure (service down, file absent, error returned) belongs to failure diagnosis, not to this predicate.",
+        "General discussion of a tool's limitations that is not tied to a specific recorded observation does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "VERIFIES_REQUESTED_END_TO_END_FLOW",
+      "definition": "The check action exercises the operation the requester asked to be able to perform, through the same client, host, path and payload semantics, after the environment was configured for it; the linked result records the observable outcome of that run, so the requested end-to-end behavior is tested rather than an internal component.",
+      "parameters": [
+        {
+          "name": "check",
+          "type": "action",
+          "description": "The tool invocation that re-runs the requester-specified commands or requests."
+        },
+        {
+          "name": "result",
+          "type": "observation",
+          "description": "The recorded outcome of that same run, containing the produced output, transfer messages, or status code."
+        }
+      ],
+      "assertion_conditions": [
+        "The check's arguments reproduce the requester-stated operations with the same client, host, path and payload semantics, in the stated order when a sequence was requested.",
+        "The check is issued after the environment was configured for those operations, and the structural returns edge links it to a recorded result.",
+        "The result records the observable product of the run (produced text, push/clone messages, or an HTTP status) that corresponds to the requester's stated expectation."
+      ],
+      "exclusion_conditions": [
+        "Inspecting a component's own configuration, syntax or process state instead of exercising the requested operation does not satisfy this predicate.",
+        "A run whose arguments were not derived from the requester-stated flow does not satisfy this predicate.",
+        "An action with no recorded result cannot satisfy this predicate, and the predicate does not by itself assert that the verified behavior succeeded."
+      ]
+    },
+    {
+      "name": "USES_REASONING_AS_AUDIT_CHECKLIST",
+      "definition": "The action performs a read-only inspection that gathers the specific set of state items enumerated as things to confirm in the specified prior reasoning node, so that the reasoning supplies the inspection scope rather than an acceptance value.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The read-only inspection command that gathers the enumerated state items."
+        },
+        {
+          "name": "criteria",
+          "type": "reasoning",
+          "description": "The prior agent text enumerating the state items that must be confirmed."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning node is recorded before the action and enumerates multiple distinct state items to confirm, such as named services, ports, repository state, permissions, name resolution, configuration entries or response codes.",
+        "The action's arguments read exactly those enumerated artifacts or subjects and modify none of them.",
+        "The correspondence between each enumerated item and an inspected artifact is traceable from the action's command arguments."
+      ],
+      "exclusion_conditions": [
+        "An inspection of a single item, or one whose items were not enumerated beforehand, does not satisfy this predicate.",
+        "An action that changes state while collecting evidence does not satisfy this predicate.",
+        "A reasoning node that states only a general goal ('check everything is fine') without enumerating the items to confirm does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "PROVISIONS_SERVICE_AUTORECOVERY",
+      "definition": "The action creates or registers a best-effort mechanism that will start a required service or long-running process again if it later stops, addressing anticipated future unavailability rather than a currently observed failure.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that creates the recovery helper or wires it into the environment's startup path."
+        }
+      ],
+      "assertion_conditions": [
+        "The action creates a helper that conditionally starts a service only when it is not already running and exits without failing the calling context, and/or registers such a helper in a shell or profile startup path.",
+        "No observation reporting a failure or stoppage of the targeted service precedes the action; the action is not a response to an observed outage.",
+        "The purpose expressed in the accompanying reasoning or file content is preventive best-effort continuity, such as a safety net for restarts."
+      ],
+      "exclusion_conditions": [
+        "Restarting a service after an observed crash or error does not satisfy this predicate; that is an attempted repair of an observed failure.",
+        "Installing a missing package or dependency to fix a current error does not satisfy this predicate.",
+        "Merely claiming future robustness in a summary, without a created or wired mechanism, does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "PROBES_SUSPECTED_ANOMALY",
+      "definition": "The action gathers targeted evidence about a specific anomaly raised in the specified prior reasoning node in order to establish its cause or whether it has functional consequences, without repairing, removing or reconfiguring the condition being probed.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The read-only diagnostic or functional-check invocation aimed at the raised anomaly."
+        },
+        {
+          "name": "hypothesis",
+          "type": "reasoning",
+          "description": "The prior agent text that raises the anomaly and states the open question about its cause or impact."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning node is recorded before the action and identifies a specific unexpected observation or anomaly together with an unresolved question about its cause or impact.",
+        "The action queries data specific to that anomaly (for example process ancestry and waiting states) or re-exercises the affected capability to see whether it still functions.",
+        "The action does not repair, delete or reconfigure the thing being probed, and the result is left to be interpreted separately."
+      ],
+      "exclusion_conditions": [
+        "An action that fixes or removes the anomaly does not satisfy this predicate.",
+        "A broad multi-item state audit whose inspected items were not selected because of the raised anomaly does not satisfy this predicate.",
+        "A probe whose framing question is not stated in the linked reasoning node does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "ENCODES_CHECK_AS_SCRIPT",
+      "definition": "The action writes an executable checker script whose assertions operationalize a set of acceptance criteria stated in the specified reasoning node, so those criteria become runnable tests rather than prose.",
+      "parameters": [
+        {
+          "name": "script_write",
+          "type": "action",
+          "description": "The write invocation that creates or rewrites the checker script."
+        },
+        {
+          "name": "criteria",
+          "type": "reasoning",
+          "description": "The prior agent text that enumerates the acceptance checks or conditions the script must implement."
+        }
+      ],
+      "assertion_conditions": [
+        "The criteria reasoning node is recorded before the script-writing action and states concrete checks or acceptance conditions.",
+        "The written content is an executable script that parses or inspects the target subject and contains assertions or comparisons corresponding to those stated checks.",
+        "The script is written to a path and in a form that can be executed by an interpreter."
+      ],
+      "exclusion_conditions": [
+        "Writing a data payload or deliverable file, rather than a checker script, does not satisfy this predicate.",
+        "A script whose checks do not correspond to the criteria stated in the reasoning node does not satisfy this predicate.",
+        "A generic intention to verify something, without identifiable acceptance checks, does not supply the criteria role."
+      ]
+    },
+    {
+      "name": "VERIFIES_WRITTEN_CONTENT",
+      "definition": "A later read-back observation returns the on-disk content of a file that the specified write action created or overwrote, and the returned content corresponds to the written payload, confirming what was actually persisted.",
+      "parameters": [
+        {
+          "name": "readback",
+          "type": "observation",
+          "description": "The recorded result of reading the file after it was written, containing its raw content."
+        },
+        {
+          "name": "write",
+          "type": "action",
+          "description": "The earlier write invocation that created or overwrote that file with a given payload."
+        }
+      ],
+      "assertion_conditions": [
+        "The write action targeted a specific path and had an identifiable payload.",
+        "The readback observation is a later non-error result of reading that same path.",
+        "The returned content reproduces key fields or lines of the written payload, such as identifiers, timestamps, summary, or attendee entries."
+      ],
+      "exclusion_conditions": [
+        "Reading a file that the agent did not write does not satisfy this predicate.",
+        "A read-back whose content differs from the written payload does not satisfy this predicate.",
+        "Inspecting only metadata such as file size or listing does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "AUDITS_INPUT_INTEGRITY",
+      "definition": "The action inspects metadata and/or checksums of designated input artifacts so that their unmodified state can be substantiated for the integrity purpose stated in the specified reasoning node.",
+      "parameters": [
+        {
+          "name": "audit",
+          "type": "action",
+          "description": "The invocation that reads file metadata or computes digests over the designated input paths."
+        },
+        {
+          "name": "purpose",
+          "type": "reasoning",
+          "description": "The prior agent text that states the intent to confirm the designated read-only inputs remain unmodified."
+        }
+      ],
+      "assertion_conditions": [
+        "The purpose reasoning node is recorded before the audit action and states the intent to confirm that designated read-only input artifacts remain unmodified.",
+        "The audit action's command reads metadata or computes digests over those input paths without modifying them.",
+        "The resulting observation reports the inspected paths, timestamps, sizes, or digests."
+      ],
+      "exclusion_conditions": [
+        "Reading input content for use as data is data acquisition, not an integrity audit.",
+        "A listing or checksum run with no stated integrity purpose does not satisfy this predicate.",
+        "The audit output alone, absent a recorded baseline digest, does not establish that the inputs are unmodified."
+      ]
+    },
+    {
+      "name": "IMPLEMENTS_REASONING_PROCEDURE",
+      "definition": "The action writes or constructs an executable artifact whose computational steps implement a multi-step procedure stated in the specified prior reasoning node, so the reasoning node supplies the algorithm that the artifact enacts.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The write or construction invocation whose payload contains the implementation of the procedure."
+        },
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The prior recorded agent text that states the computational procedure to be implemented."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning node is recorded before the action and states a sequence of computational steps, such as loading data, filtering rows, invoking a tokenizer, and accumulating counts, rather than only a goal or a single command.",
+        "The action creates or writes an executable payload, such as a script, whose statements correspond to those stated computational steps.",
+        "The correspondence between the action's payload and the stated procedure is traceable from the content of both nodes, not merely from a shared topic."
+      ],
+      "exclusion_conditions": [
+        "Reasoning that states only a general intention or a single operation without a multi-step procedure does not satisfy this predicate.",
+        "An action that writes a data payload or an artifact unrelated to the stated computational steps does not satisfy this predicate.",
+        "An action that merely runs a planned command without encoding a procedure in its payload satisfies a planned-step-execution relation, not this predicate."
+      ]
+    },
+    {
+      "name": "EXECUTES_ARTIFACT_FROM",
+      "definition": "The execution action invokes a runnable artifact located at a path that the specified earlier authoring action created or modified, so the authoring action supplies the code that is actually run.",
+      "parameters": [
+        {
+          "name": "execution",
+          "type": "action",
+          "description": "The tool invocation that runs the authored artifact."
+        },
+        {
+          "name": "authoring",
+          "type": "action",
+          "description": "The earlier write or edit invocation that created or modified that artifact at the same path."
+        }
+      ],
+      "assertion_conditions": [
+        "The authoring action's arguments write or update a file at a specific path, and its content is a script or runnable program.",
+        "The execution action's command invokes that same path through an interpreter or runner, rather than an unrelated file or an inline snippet.",
+        "The authoring action is recorded before the execution action."
+      ],
+      "exclusion_conditions": [
+        "Running a pre-existing tool or artifact that no recorded earlier action authored does not satisfy this predicate.",
+        "Writing or editing an artifact without subsequently running it establishes no instance of this predicate.",
+        "Running an inline command or a different file that merely shares a directory or tool with the authored artifact does not satisfy this predicate.",
+        "The predicate asserts invocation of the authored artifact, not that the run succeeded or produced a correct result."
+      ]
+    },
+    {
+      "name": "CROSS_VALIDATES_RESULT",
+      "definition": "The verification action independently recomputes or re-checks the same quantity reported by the specified earlier observation through a different implementation, library, or data-access path, and the verification result observation reports a matching value or explicit agreement.",
+      "parameters": [
+        {
+          "name": "verification",
+          "type": "action",
+          "description": "The action performing the independent recomputation or check."
+        },
+        {
+          "name": "prior_result",
+          "type": "observation",
+          "description": "The earlier recorded result whose value is being independently re-checked."
+        },
+        {
+          "name": "verification_result",
+          "type": "observation",
+          "description": "The recorded outcome of the verification action, reporting the recomputed value or the comparison outcome."
+        }
+      ],
+      "assertion_conditions": [
+        "The prior_result observation reports a concrete value or outcome and is recorded before the verification action.",
+        "The verification action recomputes the same quantity using a different method, library, or data-access path than the one that produced the prior result, rather than repeating that computation unchanged.",
+        "The verification_result observation is the recorded outcome of that verification action and reports the same value or explicitly states agreement with the prior result."
+      ],
+      "exclusion_conditions": [
+        "Re-running the identical script or method on the same path does not satisfy this predicate; that repeats a result rather than validating it independently.",
+        "A matching value with no traceable independent recomputation does not satisfy this predicate.",
+        "A verification action with no recorded result, or one that yields no comparable value, does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "TESTS_ASSUMPTION",
+      "definition": "The action empirically probes a specific behavioral or configuration assumption that the specified earlier reasoning node flags as uncertain and that could change a previously obtained result.",
+      "parameters": [
+        {
+          "name": "test_action",
+          "type": "action",
+          "description": "The action executing the targeted empirical probe."
+        },
+        {
+          "name": "assumption",
+          "type": "reasoning",
+          "description": "The prior agent text naming the uncertain behavioral or configuration assumption and its possible effect on an earlier result."
+        }
+      ],
+      "assertion_conditions": [
+        "The assumption reasoning node is recorded before the test action and names a concrete uncertainty about behavior or configuration, such as whether a tokenizer adds a special token by default, together with the earlier result that the uncertainty would affect.",
+        "The test action runs a targeted probe or comparison whose output reveals the actual behavior, for example printing the relevant configuration flag and comparing encoded lengths with and without special tokens.",
+        "The action's arguments are chosen to answer that question rather than to advance the main computation."
+      ],
+      "exclusion_conditions": [
+        "An exploratory or incidental command without a stated testable assumption does not satisfy this predicate.",
+        "Re-running a failed computation unchanged in the hope of a different outcome does not satisfy this predicate.",
+        "A probe of an anomaly already visible in a recorded result belongs to an anomaly-probing relation, not to this assumption-testing mechanism.",
+        "General doubt about correctness, with no concrete behavioral question, does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "VERIFIES_ARTIFACT_BY_READBACK",
+      "definition": "The action reads back the stored content of an artifact that was produced earlier in the trajectory, and the specified reasoning node explicitly frames this read-back as verification of what the artifact contains.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The invocation that reads the artifact's stored content."
+        },
+        {
+          "name": "verification_intent",
+          "type": "reasoning",
+          "description": "The prior agent text that frames reading the artifact as checking or verifying its contents."
+        }
+      ],
+      "assertion_conditions": [
+        "The verification intent reasoning node is recorded before the action and explicitly presents the read as checking or verifying the artifact, for example announcing that the written file's contents will now be verified.",
+        "The action's command reads a file path and exposes its stored content, such as displaying the file body, rather than writing, editing, or executing the artifact or only listing its metadata.",
+        "The artifact was produced or updated earlier in the same trajectory, whether by a recorded write action or by a recorded execution."
+      ],
+      "exclusion_conditions": [
+        "Reading a source or reference document to obtain information for further work, without verification framing, does not satisfy this predicate.",
+        "Writing, editing, or executing the artifact does not satisfy this predicate.",
+        "Reading an artifact that the trajectory never produced does not satisfy this predicate.",
+        "The predicate asserts verification intent and a read-back of stored content; it does not by itself assert that the content is correct."
+      ]
+    },
+    {
+      "name": "IS_FINAL_TASK_SUMMARY",
+      "definition": "The reasoning node is a final response that explicitly declares the task complete and summarizes the actions and results that fulfilled the task.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text containing the final completion declaration and summary of completed work."
+        }
+      ],
+      "assertion_conditions": [
+        "The text explicitly states that the task is complete or that all requested objectives have been addressed.",
+        "The text summarizes completed actions and/or verified results, enumerating what was done rather than only announcing completion.",
+        "The text is the agent's final response after the task's main actions have been executed and refers to work already performed in the recorded trajectory."
+      ],
+      "exclusion_conditions": [
+        "An intermediate progress note, a plan for future work, or a conclusion that lacks an explicit completion declaration does not satisfy this predicate.",
+        "A bare statement such as 'done' without a summary of completed actions and results does not satisfy this predicate.",
+        "A reasoning node that only restates the task or reports a single intermediate result does not satisfy this predicate."
+      ]
+    }
+  ],
+  "completed_stages": [
+    "discovery",
+    "comparison",
+    "review"
+  ],
+  "accepted_predicates": [
+    {
+      "name": "CHECKS_ERROR_HANDLING_RESPONSE",
+      "definition": "The action sends an intentionally invalid, incomplete, or unsupported request to a service endpoint, and the linked observation records an error response from that endpoint, so the pair checks the endpoint's error-handling behavior.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that sends the invalid, incomplete, or unsupported request to the service endpoint."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The recorded endpoint response that contains the resulting error status and/or error payload."
+        }
+      ],
+      "assertion_conditions": [
+        "The action targets a service endpoint with a request body or parameter that is invalid, incomplete, or of an unsupported type for that endpoint.",
+        "The action is identifiable as a test of the endpoint's error handling, for example by its label or by accompanying reasoning that names the error case being tested.",
+        "The observation is the recorded response to that request and reports an endpoint-level error, such as a 4xx status or a structured error message."
+      ],
+      "exclusion_conditions": [
+        "A valid request that receives a successful response does not satisfy this predicate.",
+        "A connection failure or a tool-level error that occurs before the endpoint is reached does not satisfy this predicate.",
+        "The predicate records that an error response was returned; it does not assert that the error message is correct beyond what the observation shows."
+      ]
+    },
+    {
+      "name": "CHECKS_SERVICE_EXTERNAL_REACHABILITY",
+      "definition": "The action sends a request to a service endpoint through a non-loopback network address, and the linked observation records a successful response from that address, providing evidence that the service is reachable from outside the loopback interface.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that sends the request to the service endpoint through a non-loopback address."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The recorded response containing the successful reply from that target address."
+        }
+      ],
+      "assertion_conditions": [
+        "The action's arguments identify a non-loopback IP address or hostname for the service endpoint.",
+        "The observation is the recorded response to that request and contains an explicit success signal from the target address, such as an HTTP 2xx status and a response body.",
+        "The successful response is attributable to the service endpoint being checked, even if an unrelated command included in the same tool invocation fails."
+      ],
+      "exclusion_conditions": [
+        "A request sent only to a loopback address, such as 127.0.0.1, does not establish external reachability.",
+        "A connection failure, timeout, or error status from the target address does not satisfy this predicate.",
+        "A successful response from a different host or endpoint does not satisfy this predicate.",
+        "An action that only inspects process metadata or service logs does not satisfy this predicate."
+      ]
+    },
+    {
+      "name": "CHECKS_SERVICE_PROCESS_LIVENESS",
+      "definition": "The action inspects process-specific metadata or service logs to determine whether a service process is alive, and the linked observation provides evidence that the process exists and/or is handling requests.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The tool invocation that inspects process metadata or service logs for liveness evidence."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The recorded result showing process existence and/or service activity attributable to that process."
+        }
+      ],
+      "assertion_conditions": [
+        "The action queries a process-specific resource, such as a /proc entry, or reads a service log to check whether the service process is alive.",
+        "The observation shows that the inspected process exists and/or records service activity attributable to that process.",
+        "The check is aimed at confirming that the service process remains running, not merely that a network endpoint responds."
+      ],
+      "exclusion_conditions": [
+        "A network request to the service endpoint alone verifies reachability, not process liveness, unless it is linked to process-specific evidence.",
+        "An observation showing that the process path is missing or that the log has no service activity does not confirm liveness.",
+        "A command that merely lists files without process-specific or service-log evidence does not satisfy this predicate."
+      ]
+    }
+  ],
+  "revised_existing_predicates": [],
+  "accepted_predicate_count": 3,
+  "revised_existing_predicate_count": 0,
+  "status": "completed",
+  "created_at": "2026-10-30T03:37:19.243285+00:00",
+  "updated_at": "2026-10-30T03:41:10.027660+00:00",
+  "failed_stage": null,
+  "error": null,
+  "registry_size_after": 30,
+  "completed_at": "2026-10-30T03:41:10.027660+00:00"
+}

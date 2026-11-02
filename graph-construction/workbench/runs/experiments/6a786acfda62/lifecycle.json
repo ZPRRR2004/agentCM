@@ -1,0 +1,5 @@
+{
+  "status": "failed",
+  "error": "Unresolved prompt placeholders: ['{{pub.title}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.pdf_path}}', '{{link.url}}', '{{link.name}}', '{{link.url}}', '{{link.name}}', '{{pub.notes}}', '{{ temp | markdownify }}', '{{ temp | markdownify }}', '{{ temp | markdownify }}']",
+  "updated_at": "2026-10-30T02:24:53.218129+00:00"
+}

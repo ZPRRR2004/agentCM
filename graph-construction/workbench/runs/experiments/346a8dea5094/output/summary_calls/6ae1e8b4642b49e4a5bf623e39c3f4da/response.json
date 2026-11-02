@@ -1,0 +1,28 @@
+{
+  "id": "5a50dd38-8a61-49be-8fe3-a03435c55e83",
+  "object": "chat.completion",
+  "created": 1793328195,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Verified the custom access log format and log locations, found that `burst=10` without `nodelay` delayed rather than rejected excess requests, added `nodelay` to `limit_req` in `/etc/nginx/conf.d/benchmark-site.conf`, reloaded Nginx (30 parallel requests then yielded 15×200/15×503), and confirmed all 9 requirements pass with the server live on localhost:8080."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8134,
+    "completion_tokens": 93,
+    "total_tokens": 8227,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 8006
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

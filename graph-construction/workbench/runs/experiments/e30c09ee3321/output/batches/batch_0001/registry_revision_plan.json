@@ -1,0 +1,210 @@
+{
+  "revisions": [
+    {
+      "original_name": "IS_PLAN",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SPECIFIES_CORRECTIVE_CONTENT_WITH_JUSTIFICATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_FAILURE_AND_PRESCRIBES_CORRECTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "TESTS_ASSUMPTION_WITH_PROBE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_REQUIREMENT_SATISFACTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENUMERATES_REQUIRED_COMPONENTS",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "ENUMERATES_REQUIRED_COMPONENTS",
+        "definition": "The reasoning decomposes a stated goal into multiple distinct prerequisite entities, capabilities, permissions, artifacts, or state conditions that must exist or hold for the goal to be satisfiable, turning the goal description into identifiable obligations.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text listing the prerequisite entities, capabilities, permissions, artifacts, or state conditions that must exist or hold for the stated goal to be satisfiable."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies multiple distinct elements that must exist, be configured, or hold, such as entities, capabilities, permissions, artifacts, or state conditions.",
+          "Each identified element is justified by the goal's expected usage or by an explicit dependency of the goal rather than being listed arbitrarily.",
+          "The enumeration includes required state, artifacts, or configuration obligations beyond merely ordering actions to perform."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only restates the goal without identifying required elements.",
+          "The reasoning only gives an ordered procedure or action plan without identifying what must exist or hold.",
+          "The reasoning proposes only a single required element or an incidental detail."
+        ]
+      }
+    },
+    {
+      "original_name": "IMPLEMENTS_PLANNED_STEP",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ANTICIPATES_PROCEDURAL_PITFALL",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_BEFORE_ACTIVATION",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "VALIDATES_BEFORE_ACTIVATION",
+        "definition": "A single action applies or activates a candidate configuration, input, or state change only after an explicit validity check of that candidate within the same invocation, and the observation reports both the successful validation and the resulting applied or active state.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that performs the validity check and then applies or activates the candidate configuration, input, or state change."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting the validation outcome and the resulting applied or active state."
+          }
+        ],
+        "assertion_conditions": [
+          "The action includes an explicit validation of the candidate before applying or activating it.",
+          "Application or activation is conditioned on that validation succeeding within the same invocation.",
+          "The observation reports the validation as successful and shows the candidate applied or the target active."
+        ],
+        "exclusion_conditions": [
+          "The candidate is applied or activated without any preceding validation.",
+          "Validation is performed but application or activation does not follow.",
+          "The observation shows a validation failure or no evidence that the candidate was applied or the target is active.",
+          "Validation and application occur in separate invocations, or the validation concerns an unrelated candidate."
+        ]
+      }
+    },
+    {
+      "original_name": "SIMULATES_END_USER_WORKFLOW",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "SIMULATES_END_USER_WORKFLOW",
+        "definition": "The action reproduces the operation sequence that an external consumer or end user would perform against the assembled system, using disposable or scratch artifacts, in order to validate the system as it will be experienced by that consumer rather than to produce the final deliverable state.",
+        "parameters": [
+          {
+            "name": "simulating_action",
+            "type": "action",
+            "description": "The tool invocation that executes the reproduced consumer-side operation sequence."
+          },
+          {
+            "name": "consumer_perspective_reasoning",
+            "type": "reasoning",
+            "description": "Reasoning that frames the upcoming operation as acting like the external consumer or end user and explains that the sequence is a simulation for validation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning frames the upcoming operation as what an external consumer or end user would do against the system.",
+          "The action performs a multi-step sequence matching that consumer behavior, distinct from the construction or configuration steps that constitute the deliverable.",
+          "The action relies on disposable or scratch artifacts, so the simulation does not itself become part of the final state.",
+          "The stated purpose is to exercise the system as a consumer would, not to build the deliverable."
+        ],
+        "exclusion_conditions": [
+          "The action is an ordinary construction or configuration step that constitutes the deliverable itself.",
+          "The action is a single isolated probe of one component rather than the consumer-visible operation sequence.",
+          "The reasoning does not connect the action to consumer-side behavior.",
+          "The action is not executed with disposable or scratch artifacts and therefore permanently alters the delivered state."
+        ]
+      }
+    },
+    {
+      "original_name": "OBSERVATION_CONFIRMS_EXPECTED_OUTCOME",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RECOGNIZES_INCONCLUSIVE_TOOL_RESULT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESTORES_PRISTINE_STATE_AFTER_TEST",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_RUNTIME_SERVICE_STATE",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "VERIFIES_RUNTIME_SERVICE_STATE",
+        "definition": "An inspection action queries the actual runtime state of deployed components or services, such as running processes, listening sockets, or an exercised endpoint, and the observation shows the intended components or services active at the intended endpoints.",
+        "parameters": [
+          {
+            "name": "inspection_action",
+            "type": "action",
+            "description": "The tool invocation that queries the running state of the deployed components or services."
+          },
+          {
+            "name": "runtime_observation",
+            "type": "observation",
+            "description": "The tool result listing processes, listening addresses, or endpoint responses that reveal the components' or services' actual runtime state."
+          }
+        ],
+        "assertion_conditions": [
+          "The action queries the actual running state of the components or services (processes, sockets, or an exercised endpoint) rather than only the content of their configuration files.",
+          "The observation reports the intended components or services present and active, with the expected endpoints or listening addresses visible."
+        ],
+        "exclusion_conditions": [
+          "The action modifies configuration or starts services instead of inspecting runtime state.",
+          "The observation only shows configuration syntax validity without any evidence of running state.",
+          "The observation shows the component or service absent or not listening on the intended endpoint.",
+          "The observation concerns a resource unrelated to the deployed components or services."
+        ]
+      }
+    },
+    {
+      "original_name": "ADDS_AVAILABILITY_SAFEGUARD",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DECLARES_TASK_COMPLETE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EXPLAINS_ANOMALOUS_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "AUDITS_STATE_AGAINST_ENUMERATED_CRITERIA",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "INSPECTS_STATE_WITHOUT_MODIFICATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SEPARATES_HARD_CONSTRAINTS_FROM_SOFT_PREFERENCES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "AGGREGATES_MULTIPLE_OBSERVATIONS_INTO_JOINT_CONSTRAINT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_OBSERVED_INCONSISTENCY_CONSERVATIVELY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_OPTIMAL_CANDIDATE_BY_EXPLICIT_ORDERING",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PREPARES_VALIDATION_PROCEDURE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_INPUT_INTEGRITY",
+      "operation": "KEEP"
+    }
+  ]
+}

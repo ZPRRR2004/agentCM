@@ -1,0 +1,61 @@
+{
+  "preprocess_experiment_id": "d91717a00d56",
+  "preprocess_title": "预处理1",
+  "preprocess_output_hash": "8a9cebbc1cf69d9a9526c706ae2517760429e0cd0c16187ac0fb028d8dcdc47e",
+  "preprocess_config": {
+    "simplify_call_ids": false,
+    "deduplicate_observation": true,
+    "remove_source_lines": false
+  },
+  "id": "6a786acfda62",
+  "kind": "split",
+  "title": "轨迹切分20条",
+  "question": "",
+  "dataset_id": "terminal-bench-2.1",
+  "dataset_name": "terminal-bench-2.1",
+  "trajectory_source": {
+    "label": "Lottolabs · Qwen3.8-27B · xhigh · 89 任务 + 2 次基础设施重跑",
+    "repository": "https://huggingface.co/datasets/Lottolabs/terminal-bench-2.1-qwen3.8-27b-traces",
+    "revision": "dbf15f8e97ec7510c55f97fd66748888b2a27ad5",
+    "task_count": 89,
+    "trajectory_count": 91,
+    "manifest_path": "terminal-bench-2.1/trajectories/qwen3.8-27b-xhigh/normalization-manifest.json"
+  },
+  "trajectory_ids": [
+    "xhigh-rerun-prove__prove-plus-comm",
+    "xhigh__configure-git-webserver",
+    "xhigh__constraints-scheduling",
+    "xhigh__count-dataset-tokens",
+    "xhigh__fix-git",
+    "xhigh__git-leak-recovery",
+    "xhigh__hf-model-inference",
+    "xhigh__kv-store-grpc",
+    "xhigh__log-summary-date-ranges",
+    "xhigh__merge-diff-arc-agi-task",
+    "xhigh__modernize-scientific-stack",
+    "xhigh__multi-source-data-merger",
+    "xhigh__nginx-request-logging",
+    "xhigh__openssl-selfsigned-cert",
+    "xhigh__polyglot-c-py",
+    "xhigh__portfolio-optimization",
+    "xhigh__pytorch-model-recovery",
+    "xhigh__sparql-university",
+    "xhigh__sqlite-db-truncate",
+    "xhigh__sqlite-with-gcov"
+  ],
+  "trajectory_count": 20,
+  "input_state": "ready",
+  "input_hash": "2dab1218d7984bc9de5f3e5749642774c42b906799fecad75e515029a1b2ccf0",
+  "created_at": "2026-10-30T02:21:16.680638+00:00",
+  "config": {
+    "max_window_events": 10,
+    "overlap_events": 2,
+    "max_previous_summary_tokens": 150,
+    "max_future_summary_tokens": 150
+  },
+  "prompt_hash": "7fbb01338ec8f03d5052df219c10f4437e26daa90202a8bcc57d4a9b953d3d05",
+  "model": "deepseek-flash",
+  "base_url": "https://api.deepseek.com",
+  "algorithm": "event-count/v2",
+  "token_estimator": "ceil(compact_json_characters / 4)"
+}

@@ -1,0 +1,260 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__count-dataset-tokens__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T06:10:25.380063+00:00",
+  "duration_seconds": 26.625,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T06:09:58.759839+00:00",
+      "duration_seconds": 26.61,
+      "raw_response": {
+        "id": "1f3263b6-0acc-4f66-b5f1-7bdfcd467bac",
+        "object": "chat.completion",
+        "created": 1793427004,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning explains why an observed failure or unexpected result occurred by identifying a specific causal defect in an assumption, interpretation, or implementation, rather than merely restating the error.\", \"parameters\": [{\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that attributes the observed failure to an identifiable cause.\"}], \"assertion_conditions\": [\"The reasoning refers to a failure or unexpected result and states a concrete cause for it.\", \"The stated cause is specific enough to imply what must change for the failure to be resolved.\"], \"exclusion_conditions\": [\"The reasoning only repeats or paraphrases the error message without explaining its cause.\", \"The reasoning reports the failure without any causal attribution.\"]}, {\"name\": \"REVISES_INTERPRETATION_UNDER_CONTRADICTING_OBSERVATION\", \"definition\": \"The reasoning abandons or corrects a prior working interpretation because the observation reports values that are inconsistent with that interpretation, and it adopts a revised interpretation consistent with the observed values.\", \"parameters\": [{\"name\": \"revision_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text recognizing the contradiction and stating the corrected interpretation.\"}, {\"name\": \"contradicting_observation\", \"type\": \"observation\", \"description\": \"The observation whose reported content conflicts with the prior expectation.\"}], \"assertion_conditions\": [\"The observation contains concrete content that does not match the interpretation the agent had been operating under.\", \"The reasoning explicitly notes the mismatch and states a replacement interpretation that fits the observed content.\"], \"exclusion_conditions\": [\"The reasoning merely restates the observation without revising any prior interpretation.\", \"The observation is consistent with the prior interpretation, so no revision is warranted.\"]}, {\"name\": \"RESOLVES_AMBIGUOUS_TERM_WITH_DOCUMENTED_EVIDENCE\", \"definition\": \"The reasoning maps an ambiguous or undefined term from the task onto concrete data categories by citing structural or provenance information found in retrieved documentation, thereby producing an operational definition that can be applied to the data.\", \"parameters\": [{\"name\": \"interpretation_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that defines the ambiguous term in terms of concrete categories.\"}, {\"name\": \"documentation_observation\", \"type\": \"observation\", \"description\": \"The observation containing the documentation whose described structure or provenance supports the mapping.\"}], \"assertion_conditions\": [\"The reasoning identifies a term whose meaning is not directly represented in the data.\", \"The reasoning cites identifiable content of the documentation (described sources, categories, or column semantics) as the basis for the concrete mapping.\"], \"exclusion_conditions\": [\"The reasoning guesses the mapping without referring to any documented evidence.\", \"The reasoning only summarizes the documentation without deriving an operational definition from it.\"]}, {\"name\": \"MEASURES_BEHAVIOR_TO_RULE_OUT_RESULT_AMBIGUITY\", \"definition\": \"A targeted measurement of tool or library behavior is performed to determine whether a suspected hidden effect (such as implicit defaults or added elements) would change a computed result, and the observed behavior settles whether the result is affected.\", \"parameters\": [{\"name\": \"measurement_action\", \"type\": \"action\", \"description\": \"The action that directly exercises the tool or library to expose its behavior.\"}, {\"name\": \"ambiguity_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text stating the suspected effect and its potential impact on the result.\"}, {\"name\": \"behavior_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the measured behavior relevant to the suspected effect.\"}], \"assertion_conditions\": [\"The reasoning names a specific mechanism that could alter the computed quantity, together with its possible magnitude or direction.\", \"The action is designed to expose exactly that mechanism rather than to produce the primary result.\", \"The observation reports behavior that determines whether the suspected effect is present.\"], \"exclusion_conditions\": [\"The action is part of the main computation rather than a targeted check of tool behavior.\", \"The observation does not report behavior bearing on the suspected effect.\", \"No identifiable suspected effect motivates the measurement.\"]}, {\"name\": \"AMENDS_ARTIFACT_TO_ADDRESS_DIAGNOSED_CAUSE\", \"definition\": \"A modification action rewrites or adjusts a previously created artifact in a way that specifically addresses the cause identified in a failure diagnosis, rather than making an unrelated change.\", \"parameters\": [{\"name\": \"amendment_action\", \"type\": \"action\", \"description\": \"The action that rewrites or adjusts the existing artifact.\"}, {\"name\": \"cause_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identified the cause of the prior failure and implies the needed change.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure or unexpected result that motivated the amendment.\"}], \"assertion_conditions\": [\"A prior observation reports an unsuccessful or unexpected outcome of the artifact under revision.\", \"The reasoning attributes that outcome to an identifiable cause.\", \"The amendment action changes the artifact's content in a way that removes that cause.\"], \"exclusion_conditions\": [\"The action creates a new artifact unrelated to any diagnosed failure.\", \"The action modifies the artifact without any identified failure or cause connecting the change to the previous outcome.\", \"The change targets a different part of the artifact than the diagnosed cause.\"]}, {\"name\": \"CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION\", \"definition\": \"A verification action re-derives an already computed quantity through a different loading or processing path, and the resulting observation reports a value identical to the earlier one, allowing the reasoning to treat the result as confirmed rather than merely attempted.\", \"parameters\": [{\"name\": \"recomputation_action\", \"type\": \"action\", \"description\": \"The action that re-derives the quantity using an alternative implementation path.\"}, {\"name\": \"agreement_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the recomputed quantity and its agreement with the earlier value.\"}, {\"name\": \"confirmation_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text comparing the two derivations and concluding agreement.\"}], \"assertion_conditions\": [\"The action uses a materially different path than the original computation for the same quantity.\", \"The observation reports a value that matches the earlier result.\", \"The reasoning explicitly states that the two derivations agree and that the result is therefore corroborated.\"], \"exclusion_conditions\": [\"The action repeats the original computation unchanged, providing no independent path.\", \"The observed values differ, or the discrepancy is not addressed.\", \"The reasoning does not draw any conclusion from the comparison.\"]}, {\"name\": \"VERIFIES_DELIVERED_OUTPUT_CONTENT\", \"definition\": \"The reasoning confirms the final deliverable by checking that the content reported by an inspection observation of the output artifact matches the intended answer, distinguishing a confirmed delivery from an assumed one.\", \"parameters\": [{\"name\": \"verification_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text confirming that the inspected artifact content is the intended final output.\"}, {\"name\": \"artifact_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the actual content or metadata of the delivered artifact.\"}], \"assertion_conditions\": [\"The observation reports the concrete content or file state of the artifact intended as the final deliverable.\", \"The reasoning states that this content corresponds to the intended answer or result.\"], \"exclusion_conditions\": [\"The artifact is not the final deliverable, only an intermediate file.\", \"The observation does not expose the artifact's content, so no content match can be established.\", \"The reasoning does not draw any confirmation from the observation.\"]}, {\"name\": \"SUMMARIZES_COMPLETED_WORK\", \"definition\": \"The reasoning consolidates the interpretation decisions, the performed computations, and the obtained result into a retrospective account of what was done and why, rather than proposing new future actions.\", \"parameters\": [{\"name\": \"summary_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text recapitulating the completed work and its result.\"}], \"assertion_conditions\": [\"The reasoning refers to actions or observations already completed, not to future steps as its main content.\", \"The reasoning restates the key decisions and the final result in a consolidated form.\"], \"exclusion_conditions\": [\"The reasoning only announces intended future actions.\", \"The reasoning is a single-step remark without consolidation of prior decisions and outcomes.\"]}]}",
+              "reasoning_content": "Let me identify mechanisms in this trajectory.\n\nEvents:\n- 0011: reasoning plans to run script; action runs script; observation shows error (science rows 0) with domain value counts. The reasoning at 0012 interprets the error: domain values are physics/chemistry/biology, not \"science\"; interprets using README documentation (from overlap observation event-0009/observation-1 README).\n- Mechanisms:\n  1. Unary: diagnostic interpretation — reasoning interprets an error/failed result and derives required correction. IS_ERROR_DIAGNOSIS.\n  2. Binary: observation reveals unexpected state contradicting assumption → reasoning detects mismatch/invalid assumption. DETECTS_ASSUMPTION_VIOLATION / REVISES_INTERPRETATION_IN_LIGHT_OF_OBSERVATION.\n  3. Binary: reasoning cites documentation evidence (README) supporting a mapping/interpretation — GROUNDS_INTERPRETATION_IN_DOCUMENTED_EVIDENCE (overlap observation → core reasoning).\n  4. Action: corrective action / modified artifact re-implementing after diagnosis: reasoning + action where action modifies prior script per diagnosed cause. REVISES_ARTIFACT_IN_RESPONSE_TO_FAILURE (reasoning, prior observation, action) ternary.\n  5. Unary action: writing script to compute answer — probably too operational. Maybe skip.\n  6. Binary: cross-validation — action designed to reproduce result by independent method, observation confirms agreement, reasoning concludes consistency. Ternary CONFIRMS_RESULT_VIA_INDEPENDENT_METHOD (action, observation, reasoning)? Actually mechanism: independent recomputation confirming prior result. Let's define: CROSS_VALIDATES_RESULT_WITH_INDEPENDENT_METHOD(action, prior_result, confirmation) — but prior result isn't a node directly; it's in reasoning? Better: predicate over (reasoning, action, observation) where reasoning proposes verification via an independent approach, action performs it, observation confirms the same value.\n  7. Unary reasoning: HYPOTHESIS_ABOUT_AMBIGUITY — reasoning enumerates alternative interpretations of the task and resolves. event-0012, 0014, 0015.\n  8. Binary: observation README (overlap) → reasoning derives interpretation; also reasoning tests tokenizer behavior: action 0014 tests assumption about special tokens; observation 0014 resolves it. That's TESTS_ASSUMPTION_WITH_PROBE-like, but the example already covers. We may include a specific one: probe resolves an ambiguity that would change the outcome (sensitivity check). Could combine as \"PROBES_QUESTION_WITH_DIRECT_MEASUREMENT\".\n  9. Binary: observation confirms written output equals answer — verification of final artifact: reasoning concludes based on observation of file content: VERIFIES_OUTCOME_AGAINST_OBSERVATION. event-0016/0017.\n  10. Unary reasoning: SYNTHESIZES_FINDINGS_INTO_FINAL_REPORT — event-0017 summary.\n\nLet me choose a coherent set, maybe 6-7 predicates.\n\nPredicate 1: IS_ERROR_DIAGNOSIS (unary reasoning) — reasoning explains cause of observed failure and states corrective action.\nAssertion: identifies causal explanation of failure; exclusion: only restates error message.\n\nPredicate 2: REVEALS_MISMATCH_WITH_EXPECTED_STATE (binary: observation, reasoning) — observation reports values inconsistent with the agent's working assumption; reasoning identifies the discrepancy. Hmm, but reasoning must be a param that is the one recognizing? Better: predicate (observation, reasoning) where reasoning identifies the concrete mismatch between observed content and prior expectation. Actually can just be binary: observation providing data that contradicts an assumption articulated elsewhere. Let's define REVISES_ASSUMPTION_BASED_ON_CONTRADICTING_OBSERVATION (reasoning, observation) — reasoning revises its interpretation because observation contradicts prior expectation.\n\nPredicate 3: INTERPRETS_SPECIFICATION_USING_DOCUMENTARY_CONTEXT (reasoning, observation) — reasoning resolves task-specific ambiguous term by citing documented structure/source mapping in retrieved documentation. Distinct from example 2 generic evidential support? It is a specific type: mapping an ambiguous label to concrete values using documentation. Could define as \"GROUNDS_AMBIGUOUS_TERM_RESOLUTION_IN_DOCUMENTATION\". I'll include because distinguishing (documentation mapping vs data evidence).\n\nPredicate 4: PROBES_IMPLEMENTATION_BEHAVIOR_TO_RESOLVE_AMBIGUITY (action, reasoning, observation) ternary — a direct measurement of tool/library behavior determines whether a potential sensitivity affects the outcome. Distinguish from hypothesis testing probe in the example? It's essentially the same mechanism; but here distinguishing: the probe quantifies a potential bias in computed result. Might be OK, but risk duplication with example mechanism. I'd rather phrase distinctly: \"MEASURES_TOOL_BEHAVIOR_TO_RULE_OUT_OUTCOME_SENSITIVITY\".\n\nPredicate 5: REVISES_ARTIFACT_IN_RESPONSE_TO_DIAGNOSED_FAILURE — ternary (action, reasoning, observation?) Hmm; the corrective write action 0012. Parameters: revision_action (action — the write), diagnosis_reasoning (reasoning event-0012), failure_observation (observation event-0011). Assertion: action modifies previously created artifact in a way addressing the diagnosed cause.\n\nPredicate 6: CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION — ternary (verification_action, prior_result_reasoning? or observation) Hmm. Simplest: (action, observation, reasoning): the action re-derives the same quantity via a different implementation path, and observation reports an identical value, and reasoning concludes agreement. Provide.\n\nPredicate 7: VERIFIES_DELIVERABLE_ARTIFACT_CONTENT — binary (action/observation, reasoning): action inspects the output artifact, observation shows content, reasoning confirms it matches intended final answer. Could be ternary with action. Let's do binary (reasoning, observation).\n\nPredicate 8: IS_FINAL_SYNTHESIS (unary reasoning) — reasoning consolidates findings, method, and result into a concluding summary. Maybe include.\n\nI'll include ~7. Keep definitions clean.\n\nLet me write JSON.\n\nCheck parameter naming and types valid.\n\nI'd include:\n\n1. DIAGNOSES_FAILURE_CAUSE (unary reasoning)\n2. REVISES_INTERPRETATION_UNDER_CONTRADICTING_OBSERVATION (binary: reasoning, observation)\n3. RESOLVES_AMBIGUOUS_TERM_WITH_DOCUMENTED_EVIDENCE (binary: reasoning, observation)\n4. MEASURES_BEHAVIOR_TO_RULE_OUT_RESULT_AMBIGUITY (ternary: action, reasoning, observation)\n5. AMENDS_ARTIFACT_TO_ADDRESS_DIAGNOSED_CAUSE (ternary: action, reasoning, observation)\n6. CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION (ternary: action, observation, reasoning)\n7. VERIFIES_DELIVERED_OUTPUT_CONTENT (binary: reasoning, observation)\n8. SUMMARIZES_COMPLETED_WORK (unary reasoning)\n\nMaybe 8 is fine but keep it distinct from IS_PLAN. Include.\n\nWrite it out."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15310,
+          "completion_tokens": 3440,
+          "total_tokens": 18750,
+          "prompt_tokens_details": {
+            "cached_tokens": 2048
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1580
+          },
+          "prompt_cache_hit_tokens": 2048,
+          "prompt_cache_miss_tokens": 13262
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning explains why an observed failure or unexpected result occurred by identifying a specific causal defect in an assumption, interpretation, or implementation, rather than merely restating the error.\", \"parameters\": [{\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that attributes the observed failure to an identifiable cause.\"}], \"assertion_conditions\": [\"The reasoning refers to a failure or unexpected result and states a concrete cause for it.\", \"The stated cause is specific enough to imply what must change for the failure to be resolved.\"], \"exclusion_conditions\": [\"The reasoning only repeats or paraphrases the error message without explaining its cause.\", \"The reasoning reports the failure without any causal attribution.\"]}, {\"name\": \"REVISES_INTERPRETATION_UNDER_CONTRADICTING_OBSERVATION\", \"definition\": \"The reasoning abandons or corrects a prior working interpretation because the observation reports values that are inconsistent with that interpretation, and it adopts a revised interpretation consistent with the observed values.\", \"parameters\": [{\"name\": \"revision_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text recognizing the contradiction and stating the corrected interpretation.\"}, {\"name\": \"contradicting_observation\", \"type\": \"observation\", \"description\": \"The observation whose reported content conflicts with the prior expectation.\"}], \"assertion_conditions\": [\"The observation contains concrete content that does not match the interpretation the agent had been operating under.\", \"The reasoning explicitly notes the mismatch and states a replacement interpretation that fits the observed content.\"], \"exclusion_conditions\": [\"The reasoning merely restates the observation without revising any prior interpretation.\", \"The observation is consistent with the prior interpretation, so no revision is warranted.\"]}, {\"name\": \"RESOLVES_AMBIGUOUS_TERM_WITH_DOCUMENTED_EVIDENCE\", \"definition\": \"The reasoning maps an ambiguous or undefined term from the task onto concrete data categories by citing structural or provenance information found in retrieved documentation, thereby producing an operational definition that can be applied to the data.\", \"parameters\": [{\"name\": \"interpretation_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that defines the ambiguous term in terms of concrete categories.\"}, {\"name\": \"documentation_observation\", \"type\": \"observation\", \"description\": \"The observation containing the documentation whose described structure or provenance supports the mapping.\"}], \"assertion_conditions\": [\"The reasoning identifies a term whose meaning is not directly represented in the data.\", \"The reasoning cites identifiable content of the documentation (described sources, categories, or column semantics) as the basis for the concrete mapping.\"], \"exclusion_conditions\": [\"The reasoning guesses the mapping without referring to any documented evidence.\", \"The reasoning only summarizes the documentation without deriving an operational definition from it.\"]}, {\"name\": \"MEASURES_BEHAVIOR_TO_RULE_OUT_RESULT_AMBIGUITY\", \"definition\": \"A targeted measurement of tool or library behavior is performed to determine whether a suspected hidden effect (such as implicit defaults or added elements) would change a computed result, and the observed behavior settles whether the result is affected.\", \"parameters\": [{\"name\": \"measurement_action\", \"type\": \"action\", \"description\": \"The action that directly exercises the tool or library to expose its behavior.\"}, {\"name\": \"ambiguity_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text stating the suspected effect and its potential impact on the result.\"}, {\"name\": \"behavior_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the measured behavior relevant to the suspected effect.\"}], \"assertion_conditions\": [\"The reasoning names a specific mechanism that could alter the computed quantity, together with its possible magnitude or direction.\", \"The action is designed to expose exactly that mechanism rather than to produce the primary result.\", \"The observation reports behavior that determines whether the suspected effect is present.\"], \"exclusion_conditions\": [\"The action is part of the main computation rather than a targeted check of tool behavior.\", \"The observation does not report behavior bearing on the suspected effect.\", \"No identifiable suspected effect motivates the measurement.\"]}, {\"name\": \"AMENDS_ARTIFACT_TO_ADDRESS_DIAGNOSED_CAUSE\", \"definition\": \"A modification action rewrites or adjusts a previously created artifact in a way that specifically addresses the cause identified in a failure diagnosis, rather than making an unrelated change.\", \"parameters\": [{\"name\": \"amendment_action\", \"type\": \"action\", \"description\": \"The action that rewrites or adjusts the existing artifact.\"}, {\"name\": \"cause_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identified the cause of the prior failure and implies the needed change.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure or unexpected result that motivated the amendment.\"}], \"assertion_conditions\": [\"A prior observation reports an unsuccessful or unexpected outcome of the artifact under revision.\", \"The reasoning attributes that outcome to an identifiable cause.\", \"The amendment action changes the artifact's content in a way that removes that cause.\"], \"exclusion_conditions\": [\"The action creates a new artifact unrelated to any diagnosed failure.\", \"The action modifies the artifact without any identified failure or cause connecting the change to the previous outcome.\", \"The change targets a different part of the artifact than the diagnosed cause.\"]}, {\"name\": \"CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION\", \"definition\": \"A verification action re-derives an already computed quantity through a different loading or processing path, and the resulting observation reports a value identical to the earlier one, allowing the reasoning to treat the result as confirmed rather than merely attempted.\", \"parameters\": [{\"name\": \"recomputation_action\", \"type\": \"action\", \"description\": \"The action that re-derives the quantity using an alternative implementation path.\"}, {\"name\": \"agreement_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the recomputed quantity and its agreement with the earlier value.\"}, {\"name\": \"confirmation_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text comparing the two derivations and concluding agreement.\"}], \"assertion_conditions\": [\"The action uses a materially different path than the original computation for the same quantity.\", \"The observation reports a value that matches the earlier result.\", \"The reasoning explicitly states that the two derivations agree and that the result is therefore corroborated.\"], \"exclusion_conditions\": [\"The action repeats the original computation unchanged, providing no independent path.\", \"The observed values differ, or the discrepancy is not addressed.\", \"The reasoning does not draw any conclusion from the comparison.\"]}, {\"name\": \"VERIFIES_DELIVERED_OUTPUT_CONTENT\", \"definition\": \"The reasoning confirms the final deliverable by checking that the content reported by an inspection observation of the output artifact matches the intended answer, distinguishing a confirmed delivery from an assumed one.\", \"parameters\": [{\"name\": \"verification_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text confirming that the inspected artifact content is the intended final output.\"}, {\"name\": \"artifact_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the actual content or metadata of the delivered artifact.\"}], \"assertion_conditions\": [\"The observation reports the concrete content or file state of the artifact intended as the final deliverable.\", \"The reasoning states that this content corresponds to the intended answer or result.\"], \"exclusion_conditions\": [\"The artifact is not the final deliverable, only an intermediate file.\", \"The observation does not expose the artifact's content, so no content match can be established.\", \"The reasoning does not draw any confirmation from the observation.\"]}, {\"name\": \"SUMMARIZES_COMPLETED_WORK\", \"definition\": \"The reasoning consolidates the interpretation decisions, the performed computations, and the obtained result into a retrospective account of what was done and why, rather than proposing new future actions.\", \"parameters\": [{\"name\": \"summary_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text recapitulating the completed work and its result.\"}], \"assertion_conditions\": [\"The reasoning refers to actions or observations already completed, not to future steps as its main content.\", \"The reasoning restates the key decisions and the final result in a consolidated form.\"], \"exclusion_conditions\": [\"The reasoning only announces intended future actions.\", \"The reasoning is a single-step remark without consolidation of prior decisions and outcomes.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "DIAGNOSES_FAILURE_CAUSE",
+        "definition": "The reasoning explains why an observed failure or unexpected result occurred by identifying a specific causal defect in an assumption, interpretation, or implementation, rather than merely restating the error.",
+        "parameters": [
+          {
+            "name": "diagnosis_reasoning",
+            "type": "reasoning",
+            "description": "The agent text that attributes the observed failure to an identifiable cause."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to a failure or unexpected result and states a concrete cause for it.",
+          "The stated cause is specific enough to imply what must change for the failure to be resolved."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only repeats or paraphrases the error message without explaining its cause.",
+          "The reasoning reports the failure without any causal attribution."
+        ]
+      },
+      {
+        "name": "REVISES_INTERPRETATION_UNDER_CONTRADICTING_OBSERVATION",
+        "definition": "The reasoning abandons or corrects a prior working interpretation because the observation reports values that are inconsistent with that interpretation, and it adopts a revised interpretation consistent with the observed values.",
+        "parameters": [
+          {
+            "name": "revision_reasoning",
+            "type": "reasoning",
+            "description": "The agent text recognizing the contradiction and stating the corrected interpretation."
+          },
+          {
+            "name": "contradicting_observation",
+            "type": "observation",
+            "description": "The observation whose reported content conflicts with the prior expectation."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains concrete content that does not match the interpretation the agent had been operating under.",
+          "The reasoning explicitly notes the mismatch and states a replacement interpretation that fits the observed content."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely restates the observation without revising any prior interpretation.",
+          "The observation is consistent with the prior interpretation, so no revision is warranted."
+        ]
+      },
+      {
+        "name": "RESOLVES_AMBIGUOUS_TERM_WITH_DOCUMENTED_EVIDENCE",
+        "definition": "The reasoning maps an ambiguous or undefined term from the task onto concrete data categories by citing structural or provenance information found in retrieved documentation, thereby producing an operational definition that can be applied to the data.",
+        "parameters": [
+          {
+            "name": "interpretation_reasoning",
+            "type": "reasoning",
+            "description": "The agent text that defines the ambiguous term in terms of concrete categories."
+          },
+          {
+            "name": "documentation_observation",
+            "type": "observation",
+            "description": "The observation containing the documentation whose described structure or provenance supports the mapping."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a term whose meaning is not directly represented in the data.",
+          "The reasoning cites identifiable content of the documentation (described sources, categories, or column semantics) as the basis for the concrete mapping."
+        ],
+        "exclusion_conditions": [
+          "The reasoning guesses the mapping without referring to any documented evidence.",
+          "The reasoning only summarizes the documentation without deriving an operational definition from it."
+        ]
+      },
+      {
+        "name": "MEASURES_BEHAVIOR_TO_RULE_OUT_RESULT_AMBIGUITY",
+        "definition": "A targeted measurement of tool or library behavior is performed to determine whether a suspected hidden effect (such as implicit defaults or added elements) would change a computed result, and the observed behavior settles whether the result is affected.",
+        "parameters": [
+          {
+            "name": "measurement_action",
+            "type": "action",
+            "description": "The action that directly exercises the tool or library to expose its behavior."
+          },
+          {
+            "name": "ambiguity_reasoning",
+            "type": "reasoning",
+            "description": "The agent text stating the suspected effect and its potential impact on the result."
+          },
+          {
+            "name": "behavior_observation",
+            "type": "observation",
+            "description": "The observation reporting the measured behavior relevant to the suspected effect."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a specific mechanism that could alter the computed quantity, together with its possible magnitude or direction.",
+          "The action is designed to expose exactly that mechanism rather than to produce the primary result.",
+          "The observation reports behavior that determines whether the suspected effect is present."
+        ],
+        "exclusion_conditions": [
+          "The action is part of the main computation rather than a targeted check of tool behavior.",
+          "The observation does not report behavior bearing on the suspected effect.",
+          "No identifiable suspected effect motivates the measurement."
+        ]
+      },
+      {
+        "name": "AMENDS_ARTIFACT_TO_ADDRESS_DIAGNOSED_CAUSE",
+        "definition": "A modification action rewrites or adjusts a previously created artifact in a way that specifically addresses the cause identified in a failure diagnosis, rather than making an unrelated change.",
+        "parameters": [
+          {
+            "name": "amendment_action",
+            "type": "action",
+            "description": "The action that rewrites or adjusts the existing artifact."
+          },
+          {
+            "name": "cause_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that identified the cause of the prior failure and implies the needed change."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting the failure or unexpected result that motivated the amendment."
+          }
+        ],
+        "assertion_conditions": [
+          "A prior observation reports an unsuccessful or unexpected outcome of the artifact under revision.",
+          "The reasoning attributes that outcome to an identifiable cause.",
+          "The amendment action changes the artifact's content in a way that removes that cause."
+        ],
+        "exclusion_conditions": [
+          "The action creates a new artifact unrelated to any diagnosed failure.",
+          "The action modifies the artifact without any identified failure or cause connecting the change to the previous outcome.",
+          "The change targets a different part of the artifact than the diagnosed cause."
+        ]
+      },
+      {
+        "name": "CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION",
+        "definition": "A verification action re-derives an already computed quantity through a different loading or processing path, and the resulting observation reports a value identical to the earlier one, allowing the reasoning to treat the result as confirmed rather than merely attempted.",
+        "parameters": [
+          {
+            "name": "recomputation_action",
+            "type": "action",
+            "description": "The action that re-derives the quantity using an alternative implementation path."
+          },
+          {
+            "name": "agreement_observation",
+            "type": "observation",
+            "description": "The observation reporting the recomputed quantity and its agreement with the earlier value."
+          },
+          {
+            "name": "confirmation_reasoning",
+            "type": "reasoning",
+            "description": "The agent text comparing the two derivations and concluding agreement."
+          }
+        ],
+        "assertion_conditions": [
+          "The action uses a materially different path than the original computation for the same quantity.",
+          "The observation reports a value that matches the earlier result.",
+          "The reasoning explicitly states that the two derivations agree and that the result is therefore corroborated."
+        ],
+        "exclusion_conditions": [
+          "The action repeats the original computation unchanged, providing no independent path.",
+          "The observed values differ, or the discrepancy is not addressed.",
+          "The reasoning does not draw any conclusion from the comparison."
+        ]
+      },
+      {
+        "name": "VERIFIES_DELIVERED_OUTPUT_CONTENT",
+        "definition": "The reasoning confirms the final deliverable by checking that the content reported by an inspection observation of the output artifact matches the intended answer, distinguishing a confirmed delivery from an assumed one.",
+        "parameters": [
+          {
+            "name": "verification_reasoning",
+            "type": "reasoning",
+            "description": "The agent text confirming that the inspected artifact content is the intended final output."
+          },
+          {
+            "name": "artifact_observation",
+            "type": "observation",
+            "description": "The observation reporting the actual content or metadata of the delivered artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports the concrete content or file state of the artifact intended as the final deliverable.",
+          "The reasoning states that this content corresponds to the intended answer or result."
+        ],
+        "exclusion_conditions": [
+          "The artifact is not the final deliverable, only an intermediate file.",
+          "The observation does not expose the artifact's content, so no content match can be established.",
+          "The reasoning does not draw any confirmation from the observation."
+        ]
+      },
+      {
+        "name": "SUMMARIZES_COMPLETED_WORK",
+        "definition": "The reasoning consolidates the interpretation decisions, the performed computations, and the obtained result into a retrospective account of what was done and why, rather than proposing new future actions.",
+        "parameters": [
+          {
+            "name": "summary_reasoning",
+            "type": "reasoning",
+            "description": "The agent text recapitulating the completed work and its result."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to actions or observations already completed, not to future steps as its main content.",
+          "The reasoning restates the key decisions and the final result in a consolidated form."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only announces intended future actions.",
+          "The reasoning is a single-step remark without consolidation of prior decisions and outcomes."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

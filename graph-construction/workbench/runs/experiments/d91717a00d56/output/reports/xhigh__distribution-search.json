@@ -1,0 +1,53 @@
+{
+  "changes": [
+    {
+      "event_id": "event-0001",
+      "path": "events[0].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0002",
+      "path": "events[1].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0003",
+      "path": "events[2].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0004",
+      "path": "events[3].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0005",
+      "path": "events[4].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    }
+  ],
+  "before": {
+    "characters": 59685,
+    "tokens": 14922
+  },
+  "after": {
+    "characters": 58833,
+    "tokens": 14709
+  },
+  "events": 6,
+  "removed_fields": 5,
+  "replaced_fields": 0,
+  "changed_events": 5,
+  "saved_tokens": 213,
+  "reduction_percent": 1.43
+}

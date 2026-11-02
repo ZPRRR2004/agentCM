@@ -1,0 +1,2244 @@
+{
+  "changes": [
+    {
+      "event_id": "event-0001",
+      "path": "events[0].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0002",
+      "path": "events[1].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0003",
+      "path": "events[2].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0004",
+      "path": "events[3].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0005",
+      "path": "events[4].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0006",
+      "path": "events[5].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0007",
+      "path": "events[6].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0008",
+      "path": "events[7].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0009",
+      "path": "events[8].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0010",
+      "path": "events[9].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0011",
+      "path": "events[10].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0012",
+      "path": "events[11].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0013",
+      "path": "events[12].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0014",
+      "path": "events[13].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0015",
+      "path": "events[14].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0016",
+      "path": "events[15].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0016",
+      "path": "events[15].tool_calls[1].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0017",
+      "path": "events[16].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0018",
+      "path": "events[17].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0019",
+      "path": "events[18].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0020",
+      "path": "events[19].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0021",
+      "path": "events[20].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0022",
+      "path": "events[21].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0023",
+      "path": "events[22].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0024",
+      "path": "events[23].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0025",
+      "path": "events[24].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0026",
+      "path": "events[25].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0027",
+      "path": "events[26].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0028",
+      "path": "events[27].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0029",
+      "path": "events[28].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0030",
+      "path": "events[29].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0030",
+      "path": "events[29].tool_calls[1].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0031",
+      "path": "events[30].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0032",
+      "path": "events[31].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0033",
+      "path": "events[32].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0034",
+      "path": "events[33].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0034",
+      "path": "events[33].tool_calls[1].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0035",
+      "path": "events[34].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0036",
+      "path": "events[35].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0037",
+      "path": "events[36].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0038",
+      "path": "events[37].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0039",
+      "path": "events[38].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0040",
+      "path": "events[39].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0041",
+      "path": "events[40].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0042",
+      "path": "events[41].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0043",
+      "path": "events[42].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0044",
+      "path": "events[43].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0045",
+      "path": "events[44].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0046",
+      "path": "events[45].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0047",
+      "path": "events[46].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0048",
+      "path": "events[47].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0049",
+      "path": "events[48].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0050",
+      "path": "events[49].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0051",
+      "path": "events[50].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0052",
+      "path": "events[51].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0053",
+      "path": "events[52].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0054",
+      "path": "events[53].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0055",
+      "path": "events[54].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0056",
+      "path": "events[55].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0057",
+      "path": "events[56].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0058",
+      "path": "events[57].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0059",
+      "path": "events[58].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0060",
+      "path": "events[59].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0061",
+      "path": "events[60].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0062",
+      "path": "events[61].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0063",
+      "path": "events[62].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0064",
+      "path": "events[63].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0065",
+      "path": "events[64].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0066",
+      "path": "events[65].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0067",
+      "path": "events[66].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0068",
+      "path": "events[67].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0069",
+      "path": "events[68].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0070",
+      "path": "events[69].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0071",
+      "path": "events[70].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0072",
+      "path": "events[71].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0073",
+      "path": "events[72].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0074",
+      "path": "events[73].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0075",
+      "path": "events[74].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0076",
+      "path": "events[75].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0077",
+      "path": "events[76].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0078",
+      "path": "events[77].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0079",
+      "path": "events[78].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0080",
+      "path": "events[79].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0081",
+      "path": "events[80].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0082",
+      "path": "events[81].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0083",
+      "path": "events[82].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0084",
+      "path": "events[83].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0086",
+      "path": "events[85].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0087",
+      "path": "events[86].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0088",
+      "path": "events[87].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0089",
+      "path": "events[88].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0090",
+      "path": "events[89].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0091",
+      "path": "events[90].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0092",
+      "path": "events[91].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0093",
+      "path": "events[92].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0094",
+      "path": "events[93].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0095",
+      "path": "events[94].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0096",
+      "path": "events[95].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0097",
+      "path": "events[96].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0098",
+      "path": "events[97].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0099",
+      "path": "events[98].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0100",
+      "path": "events[99].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0101",
+      "path": "events[100].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0102",
+      "path": "events[101].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0103",
+      "path": "events[102].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0104",
+      "path": "events[103].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0106",
+      "path": "events[105].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0107",
+      "path": "events[106].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0108",
+      "path": "events[107].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0109",
+      "path": "events[108].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0110",
+      "path": "events[109].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0111",
+      "path": "events[110].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0112",
+      "path": "events[111].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0113",
+      "path": "events[112].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0114",
+      "path": "events[113].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0115",
+      "path": "events[114].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0116",
+      "path": "events[115].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0117",
+      "path": "events[116].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0118",
+      "path": "events[117].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0119",
+      "path": "events[118].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0120",
+      "path": "events[119].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0121",
+      "path": "events[120].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0122",
+      "path": "events[121].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0123",
+      "path": "events[122].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0124",
+      "path": "events[123].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0125",
+      "path": "events[124].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0126",
+      "path": "events[125].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0127",
+      "path": "events[126].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0128",
+      "path": "events[127].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0129",
+      "path": "events[128].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0130",
+      "path": "events[129].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0131",
+      "path": "events[130].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0132",
+      "path": "events[131].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0134",
+      "path": "events[133].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0135",
+      "path": "events[134].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0136",
+      "path": "events[135].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0137",
+      "path": "events[136].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0138",
+      "path": "events[137].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0139",
+      "path": "events[138].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0140",
+      "path": "events[139].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0141",
+      "path": "events[140].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0142",
+      "path": "events[141].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0143",
+      "path": "events[142].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0144",
+      "path": "events[143].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0145",
+      "path": "events[144].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0146",
+      "path": "events[145].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0147",
+      "path": "events[146].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0148",
+      "path": "events[147].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0149",
+      "path": "events[148].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0150",
+      "path": "events[149].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0151",
+      "path": "events[150].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0152",
+      "path": "events[151].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0153",
+      "path": "events[152].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0154",
+      "path": "events[153].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0155",
+      "path": "events[154].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0156",
+      "path": "events[155].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0157",
+      "path": "events[156].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0158",
+      "path": "events[157].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0159",
+      "path": "events[158].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0160",
+      "path": "events[159].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0161",
+      "path": "events[160].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0162",
+      "path": "events[161].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0163",
+      "path": "events[162].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0164",
+      "path": "events[163].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0165",
+      "path": "events[164].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0166",
+      "path": "events[165].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0167",
+      "path": "events[166].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0168",
+      "path": "events[167].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0169",
+      "path": "events[168].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0170",
+      "path": "events[169].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0171",
+      "path": "events[170].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0172",
+      "path": "events[171].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0173",
+      "path": "events[172].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0174",
+      "path": "events[173].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0175",
+      "path": "events[174].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0177",
+      "path": "events[176].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0178",
+      "path": "events[177].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0179",
+      "path": "events[178].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0180",
+      "path": "events[179].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0181",
+      "path": "events[180].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0182",
+      "path": "events[181].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0183",
+      "path": "events[182].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0184",
+      "path": "events[183].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0185",
+      "path": "events[184].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0186",
+      "path": "events[185].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0187",
+      "path": "events[186].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0188",
+      "path": "events[187].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0189",
+      "path": "events[188].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0190",
+      "path": "events[189].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0191",
+      "path": "events[190].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0192",
+      "path": "events[191].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0193",
+      "path": "events[192].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0194",
+      "path": "events[193].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0195",
+      "path": "events[194].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0196",
+      "path": "events[195].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0197",
+      "path": "events[196].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0198",
+      "path": "events[197].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0199",
+      "path": "events[198].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0200",
+      "path": "events[199].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0201",
+      "path": "events[200].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0202",
+      "path": "events[201].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0203",
+      "path": "events[202].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0204",
+      "path": "events[203].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0205",
+      "path": "events[204].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0206",
+      "path": "events[205].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0207",
+      "path": "events[206].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0208",
+      "path": "events[207].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0209",
+      "path": "events[208].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0210",
+      "path": "events[209].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0211",
+      "path": "events[210].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0212",
+      "path": "events[211].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0213",
+      "path": "events[212].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0214",
+      "path": "events[213].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0215",
+      "path": "events[214].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0216",
+      "path": "events[215].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0217",
+      "path": "events[216].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0218",
+      "path": "events[217].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0219",
+      "path": "events[218].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0220",
+      "path": "events[219].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0221",
+      "path": "events[220].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0222",
+      "path": "events[221].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0223",
+      "path": "events[222].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0224",
+      "path": "events[223].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0225",
+      "path": "events[224].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0226",
+      "path": "events[225].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0227",
+      "path": "events[226].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0228",
+      "path": "events[227].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0229",
+      "path": "events[228].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0230",
+      "path": "events[229].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0231",
+      "path": "events[230].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0232",
+      "path": "events[231].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0233",
+      "path": "events[232].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0234",
+      "path": "events[233].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0235",
+      "path": "events[234].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0236",
+      "path": "events[235].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0241",
+      "path": "events[240].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0242",
+      "path": "events[241].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0243",
+      "path": "events[242].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0244",
+      "path": "events[243].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0245",
+      "path": "events[244].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0246",
+      "path": "events[245].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0247",
+      "path": "events[246].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0248",
+      "path": "events[247].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0249",
+      "path": "events[248].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0251",
+      "path": "events[250].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0252",
+      "path": "events[251].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0253",
+      "path": "events[252].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0254",
+      "path": "events[253].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0255",
+      "path": "events[254].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0256",
+      "path": "events[255].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0257",
+      "path": "events[256].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0258",
+      "path": "events[257].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0259",
+      "path": "events[258].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0260",
+      "path": "events[259].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0261",
+      "path": "events[260].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0262",
+      "path": "events[261].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0263",
+      "path": "events[262].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0264",
+      "path": "events[263].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0265",
+      "path": "events[264].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0267",
+      "path": "events[266].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0268",
+      "path": "events[267].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0269",
+      "path": "events[268].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0270",
+      "path": "events[269].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0271",
+      "path": "events[270].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0272",
+      "path": "events[271].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0273",
+      "path": "events[272].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0274",
+      "path": "events[273].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0275",
+      "path": "events[274].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0276",
+      "path": "events[275].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0277",
+      "path": "events[276].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0278",
+      "path": "events[277].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0279",
+      "path": "events[278].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0280",
+      "path": "events[279].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0281",
+      "path": "events[280].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0282",
+      "path": "events[281].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0284",
+      "path": "events[283].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0285",
+      "path": "events[284].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0287",
+      "path": "events[286].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0288",
+      "path": "events[287].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0289",
+      "path": "events[288].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0290",
+      "path": "events[289].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0291",
+      "path": "events[290].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0292",
+      "path": "events[291].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0293",
+      "path": "events[292].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0294",
+      "path": "events[293].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0295",
+      "path": "events[294].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0296",
+      "path": "events[295].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0297",
+      "path": "events[296].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0298",
+      "path": "events[297].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0299",
+      "path": "events[298].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0300",
+      "path": "events[299].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0301",
+      "path": "events[300].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0302",
+      "path": "events[301].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0303",
+      "path": "events[302].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0304",
+      "path": "events[303].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0305",
+      "path": "events[304].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0306",
+      "path": "events[305].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0307",
+      "path": "events[306].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0308",
+      "path": "events[307].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0309",
+      "path": "events[308].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0310",
+      "path": "events[309].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0311",
+      "path": "events[310].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0312",
+      "path": "events[311].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0314",
+      "path": "events[313].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0315",
+      "path": "events[314].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0316",
+      "path": "events[315].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0317",
+      "path": "events[316].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0318",
+      "path": "events[317].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0319",
+      "path": "events[318].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0320",
+      "path": "events[319].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0321",
+      "path": "events[320].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0322",
+      "path": "events[321].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0323",
+      "path": "events[322].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0324",
+      "path": "events[323].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0325",
+      "path": "events[324].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0326",
+      "path": "events[325].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0327",
+      "path": "events[326].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    },
+    {
+      "event_id": "event-0328",
+      "path": "events[327].tool_calls[0].observation.content",
+      "operation": "remove",
+      "rule": "deduplicate_observation",
+      "reason": "去除重复工具输出结构"
+    }
+  ],
+  "before": {
+    "characters": 1457027,
+    "tokens": 364257
+  },
+  "after": {
+    "characters": 1121708,
+    "tokens": 280427
+  },
+  "events": 330,
+  "removed_fields": 318,
+  "replaced_fields": 0,
+  "changed_events": 315,
+  "saved_tokens": 83830,
+  "reduction_percent": 23.01
+}

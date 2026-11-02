@@ -1,0 +1,326 @@
+[
+  {
+    "name": "OPERATIONALIZES_AMBIGUOUS_REQUIREMENT",
+    "definition": "The reasoning resolves an underspecified or ambiguous task term by mapping it to concrete fields, operations, or measurement criteria that can be executed or evaluated.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies an ambiguous requirement and states a concrete operational interpretation for it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a term or requirement that is ambiguous or admits multiple interpretations.",
+      "The reasoning states a concrete operational mapping, measurement rule, counting criterion, or execution criterion for that term.",
+      "The mapping is justified by available context, such as documentation, observed data structure, or explicit reasoning, rather than being an arbitrary choice."
+    ],
+    "exclusion_conditions": [
+      "The reasoning simply restates the task or requirement without resolving ambiguity.",
+      "The reasoning selects a method without connecting it to the ambiguous term.",
+      "No concrete operational interpretation, measurement criterion, or execution rule is stated."
+    ]
+  },
+  {
+    "name": "REMEDIES_IDENTIFIED_CAPABILITY_GAP",
+    "definition": "An observation reveals that a needed capability, package, resource, or configuration is absent or insufficient; reasoning recognizes that deficiency as a prerequisite for the task; and an action attempts to acquire, install, download, or provision it.",
+    "parameters": [
+      {
+        "name": "deficiency_observation",
+        "type": "observation",
+        "description": "The observation showing an absent, missing, or insufficient capability, resource, package, or configuration."
+      },
+      {
+        "name": "need_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning recognizing the deficiency as a prerequisite for achieving the task."
+      },
+      {
+        "name": "remediation_action",
+        "type": "action",
+        "description": "The action directed at acquiring, installing, downloading, or configuring the missing item."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation shows an absent, missing, or insufficient capability, resource, package, or configuration.",
+      "The reasoning explicitly treats that deficiency as a prerequisite for achieving the task.",
+      "The remediation action is directed at acquiring, installing, downloading, or configuring the missing item."
+    ],
+    "exclusion_conditions": [
+      "No deficiency is evidenced by the observation.",
+      "The reasoning does not connect the deficiency to a needed capability for the task.",
+      "The action is unrelated to the deficiency or merely inspects availability without provisioning.",
+      "The missing item is already present and usable, so no remediation is required."
+    ]
+  },
+  {
+    "name": "MATERIALIZES_PROCEDURE_AS_EXECUTABLE_ARTIFACT",
+    "definition": "The reasoning specifies a multi-step computational procedure, and an action creates an executable artifact whose content encodes those steps for later execution or reuse.",
+    "parameters": [
+      {
+        "name": "procedure_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning enumerating the operations or steps that constitute the procedure."
+      },
+      {
+        "name": "artifact_action",
+        "type": "action",
+        "description": "The action creating or writing the executable artifact that encodes the procedure."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning enumerates two or more operations constituting a procedure.",
+      "The action creates or writes a script, program, or equivalent executable artifact.",
+      "The artifact content includes operations corresponding to the procedure described in the reasoning.",
+      "The artifact is created to be executed or reused rather than only displaying text for immediate inspection."
+    ],
+    "exclusion_conditions": [
+      "The action merely executes a single step or command without creating an artifact.",
+      "The created artifact does not encode the procedure described in the reasoning.",
+      "The reasoning contains only a high-level goal without an executable procedure.",
+      "The created artifact is a validation or test procedure rather than an executable implementation of the task procedure."
+    ]
+  },
+  {
+    "name": "CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION",
+    "definition": "A verification action re-derives an already obtained quantity or result through a materially different loading, processing, or tool path, the resulting observation reports a value matching the earlier one, and the reasoning treats that agreement as corroboration of the result rather than as a mere repeat of the computation.",
+    "parameters": [
+      {
+        "name": "recomputation_action",
+        "type": "action",
+        "description": "The action that re-derives the quantity or result using an alternative implementation path."
+      },
+      {
+        "name": "agreement_observation",
+        "type": "observation",
+        "description": "The observation reporting the recomputed quantity or result and its correspondence to the earlier value."
+      },
+      {
+        "name": "confirmation_reasoning",
+        "type": "reasoning",
+        "description": "The agent text comparing the two derivations and concluding that their agreement corroborates the result."
+      }
+    ],
+    "assertion_conditions": [
+      "The action derives the same quantity or result as an earlier computation but uses a materially different route, such as a different library, loader, or processing pipeline.",
+      "The observation reports a value that matches the earlier result.",
+      "The reasoning explicitly compares the two derivations and treats the match as confirming the result rather than as an untested repetition."
+    ],
+    "exclusion_conditions": [
+      "The action repeats the original computation unchanged, providing no independent derivation path.",
+      "The observed value differs from the earlier result, or the discrepancy is left unaddressed.",
+      "The observation concerns a different quantity or a different requirement than the one previously computed.",
+      "The reasoning draws no conclusion from the comparison, so no confirmation is asserted."
+    ]
+  },
+  {
+    "name": "LOCATES_HIDDEN_ENTITY_FROM_AUDIT_TRAIL",
+    "definition": "The reasoning interprets a historical or audit record in an observation — such as a log of prior operations, revision history, or reflog — to recover knowledge about an entity that is no longer visible in the current state, identifying its prior existence, prior occurrence, or its source/location.",
+    "parameters": [
+      {
+        "name": "locating_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that interprets a historical or audit record to infer the existence, prior occurrence, or location of an entity absent from the current state."
+      },
+      {
+        "name": "audit_observation",
+        "type": "observation",
+        "description": "The observation containing historical or audit-trail content about prior operations or earlier states of the system."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains a historical or audit record of operations or states that preceded the current state.",
+      "The reasoning interprets that record to identify an entity that is no longer present or visible in the current state, establishing its prior existence, prior occurrence, or its source or location.",
+      "The identified entity is derived from the historical record rather than from a direct observation of current state."
+    ],
+    "exclusion_conditions": [
+      "The observation contains no historical or audit-trail record bearing on an absent entity.",
+      "The reasoning does not identify any removed, concealed, or otherwise absent entity from the record.",
+      "The reasoning uses the record only to confirm the current state of entities that are still directly observable."
+    ]
+  },
+  {
+    "name": "CHECKS_PRESERVATION_OF_UNRELATED_STATE",
+    "definition": "The reasoning articulates a non-interference constraint requiring state outside the primary objective to remain unchanged, a subsequent read-only inspection action examines that unrelated state, and the observation supplies evidence about whether that state was preserved.",
+    "parameters": [
+      {
+        "name": "preservation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning stating that state unrelated to the primary objective must remain unchanged and identifying which state is subject to that constraint."
+      },
+      {
+        "name": "preservation_check_action",
+        "type": "action",
+        "description": "The read-only inspection action that examines the unrelated state subject to the preservation constraint."
+      },
+      {
+        "name": "preservation_check_observation",
+        "type": "observation",
+        "description": "The observation reporting the inspected unrelated state, from which its preservation or alteration can be judged."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly states a constraint that state unrelated to the primary objective must remain unchanged, and identifies the specific unrelated state covered by that constraint.",
+      "The action inspects that constrained unrelated state without modifying it.",
+      "The observation reports the current content or status of that unrelated state, providing evidence of whether it was preserved."
+    ],
+    "exclusion_conditions": [
+      "No explicit constraint about preserving unrelated state is stated.",
+      "The action inspects only the primary target state rather than the unrelated state under the preservation constraint.",
+      "The observation does not report on the constrained unrelated state, so preservation cannot be judged.",
+      "The action alters the unrelated state instead of merely inspecting it."
+    ]
+  },
+  {
+    "name": "RETRIES_WITH_CORRECTED_ACTION",
+    "definition": "After an observation reports that an attempted operation failed, the reasoning identifies the specific correctable defect in that attempt and the correction to apply, and a subsequent action repeats the same underlying operation with that defect corrected rather than abandoning it or switching to a materially different approach.",
+    "parameters": [
+      {
+        "name": "failure_observation",
+        "type": "observation",
+        "description": "The observation reporting the error, rejection, or failed outcome of the prior attempt."
+      },
+      {
+        "name": "corrective_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning naming the specific defect in the prior attempt, the intended correction, and the intention to retry the operation."
+      },
+      {
+        "name": "retry_action",
+        "type": "action",
+        "description": "The action that repeats the same underlying operation with the identified defect corrected."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports an error, rejection, or failed outcome of the immediately preceding attempt.",
+      "The reasoning identifies the specific correctable defect in that attempt, rather than only noting that it failed, and indicates the operation will be retried.",
+      "The retry action repeats the same underlying operation or tool with that defect corrected.",
+      "The retry action serves the same goal as the failed attempt."
+    ],
+    "exclusion_conditions": [
+      "No prior failure is evidenced in the trajectory.",
+      "The reasoning names no identifiable defect, or merely repeats the operation without any stated correction.",
+      "The retry action repeats the identical invocation unchanged, so the named defect is not actually corrected.",
+      "The agent abandons the operation or replaces it with a materially different method instead of repeating it with corrected input."
+    ]
+  },
+  {
+    "name": "DECOMPOSES_COMPOUND_OBSERVATION",
+    "definition": "The reasoning interprets a compound observation that reports multiple distinct results by addressing each component separately and drawing an independent conclusion about each, instead of collapsing the whole result into a single undifferentiated outcome.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that interprets the compound observation component by component."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation containing multiple distinct results or outcomes, such as a success and an error."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports at least two distinct results or outcomes, such as one successful result and one error or failed command.",
+      "The reasoning explicitly addresses each distinct result with its own interpretation or conclusion.",
+      "The reasoning keeps the component conclusions separate rather than merging them into one overall verdict."
+    ],
+    "exclusion_conditions": [
+      "The observation contains only one result or outcome.",
+      "The reasoning ignores one or more components of the observation.",
+      "The reasoning treats the entire observation as a single undifferentiated result."
+    ]
+  },
+  {
+    "name": "RECOGNIZES_EXPECTED_ERROR_AS_VALIDATION",
+    "definition": "The reasoning interprets an error status or error payload reported in the observation as the intended validation behavior for invalid or unsupported input, rather than as a defect of the tested system.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that evaluates the error response as expected validation behavior."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation reporting an error status or error payload produced in response to invalid input."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports an error status or error payload produced in response to invalid or unsupported input.",
+      "The reasoning describes that error response as expected, correct, or acceptable validation behavior.",
+      "The reasoning distinguishes the error response from a defect or unexpected failure of the system."
+    ],
+    "exclusion_conditions": [
+      "The reasoning treats the error response as a failure or defect.",
+      "The observation does not contain an error response to invalid input.",
+      "The reasoning merely reports the error without evaluating it as expected or unexpected."
+    ]
+  },
+  {
+    "name": "SUMMARIZES_TEST_OUTCOMES",
+    "definition": "The reasoning aggregates the results of multiple previously executed checks into a consolidated summary that states the outcome of each referenced check or their collective outcome.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning summarizing the outcomes of multiple executed checks."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning references multiple checks or test cases that have already been executed.",
+      "The reasoning states the outcome of each referenced check, or a collective outcome over them.",
+      "The summary is based on prior executions rather than on planned or hypothetical checks."
+    ],
+    "exclusion_conditions": [
+      "The reasoning discusses only one check.",
+      "The reasoning plans future checks without summarizing outcomes of executed ones.",
+      "The reasoning reports raw observations without aggregating them into a summary."
+    ]
+  },
+  {
+    "name": "ASSESSES_RESIDUAL_RISK_WITH_MITIGATION",
+    "definition": "The reasoning identifies a residual risk that could undermine an achieved or intended outcome and argues that an existing measure mitigates that risk, concluding that the outcome remains acceptable.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that evaluates the residual risk together with its mitigation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific residual risk to the achieved or intended outcome.",
+      "The reasoning identifies an existing measure intended to address that risk.",
+      "The reasoning explains why the measure mitigates the risk and concludes that the outcome remains acceptable."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only states a risk without identifying any mitigation.",
+      "The reasoning only describes a measure without connecting it to an identified risk.",
+      "The reasoning does not reach a conclusion about the acceptability of the outcome."
+    ]
+  },
+  {
+    "name": "RECONCILES_INCOMPLETE_EVIDENCE_WITH_CORROBORATION",
+    "definition": "The reasoning acknowledges that an expected piece of evidence from the observation is missing, empty, or ambiguous, yet maintains the conclusion because other content of that same observation corroborates it.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that acknowledges the incomplete evidence while relying on corroboration."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation containing both the incomplete evidence and the corroborating evidence."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning notes that an expected piece of evidence is missing, empty, or ambiguous.",
+      "The reasoning cites other evidence from the same observation that supports the conclusion.",
+      "The reasoning concludes that the underlying claim still holds despite the incomplete evidence."
+    ],
+    "exclusion_conditions": [
+      "The reasoning treats the missing or ambiguous evidence as an unresolved failure.",
+      "The reasoning ignores the incomplete evidence.",
+      "No corroborating evidence is identified, or the corroboration comes from an unrelated source."
+    ]
+  }
+]

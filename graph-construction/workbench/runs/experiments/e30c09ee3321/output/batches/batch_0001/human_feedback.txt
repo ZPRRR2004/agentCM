@@ -1,0 +1,1 @@
+Merge predicates with overlapping semantic meanings into more general, reusable definitions. Preserve only meaningful logical distinctions.

@@ -1,0 +1,11 @@
+{
+  "window_count": 39,
+  "trajectory_count": 20,
+  "core_events": 316,
+  "min_events": 1,
+  "max_events": 10,
+  "mean_events": 8.1,
+  "max_core_tokens": 27905,
+  "max_context_tokens": 27905,
+  "output_hash": "a34a71a1e30aa84ba8a2f4b211320ea614d7e3d48ecbf902cf9edd0b90b19d34"
+}

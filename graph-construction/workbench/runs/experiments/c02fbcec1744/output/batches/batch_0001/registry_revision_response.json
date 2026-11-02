@@ -1,0 +1,139 @@
+{
+  "stage": "registry_revision",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-30T03:22:41.810139+00:00",
+  "duration_seconds": 8.359,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-30T03:22:33.445991+00:00",
+      "duration_seconds": 8.359,
+      "raw_response": {
+        "id": "e055da31-1ebe-49a4-8982-98768bf6f3b2",
+        "object": "chat.completion",
+        "created": 1793330558,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"revisions\": [\n {\"original_name\": \"USES_OBSERVATION_AS_INPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_REASONING_AS_INPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_ACTION_CHOICE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_CONCLUSION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_OBSERVED_DEFECT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IS_PLAN\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_PLANNED_STEP\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVISIONS_OBSERVED_MISSING_COMPONENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_REASONING_AS_CRITERION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CLEANS_UP_TEST_ARTIFACTS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXPLAINS_UNINFORMATIVE_OBSERVATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFIES_REQUESTED_END_TO_END_FLOW\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_REASONING_AS_AUDIT_CHECKLIST\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVISIONS_SERVICE_AUTORECOVERY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROBES_SUSPECTED_ANOMALY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ENCODES_CHECK_AS_SCRIPT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFIES_WRITTEN_CONTENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"AUDITS_INPUT_INTEGRITY\", \"operation\": \"KEEP\"}\n]}",
+              "reasoning_content": "The feedback says: retain the current predicate registry and all definitions without deletion, merging, or revision. So every predicate gets KEEP.\n\nThere are 21 predicates. Let me list them:\n1. USES_OBSERVATION_AS_INPUT\n2. USES_REASONING_AS_INPUT\n3. GUIDES_ACTION_CHOICE\n4. ATTEMPTS_REPAIR\n5. CONFIRMS_REPAIR\n6. DERIVES_CONCLUSION\n7. DIAGNOSES_OBSERVED_DEFECT\n8. IS_PLAN\n9. EXECUTES_PLANNED_STEP\n10. PROVISIONS_OBSERVED_MISSING_COMPONENT\n11. USES_REASONING_AS_CRITERION\n12. DIAGNOSES_FAILURE\n13. CLEANS_UP_TEST_ARTIFACTS\n14. EXPLAINS_UNINFORMATIVE_OBSERVATION\n15. VERIFIES_REQUESTED_END_TO_END_FLOW\n16. USES_REASONING_AS_AUDIT_CHECKLIST\n17. PROVISIONS_SERVICE_AUTORECOVERY\n18. PROBES_SUSPECTED_ANOMALY\n19. ENCODES_CHECK_AS_SCRIPT\n20. VERIFIES_WRITTEN_CONTENT\n21. AUDITS_INPUT_INTEGRITY\n\nAll KEEP."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 9284,
+          "completion_tokens": 769,
+          "total_tokens": 10053,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 295
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 9284
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"revisions\": [\n {\"original_name\": \"USES_OBSERVATION_AS_INPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_REASONING_AS_INPUT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_ACTION_CHOICE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_CONCLUSION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_OBSERVED_DEFECT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IS_PLAN\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_PLANNED_STEP\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVISIONS_OBSERVED_MISSING_COMPONENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_REASONING_AS_CRITERION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CLEANS_UP_TEST_ARTIFACTS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXPLAINS_UNINFORMATIVE_OBSERVATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFIES_REQUESTED_END_TO_END_FLOW\", \"operation\": \"KEEP\"},\n {\"original_name\": \"USES_REASONING_AS_AUDIT_CHECKLIST\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVISIONS_SERVICE_AUTORECOVERY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROBES_SUSPECTED_ANOMALY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ENCODES_CHECK_AS_SCRIPT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFIES_WRITTEN_CONTENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"AUDITS_INPUT_INTEGRITY\", \"operation\": \"KEEP\"}\n]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "revisions": [
+      {
+        "original_name": "USES_OBSERVATION_AS_INPUT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "USES_REASONING_AS_INPUT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "GUIDES_ACTION_CHOICE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ATTEMPTS_REPAIR",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIRMS_REPAIR",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DERIVES_CONCLUSION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DIAGNOSES_OBSERVED_DEFECT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "IS_PLAN",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "EXECUTES_PLANNED_STEP",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PROVISIONS_OBSERVED_MISSING_COMPONENT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "USES_REASONING_AS_CRITERION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DIAGNOSES_FAILURE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CLEANS_UP_TEST_ARTIFACTS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "EXPLAINS_UNINFORMATIVE_OBSERVATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "VERIFIES_REQUESTED_END_TO_END_FLOW",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "USES_REASONING_AS_AUDIT_CHECKLIST",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PROVISIONS_SERVICE_AUTORECOVERY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PROBES_SUSPECTED_ANOMALY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ENCODES_CHECK_AS_SCRIPT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "VERIFIES_WRITTEN_CONTENT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "AUDITS_INPUT_INTEGRITY",
+        "operation": "KEEP"
+      }
+    ]
+  },
+  "previous_calls": []
+}

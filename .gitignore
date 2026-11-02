@@ -14,19 +14,26 @@ reproductions/**/_checkpoints/
 reproductions/**/.venv/
 reproductions/**/wandb/
 
+# Generated outputs and build artifacts
+**/runs/
+!graph-construction/workbench/runs/
+!graph-construction/workbench/runs/**
+**/build/
+
 # Secrets and environment configuration
 **/.env
 **/.env.*
+/graph-construction/workbench/runs/**/settings.json*
+
+# Local workbench process lock
+/graph-construction/workbench/runs/.server.lock
+
 
 # Python-generated files
 **/__pycache__/
 **/*.py[cod]
 **/.pytest_cache/
 **/*.egg-info/
-
-# Generated outputs and build artifacts
-**/runs/
-**/build/
 
 # OS metadata
 .DS_Store

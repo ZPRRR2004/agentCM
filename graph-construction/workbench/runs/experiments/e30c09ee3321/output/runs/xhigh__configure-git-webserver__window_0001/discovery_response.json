@@ -1,0 +1,187 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__configure-git-webserver__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T05:48:35.686711+00:00",
+  "duration_seconds": 30.0,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T05:48:05.686043+00:00",
+      "duration_seconds": 30.0,
+      "raw_response": {
+        "id": "09f4c03b-fd7b-4072-b080-07bb7e114b17",
+        "object": "chat.completion",
+        "created": 1793425691,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning expresses an intended future course of action, stating operations or an ordered sequence of steps the agent intends to perform rather than reporting completed work.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that expresses an intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly names at least one action the agent intends to perform later.\", \"The stated actions are prospective (future-oriented), not a report of already executed operations.\"], \"exclusion_conditions\": [\"The reasoning only summarizes or interprets results of actions already performed.\", \"The reasoning only describes the environment or the task without expressing an intended action.\"]}, {\"name\": \"ENUMERATES_REQUIRED_COMPONENTS\", \"definition\": \"The reasoning identifies the set of components, accounts, permissions, or artifacts that must exist for an externally stated end-to-end goal to succeed, thereby turning a goal description into concrete configuration obligations.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text listing what must be set up for the goal to be satisfiable.\"}], \"assertion_conditions\": [\"The reasoning lists multiple distinct configuration elements (e.g., an account, a repository, a deployment mechanism, a serving process) required by the stated goal.\", \"Each listed element is justified by the goal's expected usage rather than being an arbitrary procedure.\"], \"exclusion_conditions\": [\"The reasoning only restates the goal without identifying configuration obligations.\", \"The reasoning describes an ordered execution plan without identifying what must exist.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion about the state or capability of the environment using identifiable content of an observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion about the environment or situation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence on which the conclusion rests.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion about the situation (e.g., what is present, absent, or available).\", \"The conclusion is traceable to specific content reported in the observation.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or reformats the observation without drawing a conclusion.\", \"The observation provides no identifiable content supporting the stated conclusion.\"]}, {\"name\": \"IMPLEMENTS_PLANNED_STEP\", \"definition\": \"The action carries out a concrete step that the reasoning has explicitly identified as part of the intended procedure, so the action is the observable execution of a previously stated intention.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The recorded tool invocation that performs the step.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that states the intended step which the action executes.\"}], \"assertion_conditions\": [\"The reasoning names the operation or artifact that the action then operates on.\", \"The action's content matches the intended step in purpose, not merely in topic.\"], \"exclusion_conditions\": [\"The action explores the environment without a corresponding previously stated intention.\", \"The reasoning mentions the operation only after the action's result is known.\"]}, {\"name\": \"ANTICIPATES_PROCEDURAL_PITFALL\", \"definition\": \"The reasoning predicts a specific failure mode that would arise from a default or naive procedure and derives a preventive configuration measure from that prediction.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that predicts the failure mode and states the preventive measure.\"}], \"assertion_conditions\": [\"The reasoning describes a concrete way the default or planned procedure could fail or produce an unusable outcome.\", \"The reasoning states a preventive or corrective measure addressing that predicted failure.\"], \"exclusion_conditions\": [\"The reasoning observes a failure that has already occurred rather than predicting one.\", \"The reasoning lists general best practices without linking them to an identified failure mode.\"]}, {\"name\": \"VALIDATES_BEFORE_ACTIVATION\", \"definition\": \"An action applies a configuration to a service only through an explicit validity check of that configuration within the same invocation, and the resulting observation reports both the successful check and the activated service.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation that performs the configuration validity check and then activates the service.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the validation outcome and the activation state of the service.\"}], \"assertion_conditions\": [\"The action includes an explicit validation of the configuration prior to starting or applying it.\", \"Activation is conditioned on that validation succeeding within the same invocation.\", \"The observation reports the validation as successful and shows the service running or applied.\"], \"exclusion_conditions\": [\"The service is started without any preceding configuration validation.\", \"Validation is performed but activation does not follow.\", \"The observation shows a validation failure or no evidence of the service being active.\"]}]}",
+              "reasoning_content": "We need to discover predicates from the given context window. Let's analyze the nodes.\n\nCore nodes: reasoning + actions + observations across 10 events.\n\nKey mechanisms observable:\n\n1. Reasoning plans future actions (IS_PLAN) — event-0001, 0003, 0005, 0007 reasoning.\n\n2. Reasoning interprets observation to diagnose environment state (e.g., event-0002 observation shows minimal container, event-0003 reasoning concludes no git/sshd/nginx installed and apt available). Evidential support: GROUNDS_CONCLUSION_IN_OBSERVATION.\n\n3. Reasoning anticipating hidden test / failure mode — hypothesizing pitfalls (locked account, empty repo clone breaking `git commit`). Maybe a predicate: ANTICIPATES_FAILURE_MODE / or \"reasoning identifies a risk in an intended procedure\". Could be binary between reasoning and a planned/attempted action? Hmm.\n\n4. Action verifies configuration before activation (nginx -t then nginx) — check-before-commit mechanism. Ternary? Actually the action itself both validates and starts. But the observation shows \"syntax is ok ... test successful\" then services started. Could define VERIFIES_BEFORE_ACTIVATING? That may be too operation-specific. But \"guarded activation\" is a reusable mechanism: an action validates a configuration and only then applies/activates it. Observation shows validation success then activation.\n\n5. Reasoning derives setup requirements from the user's stated command sequence — requirement derivation. Binary: reasoning derives requirements from the query? Query is not a node. Hmm, the user query is text, not a node. So skip.\n\n6. Reasoning decides among alternatives (nginx vs python http.server; user@server implies SSH not git://) — decision predicate: DECIDES_AMONG_ALTERNATIVES or SELECTS_APPROACH_WITH_RATIONALE.\n\n7. Idempotent/robust configuration — hook designed to handle branch deletions and non-branch refs. That's content in the written artifact, maybe reasoning about robustness.\n\n8. Cleaning up state after verification to avoid interfering with the test (event-0007 reasoning about cleanup; future summary). Cleanup-before-completion: reasoning plans to restore pristine state. Could be a predicate on reasoning: PLANS_STATE_RESTORATION.\n\nLet's choose a set of distinct, well-supported predicates:\n\n- IS_PLAN (unary reasoning): expresses intended future actions.\n- DERIVES_REQUIREMENTS (maybe unary reasoning listing required components from stated goal).\n- DIAGNOSES_ENVIRONMENT_STATE? Unary on reasoning: interprets observed evidence to characterize environment/deficiency.\n\nBinary:\n- GROUNDS_CONCLUSION_IN_OBSERVATION (reasoning, observation): conclusion supported by observed evidence.\n- MOTIVATES_INVESTIGATION? Hmm. Reasoning drives action: \"ACTION_IMPLEMENTS_PLAN_GOAL\" (reasoning, action): the action carries out a step explicitly planned in the reasoning. That's a good mechanism distinct from evidential support.\n- VERIFIES_CONFIG_BEFORE_ACTIVATION (action, observation) — actually it's within one action... The action's command includes nginx -t && nginx. And the observation reports both validation success and resulting service processes. So define ternary-ish: a \"guarded activation\" predicate with action + observation? Actually better: binary predicate CONFIRMS_CONFIG_VALIDITY_BEFORE_ACTIVATION between observation and action? Since structural edge is returns, we shouldn't rediscover call-result. But a predicate linking an action's observation with a subsequent action is fine — there's no subsequent action though; the validation and activation are in the same action.\n\nMaybe define: unary predicate on action: GUARDED_ACTIVATION — the action validates configuration integrity before launching the service, so activation depends on validation success. And observation confirms both. Could be binary: (action, observation) where observation reports validation success preceding activation in same invocation. Hmm, risky since it's structural. But the semantic content — validation gate — is real.\n\nAlternatively define ternary: PRECONDITION_GATED_ACTIVATION(action, observation_validation)... eh.\n\nLet me settle on a clean, defensible set:\n\n1. IS_PLAN (reasoning) — unary.\n2. SPECIFIES_SETUP_REQUIREMENTS (reasoning) — reasoning enumerates the concrete configuration components needed to satisfy a stated goal. Hmm this could overlap with plan. Distinguish: requirements enumeration (what must exist) vs plan (ordered actions). event-0001 and 0003 enumerate requirements.\n3. GROUNDS_CONCLUSION_IN_OBSERVATION (reasoning, observation) — binary.\n4. REALIZES_PLANNED_STEP (action, reasoning) — the action executes an action step identified in the reasoning; reasoning motivates it. Name: IMPLEMENTS_PLANNED_STEP.\n5. ANTICIPATES_FAILURE_MODE (reasoning, reasoning?) Hmm — reasoning identifying a risk in a candidate procedure and adjusting. Could be unary: IDENTIFIES_RISK_OF_PROCEDURE — reasoning predicts a concrete failure mode that would arise from a planned or default procedure and adjusts the design. That's supported: locked account PAM pitfall, empty-repo commit failure, restart persistence.\n   Distinguish from plan: it's predicting adverse outcome, not intended action. Good unary: ANTICIPATES_PROCEDURAL_PITFALL.\n6. VERIFIES_CONFIGURATION_BEFORE_STARTING service: unary on action? Let's define binary: GATED_ACTIVATION(action, observation) where the observation reports a validation check succeeding and then the resource being started. Conditions: the action includes both an explicit validation of configuration and then activation; observation shows the validation message (\"test is successful\") and the running processes. Exclusion: activation without validation, or validation without activation.\n   Name: VALIDATES_BEFORE_ACTIVATING.\n7. CLEANS_UP_ARTIFACTS_TO_RESTORE_PRISTINE_STATE — reasoning planning to remove test residue; also action removing default index page (event-0008: rm index.nginx-debian.html). Could be binary: REMOVES_RESIDUE(reasoning, action)? Or unary on reasoning: PLANS_STATE_RESTORATION. And an action predicate: REMOVES_PREEXISTING_ARTIFACT? Hmm.\n\nLet me define binary: PREPARES_CLEAN_INITIAL_STATE(action, reasoning)? Eh, better: PRECEDES_VERIFICATION... complicated.\n\nSimplify: unary reasoning predicate PRESERVES_OPERABILITY_OF_TARGET_ENVIRONMENT? Too vague.\n\nAlternative: binary predicate \"ANTICIPATES_CLEANUP_NEED\" — reasoning identifies that artifacts created during setup/verification must be removed so the target flow works as specified; combined with an action performing that removal. Ternary: (reasoning, action) binary: action implements cleanup identified in reasoning. That's basically IMPLEMENTS_PLANNED_STEP again.\n\nMaybe better to have a ternary hypothesis-testing-ish one, but not much probing in this window (temporary key test is planned but not executed in this window).\n\nLet's also consider: reasoning after observation re-plans (event-0002 → 0003). \n\nI'll produce a set of 6 predicates:\n\n1. IS_PLAN — unary reasoning.\n2. ENUMERATES_REQUIRED_COMPONENTS — unary reasoning: identifies the set of components/permissions that must exist for the stated end-to-end goal. Distinguish from plan (ordered actions) - here it's what must be configured, with correctness requirements.\n3. GROUNDS_CONCLUSION_IN_OBSERVATION — binary (reasoning, observation).\n4. IMPLEMENTS_PLANNED_STEP — binary (action, reasoning): the action carries out a planned step; the reasoning explicitly names the operation the action performs.\n5. ANTICIPATES_PROCEDURAL_PITFALL — unary reasoning: predicts a specific failure of a default/naive procedure and derives a preventive measure.\n6. VALIDATES_CONFIGURATION_BEFORE_ACTIVATION — binary (action, observation)? Hmm parameter ordering: action first, observation second. Actually maybe better linked to reasoning too, but keep binary.\n\nHmm, is #6 too operation-specific (nginx -t)? Generalize: \"An action applies a configuration change to a service only after running an explicit validation of that configuration within the same invocation, and the resulting observation reports the validation outcome followed by the service being active.\" Reusable across domains (linting before deploy, schema check before migration). OK.\n\n7. Optionally: PRESERVES_SPECIFIED_DEFAULT (reasoning) — reasoning ensures default branch name matches the user's command (master). That could fold into anticipation? It's a distinct mechanism: aligning configuration defaults with the externally specified command/protocol. Hmm, \"CONFORMS_CONFIGURATION_TO_SPECIFIED_INTERFACE\". Maybe too fine.\n\nAnother distinct: reasoning disambiguates an ambiguous spec via protocol-level inference (user@server:@ ⇒ SSH not git://). This is \"infers the required transport/protocol from the given command syntax.\" Could be a predicate: INFERS_CONSTRAINT_FROM_REQUEST_SYNTAX. But user query is not a node, so the reasoning must be the only parameter → unary reasoning about interpreting requirement. We could generalize to: reasoning resolves an ambiguity in the task specification by choosing the interpretation implied by the literal interface form. Hmm, plausible but vague.\n\nLet's include maybe 6. Perhaps add a binary about reasoning-driven design of a deployed artifact that handles variation? Skip.\n\nLet me finalize with 6 predicates, careful conditions.\n\nAlso consider an important binary: \"reasoning's chosen design constrains the written config artifact\" — the write action at event-0007/0009 implements the design described in reasoning. That's IMPLEMENTS_PLANNED_STEP covering write actions.\n\nAlso possible: DIAGNOSES_MISSING_CAPABILITY — unary reasoning: based on null results, the reasoning concludes required capabilities are absent and must be installed. This overlaps with GROUNDS_CONCLUSION_IN_OBSERVATION but is the \"absent tool → install needed\" conclusion. Keep as part of #3? Distinct enough? I'd keep #3 general and not add.\n\nWrite JSON now.\n\nFor VALIDATES_CONFIGURATION_BEFORE_ACTIVATION, parameters: action, observation. Assertion conditions: the action's recorded command performs an explicit configuration validity check and, conditional on success, launches/enables the service; the observation reports the validation as successful and the service running. Exclusion: launching service without a validity check; check performed but service not activated; observation shows validation failure.\n\nAlso could be ternary with reasoning that states intention to validate. In event-0010, reasoning says \"Validate nginx config, start nginx and sshd\". So a ternary: (action, observation, reasoning) — reasoning states intention to validate before starting, action does both, observation confirms. That's richer. But ternary may be over-constrained; keep binary? The instruction says use ternary when jointly needed. I'll keep binary for simplicity and note reasoning optional. Hmm, but then it's kind of \"action + its own result\" which is structural-adjacent. Structural edges connect action→observation; the predicate would be rediscovering semantics beyond call-result: the gating. I think it's fine but maybe safer to make it a unary on action plus... eh.\n\nAlternative: define unary on action: GUARDED_ACTIVATION — \"the action performs activation of a service/configuration only through a validation gate expressed in the same invocation\". Then conditions refer to the command content; the observation is not needed. That avoids structural redundancy. But evidence-wise the observation confirms success. I'll allow binary with observation as optional confirmation? Parameters must be defined; binary is fine.\n\nI'll write it binary (action, observation) with clear semantic that the observation reports validation result and activation outcome — the predicate requires both.\n\nHmm, but considering \"Structural call-result relationships are already provided and must not be rediscovered as semantic predicates\" — that's about e.g. INVOKES / RETURNS_RESULT predicates. Semantic gating is fine.\n\nLet's write out.\n\nAlso add one more distinct binary? Perhaps \"PLAN_ADJUSTED_AFTER_OBSERVATION\"? Risk of duplicating grounding. Skip.\n\nFinal list: 6 predicates.\n\nNames:\n- IS_PLAN\n- ENUMERATES_REQUIRED_COMPONENTS\n- GROUNDS_CONCLUSION_IN_OBSERVATION\n- IMPLEMENTS_PLANNED_STEP\n- ANTICIPATES_PROCEDURAL_PITFALL\n- VALIDATES_BEFORE_ACTIVATION\n\nWrite definitions carefully in English, with parameters descriptions."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 22073,
+          "completion_tokens": 3829,
+          "total_tokens": 25902,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2711
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 20153
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning expresses an intended future course of action, stating operations or an ordered sequence of steps the agent intends to perform rather than reporting completed work.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that expresses an intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly names at least one action the agent intends to perform later.\", \"The stated actions are prospective (future-oriented), not a report of already executed operations.\"], \"exclusion_conditions\": [\"The reasoning only summarizes or interprets results of actions already performed.\", \"The reasoning only describes the environment or the task without expressing an intended action.\"]}, {\"name\": \"ENUMERATES_REQUIRED_COMPONENTS\", \"definition\": \"The reasoning identifies the set of components, accounts, permissions, or artifacts that must exist for an externally stated end-to-end goal to succeed, thereby turning a goal description into concrete configuration obligations.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text listing what must be set up for the goal to be satisfiable.\"}], \"assertion_conditions\": [\"The reasoning lists multiple distinct configuration elements (e.g., an account, a repository, a deployment mechanism, a serving process) required by the stated goal.\", \"Each listed element is justified by the goal's expected usage rather than being an arbitrary procedure.\"], \"exclusion_conditions\": [\"The reasoning only restates the goal without identifying configuration obligations.\", \"The reasoning describes an ordered execution plan without identifying what must exist.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion about the state or capability of the environment using identifiable content of an observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion about the environment or situation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence on which the conclusion rests.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion about the situation (e.g., what is present, absent, or available).\", \"The conclusion is traceable to specific content reported in the observation.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or reformats the observation without drawing a conclusion.\", \"The observation provides no identifiable content supporting the stated conclusion.\"]}, {\"name\": \"IMPLEMENTS_PLANNED_STEP\", \"definition\": \"The action carries out a concrete step that the reasoning has explicitly identified as part of the intended procedure, so the action is the observable execution of a previously stated intention.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The recorded tool invocation that performs the step.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that states the intended step which the action executes.\"}], \"assertion_conditions\": [\"The reasoning names the operation or artifact that the action then operates on.\", \"The action's content matches the intended step in purpose, not merely in topic.\"], \"exclusion_conditions\": [\"The action explores the environment without a corresponding previously stated intention.\", \"The reasoning mentions the operation only after the action's result is known.\"]}, {\"name\": \"ANTICIPATES_PROCEDURAL_PITFALL\", \"definition\": \"The reasoning predicts a specific failure mode that would arise from a default or naive procedure and derives a preventive configuration measure from that prediction.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that predicts the failure mode and states the preventive measure.\"}], \"assertion_conditions\": [\"The reasoning describes a concrete way the default or planned procedure could fail or produce an unusable outcome.\", \"The reasoning states a preventive or corrective measure addressing that predicted failure.\"], \"exclusion_conditions\": [\"The reasoning observes a failure that has already occurred rather than predicting one.\", \"The reasoning lists general best practices without linking them to an identified failure mode.\"]}, {\"name\": \"VALIDATES_BEFORE_ACTIVATION\", \"definition\": \"An action applies a configuration to a service only through an explicit validity check of that configuration within the same invocation, and the resulting observation reports both the successful check and the activated service.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The tool invocation that performs the configuration validity check and then activates the service.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the validation outcome and the activation state of the service.\"}], \"assertion_conditions\": [\"The action includes an explicit validation of the configuration prior to starting or applying it.\", \"Activation is conditioned on that validation succeeding within the same invocation.\", \"The observation reports the validation as successful and shows the service running or applied.\"], \"exclusion_conditions\": [\"The service is started without any preceding configuration validation.\", \"Validation is performed but activation does not follow.\", \"The observation shows a validation failure or no evidence of the service being active.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning expresses an intended future course of action, stating operations or an ordered sequence of steps the agent intends to perform rather than reporting completed work.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that expresses an intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly names at least one action the agent intends to perform later.",
+          "The stated actions are prospective (future-oriented), not a report of already executed operations."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only summarizes or interprets results of actions already performed.",
+          "The reasoning only describes the environment or the task without expressing an intended action."
+        ]
+      },
+      {
+        "name": "ENUMERATES_REQUIRED_COMPONENTS",
+        "definition": "The reasoning identifies the set of components, accounts, permissions, or artifacts that must exist for an externally stated end-to-end goal to succeed, thereby turning a goal description into concrete configuration obligations.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text listing what must be set up for the goal to be satisfiable."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning lists multiple distinct configuration elements (e.g., an account, a repository, a deployment mechanism, a serving process) required by the stated goal.",
+          "Each listed element is justified by the goal's expected usage rather than being an arbitrary procedure."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only restates the goal without identifying configuration obligations.",
+          "The reasoning describes an ordered execution plan without identifying what must exist."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion about the state or capability of the environment using identifiable content of an observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the evidence-based conclusion about the environment or situation."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the evidence on which the conclusion rests."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion about the situation (e.g., what is present, absent, or available).",
+          "The conclusion is traceable to specific content reported in the observation."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or reformats the observation without drawing a conclusion.",
+          "The observation provides no identifiable content supporting the stated conclusion."
+        ]
+      },
+      {
+        "name": "IMPLEMENTS_PLANNED_STEP",
+        "definition": "The action carries out a concrete step that the reasoning has explicitly identified as part of the intended procedure, so the action is the observable execution of a previously stated intention.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The recorded tool invocation that performs the step."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that states the intended step which the action executes."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names the operation or artifact that the action then operates on.",
+          "The action's content matches the intended step in purpose, not merely in topic."
+        ],
+        "exclusion_conditions": [
+          "The action explores the environment without a corresponding previously stated intention.",
+          "The reasoning mentions the operation only after the action's result is known."
+        ]
+      },
+      {
+        "name": "ANTICIPATES_PROCEDURAL_PITFALL",
+        "definition": "The reasoning predicts a specific failure mode that would arise from a default or naive procedure and derives a preventive configuration measure from that prediction.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that predicts the failure mode and states the preventive measure."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning describes a concrete way the default or planned procedure could fail or produce an unusable outcome.",
+          "The reasoning states a preventive or corrective measure addressing that predicted failure."
+        ],
+        "exclusion_conditions": [
+          "The reasoning observes a failure that has already occurred rather than predicting one.",
+          "The reasoning lists general best practices without linking them to an identified failure mode."
+        ]
+      },
+      {
+        "name": "VALIDATES_BEFORE_ACTIVATION",
+        "definition": "An action applies a configuration to a service only through an explicit validity check of that configuration within the same invocation, and the resulting observation reports both the successful check and the activated service.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that performs the configuration validity check and then activates the service."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting the validation outcome and the activation state of the service."
+          }
+        ],
+        "assertion_conditions": [
+          "The action includes an explicit validation of the configuration prior to starting or applying it.",
+          "Activation is conditioned on that validation succeeding within the same invocation.",
+          "The observation reports the validation as successful and shows the service running or applied."
+        ],
+        "exclusion_conditions": [
+          "The service is started without any preceding configuration validation.",
+          "Validation is performed but activation does not follow.",
+          "The observation shows a validation failure or no evidence of the service being active."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

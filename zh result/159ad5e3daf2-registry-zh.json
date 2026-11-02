@@ -1,0 +1,1348 @@
+[
+  {
+    "name": "IS_PLAN",
+    "definition": "该推理明确表达了智能体接下来打算执行的未来动作或动作序列。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "表达预期未来动作或动作序列的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出至少一个随后要执行的动作，例如检查文件、写入内容、编译或验证输出。",
+      "该动作被表述为未来意图，而非已经完成的事项。"
+    ],
+    "exclusion_conditions": [
+      "推理仅报告或总结已经完成的动作。",
+      "推理仅复述文件内容或工具输出，没有表达下一步行动意图。"
+    ]
+  },
+  {
+    "name": "DIAGNOSES_OBSERVED_FAILURE",
+    "definition": "该推理解释观察结果所报告故障的原因，并据此推导出纠正方案。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "解释所观察故障为何发生及应作何改变的智能体文本。"
+      },
+      {
+        "name": "failure",
+        "type": "observation",
+        "description": "报告待解释故障的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果表明所调用的操作未成功。",
+      "推理指出故障的具体原因，并基于该原因提出纠正方案或变更。"
+    ],
+    "exclusion_conditions": [
+      "推理仅指出发生了故障，没有给出因果解释。",
+      "推理解释的是无关问题，或没有提出纠正方向。"
+    ]
+  },
+  {
+    "name": "GUIDES_ACTION",
+    "definition": "动作所选工具、操作目标或参数值落实了推理中明确陈述的意图、诊断或修正方案。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "陈述计划、诊断或修正方案的智能体文本。"
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "通过工具、目标或参数执行所述方案的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指定要执行的操作或修正，动作以匹配的目标或参数执行相同操作。",
+      "所描述步骤与实际执行的参数、命令、路径或内容之间存在可追溯的对应关系。"
+    ],
+    "exclusion_conditions": [
+      "动作与描述的步骤无关，或其目标、方案与之偏离。",
+      "推理仅报告先前结果，而动作只是在时间上与之相邻。"
+    ]
+  },
+  {
+    "name": "USES_OBSERVATION_AS_INPUT",
+    "definition": "动作将先前观察结果提供的可识别数值或数据载荷用作操作输入。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "接收输入的动作。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "提供输入值或数据载荷的先前观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作的参数、文件内容、路径或标识符可以追溯到观察结果中的内容。",
+      "观察结果在执行轨迹中先于该动作出现。"
+    ],
+    "exclusion_conditions": [
+      "观察结果仅指导动作选择，没有提供操作输入值。",
+      "节点仅在时间上相邻或主题相关，没有可追溯的数值传递。"
+    ]
+  },
+  {
+    "name": "ATTEMPTS_REPAIR",
+    "definition": "在观察结果报告先前尝试失败或结果不可用后，动作保留原目标并进行纠正性重试：修改被认定有问题的部分，或改用其他路径、工具或方法，而非原样重复先前尝试。",
+    "parameters": [
+      {
+        "name": "repair",
+        "type": "action",
+        "description": "执行纠正性重试的动作。"
+      },
+      {
+        "name": "failure",
+        "type": "observation",
+        "description": "报告先前失败或结果不可用的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "故障观察结果先于修复动作，表明先前尝试因错误、被拒绝响应或不可用输出而未成功或未得到预期结果。",
+      "动作维持原目标，同时修改失败要素，例如参数形式、路径、范围设置、执行身份或源内容；或者替换失败的路径、工具或端点。",
+      "变更由已报告的故障触发，属于相应的纠正措施。"
+    ],
+    "exclusion_conditions": [
+      "动作原样重复了先前不充分的调用。",
+      "动作追求与已报告结果无关的另一目标。",
+      "动作之前没有报告故障或不可用结果，该动作只是常规的下一步骤。",
+      "此谓词不要求确认故障已解决；确认修复属于另一机制。"
+    ]
+  },
+  {
+    "name": "CONFIRMS_REPAIR",
+    "definition": "修复动作针对已观察到的故障采取措施，后续执行结果确认原始故障已经解决。",
+    "parameters": [
+      {
+        "name": "repair",
+        "type": "action",
+        "description": "尝试修复故障的动作。"
+      },
+      {
+        "name": "failure",
+        "type": "observation",
+        "description": "报告故障的先前观察结果。"
+      },
+      {
+        "name": "check_result",
+        "type": "observation",
+        "description": "证明原始故障不再出现的后续观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "故障发生在修复之前，修复动作改变了出错的部分。",
+      "后续结果显示目标操作或内容已成功生成、加载或以其他方式完成，且原始错误未再次出现。"
+    ],
+    "exclusion_conditions": [
+      "仅尝试修复，没有任何后续结果。",
+      "后续输出再次出现原始错误，或未能证明问题已经解决。"
+    ]
+  },
+  {
+    "name": "REPORTS_FAILURE",
+    "definition": "该观察结果表明所调用的操作未成功。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "用于判断操作是否失败的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果包含错误标记、非成功退出状态，或明确错误消息，例如文件缺失或模块无法加载。"
+    ],
+    "exclusion_conditions": [
+      "观察结果报告操作成功完成，或仅包含没有任何错误标记的普通数据输出。"
+    ]
+  },
+  {
+    "name": "REPORTS_SUCCESS",
+    "definition": "该观察结果表明所调用的操作成功完成。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "用于判断操作是否成功的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果包含明确成功消息、无错误标记的正常完成状态，或预期生成产物的列表。"
+    ],
+    "exclusion_conditions": [
+      "观察结果报告错误或非成功退出状态。",
+      "输出仅为部分进度信息或含义不明确的进度消息。"
+    ]
+  },
+  {
+    "name": "IS_COMPLETION_CONCLUSION",
+    "definition": "该推理宣称整体目标已经实现，并引用支持这一结论的验证证据。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "宣称任务已完成的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出所请求的目标已经达成。",
+      "推理引用先前获得的具体证据，例如已生成的产物或已验证的输出。"
+    ],
+    "exclusion_conditions": [
+      "推理描述计划或中间步骤，而工作仍未完成。",
+      "推理仅报告观察结果，没有得出目标已完成的结论。"
+    ]
+  },
+  {
+    "name": "IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY",
+    "definition": "推理将环境探测结果解释为任务所需软件缺失，并认为获取该软件是继续完成预期配置的先决条件。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "诊断环境并指出缺失能力的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "显示哪些必需工具或服务缺失的探测结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果报告环境探测信息，例如可用二进制程序、软件包或运行进程，并显示一个或多个任务所需的工具或服务不可用。",
+      "推理明确将该缺失与任务联系起来，并指出必须补齐缺失软件才能继续预期工作。"
+    ],
+    "exclusion_conditions": [
+      "观察结果只是列举已安装软件或环境信息，没有揭示缺失的任务必需项。",
+      "推理仅重述任务或罗列动作，没有将观察到的缺失与需要补齐的先决条件关联起来。",
+      "推理解释的是操作失败，而非缺失的先决条件。"
+    ]
+  },
+  {
+    "name": "ADAPTS_TO_ABSENT_SERVICE_MANAGER",
+    "definition": "推理根据进程或运行时观察结果判断不存在常规服务管理器或初始化系统，因而采用直接或手动管理服务的方式，替代通常的管理机制。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "判断初始化系统或服务管理器缺失并调整启动策略的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "表明环境缺少常规服务管理器的进程或运行时列表。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果展示进程或运行时状态，表明环境未由常规初始化系统或服务管理器控制。",
+      "推理明确认定无法通过缺失的管理机制管理服务，并选择直接启动守护进程、手动监督或等效的非初始化系统策略。"
+    ],
+    "exclusion_conditions": [
+      "观察结果没有提供与服务管理方式有关的进程或运行时状态。",
+      "推理仅计划启动服务，没有指出管理机制缺失。",
+      "服务管理器实际存在，且推理采用常规方式使用它。"
+    ]
+  },
+  {
+    "name": "PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION",
+    "definition": "动作配置服务账户，使其具备可用的登录环境、不会阻止认证的账户状态，以及适当的密钥访问所有权和权限，从而支持免密码远程登录并允许账户拥有服务数据。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "创建账户并调整认证状态的命令或脚本。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作创建或选取具有可用登录 Shell 和主目录的账户。",
+      "动作将账户的认证状态设为不会锁定密钥登录的形式，以免公钥认证被拒绝。",
+      "动作创建归用户所有、权限严格受限的 .ssh 目录，以及准备接收公钥的 authorized_keys 文件。"
+    ],
+    "exclusion_conditions": [
+      "动作创建账户，但仍将其锁定或使其无法接受密钥登录。",
+      "动作仅调整无关的账户属性，没有准备基于密钥的远程访问。"
+    ]
+  },
+  {
+    "name": "INITIALIZES_BARE_REPOSITORY",
+    "definition": "动作在预定服务位置建立用于接收推送的裸仓库，将默认分支引用指向客户端预期推送的分支，并设置所有权以允许服务账户接收推送。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "仓库初始化、分支引用和所有权配置命令。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作在预定服务路径创建裸仓库。",
+      "动作将 HEAD 或等效符号引用设置为指定的默认分支。",
+      "动作将仓库所有权或等效写入权限授予服务账户。"
+    ],
+    "exclusion_conditions": [
+      "动作初始化的是带工作区的普通仓库，而非接收推送的裸仓库。",
+      "仓库没有设置预期默认分支，或者其所有权不允许服务账户接收推送。"
+    ]
+  },
+  {
+    "name": "CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT",
+    "definition": "动作安装可执行的仓库钩子，在收到推送的分支引用时，将推送内容部署到 Web 服务器提供服务的目录。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "编写或安装仓库钩子的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作在仓库的钩子目录中写入可执行钩子。",
+      "钩子逻辑读取推送的引用，并执行工作树检出或等效操作，将内容部署到提供服务的文档根目录。",
+      "钩子仅对分支更新执行部署，排除非分支事件和分支删除事件。"
+    ],
+    "exclusion_conditions": [
+      "钩子仅记录日志、发送通知或执行与部署推送内容无关的操作。",
+      "钩子行为不包含将内容部署到服务目录。"
+    ]
+  },
+  {
+    "name": "CONFIGURES_SERVICE_ENDPOINT",
+    "definition": "动作写入或替换网络服务的活动配置，使服务监听任务要求的端口，并从预定文档根目录提供内容。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "用于定义服务端点的配置写入动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "配置指定任务要求的监听端口。",
+      "配置指定提供内容的文档根目录。",
+      "配置写入活动配置位置，或服务实际加载的配置位置。"
+    ],
+    "exclusion_conditions": [
+      "动作只编辑服务不会加载的非活动配置或示例配置。",
+      "动作修改无关指令，没有定义要求的端口和文档根目录。"
+    ]
+  },
+  {
+    "name": "PREPARES_DEPLOYMENT_DIRECTORY",
+    "definition": "动作准备 Web 服务器所服务的目录，使部署账户能够写入推送内容，同时服务器进程仍可读取这些内容。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "创建目录并调整所有权或权限的命令。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作创建服务目录或确认其已存在。",
+      "动作设置所有权或权限，使部署账户可向该目录写入。",
+      "最终的所有权和权限设置仍允许 Web 服务器进程读取内容。"
+    ],
+    "exclusion_conditions": [
+      "动作只读取或列出目录内容，没有为部署做准备。",
+      "动作修改所有权或权限后，导致 Web 服务器进程无法读取已部署内容。"
+    ]
+  },
+  {
+    "name": "VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION",
+    "definition": "动作确认目标服务配置已启用且语法有效，并将服务启动设为只有确认成功后才能执行。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "执行验证与启用操作的命令序列。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作检查目标配置是否已启用或已链接到活动配置集合。",
+      "动作对服务配置执行语法或一致性检查。",
+      "服务启动与检查成功这一条件相绑定。"
+    ],
+    "exclusion_conditions": [
+      "没有进行任何配置验证就直接启动服务。",
+      "虽然运行了验证命令，但验证失败不会阻止服务启动。"
+    ]
+  },
+  {
+    "name": "STARTS_SERVICE_DAEMONS_DIRECTLY",
+    "definition": "动作绕过服务管理器，直接启动所需的长期运行守护进程，并准备这些进程启动及持续运行所需要的运行时先决条件。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "启动守护进程的命令或脚本。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作调用守护进程二进制程序或等效的直接启动命令，以启动所需网络服务。",
+      "动作准备守护进程启动所需的运行时条件，例如目录、主机密钥或运行时状态。",
+      "启动的进程预期在调用命令返回后仍继续运行。"
+    ],
+    "exclusion_conditions": [
+      "动作仅安装软件包，没有启动服务。",
+      "动作将启动工作交给服务管理器或初始化系统。",
+      "动作仅启动短暂的前台进程，而非所需的长期运行守护进程。"
+    ]
+  },
+  {
+    "name": "ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION",
+    "definition": "动作添加本地域名解析映射，使任务中客户端命令使用的主机名解析到服务所在的本地地址或容器可访问地址。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "配置主机名或名称解析器的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作新增或修改本地 hosts 文件或等效解析条目。",
+      "条目将任务中的服务主机名映射到能够访问本地服务的地址。"
+    ],
+    "exclusion_conditions": [
+      "动作修改机器自身的主机名，而非新增服务名称映射。",
+      "动作仅依赖外部名称解析，没有添加本地映射。"
+    ]
+  },
+  {
+    "name": "GUIDES_CONFIGURATION_CHANGE",
+    "definition": "观察结果揭示服务配置的当前结构或数值，后续动作利用观察到的结构定位或组织修改，将同一配置重写为任务要求的数值。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "揭示现有配置值或启用结构的观察结果。"
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "重写所观察配置的后续动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果展示当前配置细节，例如监听指令、文档根目录或活动配置链接关系。",
+      "后续动作写入或替换同一配置，将识别出的数值改为任务要求的数值。",
+      "能够确认观察到的配置与重写后的配置属于同一文件或同一服务配置。"
+    ],
+    "exclusion_conditions": [
+      "观察结果提供的是操作数据值，而非配置结构或数值。",
+      "后续动作修改无关配置，没有利用观察到的结构或数值。",
+      "动作在没有事先检查相应配置的情况下直接写入配置。"
+    ]
+  },
+  {
+    "name": "PLANS_END_TO_END_VERIFICATION",
+    "definition": "推理规划即将执行的验证流程，在已配置系统上复现请求者规定的终端用户工作流，并指出用于判断验证是否成功的可观察结果。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "指定未来验证流程及其预期结果的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指定至少一种请求中规定的终端用户操作作为验证步骤，例如认证、克隆、提交、推送或访问部署路径。",
+      "推理明确指出该流程应产生的可观察结果，以便判断是否成功。"
+    ],
+    "exclusion_conditions": [
+      "推理仅描述计划执行的配置修改或服务管理操作。",
+      "推理仅报告已完成检查的结果，没有指定未来验证流程。",
+      "推理只规划内部或中间检查，没有执行请求者的终端用户交互。"
+    ]
+  },
+  {
+    "name": "EXECUTES_USER_WORKFLOW_TRIAL",
+    "definition": "动作针对已配置系统运行请求者规定的终端用户命令序列或其忠实替代流程，以功能验收试验方式测试交付能力，而非仅检查配置或状态。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "端到端执行用户可见工作流程的工具调用。"
+      }
+    ],
+    "assertion_conditions": [
+      "调用包含复现请求中终端用户交互的命令，例如远程克隆后提交并推送，或访问部署路径。",
+      "调用发生在相关配置应用之后，使其结果能够反映所交付的能力。"
+    ],
+    "exclusion_conditions": [
+      "调用仅编辑配置文件、启动服务或检查文件系统或进程状态。",
+      "调用仅测试内部组件，没有执行请求者可见的工作流。",
+      "调用仅准备或清理测试环境，没有执行面向用户的流程。"
+    ]
+  },
+  {
+    "name": "OBSERVATION_CONFIRMS_REQUESTED_BEHAVIOR",
+    "definition": "观察结果包含面向用户交互的执行结果，其内容符合请求中指定的用户可见行为，从而直接证明交付系统产生了所要求的结果。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "包含面向用户交互结果的工具返回。"
+      }
+    ],
+    "assertion_conditions": [
+      "输出包含请求者声明的预期结果，例如服务返回的内容与指定载荷一致，或访问资源获得了预期响应。",
+      "结果成功返回，没有错误状态或失败标记。"
+    ],
+    "exclusion_conditions": [
+      "输出仅显示配置、进程或文件系统状态。",
+      "输出与所要求结果不同、为空，或报告错误或资源缺失。"
+    ]
+  },
+  {
+    "name": "OBSERVATION_CONFIRMS_SERVICE_AVAILABILITY",
+    "definition": "观察结果通过运行中的进程条目或所需端口的监听套接字条目，提供所需长期服务处于活动状态且可访问的证据。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "列出运行中进程或监听套接字的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "输出显示所需守护进程正在运行，或所需端口对应套接字处于监听状态。",
+      "证据中不存在错误标记，也没有缺失所需服务的条目。"
+    ],
+    "exclusion_conditions": [
+      "输出仅验证配置语法，或仅确认文件已写入或修改。",
+      "输出仅提及服务名称，没有显示进程在运行或端口正在监听。"
+    ]
+  },
+  {
+    "name": "ATTRIBUTES_FAILURE_TO_TRIAL_SETUP",
+    "definition": "推理判定所观察故障源于智能体自身的测试环境设置或测试命令构造，而非交付系统，因此无需修改交付配置。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "判断故障来源的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告待判定来源的故障的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确将故障关联到测试环境的特征或测试命令的构造方式。",
+      "推理认为交付系统本身仍然正确，或该故障不会在请求者的正常操作中发生。"
+    ],
+    "exclusion_conditions": [
+      "推理将故障视为交付系统的缺陷。",
+      "推理没有区分测试诱发的故障与真正的系统故障。"
+    ]
+  },
+  {
+    "name": "JUDGES_OBSERVATION_CONCLUSIVENESS",
+    "definition": "推理借助报告的大小、已知内容、结构知识或工具行为等辅助线索，评估间接、信息量少或为空的观察结果是否足以证明目标性质。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "评估观察结果证据价值的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "接受评估的低信息量、空白或间接工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理解释观察结果的内容或缺少输出这一情况为何足以或不足以证明目标性质。",
+      "当证据被认定不足时，推理指出所需的替代证据或检查方式。"
+    ],
+    "exclusion_conditions": [
+      "推理直接接受观察结果，没有评估其证明充分性。",
+      "推理讨论的观察结果与被评估对象不同。"
+    ]
+  },
+  {
+    "name": "DELEGATES_OPERATION_TO_RESOURCE_OWNER",
+    "definition": "在报告所有权或权限拒绝后，动作改用资源所有者的身份执行被拒绝的操作，取代先前遭拒的身份。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "以资源所有者身份重新执行操作的调用。"
+      },
+      {
+        "name": "rejection",
+        "type": "observation",
+        "description": "报告所有权或权限错误的先前工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "先前观察结果包含所有权或权限拒绝，并指出涉及的资源。",
+      "动作将执行身份切换为资源所属账户，同时保持操作目标与意图不变。"
+    ],
+    "exclusion_conditions": [
+      "先前错误涉及连接、可用性或文件缺失，而非所有权或权限。",
+      "动作通过修改资源所有权或权限解决拒绝，而非切换执行身份。",
+      "动作继续使用此前被拒绝的身份执行。"
+    ]
+  },
+  {
+    "name": "CLEANS_TEST_ARTIFACTS",
+    "definition": "动作删除或还原智能体测试期间产生的状态——临时凭据、克隆的工作副本、临时目录、测试提交与推送引用，以及测试部署的文件——让交付系统恢复到请求者首次操作之前应有的干净状态，同时保留已配置服务与永久基础设施。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "删除测试生成状态的清理调用。"
+      }
+    ],
+    "assertion_conditions": [
+      "调用删除或重置测试创建的对象，例如临时密钥、测试克隆、临时目录、测试提交或分支引用，以及测试部署的文件。",
+      "调用恢复受影响位置的初始结构状态，例如仓库中没有引用、文档根目录为空，或凭据文件已准备好接收请求者自己的密钥。",
+      "调用保留已配置的服务、账户设置和永久配置，使请求者后续仍能成功执行命令。"
+    ],
+    "exclusion_conditions": [
+      "调用仅执行常规配置或服务管理。",
+      "调用删除交付系统自身的资源，而非测试生成的资源。",
+      "调用仅检查状态，没有进行修改。",
+      "重置是为了修复已报告的故障，而非恢复测试前的干净状态。"
+    ]
+  },
+  {
+    "name": "PRESERVES_USER_COMMAND_PRECONDITIONS",
+    "definition": "推理识别会导致请求者规定的命令失败或行为异常的残留状态，并认定在交付之前必须将其删除或还原。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "将残留状态与请求者命令序列中的具体故障关联起来的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出具体的残留产物，例如已存在的提交或已部署的文件。",
+      "推理指出请求中哪个具体命令会因该产物而失败或异常，并提出还原要求。"
+    ],
+    "exclusion_conditions": [
+      "推理只强调环境整洁，没有指出会失败的具体命令。",
+      "推理认为残留状态对请求者的命令没有影响。"
+    ]
+  },
+  {
+    "name": "JUSTIFIES_PREPARED_HANDOFF_STATE",
+    "definition": "推理说明应刻意保留已预先创建但为空或尚未生效的产物，而不将其删除或预填充，因为保留它能让请求者后续的手动步骤无需额外操作即可成功。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "权衡删除还是保留已准备产物的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理比较删除已准备产物与保留其空白或未生效状态这两种选择。",
+      "推理认定保留它可以让请求者自己的设置步骤无需额外工作即可成功。"
+    ],
+    "exclusion_conditions": [
+      "推理仅计划删除该产物。",
+      "推理预先填入本应由请求者亲自提供的有效功能数据。"
+    ]
+  },
+  {
+    "name": "DERIVES_STATE_FROM_RAW_OUTPUT",
+    "definition": "推理将观察结果中的底层、编码或过程性输出转换为关于系统状态的明确语义结论。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "解读原始输出并陈述系统状态的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "包含编码、数值或过程性输出的工具结果，例如十六进制套接字条目、状态码、引用列表或传输日志。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果包含无法直接用自然语言理解的标记，例如十六进制套接字地址与状态码、编码状态字段、引用列表或版本控制传输记录。",
+      "推理将这些标记明确映射为具体系统状态，例如哪些端口在监听、服务绑定哪些网络接口，或推送的分支已发布。",
+      "推理将结论表述为对观察输出含义的解读，而非独立猜测。"
+    ],
+    "exclusion_conditions": [
+      "观察结果已经直接说明语义结论，推理只是重复。",
+      "推理仅引用输出，没有赋予其系统状态含义。",
+      "推理没有根据观察到的标记支撑结论，只是在猜测系统状态。",
+      "推理仅评估观察结果是否足以作为证据，而没有解释其编码内容。"
+    ]
+  },
+  {
+    "name": "INSTALLS_STARTUP_HOOK_FOR_ARTIFACT",
+    "definition": "后续动作将先前动作创建的产物注册到 Shell、会话或系统启动配置中，使其在未来环境中自动调用，同时不修改产物自身内容。",
+    "parameters": [
+      {
+        "name": "registration_action",
+        "type": "action",
+        "description": "写入或追加引用该产物的启动或会话初始化配置的动作。"
+      },
+      {
+        "name": "creation_action",
+        "type": "action",
+        "description": "创建被注册产物的先前动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "创建动作生成有名称的可执行程序、脚本或配置产物，且其创建由执行结果证明。",
+      "注册动作在一个或多个启动或会话初始化文件中添加该产物路径的引用，例如 Shell rc 文件、profile 配置片段或等效文件。",
+      "注册动作不改变产物内容，只控制其何时或是否被调用。"
+    ],
+    "exclusion_conditions": [
+      "被注册的产物不是同一轨迹中先前动作所创建。",
+      "后续动作修改或重写产物本身，而非注册它。",
+      "注册动作仅修改所有权或权限，没有安排自动调用。",
+      "两个动作只在时间上相邻，操作上没有关联。"
+    ]
+  },
+  {
+    "name": "EXPLAINS_ANOMALY_AS_HARMLESS",
+    "definition": "推理调查观察结果中可见的异常状况，识别其原因，并依据功能性证据认定异常不影响必需功能，而无需修改配置。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "诊断并判断异常状况的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "呈现异常状况的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果显示偏离预期正常状态的情况，例如残留的僵尸进程、意外多出或缺失的条目，或意外为空的结果。",
+      "推理给出异常的因果解释，并将其来源归于交付功能之外。",
+      "推理认为异常仅是表面问题或不影响功能，并引用必需功能仍正常的证据，例如新执行的成功操作或之前验证过的用户可见结果。"
+    ],
+    "exclusion_conditions": [
+      "观察到异常，但没有解释原因。",
+      "异常引发修复或配置修改。",
+      "推理认为异常无害，却没有提供因果解释或功能性证据。",
+      "推理将异常视为交付系统的缺陷。"
+    ]
+  },
+  {
+    "name": "RESOLVES_DATA_INCONSISTENCY",
+    "definition": "推理发现观察数据之间的差异或冲突，例如容器标签与内部标识符或属性不一致，并通过决定任务应如何解释这些数据来解决冲突。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "发现差异并决定数据解释方式的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出观察数据中的具体冲突或意外不匹配，例如文件名与内部标识符、标签或属性之间的差异。",
+      "推理权衡竞争的解释方案，并决定采用何种解释，或认定该差异不会影响任务。"
+    ],
+    "exclusion_conditions": [
+      "推理仅引用、总结或重新格式化观察数据，没有发现差异。",
+      "虽然指出差异，但没有确定其解释方式。",
+      "观察到的差异只是预期内的正常变化，无需解释为冲突。"
+    ]
+  },
+  {
+    "name": "DERIVES_CONSTRAINED_SOLUTION",
+    "definition": "推理将明确约束应用于候选值，通过排除或比较备选方案得出一个具体解。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "推导受约束解的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理对候选值应用指定的约束、限制或偏好。",
+      "推理比较备选方案，或排除不可行方案。",
+      "推理明确选出一个具体结果，并在多个候选仍然可行时说明所用的平局决策规则。"
+    ],
+    "exclusion_conditions": [
+      "推理仅重述要求或列举原始数据。",
+      "提出候选方案，却没有依据给定约束检查。",
+      "没有选出具体结果。"
+    ]
+  },
+  {
+    "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+    "definition": "推理依赖先前观察结果提供的可识别内容——例如数值、条目、状态、响应正文、环境或进程列表——形成结论或决策，并用这些内容作为结论的证据。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "形成结论或作出决策的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "提供推理所用证据内容的先前观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理中的结论、决定或推导值可以追溯到观察结果的具体内容。",
+      "观察结果在推理之前出现，并提供推理用于支持所述结论的证据。"
+    ],
+    "exclusion_conditions": [
+      "推理只描述计划，或仅复述观察结果而没有形成结论。",
+      "观察结果仅在主题上相关，没有提供可追溯的结论证据。",
+      "结论独立于该观察结果而得出。"
+    ]
+  },
+  {
+    "name": "GENERATES_DELIVERABLE_ARTIFACT",
+    "definition": "动作将完整产物写入任务指定的输出位置，作为任务的实质性交付成果。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "生成交付产物的写入动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作执行写入操作，目标是任务指定的交付输出位置。",
+      "写入内容是符合所需格式、包含请求内容的完整产物。"
+    ],
+    "exclusion_conditions": [
+      "动作写入辅助脚本、临时文件或不完整片段。",
+      "动作读取数据而非写入数据。",
+      "动作将内容写在指定交付位置之外。"
+    ]
+  },
+  {
+    "name": "AUTHORS_VALIDATION_PROGRAM",
+    "definition": "动作创建或重写可执行程序，用于依据明确要求检查产物或解答，并报告通过或失败结果。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "编写验证程序的写入动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作写入实现验证逻辑的可执行代码。",
+      "程序检查产物或解答的格式、约束或正确性，并输出明确的通过、失败或错误结果。"
+    ],
+    "exclusion_conditions": [
+      "动作写入数据交付成果本身，而非验证器。",
+      "动作仅运行已有验证器，没有编写或重写其代码。",
+      "动作写入说明文字、数据或不完整代码片段，而非可执行验证程序。"
+    ]
+  },
+  {
+    "name": "EXECUTES_VALIDATION_PROGRAM",
+    "definition": "动作运行程序或脚本，以按照要求检查产物或解答并获取验证证据。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "执行验证程序的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "工具调用对产物或解答运行验证逻辑。",
+      "调用旨在评估正确性，其结果提供通过或失败的验证证据。"
+    ],
+    "exclusion_conditions": [
+      "动作仅读取、写入或检查产物，没有运行验证逻辑。",
+      "动作运行与正确性评估无关的命令。",
+      "动作只编写验证代码，没有执行它。"
+    ]
+  },
+  {
+    "name": "CHECKS_INPUT_INTEGRITY",
+    "definition": "动作以只读方式检查任务输入文件的列表、元数据或校验和，以确认这些输入未被修改。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "检查输入文件完整性的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作在不修改输入文件的情况下检查已有文件，例如列出文件及其元数据或计算校验和。",
+      "检查旨在确认任务输入未被修改。"
+    ],
+    "exclusion_conditions": [
+      "动作读取输入内容用于任务分析，而非验证输入是否保持不变。",
+      "动作修改或删除输入文件。",
+      "动作只检查生成的输出产物。"
+    ]
+  },
+  {
+    "name": "PROBES_ENVIRONMENT_STATE",
+    "definition": "动作执行只读检查，查询执行环境的状态、内容、已安装软件或资源可用性，以便指导后续动作选择。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "执行只读检查或可用性探测的调用。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作查询环境、资源或服务的状态，例如存在的文件或目录、已安装的软件包或版本，或网络资源是否可访问。",
+      "调用以检查为目的，不执行安装、写入、删除或任务的实质性计算。",
+      "获得的信息旨在决定接下来应采取什么行动。"
+    ],
+    "exclusion_conditions": [
+      "动作修改状态，例如执行安装、写入或删除。",
+      "动作执行任务的主要计算或生成最终交付成果。",
+      "动作获取实质性的任务内容用于处理或转换，而非检查资源是否存在或可用。"
+    ]
+  },
+  {
+    "name": "PROVISIONS_MISSING_CAPABILITY",
+    "definition": "动作提供观察结果显示缺失或不足的软件能力——库、软件包、工具或运行时组件——使预期操作能够继续执行。",
+    "parameters": [
+      {
+        "name": "provisioning_action",
+        "type": "action",
+        "description": "安装、下载或以其他方式提供缺失能力的动作。"
+      },
+      {
+        "name": "absence_observation",
+        "type": "observation",
+        "description": "明确指出或清楚暗示所需能力缺失或不足的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果列举或报告环境内容，明确指出或暗示所需的库、软件包、工具或其他能力缺失或不足。",
+      "动作安装、下载、启用或以其他方式提供该能力。",
+      "动作所提供的能力与观察结果指出的缺失或不足相对应。"
+    ],
+    "exclusion_conditions": [
+      "观察结果只报告成功状态、可用版本或无关环境信息。",
+      "动作只检查可用性，没有提供任何能力。",
+      "动作提供的能力与观察结果显示的缺失无关。",
+      "动作仅重新执行失败的操作，没有补齐缺失能力。"
+    ]
+  },
+  {
+    "name": "AUTHORS_EXECUTABLE_ARTIFACT",
+    "definition": "动作创建包含程序、脚本或命令序列的文件，预期随后执行该文件以完成任务。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "编写可执行产物的文件写入动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作写入或创建文件。",
+      "文件内容为可执行代码或命令序列，而非数据、文字笔记或最终答案。",
+      "明确表述或可以看出该产物将随后被运行以完成任务。"
+    ],
+    "exclusion_conditions": [
+      "动作写入最终答案、数据集或其他不可执行输出。",
+      "动作只读取或编辑已有产物，没有编写可执行内容。",
+      "文件是配置、文档或笔记，并不打算作为可执行程序运行。"
+    ]
+  },
+  {
+    "name": "REVEALS_DATASET_SCHEMA",
+    "definition": "观察结果揭示数据源的结构化模式信息，例如配置或子集名称、字段或列名、数据类型或数据划分定义。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "包含数据源结构化模式、字段或配置信息的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果列举或描述数据源的结构化模式元素，例如配置名、列或特征名、类型或数据划分。",
+      "信息足够具体，可以识别各个可用字段或配置。"
+    ],
+    "exclusion_conditions": [
+      "观察结果只是自由格式文字文档，没有字段级或配置级结构。",
+      "观察结果仅报告数据集存在、数据集大小或文件列表，没有模式细节。",
+      "观察结果仅包含原始数据记录，没有任何模式描述。"
+    ]
+  },
+  {
+    "name": "ESTABLISHES_COMPUTATION_SPECIFICATION",
+    "definition": "推理对存在歧义或规定不足的任务要求选定一种具体解释，并明确实施时应遵循的计算规范，包括数据字段、筛选条件、计算流程或所需行为。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "解释任务并确定待实现规范的推理文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出任务要求中的歧义或其他合理解释方式。",
+      "推理选定一种具体解释，并充分说明相关字段、筛选条件、操作或所需行为，以指导实现。"
+    ],
+    "exclusion_conditions": [
+      "推理只重述任务，或给出缺乏具体标准的一般计划。",
+      "推理只报告结果或执行过程，没有规定计算方式。",
+      "推理提及字段或操作，但没有消除歧义或规定不足的问题。",
+      "歧义涉及工具可用性或环境状态，而非任务要求的语义。"
+    ]
+  },
+  {
+    "name": "TESTS_ASSUMPTION_WITH_PROBE",
+    "definition": "有针对性的动作通过实证检查先前推理指出的特定假设或歧义，其观察结果提供证据，用于判定该假设如何影响任务。",
+    "parameters": [
+      {
+        "name": "probe_action",
+        "type": "action",
+        "description": "执行定向实证检查的动作。"
+      },
+      {
+        "name": "assumption_reasoning",
+        "type": "reasoning",
+        "description": "明确指出待检验的假设、歧义或不确定性的推理。"
+      },
+      {
+        "name": "probe_observation",
+        "type": "observation",
+        "description": "报告与所检验假设相关行为的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "假设推理明确指出一个假设或歧义，其真假可能改变任务结果。",
+      "探测动作聚焦检验该假设，例如小型独立测试、诊断查询或受控实验，而非主要计算任务。",
+      "探测观察结果报告与假设相关的行为，并提供足够证据判断假设是否成立或应如何解释。"
+    ],
+    "exclusion_conditions": [
+      "动作属于主要计算或一般性探索。",
+      "推理没有明确指出任何假设或不确定性。",
+      "探测结果没有回应所指出的假设。"
+    ]
+  },
+  {
+    "name": "RESOLVES_TERM_AMBIGUITY_USING_REFERENCE",
+    "definition": "推理结合参考说明与数据中实际观察到的类别值，消除任务中某个规定不足或无法直接匹配的术语的歧义，选定该术语所指的具体类别。",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "选定具体类别来解释任务术语的推理。"
+      },
+      {
+        "name": "reference_observation",
+        "type": "observation",
+        "description": "提供分类体系、分组方式或文档说明，将观察到的类别与任务术语联系起来的观察结果。"
+      },
+      {
+        "name": "data_observation",
+        "type": "observation",
+        "description": "展示数据中实际存在的类别值的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "数据观察结果显示的类别标签或数值与任务术语无法直接匹配。",
+      "参考观察结果提供分类体系、分组或文档说明，将这些观察类别与任务术语关联起来。",
+      "解释性推理结合参考说明和观察值，明确选择一个或多个实际类别作为任务术语的对应范围。"
+    ],
+    "exclusion_conditions": [
+      "数据中已经存在与该术语完全匹配的类别。",
+      "提出映射关系，却没有文档或其他支持证据。",
+      "推理没有同时关联参考说明和实际观察值。",
+      "推理只报告数值，没有解决术语歧义。"
+    ]
+  },
+  {
+    "name": "CROSS_VALIDATES_RESULT",
+    "definition": "独立验证动作通过不同的数据访问路径或方法重新计算已有结果，所得观察结果复现相同数值。",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "执行独立重新计算的动作。"
+      },
+      {
+        "name": "original_result",
+        "type": "observation",
+        "description": "报告原始计算数值的先前观察结果。"
+      },
+      {
+        "name": "verification_result",
+        "type": "observation",
+        "description": "报告独立重新计算数值的后续观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "原始结果报告了计算数值。",
+      "验证动作使用独立机制，例如不同的库、数据路径或算法，而非重复同一次调用。",
+      "验证结果报告的数值与原始结果相同。"
+    ],
+    "exclusion_conditions": [
+      "采用完全相同的流程重复执行，没有独立的数据访问路径或方法。",
+      "重新计算的结果与原始结果不同。",
+      "验证只检查格式或结果是否存在，没有复现其数值。"
+    ]
+  },
+  {
+    "name": "VERIFIES_ARTIFACT_BY_READBACK",
+    "definition": "动作从目标存储位置读回先前生成或写入的输出产物，后续观察结果提供与预期值一致的内容、大小或校验和证据，确认产物已按预期内容持久化。",
+    "parameters": [
+      {
+        "name": "readback_action",
+        "type": "action",
+        "description": "读取已存储输出产物的动作。"
+      },
+      {
+        "name": "artifact_content",
+        "type": "observation",
+        "description": "展示已存产物内容或报告大小、校验和证据的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "先前动作已在目标位置生成、写入或更新输出产物。",
+      "读回动作读取已存储产物，没有重新计算或转换结果。",
+      "所得观察结果展示与预期输出值一致的存储内容，或报告一致的大小或校验和，以确认预期结果已经持久化。"
+    ],
+    "exclusion_conditions": [
+      "产物先前未在目标位置生成或写入。",
+      "动作重新计算或转换结果，而非读取已存储内容。",
+      "观察结果没有展示内容，也没有提供产物大小或校验和证据。",
+      "观察到的内容或证据与预期目标值不一致。"
+    ]
+  },
+  {
+    "name": "IDENTIFIES_RETENTION_MECHANISM",
+    "definition": "推理解释一个本应消失的目标为何仍存在或可访问，将其持续保留归因于观察结果中可识别的引用、日志、缓存、索引或等效持久化结构，并选取针对该保留机制的删除策略。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "解释目标持续保留并选择删除策略的智能体文本。"
+      },
+      {
+        "name": "retention_observation",
+        "type": "observation",
+        "description": "显示目标在看似已被删除后仍存在或可访问的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "retention_observation 表明目标在表面删除后仍存在、可访问，或未被报告为已删除或无引用状态。",
+      "推理将目标持续可访问归因于可识别的引用、日志、缓存、索引或等效保留结构。",
+      "推理选择或提议使该保留机制过期、失效或被清除的操作。"
+    ],
+    "exclusion_conditions": [
+      "推理仅重复通用清理步骤，没有解释目标被保留的原因。",
+      "retention_observation 已显示目标不存在。",
+      "推理模糊地解释目标被保留，没有指出可检查的具体机制。"
+    ]
+  },
+  {
+    "name": "ATTEMPTS_TO_ERASE_OBSERVED_ARTIFACT",
+    "definition": "动作针对先前观察结果识别的目标数据，或保留该数据的对象、引用或结构，执行删除、过期处理、剪除或等效清除操作。",
+    "parameters": [
+      {
+        "name": "erasure_action",
+        "type": "action",
+        "description": "尝试删除、使目标或其保留结构过期或被剪除的动作。"
+      },
+      {
+        "name": "exposure_observation",
+        "type": "observation",
+        "description": "识别目标内容、对象或保留引用的先前观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "exposure_observation 识别目标内容、包含目标的对象或保留目标的引用。",
+      "erasure_action 删除、使其过期或剪除该对象、引用或包含结构。",
+      "动作针对已观察到的目标执行，而非没有明确对象的常规维护。"
+    ],
+    "exclusion_conditions": [
+      "动作只检查或验证目标。",
+      "动作删除文件或历史记录，却没有证据表明其中包含或保留了目标。",
+      "没有任何先前观察结果识别目标或其保留结构。"
+    ]
+  },
+  {
+    "name": "CONFIRMS_ERADICATION",
+    "definition": "清除动作删除先前观察结果识别的目标数据，后续验证观察结果确认目标在相关搜索范围内不存在。",
+    "parameters": [
+      {
+        "name": "erasure_action",
+        "type": "action",
+        "description": "删除目标或其保留结构的动作。"
+      },
+      {
+        "name": "exposure_observation",
+        "type": "observation",
+        "description": "揭示目标内容或保留结构的先前观察结果。"
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "确认目标不存在的后续观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "exposure_observation 揭示目标内容或保留该目标的结构。",
+      "erasure_action 在该观察结果之后删除、使其过期或剪除目标或其保留结构。",
+      "verification_observation 发生在清除之后，并报告根据实际适用情况，在相关仓库内部结构、修订历史及／或对象存储范围内均未找到目标。",
+      "验证证据显示被搜索对象或引用中不再包含目标。"
+    ],
+    "exclusion_conditions": [
+      "没有清除动作，或没有后续验证观察结果。",
+      "验证发现目标仍然存在，或者仅检查了无关范围。",
+      "清除动作没有针对 exposure_observation 所识别的目标。"
+    ]
+  },
+  {
+    "name": "VERIFIES_PRESERVATION_OF_UNRELATED_ARTIFACTS",
+    "definition": "推理利用修复或清理后的观察结果，将与目标无关的产物的内容、标识符或状态与先前已知状态比较，验证这些产物保持不变。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "验证无关产物得到保留的智能体文本。"
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "报告修复或清理后非目标产物的内容、标识符或状态的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "verification_observation 报告修复或清理后非目标产物的内容、哈希、状态或标识符。",
+      "推理明确将该报告与先前状态比较，或断言这些产物相同且保持干净。",
+      "关于保留情况的结论与报告中针对无关产物的证据相联系。"
+    ],
+    "exclusion_conditions": [
+      "仅检查目标产物。",
+      "推理没有观察结果中的证据就假定无关产物得到保留。",
+      "观察结果发生在破坏性操作或修复动作之前。"
+    ]
+  },
+  {
+    "name": "PERFORMS_EXHAUSTIVE_UNIQUENESS_SEARCH",
+    "definition": "动作枚举全部可访问对象或等效完整语料，并逐项搜索目标模式，以判断目标是否唯一出现。",
+    "parameters": [
+      {
+        "name": "search_action",
+        "type": "action",
+        "description": "枚举对象或语料条目并搜索目标的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "search_action 枚举所有可访问对象、Blob 或语料条目，而非只取样本。",
+      "对每个枚举条目搜索目标模式。",
+      "输出将匹配位置与条目标识符关联起来，或以其他方式支持唯一性结论。"
+    ],
+    "exclusion_conditions": [
+      "动作只搜索单个文件、目录或预选子集。",
+      "动作没有尝试判断目标是否出现多次。",
+      "枚举不完整，因此无法确定唯一性。"
+    ]
+  },
+  {
+    "name": "PERFORMS_CROSS_SCOPE_ABSENCE_VERIFICATION",
+    "definition": "动作为确认目标不存在，在多个独立存储范围内检查目标，例如工作文件、仓库元数据、修订历史和对象清单，而非仅定位已经存在的值。",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "跨多个范围检查目标是否缺失的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "verification_action 包含至少两次针对目标的独立搜索或检查。",
+      "检查范围覆盖不同存储层、历史或元数据区域。",
+      "动作旨在确认目标缺失，而非仅定位存在的目标。"
+    ],
+    "exclusion_conditions": [
+      "动作只执行单次 grep 或文件检查。",
+      "动作只检查一个存储层。",
+      "动作的目的不是确认目标不存在。"
+    ]
+  },
+  {
+    "name": "REPORTS_TARGET_ABSENT_ACROSS_SCOPES",
+    "definition": "观察结果明确报告在多个搜索范围内均未找到目标，并提供对象清单或状态等旁证支持目标缺失的判断。",
+    "parameters": [
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "报告未找到结果及缺失旁证的观察结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "verification_observation 包含至少两个独立范围内明确的未找到结果。",
+      "对象清单、状态或剩余内容列表等旁证支持目标缺失的结论。",
+      "不存在妨碍将结果解释为目标缺失的执行错误或歧义。"
+    ],
+    "exclusion_conditions": [
+      "只报告一个范围内未找到目标。",
+      "命令发生错误或输出含义不明确。",
+      "观察结果报告目标仍存在。"
+    ]
+  },
+  {
+    "name": "REPORTS_ENVIRONMENT_OR_ARTIFACT_STATE",
+    "definition": "观察结果列举执行环境或已存储产物的具体事实状态，例如目录内容、解释器或库版本、已安装的软件包，或保留及下载文件的大小，可作为操作层面的事实依据。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "列举具体环境或产物事实的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察结果列举文件或目录名、版本字符串、已安装软件包或保留资源等具体事实，而非仅确认某项操作。",
+      "观察操作完成时没有会截断或破坏列举有效性的执行错误。"
+    ],
+    "exclusion_conditions": [
+      "观察结果返回服务端点产生的应用响应数据载荷。",
+      "观察结果报告执行错误或失败追踪信息。",
+      "观察结果仅确认写入或其他操作已成功。",
+      "观察结果提供的是数据源模式级定义，而非环境或产物状态。"
+    ]
+  },
+  {
+    "name": "CONFIRMS_EXTERNAL_REACHABILITY",
+    "definition": "请求通过非回环的主机网络接口地址访问运行中的服务，所得观察结果报告成功响应，从而确认服务可通过本地回环之外的地址访问。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "通过非回环主机接口地址访问服务的调用。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告该请求成功或失败的结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "请求的目标地址是 localhost/127.0.0.1 之外的主机接口地址，例如容器接口或外部接口地址。",
+      "观察结果报告服务在该地址成功响应。"
+    ],
+    "exclusion_conditions": [
+      "请求目标为 localhost 或 127.0.0.1。",
+      "请求未能连接到服务，因此不能确认外部可访问性。",
+      "可用性证据只有进程列表、配置值或监听套接字条目，没有通过非回环地址请求获得的成功响应。"
+    ]
+  },
+  {
+    "name": "ASSESSES_REQUIREMENTS_AS_SATISFIED",
+    "definition": "推理执行最终需求评估，将任务规范中的多个不同要求分别对应到支持证据，并得出全部要求均已满足的结论。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "执行最终需求评估并宣称要求已满足的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理检查任务规范中多个不同的要求。",
+      "每项被检查的要求均被标记为已满足或已验证，并引用支持证据或观察到的行为。",
+      "推理认定所有要求均已实现，或宣布任务完成。"
+    ],
+    "exclusion_conditions": [
+      "推理仅报告部分进度、尚未解决的问题或剩余工作。",
+      "推理只列举或重述要求，没有认定它们已得到满足。",
+      "推理笼统宣称任务完成，没有将各项要求分别对应到证据。"
+    ]
+  }
+]

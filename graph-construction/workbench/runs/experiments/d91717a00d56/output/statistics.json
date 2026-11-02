@@ -1,0 +1,14 @@
+{
+  "trajectory_count": 89,
+  "events": 7708,
+  "input_trajectory_count": 91,
+  "excluded_trajectory_count": 2,
+  "changed_events": 7270,
+  "removed_fields": 7414,
+  "replaced_fields": 0,
+  "before_tokens": 18803181,
+  "after_tokens": 15370387,
+  "saved_tokens": 3432794,
+  "reduction_percent": 18.26,
+  "output_hash": "8a9cebbc1cf69d9a9526c706ae2517760429e0cd0c16187ac0fb028d8dcdc47e"
+}

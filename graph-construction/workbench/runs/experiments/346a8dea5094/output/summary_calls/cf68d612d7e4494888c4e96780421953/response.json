@@ -1,0 +1,28 @@
+{
+  "id": "923b58cd-75a6-4cce-8003-dfcf4c18b9b2",
+  "object": "chat.completion",
+  "created": 1793328295,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent inspected /app/weights.pt (transformer seq2seq: Linear 64→128 \"embedding\", sinusoidal pos_encoder.pe, 3-layer encoder/decoder d=128 ff=256, output_layer 128→64) and dataset.pt (src/tgt (20,20,64)), confirmed torch 2.7.1, and wrote /app/recovered_model.py with RecoveredModel; tuning, TorchScript save, and verification remain pending."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 32322,
+    "completion_tokens": 101,
+    "total_tokens": 32423,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 32194
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

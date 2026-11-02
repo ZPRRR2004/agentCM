@@ -1,0 +1,11 @@
+{
+  "run_id": "1c9864996c4e46d1a81c848d3dcdd4e7",
+  "run_started_at": "2026-10-30T02:41:35.259891+00:00",
+  "stage": "completed",
+  "event": "completed",
+  "message": "实验已完成，结果已保存",
+  "updated_at": "2026-10-30T02:45:49.791163+00:00",
+  "trajectory_id": "xhigh__vulnerable-secret",
+  "window_id": "window_0002",
+  "waiting_since": "2026-10-30T02:45:43.663459+00:00"
+}

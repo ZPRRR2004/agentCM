@@ -1,0 +1,17 @@
+{
+  "completed_keys": [
+    "xhigh-rerun-prove__prove-plus-comm__window_0001",
+    "xhigh__configure-git-webserver__window_0001",
+    "xhigh__configure-git-webserver__window_0002",
+    "xhigh__configure-git-webserver__window_0003",
+    "xhigh__constraints-scheduling__window_0001",
+    "xhigh__count-dataset-tokens__window_0001",
+    "xhigh__count-dataset-tokens__window_0002",
+    "xhigh__fix-git__window_0001"
+  ],
+  "status": "running",
+  "next_stage": "切分轨迹",
+  "completed_trajectories": 4,
+  "window_count": 8,
+  "updated_at": "2026-10-30T02:22:12.991211+00:00"
+}

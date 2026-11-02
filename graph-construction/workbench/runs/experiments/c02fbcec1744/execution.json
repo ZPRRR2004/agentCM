@@ -1,0 +1,19 @@
+{
+  "run_id": "0255bf1b6ced438e9564a20d1a030617",
+  "run_started_at": "2026-10-30T03:04:17.391212+00:00",
+  "stage": "completed",
+  "event": "completed",
+  "message": "实验已完成，结果已保存",
+  "updated_at": "2026-10-30T03:41:10.120714+00:00",
+  "window_number": 10,
+  "window_total": 10,
+  "window_id": "window_0002",
+  "trajectory_id": "xhigh__hf-model-inference",
+  "title": "hf-model-inference",
+  "window_name": "xhigh__hf-model-inference__window_0002",
+  "attempt": 1,
+  "attempt_limit": 4,
+  "waiting_since": "2026-10-30T03:39:49.899309+00:00",
+  "duration_seconds": 80.094,
+  "completed": 10
+}

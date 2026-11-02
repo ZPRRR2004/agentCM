@@ -1,0 +1,14 @@
+{
+  "batch_index": 2,
+  "start_window": 6,
+  "end_window": 10,
+  "prompt_version": "v0001",
+  "new_predicate_count": 19,
+  "revised_existing_predicate_count": 4,
+  "registry_size": 59,
+  "feedback_mode": "registry_feedback",
+  "feedback_required": false,
+  "feedback_completed": false,
+  "feedback_applied": false,
+  "saved_at": "2026-10-31T04:44:24.712462+00:00"
+}

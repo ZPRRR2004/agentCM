@@ -1,0 +1,28 @@
+{
+  "id": "8915b45b-e043-4966-81a8-497fa934a44c",
+  "object": "chat.completion",
+  "created": 1793328175,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent read /app/examples.json (three 7x7 examples of a period-3 diagonal pattern fill) and derived a residue-based map algorithm, but found git and file commands missing and apt unable to locate the git package, so no repo was initialized and no bundles were fetched yet."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 17033,
+    "completion_tokens": 60,
+    "total_tokens": 17093,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 16905
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

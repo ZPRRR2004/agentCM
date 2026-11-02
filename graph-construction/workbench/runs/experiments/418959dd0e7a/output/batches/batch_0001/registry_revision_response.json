@@ -1,0 +1,267 @@
+{
+  "stage": "registry_revision",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T03:57:21.448572+00:00",
+  "duration_seconds": 11.266,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T03:57:10.176891+00:00",
+      "duration_seconds": 11.266,
+      "raw_response": {
+        "id": "839c4094-b2ef-4011-8564-f7df812ad989",
+        "object": "chat.completion",
+        "created": 1793419035,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"revisions\": [\n {\"original_name\": \"IS_EXECUTION_PLAN\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_ACTION_CONTENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPLACES_DEFECTIVE_CONTENT_OBSERVED\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CHECKS_TOOL_AVAILABILITY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PERFORMS_PRIMARY_BUILD\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IS_INVOCATION_ERROR_OBSERVATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CORRECTS_FAILED_INVOCATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_CORRECTED_VERIFICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ASSERTS_TASK_COMPLETION_WITH_EVIDENCE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ANTICIPATES_FAILURE_MODE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_ENVIRONMENT_CONSTRAINT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ALIGNS_PROVISIONED_NAMES_WITH_REQUEST\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_MISSING_DEPENDENCIES\", \"operation\": \"KEEP\"},\n {\"original_name\": \"MITIGATES_ANTICIPATED_PITFALL\", \"operation\": \"KEEP\"},\n {\"original_name\": \"WRITES_SERVICE_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"AUTHORS_PUSH_DEPLOY_HOOK\", \"operation\": \"KEEP\"},\n {\"original_name\": \"MODIFIES_OBSERVED_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_SERVICE_STARTED\", \"operation\": \"KEEP\"},\n {\"original_name\": \"WIRES_PUSH_TO_SERVED_ROOT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VALIDATES_SERVICE_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIGURES_HOSTNAME_RESOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"TESTS_AUTHENTICATED_REMOTE_ACCESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_END_TO_END_USER_WORKFLOW\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_FAILURE_CAUSE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_REPAIR_OBSERVED_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_TEST_STATE_CLEANUP\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESTORES_PRISTINE_STATE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_SERVICE_RECOVERY_HELPER\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CHECKS_LISTENING_PORTS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFICATION_OBSERVES_EXPECTED_RESULT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXPLAINS_OBSERVED_ANOMALY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REVERIFIES_WITH_ALTERNATIVE_MECHANISM\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFIES_ENUMERATED_STATE_ITEMS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVISIONS_DISPOSABLE_CREDENTIAL\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPLICATES_DOCUMENTED_USER_COMMANDS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_STARTUP_HOOK\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_DEPLOYMENT_PIPELINE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DETECTS_SOURCE_CONTENT_MISMATCH\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESOLVES_SOURCE_IDENTITY_AMBIGUITY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_SOLUTION_FROM_OBSERVED_DATA\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROPOSES_CONCRETE_SOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IMPLEMENTS_SELECTED_SOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CREATES_VERIFICATION_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPORTS_EXECUTION_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_VERIFICATION_SUCCESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PERFORMS_INTEGRITY_CHECK\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVIDES_INTEGRITY_EVIDENCE\", \"operation\": \"KEEP\"}\n]}",
+              "reasoning_content": "The feedback says: retain the current predicate registry and all definitions without deletion, merging, or revision. So every predicate gets KEEP. I need to list all original names exactly.\n\nLet me enumerate all names in order:\n\n1. IS_EXECUTION_PLAN\n2. IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT\n3. GUIDES_ACTION_CONTENT\n4. REPLACES_DEFECTIVE_CONTENT_OBSERVED\n5. CHECKS_TOOL_AVAILABILITY\n6. PERFORMS_PRIMARY_BUILD\n7. INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT\n8. IS_INVOCATION_ERROR_OBSERVATION\n9. CORRECTS_FAILED_INVOCATION\n10. CONFIRMS_CORRECTED_VERIFICATION\n11. ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION\n12. ASSERTS_TASK_COMPLETION_WITH_EVIDENCE\n13. ANTICIPATES_FAILURE_MODE\n14. DERIVES_ENVIRONMENT_CONSTRAINT\n15. ALIGNS_PROVISIONED_NAMES_WITH_REQUEST\n16. INSTALLS_MISSING_DEPENDENCIES\n17. MITIGATES_ANTICIPATED_PITFALL\n18. WRITES_SERVICE_CONFIGURATION\n19. AUTHORS_PUSH_DEPLOY_HOOK\n20. MODIFIES_OBSERVED_CONFIGURATION\n21. CONFIRMS_SERVICE_STARTED\n22. WIRES_PUSH_TO_SERVED_ROOT\n23. VALIDATES_SERVICE_CONFIGURATION\n24. CONFIGURES_HOSTNAME_RESOLUTION\n25. TESTS_AUTHENTICATED_REMOTE_ACCESS\n26. EXECUTES_END_TO_END_USER_WORKFLOW\n27. DIAGNOSES_FAILURE_CAUSE\n28. ATTEMPTS_REPAIR_OBSERVED_FAILURE\n29. CONFIRMS_REPAIR\n30. ATTEMPTS_TEST_STATE_CLEANUP\n31. RESTORES_PRISTINE_STATE\n32. INSTALLS_SERVICE_RECOVERY_HELPER\n33. CHECKS_LISTENING_PORTS\n34. VERIFICATION_OBSERVES_EXPECTED_RESULT\n35. EXPLAINS_OBSERVED_ANOMALY\n36. REVERIFIES_WITH_ALTERNATIVE_MECHANISM\n37. RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE\n38. VERIFIES_ENUMERATED_STATE_ITEMS\n39. PROVISIONS_DISPOSABLE_CREDENTIAL\n40. REPLICATES_DOCUMENTED_USER_COMMANDS\n41. INSTALLS_STARTUP_HOOK\n42. REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION\n43. CONFIRMS_DEPLOYMENT_PIPELINE\n44. DETECTS_SOURCE_CONTENT_MISMATCH\n45. RESOLVES_SOURCE_IDENTITY_AMBIGUITY\n46. DERIVES_SOLUTION_FROM_OBSERVED_DATA\n47. PROPOSES_CONCRETE_SOLUTION\n48. IMPLEMENTS_SELECTED_SOLUTION\n49. CREATES_VERIFICATION_ARTIFACT\n50. REPORTS_EXECUTION_FAILURE\n51. CONFIRMS_VERIFICATION_SUCCESS\n52. PERFORMS_INTEGRITY_CHECK\n53. PROVIDES_INTEGRITY_EVIDENCE\n\n53 predicates. All KEEP."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 14995,
+          "completion_tokens": 2002,
+          "total_tokens": 16997,
+          "prompt_tokens_details": {
+            "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 756
+          },
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 14611
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"revisions\": [\n {\"original_name\": \"IS_EXECUTION_PLAN\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"GUIDES_ACTION_CONTENT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPLACES_DEFECTIVE_CONTENT_OBSERVED\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CHECKS_TOOL_AVAILABILITY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PERFORMS_PRIMARY_BUILD\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IS_INVOCATION_ERROR_OBSERVATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CORRECTS_FAILED_INVOCATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_CORRECTED_VERIFICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ASSERTS_TASK_COMPLETION_WITH_EVIDENCE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ANTICIPATES_FAILURE_MODE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_ENVIRONMENT_CONSTRAINT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ALIGNS_PROVISIONED_NAMES_WITH_REQUEST\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_MISSING_DEPENDENCIES\", \"operation\": \"KEEP\"},\n {\"original_name\": \"MITIGATES_ANTICIPATED_PITFALL\", \"operation\": \"KEEP\"},\n {\"original_name\": \"WRITES_SERVICE_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"AUTHORS_PUSH_DEPLOY_HOOK\", \"operation\": \"KEEP\"},\n {\"original_name\": \"MODIFIES_OBSERVED_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_SERVICE_STARTED\", \"operation\": \"KEEP\"},\n {\"original_name\": \"WIRES_PUSH_TO_SERVED_ROOT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VALIDATES_SERVICE_CONFIGURATION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIGURES_HOSTNAME_RESOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"TESTS_AUTHENTICATED_REMOTE_ACCESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXECUTES_END_TO_END_USER_WORKFLOW\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DIAGNOSES_FAILURE_CAUSE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_REPAIR_OBSERVED_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_REPAIR\", \"operation\": \"KEEP\"},\n {\"original_name\": \"ATTEMPTS_TEST_STATE_CLEANUP\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESTORES_PRISTINE_STATE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_SERVICE_RECOVERY_HELPER\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CHECKS_LISTENING_PORTS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFICATION_OBSERVES_EXPECTED_RESULT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"EXPLAINS_OBSERVED_ANOMALY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REVERIFIES_WITH_ALTERNATIVE_MECHANISM\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"VERIFIES_ENUMERATED_STATE_ITEMS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVISIONS_DISPOSABLE_CREDENTIAL\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPLICATES_DOCUMENTED_USER_COMMANDS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"INSTALLS_STARTUP_HOOK\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_DEPLOYMENT_PIPELINE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DETECTS_SOURCE_CONTENT_MISMATCH\", \"operation\": \"KEEP\"},\n {\"original_name\": \"RESOLVES_SOURCE_IDENTITY_AMBIGUITY\", \"operation\": \"KEEP\"},\n {\"original_name\": \"DERIVES_SOLUTION_FROM_OBSERVED_DATA\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROPOSES_CONCRETE_SOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"IMPLEMENTS_SELECTED_SOLUTION\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CREATES_VERIFICATION_ARTIFACT\", \"operation\": \"KEEP\"},\n {\"original_name\": \"REPORTS_EXECUTION_FAILURE\", \"operation\": \"KEEP\"},\n {\"original_name\": \"CONFIRMS_VERIFICATION_SUCCESS\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PERFORMS_INTEGRITY_CHECK\", \"operation\": \"KEEP\"},\n {\"original_name\": \"PROVIDES_INTEGRITY_EVIDENCE\", \"operation\": \"KEEP\"}\n]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "revisions": [
+      {
+        "original_name": "IS_EXECUTION_PLAN",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "GUIDES_ACTION_CONTENT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "REPLACES_DEFECTIVE_CONTENT_OBSERVED",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CHECKS_TOOL_AVAILABILITY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PERFORMS_PRIMARY_BUILD",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "IS_INVOCATION_ERROR_OBSERVATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CORRECTS_FAILED_INVOCATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIRMS_CORRECTED_VERIFICATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ASSERTS_TASK_COMPLETION_WITH_EVIDENCE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ANTICIPATES_FAILURE_MODE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DERIVES_ENVIRONMENT_CONSTRAINT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ALIGNS_PROVISIONED_NAMES_WITH_REQUEST",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "INSTALLS_MISSING_DEPENDENCIES",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "MITIGATES_ANTICIPATED_PITFALL",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "WRITES_SERVICE_CONFIGURATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "AUTHORS_PUSH_DEPLOY_HOOK",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "MODIFIES_OBSERVED_CONFIGURATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIRMS_SERVICE_STARTED",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "WIRES_PUSH_TO_SERVED_ROOT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "VALIDATES_SERVICE_CONFIGURATION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIGURES_HOSTNAME_RESOLUTION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "TESTS_AUTHENTICATED_REMOTE_ACCESS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "EXECUTES_END_TO_END_USER_WORKFLOW",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DIAGNOSES_FAILURE_CAUSE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ATTEMPTS_REPAIR_OBSERVED_FAILURE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIRMS_REPAIR",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "ATTEMPTS_TEST_STATE_CLEANUP",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "RESTORES_PRISTINE_STATE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "INSTALLS_SERVICE_RECOVERY_HELPER",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CHECKS_LISTENING_PORTS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "VERIFICATION_OBSERVES_EXPECTED_RESULT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "EXPLAINS_OBSERVED_ANOMALY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "REVERIFIES_WITH_ALTERNATIVE_MECHANISM",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "RESOLVES_FUNCTIONAL_DOUBT_BY_PROBE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "VERIFIES_ENUMERATED_STATE_ITEMS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PROVISIONS_DISPOSABLE_CREDENTIAL",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "REPLICATES_DOCUMENTED_USER_COMMANDS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "INSTALLS_STARTUP_HOOK",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "REUSES_ARTIFACT_CREATED_BY_EARLIER_ACTION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIRMS_DEPLOYMENT_PIPELINE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DETECTS_SOURCE_CONTENT_MISMATCH",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "RESOLVES_SOURCE_IDENTITY_AMBIGUITY",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "DERIVES_SOLUTION_FROM_OBSERVED_DATA",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PROPOSES_CONCRETE_SOLUTION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "IMPLEMENTS_SELECTED_SOLUTION",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CREATES_VERIFICATION_ARTIFACT",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "REPORTS_EXECUTION_FAILURE",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "CONFIRMS_VERIFICATION_SUCCESS",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PERFORMS_INTEGRITY_CHECK",
+        "operation": "KEEP"
+      },
+      {
+        "original_name": "PROVIDES_INTEGRITY_EVIDENCE",
+        "operation": "KEEP"
+      }
+    ]
+  },
+  "previous_calls": []
+}

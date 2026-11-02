@@ -1,0 +1,76 @@
+[10:21:27] 开始运行，正在读取实验输入与配置
+[10:21:27] 切分第 1/20 条轨迹：xhigh-rerun-prove__prove-plus-comm
+[10:21:27] 生成 window_0001，包含 7 个 agent event
+[10:21:27] 准备前文摘要
+[10:21:27] 准备后文摘要
+[10:21:27] 已保存 window_0001，累计 1 个窗口
+[10:21:27] 切分第 2/20 条轨迹：xhigh__configure-git-webserver
+[10:21:27] 生成 window_0001，包含 10 个 agent event
+[10:21:27] 准备前文摘要
+[10:21:27] 准备后文摘要
+[10:21:27] 摘要请求已发送，等待模型返回
+[10:21:33] 已收到摘要，正在检查结果
+[10:21:33] 已保存 window_0001，累计 2 个窗口
+[10:21:33] 生成 window_0002，包含 10 个 agent event
+[10:21:33] 准备前文摘要
+[10:21:33] 摘要请求已发送，等待模型返回
+[10:21:40] 已收到摘要，正在检查结果
+[10:21:40] 准备后文摘要
+[10:21:40] 摘要请求已发送，等待模型返回
+[10:21:46] 已收到摘要，正在检查结果
+[10:21:46] 已保存 window_0002，累计 3 个窗口
+[10:21:46] 生成 window_0003，包含 8 个 agent event
+[10:21:46] 准备前文摘要
+[10:21:46] 摘要请求已发送，等待模型返回
+[10:21:53] 已收到摘要，正在检查结果
+[10:21:53] 准备后文摘要
+[10:21:53] 已保存 window_0003，累计 4 个窗口
+[10:21:53] 切分第 3/20 条轨迹：xhigh__constraints-scheduling
+[10:21:53] 生成 window_0001，包含 9 个 agent event
+[10:21:53] 准备前文摘要
+[10:21:53] 准备后文摘要
+[10:21:53] 已保存 window_0001，累计 5 个窗口
+[10:21:53] 切分第 4/20 条轨迹：xhigh__count-dataset-tokens
+[10:21:53] 生成 window_0001，包含 10 个 agent event
+[10:21:53] 准备前文摘要
+[10:21:53] 准备后文摘要
+[10:21:53] 摘要请求已发送，等待模型返回
+[10:22:00] 已收到摘要，正在检查结果
+[10:22:00] 已保存 window_0001，累计 6 个窗口
+[10:22:00] 生成 window_0002，包含 7 个 agent event
+[10:22:00] 准备前文摘要
+[10:22:00] 摘要请求已发送，等待模型返回
+[10:22:06] 已收到摘要，正在检查结果
+[10:22:06] 准备后文摘要
+[10:22:06] 已保存 window_0002，累计 7 个窗口
+[10:22:06] 切分第 5/20 条轨迹：xhigh__fix-git
+[10:22:06] 生成 window_0001，包含 10 个 agent event
+[10:22:06] 准备前文摘要
+[10:22:06] 准备后文摘要
+[10:22:06] 摘要请求已发送，等待模型返回
+[10:22:12] 已收到摘要，正在检查结果
+[10:22:12] 已保存 window_0001，累计 8 个窗口
+[10:22:13] 生成 window_0002，包含 4 个 agent event
+[10:22:13] 准备前文摘要
+[10:22:13] 运行失败：Unresolved prompt placeholders: ['{{pub.title}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.pdf_path}}', '{{link.url}}', '{{link.name}}', '{{link.url}}', '{{link.name}}', '{{pub.notes}}', '{{ temp | markdownify }}', '{{ temp | markdownify }}', '{{ temp | markdownify }}']
+Unresolved prompt placeholders: ['{{pub.title}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.pdf_path}}', '{{link.url}}', '{{link.name}}', '{{link.url}}', '{{link.name}}', '{{pub.notes}}', '{{ temp | markdownify }}', '{{ temp | markdownify }}', '{{ temp | markdownify }}']
+[10:24:16] 开始运行，正在读取实验输入与配置
+[10:24:16] 切分第 1/20 条轨迹：xhigh-rerun-prove__prove-plus-comm
+[10:24:16] 切分第 2/20 条轨迹：xhigh__configure-git-webserver
+[10:24:16] 切分第 3/20 条轨迹：xhigh__constraints-scheduling
+[10:24:16] 切分第 4/20 条轨迹：xhigh__count-dataset-tokens
+[10:24:16] 切分第 5/20 条轨迹：xhigh__fix-git
+[10:24:16] 生成 window_0002，包含 4 个 agent event
+[10:24:16] 准备前文摘要
+[10:24:16] 运行失败：Unresolved prompt placeholders: ['{{pub.title}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.pdf_path}}', '{{link.url}}', '{{link.name}}', '{{link.url}}', '{{link.name}}', '{{pub.notes}}', '{{ temp | markdownify }}', '{{ temp | markdownify }}', '{{ temp | markdownify }}']
+Unresolved prompt placeholders: ['{{pub.title}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.pdf_path}}', '{{link.url}}', '{{link.name}}', '{{link.url}}', '{{link.name}}', '{{pub.notes}}', '{{ temp | markdownify }}', '{{ temp | markdownify }}', '{{ temp | markdownify }}']
+[10:24:53] 开始运行，正在读取实验输入与配置
+[10:24:53] 切分第 1/20 条轨迹：xhigh-rerun-prove__prove-plus-comm
+[10:24:53] 切分第 2/20 条轨迹：xhigh__configure-git-webserver
+[10:24:53] 切分第 3/20 条轨迹：xhigh__constraints-scheduling
+[10:24:53] 切分第 4/20 条轨迹：xhigh__count-dataset-tokens
+[10:24:53] 切分第 5/20 条轨迹：xhigh__fix-git
+[10:24:53] 生成 window_0002，包含 4 个 agent event
+[10:24:53] 准备前文摘要
+[10:24:53] 运行失败：Unresolved prompt placeholders: ['{{pub.title}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.pdf_path}}', '{{link.url}}', '{{link.name}}', '{{link.url}}', '{{link.name}}', '{{pub.notes}}', '{{ temp | markdownify }}', '{{ temp | markdownify }}', '{{ temp | markdownify }}']
+Unresolved prompt placeholders: ['{{pub.title}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{a[0]}}', '{{a[1]}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.venue}}', '{{pub.year}}', '{{pub.pdf_path}}', '{{link.url}}', '{{link.name}}', '{{link.url}}', '{{link.name}}', '{{pub.notes}}', '{{ temp | markdownify }}', '{{ temp | markdownify }}', '{{ temp | markdownify }}']

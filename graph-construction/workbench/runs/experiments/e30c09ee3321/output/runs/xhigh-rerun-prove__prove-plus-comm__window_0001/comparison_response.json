@@ -1,0 +1,255 @@
+{
+  "stage": "comparison",
+  "window_file": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T05:47:24.270952+00:00",
+  "duration_seconds": 10.875,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T05:47:13.406035+00:00",
+      "duration_seconds": 10.859,
+      "raw_response": {
+        "id": "ed82c142-897f-4d84-8f33-6bf16d53595f",
+        "object": "chat.completion",
+        "created": 1793425639,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"existing\": [], \"new\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent commits to performing.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action (e.g., inspecting, writing, compiling, verifying).\", \"The intended action is presented as something the agent will do next, not merely as a possibility or a restatement of the task.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already completed.\", \"The reasoning only restates the task description or requirements without committing to a future action.\"]}, {\"name\": \"SPECIFIES_CORRECTIVE_CONTENT_WITH_JUSTIFICATION\", \"definition\": \"The reasoning produces the concrete content of the intended modification and justifies why that content satisfies the target requirement, optionally by evaluating and rejecting alternatives that would fail.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that states the concrete replacement content and the justification for its correctness.\"}], \"assertion_conditions\": [\"The reasoning states concrete content to be applied to the artifact (e.g., a specific sequence of steps or replacement text), not merely the intention to fix it.\", \"The reasoning explains why the stated content achieves the goal, based on the semantics of the domain entities involved.\", \"Where alternatives are considered, at least one candidate is rejected for an identified reason.\"], \"exclusion_conditions\": [\"The reasoning only describes the defect or the goal without supplying concrete content to apply.\", \"The reasoning only lists generic strategies without indicating which one will be used or why it works.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion using identifiable content of the observation as supporting evidence for that conclusion.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence used for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion that goes beyond restating the observation (e.g., a judgement about correctness, availability, or completion).\", \"Identifiable content of the observation (values, listed artifacts, returned text) is used as the support for that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without drawing a conclusion from it.\", \"The observation is unrelated to the conclusion or contains nothing that supports it.\"]}, {\"name\": \"DIAGNOSES_FAILURE_AND_PRESCRIBES_CORRECTION\", \"definition\": \"An observation reports a failed outcome; the reasoning identifies a specific cause for the failure that links it to the semantics of the executed operation, and prescribes a corrective action that differs from the failed one in the diagnosed respect.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the error or unsuccessful outcome.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning explaining the cause of the failure and specifying the corrected approach.\"}, {\"name\": \"corrective_action\", \"type\": \"action\", \"description\": \"The action that applies the corrected approach prescribed by the diagnosis.\"}], \"assertion_conditions\": [\"The observation reports an error or otherwise unsuccessful result.\", \"The reasoning states a specific cause for the failure rather than merely noting that it failed.\", \"The reasoning specifies how the operation must be changed in light of that cause.\", \"The corrective action implements that change and is therefore distinguishable from the failed action.\"], \"exclusion_conditions\": [\"The reasoning retries the same operation without identifying a cause or changing the approach.\", \"The reasoning speculates about causes unrelated to the reported error.\", \"The corrective action does not reflect the stated diagnosis.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action queries the environment to resolve a specific uncertainty or unverified prerequisite identified in reasoning, and the resulting observation provides the evidence needed to settle it before dependent work proceeds.\", \"parameters\": [{\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the uncertainty or prerequisite that must be settled.\"}, {\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted query about that uncertainty.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific open question or prerequisite condition whose value is not yet known.\", \"The probe action is directed at obtaining exactly that information from the environment.\", \"The observation returns information that resolves or materially informs the identified question.\"], \"exclusion_conditions\": [\"No identifiable uncertainty or prerequisite motivates the action.\", \"The action is unrelated to the stated question, or the observation does not address it.\", \"The probe merely repeats information already established earlier in the trajectory.\"]}, {\"name\": \"VERIFIES_REQUIREMENT_SATISFACTION\", \"definition\": \"After an outcome has been produced, a separate verification action inspects the produced artifact or result, its observation demonstrates the required property directly (rather than only the absence of errors), and the reasoning concludes from it that the requirement is satisfied.\", \"parameters\": [{\"name\": \"verification_action\", \"type\": \"action\", \"description\": \"The action that inspects or exercises the already produced outcome.\"}, {\"name\": \"verification_observation\", \"type\": \"observation\", \"description\": \"The observation containing content that demonstrates the required property.\"}, {\"name\": \"concluding_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning concluding that the requirement is met on the basis of that observation.\"}], \"assertion_conditions\": [\"The verification action is distinct from the action that produced the outcome and targets the produced artifact or result.\", \"The observation exposes content showing the required property actually holds (e.g., the resulting object is present and carries the expected content).\", \"The reasoning explicitly concludes that the requirement is satisfied, citing that observation.\"], \"exclusion_conditions\": [\"The action is the one that produced the outcome rather than an independent check of it.\", \"The observation only indicates that no error occurred, without demonstrating the required property.\", \"No conclusion is drawn from the observation, or the conclusion is not tied to it.\"]}, {\"name\": \"APPLIES_TASK_CONSTRAINT_TO_SELECT_APPROACH\", \"definition\": \"The reasoning invokes a constraint stated in the task and uses it to rule out an otherwise viable option, choosing instead an option that complies with the constraint.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that cites the constraint and derives the compliant choice from it.\"}], \"assertion_conditions\": [\"The reasoning refers to a specific restriction imposed by the task.\", \"The reasoning identifies at least one otherwise viable option as disallowed or risky under that restriction.\", \"The reasoning selects an alternative course of action as compliant with the restriction.\"], \"exclusion_conditions\": [\"The reasoning mentions a restriction without letting it change the chosen approach.\", \"The reasoning expresses general caution without referencing a specific stated constraint.\", \"No alternative option is considered and rejected on constraint grounds.\"]}, {\"name\": \"EXPLORATORY_ENVIRONMENT_SURVEY\", \"definition\": \"An action inspects existing workspace or environment state (directory listings, file inventories, file contents) in order to establish a baseline for subsequent work, without being aimed at confirming a specific predicted fact or at producing the target artifact.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action that inspects existing environment or artifact state.\"}], \"assertion_conditions\": [\"The action retrieves pre-existing state such as directory contents, file inventory, or the current content of a file.\", \"The action is oriented toward orientation and baseline establishment prior to making changes.\"], \"exclusion_conditions\": [\"The action creates or modifies the target artifact.\", \"The action is aimed at confirming one specific stated hypothesis about a named fact, which is instead a targeted probe.\"]}], \"uncertain\": []}",
+              "reasoning_content": "The registry is empty. Per instructions: \"When the registry is empty, classify all candidates as new.\"\n\nReturn JSON with all candidates as new, with complete original definitions."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4360,
+          "completion_tokens": 1845,
+          "total_tokens": 6205,
+          "prompt_tokens_details": {
+            "cached_tokens": 384
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 34
+          },
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 3976
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"existing\": [], \"new\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent commits to performing.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action (e.g., inspecting, writing, compiling, verifying).\", \"The intended action is presented as something the agent will do next, not merely as a possibility or a restatement of the task.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already completed.\", \"The reasoning only restates the task description or requirements without committing to a future action.\"]}, {\"name\": \"SPECIFIES_CORRECTIVE_CONTENT_WITH_JUSTIFICATION\", \"definition\": \"The reasoning produces the concrete content of the intended modification and justifies why that content satisfies the target requirement, optionally by evaluating and rejecting alternatives that would fail.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that states the concrete replacement content and the justification for its correctness.\"}], \"assertion_conditions\": [\"The reasoning states concrete content to be applied to the artifact (e.g., a specific sequence of steps or replacement text), not merely the intention to fix it.\", \"The reasoning explains why the stated content achieves the goal, based on the semantics of the domain entities involved.\", \"Where alternatives are considered, at least one candidate is rejected for an identified reason.\"], \"exclusion_conditions\": [\"The reasoning only describes the defect or the goal without supplying concrete content to apply.\", \"The reasoning only lists generic strategies without indicating which one will be used or why it works.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion using identifiable content of the observation as supporting evidence for that conclusion.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence used for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion that goes beyond restating the observation (e.g., a judgement about correctness, availability, or completion).\", \"Identifiable content of the observation (values, listed artifacts, returned text) is used as the support for that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without drawing a conclusion from it.\", \"The observation is unrelated to the conclusion or contains nothing that supports it.\"]}, {\"name\": \"DIAGNOSES_FAILURE_AND_PRESCRIBES_CORRECTION\", \"definition\": \"An observation reports a failed outcome; the reasoning identifies a specific cause for the failure that links it to the semantics of the executed operation, and prescribes a corrective action that differs from the failed one in the diagnosed respect.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the error or unsuccessful outcome.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning explaining the cause of the failure and specifying the corrected approach.\"}, {\"name\": \"corrective_action\", \"type\": \"action\", \"description\": \"The action that applies the corrected approach prescribed by the diagnosis.\"}], \"assertion_conditions\": [\"The observation reports an error or otherwise unsuccessful result.\", \"The reasoning states a specific cause for the failure rather than merely noting that it failed.\", \"The reasoning specifies how the operation must be changed in light of that cause.\", \"The corrective action implements that change and is therefore distinguishable from the failed action.\"], \"exclusion_conditions\": [\"The reasoning retries the same operation without identifying a cause or changing the approach.\", \"The reasoning speculates about causes unrelated to the reported error.\", \"The corrective action does not reflect the stated diagnosis.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action queries the environment to resolve a specific uncertainty or unverified prerequisite identified in reasoning, and the resulting observation provides the evidence needed to settle it before dependent work proceeds.\", \"parameters\": [{\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the uncertainty or prerequisite that must be settled.\"}, {\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted query about that uncertainty.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific open question or prerequisite condition whose value is not yet known.\", \"The probe action is directed at obtaining exactly that information from the environment.\", \"The observation returns information that resolves or materially informs the identified question.\"], \"exclusion_conditions\": [\"No identifiable uncertainty or prerequisite motivates the action.\", \"The action is unrelated to the stated question, or the observation does not address it.\", \"The probe merely repeats information already established earlier in the trajectory.\"]}, {\"name\": \"VERIFIES_REQUIREMENT_SATISFACTION\", \"definition\": \"After an outcome has been produced, a separate verification action inspects the produced artifact or result, its observation demonstrates the required property directly (rather than only the absence of errors), and the reasoning concludes from it that the requirement is satisfied.\", \"parameters\": [{\"name\": \"verification_action\", \"type\": \"action\", \"description\": \"The action that inspects or exercises the already produced outcome.\"}, {\"name\": \"verification_observation\", \"type\": \"observation\", \"description\": \"The observation containing content that demonstrates the required property.\"}, {\"name\": \"concluding_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning concluding that the requirement is met on the basis of that observation.\"}], \"assertion_conditions\": [\"The verification action is distinct from the action that produced the outcome and targets the produced artifact or result.\", \"The observation exposes content showing the required property actually holds (e.g., the resulting object is present and carries the expected content).\", \"The reasoning explicitly concludes that the requirement is satisfied, citing that observation.\"], \"exclusion_conditions\": [\"The action is the one that produced the outcome rather than an independent check of it.\", \"The observation only indicates that no error occurred, without demonstrating the required property.\", \"No conclusion is drawn from the observation, or the conclusion is not tied to it.\"]}, {\"name\": \"APPLIES_TASK_CONSTRAINT_TO_SELECT_APPROACH\", \"definition\": \"The reasoning invokes a constraint stated in the task and uses it to rule out an otherwise viable option, choosing instead an option that complies with the constraint.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that cites the constraint and derives the compliant choice from it.\"}], \"assertion_conditions\": [\"The reasoning refers to a specific restriction imposed by the task.\", \"The reasoning identifies at least one otherwise viable option as disallowed or risky under that restriction.\", \"The reasoning selects an alternative course of action as compliant with the restriction.\"], \"exclusion_conditions\": [\"The reasoning mentions a restriction without letting it change the chosen approach.\", \"The reasoning expresses general caution without referencing a specific stated constraint.\", \"No alternative option is considered and rejected on constraint grounds.\"]}, {\"name\": \"EXPLORATORY_ENVIRONMENT_SURVEY\", \"definition\": \"An action inspects existing workspace or environment state (directory listings, file inventories, file contents) in order to establish a baseline for subsequent work, without being aimed at confirming a specific predicted fact or at producing the target artifact.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action that inspects existing environment or artifact state.\"}], \"assertion_conditions\": [\"The action retrieves pre-existing state such as directory contents, file inventory, or the current content of a file.\", \"The action is oriented toward orientation and baseline establishment prior to making changes.\"], \"exclusion_conditions\": [\"The action creates or modifies the target artifact.\", \"The action is aimed at confirming one specific stated hypothesis about a named fact, which is instead a targeted probe.\"]}], \"uncertain\": []}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "existing": [],
+    "new": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent commits to performing.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies at least one intended future action (e.g., inspecting, writing, compiling, verifying).",
+          "The intended action is presented as something the agent will do next, not merely as a possibility or a restatement of the task."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports actions already completed.",
+          "The reasoning only restates the task description or requirements without committing to a future action."
+        ]
+      },
+      {
+        "name": "SPECIFIES_CORRECTIVE_CONTENT_WITH_JUSTIFICATION",
+        "definition": "The reasoning produces the concrete content of the intended modification and justifies why that content satisfies the target requirement, optionally by evaluating and rejecting alternatives that would fail.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that states the concrete replacement content and the justification for its correctness."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states concrete content to be applied to the artifact (e.g., a specific sequence of steps or replacement text), not merely the intention to fix it.",
+          "The reasoning explains why the stated content achieves the goal, based on the semantics of the domain entities involved.",
+          "Where alternatives are considered, at least one candidate is rejected for an identified reason."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only describes the defect or the goal without supplying concrete content to apply.",
+          "The reasoning only lists generic strategies without indicating which one will be used or why it works."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion using identifiable content of the observation as supporting evidence for that conclusion.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the evidence-based conclusion."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the evidence used for that conclusion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion that goes beyond restating the observation (e.g., a judgement about correctness, availability, or completion).",
+          "Identifiable content of the observation (values, listed artifacts, returned text) is used as the support for that conclusion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or summarizes the observation without drawing a conclusion from it.",
+          "The observation is unrelated to the conclusion or contains nothing that supports it."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_FAILURE_AND_PRESCRIBES_CORRECTION",
+        "definition": "An observation reports a failed outcome; the reasoning identifies a specific cause for the failure that links it to the semantics of the executed operation, and prescribes a corrective action that differs from the failed one in the diagnosed respect.",
+        "parameters": [
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting the error or unsuccessful outcome."
+          },
+          {
+            "name": "diagnosis_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning explaining the cause of the failure and specifying the corrected approach."
+          },
+          {
+            "name": "corrective_action",
+            "type": "action",
+            "description": "The action that applies the corrected approach prescribed by the diagnosis."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an error or otherwise unsuccessful result.",
+          "The reasoning states a specific cause for the failure rather than merely noting that it failed.",
+          "The reasoning specifies how the operation must be changed in light of that cause.",
+          "The corrective action implements that change and is therefore distinguishable from the failed action."
+        ],
+        "exclusion_conditions": [
+          "The reasoning retries the same operation without identifying a cause or changing the approach.",
+          "The reasoning speculates about causes unrelated to the reported error.",
+          "The corrective action does not reflect the stated diagnosis."
+        ]
+      },
+      {
+        "name": "TESTS_ASSUMPTION_WITH_PROBE",
+        "definition": "A targeted action queries the environment to resolve a specific uncertainty or unverified prerequisite identified in reasoning, and the resulting observation provides the evidence needed to settle it before dependent work proceeds.",
+        "parameters": [
+          {
+            "name": "assumption_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying the uncertainty or prerequisite that must be settled."
+          },
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action performing the targeted query about that uncertainty."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the result relevant to the uncertainty."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific open question or prerequisite condition whose value is not yet known.",
+          "The probe action is directed at obtaining exactly that information from the environment.",
+          "The observation returns information that resolves or materially informs the identified question."
+        ],
+        "exclusion_conditions": [
+          "No identifiable uncertainty or prerequisite motivates the action.",
+          "The action is unrelated to the stated question, or the observation does not address it.",
+          "The probe merely repeats information already established earlier in the trajectory."
+        ]
+      },
+      {
+        "name": "VERIFIES_REQUIREMENT_SATISFACTION",
+        "definition": "After an outcome has been produced, a separate verification action inspects the produced artifact or result, its observation demonstrates the required property directly (rather than only the absence of errors), and the reasoning concludes from it that the requirement is satisfied.",
+        "parameters": [
+          {
+            "name": "verification_action",
+            "type": "action",
+            "description": "The action that inspects or exercises the already produced outcome."
+          },
+          {
+            "name": "verification_observation",
+            "type": "observation",
+            "description": "The observation containing content that demonstrates the required property."
+          },
+          {
+            "name": "concluding_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning concluding that the requirement is met on the basis of that observation."
+          }
+        ],
+        "assertion_conditions": [
+          "The verification action is distinct from the action that produced the outcome and targets the produced artifact or result.",
+          "The observation exposes content showing the required property actually holds (e.g., the resulting object is present and carries the expected content).",
+          "The reasoning explicitly concludes that the requirement is satisfied, citing that observation."
+        ],
+        "exclusion_conditions": [
+          "The action is the one that produced the outcome rather than an independent check of it.",
+          "The observation only indicates that no error occurred, without demonstrating the required property.",
+          "No conclusion is drawn from the observation, or the conclusion is not tied to it."
+        ]
+      },
+      {
+        "name": "APPLIES_TASK_CONSTRAINT_TO_SELECT_APPROACH",
+        "definition": "The reasoning invokes a constraint stated in the task and uses it to rule out an otherwise viable option, choosing instead an option that complies with the constraint.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that cites the constraint and derives the compliant choice from it."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to a specific restriction imposed by the task.",
+          "The reasoning identifies at least one otherwise viable option as disallowed or risky under that restriction.",
+          "The reasoning selects an alternative course of action as compliant with the restriction."
+        ],
+        "exclusion_conditions": [
+          "The reasoning mentions a restriction without letting it change the chosen approach.",
+          "The reasoning expresses general caution without referencing a specific stated constraint.",
+          "No alternative option is considered and rejected on constraint grounds."
+        ]
+      },
+      {
+        "name": "EXPLORATORY_ENVIRONMENT_SURVEY",
+        "definition": "An action inspects existing workspace or environment state (directory listings, file inventories, file contents) in order to establish a baseline for subsequent work, without being aimed at confirming a specific predicted fact or at producing the target artifact.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action that inspects existing environment or artifact state."
+          }
+        ],
+        "assertion_conditions": [
+          "The action retrieves pre-existing state such as directory contents, file inventory, or the current content of a file.",
+          "The action is oriented toward orientation and baseline establishment prior to making changes."
+        ],
+        "exclusion_conditions": [
+          "The action creates or modifies the target artifact.",
+          "The action is aimed at confirming one specific stated hypothesis about a named fact, which is instead a targeted probe."
+        ]
+      }
+    ],
+    "uncertain": []
+  },
+  "previous_calls": []
+}

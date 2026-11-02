@@ -1,0 +1,471 @@
+[
+  {
+    "name": "PROBES_ENVIRONMENT_STATE",
+    "definition": "The action performs a read-only inspection that queries the state, contents, installed software, or availability of the execution environment, in order to inform subsequent action selection.",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The read-only inspection or availability-check invocation."
+      }
+    ],
+    "assertion_conditions": [
+      "The action queries the state of the environment, resource, or service, such as which files or directories exist, which packages or versions are installed, or whether a network resource is reachable.",
+      "The invocation is inspection-oriented: it does not install, write, delete, or perform the task's substantive computation.",
+      "The information obtained is intended to determine what should be done next."
+    ],
+    "exclusion_conditions": [
+      "The action modifies state, for example by installing, writing, or deleting.",
+      "The action performs the task's main computation or produces the final deliverable.",
+      "The action retrieves substantive task content for processing or transformation rather than checking what exists or is available."
+    ]
+  },
+  {
+    "name": "PROVISIONS_MISSING_CAPABILITY",
+    "definition": "The action supplies a software capability — a library, package, tool, or runtime component — that an observation showed to be absent or insufficient, so that the intended operation can proceed.",
+    "parameters": [
+      {
+        "name": "provisioning_action",
+        "type": "action",
+        "description": "The action installing, downloading, or otherwise providing the missing capability."
+      },
+      {
+        "name": "absence_observation",
+        "type": "observation",
+        "description": "The observation stating or clearly implying that a required capability is missing or insufficient."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation enumerates or reports environment contents in a way that states or clearly implies a required library, package, tool, or capability is missing or insufficient.",
+      "The action installs, downloads, enables, or otherwise provisions that capability.",
+      "The capability targeted by the action matches the one shown to be missing or insufficient."
+    ],
+    "exclusion_conditions": [
+      "The observation only reports a successful state, available versions, or unrelated environment details.",
+      "The action only checks availability without provisioning anything.",
+      "The action provisions a capability unrelated to what the observation showed to be missing.",
+      "The action re-executes a failed operation rather than supplying a missing capability."
+    ]
+  },
+  {
+    "name": "AUTHORS_EXECUTABLE_ARTIFACT",
+    "definition": "The action creates a file containing a program, script, or command sequence that is intended to be executed later to carry out the task.",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The file-writing action that authors the executable artifact."
+      }
+    ],
+    "assertion_conditions": [
+      "The action writes or creates a file.",
+      "The file content is executable code or a command sequence rather than data, prose notes, or a final answer.",
+      "The stated or evident purpose is that the artifact be run subsequently to accomplish the task."
+    ],
+    "exclusion_conditions": [
+      "The action writes the final answer, a dataset, or another non-executable output.",
+      "The action reads or edits an existing artifact without authoring executable content.",
+      "The file is configuration, documentation, or a note not intended as an executable program."
+    ]
+  },
+  {
+    "name": "REVEALS_DATASET_SCHEMA",
+    "definition": "The observation exposes structured schema-level information about a data source, such as configuration or subset names, field or column names, data types, or split definitions.",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation containing structured schema, field, or configuration information for a data source."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation enumerates or describes structured schema elements of a data source, such as configuration names, column or feature names, types, or splits.",
+      "The information is specific enough to identify the individual fields or configurations available."
+    ],
+    "exclusion_conditions": [
+      "The observation is free-form prose documentation without field-level or configuration-level structure.",
+      "The observation only reports that a dataset exists, its size, or its file listing without schema details.",
+      "The observation contains only raw records of data values without any schema description."
+    ]
+  },
+  {
+    "name": "ESTABLISHES_COMPUTATION_SPECIFICATION",
+    "definition": "The reasoning resolves an ambiguous or under-specified task by committing to a concrete interpretation and stating the data fields, filtering criterion, or computation procedure to apply.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that interprets the task and fixes the computation to perform."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies an ambiguity or alternative plausible interpretations in the task requirements.",
+      "The reasoning selects one concrete interpretation and states enough detail about the fields, filters, or operations to guide implementation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only restates the task, or gives a general plan without concrete criteria.",
+      "The reasoning reports results or execution rather than specifying the computation.",
+      "The reasoning mentions fields or operations without resolving any ambiguity or under-specification."
+    ]
+  },
+  {
+    "name": "TESTS_ASSUMPTION_WITH_PROBE",
+    "definition": "A targeted action empirically tests a specific assumption or ambiguity identified in prior reasoning, and the resulting observation provides evidence that resolves how that assumption affects the task.",
+    "parameters": [
+      {
+        "name": "probe_action",
+        "type": "action",
+        "description": "The action performing the targeted empirical check."
+      },
+      {
+        "name": "assumption_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning explicitly identifying the assumption, ambiguity, or uncertainty to be tested."
+      },
+      {
+        "name": "probe_observation",
+        "type": "observation",
+        "description": "The observation reporting the behavior relevant to the tested assumption."
+      }
+    ],
+    "assertion_conditions": [
+      "The assumption reasoning explicitly identifies an assumption or ambiguity whose truth could change the task result.",
+      "The probe action is a focused check of that assumption, such as a small isolated test, diagnostic query, or controlled experiment, rather than the main computation.",
+      "The probe observation reports behavior relevant to the assumption and supplies enough evidence to decide whether the assumption holds or how to interpret it."
+    ],
+    "exclusion_conditions": [
+      "The action is the main computation or general exploration.",
+      "No explicit assumption or uncertainty is identified in the reasoning.",
+      "The probe result does not address the identified assumption."
+    ]
+  },
+  {
+    "name": "RESOLVES_TERM_AMBIGUITY_USING_REFERENCE",
+    "definition": "Reasoning resolves an underspecified or non-matching term from the task by combining a reference description with the category values actually observed in the data to select the concrete categories that the term denotes.",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that selects concrete categories as the meaning of the task term."
+      },
+      {
+        "name": "reference_observation",
+        "type": "observation",
+        "description": "The observation supplying a taxonomy, grouping, or documentary description that relates observed categories to the term."
+      },
+      {
+        "name": "data_observation",
+        "type": "observation",
+        "description": "The observation showing the category values actually present in the data."
+      }
+    ],
+    "assertion_conditions": [
+      "The data observation shows category labels or values that do not directly match the task term.",
+      "The reference observation supplies a taxonomy, grouping, or documentary description relating the observed categories to the task term.",
+      "The interpretation reasoning explicitly selects one or more observed categories as constituting the task term, using both the reference description and the observed values."
+    ],
+    "exclusion_conditions": [
+      "The data already contains an exact matching category for the term.",
+      "The mapping is asserted without documentary or other supporting evidence.",
+      "The reasoning does not connect both the reference description and the observed values.",
+      "The reasoning merely reports values without resolving the term."
+    ]
+  },
+  {
+    "name": "CROSS_VALIDATES_RESULT",
+    "definition": "An independent verification action recomputes an already obtained result through a different data-access path or method, and the resulting observation reproduces the same value.",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "The action performing the independent recomputation."
+      },
+      {
+        "name": "original_result",
+        "type": "observation",
+        "description": "The earlier observation reporting the originally computed value."
+      },
+      {
+        "name": "verification_result",
+        "type": "observation",
+        "description": "The later observation reporting the independently recomputed value."
+      }
+    ],
+    "assertion_conditions": [
+      "The original result reports a computed value.",
+      "The verification action uses an independent mechanism, such as a different library, data path, or algorithm, rather than repeating the same call.",
+      "The verification result reports a value equal to the original result."
+    ],
+    "exclusion_conditions": [
+      "The same procedure is repeated without an independent data-access path or method.",
+      "The recomputed result differs from the original result.",
+      "The verification only checks formatting or presence rather than reproducing the value."
+    ]
+  },
+  {
+    "name": "VERIFIES_ARTIFACT_BY_READBACK",
+    "definition": "An action reads back a previously produced output artifact, and its resulting observation displays the stored content for confirmation.",
+    "parameters": [
+      {
+        "name": "readback_action",
+        "type": "action",
+        "description": "The action that reads the stored output artifact."
+      },
+      {
+        "name": "artifact_content",
+        "type": "observation",
+        "description": "The observation displaying the content of the stored artifact."
+      }
+    ],
+    "assertion_conditions": [
+      "A prior action produced or updated the output artifact.",
+      "The readback action reads the stored artifact instead of recomputing or transforming the result.",
+      "The artifact content observation displays content consistent with the intended output."
+    ],
+    "exclusion_conditions": [
+      "The artifact was not previously produced or updated.",
+      "The action recomputes or transforms the result rather than reading stored content.",
+      "The observation does not display the artifact's content."
+    ]
+  },
+  {
+    "name": "IDENTIFIES_RETENTION_MECHANISM",
+    "definition": "The reasoning explains why a target that should otherwise be absent remains present or reachable by attributing its continued availability to an identifiable retaining reference, log, cache, index, or equivalent persistence structure visible in an observation, and it selects a removal strategy aimed at that retaining mechanism.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text explaining continued retention and choosing a removal strategy."
+      },
+      {
+        "name": "retention_observation",
+        "type": "observation",
+        "description": "The observation showing that the target remains present or reachable despite an apparent removal."
+      }
+    ],
+    "assertion_conditions": [
+      "retention_observation shows that the target remains present, reachable, or not reported as removed or dangling despite an apparent removal.",
+      "The reasoning attributes continued availability to an identifiable reference, log, cache, index, or equivalent retention structure.",
+      "The reasoning selects or proposes an operation that expires, disables, or purges that retaining mechanism."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only repeats a generic cleanup sequence without explaining retention.",
+      "retention_observation already shows the target absent.",
+      "The reasoning attributes retention vaguely without identifying an inspectable mechanism."
+    ]
+  },
+  {
+    "name": "ATTEMPTS_TO_ERASE_OBSERVED_ARTIFACT",
+    "definition": "The action performs deletion, expiration, pruning, or equivalent removal operations directed at target data — or at the object, reference, or structure retaining it — that a prior observation identified.",
+    "parameters": [
+      {
+        "name": "erasure_action",
+        "type": "action",
+        "description": "The action attempting to delete, expire, or prune the target or its retaining structure."
+      },
+      {
+        "name": "exposure_observation",
+        "type": "observation",
+        "description": "The prior observation identifying the target content, object, or retaining reference."
+      }
+    ],
+    "assertion_conditions": [
+      "exposure_observation identifies target content, an object containing it, or a reference retaining it.",
+      "erasure_action deletes, expires, or prunes that object, reference, or containing structure.",
+      "The action is directed at the observed target rather than being routine maintenance with no identified target."
+    ],
+    "exclusion_conditions": [
+      "The action only inspects or verifies the target.",
+      "The action removes files or history without evidence that they contain or retain the target.",
+      "No prior observation identifies the target or its retaining structure."
+    ]
+  },
+  {
+    "name": "CONFIRMS_ERADICATION",
+    "definition": "An erasure action removes target data identified by an earlier observation, and a later verification observation establishes that the target is absent from the relevant searched scopes.",
+    "parameters": [
+      {
+        "name": "erasure_action",
+        "type": "action",
+        "description": "The action removing the target or the structure retaining it."
+      },
+      {
+        "name": "exposure_observation",
+        "type": "observation",
+        "description": "The earlier observation revealing the target content or retaining structure."
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "The later observation establishing that the target is absent."
+      }
+    ],
+    "assertion_conditions": [
+      "exposure_observation reveals target content or a structure retaining it.",
+      "erasure_action deletes, expires, or prunes the target or retaining structure after that observation.",
+      "verification_observation occurs after the erasure and reports the target not found across the relevant repository internals, revision history, and/or object storage, as applicable.",
+      "The verification evidence shows no remaining searched object or reference containing the target."
+    ],
+    "exclusion_conditions": [
+      "There is no erasure action or no subsequent verification observation.",
+      "The verification finds the target or checks only an unrelated scope.",
+      "The erasure action does not address the target identified by the exposure observation."
+    ]
+  },
+  {
+    "name": "VERIFIES_PRESERVATION_OF_UNRELATED_ARTIFACTS",
+    "definition": "The reasoning uses a post-remediation observation to validate that artifacts unrelated to the target remain unchanged, by comparing their content, identifiers, or status with an earlier known state.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text validating that unrelated artifacts were preserved."
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "The post-remediation observation reporting content, identifiers, or status of non-target artifacts."
+      }
+    ],
+    "assertion_conditions": [
+      "verification_observation reports content, hashes, status, or identifiers of non-target artifacts after remediation.",
+      "The reasoning explicitly compares that report with an earlier state or asserts identity and cleanliness of those artifacts.",
+      "The preservation conclusion is tied to the reported evidence for those unrelated artifacts."
+    ],
+    "exclusion_conditions": [
+      "Only target artifacts are examined.",
+      "The reasoning assumes preservation without reported evidence from the observation.",
+      "The observation predates the destructive or remediation action."
+    ]
+  },
+  {
+    "name": "PERFORMS_EXHAUSTIVE_UNIQUENESS_SEARCH",
+    "definition": "The action enumerates the complete accessible object set, or an equivalent full corpus, and searches each item for the target pattern to determine whether the target occurs uniquely.",
+    "parameters": [
+      {
+        "name": "search_action",
+        "type": "action",
+        "description": "The action enumerating objects or corpus items and searching them for the target."
+      }
+    ],
+    "assertion_conditions": [
+      "search_action enumerates all accessible objects, blobs, or corpus items rather than a sample.",
+      "Each enumerated item is searched for the target pattern.",
+      "The output associates occurrences with item identifiers or otherwise supports a uniqueness conclusion."
+    ],
+    "exclusion_conditions": [
+      "The action searches only a single file, directory, or preselected subset.",
+      "The action does not attempt to determine whether the target occurs more than once.",
+      "Enumeration is incomplete so uniqueness cannot be established."
+    ]
+  },
+  {
+    "name": "PERFORMS_CROSS_SCOPE_ABSENCE_VERIFICATION",
+    "definition": "The action checks for a target across multiple independent storage scopes, such as working files, repository metadata, revision history, and object inventory, in order to confirm its absence rather than locate a present value.",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "The action checking multiple scopes for the target's absence."
+      }
+    ],
+    "assertion_conditions": [
+      "verification_action includes at least two independent searches or inspections for the target.",
+      "The scopes cover different storage layers, histories, or metadata areas.",
+      "The action is aimed at confirming absence rather than only locating a present target."
+    ],
+    "exclusion_conditions": [
+      "The action performs a single grep or file check.",
+      "The action checks only one storage layer.",
+      "The action is not aimed at confirming absence."
+    ]
+  },
+  {
+    "name": "REPORTS_TARGET_ABSENT_ACROSS_SCOPES",
+    "definition": "The observation explicitly reports that the target was not found in multiple searched scopes and provides corroborating inventory or status evidence for absence.",
+    "parameters": [
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "The observation reporting not-found results and corroborating absence evidence."
+      }
+    ],
+    "assertion_conditions": [
+      "verification_observation contains explicit not-found results for at least two independent scopes.",
+      "Corroborating evidence such as an object inventory, status, or remaining-content listing supports the absence claim.",
+      "No execution error or ambiguity prevents interpreting the result as absence."
+    ],
+    "exclusion_conditions": [
+      "Only one not-found result is reported.",
+      "The command errored or output is ambiguous.",
+      "The observation reports that the target is present."
+    ]
+  },
+  {
+    "name": "REPORTS_ENVIRONMENT_OR_ARTIFACT_STATE",
+    "definition": "The observation enumerates concrete, factual state of the execution environment or of stored artifacts — such as directory contents, interpreter or library versions, installed packages, or retained/downloaded files with sizes — which can be used as operational ground truth.",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The tool result enumerating concrete environment or artifact facts."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation content enumerates concrete facts such as file or directory names, version strings, installed packages, or retained assets, rather than only acknowledging an operation.",
+      "The observation completes without an execution error that truncates or invalidates the enumeration."
+    ],
+    "exclusion_conditions": [
+      "The observation returns an application response payload produced by a service endpoint.",
+      "The observation reports an execution error or failure trace.",
+      "The observation merely acknowledges that a write or other operation succeeded.",
+      "The observation supplies schema-level definitions of a data source rather than environment or artifact state."
+    ]
+  },
+  {
+    "name": "CONFIRMS_EXTERNAL_REACHABILITY",
+    "definition": "A request contacts the running service through a host interface address other than the loopback address, and the resulting observation reports a successful response, establishing that the service is reachable beyond local-only access.",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The invocation that contacts the service through a non-loopback host interface address."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The result of that request, indicating success or failure."
+      }
+    ],
+    "assertion_conditions": [
+      "The address targeted by the request is a host interface address other than localhost/127.0.0.1, such as a container or external interface address.",
+      "The observation reports a successful response from the service at that address."
+    ],
+    "exclusion_conditions": [
+      "The request targets localhost or 127.0.0.1.",
+      "The request fails to reach the service, so external reachability is not confirmed.",
+      "The evidence of availability is only a process listing, configuration value, or listening-socket entry rather than a successful remotely addressed request."
+    ]
+  },
+  {
+    "name": "ASSESSES_REQUIREMENTS_AS_SATISFIED",
+    "definition": "The reasoning performs a final requirements assessment that maps multiple distinct requirements from the task specification to supporting evidence and concludes that all of them are satisfied.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text performing the final requirements assessment and declaring the requirements satisfied."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning addresses multiple distinct requirements from the task specification.",
+      "Each addressed requirement is marked as satisfied or verified, with reference to supporting evidence or observed behavior.",
+      "The reasoning concludes that all requirements are fulfilled or declares the task complete."
+    ],
+    "exclusion_conditions": [
+      "The reasoning reports only partial progress, unresolved issues, or remaining work.",
+      "The reasoning lists or restates requirements without concluding that they are satisfied.",
+      "The reasoning states a general completion claim without mapping individual requirements to supporting evidence."
+    ]
+  }
+]

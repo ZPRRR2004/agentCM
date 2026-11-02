@@ -1,0 +1,14 @@
+Review every candidate and the relevant matched registry predicates.
+Current Context Window:
+{{context_window}}
+
+Original candidates:
+{{candidate_predicates}}
+
+Complete Comparison result:
+{{comparison_results}}
+
+Current registry snapshot:
+{{existing_registry}}
+
+Return accepted_predicates and revised_existing_predicates. Both arrays may be empty.

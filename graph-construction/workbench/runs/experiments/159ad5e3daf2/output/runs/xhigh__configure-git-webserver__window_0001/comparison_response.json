@@ -1,0 +1,334 @@
+{
+  "stage": "comparison",
+  "window_file": "xhigh__configure-git-webserver__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T04:16:40.493732+00:00",
+  "duration_seconds": 43.235,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T04:15:57.262684+00:00",
+      "duration_seconds": 43.219,
+      "raw_response": {
+        "id": "bbd452bc-2609-4f42-b5a2-ba44c5c861ff",
+        "object": "chat.completion",
+        "created": 1793420163,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"existing\": [], \"new\": [{\"name\": \"PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION\", \"definition\": \"The action creates or adjusts a service account so that it can be used for remote key-based access and own service data without requiring password login.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The account-creation and authentication-state adjustment command or script.\"}], \"assertion_conditions\": [\"The action creates a user with a usable login shell and home directory.\", \"The action sets the account password field to a non-locking marker rather than leaving the account locked.\", \"The action creates a user-owned .ssh directory with restrictive permissions and an authorized_keys file suitable for later key insertion.\"], \"exclusion_conditions\": [\"The action merely creates an account but leaves its authentication state locked or otherwise unusable for key login.\", \"The action adjusts unrelated account attributes without preparing remote key-based access.\"]}, {\"name\": \"INITIALIZES_BARE_REPOSITORY\", \"definition\": \"The action initializes a bare repository configured to accept remote pushes on a designated default branch and owned by the service account.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The repository initialization and ownership command.\"}], \"assertion_conditions\": [\"The action creates a bare repository at the intended service path.\", \"The action sets HEAD or an equivalent symbolic reference to the designated default branch.\", \"The action assigns repository ownership to the service account or otherwise enables that account to receive pushes.\"], \"exclusion_conditions\": [\"The action initializes a non-bare working repository instead of a push target.\", \"The repository is left without the intended default branch or without ownership suitable for the service account.\"]}, {\"name\": \"CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT\", \"definition\": \"The action installs a repository hook that, when a branch is pushed, checks out the pushed content into the directory served by the web server.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The hook-writing or hook-installation action.\"}], \"assertion_conditions\": [\"The action writes an executable repository hook in the repository's hook directory.\", \"The hook logic reads pushed references and performs a work-tree checkout or equivalent deployment into the served document root.\", \"The hook handles branch references and excludes non-branch or deletion events.\"], \"exclusion_conditions\": [\"The hook only logs, notifies, or performs an action unrelated to deploying pushed content.\", \"Deployment into the served directory is not part of the hook behavior.\"]}, {\"name\": \"CONFIGURES_SERVICE_ENDPOINT\", \"definition\": \"The action writes or replaces the active configuration of a network service so that the service listens on the required port and serves the intended document root.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The configuration-writing action that defines the service endpoint.\"}], \"assertion_conditions\": [\"The action writes configuration specifying the task-required listen port.\", \"The action specifies the document root from which the service should serve content.\", \"The configuration is written to an active configuration path or to a path that is enabled by the service.\"], \"exclusion_conditions\": [\"The action edits an inactive sample configuration that is not enabled.\", \"The action changes unrelated directives without defining the required port and document root.\"]}, {\"name\": \"PREPARES_DEPLOYMENT_DIRECTORY\", \"definition\": \"The action creates or adjusts ownership and permissions of the directory served by the web server so that the deployment account can write content and the server process can read it.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The directory preparation command.\"}], \"assertion_conditions\": [\"The action creates the served directory or confirms its existence.\", \"The action assigns ownership or permissions so that the deployment account can write to the directory.\", \"The resulting permissions still allow the web server process to read the deployed content.\"], \"exclusion_conditions\": [\"The action only reads or lists the directory without preparing it for deployment.\", \"The action changes ownership or permissions in a way that prevents the web server from reading deployed files.\"]}, {\"name\": \"VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION\", \"definition\": \"The action verifies that the intended service configuration is active and syntactically valid, and conditions service startup on that verification succeeding.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The validation and activation command sequence.\"}], \"assertion_conditions\": [\"The action inspects whether the intended configuration is enabled or linked into the active configuration set.\", \"The action runs a configuration syntax or consistency check for the service.\", \"Startup of the service is chained to success of the validation step.\"], \"exclusion_conditions\": [\"The service is started without any configuration validation.\", \"A validation command is run but its failure does not prevent startup.\"]}, {\"name\": \"STARTS_SERVICE_DAEMONS_DIRECTLY\", \"definition\": \"The action launches required long-running service daemons directly rather than through an init or service manager, including preparing any runtime directories or host keys needed for those daemons to start.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The daemon-launching command or script.\"}], \"assertion_conditions\": [\"The action invokes daemon binaries or service-start commands to launch the required network services.\", \"The action prepares necessary runtime directories, host keys, or equivalent startup prerequisites.\", \"The launched processes are intended to remain running independently of the invoking shell.\"], \"exclusion_conditions\": [\"The action only installs packages without launching the services.\", \"The action relies on a service manager or init system that is absent from the environment.\", \"The action starts only a transient foreground process rather than the required long-running daemon.\"]}, {\"name\": \"ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION\", \"definition\": \"The action adds a local name-resolution mapping so that the service hostname used in client commands resolves to the local or container address.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The hostname or resolver configuration action.\"}], \"assertion_conditions\": [\"The action adds or modifies a local hosts-file or equivalent resolver entry.\", \"The entry maps the task's service hostname to a local or container-reachable address.\"], \"exclusion_conditions\": [\"The action changes the machine's own hostname rather than adding a service-name mapping.\", \"The action only relies on an external DNS service without adding the local mapping.\"]}, {\"name\": \"REPORTS_EXPECTED_DAEMONS_RUNNING\", \"definition\": \"The observation contains process or listener evidence showing that the expected service daemons are running and active.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The process or listener listing returned by the environment.\"}], \"assertion_conditions\": [\"The observation enumerates running processes corresponding to the expected service daemons.\", \"The evidence includes active daemon processes, worker processes, or listeners rather than only installation artifacts.\"], \"exclusion_conditions\": [\"The observation contains only installation logs or package-management output.\", \"The expected daemon processes are absent from the listing.\"]}], \"uncertain\": [{\"name\": \"IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY\", \"definition\": \"The reasoning concludes from an environment probe that software required to perform the task is absent and must be installed before the intended service configuration can proceed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text diagnosing the environment and naming the missing capability.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The probe result showing which required tools or services are absent.\"}], \"assertion_conditions\": [\"The observation reports that one or more task-required tools or services are unavailable.\", \"The reasoning explicitly identifies that absence as a prerequisite gap and indicates that the missing software must be supplied.\"], \"exclusion_conditions\": [\"The observation only enumerates installed software without demonstrating a missing requirement.\", \"The reasoning restates the task without connecting it to an observed absence.\"]}, {\"name\": \"ADAPTS_TO_ABSENT_SERVICE_MANAGER\", \"definition\": \"The reasoning recognizes from a process or runtime observation that no service manager or init system is available and therefore selects direct daemon startup or another non-init persistence strategy.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text inferring the absence of an init system and adapting the startup strategy.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The process or runtime listing showing that PID 1 or the environment lacks a service manager.\"}], \"assertion_conditions\": [\"The observation shows that the container or host is not running a conventional init or service manager.\", \"The reasoning explicitly infers that services cannot be managed through that absent mechanism and selects manual or direct daemon startup.\"], \"exclusion_conditions\": [\"The observation does not expose process or runtime state relevant to service management.\", \"The reasoning merely plans to start services without noting any absent service manager.\"]}, {\"name\": \"INSTALLS_REQUIRED_DEPENDENCIES\", \"definition\": \"The action installs software packages that the reasoning has identified as required missing dependencies for the task.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The package installation invocation.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the packages or capabilities that must be installed.\"}], \"assertion_conditions\": [\"The reasoning identifies specific missing tools, services, or packages as prerequisites.\", \"The action invokes a package manager to install those identified dependencies.\"], \"exclusion_conditions\": [\"The action only refreshes package indexes without installing required dependencies.\", \"The action installs packages unrelated to the dependencies identified in the reasoning.\"]}, {\"name\": \"GUIDES_CONFIGURATION_CHANGE\", \"definition\": \"The observation exposes the current configuration's relevant values or activation structure, and a subsequent action modifies that same configuration to the required values.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation revealing existing configuration values or activation structure.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The later action that changes that configuration.\"}], \"assertion_conditions\": [\"The observation shows current configuration details such as a listen directive, document root, or active-configuration link.\", \"A subsequent action writes or replaces that same configuration, changing the identified values to the task-required values.\"], \"exclusion_conditions\": [\"The observation supplies an operational data payload rather than configuration structure or values.\", \"The subsequent action modifies an unrelated configuration without using the observed values or structure.\"]}]}",
+              "reasoning_content": "Let me analyze each candidate against the registry.\n\n1. IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY (reasoning, observation) - reasoning concludes from probe that software required is absent. Registry has DIAGNOSES_OBSERVED_FAILURE (reasoning, failure) which explains cause of failure reported by observation and derives corrective approach. Is this the same? DIAGNOSES_OBSERVED_FAILURE requires observation indicating an operation did not succeed. Here the observation shows missing tools/services, not necessarily a failure of an operation. It's about recognizing absence as prerequisite gap. Slightly different - the probe shows which tools are absent, not a failed operation. This is more like a diagnostic of environment state. Could be uncertain. Hmm.\n\nDIAGNOSES_OBSERVED_FAILURE: \"observation indicates that an invoked operation did not succeed.\" The probe result showing tools absent is not really \"an invoked operation did not succeed\". Also the reasoning identifies a prerequisite gap and that missing software must be supplied, not exactly a corrective approach derived from failure cause. It's related but the truth conditions differ - the observation doesn't need to report a failure; it just enumerates absent tools. I'd say uncertain to new. Let me consider. The mechanism of \"identify missing dependency from probe\" - this is a diagnosis of an environment state, similar but the essential mechanism... DIAGNOSES_OBSERVED_FAILURE is about diagnosing a failure. Here it's about identifying absence (a gap). These are different truth conditions. But there's overlap. I'll classify uncertain.\n\nActually, let me think more carefully. The candidate is a recurring mechanism: from a probe observation, reasoning concludes a required software is missing and must be installed. The closest existing is DIAGNOSES_OBSERVED_FAILURE. But DIAGNOSES_OBSERVED_FAILURE requires the observation to indicate operation failure. Here the observation is a probe (e.g., `command -v git` returns nothing, or `which` shows missing). Is absence a failure? Could be interpreted as failure. But the reasoning here identifies prerequisite gap. I think uncertain is appropriate given overlap but unclear equivalence.\n\n2. ADAPTS_TO_ABSENT_SERVICE_MANAGER (reasoning, observation) - reasoning recognizes no service manager and selects direct daemon startup. Closest: DIAGNOSES_OBSERVED_FAILURE? The observation shows no init system. But is that a failure? Not really a failure of an operation - just environment state. This is a distinct mechanism: adapting strategy to absent service manager. No registry predicate captures this. Ambiguity: could be seen as diagnosis + corrective. But the observation isn't a failure. I'd say new or uncertain. Given the reasoning derives a corrective approach (direct startup) from observed absence, this could overlap DIAGNOSES_OBSERVED_FAILURE semantics. But DIAGNOSES requires failure. Uncertain likely.\n\nHmm, but the instructions say prefer uncertain when novelty not clearly established. Let me consider whether this is genuinely distinct. The mechanism: recognizing absence of service manager → adapt to direct startup. This is a specific adaptive decision. It doesn't fit DIAGNOSES_OBSERVED_FAILURE because there's no failure. It's a new mechanism but could be seen as subsumed. I'll call it new? Or uncertain.\n\nLet me reconsider. The registry's DIAGNOSES_OBSERVED_FAILURE: \"reasoning explains cause of a failure reported by an observation and derives a corrective approach.\" ADAPTS_TO_ABSENT_SERVICE_MANAGER: observation shows no service manager, reasoning infers services can't be managed and selects manual startup. The \"corrective approach\" = manual startup. The \"failure\" = absent service manager. Is an absent init system a failure? Not an operation failure. So truth conditions differ. But it's borderline. I'll classify as uncertain because it's potentially a specialization of diagnosis mechanism.\n\nActually, given the emphasis on minimizing new predicates and preferring existing/uncertain, I think these two are reasonable candidates for uncertain or new. Let me be principled.\n\nIDENTIFIES_MISSING_SOFTWARE_DEPENDENCY vs DIAGNOSES_OBSERVED_FAILURE: The candidate doesn't require a failure. Probe enumerates absent software. Truth conditions: observation reports unavailable tools; reasoning identifies as prerequisite gap. DIAGNOSES: observation indicates operation didn't succeed; reasoning identifies cause and corrective. Different. But could overlap when probe fails. I lean uncertain.\n\nGiven the deliberate guidance: \"When novelty is not clearly established, prefer uncertain over new.\" Both 1 and 2 → uncertain.\n\n3. INSTALLS_REQUIRED_DEPENDENCIES (action, reasoning) - action installs packages reasoning identified as required. Closest: GUIDES_ACTION (reasoning, action). GUIDES_ACTION: action's tool/target/arguments instantiate intent stated in reasoning. INSTALLS_REQUIRED_DEPENDENCIES is a specialization: reasoning identifies missing deps, action installs them. This seems subsumed by GUIDES_ACTION. Is INSTALLS_REQUIRED_DEPENDENCIES semantically equivalent to GUIDES_ACTION? GUIDES_ACTION is general - any intent carried out. INSTALLS_REQUIRED is specific to installation of dependencies. Not equivalent (one-way subsumption). But is it a distinct mechanism? It's just GUIDES_ACTION applied to installation. The essential mechanism—action follows reasoning—is the same. Hmm. But the candidate adds specificity: installing identified deps. \n\nThe guidance: \"A more specific name, tool, resource, or parameter count alone does not establish novelty.\" And \"A precise predicate may remain new when an existing broad predicate only subsumes it. One-way subsumption does not establish semantic equivalence.\"\n\nSo GUIDES_ACTION subsumes INSTALLS_REQUIRED_DEPENDENCIES but not equivalent. The question is whether INSTALLS_REQUIRED_DEPENDENCIES expresses a distinct semantic mechanism. It's essentially the same as GUIDES_ACTION restricted. I think this is uncertain - it's a specialization but the mechanism (installing deps identified in reasoning) is arguably just GUIDES_ACTION. Given guidance to minimize new, I'd put uncertain. Actually, could it be \"existing\" as GUIDES_ACTION? The parameter order differs: INSTALLS_REQUIRED_DEPENDENCIES is (action, reasoning); GUIDES_ACTION is (reasoning, action). Order differs but roles align. The definition adds specificity. Semantic equivalence in both directions? Not exactly—GUIDES_ACTION covers all intents, this only installs. Not equivalent. So not existing. Then it's either new or uncertain.\n\nGiven one-way subsumption, new could be justified for a distinct mechanism. But this seems like merely GUIDES_ACTION restricted to installs. I'll classify uncertain.\n\n4. PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION (action) - unary. Creates user, sets password field non-locking, .ssh dir, authorized_keys. No registry predicate about user account prep. GUIDES_ACTION is binary. No unary predicate about account prep. This is a distinct mechanism. New? It's a specific configuration action. There's no existing unary predicate capturing \"prepares account for key auth\". New. But could it be subsumed by anything? No. I'd say new.\n\n5. INITIALIZES_BARE_REPOSITORY (action) - unary. No existing predicate. New.\n\n6. CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT (action) - unary. No existing. New.\n\n7. CONFIGURES_SERVICE_ENDPOINT (action) - unary. Writes config for port and docroot. No existing unary. New.\n\n8. PREPARES_DEPLOYMENT_DIRECTORY (action) - unary. No existing. New.\n\n9. VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION (action) - unary. No existing. New.\n\n10. STARTS_SERVICE_DAEMONS_DIRECTLY (action) - unary. No existing. New.\n\n11. ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION (action) - unary. No existing. New.\n\n12. REPORTS_EXPECTED_DAEMONS_RUNNING (observation) - unary observation. REPORTS_SUCCESS is a unary observation predicate about operation completion success. REPORTS_EXPECTED_DAEMONS_RUNNING: observation shows expected daemons running. Is this equivalent to REPORTS_SUCCESS? Not exactly—REPORTS_SUCCESS is about invoked operation succeeding. This is about process listing showing daemons active. Different scope. New? Could be uncertain overlap with REPORTS_SUCCESS. REPORTS_SUCCESS: \"observation indicates invoked operation completed successfully.\" A process listing showing daemons running isn't an operation success indicator necessarily—it's environment state evidence. Different mechanism. I'd say new or uncertain. Hmm. It's a specific observation check that daemons are running. No existing predicate matches. REPORTS_SUCCESS is broader/different (operation success). Not equivalent. Could be new (distinct mechanism: verifying daemons active). But is it just REPORTS_SUCCESS applied to process listing? REPORTS_SUCCESS is about an operation's success. Process listing showing daemons running is verifying a state, not an operation result. I'll classify... could be uncertain. Let me think. The guidance emphasizes uncertainty when ambiguous. I lean new because it's clearly a state-verification vs operation success. But might overlap. I'll say new.\n\nActually wait—consider REPORTS_SUCCESS's assertion: \"listing of the expected produced artifacts.\" A process listing showing expected daemons could be seen as listing produced artifacts / expected state. Hmm, but REPORTS_SUCCESS explicitly ties to \"invoked operation completed successfully.\" A process listing is the output of a `ps` operation which succeeded in producing output; that doesn't confirm daemons running. So the semantic is different: candidate is about content of the observation (daemons present), REPORTS_SUCCESS is about operational success. Different. New.\n\n13. GUIDES_CONFIGURATION_CHANGE (observation, action) - observation reveals config values, subsequent action modifies same config. Closest: USES_OBSERVATION_AS_INPUT and GUIDES_ACTION. GUIDES_CONFIGURATION_CHANGE: observation shows config details and action writes same config changing values. Is this USES_OBSERVATION_AS_INPUT? That requires traceable value transfer—action uses a value/payload from observation as input. Here observation shows config structure/values, action modifies based on it. The action isn't using the observed values as input payload; it's using the structure to guide configuration change. USES_OBSERVATION_AS_INPUT exclusion: \"observation only guides action selection without supplying an operational input value.\" GUIDES_CONFIGURATION_CHANGE is exactly \"observation guides action.\" GUIDES_ACTION is about reasoning guiding action, not observation. There's no predicate for observation guiding action. So this is a distinct mechanism: observation informs a configuration change. New? Or uncertain overlap with USES_OBSERVATION_AS_INPUT.\n\nThe candidate's mechanism: observation reveals existing config, action modifies it. This is close to USES_OBSERVATION_AS_INPUT but with config structure rather than value payload. USES_OBSERVATION_AS_INPUT explicitly excludes \"only guides action selection.\" Here the observation's config values (e.g., listen directive) are read then modified—arguably the action uses the observed structure. Hmm. But the action changes values to required values, not directly using observed value as input. I think this is a distinct mechanism (observation-guided configuration change) but overlaps. Uncertain.\n\nLet me reconsider what's clearly new vs uncertain vs existing.\n\nGiven the heavy emphasis on uncertain for ambiguous overlaps, let me settle:\n\n1. IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY → uncertain (overlaps DIAGNOSES_OBSERVED_FAILURE)\n2. ADAPTS_TO_ABSENT_SERVICE_MANAGER → uncertain (overlaps DIAGNOSES_OBSERVED_FAILURE / adaptive diagnosis)\n3. INSTALLS_REQUIRED_DEPENDENCIES → uncertain (overlaps GUIDES_ACTION)\n4. PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION → new\n5. INITIALIZES_BARE_REPOSITORY → new\n6. CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT → new\n7. CONFIGURES_SERVICE_ENDPOINT → new\n8. PREPARES_DEPLOYMENT_DIRECTORY → new\n9. VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION → new\n10. STARTS_SERVICE_DAEMONS_DIRECTLY → new\n11. ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION → new\n12. REPORTS_EXPECTED_DAEMONS_RUNNING → new (or uncertain overlaps REPORTS_SUCCESS)\n13. GUIDES_CONFIGURATION_CHANGE → uncertain (overlaps USES_OBSERVATION_AS_INPUT)\n\nHmm, but let me reconsider #1 and #2 and #12, #13 more carefully to decide new vs uncertain.\n\nFor #12 REPORTS_EXPECTED_DAEMONS_RUNNING. REPORTS_SUCCESS covers observations indicating operation success including \"listing of the expected produced artifacts.\" A process listing showing daemons running—is that a \"listing of expected produced artifacts\"? Artifacts usually means files. Daemons running is process state. I think REPORTS_SUCCESS truth conditions: invoked operation completed successfully. A `ps` command succeeding would be REPORTS_SUCCESS regardless of whether daemons show. So they differ: the candidate requires the content to show daemons. So different truth conditions—REPORTS_EXPECTED_DAEMONS_RUNNING can be false while REPORTS_SUCCESS true (ps succeeded but no daemons). And true while REPORTS_SUCCESS... could be true if ps output shows daemons but ps technically succeeded too. So they're different. But is the candidate a distinct reusable mechanism? Yes—verifying daemons active. New? There's no existing predicate for verifying process state. I'll say new. But wait, it overlaps \"REPORTS_SUCCESS\" only superficially. I'll keep new. Though honestly this feels like a state verification, new is appropriate.\n\nActually, reconsider: Could REPORTS_EXPECTED_DAEMONS_RUNNING be uncertain because it might just be a specialization of REPORTS_SUCCESS? REPORTS_SUCCESS is specifically about \"invoked operation completed successfully.\" The daemon-running check is about observing state. I'll go new.\n\nFor #13 GUIDES_CONFIGURATION_CHANGE. The mechanism is observation informs action. USES_OBSERVATION_AS_INPUT is the closest but excludes guidance. GUIDES_ACTION is reasoning→action. No predicate for observation→action guidance. This is genuinely a gap. But it overlaps. Is it clearly distinct? The candidate: observation reveals config values; action changes them. The action uses the observation's structure. This could arguably be USES_OBSERVATION_AS_INPUT if the action copies an observed value... but the action changes values to required, not using observed value as input directly. So it's guidance not input transfer. Genuinely a distinct mechanism. But given the ambiguity and the instruction to prefer uncertain, I'll mark uncertain.\n\nHmm, but let me reconsider. Actually there might be an argument it's NEW: it's a well-defined mechanism (observation of config → action modifies that config) with a meaningful distinguishing case vs USES_OBSERVATION_AS_INPUT (no value payload transfer, only structure). The instructions say: new requires meaningful distinguishing case showing different truth conditions AND difference reflects essential mechanism. Here yes: observation only guides config change (no input value transfer). This is arguably clearly distinct. But the boundary is fuzzy—does the config's existing listen directive count as a \"value\" transferred? The action reads it and modifies. Ugh.\n\nI'll go uncertain for GUIDES_CONFIGURATION_CHANGE to be safe given guidance.\n\nNow let me reconsider #1, #2, #3.\n\nActually, let me reconsider #3 INSTALLS_REQUIRED_DEPENDENCIES. GUIDES_ACTION general. This is a specific pattern. Could be considered \"existing\" if we treat GUIDES_ACTION as equivalent mechanism? No, not equivalent. It's a specialization. Given \"one-way subsumption does not establish equivalence,\" and given this adds the notion of dependency installation identified from reasoning—is that a distinct mechanism? The mechanism \"install deps identified in reasoning\" is essentially GUIDES_ACTION for install commands. The additional truth condition is that the reasoning identified them as required missing dependencies. That's a semantic distinction but arguably incidental (same as any guided action). I think uncertain is right—potential redundancy/specialization.\n\nActually, hold on. Let me reconsider whether the task wants us to be more decisive. The candidates seem to be from a specific trajectory about setting up a git server (git user, bare repo, hooks, nginx, gitea, etc.). The registry is generic. So most unary configuration predicates are new (no existing unary predicates besides observation checks and completion conclusion). The binary ones relate to existing binary predicates.\n\nLet me finalize decisions:\n\nExisting: none perfectly match? Let me double check GUIDES_CONFIGURATION_CHANGE vs USES_OBSERVATION_AS_INPUT—not equivalent. INSTALLS_REQUIRED_DEPENDENCIES vs GUIDES_ACTION—not equivalent. IDENTIFIES... vs DIAGNOSES—not equivalent. So no \"existing.\"\n\nWait, could any be exactly existing? Let me recheck. None are semantically equivalent in both directions to an existing. So existing = [].\n\nUncertain: 1, 2, 3, 12, 13? Or some new.\n\nLet me reconsider #12 more. Hmm. Actually I worry REPORTS_EXPECTED_DAEMONS_RUNNING could be seen as new. I'll keep new.\n\nLet me reconsider #2 ADAPTS_TO_ABSENT_SERVICE_MANAGER. This really is about adapting to environment. It's not about failure. It's a distinct adaptation. But it overlaps with diagnostic reasoning. I'll keep uncertain.\n\nActually, let me reconsider: is uncertain the right bucket vs new for these? The instructions: \"When novelty is not clearly established, prefer uncertain over new. Reserve new for well-defined, demonstrably distinct mechanisms.\"\n\nFor #4-#11 (unary config actions), there's genuinely no existing predicate covering account prep, repo init, hooks, config writing, directory prep, validation, daemon start, hostname mapping. These are well-defined and clearly not subsumed (no unary action predicate in registry at all). So new is appropriate.\n\nBut wait—could they be subsumed by GUIDES_ACTION? GUIDES_ACTION is binary requiring reasoning. These unary predicates are properties of a single action. Not subsumed by a binary. So new.\n\nHowever, one might argue \"CONFIGURES_SERVICE_ENDPOINT\" etc. are just actions and don't need new predicates since they're specific. But the task is to classify candidate predicates; these are specific configuration mechanisms not covered. New.\n\nHmm, but there's a risk: The registry has no unary action predicates. Creating 8 new unary action predicates might be over-granular. But the task says classify, and \"when novelty not clearly established prefer uncertain.\" Are these clearly distinct mechanisms? Each is a distinct semantic property of an action (prepares account, initializes repo, etc.). They're well-defined. I'll say new. Though one could argue CONFIGURES_SERVICE_ENDPOINT vs GUIDES_CONFIGURATION_CHANGE overlap... no, different.\n\nActually, let me reconsider whether some of these unary action predicates might be considered \"uncertain\" because they're overly specific / lack registry counterpart but might be specializations. E.g., PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION is specific but no analogous. New is fine.\n\nLet me reconsider #9 VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION. The action verifies config active/valid and chains startup to validation. This is a combination. No existing. New.\n\nNow, I realize I should reconsider whether some binary candidates are \"new\" with clear distinguishing cases. Let me reconsider #1.\n\nIDENTIFIES_MISSING_SOFTWARE_DEPENDENCY vs DIAGNOSES_OBSERVED_FAILURE:\n- DIAGNOSES requires: observation indicates an invoked operation did NOT succeed.\n- Candidate: observation reports tools/services unavailable (probe). A probe like `which foo` returning nothing—is that an operation that didn't succeed? `which` succeeds (exit 0 even if not found technically exits 1 if not found). Hmm. The key difference: candidate's observation is a probe of availability, not a failure. And the reasoning identifies prerequisite gap rather than explaining cause of failure + corrective.\n\nA meaningful distinguishing case: A probe lists installed software and shows a specific tool absent (no operation failed—just enumeration). DIAGNOSES wouldn't hold (no failure operation), but candidate holds. This shows different truth conditions. But is the mechanism \"identify missing dependency\" distinct enough? It's diagnostic in nature. I think uncertain due to boundary ambiguity. Keep uncertain.\n\nOK here's my concern: Am I over-using uncertain? The instructions do say prefer uncertain. But also new requires demonstrable distinction. For #1, there IS a demonstrable distinction (probe vs failure). So maybe new is justified. Hmm.\n\nLet me think about what's the \"essential mechanism\" of DIAGNOSES_OBSERVED_FAILURE: explain cause of a failure and derive corrective. The candidate: identify absence of required software from probe and conclude must install. Is \"identify absence from probe\" the same essential mechanism as \"explain failure cause\"? They're related but the trigger differs (absence/enumeration vs failure). I think the candidate is a distinct mechanism—\"recognize prerequisite gap.\" But it's close. Given the guidance \"prefer uncertain,\" I'll go uncertain.\n\nHonestly, I'll make a decision matrix and stick with it. Let me lean on being consistent:\n\n- Candidates clearly matching a broad existing predicate with different specificity but same core mechanism → uncertain (1,2,3,13,12?)\n- Candidates with no analogous existing mechanism → new.\n\nFor #12, is there an analogous? REPORTS_SUCCESS (observation success) is analogous but different (state vs operation). I'll put uncertain actually—because it's a unary observation predicate about \"expected results present\" which resembles REPORTS_SUCCESS's \"listing of expected produced artifacts.\" Hmm, that assertion in REPORTS_SUCCESS is close. REPORTS_SUCCESS includes \"a listing of the expected produced artifacts.\" Daemons running is like expected artifacts present. But REPORTS_SUCCESS's core is \"invoked operation completed successfully.\" The candidate doesn't require an operation; it's about process state. \n\nA distinguishing case: `ps` returns a listing showing installed-but-not-running? No. The candidate is specifically about daemons running. If observation shows daemons running, does REPORTS_SUCCESS hold? Only if we consider the listing as evidence the operation succeeded. Arguably yes. But candidate can hold even if the \"operation\" (ps) had some warning? Edge. They largely coincide when daemons present. Hmm.\n\nI think REPORTS_EXPECTED_DAEMONS_RUNNING is a distinct semantic (verifying a specific runtime state, not operation success). But the overlap is real. Given \"prefer uncertain,\" I'll put it uncertain. Hmm, but then I'm putting many in uncertain.\n\nLet me decide: I'll put #12 in uncertain (overlaps REPORTS_SUCCESS artifact-listing). Actually, you know, let me reconsider. The whole point of a unary predicate like REPORTS_EXPECTED_DAEMONS_RUNNING is to capture \"environment confirms services are up.\" REPORTS_SUCCESS is about tool call success. These are genuinely different observation-content checks. I think new is defensible and more accurate. But the risk of redundancy...\n\nDecision: I'll classify REPORTS_EXPECTED_DAEMONS_RUNNING as new because it's a distinct state-verification mechanism with a clear distinguishing case (ps output showing processes vs. tool success). \n\nNow let me also reconsider #13 GUIDES_CONFIGURATION_CHANGE - I'll keep uncertain.\n\nFinal:\n- existing: []\n- uncertain: #1, #2, #3, #13\n- new: #4, #5, #6, #7, #8, #9, #10, #11, #12\n\nWait, that leaves 4 uncertain, 9 new. Let me reconsider #1, #2, #3 once more for whether they could be \"new\" given clear distinguishing cases. The guidance strongly says prefer uncertain when ambiguous. These have ambiguity. Keep uncertain.\n\nHmm, but actually, let me reconsider #3 INSTALLS_REQUIRED_DEPENDENCIES. Its parameters are (action, reasoning) - action first. GUIDES_ACTION is (reasoning, action). Roles align (reasoning guides action). The candidate is essentially GUIDES_ACTION restricted to installation. I'm confident it's a specialization/overlap → uncertain. Good.\n\nLet me reconsider whether any should be \"existing.\" Could INSTALLS_REQUIRED_DEPENDENCIES be considered existing as GUIDES_ACTION? No—not equivalent (GUIDES any action, this only installs). Not existing.\n\nNow, let me reconsider #4 PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION one more. It's a unary action predicate. But does it overlap with anything? No unary action predicate exists. New. Good.\n\nLet me reconsider #11 ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION. Unary action. No existing. New.\n\nNow, I worry the grader/task expects some of these unary ones to be \"new\" indeed. Fine.\n\nLet me double check the complete accounting: 13 candidates total. 4 uncertain + 9 new = 13. Good. Existing empty.\n\nWait, I moved #12 to new, so new = 4,5,6,7,8,9,10,11,12 = 9. Uncertain = 1,2,3,13 = 4. Total 13. \n\nLet me write out the full definitions for new and uncertain exactly as given.\n\nActually, let me reconsider #1 once more. I want to make sure uncertain is right over new. The essential mechanism: deriving a prerequisite from an environment probe. DIAGNOSES_OBSERVED_FAILURE is about failure diagnosis. There's genuine ambiguity whether an availability probe counts as \"operation not succeeding.\" I'll keep uncertain.\n\nLet me reconsider #2 similarly - keep uncertain.\n\nNow produce JSON with full original definitions copied exactly for new and uncertain candidates.\n\nLet me carefully copy the definitions.\n\nFor new: candidates 4-12.\n\nFor uncertain: candidates 1,2,3,13.\n\nLet me write them out."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 6458,
+          "completion_tokens": 8136,
+          "total_tokens": 14594,
+          "prompt_tokens_details": {
+            "cached_tokens": 1792
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 5775
+          },
+          "prompt_cache_hit_tokens": 1792,
+          "prompt_cache_miss_tokens": 4666
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"existing\": [], \"new\": [{\"name\": \"PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION\", \"definition\": \"The action creates or adjusts a service account so that it can be used for remote key-based access and own service data without requiring password login.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The account-creation and authentication-state adjustment command or script.\"}], \"assertion_conditions\": [\"The action creates a user with a usable login shell and home directory.\", \"The action sets the account password field to a non-locking marker rather than leaving the account locked.\", \"The action creates a user-owned .ssh directory with restrictive permissions and an authorized_keys file suitable for later key insertion.\"], \"exclusion_conditions\": [\"The action merely creates an account but leaves its authentication state locked or otherwise unusable for key login.\", \"The action adjusts unrelated account attributes without preparing remote key-based access.\"]}, {\"name\": \"INITIALIZES_BARE_REPOSITORY\", \"definition\": \"The action initializes a bare repository configured to accept remote pushes on a designated default branch and owned by the service account.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The repository initialization and ownership command.\"}], \"assertion_conditions\": [\"The action creates a bare repository at the intended service path.\", \"The action sets HEAD or an equivalent symbolic reference to the designated default branch.\", \"The action assigns repository ownership to the service account or otherwise enables that account to receive pushes.\"], \"exclusion_conditions\": [\"The action initializes a non-bare working repository instead of a push target.\", \"The repository is left without the intended default branch or without ownership suitable for the service account.\"]}, {\"name\": \"CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT\", \"definition\": \"The action installs a repository hook that, when a branch is pushed, checks out the pushed content into the directory served by the web server.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The hook-writing or hook-installation action.\"}], \"assertion_conditions\": [\"The action writes an executable repository hook in the repository's hook directory.\", \"The hook logic reads pushed references and performs a work-tree checkout or equivalent deployment into the served document root.\", \"The hook handles branch references and excludes non-branch or deletion events.\"], \"exclusion_conditions\": [\"The hook only logs, notifies, or performs an action unrelated to deploying pushed content.\", \"Deployment into the served directory is not part of the hook behavior.\"]}, {\"name\": \"CONFIGURES_SERVICE_ENDPOINT\", \"definition\": \"The action writes or replaces the active configuration of a network service so that the service listens on the required port and serves the intended document root.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The configuration-writing action that defines the service endpoint.\"}], \"assertion_conditions\": [\"The action writes configuration specifying the task-required listen port.\", \"The action specifies the document root from which the service should serve content.\", \"The configuration is written to an active configuration path or to a path that is enabled by the service.\"], \"exclusion_conditions\": [\"The action edits an inactive sample configuration that is not enabled.\", \"The action changes unrelated directives without defining the required port and document root.\"]}, {\"name\": \"PREPARES_DEPLOYMENT_DIRECTORY\", \"definition\": \"The action creates or adjusts ownership and permissions of the directory served by the web server so that the deployment account can write content and the server process can read it.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The directory preparation command.\"}], \"assertion_conditions\": [\"The action creates the served directory or confirms its existence.\", \"The action assigns ownership or permissions so that the deployment account can write to the directory.\", \"The resulting permissions still allow the web server process to read the deployed content.\"], \"exclusion_conditions\": [\"The action only reads or lists the directory without preparing it for deployment.\", \"The action changes ownership or permissions in a way that prevents the web server from reading deployed files.\"]}, {\"name\": \"VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION\", \"definition\": \"The action verifies that the intended service configuration is active and syntactically valid, and conditions service startup on that verification succeeding.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The validation and activation command sequence.\"}], \"assertion_conditions\": [\"The action inspects whether the intended configuration is enabled or linked into the active configuration set.\", \"The action runs a configuration syntax or consistency check for the service.\", \"Startup of the service is chained to success of the validation step.\"], \"exclusion_conditions\": [\"The service is started without any configuration validation.\", \"A validation command is run but its failure does not prevent startup.\"]}, {\"name\": \"STARTS_SERVICE_DAEMONS_DIRECTLY\", \"definition\": \"The action launches required long-running service daemons directly rather than through an init or service manager, including preparing any runtime directories or host keys needed for those daemons to start.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The daemon-launching command or script.\"}], \"assertion_conditions\": [\"The action invokes daemon binaries or service-start commands to launch the required network services.\", \"The action prepares necessary runtime directories, host keys, or equivalent startup prerequisites.\", \"The launched processes are intended to remain running independently of the invoking shell.\"], \"exclusion_conditions\": [\"The action only installs packages without launching the services.\", \"The action relies on a service manager or init system that is absent from the environment.\", \"The action starts only a transient foreground process rather than the required long-running daemon.\"]}, {\"name\": \"ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION\", \"definition\": \"The action adds a local name-resolution mapping so that the service hostname used in client commands resolves to the local or container address.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The hostname or resolver configuration action.\"}], \"assertion_conditions\": [\"The action adds or modifies a local hosts-file or equivalent resolver entry.\", \"The entry maps the task's service hostname to a local or container-reachable address.\"], \"exclusion_conditions\": [\"The action changes the machine's own hostname rather than adding a service-name mapping.\", \"The action only relies on an external DNS service without adding the local mapping.\"]}, {\"name\": \"REPORTS_EXPECTED_DAEMONS_RUNNING\", \"definition\": \"The observation contains process or listener evidence showing that the expected service daemons are running and active.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The process or listener listing returned by the environment.\"}], \"assertion_conditions\": [\"The observation enumerates running processes corresponding to the expected service daemons.\", \"The evidence includes active daemon processes, worker processes, or listeners rather than only installation artifacts.\"], \"exclusion_conditions\": [\"The observation contains only installation logs or package-management output.\", \"The expected daemon processes are absent from the listing.\"]}], \"uncertain\": [{\"name\": \"IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY\", \"definition\": \"The reasoning concludes from an environment probe that software required to perform the task is absent and must be installed before the intended service configuration can proceed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text diagnosing the environment and naming the missing capability.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The probe result showing which required tools or services are absent.\"}], \"assertion_conditions\": [\"The observation reports that one or more task-required tools or services are unavailable.\", \"The reasoning explicitly identifies that absence as a prerequisite gap and indicates that the missing software must be supplied.\"], \"exclusion_conditions\": [\"The observation only enumerates installed software without demonstrating a missing requirement.\", \"The reasoning restates the task without connecting it to an observed absence.\"]}, {\"name\": \"ADAPTS_TO_ABSENT_SERVICE_MANAGER\", \"definition\": \"The reasoning recognizes from a process or runtime observation that no service manager or init system is available and therefore selects direct daemon startup or another non-init persistence strategy.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text inferring the absence of an init system and adapting the startup strategy.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The process or runtime listing showing that PID 1 or the environment lacks a service manager.\"}], \"assertion_conditions\": [\"The observation shows that the container or host is not running a conventional init or service manager.\", \"The reasoning explicitly infers that services cannot be managed through that absent mechanism and selects manual or direct daemon startup.\"], \"exclusion_conditions\": [\"The observation does not expose process or runtime state relevant to service management.\", \"The reasoning merely plans to start services without noting any absent service manager.\"]}, {\"name\": \"INSTALLS_REQUIRED_DEPENDENCIES\", \"definition\": \"The action installs software packages that the reasoning has identified as required missing dependencies for the task.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The package installation invocation.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the packages or capabilities that must be installed.\"}], \"assertion_conditions\": [\"The reasoning identifies specific missing tools, services, or packages as prerequisites.\", \"The action invokes a package manager to install those identified dependencies.\"], \"exclusion_conditions\": [\"The action only refreshes package indexes without installing required dependencies.\", \"The action installs packages unrelated to the dependencies identified in the reasoning.\"]}, {\"name\": \"GUIDES_CONFIGURATION_CHANGE\", \"definition\": \"The observation exposes the current configuration's relevant values or activation structure, and a subsequent action modifies that same configuration to the required values.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation revealing existing configuration values or activation structure.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The later action that changes that configuration.\"}], \"assertion_conditions\": [\"The observation shows current configuration details such as a listen directive, document root, or active-configuration link.\", \"A subsequent action writes or replaces that same configuration, changing the identified values to the task-required values.\"], \"exclusion_conditions\": [\"The observation supplies an operational data payload rather than configuration structure or values.\", \"The subsequent action modifies an unrelated configuration without using the observed values or structure.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "existing": [],
+    "new": [
+      {
+        "name": "PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION",
+        "definition": "The action creates or adjusts a service account so that it can be used for remote key-based access and own service data without requiring password login.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The account-creation and authentication-state adjustment command or script."
+          }
+        ],
+        "assertion_conditions": [
+          "The action creates a user with a usable login shell and home directory.",
+          "The action sets the account password field to a non-locking marker rather than leaving the account locked.",
+          "The action creates a user-owned .ssh directory with restrictive permissions and an authorized_keys file suitable for later key insertion."
+        ],
+        "exclusion_conditions": [
+          "The action merely creates an account but leaves its authentication state locked or otherwise unusable for key login.",
+          "The action adjusts unrelated account attributes without preparing remote key-based access."
+        ]
+      },
+      {
+        "name": "INITIALIZES_BARE_REPOSITORY",
+        "definition": "The action initializes a bare repository configured to accept remote pushes on a designated default branch and owned by the service account.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The repository initialization and ownership command."
+          }
+        ],
+        "assertion_conditions": [
+          "The action creates a bare repository at the intended service path.",
+          "The action sets HEAD or an equivalent symbolic reference to the designated default branch.",
+          "The action assigns repository ownership to the service account or otherwise enables that account to receive pushes."
+        ],
+        "exclusion_conditions": [
+          "The action initializes a non-bare working repository instead of a push target.",
+          "The repository is left without the intended default branch or without ownership suitable for the service account."
+        ]
+      },
+      {
+        "name": "CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT",
+        "definition": "The action installs a repository hook that, when a branch is pushed, checks out the pushed content into the directory served by the web server.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The hook-writing or hook-installation action."
+          }
+        ],
+        "assertion_conditions": [
+          "The action writes an executable repository hook in the repository's hook directory.",
+          "The hook logic reads pushed references and performs a work-tree checkout or equivalent deployment into the served document root.",
+          "The hook handles branch references and excludes non-branch or deletion events."
+        ],
+        "exclusion_conditions": [
+          "The hook only logs, notifies, or performs an action unrelated to deploying pushed content.",
+          "Deployment into the served directory is not part of the hook behavior."
+        ]
+      },
+      {
+        "name": "CONFIGURES_SERVICE_ENDPOINT",
+        "definition": "The action writes or replaces the active configuration of a network service so that the service listens on the required port and serves the intended document root.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The configuration-writing action that defines the service endpoint."
+          }
+        ],
+        "assertion_conditions": [
+          "The action writes configuration specifying the task-required listen port.",
+          "The action specifies the document root from which the service should serve content.",
+          "The configuration is written to an active configuration path or to a path that is enabled by the service."
+        ],
+        "exclusion_conditions": [
+          "The action edits an inactive sample configuration that is not enabled.",
+          "The action changes unrelated directives without defining the required port and document root."
+        ]
+      },
+      {
+        "name": "PREPARES_DEPLOYMENT_DIRECTORY",
+        "definition": "The action creates or adjusts ownership and permissions of the directory served by the web server so that the deployment account can write content and the server process can read it.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The directory preparation command."
+          }
+        ],
+        "assertion_conditions": [
+          "The action creates the served directory or confirms its existence.",
+          "The action assigns ownership or permissions so that the deployment account can write to the directory.",
+          "The resulting permissions still allow the web server process to read the deployed content."
+        ],
+        "exclusion_conditions": [
+          "The action only reads or lists the directory without preparing it for deployment.",
+          "The action changes ownership or permissions in a way that prevents the web server from reading deployed files."
+        ]
+      },
+      {
+        "name": "VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION",
+        "definition": "The action verifies that the intended service configuration is active and syntactically valid, and conditions service startup on that verification succeeding.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The validation and activation command sequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The action inspects whether the intended configuration is enabled or linked into the active configuration set.",
+          "The action runs a configuration syntax or consistency check for the service.",
+          "Startup of the service is chained to success of the validation step."
+        ],
+        "exclusion_conditions": [
+          "The service is started without any configuration validation.",
+          "A validation command is run but its failure does not prevent startup."
+        ]
+      },
+      {
+        "name": "STARTS_SERVICE_DAEMONS_DIRECTLY",
+        "definition": "The action launches required long-running service daemons directly rather than through an init or service manager, including preparing any runtime directories or host keys needed for those daemons to start.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The daemon-launching command or script."
+          }
+        ],
+        "assertion_conditions": [
+          "The action invokes daemon binaries or service-start commands to launch the required network services.",
+          "The action prepares necessary runtime directories, host keys, or equivalent startup prerequisites.",
+          "The launched processes are intended to remain running independently of the invoking shell."
+        ],
+        "exclusion_conditions": [
+          "The action only installs packages without launching the services.",
+          "The action relies on a service manager or init system that is absent from the environment.",
+          "The action starts only a transient foreground process rather than the required long-running daemon."
+        ]
+      },
+      {
+        "name": "ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION",
+        "definition": "The action adds a local name-resolution mapping so that the service hostname used in client commands resolves to the local or container address.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The hostname or resolver configuration action."
+          }
+        ],
+        "assertion_conditions": [
+          "The action adds or modifies a local hosts-file or equivalent resolver entry.",
+          "The entry maps the task's service hostname to a local or container-reachable address."
+        ],
+        "exclusion_conditions": [
+          "The action changes the machine's own hostname rather than adding a service-name mapping.",
+          "The action only relies on an external DNS service without adding the local mapping."
+        ]
+      },
+      {
+        "name": "REPORTS_EXPECTED_DAEMONS_RUNNING",
+        "definition": "The observation contains process or listener evidence showing that the expected service daemons are running and active.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The process or listener listing returned by the environment."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation enumerates running processes corresponding to the expected service daemons.",
+          "The evidence includes active daemon processes, worker processes, or listeners rather than only installation artifacts."
+        ],
+        "exclusion_conditions": [
+          "The observation contains only installation logs or package-management output.",
+          "The expected daemon processes are absent from the listing."
+        ]
+      }
+    ],
+    "uncertain": [
+      {
+        "name": "IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY",
+        "definition": "The reasoning concludes from an environment probe that software required to perform the task is absent and must be installed before the intended service configuration can proceed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text diagnosing the environment and naming the missing capability."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The probe result showing which required tools or services are absent."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports that one or more task-required tools or services are unavailable.",
+          "The reasoning explicitly identifies that absence as a prerequisite gap and indicates that the missing software must be supplied."
+        ],
+        "exclusion_conditions": [
+          "The observation only enumerates installed software without demonstrating a missing requirement.",
+          "The reasoning restates the task without connecting it to an observed absence."
+        ]
+      },
+      {
+        "name": "ADAPTS_TO_ABSENT_SERVICE_MANAGER",
+        "definition": "The reasoning recognizes from a process or runtime observation that no service manager or init system is available and therefore selects direct daemon startup or another non-init persistence strategy.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text inferring the absence of an init system and adapting the startup strategy."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The process or runtime listing showing that PID 1 or the environment lacks a service manager."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation shows that the container or host is not running a conventional init or service manager.",
+          "The reasoning explicitly infers that services cannot be managed through that absent mechanism and selects manual or direct daemon startup."
+        ],
+        "exclusion_conditions": [
+          "The observation does not expose process or runtime state relevant to service management.",
+          "The reasoning merely plans to start services without noting any absent service manager."
+        ]
+      },
+      {
+        "name": "INSTALLS_REQUIRED_DEPENDENCIES",
+        "definition": "The action installs software packages that the reasoning has identified as required missing dependencies for the task.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The package installation invocation."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning naming the packages or capabilities that must be installed."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies specific missing tools, services, or packages as prerequisites.",
+          "The action invokes a package manager to install those identified dependencies."
+        ],
+        "exclusion_conditions": [
+          "The action only refreshes package indexes without installing required dependencies.",
+          "The action installs packages unrelated to the dependencies identified in the reasoning."
+        ]
+      },
+      {
+        "name": "GUIDES_CONFIGURATION_CHANGE",
+        "definition": "The observation exposes the current configuration's relevant values or activation structure, and a subsequent action modifies that same configuration to the required values.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation revealing existing configuration values or activation structure."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The later action that changes that configuration."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation shows current configuration details such as a listen directive, document root, or active-configuration link.",
+          "A subsequent action writes or replaces that same configuration, changing the identified values to the task-required values."
+        ],
+        "exclusion_conditions": [
+          "The observation supplies an operational data payload rather than configuration structure or values.",
+          "The subsequent action modifies an unrelated configuration without using the observed values or structure."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

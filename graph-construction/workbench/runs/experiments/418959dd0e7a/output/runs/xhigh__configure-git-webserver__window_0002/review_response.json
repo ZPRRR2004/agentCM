@@ -1,0 +1,343 @@
+{
+  "stage": "review",
+  "window_file": "xhigh__configure-git-webserver__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T03:48:30.031965+00:00",
+  "duration_seconds": 45.375,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T03:47:44.645585+00:00",
+      "duration_seconds": 45.375,
+      "raw_response": {
+        "id": "c55c2460-8636-4c88-a00a-af9d708c44e1",
+        "object": "chat.completion",
+        "created": 1793418470,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\":[{\"name\":\"VALIDATES_SERVICE_CONFIGURATION\",\"definition\":\"The action invokes a service's own configuration syntax or consistency check on its configuration files, and the observation reports that the configuration is valid.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that runs the service-specific configuration validation routine.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting the validation outcome for that service configuration.\"}],\"assertion_conditions\":[\"The action runs the service's own validation or test routine (e.g., a config-test flag or subcommand of the daemon) on its configuration before or alongside activation.\",\"The observation explicitly reports that the syntax or consistency of that configuration is valid or successful.\"],\"exclusion_conditions\":[\"The action only writes, starts, or restarts the service without running a configuration validity check.\",\"The observation reports a validation failure or does not address configuration validity.\",\"The check validates something other than the service's configuration (e.g., a repository or application setting).\"]},{\"name\":\"CONFIGURES_HOSTNAME_RESOLUTION\",\"definition\":\"The action modifies the system's hostname-to-address resolution mapping so that a symbolic host name resolves to a chosen address for subsequent commands.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that adds or updates the system name-resolution mapping.\"}],\"assertion_conditions\":[\"The action writes or updates a system name-resolution mapping, such as an entry in the hosts file.\",\"The written mapping associates a host name with a network address that subsequent commands use to reach a service.\"],\"exclusion_conditions\":[\"The action changes service-level virtual-host or server-name configuration rather than system hostname resolution.\",\"The action writes a file that does not affect name resolution.\",\"The action only reads the current name-resolution mapping.\"]},{\"name\":\"TESTS_AUTHENTICATED_REMOTE_ACCESS\",\"definition\":\"The action installs or supplies a credential for a target account and performs a remote login using that credential, and the observation confirms that the login authenticated as the intended identity.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that provisions or installs the credential and attempts the remote login.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting whether the authenticated remote access succeeded and as which identity.\"}],\"assertion_conditions\":[\"The action creates, installs, or supplies a credential (e.g., a key pair or token) for a remote login test.\",\"The action executes a remote access command using that credential.\",\"The observation reports a successful authenticated identity or authenticated session for the intended account.\"],\"exclusion_conditions\":[\"The action tests unauthenticated network reachability or only starts the login daemon.\",\"The action prepares credentials but performs no login attempt.\",\"The observation reports authentication failure, permission denial, or host verification failure.\"]},{\"name\":\"EXECUTES_END_TO_END_USER_WORKFLOW\",\"definition\":\"The action reproduces the requester's end-to-end workflow by running operations from multiple interacting stages of that workflow in sequence, rather than exercising a single component in isolation.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that runs the multi-stage user workflow.\"}],\"assertion_conditions\":[\"The action includes operations belonging to at least two distinct stages of the requested workflow, such as producing and transmitting source-controlled content and retrieving content from the served endpoint.\",\"The stages interact through the components being configured, so the invocation exercises their integration rather than a single isolated component.\"],\"exclusion_conditions\":[\"The action performs only a single isolated check, such as a configuration syntax test, process listing, or port query.\",\"The action only starts services without exercising the user-facing workflow.\",\"The action only prepares files or configuration without running the workflow stages.\"]},{\"name\":\"DIAGNOSES_FAILURE_CAUSE\",\"definition\":\"The reasoning explains why a previously observed failure occurred by identifying the specific cause or mechanism responsible for it.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text explaining the failure.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result reporting the failure.\"}],\"assertion_conditions\":[\"The reasoning refers to the failure reported by the observation.\",\"The reasoning identifies a causal explanation for the failure, such as an environment setting not carried into a subcommand, an ownership safety rule rejecting the operation, or a host verification rule blocking access.\"],\"exclusion_conditions\":[\"The reasoning merely restates or quotes the error without causal analysis.\",\"The reasoning plans a next action without explaining why the observed failure occurred.\",\"The explanation concerns a failure other than the one reported by the paired observation.\"]},{\"name\":\"ATTEMPTS_REPAIR_OBSERVED_FAILURE\",\"definition\":\"The action attempts to correct a previously observed failure by changing the operational condition responsible for it, such as configuration, execution context, environment, or credentials, rather than repeating the failing operation unchanged.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The corrective action being attempted.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result reporting the failure to be corrected.\"}],\"assertion_conditions\":[\"The observation reports a failure that occurs before the action.\",\"The action changes an operational condition relevant to that failure rather than repeating the identical failing operation unchanged.\"],\"exclusion_conditions\":[\"The action is unrelated to the observed failure.\",\"The action simply repeats the same failing operation with no corrective change.\",\"The action only inspects or logs state without attempting a correction.\"]},{\"name\":\"CONFIRMS_REPAIR\",\"definition\":\"A repair action addresses an observed failure, and a later observation establishes that the same failure has been resolved.\",\"parameters\":[{\"name\":\"repair\",\"type\":\"action\",\"description\":\"The action attempting to repair the failure.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the failure.\"},{\"name\":\"confirmation\",\"type\":\"observation\",\"description\":\"The later observation confirming that the failure has been resolved.\"}],\"assertion_conditions\":[\"The failure observation precedes the repair action, and the repair action changes a condition relevant to that failure.\",\"The confirmation observation occurs after the repair and reports success or a state inconsistent with the original failure, so the original failure is no longer reproduced.\"],\"exclusion_conditions\":[\"No later observation confirms resolution of the original failure.\",\"The later observation still reports the original failure or leaves the affected state unchanged.\",\"The later observation confirms only an unrelated operation.\"]},{\"name\":\"ATTEMPTS_TEST_STATE_CLEANUP\",\"definition\":\"The action removes or resets artifacts created while testing the requested workflow, such as temporary credentials, test clones, test commits or branches, and test-deployed content, to return the persistent state toward its pre-test condition.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The cleanup action targeting temporary test artifacts.\"}],\"assertion_conditions\":[\"The action targets artifacts created by the agent's own testing, such as test credentials, test clones, test branches or commits, or files deployed by a test push.\",\"The action includes operations intended to restore the persistent state used by the requested workflow, such as clearing repository references, emptying the served root, or resetting the credential file.\"],\"exclusion_conditions\":[\"The action removes ordinary runtime files unrelated to test artifacts.\",\"The action only inspects test artifacts without deleting or resetting them.\",\"The action deletes user data that was not produced by the agent's testing.\"]},{\"name\":\"RESTORES_PRISTINE_STATE\",\"definition\":\"A cleanup action removes or resets temporary test artifacts, and the observation confirms that the targeted resources are absent, empty, or reset, leaving the relevant resource in its pre-test state.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The cleanup action that removes or resets temporary test artifacts.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The later tool result confirming that the targeted resources are absent, empty, or reset.\"}],\"assertion_conditions\":[\"The action performs cleanup of temporary test artifacts.\",\"The observation shows the targeted artifacts absent, empty, or reset to their initial state, such as no remaining references, an empty served root, or an emptied credential file.\"],\"exclusion_conditions\":[\"The observation shows that targeted test artifacts or test commits remain.\",\"The observation reports that the cleanup operation itself failed and left the state unchanged.\",\"The observation does not address the state of the cleaned resources.\"]},{\"name\":\"INSTALLS_SERVICE_RECOVERY_HELPER\",\"definition\":\"The action creates a reusable helper that checks whether required service daemons are running and starts them when they are absent, so that service availability can be restored later without manual intervention.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that writes or installs the service recovery helper.\"}],\"assertion_conditions\":[\"The action writes or installs a script or helper containing service liveness checks and commands that start the services when they are not running.\",\"The helper is intended to be invoked later to restore service availability.\"],\"exclusion_conditions\":[\"The action writes ordinary application content or static service configuration without liveness or restart logic.\",\"The action only starts services once without creating a reusable recovery helper.\",\"The action merely documents how to restart the services rather than installing an executable helper.\"]},{\"name\":\"CHECKS_LISTENING_PORTS\",\"definition\":\"The action inspects the system's socket or connection tables for designated service ports, and the observation reports whether those ports are in a listening state and on which interfaces.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that queries socket or connection tables for the service ports.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting listening state or bound interfaces for the inspected ports.\"}],\"assertion_conditions\":[\"The action queries socket or connection-table state filtered to the designated service ports.\",\"The observation reports listening state or bound addresses for those ports.\"],\"exclusion_conditions\":[\"The action checks only process existence without inspecting socket state.\",\"The observation reports no port or socket state.\",\"The query is not directed at the ports of the configured services.\"]},{\"name\":\"VERIFICATION_OBSERVES_EXPECTED_RESULT\",\"definition\":\"The action performs a verification step that exercises the configured behavior, and the resulting observation contains the specific expected output, content, or state that demonstrates that behavior.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The verification step that exercises the behavior being checked.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result containing the expected output, content, or state.\"}],\"assertion_conditions\":[\"The action deliberately exercises the configured behavior to verify it, such as retrieving served content, performing a login, or querying the live state.\",\"The observation contains the specific expected value, content, or success marker, not merely a generic exit status, that demonstrates the verified behavior.\"],\"exclusion_conditions\":[\"The observation reports an error or an unexpected value.\",\"The observation reports only generic execution success without evidence of the expected behavior.\",\"The action only writes configuration, starts a service, or checks syntax without exercising the behavior.\"]}],\"revised_existing_predicates\":[]}",
+              "reasoning_content": "Let me analyze the candidates against the registry and the context window.\n\nRegistry already includes (from previous rounds): IS_EXECUTION_PLAN, IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT, GUIDES_ACTION_CONTENT, REPLACES_DEFECTIVE_CONTENT_OBSERVED, CHECKS_TOOL_AVAILABILITY, PERFORMS_PRIMARY_BUILD, INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT, IS_INVOCATION_ERROR_OBSERVATION, CORRECTS_FAILED_INVOCATION, CONFIRMS_CORRECTED_VERIFICATION, ATTEMPTS_ARTIFACT_CONTENT_VERIFICATION, ASSERTS_TASK_COMPLETION_WITH_EVIDENCE, ANTICIPATES_FAILURE_MODE, DERIVES_ENVIRONMENT_CONSTRAINT, ALIGNS_PROVISIONED_NAMES_WITH_REQUEST, INSTALLS_MISSING_DEPENDENCIES, MITIGATES_ANTICIPATED_PITFALL, WRITES_SERVICE_CONFIGURATION, AUTHORS_PUSH_DEPLOY_HOOK, MODIFIES_OBSERVED_CONFIGURATION, CONFIRMS_SERVICE_STARTED, WIRES_PUSH_TO_SERVED_ROOT.\n\nNow candidates:\n\n1. WRITES_SERVICE_ENDPOINT_CONFIGURATION — clearly semantically duplicate of WRITES_SERVICE_CONFIGURATION, which requires the written content specifies listen address/port and served root. The event-0009 write of nginx default site fits WRITES_SERVICE_CONFIGURATION. So discard as duplicate.\n\n2. VALIDATES_SERVICE_CONFIGURATION — new; event-0010 action runs `nginx -t` and observation reports \"syntax is ok / test is successful\". Not in registry. Accept. Two-arg: action + observation. It's distinct from CONFIRMS_SERVICE_STARTED (which is about running). Accept.\n\n3. ACTIVATES_SYSTEM_SERVICES — matched existing CONFIRMS_SERVICE_STARTED. Is this a duplicate or one-way subsumption? CONFIRMS_SERVICE_STARTED covers action launching service + observation showing running state — exactly this. So ACTIVATES_SYSTEM_SERVICES is subsumed; discard (it's a semantic duplicate). Task B says revise matched registry predicate only when existing definition needs clarification. CONFIRMS_SERVICE_STARTED's definition is fine. So no revision, discard the candidate.\n\n4. CONFIGURES_HOSTNAME_RESOLUTION — action adds 127.0.0.1 server to /etc/hosts. Registry has ALIGNS_PROVISIONED_NAMES_WITH_REQUEST which covers hostname mapping under exact identifier. Is CONFIGURES_HOSTNAME_RESOLUTION a distinct mechanism? It's about modifying system name resolution mapping. ALIGNS_PROVISIONED_NAMES_WITH_REQUEST covers creating named resources including hostname mapping with the exact requested identifier. Hmm. Is that a semantic duplicate? The alignment predicate is broader and covers the hostname mapping mechanism. But the task instructions say \"Accept a precise mechanism even when a broad family such as USES covers it. Suppress an actual semantic duplicate.\"\n\nIs hostname resolution modification a distinct mechanism from name alignment? The hostname mapping here is specifically an alignment (the 'server' alias). I'd say CONFIGURES_HOSTNAME_RESOLUTION is essentially an instance of ALIGNS_PROVISIONED_NAMES_WITH_REQUEST — the registry predicate explicitly lists \"local hostname entry\" in assertion conditions. So it's a semantic duplicate. Hmm, but is there a distinguishable case? A hostname mapping could be configured for a name not in the user's commands (e.g., arbitrary alias) — then CONFIGURES_HOSTNAME_RESOLUTION holds but ALIGNS... fails. That's a distinguishing case. But in this window, it's the same event. The policy: \"Accept a precise mechanism even when a broad family such as USES covers it.\" Name alignment is not a broad family; it's specifically enumerating hostname entries. I lean toward suppressing as duplicate since registry explicitly encompasses this. Hmm.\n\nLet me think more carefully. ALIGNS_PROVISIONED_NAMES_WITH_REQUEST is a unary predicate over an action: establishes a named resource with the exact identifier from the request. The hostname write in event-0010 is a combined bash action with many operations. Both predicates would be unary about the same action. The mechanism \"configures hostname resolution\" adds no new role or distinction beyond alignment... except that it captures the specific mechanism of name resolution configurability. Hmm. The distinguishing test: a case where the agent adds a hosts entry mapping 'server' to an IP but the requested commands use a different name — then alignment fails but hostname resolution config holds. But would we care? The registry ALIGNS is committed to exact identifier.\n\nGiven the granularity policy says suppress actual semantic duplicates, and the registry already explicitly names \"local hostname entry\" in its assertion conditions, I think CONFIGURES_HOSTNAME_RESOLUTION is a duplicate. But then again, ALIGNS applies to many resource types (user account, repo path, listening endpoint) — it's a broad family. The hostname-resolution predicate is a specific mechanism. Hmm, \"Accept a precise mechanism even when a broad family such as USES covers it.\" So under this guidance, a precise mechanism (modifying system name resolution) supported by evidence should be accepted even though a broad name-alignment predicate covers it.\n\nBut is it distinct enough? I think yes — it names the mechanism of updating name resolution, applicable whenever hosts mapping is modified regardless of whether identifier matches request. I'll accept it, slightly generalized to not require the \"service can be reached by symbolic host name\" — actually assertion needs mapping used for subsequent access. Let me keep but generalize: \"The action modifies a system hostname-resolution mapping (e.g., a hosts file entry), associating a hostname with a network address used by subsequent commands.\"\n\nHmm, but risk of being judged duplicate. Consider the framework: it prefers precise mechanism. I'll accept.\n\n5. TESTS_AUTHENTICATED_REMOTE_ACCESS — action generates temp key, installs in authorized_keys, does ssh login; observation shows \"user\\nSSH-OK\". Not in registry. Distinct mechanism: provisioning a credential and verifying authenticated access. Accept, generalized: \"provisions a credential and performs a login using it, with observation confirming authenticated access.\" Generalize across ssh keys, tokens, etc.\n\n6. EXECUTES_END_TO_END_USER_WORKFLOW — action runs clone/commit/push in one invocation (event-0012), and event-0014 combines curl+ls; event-0015 combines commit+push+curl. Is this a meaningful mechanism? \"executes a sequence of user-facing operations spanning multiple components to validate the requested end-to-end workflow\". Is it distinct from VERIFICATION_OBSERVES_EXPECTED_RESULT? The registry has ASSERTS_TASK_COMPLETION_WITH_EVIDENCE, CONFIRMS_SERVICE_STARTED, etc. Is \"end-to-end workflow execution\" a real distinguishable mechanism? I think it's meaningful: an action that exercises multiple stages of the user-requested workflow to validate integration. Hmm, but it's a bit generic. The registry doesn't have anything like it. Is it too broad/vague? The definition is about validating integration by running the requested sequence. I think it's acceptable but maybe should be tightened: the action reproduces the requester's own commands end-to-end through multiple components. Let me refine: \"The action executes a multi-stage sequence reproducing the requester's end-to-end workflow across multiple interacting components, rather than exercising a single component in isolation.\"\n\nAlternatively, suppress as too vague? I'd accept with refinement.\n\n7. VERIFICATION_OBSERVES_EXPECTED_RESULT — action performs verification, observation reports expected user-visible output. Uncertain. Is it distinct from existing? Registry has CONFIRMS_REPAIR? No. CONFIRMS_CORRECTED_VERIFICATION is specific to invocation failures. INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT specific to builds. VERIFICATION_OBSERVES_EXPECTED_RESULT is generic: action verifies, observation shows expected output. In event-0014: curl returns \"hello world\" — the observation contains expected output. Hmm, but this is thin: \"action is a verification step and observation shows expected output\". Is that a mechanism worth registering? It's essentially \"verification success\". The instructions warn against inventing broad catch-alls. But \"verification observes expected result\" is a legitimate reusable mechanism: checks producing expected values. Yet it risks being a trivially generic predicate. Given the example scheme, I'd lean to accept it but distinguish attempted verification from confirmed success — that's exactly the distinction. Hmm, but it overlaps heavily with EXECUTES_END_TO_END_USER_WORKFLOW + observation side. Actually EXECUTES... is action-only; VERIFICATION... is action+observation.\n\nHmm, maybe better to refine VERIFICATION_OBSERVES_EXPECTED_RESULT into something more precise: \"The observation resulting from a verification action contains the specific expected artifact/result that the task requires (e.g., serving exact requested content), rather than merely a success exit code.\" That's a meaningful mechanism: matching expected user-visible content. I'll accept with refinement, contrasting with generic success.\n\nWait — but do we risk having too many? The task says accept supported reusable new predicates. I'll accept it, refined.\n\n8. DIAGNOSES_FAILURE_CAUSE — reasoning + observation: event-0013 reasoning explains push failure because GIT_SSH_COMMAND wasn't exported. Not in registry. Distinct from IDENTIFIES_DEFECT_IN_OBSERVED_CONTENT (which is deficiency in artifact content). Accept.\n\n9. ATTEMPTS_REPAIR_OBSERVED_FAILURE — action + observation: retry push with exported env. Registry has CORRECTS_FAILED_INVOCATION (specific to invocation-form errors) and CONFIRMS_CORRECTED_VERIFICATION. ATTEMPTS_REPAIR_OBSERVED_FAILURE is broader: action changes operational condition relevant to failure. Is that a duplicate of CORRECTS_FAILED_INVOCATION? CORRECTS_FAILED_INVOCATION is about invocation form errors; this is about any failure (e.g. host key verification / missing env). Distinguishable case: repairing a permission error isn't an invocation-form fix, so CORRECTS_FAILED_INVOCATION fails while ATTEMPTS_REPAIR holds. So accept as distinct mechanism (general repair attempt). Also event-0017 repair (run as user due to dubious ownership) — that's a repair after failure, yes: event-0016 observation reports dubious ownership fatal; event-0017 action reruns as user. Good, evidence.\n\n10. CONFIRMS_REPAIR — ternary: repair action, failure observation, confirmation observation. Registry has CONFIRMS_CORRECTED_VERIFICATION (specific to invocation failures) and CONFIRMS_REPAIR is in original candidate list and uncertain. The example in the prompt uses CONFIRMS_REPAIR. Evidence: event-0013 failure (push failed), repair action event-0013 action-1? Wait, event-0013's action is the retry push, and event-0013's observation is success. So failure obs (event-0012 obs), repair action (event-0013 action), confirmation obs (event-0013 obs). Ordering: repair precedes confirmation. Fits. Also event-0017 repair confirmed by event-0017 obs (refs rc=0, empty). Accept.\n\nBut is it a duplicate of CONFIRMS_CORRECTED_VERIFICATION? That one is specific to invocation error correction where confirmation contains sought verification output. CONFIRMS_REPAIR is general. Distinguishable: a repair of a permission error confirmed is outside CONFIRMS_CORRECTED_VERIFICATION. Accept, keeping definition general, and ensure confirmation is later.\n\n11. ATTEMPTS_TEST_STATE_CLEANUP — action unary: cleanup of test artifacts. Event-0016 action (rm -f /var/www/html/hello.html, rm testkey etc.) but that action failed partially (git update-ref failed); still it targeted test artifacts and restored credential/webroot. Yes, supported.\n\n12. RESTORES_PRISTINE_STATE — binary cleanup + observation confirming absence/reset. Event-0017 observation: refs empty, refs/heads empty, and earlier event-0016 removed webroot/keys. Hmm — does one observation confirm both? Event-0017's observation shows repo empty and ls of refs/heads. The @action in event-0017 includes `rm -f /git/server/index; ls -la /git/server /git/server/refs/heads`. The observation confirms refs empty. Web root and authorized_keys were cleaned in event-0016 and observed there (empty authorized_keys file present, webroot empty). Hmm, event-0016's observation does show webroot empty and authorized_keys empty (0 bytes), while repo still had master. So event-0016 action = cleanup, its observation shows partial success. Then event-0017 = second cleanup, its observation shows repo empty. So RESTORES_PRISTINE_STATE holds for (event-0017 action, event-0017 observation) regarding repository refs. Accept? It's a multi-observation joint thing... The binary version: cleanup action + later observation confirming targeted artifacts removed/reset. Accept.\n\nBut is RESTORES_PRISTINE_STATE distinct from ATTEMPTS_TEST_STATE_CLEANUP? Yes attempt vs confirmed — outcome distinction required by policy.\n\n13. INSTALLS_SERVICE_RECOVERY_HELPER — action writes /usr/local/bin/ensure-git-server-services, which checks pidof and restarts. Supported by event-0020. Accept. Unary.\n\n14. CHECKS_LISTENING_PORTS — action greps /proc/net/tcp for ports, observation reports listening state. Supported (event-0019). Accept. Also event-0010 ps output shows processes — but that's CONFIRMS_SERVICE_STARTED. Accept binary.\n\nNow revisions: Task B — revise matched registry predicate only if definition needs clarification. Comparison matched only ACTIVATES_SYSTEM_SERVICES → CONFIRMS_SERVICE_STARTED. Its definition seems fine. No revision needed. So revised_existing_predicates empty.\n\nWait — check whether CONFIRMS_SERVICE_STARTED's definition needs clarification to avoid absorbing ACTIVATES_SYSTEM_SERVICES? The candidate ACTIVATES_SYSTEM_SERVICES is essentially identical; the existing one covers it. No revision.\n\nNow final names must be unique and not collide with registry.\n\nFinal accepted list:\n- VALIDATES_SERVICE_CONFIGURATION\n- CONFIGURES_HOSTNAME_RESOLUTION\n- TESTS_AUTHENTICATED_REMOTE_ACCESS\n- EXECUTES_END_TO_END_USER_WORKFLOW\n- DIAGNOSES_FAILURE_CAUSE\n- ATTEMPTS_REPAIR_OBSERVED_FAILURE\n- CONFIRMS_REPAIR\n- ATTEMPTS_TEST_STATE_CLEANUP\n- RESTORES_PRISTINE_STATE\n- INSTALLS_SERVICE_RECOVERY_HELPER\n- CHECKS_LISTENING_PORTS\n- VERIFICATION_OBSERVES_EXPECTED_RESULT\n\nHmm, should I include VERIFICATION_OBSERVES_EXPECTED_RESULT? It's marked uncertain. Let me reconsider: Is it distinguishable and meaningful? \"The action performs a verification step and the observation reports the expected user-visible output\" — this is a reasonable reusable mechanism (verified check output). Registry doesn't have it except CONFIRMS_CORRECTED_VERIFICATION (retry-specific) and INDICATES_SUCCESSFUL_BUILD_WITH_ARTIFACT (build-specific). So a general verification-output predicate is distinct. But is it too generic/broad, overlapping everything? The general principle \"Outcome: Distinguish attempted operations, performed checks, and confirmed successful outcomes\" suggests this is legitimate. I'll accept, but refine to require the observation contains the specific expected result value, not just success.\n\nHmm, but there's risk that it's considered too generic. I'll include it with precise conditions requiring the expected value/artifact to be present.\n\nActually, let me reconsider the granularity: event-0014 action is a composite verification (ls + curl + curl|od) and observation shows \"hello world\". Event-0011: ssh check with \"SSH-OK\" — expected output. Event-0019: port check shows 0A LISTEN — expected. This is a recurring mechanism. Good.\n\nAlso double check DIAGNOSES_FAILURE_CAUSE vs DERIVES_ENVIRONMENT_CONSTRAINT: DERIVES is about environment facts from observation; DIAGNOSES is causal explanation of failure. Distinguishable (dubious ownership explanation, host key failure). Event-0017 reasoning explains dubious ownership cause from event-0016 observation. Event-0013 reasoning explains host key failure. Good.\n\nNow write definitions.\n\nVALIDATES_SERVICE_CONFIGURATION:\nparams action, observation.\ndefinition: \"The action invokes a service-specific configuration syntax or consistency check, and the observation reports that the service's configuration is valid.\"\nassertion: action runs the service's own validation/test routine (e.g., `nginx -t`, `apachectl configtest`, `sshd -t`) on its configuration; observation explicitly reports successful syntax/consistency validation.\nexclusion: action only writes/starts/restarts; observation reports validation failure or unrelated success; the check validates something other than the service configuration (e.g. a git config).\n\nCONFIGURES_HOSTNAME_RESOLUTION:\ndefinition: \"The action modifies the system's hostname-to-address resolution mapping so that a symbolic host name resolves to a chosen address for subsequent commands.\"\nassertion: action writes/updates a name-resolution mapping such as an /etc/hosts entry; mapping associates a host name with an address usable by subsequent network commands.\nexclusion: changes service-level virtual-host or server_name config; writes a file that does not affect name resolution; only reads current mapping.\n\nTESTS_AUTHENTICATED_REMOTE_ACCESS:\ndefinition: \"The action installs or supplies a credential for an account and performs a remote login using that credential, and the observation confirms that the login authenticated as the intended identity.\"\nassertion: action provisions credential (key pair, token) or installs it into the target account's authorized credentials; action executes a remote access command using it; observation reports the authenticated identity or successful authenticated session.\nexclusion: unauthenticated reachability test; credentials prepared without login attempt; observation reports authentication failure or permission denied.\n\nEXECUTES_END_TO_END_USER_WORKFLOW:\ndefinition: \"The action reproduces the requester's end-to-end workflow by running operations from multiple interacting stages of that workflow in sequence, rather than exercising a single component in isolation.\"\nassertion: action includes operations belonging to at least two distinct stages of the requested workflow (e.g., cloning/pushing source and retrieving served content); the stages interact through the configured components.\nexclusion: single isolated check (config syntax, process listing, port query); action only starts services; action only prepares files without exercising the workflow.\n\nDIAGNOSES_FAILURE_CAUSE:\ndefinition: \"The reasoning explains why a previously observed failure occurred by identifying the specific cause or mechanism responsible.\"\nparams reasoning, observation.\nassertion: reasoning refers to the failure reported by observation; reasoning identifies a causal explanation (missing environment variable scoping, ownership safety rule, host-key verification, etc.) that accounts for the observed error.\nexclusion: merely restates/quotes error; plans next action without explaining cause; explanation concerns a failure not reported by that observation.\n\nATTEMPTS_REPAIR_OBSERVED_FAILURE:\ndefinition: \"The action attempts to correct a previously observed failure by changing the operational condition responsible for it — configuration, execution context, environment, or credentials — rather than repeating the failing operation unchanged.\"\nparams action, observation (prior failure).\nassertion: the observation reports a failure preceding the action; the action changes an operational condition relevant to that failure.\nexclusion: unrelated to failure; identical repeat with no change; action observes/logs only.\n\nCONFIRMS_REPAIR:\nternary repair action, failure observation, confirmation observation.\nassertion: failure precedes repair; repair changes a condition relevant to the failure; confirmation occurs after repair and reports success or a state inconsistent with the original failure (original failure no longer reproduced).\nexclusion: no later observation; later observation shows failure persists; confirmation unrelated to failure's subject.\n\nATTEMPTS_TEST_STATE_CLEANUP:\nunary action.\ndefinition: \"The action removes or resets artifacts created while testing the requested workflow — temporary credentials, test clones, test commits/branches, test-deployed content — to return the persistent state toward its pre-test condition.\"\nassertion: targets artifacts created by the agent's own testing; includes operations intended to restore persistent state used by the workflow (repo refs, served root, authorized credentials).\nexclusion: removes ordinary runtime files unrelated to test artifacts; only inspects artifacts; deletes user data not created by testing.\n\nRESTORES_PRISTINE_STATE:\nbinary action, observation.\ndefinition: \"A cleanup action removes or resets temporary test artifacts, and the observation confirms that the targeted resources are absent, empty, or reset so the relevant resource is back in its pre-test state.\"\nassertion: action performs cleanup of test artifacts; later observation shows targeted artifacts absent/empty/reset (e.g., no refs, empty served root, empty credential file).\nexclusion: observation shows artifacts or test commits remain; observation doesn't address cleaned resources; observation reports cleanup error that leaves state unchanged.\n\nHmm — event-0016 observation showed the git cleanup failed, webroot/keys cleared — would RESTORES_PRISTINE_STATE hold for (event-0016 action, event-0016 obs)? Partially, but repo refs remained. The exclusion covers that. For event-0017, action+obs fits for repo. Also event-0013? no. OK fine. Perhaps I should note the confirmation needs the targeted resources. Keep as is.\n\nINSTALLS_SERVICE_RECOVERY_HELPER:\nunary action.\ndefinition: \"The action creates a reusable helper that checks whether required service daemons are running and starts them when they are not, so service availability can be restored later without manual intervention.\"\nassertion: action writes a script/helper containing liveness checks (e.g., pidof) and start commands for the services; helper is intended for later invocation.\nexclusion: writes ordinary application content or static service configuration without liveness/restart logic; starts services once without creating a reusable helper; only documents how to restart.\n\nCHECKS_LISTENING_PORTS:\nbinary action, observation.\ndefinition: \"The action inspects the system's socket or connection tables for designated service ports, and the observation reports the listening state or bound interfaces of those ports.\"\nassertion: action queries socket state (e.g., /proc/net/tcp, ss, netstat) filtered to specific ports; observation reports listening state/bound addresses for those ports.\nexclusion: check only process existence; observation reports no port or socket state; query not restricted to the service's ports.\n\nVERIFICATION_OBSERVES_EXPECTED_RESULT:\nbinary.\ndefinition: \"The action performs a verification step that exercises the configured behavior, and the resulting observation contains the specific expected output, content, or state that demonstrates that behavior.\"\nassertion: action deliberately exercises the behavior to verify it (retrieves content, runs the workflow stage, queries state) rather than only writing config or starting services; observation contains the expected value/content/state (e.g., the exact requested content returned, expected success marker, expected listening state), not merely an exit status.\nexclusion: observation reports error or unexpected value; observation reports only generic execution success (exit 0) with no evidence of the expected behavior; action only performs a syntax check.\n\nHmm, \"not merely an exit status\" — but \"SSH-OK\" marker is expected output. Fine.\n\nNow ordering of returned array — no requirement.\n\nCheck names don't collide with registry: none of the accepted names exist in registry. Good.\n\nRevised existing: empty. Should I revise anything? Task B requires original_name in matched_existing_name entries — only CONFIRMS_SERVICE_STARTED. Its definition is fine as-is. Empty.\n\nLet me write the JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 26678,
+          "completion_tokens": 7588,
+          "total_tokens": 34266,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 5209
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 24758
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\":[{\"name\":\"VALIDATES_SERVICE_CONFIGURATION\",\"definition\":\"The action invokes a service's own configuration syntax or consistency check on its configuration files, and the observation reports that the configuration is valid.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that runs the service-specific configuration validation routine.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting the validation outcome for that service configuration.\"}],\"assertion_conditions\":[\"The action runs the service's own validation or test routine (e.g., a config-test flag or subcommand of the daemon) on its configuration before or alongside activation.\",\"The observation explicitly reports that the syntax or consistency of that configuration is valid or successful.\"],\"exclusion_conditions\":[\"The action only writes, starts, or restarts the service without running a configuration validity check.\",\"The observation reports a validation failure or does not address configuration validity.\",\"The check validates something other than the service's configuration (e.g., a repository or application setting).\"]},{\"name\":\"CONFIGURES_HOSTNAME_RESOLUTION\",\"definition\":\"The action modifies the system's hostname-to-address resolution mapping so that a symbolic host name resolves to a chosen address for subsequent commands.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that adds or updates the system name-resolution mapping.\"}],\"assertion_conditions\":[\"The action writes or updates a system name-resolution mapping, such as an entry in the hosts file.\",\"The written mapping associates a host name with a network address that subsequent commands use to reach a service.\"],\"exclusion_conditions\":[\"The action changes service-level virtual-host or server-name configuration rather than system hostname resolution.\",\"The action writes a file that does not affect name resolution.\",\"The action only reads the current name-resolution mapping.\"]},{\"name\":\"TESTS_AUTHENTICATED_REMOTE_ACCESS\",\"definition\":\"The action installs or supplies a credential for a target account and performs a remote login using that credential, and the observation confirms that the login authenticated as the intended identity.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that provisions or installs the credential and attempts the remote login.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting whether the authenticated remote access succeeded and as which identity.\"}],\"assertion_conditions\":[\"The action creates, installs, or supplies a credential (e.g., a key pair or token) for a remote login test.\",\"The action executes a remote access command using that credential.\",\"The observation reports a successful authenticated identity or authenticated session for the intended account.\"],\"exclusion_conditions\":[\"The action tests unauthenticated network reachability or only starts the login daemon.\",\"The action prepares credentials but performs no login attempt.\",\"The observation reports authentication failure, permission denial, or host verification failure.\"]},{\"name\":\"EXECUTES_END_TO_END_USER_WORKFLOW\",\"definition\":\"The action reproduces the requester's end-to-end workflow by running operations from multiple interacting stages of that workflow in sequence, rather than exercising a single component in isolation.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that runs the multi-stage user workflow.\"}],\"assertion_conditions\":[\"The action includes operations belonging to at least two distinct stages of the requested workflow, such as producing and transmitting source-controlled content and retrieving content from the served endpoint.\",\"The stages interact through the components being configured, so the invocation exercises their integration rather than a single isolated component.\"],\"exclusion_conditions\":[\"The action performs only a single isolated check, such as a configuration syntax test, process listing, or port query.\",\"The action only starts services without exercising the user-facing workflow.\",\"The action only prepares files or configuration without running the workflow stages.\"]},{\"name\":\"DIAGNOSES_FAILURE_CAUSE\",\"definition\":\"The reasoning explains why a previously observed failure occurred by identifying the specific cause or mechanism responsible for it.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text explaining the failure.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result reporting the failure.\"}],\"assertion_conditions\":[\"The reasoning refers to the failure reported by the observation.\",\"The reasoning identifies a causal explanation for the failure, such as an environment setting not carried into a subcommand, an ownership safety rule rejecting the operation, or a host verification rule blocking access.\"],\"exclusion_conditions\":[\"The reasoning merely restates or quotes the error without causal analysis.\",\"The reasoning plans a next action without explaining why the observed failure occurred.\",\"The explanation concerns a failure other than the one reported by the paired observation.\"]},{\"name\":\"ATTEMPTS_REPAIR_OBSERVED_FAILURE\",\"definition\":\"The action attempts to correct a previously observed failure by changing the operational condition responsible for it, such as configuration, execution context, environment, or credentials, rather than repeating the failing operation unchanged.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The corrective action being attempted.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The earlier tool result reporting the failure to be corrected.\"}],\"assertion_conditions\":[\"The observation reports a failure that occurs before the action.\",\"The action changes an operational condition relevant to that failure rather than repeating the identical failing operation unchanged.\"],\"exclusion_conditions\":[\"The action is unrelated to the observed failure.\",\"The action simply repeats the same failing operation with no corrective change.\",\"The action only inspects or logs state without attempting a correction.\"]},{\"name\":\"CONFIRMS_REPAIR\",\"definition\":\"A repair action addresses an observed failure, and a later observation establishes that the same failure has been resolved.\",\"parameters\":[{\"name\":\"repair\",\"type\":\"action\",\"description\":\"The action attempting to repair the failure.\"},{\"name\":\"failure\",\"type\":\"observation\",\"description\":\"The earlier observation reporting the failure.\"},{\"name\":\"confirmation\",\"type\":\"observation\",\"description\":\"The later observation confirming that the failure has been resolved.\"}],\"assertion_conditions\":[\"The failure observation precedes the repair action, and the repair action changes a condition relevant to that failure.\",\"The confirmation observation occurs after the repair and reports success or a state inconsistent with the original failure, so the original failure is no longer reproduced.\"],\"exclusion_conditions\":[\"No later observation confirms resolution of the original failure.\",\"The later observation still reports the original failure or leaves the affected state unchanged.\",\"The later observation confirms only an unrelated operation.\"]},{\"name\":\"ATTEMPTS_TEST_STATE_CLEANUP\",\"definition\":\"The action removes or resets artifacts created while testing the requested workflow, such as temporary credentials, test clones, test commits or branches, and test-deployed content, to return the persistent state toward its pre-test condition.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The cleanup action targeting temporary test artifacts.\"}],\"assertion_conditions\":[\"The action targets artifacts created by the agent's own testing, such as test credentials, test clones, test branches or commits, or files deployed by a test push.\",\"The action includes operations intended to restore the persistent state used by the requested workflow, such as clearing repository references, emptying the served root, or resetting the credential file.\"],\"exclusion_conditions\":[\"The action removes ordinary runtime files unrelated to test artifacts.\",\"The action only inspects test artifacts without deleting or resetting them.\",\"The action deletes user data that was not produced by the agent's testing.\"]},{\"name\":\"RESTORES_PRISTINE_STATE\",\"definition\":\"A cleanup action removes or resets temporary test artifacts, and the observation confirms that the targeted resources are absent, empty, or reset, leaving the relevant resource in its pre-test state.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The cleanup action that removes or resets temporary test artifacts.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The later tool result confirming that the targeted resources are absent, empty, or reset.\"}],\"assertion_conditions\":[\"The action performs cleanup of temporary test artifacts.\",\"The observation shows the targeted artifacts absent, empty, or reset to their initial state, such as no remaining references, an empty served root, or an emptied credential file.\"],\"exclusion_conditions\":[\"The observation shows that targeted test artifacts or test commits remain.\",\"The observation reports that the cleanup operation itself failed and left the state unchanged.\",\"The observation does not address the state of the cleaned resources.\"]},{\"name\":\"INSTALLS_SERVICE_RECOVERY_HELPER\",\"definition\":\"The action creates a reusable helper that checks whether required service daemons are running and starts them when they are absent, so that service availability can be restored later without manual intervention.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that writes or installs the service recovery helper.\"}],\"assertion_conditions\":[\"The action writes or installs a script or helper containing service liveness checks and commands that start the services when they are not running.\",\"The helper is intended to be invoked later to restore service availability.\"],\"exclusion_conditions\":[\"The action writes ordinary application content or static service configuration without liveness or restart logic.\",\"The action only starts services once without creating a reusable recovery helper.\",\"The action merely documents how to restart the services rather than installing an executable helper.\"]},{\"name\":\"CHECKS_LISTENING_PORTS\",\"definition\":\"The action inspects the system's socket or connection tables for designated service ports, and the observation reports whether those ports are in a listening state and on which interfaces.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that queries socket or connection tables for the service ports.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result reporting listening state or bound interfaces for the inspected ports.\"}],\"assertion_conditions\":[\"The action queries socket or connection-table state filtered to the designated service ports.\",\"The observation reports listening state or bound addresses for those ports.\"],\"exclusion_conditions\":[\"The action checks only process existence without inspecting socket state.\",\"The observation reports no port or socket state.\",\"The query is not directed at the ports of the configured services.\"]},{\"name\":\"VERIFICATION_OBSERVES_EXPECTED_RESULT\",\"definition\":\"The action performs a verification step that exercises the configured behavior, and the resulting observation contains the specific expected output, content, or state that demonstrates that behavior.\",\"parameters\":[{\"name\":\"action\",\"type\":\"action\",\"description\":\"The verification step that exercises the behavior being checked.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The tool result containing the expected output, content, or state.\"}],\"assertion_conditions\":[\"The action deliberately exercises the configured behavior to verify it, such as retrieving served content, performing a login, or querying the live state.\",\"The observation contains the specific expected value, content, or success marker, not merely a generic exit status, that demonstrates the verified behavior.\"],\"exclusion_conditions\":[\"The observation reports an error or an unexpected value.\",\"The observation reports only generic execution success without evidence of the expected behavior.\",\"The action only writes configuration, starts a service, or checks syntax without exercising the behavior.\"]}],\"revised_existing_predicates\":[]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "VALIDATES_SERVICE_CONFIGURATION",
+        "definition": "The action invokes a service's own configuration syntax or consistency check on its configuration files, and the observation reports that the configuration is valid.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that runs the service-specific configuration validation routine."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting the validation outcome for that service configuration."
+          }
+        ],
+        "assertion_conditions": [
+          "The action runs the service's own validation or test routine (e.g., a config-test flag or subcommand of the daemon) on its configuration before or alongside activation.",
+          "The observation explicitly reports that the syntax or consistency of that configuration is valid or successful."
+        ],
+        "exclusion_conditions": [
+          "The action only writes, starts, or restarts the service without running a configuration validity check.",
+          "The observation reports a validation failure or does not address configuration validity.",
+          "The check validates something other than the service's configuration (e.g., a repository or application setting)."
+        ]
+      },
+      {
+        "name": "CONFIGURES_HOSTNAME_RESOLUTION",
+        "definition": "The action modifies the system's hostname-to-address resolution mapping so that a symbolic host name resolves to a chosen address for subsequent commands.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that adds or updates the system name-resolution mapping."
+          }
+        ],
+        "assertion_conditions": [
+          "The action writes or updates a system name-resolution mapping, such as an entry in the hosts file.",
+          "The written mapping associates a host name with a network address that subsequent commands use to reach a service."
+        ],
+        "exclusion_conditions": [
+          "The action changes service-level virtual-host or server-name configuration rather than system hostname resolution.",
+          "The action writes a file that does not affect name resolution.",
+          "The action only reads the current name-resolution mapping."
+        ]
+      },
+      {
+        "name": "TESTS_AUTHENTICATED_REMOTE_ACCESS",
+        "definition": "The action installs or supplies a credential for a target account and performs a remote login using that credential, and the observation confirms that the login authenticated as the intended identity.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that provisions or installs the credential and attempts the remote login."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting whether the authenticated remote access succeeded and as which identity."
+          }
+        ],
+        "assertion_conditions": [
+          "The action creates, installs, or supplies a credential (e.g., a key pair or token) for a remote login test.",
+          "The action executes a remote access command using that credential.",
+          "The observation reports a successful authenticated identity or authenticated session for the intended account."
+        ],
+        "exclusion_conditions": [
+          "The action tests unauthenticated network reachability or only starts the login daemon.",
+          "The action prepares credentials but performs no login attempt.",
+          "The observation reports authentication failure, permission denial, or host verification failure."
+        ]
+      },
+      {
+        "name": "EXECUTES_END_TO_END_USER_WORKFLOW",
+        "definition": "The action reproduces the requester's end-to-end workflow by running operations from multiple interacting stages of that workflow in sequence, rather than exercising a single component in isolation.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that runs the multi-stage user workflow."
+          }
+        ],
+        "assertion_conditions": [
+          "The action includes operations belonging to at least two distinct stages of the requested workflow, such as producing and transmitting source-controlled content and retrieving content from the served endpoint.",
+          "The stages interact through the components being configured, so the invocation exercises their integration rather than a single isolated component."
+        ],
+        "exclusion_conditions": [
+          "The action performs only a single isolated check, such as a configuration syntax test, process listing, or port query.",
+          "The action only starts services without exercising the user-facing workflow.",
+          "The action only prepares files or configuration without running the workflow stages."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_FAILURE_CAUSE",
+        "definition": "The reasoning explains why a previously observed failure occurred by identifying the specific cause or mechanism responsible for it.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text explaining the failure."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The earlier tool result reporting the failure."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to the failure reported by the observation.",
+          "The reasoning identifies a causal explanation for the failure, such as an environment setting not carried into a subcommand, an ownership safety rule rejecting the operation, or a host verification rule blocking access."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely restates or quotes the error without causal analysis.",
+          "The reasoning plans a next action without explaining why the observed failure occurred.",
+          "The explanation concerns a failure other than the one reported by the paired observation."
+        ]
+      },
+      {
+        "name": "ATTEMPTS_REPAIR_OBSERVED_FAILURE",
+        "definition": "The action attempts to correct a previously observed failure by changing the operational condition responsible for it, such as configuration, execution context, environment, or credentials, rather than repeating the failing operation unchanged.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The corrective action being attempted."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The earlier tool result reporting the failure to be corrected."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a failure that occurs before the action.",
+          "The action changes an operational condition relevant to that failure rather than repeating the identical failing operation unchanged."
+        ],
+        "exclusion_conditions": [
+          "The action is unrelated to the observed failure.",
+          "The action simply repeats the same failing operation with no corrective change.",
+          "The action only inspects or logs state without attempting a correction."
+        ]
+      },
+      {
+        "name": "CONFIRMS_REPAIR",
+        "definition": "A repair action addresses an observed failure, and a later observation establishes that the same failure has been resolved.",
+        "parameters": [
+          {
+            "name": "repair",
+            "type": "action",
+            "description": "The action attempting to repair the failure."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The earlier observation reporting the failure."
+          },
+          {
+            "name": "confirmation",
+            "type": "observation",
+            "description": "The later observation confirming that the failure has been resolved."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the repair action, and the repair action changes a condition relevant to that failure.",
+          "The confirmation observation occurs after the repair and reports success or a state inconsistent with the original failure, so the original failure is no longer reproduced."
+        ],
+        "exclusion_conditions": [
+          "No later observation confirms resolution of the original failure.",
+          "The later observation still reports the original failure or leaves the affected state unchanged.",
+          "The later observation confirms only an unrelated operation."
+        ]
+      },
+      {
+        "name": "ATTEMPTS_TEST_STATE_CLEANUP",
+        "definition": "The action removes or resets artifacts created while testing the requested workflow, such as temporary credentials, test clones, test commits or branches, and test-deployed content, to return the persistent state toward its pre-test condition.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The cleanup action targeting temporary test artifacts."
+          }
+        ],
+        "assertion_conditions": [
+          "The action targets artifacts created by the agent's own testing, such as test credentials, test clones, test branches or commits, or files deployed by a test push.",
+          "The action includes operations intended to restore the persistent state used by the requested workflow, such as clearing repository references, emptying the served root, or resetting the credential file."
+        ],
+        "exclusion_conditions": [
+          "The action removes ordinary runtime files unrelated to test artifacts.",
+          "The action only inspects test artifacts without deleting or resetting them.",
+          "The action deletes user data that was not produced by the agent's testing."
+        ]
+      },
+      {
+        "name": "RESTORES_PRISTINE_STATE",
+        "definition": "A cleanup action removes or resets temporary test artifacts, and the observation confirms that the targeted resources are absent, empty, or reset, leaving the relevant resource in its pre-test state.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The cleanup action that removes or resets temporary test artifacts."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The later tool result confirming that the targeted resources are absent, empty, or reset."
+          }
+        ],
+        "assertion_conditions": [
+          "The action performs cleanup of temporary test artifacts.",
+          "The observation shows the targeted artifacts absent, empty, or reset to their initial state, such as no remaining references, an empty served root, or an emptied credential file."
+        ],
+        "exclusion_conditions": [
+          "The observation shows that targeted test artifacts or test commits remain.",
+          "The observation reports that the cleanup operation itself failed and left the state unchanged.",
+          "The observation does not address the state of the cleaned resources."
+        ]
+      },
+      {
+        "name": "INSTALLS_SERVICE_RECOVERY_HELPER",
+        "definition": "The action creates a reusable helper that checks whether required service daemons are running and starts them when they are absent, so that service availability can be restored later without manual intervention.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that writes or installs the service recovery helper."
+          }
+        ],
+        "assertion_conditions": [
+          "The action writes or installs a script or helper containing service liveness checks and commands that start the services when they are not running.",
+          "The helper is intended to be invoked later to restore service availability."
+        ],
+        "exclusion_conditions": [
+          "The action writes ordinary application content or static service configuration without liveness or restart logic.",
+          "The action only starts services once without creating a reusable recovery helper.",
+          "The action merely documents how to restart the services rather than installing an executable helper."
+        ]
+      },
+      {
+        "name": "CHECKS_LISTENING_PORTS",
+        "definition": "The action inspects the system's socket or connection tables for designated service ports, and the observation reports whether those ports are in a listening state and on which interfaces.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that queries socket or connection tables for the service ports."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting listening state or bound interfaces for the inspected ports."
+          }
+        ],
+        "assertion_conditions": [
+          "The action queries socket or connection-table state filtered to the designated service ports.",
+          "The observation reports listening state or bound addresses for those ports."
+        ],
+        "exclusion_conditions": [
+          "The action checks only process existence without inspecting socket state.",
+          "The observation reports no port or socket state.",
+          "The query is not directed at the ports of the configured services."
+        ]
+      },
+      {
+        "name": "VERIFICATION_OBSERVES_EXPECTED_RESULT",
+        "definition": "The action performs a verification step that exercises the configured behavior, and the resulting observation contains the specific expected output, content, or state that demonstrates that behavior.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The verification step that exercises the behavior being checked."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result containing the expected output, content, or state."
+          }
+        ],
+        "assertion_conditions": [
+          "The action deliberately exercises the configured behavior to verify it, such as retrieving served content, performing a login, or querying the live state.",
+          "The observation contains the specific expected value, content, or success marker, not merely a generic exit status, that demonstrates the verified behavior."
+        ],
+        "exclusion_conditions": [
+          "The observation reports an error or an unexpected value.",
+          "The observation reports only generic execution success without evidence of the expected behavior.",
+          "The action only writes configuration, starts a service, or checks syntax without exercising the behavior."
+        ]
+      }
+    ],
+    "revised_existing_predicates": []
+  },
+  "previous_calls": []
+}

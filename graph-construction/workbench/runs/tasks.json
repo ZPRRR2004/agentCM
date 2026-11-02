@@ -1,0 +1,114 @@
+[
+  {
+    "id": "241b3af154a9",
+    "title": "核对现有实现和测试；将 RZP 固定版本源码引入父仓库。",
+    "status": "done",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "e85ff120de9d",
+    "title": "将建图程序、谓词发现、动画与示例集中到 `graph-construction/`。",
+    "status": "done",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "f3d8365c8040",
+    "title": "第一项改动：将关系类型发现改为有参数的谓词定义发现，更新协议、Prompt、校验、审核卡和恢复逻辑。",
+    "status": "done",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "702f136d03e8",
+    "title": "校准谓词发现 Prompt 的语义粒度：补充正反例，区分具体机制与上位概念，比较和合并要求双向语义等价。",
+    "status": "done",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "9e47058f0ef9",
+    "title": "建立本地实验工作台：实验创建/运行/恢复、批次反馈、定义与窗口审核、任务看板、Prompt 编辑和快照；完成模拟端到端与浏览器检查。",
+    "status": "done",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "f29f165d8125",
+    "title": "数据集独立管理，清理 RZP 旧关系类型实验结果；数据集选项包含版本，用户填写参数后运行独立切分实验，再选择结果开展谓词发现。",
+    "status": "done",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "d2a9f904b7b9",
+    "title": "Review 谓词定义 v1：参数对象类型、成立条件、排除条件和作用域是否满足研究需要。",
+    "status": "backlog",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-31T03:47:42.259892+00:00"
+  },
+  {
+    "id": "97199fa67180",
+    "title": "在小批真实轨迹上验证发现质量，保存候选定义、原始证据和人工修改理由；冻结首批已审核谓词。",
+    "status": "backlog",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "1567a6f26a3d",
+    "title": "下一项实现范围待确认：将定义实例化为带对象 ID、证据引用和时间/作用域的谓词事实。",
+    "status": "backlog",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "31b092a13657",
+    "title": "设计谓词规则与建图模块的接口，再实现混合原子/子图归并和在线前缀更新。",
+    "status": "backlog",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "2e524fad53c6",
+    "title": "准备可恢复环境与同状态续跑；验证子图 KEEP/UNLOAD 干预。",
+    "status": "backlog",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "8be5e6a0b0d1",
+    "title": "审核 研究调研与方案评审 中的候选观点和对照实验。",
+    "status": "backlog",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "3ee751f3bf8c",
+    "title": "评估 JEV 作为上下文价值模型的适用性。",
+    "status": "backlog",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  },
+  {
+    "id": "fe78b05adea6",
+    "title": "数据集集中到仓库根目录 `datasets/`；下载官方完整 Terminal-Bench 2.1 的 89 个任务、逐文件校验，清理旧子集并接入工作台。",
+    "status": "done",
+    "notes": "",
+    "experiment_id": "",
+    "updated_at": "2026-10-29T11:48:01.142194+00:00"
+  }
+]

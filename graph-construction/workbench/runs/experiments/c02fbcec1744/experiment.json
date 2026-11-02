@@ -1,0 +1,55 @@
+{
+  "id": "c02fbcec1744",
+  "kind": "predicate",
+  "title": "现有prompt效果-无反馈",
+  "question": "",
+  "dataset_id": "terminal-bench-2.1",
+  "dataset_name": "terminal-bench-2.1",
+  "source_experiment_id": "346a8dea5094",
+  "source_title": "轨迹切分20条-2",
+  "source_output_hash": "a34a71a1e30aa84ba8a2f4b211320ea614d7e3d48ecbf902cf9edd0b90b19d34",
+  "split_config": {
+    "max_window_events": 10,
+    "overlap_events": 2,
+    "max_previous_summary_tokens": 150,
+    "max_future_summary_tokens": 150
+  },
+  "input_hash": "ee3d214d9ea51b4e25a44b5fc2a15ab02828785b796bfb1aa8452c132af2b636",
+  "trajectory_ids": [
+    "xhigh-rerun-prove__prove-plus-comm",
+    "xhigh__configure-git-webserver",
+    "xhigh__constraints-scheduling",
+    "xhigh__count-dataset-tokens",
+    "xhigh__git-leak-recovery",
+    "xhigh__hf-model-inference"
+  ],
+  "window_ids": [
+    "xhigh-rerun-prove__prove-plus-comm__window_0001",
+    "xhigh__configure-git-webserver__window_0001",
+    "xhigh__configure-git-webserver__window_0002",
+    "xhigh__configure-git-webserver__window_0003",
+    "xhigh__constraints-scheduling__window_0001",
+    "xhigh__count-dataset-tokens__window_0001",
+    "xhigh__count-dataset-tokens__window_0002",
+    "xhigh__git-leak-recovery__window_0001",
+    "xhigh__hf-model-inference__window_0001",
+    "xhigh__hf-model-inference__window_0002"
+  ],
+  "window_count": 10,
+  "created_at": "2026-10-30T03:04:05.378084+00:00",
+  "predicate_schema_version": "predicate-definition/v2",
+  "node_schema_version": "trajectory-nodes/v1",
+  "node_counts": {
+    "action": 80,
+    "observation": 80,
+    "reasoning": 82
+  },
+  "prompt_hash": "e7657100601c7aa413f0863b2d036ae19ad7b5240c5eafebd45ded7ca4284448",
+  "model": "deepseek-flash",
+  "base_url": "https://api.deepseek.com",
+  "config": {
+    "human_feedback_interval": 5,
+    "feedback_mode": "registry_feedback",
+    "max_llm_retries": 3
+  }
+}

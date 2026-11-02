@@ -1,0 +1,461 @@
+{
+  "window_file": "xhigh__configure-git-webserver__window_0001.json",
+  "trajectory_id": "xhigh__configure-git-webserver",
+  "window_id": "window_0001",
+  "global_index": 1,
+  "prompt_version": "v0001",
+  "registry_snapshot": [
+    {
+      "name": "IS_PLAN",
+      "definition": "The reasoning explicitly expresses an intended future action or sequence of actions that the agent intends to carry out next.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text expressing the intended future action or sequence of actions."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning identifies at least one action to be performed later, such as inspecting a file, writing content, compiling, or verifying output.",
+        "The intended action is stated prospectively rather than reported as already done."
+      ],
+      "exclusion_conditions": [
+        "The reasoning only reports or summarizes actions already completed.",
+        "The reasoning only restates file content or tool output without expressing an intended next action."
+      ]
+    },
+    {
+      "name": "DIAGNOSES_OBSERVED_FAILURE",
+      "definition": "The reasoning explains the cause of a failure reported by an observation and derives a corrective approach from that explanation.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text explaining why the observed failure occurred and what should change."
+        },
+        {
+          "name": "failure",
+          "type": "observation",
+          "description": "The observation reporting the failure being explained."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation indicates that an invoked operation did not succeed.",
+        "The reasoning identifies a concrete cause for the failure and states a corrective approach or change based on that cause."
+      ],
+      "exclusion_conditions": [
+        "The reasoning merely notes that something failed without offering a causal explanation.",
+        "The reasoning explains an unrelated issue or offers no corrective direction."
+      ]
+    },
+    {
+      "name": "GUIDES_ACTION",
+      "definition": "The action's tool choice, target, or argument values instantiate an intent, diagnosis, or corrected approach explicitly stated in the reasoning.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text stating the plan, diagnosis, or corrected approach."
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action whose tool, target, or arguments carry out that stated approach."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning specifies the operation or correction to perform, and the action performs that same operation with matching target or arguments.",
+        "A traceable correspondence exists between the described step and the executed parameters, command, path, or content."
+      ],
+      "exclusion_conditions": [
+        "The action is unrelated to the described step or diverges from it in target or approach.",
+        "The reasoning only reports prior results and the action is merely temporally adjacent."
+      ]
+    },
+    {
+      "name": "USES_OBSERVATION_AS_INPUT",
+      "definition": "The action uses an identifiable value or payload supplied by a prior observation as an operational input.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The action receiving the input."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The prior observation supplying the input value or payload."
+        }
+      ],
+      "assertion_conditions": [
+        "An argument, file content, path, or identifier of the action can be traced to content present in the observation.",
+        "The observation precedes the action within the trajectory."
+      ],
+      "exclusion_conditions": [
+        "The observation only guides action selection without supplying an operational input value.",
+        "The nodes are merely temporally adjacent or topically related without a traceable value transfer."
+      ]
+    },
+    {
+      "name": "ATTEMPTS_REPAIR",
+      "definition": "The action modifies the command, parameters, or content that previously produced an observed failure in order to address that failure.",
+      "parameters": [
+        {
+          "name": "repair",
+          "type": "action",
+          "description": "The action attempting to repair the failure."
+        },
+        {
+          "name": "failure",
+          "type": "observation",
+          "description": "The earlier observation reporting the failure."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure observation precedes the repair action and indicates that the operation did not succeed.",
+        "The action preserves the original goal while changing the element identified as faulty, such as an option's argument form, a path, or source content."
+      ],
+      "exclusion_conditions": [
+        "The action repeats the failing invocation without any change.",
+        "The action pursues a different goal unrelated to the reported failure.",
+        "No confirming evidence is required for this predicate; confirmation is a separate mechanism."
+      ]
+    },
+    {
+      "name": "CONFIRMS_REPAIR",
+      "definition": "A repair action addresses an observed failure, and a subsequent execution result confirms that the original failure has been resolved.",
+      "parameters": [
+        {
+          "name": "repair",
+          "type": "action",
+          "description": "The action attempting to repair the failure."
+        },
+        {
+          "name": "failure",
+          "type": "observation",
+          "description": "The earlier observation reporting the failure."
+        },
+        {
+          "name": "check_result",
+          "type": "observation",
+          "description": "The later observation establishing that the original failure no longer occurs."
+        }
+      ],
+      "assertion_conditions": [
+        "The failure precedes the repair, and the repair changes the failing element.",
+        "The later result shows the target operation or content being produced, loaded, or otherwise completed successfully, with no recurrence of the original error."
+      ],
+      "exclusion_conditions": [
+        "The repair is attempted without any later result.",
+        "The later output repeats the original error or otherwise fails to establish resolution."
+      ]
+    },
+    {
+      "name": "REPORTS_FAILURE",
+      "definition": "The observation indicates that the invoked operation did not succeed.",
+      "parameters": [
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The tool result being evaluated for failure."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation carries an error indication, a non-success exit status, or an explicit error message such as a missing file or unloadable module."
+      ],
+      "exclusion_conditions": [
+        "The observation reports successful completion or plain data output without any error indication."
+      ]
+    },
+    {
+      "name": "REPORTS_SUCCESS",
+      "definition": "The observation indicates that the invoked operation completed successfully.",
+      "parameters": [
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The tool result being evaluated for success."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation contains an explicit success message, a clean completion with no error indication, or a listing of the expected produced artifacts."
+      ],
+      "exclusion_conditions": [
+        "The observation reports an error or non-success exit status.",
+        "The output is only a partial or ambiguous progress message."
+      ]
+    },
+    {
+      "name": "IS_COMPLETION_CONCLUSION",
+      "definition": "The reasoning declares the overall objective achieved and cites the verification evidence that supports the claim.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text asserting task completion."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning states that the requested objective has been fulfilled.",
+        "It references concrete evidence obtained earlier, such as produced artifacts or verified output."
+      ],
+      "exclusion_conditions": [
+        "The reasoning states plans or intermediate steps while work remains.",
+        "The reasoning reports observations without concluding that the objective is achieved."
+      ]
+    }
+  ],
+  "completed_stages": [
+    "discovery",
+    "comparison",
+    "review"
+  ],
+  "accepted_predicates": [
+    {
+      "name": "IDENTIFIES_MISSING_SOFTWARE_DEPENDENCY",
+      "definition": "The reasoning interprets an environment probe as showing that software required for the task is absent and treats obtaining that software as a prerequisite for proceeding with the intended configuration.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text diagnosing the environment and naming the missing capability."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The probe result showing which required tools or services are absent."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation reports probe results about the environment, such as available binaries, packages, or running processes, and shows that one or more task-required tools or services are unavailable.",
+        "The reasoning explicitly connects that absence to the task and indicates that the missing software must be supplied before the intended work can proceed."
+      ],
+      "exclusion_conditions": [
+        "The observation merely enumerates installed software or environment details without revealing a missing task requirement.",
+        "The reasoning restates the task or lists actions without connecting an observed absence to a prerequisite that must be supplied.",
+        "The reasoning explains a failed operation rather than an absent prerequisite."
+      ]
+    },
+    {
+      "name": "ADAPTS_TO_ABSENT_SERVICE_MANAGER",
+      "definition": "The reasoning infers from a process or runtime observation that no conventional service manager or init system is available, and consequently adopts direct or manual control of services instead of the usual management mechanism.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text inferring the absence of an init or service manager and adapting the startup strategy."
+        },
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The process or runtime listing showing that the environment lacks a conventional service manager."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation exposes process or runtime state showing that the environment is not controlled by a conventional init or service manager.",
+        "The reasoning explicitly concludes that services cannot be managed through that absent mechanism and selects direct daemon startup, manual supervision, or an equivalent non-init strategy."
+      ],
+      "exclusion_conditions": [
+        "The observation does not expose process or runtime state relevant to how services are managed.",
+        "The reasoning plans service startup without noting that a management mechanism is absent.",
+        "A service manager is present and the reasoning uses it in the usual way."
+      ]
+    },
+    {
+      "name": "PREPARES_ACCOUNT_FOR_KEY_AUTHENTICATION",
+      "definition": "The action configures a service account with a usable login environment and a non-locking authentication state, together with key-access ownership and permissions, so the account can be reached remotely without password login and can own the service's data.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The account-creation and authentication-state adjustment command or script."
+        }
+      ],
+      "assertion_conditions": [
+        "The action creates or selects an account with a usable login shell and home directory.",
+        "The action places the account's authentication state in a non-locking form so that key-based login is not rejected.",
+        "The action creates a user-owned .ssh directory with restrictive permissions and an authorized-keys file ready to receive public keys."
+      ],
+      "exclusion_conditions": [
+        "The action creates an account but leaves it locked or otherwise unable to accept key-based login.",
+        "The action adjusts unrelated account attributes without preparing remote key-based access."
+      ]
+    },
+    {
+      "name": "INITIALIZES_BARE_REPOSITORY",
+      "definition": "The action establishes a bare repository as a push target at the intended service location, points its default branch reference at the branch clients will push, and places it under ownership that allows the service account to receive pushes.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The repository initialization, branch-reference, and ownership command."
+        }
+      ],
+      "assertion_conditions": [
+        "The action creates a bare repository at the intended service path.",
+        "The action sets HEAD or an equivalent symbolic reference to the designated default branch.",
+        "The action assigns repository ownership or equivalent write authority to the service account."
+      ],
+      "exclusion_conditions": [
+        "The action initializes a non-bare working repository rather than a push target.",
+        "The repository is left without the intended default branch or without ownership permitting the service account to receive pushes."
+      ]
+    },
+    {
+      "name": "CONFIGURES_PUSH_TRIGGERED_DEPLOYMENT",
+      "definition": "The action installs an executable repository hook that reacts to pushed branch references by deploying the pushed content into the directory served by the web server.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The hook-writing or hook-installation action."
+        }
+      ],
+      "assertion_conditions": [
+        "The action writes an executable hook into the repository's hook directory.",
+        "The hook logic reads pushed references and performs a work-tree checkout or equivalent deployment into the served document root.",
+        "The hook limits deployment to branch updates and excludes non-branch or branch-deletion events."
+      ],
+      "exclusion_conditions": [
+        "The hook only logs, notifies, or performs an action unrelated to deploying pushed content.",
+        "Deployment into the served directory is not part of the hook behavior."
+      ]
+    },
+    {
+      "name": "CONFIGURES_SERVICE_ENDPOINT",
+      "definition": "The action writes or replaces the active configuration of a network service so that the service listens on the task-required port and serves content from the intended document root.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The configuration-writing action that defines the service endpoint."
+        }
+      ],
+      "assertion_conditions": [
+        "The configuration specifies the task-required listen port.",
+        "The configuration specifies the document root from which content should be served.",
+        "The configuration is written to an active configuration location or to one that the service loads."
+      ],
+      "exclusion_conditions": [
+        "The action edits an inactive or sample configuration that the service does not load.",
+        "The action changes unrelated directives without defining the required port and document root."
+      ]
+    },
+    {
+      "name": "PREPARES_DEPLOYMENT_DIRECTORY",
+      "definition": "The action prepares the directory served by the web server so that the deployment account can write pushed content into it while the server process retains read access to that content.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The directory-creation and ownership or permission adjustment command."
+        }
+      ],
+      "assertion_conditions": [
+        "The action creates the served directory or confirms that it exists.",
+        "The action assigns ownership or permissions that allow the deployment account to write into the directory.",
+        "The resulting ownership and permissions leave the content readable by the web server process."
+      ],
+      "exclusion_conditions": [
+        "The action only reads or lists the directory without preparing it for deployment.",
+        "The action changes ownership or permissions in a way that prevents the web server process from reading deployed content."
+      ]
+    },
+    {
+      "name": "VALIDATES_AND_ENABLES_SERVICE_CONFIGURATION",
+      "definition": "The action confirms that the intended service configuration is enabled and syntactically valid, and makes service startup conditional on that confirmation succeeding.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The validation and activation command sequence."
+        }
+      ],
+      "assertion_conditions": [
+        "The action checks whether the intended configuration is enabled or linked into the active configuration set.",
+        "The action runs a syntax or consistency check on the service configuration.",
+        "Startup of the service is chained to the success of the check."
+      ],
+      "exclusion_conditions": [
+        "The service is started without any configuration validation.",
+        "A validation command is run but its failure does not prevent startup."
+      ]
+    },
+    {
+      "name": "STARTS_SERVICE_DAEMONS_DIRECTLY",
+      "definition": "The action launches the required long-running service daemons directly rather than through a service manager, preparing any runtime prerequisites those daemons need in order to start and remain running.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The daemon-launching command or script."
+        }
+      ],
+      "assertion_conditions": [
+        "The action invokes daemon binaries or equivalent direct start commands for the required network services.",
+        "The action prepares runtime prerequisites such as directories, host keys, or runtime state needed for those daemons to start.",
+        "The launched processes are intended to remain running after the invoking command returns."
+      ],
+      "exclusion_conditions": [
+        "The action only installs packages without launching the services.",
+        "The action delegates startup to a service manager or init system.",
+        "The action starts only a transient foreground process instead of the required long-running daemon."
+      ]
+    },
+    {
+      "name": "ESTABLISHES_LOCAL_HOSTNAME_RESOLUTION",
+      "definition": "The action adds a local name-resolution mapping so that the hostname used in the task's client commands resolves to the local or container-reachable address of the service.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The hostname or resolver configuration action."
+        }
+      ],
+      "assertion_conditions": [
+        "The action adds or modifies a local hosts-file or equivalent resolver entry.",
+        "The entry maps the task's service hostname to an address that reaches the local service."
+      ],
+      "exclusion_conditions": [
+        "The action changes the machine's own hostname rather than adding a service-name mapping.",
+        "The action only relies on external name resolution without adding the local mapping."
+      ]
+    },
+    {
+      "name": "GUIDES_CONFIGURATION_CHANGE",
+      "definition": "An observation exposes the current structure or values of a service configuration, and a subsequent action rewrites that same configuration to the task-required values, using the observed structure to locate or shape the change.",
+      "parameters": [
+        {
+          "name": "observation",
+          "type": "observation",
+          "description": "The observation revealing existing configuration values or activation structure."
+        },
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The later action that rewrites the observed configuration."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation shows current configuration details such as a listen directive, a document root, or the active-configuration linkage.",
+        "A subsequent action writes or replaces that same configuration, changing the identified values to the task-required values.",
+        "The correspondence between the observed configuration and the rewritten configuration is identifiable as the same file or the same service configuration."
+      ],
+      "exclusion_conditions": [
+        "The observation supplies an operational data value rather than configuration structure or values.",
+        "The subsequent action modifies an unrelated configuration without using the observed structure or values.",
+        "The action writes a configuration without any prior inspection of that configuration."
+      ]
+    }
+  ],
+  "revised_existing_predicates": [],
+  "accepted_predicate_count": 11,
+  "revised_existing_predicate_count": 0,
+  "status": "completed",
+  "created_at": "2026-10-31T04:14:50.853633+00:00",
+  "updated_at": "2026-10-31T04:18:27.953665+00:00",
+  "failed_stage": null,
+  "error": null,
+  "registry_size_after": 20,
+  "completed_at": "2026-10-31T04:18:27.953665+00:00"
+}

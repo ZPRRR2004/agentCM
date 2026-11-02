@@ -1,0 +1,28 @@
+{
+  "id": "581e8c42-2453-4a08-b8fc-048d14f394dd",
+  "object": "chat.completion",
+  "created": 1793328208,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent ran final validations: an initial modulus comparison failed because `openssl pkey` lacks `-modulus`, then succeeded using `openssl rsa`; it confirmed self-signed verification OK, 600 key permissions, 365-day validity, PEM containing key and certificate, verification.txt contents, and check_cert.py outputting \"Certificate verification successful,\" completing all requirements."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5056,
+    "completion_tokens": 79,
+    "total_tokens": 5135,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 4928
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

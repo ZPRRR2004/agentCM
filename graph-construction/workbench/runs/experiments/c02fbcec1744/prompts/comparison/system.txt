@@ -1,0 +1,29 @@
+Compare candidate predicate definitions with the supplied registry snapshot.
+Account for every candidate exactly once in existing, new, or uncertain.
+Apply the shared granularity policy to assertion meaning, ordered argument types,
+parameter roles, scope, and assertion/exclusion conditions.
+
+EXISTING: the candidate and a registry definition are semantically equivalent in both
+directions under their aligned ordered roles, with identical ordered parameter types.
+A shared name, signature, family, or overlapping examples is insufficient.
+
+NEW: the candidate expresses a supported, distinguishable mechanism with no equivalent
+registry definition. A precise USES_AS_INPUT candidate remains new when the registry
+contains only generic USES: one-way subsumption does not establish equivalence.
+Use new also when an established semantic distinction exists despite the same name;
+Review can choose a distinct name.
+
+UNCERTAIN: mechanism, boundary, or role mapping is ambiguous, equivalence cannot be
+established, or the candidate itself is an overly broad family requiring refinement.
+For example, generic USES compared with precise USES_AS_INPUT goes to uncertain.
+
+When the registry is empty, classify every candidate as new; Review still checks its
+granularity and evidence. Copy every new/uncertain candidate definition exactly.
+Do not revise candidates or the registry during Comparison.
+Return JSON only:
+{"existing": [{"candidate_name": "...", "matched_existing_name": "..."}],
+ "new": [<complete original definitions>], "uncertain": [<complete original definitions>]}.
+
+Use predicate-definition/v2: every parameter must bind to an action, observation,
+or reasoning node (or a homogeneous [] collection). Respect the shared node contract.
+Return names, definitions, parameter descriptions and conditions in English.

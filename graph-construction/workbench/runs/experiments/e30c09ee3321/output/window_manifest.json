@@ -1,0 +1,95 @@
+{
+  "input_directory": "E:\\agent解释性\\agentCM\\graph-construction\\workbench\\runs\\experiments\\e30c09ee3321\\inputs",
+  "windows": [
+    {
+      "global_index": 0,
+      "filename": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+      "trajectory_id": "xhigh-rerun-prove__prove-plus-comm",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh-rerun-prove__prove-plus-comm__window_0001",
+      "sha256": "068bc879dc5c0a9c449a7cdc18799a232991e580459bc4b6cab5423998712cd7"
+    },
+    {
+      "global_index": 1,
+      "filename": "xhigh__configure-git-webserver__window_0001.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__configure-git-webserver__window_0001",
+      "sha256": "f712ce586e5e42cc6940e04776ad2f2177a4c8bf023b6e3ddc602de88b4e4a7a"
+    },
+    {
+      "global_index": 2,
+      "filename": "xhigh__configure-git-webserver__window_0002.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__configure-git-webserver__window_0002",
+      "sha256": "db0ba85d41e106e725e1ba8dc3bf72a6402e34ed5568ac7cc8a061836e98f308"
+    },
+    {
+      "global_index": 3,
+      "filename": "xhigh__configure-git-webserver__window_0003.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__configure-git-webserver__window_0003",
+      "sha256": "bcb6e9e0d56a797a8b2796a2d6b567ca9500b30024dbca1af38052018f4f43bd"
+    },
+    {
+      "global_index": 4,
+      "filename": "xhigh__constraints-scheduling__window_0001.json",
+      "trajectory_id": "xhigh__constraints-scheduling",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__constraints-scheduling__window_0001",
+      "sha256": "ebb3f049db6493307c81819e876f2d621ac2dfe1622bca5194752ec2574eb3aa"
+    },
+    {
+      "global_index": 5,
+      "filename": "xhigh__count-dataset-tokens__window_0001.json",
+      "trajectory_id": "xhigh__count-dataset-tokens",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__count-dataset-tokens__window_0001",
+      "sha256": "d95aa59a6c66f6a51da69a5b84a374b52264289213abcf1ea48f98c62aac093f"
+    },
+    {
+      "global_index": 6,
+      "filename": "xhigh__count-dataset-tokens__window_0002.json",
+      "trajectory_id": "xhigh__count-dataset-tokens",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__count-dataset-tokens__window_0002",
+      "sha256": "e1fd99afb9580f22933b6b35ca7fb3b93100ceffb3b6c8ea876bb8cb58df1cb8"
+    },
+    {
+      "global_index": 7,
+      "filename": "xhigh__git-leak-recovery__window_0001.json",
+      "trajectory_id": "xhigh__git-leak-recovery",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__git-leak-recovery__window_0001",
+      "sha256": "441d23f5d3d1ad1668f18a581e4197b667a58be85709e7de92df4345b0d0c21b"
+    },
+    {
+      "global_index": 8,
+      "filename": "xhigh__hf-model-inference__window_0001.json",
+      "trajectory_id": "xhigh__hf-model-inference",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__hf-model-inference__window_0001",
+      "sha256": "45a8b705bc1770952ed85c25cf112c591932872cfb2fae7876de71e8e0d813dc"
+    },
+    {
+      "global_index": 9,
+      "filename": "xhigh__hf-model-inference__window_0002.json",
+      "trajectory_id": "xhigh__hf-model-inference",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__hf-model-inference__window_0002",
+      "sha256": "ed536c48e232b7a6d2630af4103dbe6d00469a340db57d667153acf92775fb3b"
+    }
+  ]
+}

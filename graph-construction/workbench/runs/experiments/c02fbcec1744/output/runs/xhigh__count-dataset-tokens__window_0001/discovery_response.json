@@ -1,0 +1,244 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__count-dataset-tokens__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-30T03:23:07.765581+00:00",
+  "duration_seconds": 25.875,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-30T03:22:41.878752+00:00",
+      "duration_seconds": 25.875,
+      "raw_response": {
+        "id": "f8f856b0-2a08-4d7e-b021-9401962fcf1b",
+        "object": "chat.completion",
+        "created": 1793330567,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"USES_OBSERVATION_AS_INPUT\", \"definition\": \"The action takes an identifiable value or data payload supplied by the specified prior observation as an operational input (for example a returned file path used as a read target, or a resolved download location passed into a subsequent command).\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action that receives the input value or data payload.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The earlier recorded tool result that supplies the value or payload consumed by the action.\"}], \"assertion_conditions\": [\"The observation and the receiving action are both present in the detailed trajectory, with the observation occurring before the action.\", \"An argument, path, URL, column name or data payload of the action can be traced to content of that observation.\"], \"exclusion_conditions\": [\"Information that only motivated which action to take, without appearing as an argument or payload of it, does not satisfy this predicate.\", \"Shared topic or temporal adjacency between an observation and an action does not satisfy this predicate.\", \"A result produced by the action itself (its returning observation) cannot be an input to that same action.\"]}, {\"name\": \"USES_REASONING_AS_INPUT\", \"definition\": \"The action takes an identifiable value, procedure or content specification supplied by the specified prior reasoning node as an operational input (for example a written script whose computation steps and field selection implement the procedure stated in the reasoning text).\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action whose arguments or payload embody the supplied specification.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The earlier recorded agent text stating the procedure, interpretation or content that the action operationalizes.\"}], \"assertion_conditions\": [\"The reasoning node precedes the action and states a procedure, interpretation or content specification.\", \"The action's arguments or payload can be traced to that stated specification rather than to a generic restatement of the user query.\"], \"exclusion_conditions\": [\"A reasoning node that merely restates the task statement, without an operational specification realizing it in the action, does not satisfy this predicate.\", \"A plain narrative mention of the action without the action's content implementing it does not satisfy this predicate.\"]}, {\"name\": \"GUIDES_ACTION_CHOICE\", \"definition\": \"The specified observation supplies the explicit basis on which the subsequent action was selected among alternatives, as evidenced by the surrounding recorded text tying that result to the choice.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The recorded tool result whose content is the stated basis for the decision.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The action chosen after and on account of that result.\"}], \"assertion_conditions\": [\"The observation occurs before the chosen action.\", \"Recorded agent text identifies the observation's content (for example an error message or a returned listing) as the reason for choosing this action over other available options.\"], \"exclusion_conditions\": [\"An observation used only as a data argument to an action, without motivating the choice, does not satisfy this predicate.\", \"Sequential ordering alone, with no recorded statement of the decision basis, does not satisfy this predicate.\"]}, {\"name\": \"DIAGNOSES_FAILURE\", \"definition\": \"The reasoning node identifies or hypothesizes the cause of an unsuccessful result reported by the specified observation, explaining why the preceding operation did not succeed.\", \"parameters\": [{\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The recorded result whose content indicates that the operation did not produce the intended outcome.\"}, {\"name\": \"diagnosis\", \"type\": \"reasoning\", \"description\": \"The recorded agent text explaining or hypothesizing the cause of that unsuccessful result.\"}], \"assertion_conditions\": [\"The observation reports an error, invalid credential message, mismatch, or otherwise unintended outcome.\", \"The reasoning node follows that observation and attributes a cause or explanation to it, such as an authentication or access-path problem.\"], \"exclusion_conditions\": [\"Reasoning that only restates the failure without offering a cause does not satisfy this predicate.\", \"A plan for how to proceed, stated without any causal explanation of the failure, does not by itself satisfy this predicate.\"]}, {\"name\": \"ATTEMPTS_REPAIR\", \"definition\": \"The action is performed with the intent of overcoming a specific unsuccessful result reported by the specified observation, for example by retrying the retrieval through a different channel instead of the channel that failed.\", \"parameters\": [{\"name\": \"repair\", \"type\": \"action\", \"description\": \"The action undertaken to work around or fix the observed failure.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The earlier recorded result reporting the failed operation that the action targets.\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action.\", \"Recorded text or the action's arguments tie the action to that specific failure, such as switching to an alternative endpoint, download helper, or corrected identifier.\"], \"exclusion_conditions\": [\"An unrelated next step that happens to follow a failure does not satisfy this predicate.\", \"The repair action alone does not establish that the problem was fixed; success requires a separate later confirming result.\"]}, {\"name\": \"PROVISIONS_MISSING_CAPABILITY\", \"definition\": \"The action installs or otherwise establishes a capability that the specified earlier observation showed to be absent from the environment, when the absence is not itself an error but a reported deficiency.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action that adds the absent capability to the environment.\"}, {\"name\": \"deficiency\", \"type\": \"observation\", \"description\": \"The earlier recorded result listing or reporting the absent capability, such as an installed-package listing that lacks required libraries.\"}], \"assertion_conditions\": [\"The deficiency observation precedes the action and reports the capability as unavailable or not installed.\", \"The action installs or provisions exactly the capability whose absence was reported.\"], \"exclusion_conditions\": [\"Installing packages that were never reported missing does not satisfy this predicate.\", \"An observation reporting an execution error rather than an absent capability belongs to a failure-repair mechanism instead.\"]}, {\"name\": \"DERIVES_CONCLUSION\", \"definition\": \"The reasoning node states a conclusion about the subject matter that is drawn from the content of one or more prior observations, such as inferring a dataset's subset structure and field names from retrieved documentation.\", \"parameters\": [{\"name\": \"inputs\", \"type\": \"observation[]\", \"description\": \"The prior recorded results whose content is the basis for the conclusion.\"}, {\"name\": \"conclusion\", \"type\": \"reasoning\", \"description\": \"The recorded agent text asserting the conclusion drawn from those results.\"}], \"assertion_conditions\": [\"The referenced observations precede the conclusion node.\", \"The conclusion's content corresponds to information present in those observations and goes beyond restating the user query, for example by naming the available subset and its columns.\"], \"exclusion_conditions\": [\"A conclusion with no traceable basis in the listed observations does not satisfy this predicate.\", \"An observation is not automatically a verified fact; a conclusion that treats a retrieved document as authoritative requires that the derivation be visible in the reasoning text.\"]}, {\"name\": \"IS_PLAN\", \"definition\": \"The reasoning node contains an explicit, ordered or itemized plan of steps that the agent intends to execute to accomplish the task.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The recorded agent text containing the enumerated steps to be carried out.\"}], \"assertion_conditions\": [\"The text enumerates multiple intended steps or a sequence of operations to perform.\", \"The steps are presented as future actions to take rather than as a narrative of completed work.\"], \"exclusion_conditions\": [\"A single intended next action or a restatement of the task requirements does not satisfy this predicate.\", \"A summary of already-performed actions does not satisfy this predicate.\"]}]}",
+              "reasoning_content": "Let me identify supported mechanisms from this trajectory.\n\nCandidate predicates:\n\n1. DIAGNOSES_FAILURE(reasoning/observation?) — inspection of an error observation to determine cause. Event-0005 returned \"Invalid username or password.\" Event-0006 reasoning diagnoses it as proxy or auth issue. That's a diagnostic relationship: the failure observation is explained in a reasoning node. DIAGNOSES_FAILURE(failure: observation, diagnosis: reasoning).\n\n2. ATTEMPTS_REPAIR(action, failure: observation) — event-0006 action tries alternate API endpoint after the README fetch failure. Is that a repair? It's an alternative approach to work around the failure. Reasonably an attempted workaround. Event-0008 used hf_hub_download after failure. Both are repairs/workarounds for the failed fetch.\n\n3. USES_OBSERVATION_AS_INPUT(action, observation) — e.g., event-0009 read action uses the path from observation-0008. Event-0010 write script uses column names/URLs from README observation. Also the HF API endpoint derived from observation-0004. Strong support for the path case (event-0008 obs path -> event-0009 read action path argument). Yes.\n\n4. USES_REASONING_AS_INPUT(action, reasoning) — event-0010 write action's script content incorporates the plan/details from reasoning node 0010 (the script structure). Hmm, that's plausible but evidence: the reasoning node outlines steps 1-6; the script content implements them. That's \"action takes data payload supplied by reasoning\". Could be supported. Maybe use a distinct definition per instructions (\"If the same mechanism applies to different source types, use distinct typed definitions\"). Yes, include USES_REASONING_AS_INPUT.\n\n5. GUIDES_ACTION_CHOICE(observation, action) — event-0002 observation (only pip installed) guides installing packages; event-0009 reasoning about glob mismatch guides... Actually the observation-0008 gave downloaded path, and reasoning 0009 says glob pattern didn't match and then read action uses exact path. Also event-0005 failure observation guides the decision to use API endpoint (event-0006). Support: observation is explicit basis for choice of next action. Include GUIDES_ACTION_CHOICE(observation, action).\n\nHmm, but does the record establish \"explicit basis\"? The reasoning node states. But the predicate params are observation and action. If the basis is stated in reasoning, maybe better as GUIDES_ACTION_CHOICE(observation, reasoning)? The contract example: GUIDES_ACTION_CHOICE(observation, action) — diagnostic observation is explicit basis for choosing one repair action. Keep as given.\n\n6. IS_PLAN(reasoning) — event-0010 reasoning enumerates steps to execute; also event-0001. Unary. Supported: reasoning node with an explicit numbered plan.\n\n7. DERIVES_CONCLUSION(inputs: observation[], conclusion: reasoning) — event-0010 reasoning concludes dataset structure from observation-0009 README. Include.\n\n8. INSTALLS_DEPENDENCY? Generalize to RESOLVES_MISSING_TOOLING? Hmm, event-0003: pip install after observing only pip installed. That's a repair: ATTEMPTS_REPAIR(action, failure: observation) — but observation-0002 isn't a failure, it's a state. Maybe RESOLVES_OBSERVED_DEFICIENCY(action, observation)? Could fold into ATTEMPTS_REPAIR? Failure observation must precede repair. Installation of missing packages in response to an observation of missing packages is a repair attempt of a deficiency. I'd define ATTEMPTS_REPAIR(action: action, failure: observation) with conditions covering both error results and observed deficiency. Hmm—but distinguishing? Better to keep ATTEMPTS_REPAIR strict to errors, and add a separate predicate for addressing observed missing capability: INSTALLS_MISSING_DEPENDENCY is too specific method-wise. Maybe PROVISIONS_MISSING_CAPABILITY(action, observation). Let's consider whether it's worth it. The mechanism: an observation revealed an environment lacked needed packages; a subsequent action installed them. That's distinct from repairing an error. I could include as separate predicate ATTEMPTS_REMEDY_DEFICIENCY... Might be over-engineering. But it is a distinguishable mechanism. I'll include one: PROVISIONS_MISSING_CAPABILITY(action: action, deficiency: observation) — hmm naming. Maybe \"ADDRESSES_OBSERVED_DEFICIENCY\". I think including it is fine but risks overlapping with ATTEMPTS_REPAIR. Distinguishing case: ATTEMPTS_REPAIR requires an error result (is_error true or error text) being repaired; the deficiency case requires an observation reporting an absent but required capability (no error). Distinguishable. I'll define both clearly.\n\nActually event-0006's action is a workaround for a failure — ATTEMPTS_REPAIR holds (repair method detail: try alternate endpoint).\n\n9. INSPECTS_DATASET_SCHEMA? Too specific? There's a mechanism: reading documentation/metadata to determine dataset structure. Could be \"EXTRACTS_USAGE_SPECIFICATION_FROM_DOCUMENTATION(reasoning, observation)\". Hmm. Perhaps too fine. Let me consider a predicate like CONSULTS_DOCUMENTATION_FOR_SCHEMA... Actually a mechanism: an action retrieves documentation that specifies how a resource must be used. But we already have USES_OBSERVATION_AS_INPUT and DERIVES_CONCLUSION. Probably skip.\n\n10. CAUSED... no.\n\n11. VERIFIES? Not yet.\n\nLet me also consider a predicate relating a reasoning node declaring an interpretation/definition of an ambiguous task term: \"deepseek tokens\" interpreted as deepseek_reasoning + deepseek_solution. Is there a mechanism: RESOLVES_AMBIGUITY_BY_INTERPRETATION? Reasoning node 0010 defines interpretation. Could define INTERPRETS_TASK_TERM(reasoning) as unary? Might be marginal. Actually a useful one: the reasoning node states an interpretation of an ambiguous requirement, grounded in the documentation. That could be DERIVES_CONCLUSION already (conclusion includes interpretation). I'll keep it lean.\n\nLet me finalize a set of ~6 predicates:\n\n1. USES_OBSERVATION_AS_INPUT(action, observation)\n2. USES_REASONING_AS_INPUT(action, reasoning)\n3. GUIDES_ACTION_CHOICE(observation, action)\n4. DIAGNOSES_OBSERVED_FAILURE(failure: observation, diagnosis: reasoning)\n5. ATTEMPTS_REPAIR(repair: action, failure: observation)\n6. PROVISIONS_MISSING_CAPABILITY(action, deficiency: observation)\n7. DERIVES_CONCLUSION(inputs: observation[], conclusion: reasoning)\n8. IS_PLAN(reasoning)\n9. RETRIEVES_RESOURCE_VIA_ALTERNATIVE_CHANNEL? — event-0006/0008 alternative access paths. Could fold into ATTEMPTS_REPAIR. Skip.\n\nMaybe also CONFIRMS_AVAILABILITY? event-0003 observation confirms packages installed and internet works. Skip.\n\nCheck USES_REASONING_AS_INPUT evidence: event-0010 reasoning lists steps and interpretation; the write action's script content implements the interpretation (sums deepseek_reasoning and deepseek_solution). Yes, traceable. Good.\n\nAlso maybe GUIDES_ACTION_CHOICE with reasoning: reasoning node 0007/0009 chooses approach. Could be redundant with IS_PLAN/DERIVES_CONCLUSION. Skip.\n\nWrite the JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 12908,
+          "completion_tokens": 3377,
+          "total_tokens": 16285,
+          "prompt_tokens_details": {
+            "cached_tokens": 2304
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1636
+          },
+          "prompt_cache_hit_tokens": 2304,
+          "prompt_cache_miss_tokens": 10604
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"USES_OBSERVATION_AS_INPUT\", \"definition\": \"The action takes an identifiable value or data payload supplied by the specified prior observation as an operational input (for example a returned file path used as a read target, or a resolved download location passed into a subsequent command).\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action that receives the input value or data payload.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The earlier recorded tool result that supplies the value or payload consumed by the action.\"}], \"assertion_conditions\": [\"The observation and the receiving action are both present in the detailed trajectory, with the observation occurring before the action.\", \"An argument, path, URL, column name or data payload of the action can be traced to content of that observation.\"], \"exclusion_conditions\": [\"Information that only motivated which action to take, without appearing as an argument or payload of it, does not satisfy this predicate.\", \"Shared topic or temporal adjacency between an observation and an action does not satisfy this predicate.\", \"A result produced by the action itself (its returning observation) cannot be an input to that same action.\"]}, {\"name\": \"USES_REASONING_AS_INPUT\", \"definition\": \"The action takes an identifiable value, procedure or content specification supplied by the specified prior reasoning node as an operational input (for example a written script whose computation steps and field selection implement the procedure stated in the reasoning text).\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action whose arguments or payload embody the supplied specification.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The earlier recorded agent text stating the procedure, interpretation or content that the action operationalizes.\"}], \"assertion_conditions\": [\"The reasoning node precedes the action and states a procedure, interpretation or content specification.\", \"The action's arguments or payload can be traced to that stated specification rather than to a generic restatement of the user query.\"], \"exclusion_conditions\": [\"A reasoning node that merely restates the task statement, without an operational specification realizing it in the action, does not satisfy this predicate.\", \"A plain narrative mention of the action without the action's content implementing it does not satisfy this predicate.\"]}, {\"name\": \"GUIDES_ACTION_CHOICE\", \"definition\": \"The specified observation supplies the explicit basis on which the subsequent action was selected among alternatives, as evidenced by the surrounding recorded text tying that result to the choice.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The recorded tool result whose content is the stated basis for the decision.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The action chosen after and on account of that result.\"}], \"assertion_conditions\": [\"The observation occurs before the chosen action.\", \"Recorded agent text identifies the observation's content (for example an error message or a returned listing) as the reason for choosing this action over other available options.\"], \"exclusion_conditions\": [\"An observation used only as a data argument to an action, without motivating the choice, does not satisfy this predicate.\", \"Sequential ordering alone, with no recorded statement of the decision basis, does not satisfy this predicate.\"]}, {\"name\": \"DIAGNOSES_FAILURE\", \"definition\": \"The reasoning node identifies or hypothesizes the cause of an unsuccessful result reported by the specified observation, explaining why the preceding operation did not succeed.\", \"parameters\": [{\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The recorded result whose content indicates that the operation did not produce the intended outcome.\"}, {\"name\": \"diagnosis\", \"type\": \"reasoning\", \"description\": \"The recorded agent text explaining or hypothesizing the cause of that unsuccessful result.\"}], \"assertion_conditions\": [\"The observation reports an error, invalid credential message, mismatch, or otherwise unintended outcome.\", \"The reasoning node follows that observation and attributes a cause or explanation to it, such as an authentication or access-path problem.\"], \"exclusion_conditions\": [\"Reasoning that only restates the failure without offering a cause does not satisfy this predicate.\", \"A plan for how to proceed, stated without any causal explanation of the failure, does not by itself satisfy this predicate.\"]}, {\"name\": \"ATTEMPTS_REPAIR\", \"definition\": \"The action is performed with the intent of overcoming a specific unsuccessful result reported by the specified observation, for example by retrying the retrieval through a different channel instead of the channel that failed.\", \"parameters\": [{\"name\": \"repair\", \"type\": \"action\", \"description\": \"The action undertaken to work around or fix the observed failure.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The earlier recorded result reporting the failed operation that the action targets.\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action.\", \"Recorded text or the action's arguments tie the action to that specific failure, such as switching to an alternative endpoint, download helper, or corrected identifier.\"], \"exclusion_conditions\": [\"An unrelated next step that happens to follow a failure does not satisfy this predicate.\", \"The repair action alone does not establish that the problem was fixed; success requires a separate later confirming result.\"]}, {\"name\": \"PROVISIONS_MISSING_CAPABILITY\", \"definition\": \"The action installs or otherwise establishes a capability that the specified earlier observation showed to be absent from the environment, when the absence is not itself an error but a reported deficiency.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action that adds the absent capability to the environment.\"}, {\"name\": \"deficiency\", \"type\": \"observation\", \"description\": \"The earlier recorded result listing or reporting the absent capability, such as an installed-package listing that lacks required libraries.\"}], \"assertion_conditions\": [\"The deficiency observation precedes the action and reports the capability as unavailable or not installed.\", \"The action installs or provisions exactly the capability whose absence was reported.\"], \"exclusion_conditions\": [\"Installing packages that were never reported missing does not satisfy this predicate.\", \"An observation reporting an execution error rather than an absent capability belongs to a failure-repair mechanism instead.\"]}, {\"name\": \"DERIVES_CONCLUSION\", \"definition\": \"The reasoning node states a conclusion about the subject matter that is drawn from the content of one or more prior observations, such as inferring a dataset's subset structure and field names from retrieved documentation.\", \"parameters\": [{\"name\": \"inputs\", \"type\": \"observation[]\", \"description\": \"The prior recorded results whose content is the basis for the conclusion.\"}, {\"name\": \"conclusion\", \"type\": \"reasoning\", \"description\": \"The recorded agent text asserting the conclusion drawn from those results.\"}], \"assertion_conditions\": [\"The referenced observations precede the conclusion node.\", \"The conclusion's content corresponds to information present in those observations and goes beyond restating the user query, for example by naming the available subset and its columns.\"], \"exclusion_conditions\": [\"A conclusion with no traceable basis in the listed observations does not satisfy this predicate.\", \"An observation is not automatically a verified fact; a conclusion that treats a retrieved document as authoritative requires that the derivation be visible in the reasoning text.\"]}, {\"name\": \"IS_PLAN\", \"definition\": \"The reasoning node contains an explicit, ordered or itemized plan of steps that the agent intends to execute to accomplish the task.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The recorded agent text containing the enumerated steps to be carried out.\"}], \"assertion_conditions\": [\"The text enumerates multiple intended steps or a sequence of operations to perform.\", \"The steps are presented as future actions to take rather than as a narrative of completed work.\"], \"exclusion_conditions\": [\"A single intended next action or a restatement of the task requirements does not satisfy this predicate.\", \"A summary of already-performed actions does not satisfy this predicate.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "USES_OBSERVATION_AS_INPUT",
+        "definition": "The action takes an identifiable value or data payload supplied by the specified prior observation as an operational input (for example a returned file path used as a read target, or a resolved download location passed into a subsequent command).",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action that receives the input value or data payload."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The earlier recorded tool result that supplies the value or payload consumed by the action."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation and the receiving action are both present in the detailed trajectory, with the observation occurring before the action.",
+          "An argument, path, URL, column name or data payload of the action can be traced to content of that observation."
+        ],
+        "exclusion_conditions": [
+          "Information that only motivated which action to take, without appearing as an argument or payload of it, does not satisfy this predicate.",
+          "Shared topic or temporal adjacency between an observation and an action does not satisfy this predicate.",
+          "A result produced by the action itself (its returning observation) cannot be an input to that same action."
+        ]
+      },
+      {
+        "name": "USES_REASONING_AS_INPUT",
+        "definition": "The action takes an identifiable value, procedure or content specification supplied by the specified prior reasoning node as an operational input (for example a written script whose computation steps and field selection implement the procedure stated in the reasoning text).",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action whose arguments or payload embody the supplied specification."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The earlier recorded agent text stating the procedure, interpretation or content that the action operationalizes."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning node precedes the action and states a procedure, interpretation or content specification.",
+          "The action's arguments or payload can be traced to that stated specification rather than to a generic restatement of the user query."
+        ],
+        "exclusion_conditions": [
+          "A reasoning node that merely restates the task statement, without an operational specification realizing it in the action, does not satisfy this predicate.",
+          "A plain narrative mention of the action without the action's content implementing it does not satisfy this predicate."
+        ]
+      },
+      {
+        "name": "GUIDES_ACTION_CHOICE",
+        "definition": "The specified observation supplies the explicit basis on which the subsequent action was selected among alternatives, as evidenced by the surrounding recorded text tying that result to the choice.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The recorded tool result whose content is the stated basis for the decision."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action chosen after and on account of that result."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation occurs before the chosen action.",
+          "Recorded agent text identifies the observation's content (for example an error message or a returned listing) as the reason for choosing this action over other available options."
+        ],
+        "exclusion_conditions": [
+          "An observation used only as a data argument to an action, without motivating the choice, does not satisfy this predicate.",
+          "Sequential ordering alone, with no recorded statement of the decision basis, does not satisfy this predicate."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_FAILURE",
+        "definition": "The reasoning node identifies or hypothesizes the cause of an unsuccessful result reported by the specified observation, explaining why the preceding operation did not succeed.",
+        "parameters": [
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The recorded result whose content indicates that the operation did not produce the intended outcome."
+          },
+          {
+            "name": "diagnosis",
+            "type": "reasoning",
+            "description": "The recorded agent text explaining or hypothesizing the cause of that unsuccessful result."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an error, invalid credential message, mismatch, or otherwise unintended outcome.",
+          "The reasoning node follows that observation and attributes a cause or explanation to it, such as an authentication or access-path problem."
+        ],
+        "exclusion_conditions": [
+          "Reasoning that only restates the failure without offering a cause does not satisfy this predicate.",
+          "A plan for how to proceed, stated without any causal explanation of the failure, does not by itself satisfy this predicate."
+        ]
+      },
+      {
+        "name": "ATTEMPTS_REPAIR",
+        "definition": "The action is performed with the intent of overcoming a specific unsuccessful result reported by the specified observation, for example by retrying the retrieval through a different channel instead of the channel that failed.",
+        "parameters": [
+          {
+            "name": "repair",
+            "type": "action",
+            "description": "The action undertaken to work around or fix the observed failure."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The earlier recorded result reporting the failed operation that the action targets."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the repair action.",
+          "Recorded text or the action's arguments tie the action to that specific failure, such as switching to an alternative endpoint, download helper, or corrected identifier."
+        ],
+        "exclusion_conditions": [
+          "An unrelated next step that happens to follow a failure does not satisfy this predicate.",
+          "The repair action alone does not establish that the problem was fixed; success requires a separate later confirming result."
+        ]
+      },
+      {
+        "name": "PROVISIONS_MISSING_CAPABILITY",
+        "definition": "The action installs or otherwise establishes a capability that the specified earlier observation showed to be absent from the environment, when the absence is not itself an error but a reported deficiency.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action that adds the absent capability to the environment."
+          },
+          {
+            "name": "deficiency",
+            "type": "observation",
+            "description": "The earlier recorded result listing or reporting the absent capability, such as an installed-package listing that lacks required libraries."
+          }
+        ],
+        "assertion_conditions": [
+          "The deficiency observation precedes the action and reports the capability as unavailable or not installed.",
+          "The action installs or provisions exactly the capability whose absence was reported."
+        ],
+        "exclusion_conditions": [
+          "Installing packages that were never reported missing does not satisfy this predicate.",
+          "An observation reporting an execution error rather than an absent capability belongs to a failure-repair mechanism instead."
+        ]
+      },
+      {
+        "name": "DERIVES_CONCLUSION",
+        "definition": "The reasoning node states a conclusion about the subject matter that is drawn from the content of one or more prior observations, such as inferring a dataset's subset structure and field names from retrieved documentation.",
+        "parameters": [
+          {
+            "name": "inputs",
+            "type": "observation[]",
+            "description": "The prior recorded results whose content is the basis for the conclusion."
+          },
+          {
+            "name": "conclusion",
+            "type": "reasoning",
+            "description": "The recorded agent text asserting the conclusion drawn from those results."
+          }
+        ],
+        "assertion_conditions": [
+          "The referenced observations precede the conclusion node.",
+          "The conclusion's content corresponds to information present in those observations and goes beyond restating the user query, for example by naming the available subset and its columns."
+        ],
+        "exclusion_conditions": [
+          "A conclusion with no traceable basis in the listed observations does not satisfy this predicate.",
+          "An observation is not automatically a verified fact; a conclusion that treats a retrieved document as authoritative requires that the derivation be visible in the reasoning text."
+        ]
+      },
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning node contains an explicit, ordered or itemized plan of steps that the agent intends to execute to accomplish the task.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The recorded agent text containing the enumerated steps to be carried out."
+          }
+        ],
+        "assertion_conditions": [
+          "The text enumerates multiple intended steps or a sequence of operations to perform.",
+          "The steps are presented as future actions to take rather than as a narrative of completed work."
+        ],
+        "exclusion_conditions": [
+          "A single intended next action or a restatement of the task requirements does not satisfy this predicate.",
+          "A summary of already-performed actions does not satisfy this predicate."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

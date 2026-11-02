@@ -1,0 +1,206 @@
+{
+  "stage": "review",
+  "window_file": "xhigh__hf-model-inference__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T04:12:28.454385+00:00",
+  "duration_seconds": 26.563,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T04:12:01.883559+00:00",
+      "duration_seconds": 26.563,
+      "raw_response": {
+        "id": "b3c1b531-6a32-4d97-9577-a6cab510f935",
+        "object": "chat.completion",
+        "created": 1793419927,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\": [{\"name\": \"ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS\", \"definition\": \"The reasoning diagnoses an observed negative result as originating in the agent's own verification code or test-input construction rather than in the artifact or service under test, thereby locating the fault in the check rather than in the target system.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text diagnosing the cause of the negative result.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The prior observation whose reported unsuccessful result is being diagnosed.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies the cause of the failure as a defect in the agent's own test code, script, or input construction (for example, a value of the wrong type or encoding being supplied to the test client).\", \"The reasoning distinguishes that defect from a fault in the system or artifact being tested.\", \"The failure reported by the observation is the one the reasoning addresses.\"], \"exclusion_conditions\": [\"The reasoning attributes the failure to the target system's implementation, configuration, or environment.\", \"The reasoning merely reports or restates the failure without assigning a cause.\", \"The reasoning proposes correcting the target system rather than the test procedure.\"]}, {\"name\": \"REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT\", \"definition\": \"After the reasoning diagnoses a concrete defect in how a previous test input or request was constructed, the action repeats the same check against the same target behavior with that input defect corrected, leaving the system under test unchanged.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The repeated invocation that exercises the same behavior using the corrected test input.\"}, {\"name\": \"diagnosis\", \"type\": \"reasoning\", \"description\": \"The reasoning that names the specific defect in the earlier test input and states the correction.\"}], \"assertion_conditions\": [\"The diagnosis identifies a concrete defect in how the previous test request or input was formed, such as a type, encoding, or formatting mismatch.\", \"The action exercises the same target behavior, endpoint, or property as the earlier attempt, with the identified input defect corrected.\", \"The action leaves the system under test unmodified and changes only the test input.\"], \"exclusion_conditions\": [\"The action changes the behavior under test, the endpoint, or the scope of the check.\", \"The action repairs, reconfigures, or restarts the target system.\", \"No preceding diagnosis of a test-input defect is present.\", \"The corrected aspect is the form of a tool invocation that the tool itself rejected; correcting an invocation form is a distinct mechanism.\"]}, {\"name\": \"ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING\", \"definition\": \"An observation reports that a tool or command needed for a planned check is unavailable, the reasoning chooses a substitute mechanism that obtains the same verification property, and the subsequent action implements that substitute instead of the unavailable tool.\", \"parameters\": [{\"name\": \"unavailability\", \"type\": \"observation\", \"description\": \"The observation reporting that the intended tool, command, or utility is missing or unusable for availability reasons.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text selecting a substitute mechanism that preserves the verification goal.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The invocation that performs the check through the substitute mechanism.\"}], \"assertion_conditions\": [\"The observation establishes unavailability of a specific tool or command, rather than a negative result about the property being verified.\", \"The reasoning explicitly substitutes a different mechanism that targets the same verification property, and states the substitute.\", \"The action implements the substitute mechanism rather than the unavailable one, and follows the reasoning.\"], \"exclusion_conditions\": [\"The unavailable tool is installed or restored and then used as originally planned.\", \"The substitute check targets a different property than the original verification intent.\", \"The reported failure is a genuine result about the system under test rather than a missing tool.\", \"The earlier observation was merely inconclusive in output while the same tool remained available; re-verification through another access path is a distinct mechanism.\"]}, {\"name\": \"INDEPENDENTLY_CORROBORATES_PRIOR_RESULT\", \"definition\": \"A later observation drawn from a different evidence channel than an earlier result, such as runtime logs, process state, or request history, contains concrete entries or identifiers that match the outcome reported earlier, so that outcome is corroborated independently of the original probe.\", \"parameters\": [{\"name\": \"corroborating\", \"type\": \"observation\", \"description\": \"The later observation from an independent evidence source such as service logs or process metadata.\"}, {\"name\": \"prior_result\", \"type\": \"observation\", \"description\": \"The earlier observation whose reported outcome is being corroborated.\"}], \"assertion_conditions\": [\"The corroborating observation derives from a different evidence source than the prior result, not from repeating the same probe.\", \"The corroborating observation contains concrete entries, values, addresses, or identifiers that correspond to the outcome reported by the prior result.\", \"The corroborating observation follows the prior result.\"], \"exclusion_conditions\": [\"The two observations are merely topically similar or temporally adjacent without matching concrete values.\", \"The corroborating observation contradicts rather than matches the earlier result.\", \"The later observation is a re-run of the same check against the same source with no independent channel.\"]}, {\"name\": \"ASSERTS_REQUIREMENTS_VERIFIED\", \"definition\": \"The reasoning audits the task requirement by requirement, associating each stated requirement or deliverable with a concrete observed outcome, and concludes that all of them are satisfied and the task is complete.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text giving the requirement-by-requirement completion assessment.\"}], \"assertion_conditions\": [\"The reasoning enumerates multiple distinct requirements or deliverables of the task rather than a single overall claim.\", \"Each enumerated item is tied to a concrete observed result rather than to an assumption, plan, or intention.\", \"The reasoning explicitly concludes that all enumerated requirements are met or that the task is complete.\"], \"exclusion_conditions\": [\"The reasoning describes planned or remaining future actions instead of completed verification.\", \"At least one enumerated requirement is left unverified or acknowledged as unresolved.\", \"The reasoning reports individual results without mapping them onto the task's requirements or without an overall completion conclusion.\"]}, {\"name\": \"REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL_ALT_PLACEHOLDER\", \"definition\": \"Placeholder removed; not used.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Unused.\"}], \"assertion_conditions\": [\"Unused.\"], \"exclusion_conditions\": [\"Unused.\"]}], \"revised_existing_predicates\": []}",
+              "reasoning_content": "Let me review each candidate.\n\nCandidate 1: ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS (reasoning, observation). The reasoning at event-0009 says \"The last failure was due to a bug in my test script (passing str instead of bytes to urllib), not a server issue.\" That matches. Existing registry has DIAGNOSES_FAILURE_CAUSE (reasoning, observation) — cause attribution generally. Is this a distinct mechanism? DIAGNOSES_FAILURE_CAUSE covers explaining why a failure occurred, including environment setting etc. Attributing to own test harness is a specific instance — arguably a subset. But the granularity rule: \"Accept a precise mechanism even when a broad family such as USES covers it.\" Distinguishability: a meaningful case can satisfy DIAGNOSES_FAILURE_CAUSE but not ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS (failure caused by target system). So it's a specialization with a distinct locus of fault attribution. I think it's acceptable as a distinct predicate. But is it truly reusable and non-duplicative? The distinguishing property: the fault is in the agent's own verification code rather than the target. That's a meaningful distinction (leads to correcting the check rather than the system). I'll accept it, perhaps slightly refining to be mechanism-level: \"The reasoning attributes an observed failure to a defect in the agent's own verification code or test-input construction rather than to the system under test.\"\n\nCandidate 2: REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT (action, diagnosis reasoning). Event-0009 reasoning diagnoses the str/bytes bug, and event-0009/action-1 retests with bytes b\"not json at all\". That fits. Existing registry: CORRECTS_FAILED_INVOCATION (retry_action, failure_observation) — retry that changes exactly the aspect the error indicated. Hmm. CORRECTS_FAILED_INVOCATION is about invocation errors where the error message indicates the malformation. Here the error was a failure of the agent's script (urllib str/bytes bug) — actually the failure was in the test script, not the tool invocation error. The mechanism here: correcting the test input after diagnosing its defect, while keeping the target behavior; the prior failure observation wasn't an invocation error of the tool but a script bug. Distinguishable: CORRECTS_FAILED_INVOCATION requires a failure observation and changes based on the error message; REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT requires a diagnosis in reasoning that the test input was defective. Hmm — could be a semantic duplicate? CORRECTS_FAILED_INVOCATION's parameters are action + failure observation. Here the parameter is reasoning (diagnosis). Different roles. The distinguishing case: an error message indicating the invocation form (tool looked for wrong filename) — the agent corrects it without diagnosing its own test harness. Versus diagnosing own test script bug and retesting. These are similar but distinct enough. I think keep it but maybe generalize? Actually the candidate is fairly precise and supported. Accept.\n\nHmm, but does REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT overlap with CONFIRMS_CORRECTED_VERIFICATION? That's ternary requiring confirmation. Fine.\n\nCandidate 3: ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING (unavailability observation, reasoning, action). Evidence: event-0010 observation reports \"error: command not found: ps\"; event-0011 reasoning: \"`ps` isn't installed, but I can verify the process via /proc.\" And event-0011 action uses /proc/114. That fits well.\n\nBut registry has REVERIFIES_WITH_ALTERNATIVE_MECHANISM (recheck_action, inconclusive_observation) — which specifically excludes tool errors (\"The earlier observation reported a tool error; correcting a failed invocation is a distinct mechanism\"). And CORRECTS_FAILED_INVOCATION handles invocation errors. And REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL covers unavailability observation unary. ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING is a ternary mechanism: unavailable tool → reasoning selects alternative preserving verification goal → action implements it. Is it distinct from CORRECTS_FAILED_INVOCATION? CORRECTS_FAILED_INVOCATION is binary (retry action + failure observation) about changing the aspect identified — that's about invocation form, not substituting tooling. The distinguishing case: unavailability of a command → alternative tool path. I think it's acceptable, distinguishes. But careful: is it too similar to DERIVES_NEXT_ACTION_FROM_OBSERVATION? That's a broad mechanism (reasoning adopts next action because of observation finding). Hmm. ADAPTS adds an action and the \"same verification property\" preservation. I'd accept it — but maybe I should consider whether the reasoning param plus action plus observation are all essential. Yes, three roles: unavailability, substitution decision, implemented alternative.\n\nCandidate 4: CONFIRMS_SERVICE_EXPOSURE_VIA_NONLOCAL_PROBE — matched existing VERIFIES_REACHABILITY_VIA_EXTERNAL_INTERFACE. Existing definition is essentially identical. So it's a semantic duplicate → suppress. Task B: revise only if needed. Existing definition seems fine, no clarification needed. So no revision; do not accept candidate (duplicate).\n\nCandidate 5: INDEPENDENTLY_CORROBORATES_PRIOR_RESULT (corroborating observation, prior_result observation). Evidence: event-0011 observation shows the log tail with \"172.17.0.2 ... POST /sentiment 200\", corroborating the earlier external-IP 200 result from event-0010. Also process aliveness. Registry has CROSS_VALIDATES_RESULT (verification_action, original_result_observation, verification_observation) — requires an action that independently recomputes through a different implementation/data path. Here the corroboration involves an action too (ls /proc/114, tail log). Hmm. Is INDEPENDENTLY_CORROBORATES_PRIOR_RESULT a duplicate of CROSS_VALIDATES_RESULT minus the action? It's binary between two observations. Distinguishing case: log entries corroborating a response without an independent recomputation action... but there is an action (the log-grep). Actually if we require the ternary with action, INDEPENDENTLY_CORROBORATES_PRIOR_RESULT would be a distinct binary form focusing on the two observations' content match through independent evidence sources. Hmm, CROSS_VALIDATES_RESULT is about recomputing a result value through different implementation; here it's corroboration of a reported outcome via logs — different evidence channel, not recomputation. Distinguishable: a log corroboration of an event that cannot be recomputed. I think accept as binary. Reasonable mechanism: corroborating an observed outcome via an independent evidence channel.\n\nCandidate 6: ASSERTS_REQUIREMENTS_VERIFIED (reasoning). Evidence: event-0012 reasoning enumerates 1-6 requirements with ✅ and concludes \"Task complete.\" Registry has ASSERTS_TASK_COMPLETION_WITH_EVIDENCE: \"declares overall task finished and backs the claim by citing the concrete artifacts produced and the verifications performed.\" That is essentially the same mechanism. ASSERTS_REQUIREMENTS_VERIFIED adds requirement-by-requirement enumeration. Is that a meaningful additional distinction? It's a stronger form: enumeration mapping each stated requirement to observed result. Distinguishing case: reasoning that says \"task complete, artifact X built, verified with Y\" without enumerating requirements — satisfies ASSERTS_TASK_COMPLETION_WITH_EVIDENCE but not ASSERTS_REQUIREMENTS_VERIFIED. That's a meaningful distinction (requirement-coverage audit). Hmm, but risk of being too granular. The policy says accept precise mechanism even when broad family covers it, and distinguishability test holds. I lean toward accepting but maybe as a refined definition: \"requirement-coverage audit\" — the reasoning maps each stated requirement of the task to a concrete observed result and concludes completion.\n\nHmm, but is it truly reusable/distinct from ASSERTS_TASK_COMPLETION_WITH_EVIDENCE? I think it's a legitimately more specific mechanism: per-requirement mapping with completion verdict. Accept.\n\nNow let me also double check whether any existing predicate needs revision among matched_existing_name entries: only VERIFIES_REACHABILITY_VIA_EXTERNAL_INTERFACE matched. The candidate is a duplicate of it; its definition is adequate. So no revision. Also must not broaden/narrow. So revised array empty.\n\nAlso check name uniqueness for accepted names — no collisions.\n\nLet me refine candidates for precision.\n\n1. ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS — parameters: reasoning, failure observation. Definition fine. Maybe rename? Keep name.\n\n2. REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT — parameter names action, diagnosis. Fine.\n\n3. ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING — fine; maybe generalize \"same verification property\" is essential.\n\n4. INDEPENDENTLY_CORROBORATES_PRIOR_RESULT — binary obs-obs; note ordering: corroborating later, prior earlier. Keep.\n\n5. ASSERTS_REQUIREMENTS_VERIFIED — unary reasoning.\n\nShould I include a predicate for reporting unavailable environment tool? Already exists (REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL). Good.\n\nAny others? The candidate list is fixed; only accept from candidates. Do not invent new mechanisms.\n\nNow also consider: is REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT supported? Event-0009 reasoning states the diagnosis; the action at event-0009/action-1 retests with bytes. But is that action in the same event? The reasoning precedes the action within event-0009, so yes traceable. Note the failure that prompted diagnosis: \"The last failure was due to a bug in my test script\" — but which observation reported that failure? It's outside the window (previous summary mentions the non-JSON test failed). The failure observation may not be in window; but our predicate only requires action + diagnosis reasoning. Fine.\n\nAlso ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS requires failure observation — the failure observation occurred in a prior event not in this window (the urllib failure). Hmm, is that evidence? The previous summary says \"the non-JSON body test failed due to a urllib str/bytes bug\" — that failure observation exists in the trajectory, earlier than this window. The window's reasoning references it. Since the predicate is binary with the failure observation as parameter, and the failure observation exists earlier in the trajectory (event-0008 presumably), it's supported. I'll accept it, but the assertion conditions should require the reasoning to explicitly attribute cause; the observation reporting the failure is a referenced prior node. Accept.\n\nLet me write final JSON with careful five fields.\n\nFor ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS, refine definition slightly to be mechanism-level:\n\nDefinition: \"The reasoning diagnoses an observed negative result as originating in the agent's own verification code or test-input construction rather than in the artifact or service under test.\"\n\nAssertion conditions: reasoning explicitly names defect in own test code/script/input construction; distinguishes from target fault; (maybe) implies correcting the check.\n\nExclusion conditions: attributes to target system; merely restates error; proposes repair of target system.\n\nFor REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT keep but ensure it doesn't overlap CORRECTS_FAILED_INVOCATION. Note exclusion: \"The failure was an error in the form of the tool invocation itself rather than in the agent's own test-input construction; correcting the invocation form is a distinct mechanism.\" Good.\n\nFor ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING keep with exclusion distinguishing from CORRECTS_FAILED_INVOCATION (invocation form error) and from REVERIFIES_WITH_ALTERNATIVE_MECHANISM (inconclusive output, no tool error).\n\nFor INDEPENDENTLY_CORROBORATES_PRIOR_RESULT, include exclusion: does not apply when the later observation is an independent recomputation of a computed result via a different implementation (that's cross-validation). Hmm, that might be a distinction... CROSS_VALIDATES_RESULT requires an action. Keep exclusion: \"The later observation merely re-runs the same probe against the same source.\"\n\nFor ASSERTS_REQUIREMENTS_VERIFIED, define per-requirement mapping.\n\nLet me produce final JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 28473,
+          "completion_tokens": 4165,
+          "total_tokens": 32638,
+          "prompt_tokens_details": {
+            "cached_tokens": 2176
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2690
+          },
+          "prompt_cache_hit_tokens": 2176,
+          "prompt_cache_miss_tokens": 26297
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\": [{\"name\": \"ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS\", \"definition\": \"The reasoning diagnoses an observed negative result as originating in the agent's own verification code or test-input construction rather than in the artifact or service under test, thereby locating the fault in the check rather than in the target system.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text diagnosing the cause of the negative result.\"}, {\"name\": \"failure\", \"type\": \"observation\", \"description\": \"The prior observation whose reported unsuccessful result is being diagnosed.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies the cause of the failure as a defect in the agent's own test code, script, or input construction (for example, a value of the wrong type or encoding being supplied to the test client).\", \"The reasoning distinguishes that defect from a fault in the system or artifact being tested.\", \"The failure reported by the observation is the one the reasoning addresses.\"], \"exclusion_conditions\": [\"The reasoning attributes the failure to the target system's implementation, configuration, or environment.\", \"The reasoning merely reports or restates the failure without assigning a cause.\", \"The reasoning proposes correcting the target system rather than the test procedure.\"]}, {\"name\": \"REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT\", \"definition\": \"After the reasoning diagnoses a concrete defect in how a previous test input or request was constructed, the action repeats the same check against the same target behavior with that input defect corrected, leaving the system under test unchanged.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The repeated invocation that exercises the same behavior using the corrected test input.\"}, {\"name\": \"diagnosis\", \"type\": \"reasoning\", \"description\": \"The reasoning that names the specific defect in the earlier test input and states the correction.\"}], \"assertion_conditions\": [\"The diagnosis identifies a concrete defect in how the previous test request or input was formed, such as a type, encoding, or formatting mismatch.\", \"The action exercises the same target behavior, endpoint, or property as the earlier attempt, with the identified input defect corrected.\", \"The action leaves the system under test unmodified and changes only the test input.\"], \"exclusion_conditions\": [\"The action changes the behavior under test, the endpoint, or the scope of the check.\", \"The action repairs, reconfigures, or restarts the target system.\", \"No preceding diagnosis of a test-input defect is present.\", \"The corrected aspect is the form of a tool invocation that the tool itself rejected; correcting an invocation form is a distinct mechanism.\"]}, {\"name\": \"ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING\", \"definition\": \"An observation reports that a tool or command needed for a planned check is unavailable, the reasoning chooses a substitute mechanism that obtains the same verification property, and the subsequent action implements that substitute instead of the unavailable tool.\", \"parameters\": [{\"name\": \"unavailability\", \"type\": \"observation\", \"description\": \"The observation reporting that the intended tool, command, or utility is missing or unusable for availability reasons.\"}, {\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text selecting a substitute mechanism that preserves the verification goal.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The invocation that performs the check through the substitute mechanism.\"}], \"assertion_conditions\": [\"The observation establishes unavailability of a specific tool or command, rather than a negative result about the property being verified.\", \"The reasoning explicitly substitutes a different mechanism that targets the same verification property, and states the substitute.\", \"The action implements the substitute mechanism rather than the unavailable one, and follows the reasoning.\"], \"exclusion_conditions\": [\"The unavailable tool is installed or restored and then used as originally planned.\", \"The substitute check targets a different property than the original verification intent.\", \"The reported failure is a genuine result about the system under test rather than a missing tool.\", \"The earlier observation was merely inconclusive in output while the same tool remained available; re-verification through another access path is a distinct mechanism.\"]}, {\"name\": \"INDEPENDENTLY_CORROBORATES_PRIOR_RESULT\", \"definition\": \"A later observation drawn from a different evidence channel than an earlier result, such as runtime logs, process state, or request history, contains concrete entries or identifiers that match the outcome reported earlier, so that outcome is corroborated independently of the original probe.\", \"parameters\": [{\"name\": \"corroborating\", \"type\": \"observation\", \"description\": \"The later observation from an independent evidence source such as service logs or process metadata.\"}, {\"name\": \"prior_result\", \"type\": \"observation\", \"description\": \"The earlier observation whose reported outcome is being corroborated.\"}], \"assertion_conditions\": [\"The corroborating observation derives from a different evidence source than the prior result, not from repeating the same probe.\", \"The corroborating observation contains concrete entries, values, addresses, or identifiers that correspond to the outcome reported by the prior result.\", \"The corroborating observation follows the prior result.\"], \"exclusion_conditions\": [\"The two observations are merely topically similar or temporally adjacent without matching concrete values.\", \"The corroborating observation contradicts rather than matches the earlier result.\", \"The later observation is a re-run of the same check against the same source with no independent channel.\"]}, {\"name\": \"ASSERTS_REQUIREMENTS_VERIFIED\", \"definition\": \"The reasoning audits the task requirement by requirement, associating each stated requirement or deliverable with a concrete observed outcome, and concludes that all of them are satisfied and the task is complete.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text giving the requirement-by-requirement completion assessment.\"}], \"assertion_conditions\": [\"The reasoning enumerates multiple distinct requirements or deliverables of the task rather than a single overall claim.\", \"Each enumerated item is tied to a concrete observed result rather than to an assumption, plan, or intention.\", \"The reasoning explicitly concludes that all enumerated requirements are met or that the task is complete.\"], \"exclusion_conditions\": [\"The reasoning describes planned or remaining future actions instead of completed verification.\", \"At least one enumerated requirement is left unverified or acknowledged as unresolved.\", \"The reasoning reports individual results without mapping them onto the task's requirements or without an overall completion conclusion.\"]}, {\"name\": \"REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL_ALT_PLACEHOLDER\", \"definition\": \"Placeholder removed; not used.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Unused.\"}], \"assertion_conditions\": [\"Unused.\"], \"exclusion_conditions\": [\"Unused.\"]}], \"revised_existing_predicates\": []}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "ATTRIBUTES_FAILURE_TO_OWN_TEST_HARNESS",
+        "definition": "The reasoning diagnoses an observed negative result as originating in the agent's own verification code or test-input construction rather than in the artifact or service under test, thereby locating the fault in the check rather than in the target system.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text diagnosing the cause of the negative result."
+          },
+          {
+            "name": "failure",
+            "type": "observation",
+            "description": "The prior observation whose reported unsuccessful result is being diagnosed."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies the cause of the failure as a defect in the agent's own test code, script, or input construction (for example, a value of the wrong type or encoding being supplied to the test client).",
+          "The reasoning distinguishes that defect from a fault in the system or artifact being tested.",
+          "The failure reported by the observation is the one the reasoning addresses."
+        ],
+        "exclusion_conditions": [
+          "The reasoning attributes the failure to the target system's implementation, configuration, or environment.",
+          "The reasoning merely reports or restates the failure without assigning a cause.",
+          "The reasoning proposes correcting the target system rather than the test procedure."
+        ]
+      },
+      {
+        "name": "REEXECUTES_CHECK_WITH_CORRECTED_TEST_INPUT",
+        "definition": "After the reasoning diagnoses a concrete defect in how a previous test input or request was constructed, the action repeats the same check against the same target behavior with that input defect corrected, leaving the system under test unchanged.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The repeated invocation that exercises the same behavior using the corrected test input."
+          },
+          {
+            "name": "diagnosis",
+            "type": "reasoning",
+            "description": "The reasoning that names the specific defect in the earlier test input and states the correction."
+          }
+        ],
+        "assertion_conditions": [
+          "The diagnosis identifies a concrete defect in how the previous test request or input was formed, such as a type, encoding, or formatting mismatch.",
+          "The action exercises the same target behavior, endpoint, or property as the earlier attempt, with the identified input defect corrected.",
+          "The action leaves the system under test unmodified and changes only the test input."
+        ],
+        "exclusion_conditions": [
+          "The action changes the behavior under test, the endpoint, or the scope of the check.",
+          "The action repairs, reconfigures, or restarts the target system.",
+          "No preceding diagnosis of a test-input defect is present.",
+          "The corrected aspect is the form of a tool invocation that the tool itself rejected; correcting an invocation form is a distinct mechanism."
+        ]
+      },
+      {
+        "name": "ADAPTS_VERIFICATION_TO_ALTERNATIVE_TOOLING",
+        "definition": "An observation reports that a tool or command needed for a planned check is unavailable, the reasoning chooses a substitute mechanism that obtains the same verification property, and the subsequent action implements that substitute instead of the unavailable tool.",
+        "parameters": [
+          {
+            "name": "unavailability",
+            "type": "observation",
+            "description": "The observation reporting that the intended tool, command, or utility is missing or unusable for availability reasons."
+          },
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text selecting a substitute mechanism that preserves the verification goal."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The invocation that performs the check through the substitute mechanism."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation establishes unavailability of a specific tool or command, rather than a negative result about the property being verified.",
+          "The reasoning explicitly substitutes a different mechanism that targets the same verification property, and states the substitute.",
+          "The action implements the substitute mechanism rather than the unavailable one, and follows the reasoning."
+        ],
+        "exclusion_conditions": [
+          "The unavailable tool is installed or restored and then used as originally planned.",
+          "The substitute check targets a different property than the original verification intent.",
+          "The reported failure is a genuine result about the system under test rather than a missing tool.",
+          "The earlier observation was merely inconclusive in output while the same tool remained available; re-verification through another access path is a distinct mechanism."
+        ]
+      },
+      {
+        "name": "INDEPENDENTLY_CORROBORATES_PRIOR_RESULT",
+        "definition": "A later observation drawn from a different evidence channel than an earlier result, such as runtime logs, process state, or request history, contains concrete entries or identifiers that match the outcome reported earlier, so that outcome is corroborated independently of the original probe.",
+        "parameters": [
+          {
+            "name": "corroborating",
+            "type": "observation",
+            "description": "The later observation from an independent evidence source such as service logs or process metadata."
+          },
+          {
+            "name": "prior_result",
+            "type": "observation",
+            "description": "The earlier observation whose reported outcome is being corroborated."
+          }
+        ],
+        "assertion_conditions": [
+          "The corroborating observation derives from a different evidence source than the prior result, not from repeating the same probe.",
+          "The corroborating observation contains concrete entries, values, addresses, or identifiers that correspond to the outcome reported by the prior result.",
+          "The corroborating observation follows the prior result."
+        ],
+        "exclusion_conditions": [
+          "The two observations are merely topically similar or temporally adjacent without matching concrete values.",
+          "The corroborating observation contradicts rather than matches the earlier result.",
+          "The later observation is a re-run of the same check against the same source with no independent channel."
+        ]
+      },
+      {
+        "name": "ASSERTS_REQUIREMENTS_VERIFIED",
+        "definition": "The reasoning audits the task requirement by requirement, associating each stated requirement or deliverable with a concrete observed outcome, and concludes that all of them are satisfied and the task is complete.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text giving the requirement-by-requirement completion assessment."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning enumerates multiple distinct requirements or deliverables of the task rather than a single overall claim.",
+          "Each enumerated item is tied to a concrete observed result rather than to an assumption, plan, or intention.",
+          "The reasoning explicitly concludes that all enumerated requirements are met or that the task is complete."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes planned or remaining future actions instead of completed verification.",
+          "At least one enumerated requirement is left unverified or acknowledged as unresolved.",
+          "The reasoning reports individual results without mapping them onto the task's requirements or without an overall completion conclusion."
+        ]
+      },
+      {
+        "name": "REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL_ALT_PLACEHOLDER",
+        "definition": "Placeholder removed; not used.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "Unused."
+          }
+        ],
+        "assertion_conditions": [
+          "Unused."
+        ],
+        "exclusion_conditions": [
+          "Unused."
+        ]
+      }
+    ],
+    "revised_existing_predicates": []
+  },
+  "previous_calls": []
+}

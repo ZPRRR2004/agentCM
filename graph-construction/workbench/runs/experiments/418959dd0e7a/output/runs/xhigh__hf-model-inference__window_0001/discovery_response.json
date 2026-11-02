@@ -1,0 +1,369 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__hf-model-inference__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-10-31T04:07:47.625760+00:00",
+  "duration_seconds": 57.282,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-10-31T04:06:50.345689+00:00",
+      "duration_seconds": 57.25,
+      "raw_response": {
+        "id": "25e5458d-0048-4d79-b140-84ca0a45d411",
+        "object": "chat.completion",
+        "created": 1793419616,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"INDICATES_TOOL_FAILURE\", \"definition\": \"The observation records that the associated tool invocation did not complete as intended, surfacing an error condition such as a nonzero exit status, an uncaught exception, or a rejected call.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the unsuccessful invocation.\"}], \"assertion_conditions\": [\"The observation is marked as an error, or its payload contains an explicit error message, traceback, or nonzero exit code attributable to the invocation.\", \"The failure is reported by the tool or interpreter executing the step, not merely discussed in agent text.\"], \"exclusion_conditions\": [\"The observation reports a successful execution whose output happens to contain warning or diagnostic text.\", \"The observation reports a status code that is a deliberate, designed response of the artifact under test rather than a failure of the step.\"]}, {\"name\": \"REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL\", \"definition\": \"The observation states that an assumed command-line utility or executable is absent from the environment, revealing a missing dependency rather than a defect in the artifact being built.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result announcing the unavailability of the utility.\"}], \"assertion_conditions\": [\"The observation contains an unavailability message for a named executable (for example a 'command not found' style result).\", \"The missing entity is an external tool or binary invoked by the agent, not the agent's own source file.\"], \"exclusion_conditions\": [\"The error arises from incorrect arguments passed to a utility that is in fact installed.\", \"The error arises from a defect in the agent-authored script executed by an available interpreter.\"]}, {\"name\": \"SUMMARIZES_OBSERVATION_OUTCOME\", \"definition\": \"The reasoning restates and condenses the concrete outcome reported by a specific preceding observation, characterizing it as success, as an environment state, or as a partially successful result.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text carrying the restatement of the result.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The prior tool result whose outcome is being restated.\"}], \"assertion_conditions\": [\"The reasoning content corresponds traceably to the specific prior observation, repeating its result (for example downloaded state, returned status codes, pass/fail verdicts).\", \"The restatement may classify a mixed result, distinguishing which checks passed from those that failed.\"], \"exclusion_conditions\": [\"The reasoning only proposes future steps without characterizing a prior result.\", \"The reasoning is merely topically related to the observation without restating its outcome.\"]}, {\"name\": \"DERIVES_NEXT_ACTION_FROM_OBSERVATION\", \"definition\": \"The reasoning adopts a concrete next action because of a finding in a prior observation, using that finding as the stated basis for the choice.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that selects an approach in light of the observation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The prior tool result supplying the deciding information.\"}], \"assertion_conditions\": [\"The reasoning explicitly links a specific finding of the observation (available packages, missing utility, error cause, test result) to the concrete step it decides to take.\", \"The decided step would plausibly differ had the observation reported a different finding.\"], \"exclusion_conditions\": [\"The reasoning restates the result without using it to select a step.\", \"The chosen step was already fixed before the observation and is not justified by it.\"]}, {\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning attributes an observed failure to a specific cause and locates that cause either in the agent's own probing or tooling or in the artifact under development.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text offering the causal explanation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The failure result being explained.\"}], \"assertion_conditions\": [\"The reasoning names a cause for the reported failure rather than only repeating the error text.\", \"The reasoning states the locus of the cause, distinguishing a mistake in the agent's own test or invocation from a defect in the delivered artifact.\"], \"exclusion_conditions\": [\"The agent retries or alters the step without any attribution of cause.\", \"The reasoning discusses errors in the abstract without referring to the specific observed failure.\"]}, {\"name\": \"DELIBERATES_ON_AMBIGUOUS_REQUIREMENT\", \"definition\": \"The reasoning identifies a requirement detail that admits multiple readings and weighs competing interpretations before committing to one behavior.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text containing the interpretative deliberation.\"}], \"assertion_conditions\": [\"At least one under-specified requirement detail is explicitly called out as ambiguous.\", \"At least two candidate behaviors are considered, with a rationale for the one finally adopted.\"], \"exclusion_conditions\": [\"The reasoning merely lists implementation steps for an unambiguous requirement.\", \"The reasoning states an assumption without weighing alternatives.\"]}, {\"name\": \"ATTEMPTS_REPAIR\", \"definition\": \"The action is a corrective response to a previously observed failure, changing the tool, arguments, or approach so that the failed capability can be retried.\", \"parameters\": [{\"name\": \"repair_action\", \"type\": \"action\", \"description\": \"The action attempting to overcome the observed failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The earlier tool result reporting the failure being addressed.\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action.\", \"The action differs from the failing invocation in a way that targets the reported failure, such as supplying a missing argument, substituting an unavailable tool, or correcting the calling convention.\"], \"exclusion_conditions\": [\"An identical invocation is repeated unchanged.\", \"The action pursues unrelated work after a failure that is simply noted and not addressed.\"]}, {\"name\": \"CONFIRMS_REPAIR\", \"definition\": \"A repair action addresses a previously observed failure, and a subsequent check demonstrates that the previously failing capability now operates.\", \"parameters\": [{\"name\": \"repair_action\", \"type\": \"action\", \"description\": \"The action attempting to repair the failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The earlier tool result reporting the failure.\"}, {\"name\": \"check_result\", \"type\": \"observation\", \"description\": \"The later tool result establishing whether the capability now works.\"}], \"assertion_conditions\": [\"The failure precedes the repair, and the repair addresses that failure.\", \"The check result comes from exercising the same capability after the repair and shows it succeeding (for example a success message or accepted responses), even if other unrelated assertions in the same output still fail.\"], \"exclusion_conditions\": [\"The repair is attempted without any later result exercising the same capability.\", \"The later result reproduces the original failure or tests a different capability.\"]}, {\"name\": \"CREATES_FILE_ARTIFACT\", \"definition\": \"The action persists content at a named filesystem path, producing a durable artifact such as a source file or script that later steps can execute, import, or serve.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The file-producing tool invocation.\"}], \"assertion_conditions\": [\"The invocation supplies both the content to persist and the target path where it is written.\", \"The persisted artifact is intended for later use in the workflow rather than discarded immediately.\"], \"exclusion_conditions\": [\"The content is passed inline to an interpreter and no durable file artifact is produced.\", \"The invocation only reads, lists, or inspects existing paths.\", \"The invocation is rejected before any content is written.\"]}, {\"name\": \"EXECUTES_PREVIOUSLY_CREATED_ARTIFACT\", \"definition\": \"The action runs the filesystem artifact produced by an earlier file-creating action, so the execution depends on that earlier artifact's content.\", \"parameters\": [{\"name\": \"execution_action\", \"type\": \"action\", \"description\": \"The action that invokes the artifact.\"}, {\"name\": \"creation_action\", \"type\": \"action\", \"description\": \"The earlier action that wrote the artifact to its path.\"}], \"assertion_conditions\": [\"The creation action precedes the execution action and writes to a specific path.\", \"The execution command references that same path, so the executed content is the artifact produced by the creation action.\"], \"exclusion_conditions\": [\"The executed file was produced by some other means than the creation action.\", \"The later action only inspects or edits the artifact without running it.\"]}, {\"name\": \"LAUNCHES_DETACHED_LONG_RUNNING_SERVICE\", \"definition\": \"The action starts a long-running server process detached from the invoking shell, with its output redirected, so the process keeps running after the call returns.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The invocation that starts the service in the background.\"}], \"assertion_conditions\": [\"The command detaches the process from the calling shell and redirects its output to a log or equivalent sink.\", \"The invocation reports a process identifier or otherwise acknowledges the detached start.\"], \"exclusion_conditions\": [\"The server is started in the foreground and blocks the invocation.\", \"The command runs a short-lived operation expected to finish within the call.\"]}, {\"name\": \"PROBES_DEPLOYED_SERVICE_ENDPOINT\", \"definition\": \"The action sends crafted requests to the HTTP endpoint of an already running service, and the resulting observation records the returned status codes and response bodies for those requests.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action issuing the requests to the live endpoint.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result recording the returned statuses and payloads.\"}], \"assertion_conditions\": [\"The requests target the deployed service over the network rather than importing its code in-process.\", \"The payloads are constructed to represent scenarios of interest, including valid inputs and invalid-input cases intended to produce error statuses.\", \"The observation reports the returned status code and body for the issued requests.\"], \"exclusion_conditions\": [\"The action only starts or inspects the process without sending requests.\", \"The invocation fails before any request reaches the service, so no response is recorded.\"]}, {\"name\": \"VERIFIES_REACHABILITY_VIA_EXTERNAL_INTERFACE\", \"definition\": \"The action addresses the deployed service through a non-loopback network address, and the observation's successful response confirms that the service is bound to all interfaces rather than localhost only.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action contacting the service through the non-loopback address.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the response obtained over that address.\"}], \"assertion_conditions\": [\"The request URL or host used by the action is a non-loopback address of the service host.\", \"The observation reports a successful response from that address, establishing that external reachability holds.\"], \"exclusion_conditions\": [\"The request is sent only to the loopback address, which cannot distinguish all-interfaces binding from localhost-only binding.\", \"The attempt over the non-loopback address fails or returns no response.\"]}, {\"name\": \"ALLOCATES_EXTENDED_EXECUTION_TIMEOUT\", \"definition\": \"The action assigns a deliberately enlarged execution time budget to an invocation that is anticipated to run for a long time, such as a remote artifact download, a first-time model load, or service warm-up.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The invocation carrying the extended time budget.\"}], \"assertion_conditions\": [\"The invocation explicitly sets a time limit larger than the environment default.\", \"The step's expected duration justifies the larger budget, as indicated by its content (bulk download, model loading, warm-up sleep).\"], \"exclusion_conditions\": [\"The invocation runs at the default time budget for a step expected to complete instantly.\", \"The budget is enlarged without any long-running work in the invoked command.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicates from this trajectory. Let's identify mechanisms.\n\nNodes: reasoning plans, actions (bash, write), observations (results).\n\nCandidate predicates:\n\n1. Unary: IS_PLAN / EXPRESSES_INTENDED_ACTION — but maybe too generic? It's supported (event-0001 reasoning, event-0002 reasoning plan). Could include, but the examples already give that. We should focus on distinguishable mechanisms in this trajectory.\n\n2. Unary: REPORTS_TOOL_FAILURE / OBSERVATION_REPORTS_ERROR — observation with is_error true indicating tool invocation failed. Distinguish from validation failure vs runtime failure? Let's keep one: INDICATES_EXECUTION_FAILURE (observation).\n\n3. Binary: DIAGNOSES_FAILURE_CAUSE — reasoning explains the cause of an observed error and how to work around it (event-0008 reasoning → event-0008 observation: the last failure was due to test script bug passing str). Actually reasoning in event-0009 attributes the error to the test script bug. So predicate: ATTRIBUTES_ERROR_TO_NON_AGENT_CAUSE(reasoning, observation) — reasoning explains that observed error stems from an incidental cause rather than the system under test. Hmm, more generally: DIAGNOSES_FAILURE_CAUSE(reasoning, observation).\n\n4. Binary: ADAPTS_ACTION_TO_AVAILABLE_TOOL / RESELECTS_APPROACH_AFTER_FAILURE — reasoning selects alternative approach after tool unavailable (event-0008 reasoning after event-0007 observation curl not found). Mechanism: chooses an alternative mechanism because a previously planned tool is unavailable. Could be ATTEMPTS_REPAIR? Actually the general mechanism: ATTEMPTS_REPAIR(repair_action, failure_observation) — event-0008 action repairs the curl failure by using urllib; event-0005 action repairs the write validation failure. Yes! ATTEMPT_REPAIR holds for (event-0005 action, event-0004 observation) and (event-0008 action, event-0007 observation). That's a clean binary predicate.\n\n5. Binary: CONFIRMS_RESOLUTION — later observation shows success after repair. For event-0005/0004: event-0005 observation says \"Successfully wrote 2355 bytes\" — confirms write succeeded. For 0008/0007: event-0008 observation shows positive/negative tests returned 200 — the original failure (curl absent) was bypassed; okay.\n\n6. Ternary: VERIFIES_REQUIREMENT — a test action exercising the service, whose observation confirms a specified API behavior (e.g., 200 with sentiment/confidence schema; 400 with error). This is like testing behavior against spec. Predicate: VALIDATES_SPEC_BEHAVIOR(action, observation)? Or ternary (action, observation, reasoning stating spec?). Hmm.\n\nLet's think about what's genuinely distinguishable and useful.\n\n7. Binary: USES_OBSERVATION_AS_INPUT — reasoning at event-0002 uses observation of installed packages (Flask, torch, transformers present) to decide not to install. Actually the reasoning uses observation to decide approach (skip install). That's \"guides decision\" rather than supplies input. Predicate: GUIDES_DECISION(reasoning, observation) — reasoning cites prior observation as evidence for choosing approach. Supported: event-0002 reasoning references installed packages from event-0001 observation; event-0009 reasoning references test results from event-0008 observation; event-0006? etc.\n\n8. Binary: WRITES_FILE_CONTAINING / CREATES_ARTIFACT_FOR_PURPOSE — action (write) creates a script that a later action executes: EVENT-0002 action writes /app/download_model.py, event-0003 action runs it. Predicate: EXECUTES_ARTIFACT_CREATED_BY(action_exec, action_write)? Or (action, observation) where observation confirms file written, then another action executes it. Hmm, a binary: USES_CREATED_ARTIFACT(execution_action, creation_action)? Or unary: CREATES_EXECUTABLE_ARTIFACT(action). Probably binary: EXECUTES_ARTIFACT_FROM(exec_action, write_action) — the executing action runs the file created by the write action. Evidence: download_model.py written then run; app.py written then started via `python3 app.py`. Good, and distinguishable.\n\n9. Unary: PRODUCES_SERVICE_ENDPOINT? Hmm, action writes source code that defines an API endpoint. Could be IS_IMPLEMENTATION_ARTIFACT.\n\n10. Binary: TESTS_SERVICE(action, observation)? Actually the action issues HTTP requests and observation reports status codes and response bodies. Predicate: PROBES_DEPLOYED_ENDPOINT(action). Unary maybe.\n\n11. Ternary: CONFIRMS_SPEC_CONFORMANCE(test_action, observation, ...)? We need parameters binding to nodes only.\n\nLet's consider a ternary: VERIFIES_BEHAVIOR_AGAINST_SPEC(test_action, result_observation, reasoning_spec)? The spec is in user query, not a node. Not great.\n\n12. Unary: reasoning containing contingency planning / risk assessment about ambiguous spec (empty text handling). Distinguishable: SPEC_AMBIGUITY_REASONING — reasoning deliberates on an ambiguous requirement and chooses an interpretation. Supported strongly (event-0002 long deliberation about empty text returns 400 vs 200). That's a nice, specific predicate: IS_INTERPRETATION_DELIBERATION.\n\n13. Unary: observation reports success of an operation (is_error false, \"Successfully wrote...\" / \"started pid\").\n\n14. Binary: SUMMARIZES_RESULT (reasoning summarizes observation outcome). E.g., event-0009 reasoning \"All the main test cases passed\" summarizing event-0008 observation; event-0004 reasoning \"Model download completed\"; event-0010 reasoning \"Non-JSON body → 400\". Predicate: SUMMARIZES_OBSERVATION_OUTCOME(reasoning, observation) — reasoning restates the outcome of the prior observation, sometimes including partial-failure classification. Distinguishable from GUIDES_DECISION (which uses info to pick action) — though both may hold. Good.\n\n15. Binary: DIAGNOSES_FAILURE_CAUSE(reasoning, observation) — as above. Distinguish from SUMMARIZES: diagnosis assigns a cause and declares it irrelevant to the deliverable.\n\n16. Predicate about running in background: action launches long-running process detached. Unary: LAUNCHES_BACKGROUND_PROCESS(action). Evidence event-0006. Distinguishable. Maybe with observation confirming PID. Could be binary: CONFIRMS_PROCESS_STARTED(observation, action). Hmm, observation \"started pid 114\" confirms launch.\n\n17. Predicate: OBSERVATION_REVEALS_MISSING_TOOL (curl/ps not found) — unary on observation: identifies unavailability of an assumed command-line tool. This is a specific case of execution failure but with distinct role: reveals absent dependency. Distinguishable from general error (validation error). Let's define: REPORTS_UNAVAILABLE_TOOL_OR_RESOURCE(observation): observation shows a command/utility is not installed (\"command not found\"). Exclusion: validation errors from tool-call schema, tracebacks from agent's own script bugs. Hmm, the traceback in event-0008 is agent script bug, not missing tool. Fine.\n\n18. Predicate: ATTEMPTS_REPAIR(repair_action, failure_observation) — as in example. Good.\n\n19. Predicate: CONFIRMS_REPAIR(repair, failure, check) ternary — event-0007 failure (curl not found), event-0008 repair action, event-0008 observation showing 200 responses. Hmm, the check observation includes both successes and a new error. Ternary might be: CONFIRMS_REPAIR(repair_action, failure, check_result). For 0004/0005: failure (write validation failed), repair (write with path), check (observation \"Successfully wrote 2355 bytes\"). That works — check confirming resolve.\n\nActually maybe better to keep CONFIRMS_REPAIR ternary with the pair; include both examples in assertion conditions.\n\n20. Predicate: DEMONSTRATES_FEATURE_VIA_REQUEST(action) — the verification action issues sample requests covering valid and error inputs, i.e., tests both success and failure paths. Distinguishable: EXERCISES_SUCCESS_AND_ERROR_PATHS(action). Hmm, could be unary.\n\n21. Binary: TESTS_ACCESSIBILITY_VIA_EXTERNAL_INTERFACE(action, observation)? The event-0010 action posts to external IP; observation 200. Predicate: VERIFIES_EXTERNAL_REACHABILITY(action, observation). Mechanism: verifying a deployment constraint (0.0.0.0 binding) by targeting a non-loopback address. Distinguishable.\n\nLet me also consider the \"write\" action with path/validation error — the observation is a tool-schema validation failure. That's a specific: REPORTS_MISSING_ARGUMENT(observation). Distinguishable from execution failure of the command. Might be worth: \"TOOL_ARGUMENT_VALIDATION_ERROR\" unary.\n\nNow let's also consider reasoning about environment inspection guiding whether to install packages — \"no install needed\". Predicate: DECIDES_NO_ADDITIONAL_SETUP_NEEDED? Too narrow. GUIDES_DECISION covers.\n\nAlso: reasoning that plans verification strategy.\n\nLet's settle on a reasonable set, maybe 10-12 predicates. Ensure each has 5 fields.\n\nLet me draft.\n\nP1: INDICATES_TOOL_FAILURE (unary, observation)\ndefinition: The observation records that the associated tool invocation did not complete as intended, reporting an error condition (nonzero exit, exception, or validation rejection).\nassertion: content.is_error true or raw text includes explicit error message / non-zero exit code; the observation's message attributes failure to the invocation.\nexclusion: successful outputs that include warning text; observations that report a deliberate 400 API response produced by the agent's own service (that's a designed behavior, not a tool failure)... hmm, event-0008 observation is_error true because the script crashed. That's fine.\n\nActually careful: 400 responses returned via urllib to the agent's service are printed, not errors. Fine.\n\nP2: REPORTS_MISSING_TOOL (unary, observation)\ndefinition: observation states that an assumed command-line utility or executable is unavailable in the environment (\"command not found\"), revealing an absent dependency rather than a defect in the deliverable.\nDistinguish from INDICATES_TOOL_FAILURE (broader). Both hold for event-0007 and 0010 observations. Non-exclusivity allowed.\nexclusion: errors caused by incorrect arguments to an existing tool, or by the agent's own test script logic.\n\nP3: ATTEMPTS_REPAIR (binary: repair action, failure observation)\nSame as example.\nAssertion: failure precedes repair; the repair action alters the command, arguments, or tooling so as to avoid the reported failure; typically preceded by reasoning that names the failure.\nExclusion: repair attempted without connection to a specific observed failure; merely re-running the same failing invocation unchanged? Actually re-running with corrected arg is repair. Fine.\n\nP4: CONFIRMS_REPAIR (ternary: repair, failure, check_result)\nAssertion: check_result obtained after repair, produced by an invocation that exercises the same capability; result shows the capability now works (success message, 200 responses).\nExclusion: check reveals a different error or no evidence of resolution.\n\nFor event-0004/0005/0005-obs: check_result = \"Successfully wrote 2355 bytes to app.py\" — confirms. For 0007/0008/0008-obs: partial—some succeed, one fails with new bug. Hmm, the check includes a new failure but also confirms the repaired capability (HTTP requests work). I'd say it holds if the check shows the original capability working even if other assertions fail. But maybe both. Let's be lenient: \"the check shows the previously failed capability now operating, even if other unrelated assertions in the same observation fail.\" That's defensible.\n\nP5: SUMMARIZES_OBSERVATION_OUTCOME (binary: reasoning, observation)\nDefinition: reasoning restates/condenses the outcome reported by a preceding observation, e.g., \"Model download completed\", \"Non-JSON body → 400\", \"All the main test cases passed\", including classifying partial failures.\nAssertion: reasoning content refers to the specific prior observation's result and restates it as an outcome summary; identifiable correspondence.\nExclusion: reasoning that proposes new future actions without restating the result; reasoning merely topically related.\n\nHmm but many reasoning nodes both summarize and plan. That's fine (non-exclusivity), but need evidence of restatement. Let me restrict: reasoning that characterizes the outcome (success/partial) of the observation. event-0002 reasoning: \"Flask, torch, and transformers are installed. /app is empty.\" — that's a summary of environment state. Yes, holds too.\n\nP6: GUIDES_SUBSEQUENT_DECISION? Better: USES_OBSERVATION_AS_EVIDENCE_FOR_DECISION (binary: reasoning, observation). Hmm, is it distinguishable from SUMMARIZES? Yes: one is restating, the other is drawing a decision from it. But overlap. Let me define \"BASES_DECISION_ON_OBSERVATION\": the reasoning cites the observation's findings as the basis for a chosen approach (e.g., skip installing packages; switch from curl to urllib; keep 400-on-empty validation).\n\nActually, \"switch from curl to urllib\" is repairing based on the failure — that's ATTEMPTS_REPAIR's companion reasoning. BASES_DECISION_ON_OBSERVATION would cover both. Hmm. Let me name it DERIVES_ACTION_CHOICE_FROM_OBSERVATION (binary: reasoning, observation).\n\nAssertion: reasoning explicitly connects a prior observation's finding (installed packages, missing utility, error cause, test result) to a concrete decision about what to do next. Exclusion: reasoning that restates the outcome without adopting it as a decision basis; temporal adjacency alone.\n\nP7: DIAGNOSES_FAILURE_ORIGIN (binary: reasoning, observation)\nDefinition: reasoning attributes an observed failure to a specific cause and classifies whether that cause lies in the deliverable under test or in the agent's own tooling/probe.\nAssertion: reasoning names cause; distinguishes e.g. \"bug in my test script, not a server issue\"; \"I forgot the path parameter\".\nExclusion: reasoning that simply retries without attributing cause; generic restatement.\n\nP8: CREATES_FILE_ARTIFACT (unary action)\nDefinition: action writes content to a named filesystem path, producing an artifact (script or source file) intended for later execution or serving.\nAssertion: tool invocation writing content with a target path.\nExclusion: action that only reads/inspects files, or edits passed inline to an interpreter? Hmm — the heredoc bash scripts also produce content but aren't file artifacts. Distinguish: file artifact persisted at a path vs inline script piped to an interpreter. Good distinction to state in exclusions.\n\nP9: EXECUTES_ARTIFACT_CREATED_BY (binary: execution action, creation action) — hmm, or use observation from creation? Better: the executing action runs a file path produced by the writing action. Parameters: action (execution), action (creation). Both actions. Assertion: executed command references the path created by the earlier write action; content is the same artifact.\n\nHmm, is that a genuinely reusable mechanism? Yes — write script then run it is a common pattern, distinct from writing config then reading. Well, \"EXECUTES_ARTIFACT\" is fine.\n\nAlternatively, use observation to confirm the file exists. I'll use creation action since we can trace content.\n\nP10: LAUNCHES_DETACHED_PROCESS (unary action)\nDefinition: action starts a long-running service/process detached from the calling shell (background execution with output redirected to a log), so it persists after the call returns.\nAssertion: command backgrounds the process and redirects output; reports a PID.\nExclusion: foreground/blocking invocations; simple short commands.\n\nP11: CONFIRMS_PROCESS_STARTED? Could be binary (observation, action). Hmm, maybe fold into: observation confirms launch with a PID. Let me define CONFIRMS_SERVICE_STARTUP (binary: observation, action)? Maybe skip; instead, define a broader predicate: REPORTS_LAUNCH_ACKNOWLEDGEMENT. Might be too thin. I'll include a binary: CONFIRMS_DETACHED_LAUNCH(observation, action)? Eh.\n\nLet me think about whether the log output observation (event-0007 observation showing Flask \"Running on 0.0.0.0\" logs) confirms binding. That's a distinct mechanism: observation contains the service's own startup log confirming listening addresses. Hmm — but that observation is_error true because curl failed. Still contains the service log. Predicate: REPORTS_SERVICE_STARTUP_LOG (unary observation). Could be useful: the observation includes server-emitted log lines indicating the service is listening on the configured host/port.\n\nP12: PROBES_ENDPOINT_BEHAVIOR (unary action? or binary action+observation)\nDefinition: action issues HTTP requests to the running service's endpoint with crafted payloads to exercise specified behaviors. Parameters: action. Assertion: HTTP client requests (urllib/curl/requests) to the deployed endpoint with request bodies representing spec cases.\nExclusion: actions that only start the service; unit-level tests importing code.\nBut maybe ternary with observation & reasoning? Let's do binary: EXERCISES_ENDPOINT_WITH_CRAFTED_PAYLOADS(action) unary is enough. But then observation confirming is separate: OBSERVATION_REPORTS_ENDPOINT_RESPONSES.\n\nMaybe better as binary: TESTS_SPECIFIED_ENDPOINT_BEHAVIOR(action, observation)? Hmm. Simpler: unary action predicate PROBES_DEPLOYED_SERVICE_ENDPOINT. And unary observation predicate REPORTS_HTTP_STATUS_AND_BODY.\n\nHmm, maybe combine into a two-arity: PROBES_ENDPOINT(action) and the observation already has status codes. I think one unary on action is fine.\n\nP13: VERIFIES_EXTERNAL_REACHABILITY — could be a specific case of probing, distinguished by targeting a non-loopback address to confirm host binding. Distinguishable case: a meaningful case satisfies probing but not external reachability verification (localhost-only probe in event-0007/0008). Yes, distinguish. So separate unary: VERIFIES_HOST_BINDING_VIA_NON_LOOPBACK_ADDRESS(action). Definition: the action targets the service through a non-loopback interface address in order to confirm it is reachable beyond localhost, i.e., that the configured all-interfaces binding takes effect.\n\nP14: Reasoning: SPEC_INTERPRETATION_DELIBERATION — reasoning weighs an ambiguity in stated requirements and commits to an interpretation, e.g., whether empty text should yield 400.\nAssertion: reasoning identifies at least one under-specified requirement and argues both sides before choosing behavior.\nExclusion: reasoning that simply implements a clear requirement; stating a plan without debating alternatives.\n\nP15: Maybe a predicate about validating error responses: CONFIRMS_ERROR_CONTRACT — the observation shows a 400 status with an error JSON body for invalid input. Binary with action: VALIDATES_ERROR_RESPONSE_CONTRACT(action, observation). Hmm, can be part of the probing.\n\nLet me be careful about count — maybe 11-12 is fine.\n\nAlso consider: reasoning recognizing that the environment already meets prerequisites (no installs needed) → could be part of DERIVES_ACTION_CHOICE_FROM_OBSERVATION.\n\nAlso: \"RUNS_COMMAND_WITH_EXTENDED_TIMEOUT\" — action sets a longer timeout for a long-running operation. Unary action: ALLOCATES_EXTENDED_TIMEOUT_FOR_LONG_OPERATION. Evidence: event-0003 (timeout 600 for download), event-0007 (120), event-0008 (120). Is that a meaningful reusable mechanism? Reasonably: the action anticipates a long duration and extends the execution time budget. Distinguishable from default-timeout actions. Hmm, it's somewhat weak but supported. I might include it as it's a distinct decision mechanism. But it's borderline \"generic\". The distinguishing case: event-0001 (inspection) has no timeout; so a meaningful case satisfies one without the other. I'll include it—moderate value. Maybe skip to keep quality. I'll include, it's defensible.\n\nAlso: model download action — DOWNLOADS_MODEL_ARTIFACT_TO_LOCAL_CACHE. That's a specific resource (HF model). Generalize: \"FETCHES_REMOTE_ARTIFACT_TO_LOCAL_STORE\"? The action runs a script that fetches remote resources into a local directory and the observation confirms files landed. Hmm, that could be generalizable: PROVISIONS_LOCAL_RESOURCE_FROM_REMOTE_SOURCE(action). And observation: CONFIRMS_LOCAL_RESOURCE_MATERIALIZED. I think it's decent but maybe over-fitting. The mechanism \"obtain remote resource then verify local presence\" is reusable. I'll include a binary: this could be action+observation — but the structural \"returns\" edge already covers it. Better as unary on the action? \"PROVISIONS_LOCAL_ASSET_FROM_REMOTE_SOURCE\". Hmm, and the verification check in event-0003 combines download + ls. Let me skip to avoid noise? I'd rather include a couple of strong ones.\n\nLet me decide final list:\n\n1. INDICATES_TOOL_FAILURE (observation)\n2. REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL (observation)\n3. SUMMARIZES_OBSERVATION_OUTCOME (reasoning, observation)\n4. DERIVES_NEXT_ACTION_FROM_OBSERVATION (reasoning, observation)\n5. DIAGNOSES_FAILURE_CAUSE (reasoning, observation)\n6. DELIBERATES_ON_AMBIGUOUS_REQUIREMENT (reasoning)\n7. ATTEMPTS_REPAIR (action, observation)\n8. CONFIRMS_REPAIR (action, observation, observation)\n9. CREATES_FILE_ARTIFACT (action)\n10. EXECUTES_PREVIOUSLY_CREATED_ARTIFACT (action, action)\n11. LAUNCHES_DETACHED_LONG_RUNNING_SERVICE (action)\n12. PROBES_DEPLOYED_ENDPOINT (action)\n13. VERIFIES_NON_LOOPBACK_REACHABILITY (action)\n14. Maybe ALLOCATES_EXTENDED_EXECUTION_TIMEOUT (action)\n\nThat's 14 — a bit many but fine. Maybe trim #14 and #2? #2 is quite specific but genuinely distinguishable (\"command not found\" vs other errors) and appears twice with two different tools — good generalization evidence. Keep.\n\nHmm, for #13, maybe better as binary: VERIFIES_HOST_BINDING(action, observation)? Keep unary on the action; the observation reports status. Actually a binary with observation isn't needed since assertion conditions can require a subsequent success. Let me make it binary: (action, observation) where observation from that probe shows a successful response. Hmm, that adds \"confirmed\" semantics. I'll keep unary with condition that a successful response followed. But parameters must bind to nodes; conditions can reference other nodes? Conditions describe observability — better keep within the predicate's arguments. I'll make it binary (probe action, result observation) to express confirmation. Actually, let's define:\n\nVERIFIES_REACHABILITY_VIA_EXTERNAL_INTERFACE(action, observation): the action addresses the deployed service through a non-loopback network address, and the observation reports a successful response, confirming the all-interfaces binding works. Good, ternary not needed.\n\nSimilarly PROBES_DEPLOYED_ENDPOINT unary on action — with crafted payloads.\n\nHmm, alternatively make probing binary with observation: EXERCISES_SPEC_CASES(action, observation) reporting status codes. Let me do binary: PROBES_DEPLOYED_SERVICE_ENDPOINT(action, observation) — the action sends requests to the running service's HTTP endpoint and the observation records the returned status codes and bodies. That captures both. Good, and distinguishes from the external-interface verification (which requires non-loopback addressing).\n\nWait but both hold for event-0010? Event-0010 action posts to external IP → both probing and external verification. That's fine (non-exclusivity).\n\nAlso maybe a predicate on reasoning about verification planning: \"proposes verification steps\". Eh, covered by plan.\n\nLet me also consider a predicate: OBSERVATION_CONFIRMS_SPEC_CONFORMANCE — the observation shows expected status codes and JSON schema for both success and error cases, establishing requirement satisfaction. That's distributed across two observations though (0008, 0009). Maybe skip.\n\nLet me now write out definitions with careful wording.\n\nField schema: name, definition, parameters [{name,type,description}], assertion_conditions [], exclusion_conditions [].\n\nWrite final JSON.\n\nFor #3 SUMMARIZES_OBSERVATION_OUTCOME:\nparameters: reasoning, observation. Assertion: reasoning restates the outcome of the specific prior observation (success, discovered state, specific status code); the restated content is traceable to that observation; may include classification of partial failure. Exclusion: reasoning that introduces new intentions without restating result; reasoning topically similar but not referring to that observation's result.\n\nFor #4 DERIVES_NEXT_ACTION_FROM_OBSERVATION:\nAssertion: reasoning explicitly ties a concrete next step (skip installation, switch HTTP client, keep validation rule) to a finding in the prior observation; the finding is the stated basis for the choice. Exclusion: restating the result without adopting it; choosing an action already planned before the observation with no reference to it.\n\n#5 DIAGNOSES_FAILURE_CAUSE:\nAssertion: reasoning identifies a specific cause of the preceding failure observation and states whether the cause lies in the agent's own probe/tooling or in the artifact under test. Exclusion: merely retrying or restating the error text without attributing a cause; blaming without reference to the failure.\n\n#6 DELIBERATES_ON_AMBIGUOUS_REQUIREMENT:\nAssertion: reasoning identifies a requirement detail that admits multiple interpretations and weighs at least two candidate behaviors before committing to one. Exclusion: implementing an unambiguous requirement; listing steps only.\n\n#7 ATTEMPTS_REPAIR(repair_action, failure_observation):\nDefinition: the action is a corrective response to a previously observed failure, altering the tool, arguments, or approach so the failed capability can be retried.\nAssertion: failure observation precedes the action; action differs from the failing invocation in a way that targets the reported failure; reasoning or the command itself references the failure.\nExclusion: re-issuing an identical command unchanged; unrelated follow-up work after a failure; a failure that is judged to be outside the deliverable and simply noted.\n\nHmm — the last exclusion: in event-0009 the agent fixed the test script (bytes) — that IS a repair. Fine.\n\n#8 CONFIRMS_REPAIR(repair_action, failure_observation, resolution_observation):\nAssertion: resolution observation follows the repair; it exercises the same capability; result shows capability operating (success message, acceptable responses), even if unrelated assertions in the same output fail.\nExclusion: no subsequent check; check produces the same failure; check tests something else.\n\n#9 CREATES_FILE_ARTIFACT(action):\nDefinition: the action persists content to a named filesystem path, producing a durable artifact (source file, script) that later steps can execute, import, or serve.\nAssertion: file-writing invocation with target path and inlined content.\nExclusion: inline scripts piped to an interpreter that leave no file artifact; read-only inspections; tool invocations rejected before writing.\n\nHmm, the third exclusion relates to event-0004 (failed write). Good.\n\n#10 EXECUTES_PREVIOUSLY_CREATED_ARTIFACT(execution_action, creation_action):\nAssertion: execution command references the path written by the creation action; the content executed is that artifact.\nExclusion: an executing action that runs a file created by a different means or that only inspects the file; creation whose artifact is never executed in the trajectory.\n\n#11 LAUNCHES_DETACHED_LONG_RUNNING_SERVICE(action):\nDefinition: the action starts a long-running server process detached from the invoking shell, with output redirected to a log file, so that it keeps running after the call returns.\nAssertion: command backgrounds the process (e.g. nohup/&), redirects output to a log, reports a process identifier.\nExclusion: foreground blocking invocations; launching a finite short command; long-running command that blocks the call.\n\n#14 ALLOCATES_EXTENDED_EXECUTION_TIMEOUT(action) — maybe include? It's about anticipating long duration. I'll include; it's a decision mechanism about the invocation's time budget.\n\nActually maybe better: EXTENDS_TIMEOUT_FOR_EXPECTED_LONG_OPERATION. Assertion: invocation specifies a time budget noticeably larger than default for an operation anticipated to be slow (download, model inference, service startup). Exclusion: default-timeout invocations, operations expected to complete instantly.\n\nI'll include it — reasonable.\n\nAlso should I include a predicate about reasoning stating the final satisfaction of task requirements? event-0010 reasoning? Actually future summary says agent concluded. Within window, event-0009 reasoning \"All the main test cases passed\". Covered by SUMMARIZES.\n\nOK. Also consider a predicate capturing that the reasoning chooses lazy loading / defensive fallbacks in code — too narrow.\n\nLet me write JSON now. Keep parameters named clearly, ordered.\n\nEnsure types valid: action, observation, reasoning.\n\nWrite it out."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 11560,
+          "completion_tokens": 9182,
+          "total_tokens": 20742,
+          "prompt_tokens_details": {
+            "cached_tokens": 1536
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 6476
+          },
+          "prompt_cache_hit_tokens": 1536,
+          "prompt_cache_miss_tokens": 10024
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"INDICATES_TOOL_FAILURE\", \"definition\": \"The observation records that the associated tool invocation did not complete as intended, surfacing an error condition such as a nonzero exit status, an uncaught exception, or a rejected call.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the unsuccessful invocation.\"}], \"assertion_conditions\": [\"The observation is marked as an error, or its payload contains an explicit error message, traceback, or nonzero exit code attributable to the invocation.\", \"The failure is reported by the tool or interpreter executing the step, not merely discussed in agent text.\"], \"exclusion_conditions\": [\"The observation reports a successful execution whose output happens to contain warning or diagnostic text.\", \"The observation reports a status code that is a deliberate, designed response of the artifact under test rather than a failure of the step.\"]}, {\"name\": \"REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL\", \"definition\": \"The observation states that an assumed command-line utility or executable is absent from the environment, revealing a missing dependency rather than a defect in the artifact being built.\", \"parameters\": [{\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result announcing the unavailability of the utility.\"}], \"assertion_conditions\": [\"The observation contains an unavailability message for a named executable (for example a 'command not found' style result).\", \"The missing entity is an external tool or binary invoked by the agent, not the agent's own source file.\"], \"exclusion_conditions\": [\"The error arises from incorrect arguments passed to a utility that is in fact installed.\", \"The error arises from a defect in the agent-authored script executed by an available interpreter.\"]}, {\"name\": \"SUMMARIZES_OBSERVATION_OUTCOME\", \"definition\": \"The reasoning restates and condenses the concrete outcome reported by a specific preceding observation, characterizing it as success, as an environment state, or as a partially successful result.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text carrying the restatement of the result.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The prior tool result whose outcome is being restated.\"}], \"assertion_conditions\": [\"The reasoning content corresponds traceably to the specific prior observation, repeating its result (for example downloaded state, returned status codes, pass/fail verdicts).\", \"The restatement may classify a mixed result, distinguishing which checks passed from those that failed.\"], \"exclusion_conditions\": [\"The reasoning only proposes future steps without characterizing a prior result.\", \"The reasoning is merely topically related to the observation without restating its outcome.\"]}, {\"name\": \"DERIVES_NEXT_ACTION_FROM_OBSERVATION\", \"definition\": \"The reasoning adopts a concrete next action because of a finding in a prior observation, using that finding as the stated basis for the choice.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that selects an approach in light of the observation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The prior tool result supplying the deciding information.\"}], \"assertion_conditions\": [\"The reasoning explicitly links a specific finding of the observation (available packages, missing utility, error cause, test result) to the concrete step it decides to take.\", \"The decided step would plausibly differ had the observation reported a different finding.\"], \"exclusion_conditions\": [\"The reasoning restates the result without using it to select a step.\", \"The chosen step was already fixed before the observation and is not justified by it.\"]}, {\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning attributes an observed failure to a specific cause and locates that cause either in the agent's own probing or tooling or in the artifact under development.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text offering the causal explanation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The failure result being explained.\"}], \"assertion_conditions\": [\"The reasoning names a cause for the reported failure rather than only repeating the error text.\", \"The reasoning states the locus of the cause, distinguishing a mistake in the agent's own test or invocation from a defect in the delivered artifact.\"], \"exclusion_conditions\": [\"The agent retries or alters the step without any attribution of cause.\", \"The reasoning discusses errors in the abstract without referring to the specific observed failure.\"]}, {\"name\": \"DELIBERATES_ON_AMBIGUOUS_REQUIREMENT\", \"definition\": \"The reasoning identifies a requirement detail that admits multiple readings and weighs competing interpretations before committing to one behavior.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text containing the interpretative deliberation.\"}], \"assertion_conditions\": [\"At least one under-specified requirement detail is explicitly called out as ambiguous.\", \"At least two candidate behaviors are considered, with a rationale for the one finally adopted.\"], \"exclusion_conditions\": [\"The reasoning merely lists implementation steps for an unambiguous requirement.\", \"The reasoning states an assumption without weighing alternatives.\"]}, {\"name\": \"ATTEMPTS_REPAIR\", \"definition\": \"The action is a corrective response to a previously observed failure, changing the tool, arguments, or approach so that the failed capability can be retried.\", \"parameters\": [{\"name\": \"repair_action\", \"type\": \"action\", \"description\": \"The action attempting to overcome the observed failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The earlier tool result reporting the failure being addressed.\"}], \"assertion_conditions\": [\"The failure observation precedes the repair action.\", \"The action differs from the failing invocation in a way that targets the reported failure, such as supplying a missing argument, substituting an unavailable tool, or correcting the calling convention.\"], \"exclusion_conditions\": [\"An identical invocation is repeated unchanged.\", \"The action pursues unrelated work after a failure that is simply noted and not addressed.\"]}, {\"name\": \"CONFIRMS_REPAIR\", \"definition\": \"A repair action addresses a previously observed failure, and a subsequent check demonstrates that the previously failing capability now operates.\", \"parameters\": [{\"name\": \"repair_action\", \"type\": \"action\", \"description\": \"The action attempting to repair the failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The earlier tool result reporting the failure.\"}, {\"name\": \"check_result\", \"type\": \"observation\", \"description\": \"The later tool result establishing whether the capability now works.\"}], \"assertion_conditions\": [\"The failure precedes the repair, and the repair addresses that failure.\", \"The check result comes from exercising the same capability after the repair and shows it succeeding (for example a success message or accepted responses), even if other unrelated assertions in the same output still fail.\"], \"exclusion_conditions\": [\"The repair is attempted without any later result exercising the same capability.\", \"The later result reproduces the original failure or tests a different capability.\"]}, {\"name\": \"CREATES_FILE_ARTIFACT\", \"definition\": \"The action persists content at a named filesystem path, producing a durable artifact such as a source file or script that later steps can execute, import, or serve.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The file-producing tool invocation.\"}], \"assertion_conditions\": [\"The invocation supplies both the content to persist and the target path where it is written.\", \"The persisted artifact is intended for later use in the workflow rather than discarded immediately.\"], \"exclusion_conditions\": [\"The content is passed inline to an interpreter and no durable file artifact is produced.\", \"The invocation only reads, lists, or inspects existing paths.\", \"The invocation is rejected before any content is written.\"]}, {\"name\": \"EXECUTES_PREVIOUSLY_CREATED_ARTIFACT\", \"definition\": \"The action runs the filesystem artifact produced by an earlier file-creating action, so the execution depends on that earlier artifact's content.\", \"parameters\": [{\"name\": \"execution_action\", \"type\": \"action\", \"description\": \"The action that invokes the artifact.\"}, {\"name\": \"creation_action\", \"type\": \"action\", \"description\": \"The earlier action that wrote the artifact to its path.\"}], \"assertion_conditions\": [\"The creation action precedes the execution action and writes to a specific path.\", \"The execution command references that same path, so the executed content is the artifact produced by the creation action.\"], \"exclusion_conditions\": [\"The executed file was produced by some other means than the creation action.\", \"The later action only inspects or edits the artifact without running it.\"]}, {\"name\": \"LAUNCHES_DETACHED_LONG_RUNNING_SERVICE\", \"definition\": \"The action starts a long-running server process detached from the invoking shell, with its output redirected, so the process keeps running after the call returns.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The invocation that starts the service in the background.\"}], \"assertion_conditions\": [\"The command detaches the process from the calling shell and redirects its output to a log or equivalent sink.\", \"The invocation reports a process identifier or otherwise acknowledges the detached start.\"], \"exclusion_conditions\": [\"The server is started in the foreground and blocks the invocation.\", \"The command runs a short-lived operation expected to finish within the call.\"]}, {\"name\": \"PROBES_DEPLOYED_SERVICE_ENDPOINT\", \"definition\": \"The action sends crafted requests to the HTTP endpoint of an already running service, and the resulting observation records the returned status codes and response bodies for those requests.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action issuing the requests to the live endpoint.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result recording the returned statuses and payloads.\"}], \"assertion_conditions\": [\"The requests target the deployed service over the network rather than importing its code in-process.\", \"The payloads are constructed to represent scenarios of interest, including valid inputs and invalid-input cases intended to produce error statuses.\", \"The observation reports the returned status code and body for the issued requests.\"], \"exclusion_conditions\": [\"The action only starts or inspects the process without sending requests.\", \"The invocation fails before any request reaches the service, so no response is recorded.\"]}, {\"name\": \"VERIFIES_REACHABILITY_VIA_EXTERNAL_INTERFACE\", \"definition\": \"The action addresses the deployed service through a non-loopback network address, and the observation's successful response confirms that the service is bound to all interfaces rather than localhost only.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action contacting the service through the non-loopback address.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the response obtained over that address.\"}], \"assertion_conditions\": [\"The request URL or host used by the action is a non-loopback address of the service host.\", \"The observation reports a successful response from that address, establishing that external reachability holds.\"], \"exclusion_conditions\": [\"The request is sent only to the loopback address, which cannot distinguish all-interfaces binding from localhost-only binding.\", \"The attempt over the non-loopback address fails or returns no response.\"]}, {\"name\": \"ALLOCATES_EXTENDED_EXECUTION_TIMEOUT\", \"definition\": \"The action assigns a deliberately enlarged execution time budget to an invocation that is anticipated to run for a long time, such as a remote artifact download, a first-time model load, or service warm-up.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The invocation carrying the extended time budget.\"}], \"assertion_conditions\": [\"The invocation explicitly sets a time limit larger than the environment default.\", \"The step's expected duration justifies the larger budget, as indicated by its content (bulk download, model loading, warm-up sleep).\"], \"exclusion_conditions\": [\"The invocation runs at the default time budget for a step expected to complete instantly.\", \"The budget is enlarged without any long-running work in the invoked command.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "INDICATES_TOOL_FAILURE",
+        "definition": "The observation records that the associated tool invocation did not complete as intended, surfacing an error condition such as a nonzero exit status, an uncaught exception, or a rejected call.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting the unsuccessful invocation."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation is marked as an error, or its payload contains an explicit error message, traceback, or nonzero exit code attributable to the invocation.",
+          "The failure is reported by the tool or interpreter executing the step, not merely discussed in agent text."
+        ],
+        "exclusion_conditions": [
+          "The observation reports a successful execution whose output happens to contain warning or diagnostic text.",
+          "The observation reports a status code that is a deliberate, designed response of the artifact under test rather than a failure of the step."
+        ]
+      },
+      {
+        "name": "REPORTS_UNAVAILABLE_ENVIRONMENT_TOOL",
+        "definition": "The observation states that an assumed command-line utility or executable is absent from the environment, revealing a missing dependency rather than a defect in the artifact being built.",
+        "parameters": [
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result announcing the unavailability of the utility."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains an unavailability message for a named executable (for example a 'command not found' style result).",
+          "The missing entity is an external tool or binary invoked by the agent, not the agent's own source file."
+        ],
+        "exclusion_conditions": [
+          "The error arises from incorrect arguments passed to a utility that is in fact installed.",
+          "The error arises from a defect in the agent-authored script executed by an available interpreter."
+        ]
+      },
+      {
+        "name": "SUMMARIZES_OBSERVATION_OUTCOME",
+        "definition": "The reasoning restates and condenses the concrete outcome reported by a specific preceding observation, characterizing it as success, as an environment state, or as a partially successful result.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text carrying the restatement of the result."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The prior tool result whose outcome is being restated."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning content corresponds traceably to the specific prior observation, repeating its result (for example downloaded state, returned status codes, pass/fail verdicts).",
+          "The restatement may classify a mixed result, distinguishing which checks passed from those that failed."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only proposes future steps without characterizing a prior result.",
+          "The reasoning is merely topically related to the observation without restating its outcome."
+        ]
+      },
+      {
+        "name": "DERIVES_NEXT_ACTION_FROM_OBSERVATION",
+        "definition": "The reasoning adopts a concrete next action because of a finding in a prior observation, using that finding as the stated basis for the choice.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that selects an approach in light of the observation."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The prior tool result supplying the deciding information."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly links a specific finding of the observation (available packages, missing utility, error cause, test result) to the concrete step it decides to take.",
+          "The decided step would plausibly differ had the observation reported a different finding."
+        ],
+        "exclusion_conditions": [
+          "The reasoning restates the result without using it to select a step.",
+          "The chosen step was already fixed before the observation and is not justified by it."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_FAILURE_CAUSE",
+        "definition": "The reasoning attributes an observed failure to a specific cause and locates that cause either in the agent's own probing or tooling or in the artifact under development.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text offering the causal explanation."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The failure result being explained."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a cause for the reported failure rather than only repeating the error text.",
+          "The reasoning states the locus of the cause, distinguishing a mistake in the agent's own test or invocation from a defect in the delivered artifact."
+        ],
+        "exclusion_conditions": [
+          "The agent retries or alters the step without any attribution of cause.",
+          "The reasoning discusses errors in the abstract without referring to the specific observed failure."
+        ]
+      },
+      {
+        "name": "DELIBERATES_ON_AMBIGUOUS_REQUIREMENT",
+        "definition": "The reasoning identifies a requirement detail that admits multiple readings and weighs competing interpretations before committing to one behavior.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text containing the interpretative deliberation."
+          }
+        ],
+        "assertion_conditions": [
+          "At least one under-specified requirement detail is explicitly called out as ambiguous.",
+          "At least two candidate behaviors are considered, with a rationale for the one finally adopted."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely lists implementation steps for an unambiguous requirement.",
+          "The reasoning states an assumption without weighing alternatives."
+        ]
+      },
+      {
+        "name": "ATTEMPTS_REPAIR",
+        "definition": "The action is a corrective response to a previously observed failure, changing the tool, arguments, or approach so that the failed capability can be retried.",
+        "parameters": [
+          {
+            "name": "repair_action",
+            "type": "action",
+            "description": "The action attempting to overcome the observed failure."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The earlier tool result reporting the failure being addressed."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation precedes the repair action.",
+          "The action differs from the failing invocation in a way that targets the reported failure, such as supplying a missing argument, substituting an unavailable tool, or correcting the calling convention."
+        ],
+        "exclusion_conditions": [
+          "An identical invocation is repeated unchanged.",
+          "The action pursues unrelated work after a failure that is simply noted and not addressed."
+        ]
+      },
+      {
+        "name": "CONFIRMS_REPAIR",
+        "definition": "A repair action addresses a previously observed failure, and a subsequent check demonstrates that the previously failing capability now operates.",
+        "parameters": [
+          {
+            "name": "repair_action",
+            "type": "action",
+            "description": "The action attempting to repair the failure."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The earlier tool result reporting the failure."
+          },
+          {
+            "name": "check_result",
+            "type": "observation",
+            "description": "The later tool result establishing whether the capability now works."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure precedes the repair, and the repair addresses that failure.",
+          "The check result comes from exercising the same capability after the repair and shows it succeeding (for example a success message or accepted responses), even if other unrelated assertions in the same output still fail."
+        ],
+        "exclusion_conditions": [
+          "The repair is attempted without any later result exercising the same capability.",
+          "The later result reproduces the original failure or tests a different capability."
+        ]
+      },
+      {
+        "name": "CREATES_FILE_ARTIFACT",
+        "definition": "The action persists content at a named filesystem path, producing a durable artifact such as a source file or script that later steps can execute, import, or serve.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The file-producing tool invocation."
+          }
+        ],
+        "assertion_conditions": [
+          "The invocation supplies both the content to persist and the target path where it is written.",
+          "The persisted artifact is intended for later use in the workflow rather than discarded immediately."
+        ],
+        "exclusion_conditions": [
+          "The content is passed inline to an interpreter and no durable file artifact is produced.",
+          "The invocation only reads, lists, or inspects existing paths.",
+          "The invocation is rejected before any content is written."
+        ]
+      },
+      {
+        "name": "EXECUTES_PREVIOUSLY_CREATED_ARTIFACT",
+        "definition": "The action runs the filesystem artifact produced by an earlier file-creating action, so the execution depends on that earlier artifact's content.",
+        "parameters": [
+          {
+            "name": "execution_action",
+            "type": "action",
+            "description": "The action that invokes the artifact."
+          },
+          {
+            "name": "creation_action",
+            "type": "action",
+            "description": "The earlier action that wrote the artifact to its path."
+          }
+        ],
+        "assertion_conditions": [
+          "The creation action precedes the execution action and writes to a specific path.",
+          "The execution command references that same path, so the executed content is the artifact produced by the creation action."
+        ],
+        "exclusion_conditions": [
+          "The executed file was produced by some other means than the creation action.",
+          "The later action only inspects or edits the artifact without running it."
+        ]
+      },
+      {
+        "name": "LAUNCHES_DETACHED_LONG_RUNNING_SERVICE",
+        "definition": "The action starts a long-running server process detached from the invoking shell, with its output redirected, so the process keeps running after the call returns.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The invocation that starts the service in the background."
+          }
+        ],
+        "assertion_conditions": [
+          "The command detaches the process from the calling shell and redirects its output to a log or equivalent sink.",
+          "The invocation reports a process identifier or otherwise acknowledges the detached start."
+        ],
+        "exclusion_conditions": [
+          "The server is started in the foreground and blocks the invocation.",
+          "The command runs a short-lived operation expected to finish within the call."
+        ]
+      },
+      {
+        "name": "PROBES_DEPLOYED_SERVICE_ENDPOINT",
+        "definition": "The action sends crafted requests to the HTTP endpoint of an already running service, and the resulting observation records the returned status codes and response bodies for those requests.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action issuing the requests to the live endpoint."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result recording the returned statuses and payloads."
+          }
+        ],
+        "assertion_conditions": [
+          "The requests target the deployed service over the network rather than importing its code in-process.",
+          "The payloads are constructed to represent scenarios of interest, including valid inputs and invalid-input cases intended to produce error statuses.",
+          "The observation reports the returned status code and body for the issued requests."
+        ],
+        "exclusion_conditions": [
+          "The action only starts or inspects the process without sending requests.",
+          "The invocation fails before any request reaches the service, so no response is recorded."
+        ]
+      },
+      {
+        "name": "VERIFIES_REACHABILITY_VIA_EXTERNAL_INTERFACE",
+        "definition": "The action addresses the deployed service through a non-loopback network address, and the observation's successful response confirms that the service is bound to all interfaces rather than localhost only.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action contacting the service through the non-loopback address."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result reporting the response obtained over that address."
+          }
+        ],
+        "assertion_conditions": [
+          "The request URL or host used by the action is a non-loopback address of the service host.",
+          "The observation reports a successful response from that address, establishing that external reachability holds."
+        ],
+        "exclusion_conditions": [
+          "The request is sent only to the loopback address, which cannot distinguish all-interfaces binding from localhost-only binding.",
+          "The attempt over the non-loopback address fails or returns no response."
+        ]
+      },
+      {
+        "name": "ALLOCATES_EXTENDED_EXECUTION_TIMEOUT",
+        "definition": "The action assigns a deliberately enlarged execution time budget to an invocation that is anticipated to run for a long time, such as a remote artifact download, a first-time model load, or service warm-up.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The invocation carrying the extended time budget."
+          }
+        ],
+        "assertion_conditions": [
+          "The invocation explicitly sets a time limit larger than the environment default.",
+          "The step's expected duration justifies the larger budget, as indicated by its content (bulk download, model loading, warm-up sleep)."
+        ],
+        "exclusion_conditions": [
+          "The invocation runs at the default time budget for a step expected to complete instantly.",
+          "The budget is enlarged without any long-running work in the invoked command."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}
