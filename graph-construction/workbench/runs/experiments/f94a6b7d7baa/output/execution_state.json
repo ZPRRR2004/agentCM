@@ -1,0 +1,18 @@
+{
+  "predicate_schema_version": "predicate-definition/v2",
+  "node_schema_version": "trajectory-nodes/v1",
+  "next_window_index": 50,
+  "completed_windows": 50,
+  "current_batch_index": 5,
+  "completed_windows_in_batch": 10,
+  "prompt_version": "v0001",
+  "next_stage": "discovery",
+  "feedback_mode": "registry_feedback",
+  "pending_feedback_stage": null,
+  "status": "completed",
+  "config": {
+    "human_feedback_interval": 10,
+    "feedback_mode": "registry_feedback",
+    "max_llm_retries": 3
+  }
+}

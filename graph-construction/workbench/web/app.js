@@ -133,6 +133,12 @@ const actions = {
     toast('实验已恢复');
   },
   "new-split": (el) => newSplit(el.dataset.source),
+  "select-split-trajectories": (el) => {
+    $$("#split-trajectory-picker input[name=split_trajectory_ids]").forEach(
+      (input) => (input.checked = el.dataset.selected === "true"),
+    );
+    scheduleSplitPreview();
+  },
   "new-preprocess": newPreprocess,
   "clear-preprocess-selection": () => updatePreprocessSelection(false),
   "attach-input": attachInputModal,

@@ -1,0 +1,333 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__modernize-scientific-stack__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T12:02:03.117962+00:00",
+  "duration_seconds": 46.875,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T12:01:16.242077+00:00",
+      "duration_seconds": 46.875,
+      "raw_response": {
+        "id": "cb757c9c-5ad3-4a33-ab6e-2f368f45c823",
+        "object": "chat.completion",
+        "created": 1793707279,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent intends to carry out.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action, such as inspecting, creating, or verifying something.\", \"The stated action is presented as something the agent will do next rather than as something already done.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already completed without expressing any future intention.\", \"The reasoning only restates task requirements without committing to a course of action.\"]}, {\"name\": \"DELIBERATES_COMPETING_OPTIONS\", \"definition\": \"The reasoning compares two or more alternative courses of action or design choices, weighing their consequences or risks, and selects one of them.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text weighing alternatives and arriving at a chosen option.\"}], \"assertion_conditions\": [\"The reasoning presents at least two distinguishable alternatives or choices.\", \"The reasoning states a consequence, risk, or benefit associated with the alternatives.\", \"The reasoning concludes by selecting or favoring one alternative.\"], \"exclusion_conditions\": [\"The reasoning describes a single approach without considering alternatives.\", \"The reasoning lists options but does not weigh them or arrive at a selection.\"]}, {\"name\": \"ENUMERATES_DEFECTS_IN_OBSERVED_ARTIFACT\", \"definition\": \"The reasoning identifies specific defects, broken elements, or incompatible constructs contained in an artifact whose content was returned in an observation, so that the defects motivate rework of that artifact.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text naming the specific defective or incompatible elements of the observed artifact.\"}], \"assertion_conditions\": [\"The reasoning names at least one specific defective, deprecated, or incompatible element.\", \"The identified elements are traceable to content of an artifact previously returned by an observation.\", \"The identified defects are presented as something to be eliminated or replaced in the reworked version.\"], \"exclusion_conditions\": [\"The reasoning merely summarizes or quotes the artifact without identifying defects in it.\", \"The reasoning only restates general task requirements that are not tied to observed artifact content.\", \"The reasoning describes defects in something that was not observed.\"]}, {\"name\": \"ASSERTS_VERIFIED_COMPLETION\", \"definition\": \"The reasoning claims that the overall objective is complete and connects that claim to results or checks that were previously established, rather than asserting success without support.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text declaring the task complete and citing the supporting checks or results.\"}], \"assertion_conditions\": [\"The reasoning states that the task or objective is finished or complete.\", \"The reasoning references identifiable prior results, execution outcomes, or checks as the basis for the completion claim.\"], \"exclusion_conditions\": [\"The reasoning declares completion without any reference to supporting evidence or checks.\", \"The reasoning reports intermediate progress rather than overall completion.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion, assessment, or derived requirement using identifiable information from the observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the conclusion or assessment.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence used by the reasoning.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion, assessment, or derived requirement.\", \"Identifiable content of the observation supports that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the observation without drawing any conclusion.\", \"The observation content is unrelated to the stated conclusion or provides no identifiable support.\"]}, {\"name\": \"DIAGNOSES_ACTION_FAILURE\", \"definition\": \"The reasoning explains the cause of a failed action by interpreting the error content reported in the corresponding observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text attributing a cause to the observed failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that an action failed and carrying the error content.\"}], \"assertion_conditions\": [\"The observation indicates that the action did not succeed, e.g. via an error or validation message.\", \"The reasoning attributes a specific cause to the failure, such as a missing or invalid input.\"], \"exclusion_conditions\": [\"The reasoning only acknowledges that a failure occurred without identifying a cause.\", \"The observation does not report a failure.\"]}, {\"name\": \"RETRIES_ACTION_WITH_DIAGNOSED_FIX\", \"definition\": \"After a failed attempt, the agent re-executes the same intended operation, and the retried action incorporates the specific correction identified in the diagnosis of the earlier failure.\", \"parameters\": [{\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The repeated invocation of the same operation after the failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the earlier failed attempt.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying what caused the failure and what must change.\"}], \"assertion_conditions\": [\"The failure observation reports an unsuccessful earlier attempt at a goal.\", \"The diagnosis reasoning identifies a specific cause and a corrective change.\", \"The retry action pursues the same goal and its arguments reflect the identified correction.\"], \"exclusion_conditions\": [\"The retry action repeats the same arguments without applying the diagnosed correction.\", \"The retry action changes the goal rather than correcting the failed attempt.\", \"No diagnosis of the failure is stated.\"]}, {\"name\": \"REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION\", \"definition\": \"The reasoning identifies that content of an existing or planned artifact could violate an explicitly stated output or format constraint, and the action rewrites the artifact to remove or alter the flagged content.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text identifying the constraint risk and the content to be removed or changed.\"}, {\"name\": \"revision_action\", \"type\": \"action\", \"description\": \"The action that writes the revised artifact content without the flagged element.\"}], \"assertion_conditions\": [\"The reasoning refers to an explicit output, format, or interface constraint, such as a required exact output format.\", \"The reasoning identifies a specific element of the artifact that risks violating that constraint.\", \"The revision action produces or attempts to produce artifact content in which that element is removed or altered.\"], \"exclusion_conditions\": [\"The artifact is revised for a functional bug, added feature, or stylistic preference without reference to a stated constraint risk.\", \"The action does not rewrite the artifact content.\", \"The reasoning discusses a constraint but no artifact element is identified as violating it.\"]}, {\"name\": \"TESTS_PRECONDITION_WITH_PROBE\", \"definition\": \"Before committing to an implementation, the agent executes a targeted action to determine whether an uncertain precondition or capability holds, and the resulting observation supplies the needed information.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action that gathers information about the uncertain precondition.\"}, {\"name\": \"uncertainty_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the uncertainty about the precondition or capability.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the state relevant to that precondition.\"}], \"assertion_conditions\": [\"The reasoning expresses uncertainty about a state, capability, or condition needed before proceeding.\", \"The probe action is directed at obtaining that specific information.\", \"The probe result reports the actual state of the condition being checked.\"], \"exclusion_conditions\": [\"The action is unrelated to the stated uncertainty.\", \"The observation does not address the precondition that motivated the check.\", \"No identifiable uncertainty or precondition motivates the action.\"]}, {\"name\": \"VERIFIES_CONSTRAINT_COMPLIANCE\", \"definition\": \"The reasoning states a requirement, invariant, or prohibition that must hold, and the action performs a check specifically aimed at confirming whether that requirement is satisfied, with the observation reporting the compliance evidence.\", \"parameters\": [{\"name\": \"constraint_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the requirement or prohibition to be confirmed.\"}, {\"name\": \"check_action\", \"type\": \"action\", \"description\": \"The action targeted at detecting whether the requirement holds.\"}, {\"name\": \"check_result\", \"type\": \"observation\", \"description\": \"The observation reporting evidence about compliance with the requirement.\"}], \"assertion_conditions\": [\"The reasoning states a specific requirement, invariant, or prohibition that must be respected.\", \"The check action is designed to reveal whether that requirement holds, e.g. by inspecting a protected resource or exercising a restricted behavior.\", \"The check result provides interpretable evidence about compliance.\"], \"exclusion_conditions\": [\"The action serves an exploratory or functional purpose unrelated to the stated requirement.\", \"The observation does not provide evidence about the requirement.\", \"No requirement or prohibition is stated.\"]}, {\"name\": \"CONFIRMS_OUTCOME_AGAINST_PREDICTION\", \"definition\": \"An independently computed expectation is formulated in advance, the actual outcome of an execution is observed, and the reasoning confirms whether the observed outcome matches the expected one.\", \"parameters\": [{\"name\": \"prediction_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the expected result before the outcome is observed.\"}, {\"name\": \"outcome_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the actual execution outcome.\"}, {\"name\": \"confirmation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning comparing the actual outcome with the expectation and stating whether they match.\"}], \"assertion_conditions\": [\"The prediction reasoning states at least one expected value or result derived independently of the execution.\", \"The outcome observation reports the actual result produced by the execution.\", \"The confirmation reasoning explicitly compares the actual outcome to the expectation and states agreement or disagreement.\"], \"exclusion_conditions\": [\"The observation is reported without any previously stated expectation to compare against.\", \"The confirmation reasoning only restates the observed result without comparing it to an expectation.\", \"The predicted expectation and the observed outcome are not comparable quantities.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicate definitions from this trajectory. Let's analyze the core nodes and events.\n\nKey mechanisms observed:\n\n1. Planning intent (unary on reasoning): Event-0001 reasoning expresses intent to inspect files first; event-0003 plans design; event-0008 plans verification steps. IS_PLAN.\n\n2. Requirement extraction / spec derivation from evidence: Event-0002 reasoning extracts requirements and lists deprecated APIs from the legacy code observation. GROUNDS_CONCLUSION_IN_OBSERVATION style: reasoning derives conclusions (deprecated API list, requirement checklist) from observation content. That's evidential support.\n\n3. Environment capability check: Event-0002 action checks Python version and installed packages; observation confirms availability; reasoning (event-0003) uses this to decide what to use. This is like TESTS_ASSUMPTION_WITH_PROBE or \"checks environment capability before implementation\". Could define a ternary: precondition probe. Maybe define CHECK_AVAILABLE_CAPABILITY? Actually a good predicate: VERIFIES_PREREQUISITE_ENVIRONMENT via probe action and result reasoning. Hmm, but we should use the given examples' granularity: hypothesis testing mechanism. Here the reasoning in 0002 states \"First let me check the Python version and the installed packages\" — an uncertainty about environment; the action probes; the observation resolves. That's TESTS_ASSUMPTION_WITH_PROBE-like. But is it an assumption? It's a precondition check. Could define a distinct predicate: PROBES_ENVIRONMENT_BEFORE_IMPLEMENTATION? Better keep generic: \"CHECKS_PRECONDITION_WITH_PROBE\" maybe merge with the hypothesis testing example? Since examples are illustrative, we can define our own.\n\n4. Action failure → corrective retry: Event-0004 action write fails validation (missing path); reasoning 0005 diagnoses \"path parameter was missing. Retrying with path included\"; event-0005 action retries with path and succeeds. Mechanism: DIAGNOSES_FAILURE_AND_RETRIES. This is a ternary: failed observation, reasoning diagnosing cause, corrective action. Or binary: reasoning identifies cause of failure (reasoning + observation), plus action corrects. Let's define:\n   - DIAGNOSES_ERROR_FROM_FAILURE (binary: reasoning, observation) — reasoning identifies the cause of a failed action's error.\n   - RETRIES_WITH_CORRECTION (ternary: failed action? Actually retry_action, prior failure observation, diagnosis reasoning) — the retry action incorporates the correction identified.\n   \n5. Output format constraint honoring: Event-0004 reasoning decides to remove extra print to avoid strict output-check failure — this is a constraint-driven revision of an earlier artifact. Mechanism: reasoning identifies a risk of violating an output-format constraint and revises artifact. Could define \"REVISES_ARTIFACT_TO_SATISFY_OUTPUT_CONSTRAINT\" (binary: reasoning, action that writes revised version). Hmm, that's fairly specific. Maybe generalize: REVISES_PRIOR_OUTPUT_TO_AVOID_CONSTRAINT_VIOLATION.\n\n6. Verification of outcome by running: Event-0008 reasoning plans verification, action runs script, observation shows correct output and exit 0; event-0009 reasoning confirms success by comparing with independently computed expected values. Mechanism: CONFIRMS_OUTCOME_WITH_EXECUTION_OBSERVATION. Ternary: expected reasoning (predicted values -15.5/30.3), verification action, observation. Actually there's a nice ternary: reasoning in event-0002 predicted the expected means (-15.5, 30.3), and the observation in event-0008/0009 matches, and event-0009 reasoning confirms match. That's an outcome-verification-against-prediction mechanism: COMPARES_OBSERVED_OUTCOME_TO_PREDICTED_EXPECTATION.\n\n7. Unary: unmodified constraint preservation — event-0009 action checks legacy file untouched. That's a constraint check. Could be unary on action? Better: \"CHECKS_CONSTRAINT_COMPLIANCE\" via action + observation + reasoning.\n\n8. Unary predicates for reasoning: IS_PLAN, IS_DIAGNOSIS, IS_CONCLUSION/VERIFICATION. Maybe: ASSERTS_COMPLETION (event-0010) — reasoning concluding task complete with summary of verified requirements.\n\n9. Predicate on action: WRITES_ARTIFACT (unary: action that creates a file artifact). Hmm, that's operational though; the contract says avoid merely labeling specific commands. But \"produces artifact\" is somewhat generic. Maybe skip.\n\nLet me design a coherent set of predicates:\n\n1. IS_PLAN (unary reasoning) — explicit intended future actions.\n\n2. EXTRACTS_REQUIREMENTS_FROM_SOURCE? Hmm, event-0002 reasoning enumerates the modernization requirements and the deprecated APIs from the legacy script observation. This could be captured by a general evidential predicate: DERIVES_CONSTRAINT_FROM_OBSERVATION — reasoning identifies a requirement/constraint that is supported by identifiable content of the observation (e.g., deprecated constructs seen in the source). Distinguishable from generic evidential conclusion? The example GROUNDS_CONCLUSION_IN_OBSERVATION covers it. Maybe define more specific: IDENTIFIES_DEPRECATED_OR_INCOMPATIBLE_ELEMENTS? That's task-specific (deprecation). But it generalizes to \"identifies defects/incompatibilities in observed artifact\". Hmm, could be \"DIAGNOSES_DEFECTS_IN_OBSERVED_ARTIFACT\" — reasoning identifies problems in observed content that motivate rework. That's actually meaningful and distinct from generic conclusion grounding: the observation is a broken artifact, reasoning enumerates specific defects. Event-0002's reasoning does enumerate Python 2 constructs. Yes, I'll define that.\n\n3. PROBES_CAPABILITY_BEFORE_IMPLEMENTATION — ternary (probe action, uncertainty/need reasoning, resulting observation). Or reuse the example's TESTS_ASSUMPTION_WITH_PROBE? The contract says examples illustrate granularity; and we should define supported mechanisms. In event-0002, the probe checks environment capabilities needed for the planned implementation. I could define binary: ESTABLISHES_PREREQUISITE_STATE_WITH_PROBE. Or ternary like the example. Might be safest to define one ternary predicate covering hypothesis/probe/result including precondition checks. I'll define TESTS_PRECONDITION_WITH_PROBE with parameters (probe_action, uncertainty_reasoning, probe_result).\n\n4. DIAGNOSES_TOOL_FAILURE_CAUSE (binary: reasoning, failed observation) — reasoning identifies why an action invocation failed.\n\n5. RETRIES_WITH_DIAGNOSED_CORRECTION (ternary: corrective action, failure observation, diagnosis reasoning). Assert: retry action adjusts previously missing/invalid parameter identified in diagnosis, and it's the same intended goal.\n\n6. REVISES_OUTPUT_TO_SATISFY_STRICT_CONSTRAINT (binary: reasoning, action) — reasoning identifies risk that an extra element violates an explicit output/format constraint, and the subsequent action rewrites the artifact omitting it. Distinguishing case: revision for other reasons (bug fix, feature addition).\n\n7. VERIFIES_IMPLEMENTATION_BY_EXECUTION (ternary: verification reasoning/plan, execution action, result observation)? Or binary: action → observation. Hmm. Better: CONFIRMS_OUTCOME_AGAINST_PREDICTION (ternary: prediction reasoning, verification observation, confirmation reasoning). In event-0002 predicted values; event-0009 reasoning confirms -15.49 → -15.5 matches prediction. That's a nice joint mechanism: predicted expectation, observed outcome, confirmation. Parameters: prediction_reasoning, outcome_observation, verification_reasoning.\n\n8. IS_COMPLETION_ASSERTION / SUMMARIZES_VERIFIED_COMPLETION (unary reasoning): event-0010 reasoning asserts task completion enumerating which requirements each artifact satisfies, tied to verified checks. Might be \"ASSERTS_VERIFIED_COMPLETION\".\n\n9. CHECKS_CONSTRAINT_PRESERVATION (unary action? or binary action+observation): action inspects the protected resource to confirm an invariant (legacy file unmodified) while the observation shows marker present and mtime unchanged. Define binary: INSPECTS_FOR_CONSTRAINT_COMPLIANCE (action, observation)? Structural relations already exist; semantic predicate: the action targets verifying a preservation/invariance constraint, and the observation provides evidence of compliance. Ternary with reasoning (constraint reasoning)? Event-0009 reasoning states intent to confirm legacy file unmodified; action greps; observation shows count 1. So ternary: constraint_check_reasoning, check_action, check_result. Hmm, this is similar to TESTS_PRECONDITION_WITH_PROBE. Maybe merge? The distinction: probe tests an assumption about environment; this verifies a constraint/requirement compliance post-implementation. Could have one predicate: VERIFIES_REQUIREMENT_COMPLIANCE_WITH_CHECK (ternary). But then again event-0008 verification is also requirement compliance (output format). Maybe consolidate: POST_IMPLEMENTATION_VERIFICATION.\n\nLet me be careful not to over-produce. Target maybe 6-8 predicates.\n\nCandidate list:\n\nUnary:\n- IS_PLAN\n- ENUMERATES_DEFECTS_IN_OBSERVED_ARTIFACT (reasoning)\n- ASSERTS_VERIFIED_COMPLETION (reasoning)\n\nBinary:\n- GROUNDS_CONCLUSION_IN_OBSERVATION (generic evidential) — supported by event-0002 (requirements derived from legacy script content), event-0003 (versions available from env observation), event-0009 (means check).\n- DIAGNOSES_ACTION_FAILURE (reasoning, observation)\n- REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION (reasoning, action)\n\nTernary:\n- RETRIES_ACTION_WITH_DIAGNOSED_FIX (action retry, failure observation, diagnosis reasoning)\n- TESTS_PRECONDITION_WITH_PROBE (probe action, uncertainty reasoning, probe result)\n- CONFIRMS_OUTCOME_AGAINST_PREDICTION (prediction reasoning, observed outcome, confirmation reasoning)\n\nMaybe also a predicate about checking constraint preservation (legacy untouched) — could be covered by TESTS_PRECONDITION_WITH_PROBE? Not exactly; it's verifying an invariance requirement after changes. I could define VERIFIES_PRESERVATION_CONSTRAINT (ternary: reasoning stating the constraint, check action, observation showing preserved state). Hmm. That's distinct enough: it verifies that a prohibited modification did not occur. But is it reusable? Yes: \"verifies that a protected resource was not modified\" is a common mechanism (regression/preservation checks). I'll include it as binary: VERIFIES_RESOURCE_PRESERVED (check_action, observation) with conditions that the action targets detecting modification and the observation shows unmodified evidence. But requires the constraint reasoning to know it should be preserved. Ternary with reasoning might be better. But maybe I keep arity 2: (check_action, check_result) — the check_action content mentions checking legacy integrity (\"Final check of files and legacy integrity\"), so it's identifiable. Also event-0008 checks deprecation warnings (\"deprecation-run exit 0\") — that's verifying no deprecated API usage, a compliance check. Hmm, that could be \"verifies absence of prohibited constructs\". Both are \"compliance verification via targeted check\".\n\nMaybe define one: VERIFIES_CONSTRAINT_COMPLIANCE (ternary: constraint reasoning, check action, result observation). Assert: reasoning states a constraint/requirement to verify; action is directed at checking it; observation reports compliance status. Exclusion: action serves other purpose; observation doesn't address constraint.\n\nThat would subsume the legacy-preservation check and deprecation check and output check? Output check in event-0008 is running the script — verification of functional requirement. That's fine; multiple predicates may hold on same nodes.\n\nCareful not to duplicate TESTS_PRECONDITION_WITH_PROBE with VERIFIES_CONSTRAINT_COMPLIANCE — distinguishable: one tests an uncertain assumption about the environment before acting; the other verifies compliance with a stated requirement/constraint. Distinguishing case exists (compliance checks vs exploratory probes). OK.\n\nLet me also consider whether GROUNDS_CONCLUSION_IN_OBSERVATION plus ENUMERATES_DEFECTS is redundant. ENUMERATES_DEFECTS is a specific case of grounding a conclusion; keep it since the trajectory has strong evidence (legacy script defects listing) and it's distinguishable (identifies specific incompatible elements in an observed artifact, motivating rework vs. general conclusion).\n\nNow write definitions with parameters and conditions.\n\n1. IS_PLAN\n- params: reasoning\n- assertion: explicitly states at least one intended future action or sequence of steps (e.g., \"let's start by inspecting the files\", \"next, I'll create a dependency file\").\n- exclusion: only reports completed work or restates requirements without expressing intention.\n\n2. ENUMERATES_DEFECTS_IN_OBSERVED_ARTIFACT\n- params: reasoning\n- definition: reasoning identifies specific defects, incompatibilities, or broken elements within an observed artifact (e.g., legacy source) that motivate rework.\n- assertion: names at least one specific defective/incompatible element tied to artifact content.\n- exclusion: general description of the artifact; only restating requirements; defects not tied to observed content.\n\n3. ASSERTS_VERIFIED_COMPLETION\n- params: reasoning\n- definition: reasoning claims the overall task/objective is complete and ties the claim to previously established checks/results.\n- exclusion: claims completion without any reference to verification evidence; intermediate progress statements.\n\n4. GROUNDS_CONCLUSION_IN_OBSERVATION (binary: reasoning, observation)\n- same as example, generalized.\n\n5. DIAGNOSES_ACTION_FAILURE\n- params: reasoning, observation (failed)\n- definition: reasoning explains the cause of an action's failure based on the error content of the observation.\n- assertion: observation reports an error/failure; reasoning attributes a specific cause or missing/invalid input.\n- exclusion: reasoning only acknowledges failure without cause; observation not an error.\n\n6. RETRIES_ACTION_WITH_DIAGNOSED_FIX (ternary)\n- params: retry_action, failure_observation, diagnosis_reasoning\n- assertion: failure observation reports an error for an earlier attempt at the same goal; diagnosis reasoning identifies the corrective change; retry action performs the same goal with that change.\n- exclusion: retry without identified correction; the retry changes goal.\n\n7. REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION (binary: reasoning, action)\n- params: reasoning, revision_action\n- definition: reasoning identifies that an existing or planned artifact contains an element that could violate an explicit output/format constraint, and the action produces a revised artifact removing/altering that element.\n- assertion: reasoning states the risk with respect to a stated constraint; action rewrites the artifact accordingly.\n- exclusion: revision for functional bug, feature addition, or stylistic preference without a stated constraint risk; action does not modify the artifact.\n\nNote: in event-0004 the revision action failed and was retried in 0005. The predicate holds for reasoning 0004 + action 0005? Or action 0004 (failed)? Better to allow it to bind to the action that actually produces the revision; either is fine, but conditions must say the action produces a revised artifact. For failed attempt, the revision wasn't produced. Hmm—could say \"the action is intended to produce a revised artifact\". I'll say the action writes the revised artifact content (attempted rewrite directed at removing the flagged element). Let's phrase: \"the action rewrites the artifact without the flagged element\" — assertion condition can be about the action's content. That works for both 0004 and 0005 actions.\n\n8. TESTS_PRECONDITION_WITH_PROBE (ternary)\n- params: probe_action, uncertainty_reasoning, probe_result_observation\n- assertion: reasoning expresses uncertainty about a precondition/capability needed before proceeding; action gathers that information; observation reports the needed state.\n- exclusion: action unrelated; observation doesn't address precondition; no uncertainty.\n\n9. VERIFIES_CONSTRAINT_COMPLIANCE (ternary: constraint_reasoning, check_action, check_result)\n- assertion: reasoning states a requirement/constraint to be checked; action targets that specific check; observation reports compliance status.\n- exclusion: check unrelated; observation ambiguous; constraint not stated.\n\n10. CONFIRMS_OUTCOME_AGAINST_PREDICTION (ternary: prediction_reasoning, outcome_observation, confirmation_reasoning)\n- In event-0002 reasoning predicts means; event-0008 observation shows output; event-0009 reasoning confirms match and exit 0. Good.\n- assertion: prediction reasoning states an expected result computed independently; observation reports actual outcome; confirmation reasoning states the actual matches (or not) the expected.\n- exclusion: observation alone; confirmation without prior prediction; prediction not comparable.\n\nMaybe that's 10 predicates. Is 10 too many? The instruction says let trajectory determine. This trajectory is rich. But maybe trim to ~8. Which are weakest?\n\n- ASSERTS_VERIFIED_COMPLETION vs IS_PLAN: fine, distinct.\n- VERIFIES_CONSTRAINT_COMPLIANCE overlaps with TESTS_PRECONDITION_WITH_PROBE and CONFIRMS_OUTCOME_AGAINST_PREDICTION. Hmm, event-0009 legacy check: constraint = legacy file must not be modified. The check action greps marker. Observation shows count 1. That fits. Keep, it's distinct (compliance verification vs exploratory probe vs prediction matching).\n\n- GROUNDS_CONCLUSION_IN_OBSERVATION vs ENUMERATES_DEFECTS: keep both; defects is a specialization but with meaningful distinction (identifying broken elements motivating rework). Actually rule 4 says more specific predicate justified when it captures additional meaningful semantic distinction. Identifying defects in an observed artifact is a distinct diagnostic role. OK.\n\nAlso maybe a predicate about \"design decision with tradeoff analysis\" in event-0003 reasoning (extensive design reasoning weighing plotting vs not, output extra prints). That's \"weighs alternatives and selects approach\" — IS_DESIGN_DELIBERATION? Hmm. It could be captured by...? Event-0003 reasoning evaluates alternatives (include plotting or not) and decides. That's a meaningful mechanism: REASONING_WEIGHS_ALTERNATIVES_TO_SELECT_APPROACH. Could be unary: DELIBERATES_TRADEOFFS. Adding might be good but risks over-generation. The event-0004 reasoning also weighs risks (extra print risk vs. completion message). That's a risk-based decision. Maybe one predicate: EVALUATES_RISK_TRADEOFF_TO_DECIDE (unary reasoning) — reasoning compares competing outcomes/risks and selects one course. Supported by 0003 (plot vs no plot, scipy import) and 0004 (extra print risk). Hmm, I think it's justified: it's a decision mechanism distinguishable from a plan.\n\nI'll include it as unary: WEIGHS_ALTERNATIVES_TO_SELECT_APPROACH? Or binary with the resulting action? Unary is fine; the decision itself. Let me name DELIBERATES_COMPETING_OPTIONS.\n\nAlso the reasoning in 0003 derives specific technical substitution decisions from the observed defect list? Already covered.\n\nLet me finalize list (~10). I'll be careful with parameter descriptions.\n\nFinal predicates:\n\n1. IS_PLAN\n2. DELIBERATES_COMPETING_OPTIONS\n3. ENUMERATES_DEFECTS_IN_OBSERVED_ARTIFACT\n4. ASSERTS_VERIFIED_COMPLETION\n5. GROUNDS_CONCLUSION_IN_OBSERVATION\n6. DIAGNOSES_ACTION_FAILURE\n7. RETRIES_ACTION_WITH_DIAGNOSED_FIX\n8. REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION\n9. TESTS_PRECONDITION_WITH_PROBE\n10. VERIFIES_CONSTRAINT_COMPLIANCE\n11. CONFIRMS_OUTCOME_AGAINST_PREDICTION\n\n11 might be a lot but each is grounded. Maybe trim DELIBERATES_COMPETING_OPTIONS? It is grounded (event-0003: \"Should I include optional plotting... To be safe, I'll avoid\"; event-0004 weighing). Keep.\n\nHmm, could merge VERIFIES_CONSTRAINT_COMPLIANCE into TESTS_PRECONDITION_WITH_PROBE? Distinguishing case: a probe is exploratory before implementation; a compliance check verifies a stated requirement after implementation. They are distinguishable and both supported. Keep both.\n\nJSON output only.\n\nWrite carefully."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 17629,
+          "completion_tokens": 6816,
+          "total_tokens": 24445,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4495
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 15709
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent intends to carry out.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action, such as inspecting, creating, or verifying something.\", \"The stated action is presented as something the agent will do next rather than as something already done.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already completed without expressing any future intention.\", \"The reasoning only restates task requirements without committing to a course of action.\"]}, {\"name\": \"DELIBERATES_COMPETING_OPTIONS\", \"definition\": \"The reasoning compares two or more alternative courses of action or design choices, weighing their consequences or risks, and selects one of them.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text weighing alternatives and arriving at a chosen option.\"}], \"assertion_conditions\": [\"The reasoning presents at least two distinguishable alternatives or choices.\", \"The reasoning states a consequence, risk, or benefit associated with the alternatives.\", \"The reasoning concludes by selecting or favoring one alternative.\"], \"exclusion_conditions\": [\"The reasoning describes a single approach without considering alternatives.\", \"The reasoning lists options but does not weigh them or arrive at a selection.\"]}, {\"name\": \"ENUMERATES_DEFECTS_IN_OBSERVED_ARTIFACT\", \"definition\": \"The reasoning identifies specific defects, broken elements, or incompatible constructs contained in an artifact whose content was returned in an observation, so that the defects motivate rework of that artifact.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text naming the specific defective or incompatible elements of the observed artifact.\"}], \"assertion_conditions\": [\"The reasoning names at least one specific defective, deprecated, or incompatible element.\", \"The identified elements are traceable to content of an artifact previously returned by an observation.\", \"The identified defects are presented as something to be eliminated or replaced in the reworked version.\"], \"exclusion_conditions\": [\"The reasoning merely summarizes or quotes the artifact without identifying defects in it.\", \"The reasoning only restates general task requirements that are not tied to observed artifact content.\", \"The reasoning describes defects in something that was not observed.\"]}, {\"name\": \"ASSERTS_VERIFIED_COMPLETION\", \"definition\": \"The reasoning claims that the overall objective is complete and connects that claim to results or checks that were previously established, rather than asserting success without support.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text declaring the task complete and citing the supporting checks or results.\"}], \"assertion_conditions\": [\"The reasoning states that the task or objective is finished or complete.\", \"The reasoning references identifiable prior results, execution outcomes, or checks as the basis for the completion claim.\"], \"exclusion_conditions\": [\"The reasoning declares completion without any reference to supporting evidence or checks.\", \"The reasoning reports intermediate progress rather than overall completion.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion, assessment, or derived requirement using identifiable information from the observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the conclusion or assessment.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence used by the reasoning.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion, assessment, or derived requirement.\", \"Identifiable content of the observation supports that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the observation without drawing any conclusion.\", \"The observation content is unrelated to the stated conclusion or provides no identifiable support.\"]}, {\"name\": \"DIAGNOSES_ACTION_FAILURE\", \"definition\": \"The reasoning explains the cause of a failed action by interpreting the error content reported in the corresponding observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text attributing a cause to the observed failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that an action failed and carrying the error content.\"}], \"assertion_conditions\": [\"The observation indicates that the action did not succeed, e.g. via an error or validation message.\", \"The reasoning attributes a specific cause to the failure, such as a missing or invalid input.\"], \"exclusion_conditions\": [\"The reasoning only acknowledges that a failure occurred without identifying a cause.\", \"The observation does not report a failure.\"]}, {\"name\": \"RETRIES_ACTION_WITH_DIAGNOSED_FIX\", \"definition\": \"After a failed attempt, the agent re-executes the same intended operation, and the retried action incorporates the specific correction identified in the diagnosis of the earlier failure.\", \"parameters\": [{\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The repeated invocation of the same operation after the failure.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the earlier failed attempt.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying what caused the failure and what must change.\"}], \"assertion_conditions\": [\"The failure observation reports an unsuccessful earlier attempt at a goal.\", \"The diagnosis reasoning identifies a specific cause and a corrective change.\", \"The retry action pursues the same goal and its arguments reflect the identified correction.\"], \"exclusion_conditions\": [\"The retry action repeats the same arguments without applying the diagnosed correction.\", \"The retry action changes the goal rather than correcting the failed attempt.\", \"No diagnosis of the failure is stated.\"]}, {\"name\": \"REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION\", \"definition\": \"The reasoning identifies that content of an existing or planned artifact could violate an explicitly stated output or format constraint, and the action rewrites the artifact to remove or alter the flagged content.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text identifying the constraint risk and the content to be removed or changed.\"}, {\"name\": \"revision_action\", \"type\": \"action\", \"description\": \"The action that writes the revised artifact content without the flagged element.\"}], \"assertion_conditions\": [\"The reasoning refers to an explicit output, format, or interface constraint, such as a required exact output format.\", \"The reasoning identifies a specific element of the artifact that risks violating that constraint.\", \"The revision action produces or attempts to produce artifact content in which that element is removed or altered.\"], \"exclusion_conditions\": [\"The artifact is revised for a functional bug, added feature, or stylistic preference without reference to a stated constraint risk.\", \"The action does not rewrite the artifact content.\", \"The reasoning discusses a constraint but no artifact element is identified as violating it.\"]}, {\"name\": \"TESTS_PRECONDITION_WITH_PROBE\", \"definition\": \"Before committing to an implementation, the agent executes a targeted action to determine whether an uncertain precondition or capability holds, and the resulting observation supplies the needed information.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action that gathers information about the uncertain precondition.\"}, {\"name\": \"uncertainty_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the uncertainty about the precondition or capability.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the state relevant to that precondition.\"}], \"assertion_conditions\": [\"The reasoning expresses uncertainty about a state, capability, or condition needed before proceeding.\", \"The probe action is directed at obtaining that specific information.\", \"The probe result reports the actual state of the condition being checked.\"], \"exclusion_conditions\": [\"The action is unrelated to the stated uncertainty.\", \"The observation does not address the precondition that motivated the check.\", \"No identifiable uncertainty or precondition motivates the action.\"]}, {\"name\": \"VERIFIES_CONSTRAINT_COMPLIANCE\", \"definition\": \"The reasoning states a requirement, invariant, or prohibition that must hold, and the action performs a check specifically aimed at confirming whether that requirement is satisfied, with the observation reporting the compliance evidence.\", \"parameters\": [{\"name\": \"constraint_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the requirement or prohibition to be confirmed.\"}, {\"name\": \"check_action\", \"type\": \"action\", \"description\": \"The action targeted at detecting whether the requirement holds.\"}, {\"name\": \"check_result\", \"type\": \"observation\", \"description\": \"The observation reporting evidence about compliance with the requirement.\"}], \"assertion_conditions\": [\"The reasoning states a specific requirement, invariant, or prohibition that must be respected.\", \"The check action is designed to reveal whether that requirement holds, e.g. by inspecting a protected resource or exercising a restricted behavior.\", \"The check result provides interpretable evidence about compliance.\"], \"exclusion_conditions\": [\"The action serves an exploratory or functional purpose unrelated to the stated requirement.\", \"The observation does not provide evidence about the requirement.\", \"No requirement or prohibition is stated.\"]}, {\"name\": \"CONFIRMS_OUTCOME_AGAINST_PREDICTION\", \"definition\": \"An independently computed expectation is formulated in advance, the actual outcome of an execution is observed, and the reasoning confirms whether the observed outcome matches the expected one.\", \"parameters\": [{\"name\": \"prediction_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the expected result before the outcome is observed.\"}, {\"name\": \"outcome_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the actual execution outcome.\"}, {\"name\": \"confirmation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning comparing the actual outcome with the expectation and stating whether they match.\"}], \"assertion_conditions\": [\"The prediction reasoning states at least one expected value or result derived independently of the execution.\", \"The outcome observation reports the actual result produced by the execution.\", \"The confirmation reasoning explicitly compares the actual outcome to the expectation and states agreement or disagreement.\"], \"exclusion_conditions\": [\"The observation is reported without any previously stated expectation to compare against.\", \"The confirmation reasoning only restates the observed result without comparing it to an expectation.\", \"The predicted expectation and the observed outcome are not comparable quantities.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent intends to carry out.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies at least one intended future action, such as inspecting, creating, or verifying something.",
+          "The stated action is presented as something the agent will do next rather than as something already done."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports actions already completed without expressing any future intention.",
+          "The reasoning only restates task requirements without committing to a course of action."
+        ]
+      },
+      {
+        "name": "DELIBERATES_COMPETING_OPTIONS",
+        "definition": "The reasoning compares two or more alternative courses of action or design choices, weighing their consequences or risks, and selects one of them.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text weighing alternatives and arriving at a chosen option."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning presents at least two distinguishable alternatives or choices.",
+          "The reasoning states a consequence, risk, or benefit associated with the alternatives.",
+          "The reasoning concludes by selecting or favoring one alternative."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes a single approach without considering alternatives.",
+          "The reasoning lists options but does not weigh them or arrive at a selection."
+        ]
+      },
+      {
+        "name": "ENUMERATES_DEFECTS_IN_OBSERVED_ARTIFACT",
+        "definition": "The reasoning identifies specific defects, broken elements, or incompatible constructs contained in an artifact whose content was returned in an observation, so that the defects motivate rework of that artifact.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text naming the specific defective or incompatible elements of the observed artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names at least one specific defective, deprecated, or incompatible element.",
+          "The identified elements are traceable to content of an artifact previously returned by an observation.",
+          "The identified defects are presented as something to be eliminated or replaced in the reworked version."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely summarizes or quotes the artifact without identifying defects in it.",
+          "The reasoning only restates general task requirements that are not tied to observed artifact content.",
+          "The reasoning describes defects in something that was not observed."
+        ]
+      },
+      {
+        "name": "ASSERTS_VERIFIED_COMPLETION",
+        "definition": "The reasoning claims that the overall objective is complete and connects that claim to results or checks that were previously established, rather than asserting success without support.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text declaring the task complete and citing the supporting checks or results."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states that the task or objective is finished or complete.",
+          "The reasoning references identifiable prior results, execution outcomes, or checks as the basis for the completion claim."
+        ],
+        "exclusion_conditions": [
+          "The reasoning declares completion without any reference to supporting evidence or checks.",
+          "The reasoning reports intermediate progress rather than overall completion."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion, assessment, or derived requirement using identifiable information from the observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the conclusion or assessment."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the evidence used by the reasoning."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion, assessment, or derived requirement.",
+          "Identifiable content of the observation supports that conclusion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or paraphrases the observation without drawing any conclusion.",
+          "The observation content is unrelated to the stated conclusion or provides no identifiable support."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_ACTION_FAILURE",
+        "definition": "The reasoning explains the cause of a failed action by interpreting the error content reported in the corresponding observation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text attributing a cause to the observed failure."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting that an action failed and carrying the error content."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation indicates that the action did not succeed, e.g. via an error or validation message.",
+          "The reasoning attributes a specific cause to the failure, such as a missing or invalid input."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only acknowledges that a failure occurred without identifying a cause.",
+          "The observation does not report a failure."
+        ]
+      },
+      {
+        "name": "RETRIES_ACTION_WITH_DIAGNOSED_FIX",
+        "definition": "After a failed attempt, the agent re-executes the same intended operation, and the retried action incorporates the specific correction identified in the diagnosis of the earlier failure.",
+        "parameters": [
+          {
+            "name": "retry_action",
+            "type": "action",
+            "description": "The repeated invocation of the same operation after the failure."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting the earlier failed attempt."
+          },
+          {
+            "name": "diagnosis_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying what caused the failure and what must change."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation reports an unsuccessful earlier attempt at a goal.",
+          "The diagnosis reasoning identifies a specific cause and a corrective change.",
+          "The retry action pursues the same goal and its arguments reflect the identified correction."
+        ],
+        "exclusion_conditions": [
+          "The retry action repeats the same arguments without applying the diagnosed correction.",
+          "The retry action changes the goal rather than correcting the failed attempt.",
+          "No diagnosis of the failure is stated."
+        ]
+      },
+      {
+        "name": "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION",
+        "definition": "The reasoning identifies that content of an existing or planned artifact could violate an explicitly stated output or format constraint, and the action rewrites the artifact to remove or alter the flagged content.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text identifying the constraint risk and the content to be removed or changed."
+          },
+          {
+            "name": "revision_action",
+            "type": "action",
+            "description": "The action that writes the revised artifact content without the flagged element."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to an explicit output, format, or interface constraint, such as a required exact output format.",
+          "The reasoning identifies a specific element of the artifact that risks violating that constraint.",
+          "The revision action produces or attempts to produce artifact content in which that element is removed or altered."
+        ],
+        "exclusion_conditions": [
+          "The artifact is revised for a functional bug, added feature, or stylistic preference without reference to a stated constraint risk.",
+          "The action does not rewrite the artifact content.",
+          "The reasoning discusses a constraint but no artifact element is identified as violating it."
+        ]
+      },
+      {
+        "name": "TESTS_PRECONDITION_WITH_PROBE",
+        "definition": "Before committing to an implementation, the agent executes a targeted action to determine whether an uncertain precondition or capability holds, and the resulting observation supplies the needed information.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action that gathers information about the uncertain precondition."
+          },
+          {
+            "name": "uncertainty_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the uncertainty about the precondition or capability."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the state relevant to that precondition."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning expresses uncertainty about a state, capability, or condition needed before proceeding.",
+          "The probe action is directed at obtaining that specific information.",
+          "The probe result reports the actual state of the condition being checked."
+        ],
+        "exclusion_conditions": [
+          "The action is unrelated to the stated uncertainty.",
+          "The observation does not address the precondition that motivated the check.",
+          "No identifiable uncertainty or precondition motivates the action."
+        ]
+      },
+      {
+        "name": "VERIFIES_CONSTRAINT_COMPLIANCE",
+        "definition": "The reasoning states a requirement, invariant, or prohibition that must hold, and the action performs a check specifically aimed at confirming whether that requirement is satisfied, with the observation reporting the compliance evidence.",
+        "parameters": [
+          {
+            "name": "constraint_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the requirement or prohibition to be confirmed."
+          },
+          {
+            "name": "check_action",
+            "type": "action",
+            "description": "The action targeted at detecting whether the requirement holds."
+          },
+          {
+            "name": "check_result",
+            "type": "observation",
+            "description": "The observation reporting evidence about compliance with the requirement."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a specific requirement, invariant, or prohibition that must be respected.",
+          "The check action is designed to reveal whether that requirement holds, e.g. by inspecting a protected resource or exercising a restricted behavior.",
+          "The check result provides interpretable evidence about compliance."
+        ],
+        "exclusion_conditions": [
+          "The action serves an exploratory or functional purpose unrelated to the stated requirement.",
+          "The observation does not provide evidence about the requirement.",
+          "No requirement or prohibition is stated."
+        ]
+      },
+      {
+        "name": "CONFIRMS_OUTCOME_AGAINST_PREDICTION",
+        "definition": "An independently computed expectation is formulated in advance, the actual outcome of an execution is observed, and the reasoning confirms whether the observed outcome matches the expected one.",
+        "parameters": [
+          {
+            "name": "prediction_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the expected result before the outcome is observed."
+          },
+          {
+            "name": "outcome_observation",
+            "type": "observation",
+            "description": "The observation reporting the actual execution outcome."
+          },
+          {
+            "name": "confirmation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning comparing the actual outcome with the expectation and stating whether they match."
+          }
+        ],
+        "assertion_conditions": [
+          "The prediction reasoning states at least one expected value or result derived independently of the execution.",
+          "The outcome observation reports the actual result produced by the execution.",
+          "The confirmation reasoning explicitly compares the actual outcome to the expectation and states agreement or disagreement."
+        ],
+        "exclusion_conditions": [
+          "The observation is reported without any previously stated expectation to compare against.",
+          "The confirmation reasoning only restates the observed result without comparing it to an expectation.",
+          "The predicted expectation and the observed outcome are not comparable quantities."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

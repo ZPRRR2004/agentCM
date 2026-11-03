@@ -1,0 +1,189 @@
+{
+  "stage": "review",
+  "window_file": "xhigh__configure-git-webserver__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T10:41:28.736403+00:00",
+  "duration_seconds": 22.797,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T10:41:05.947084+00:00",
+      "duration_seconds": 22.782,
+      "raw_response": {
+        "id": "855f4325-0c11-4618-8d75-9d8ea52af530",
+        "object": "chat.completion",
+        "created": 1793702469,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\": [{\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws an explicit conclusion, diagnosis, or assessment that is supported by identifiable content of the observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node expressing the conclusion, diagnosis, or assessment.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion, diagnosis, or assessment beyond merely restating the observation.\", \"The conclusion depends on specific identifiable content of the observation, such as presence or absence of items, status, version, or output.\"], \"exclusion_conditions\": [\"The reasoning repeats or describes the observation without inferring anything from it.\", \"The observation is unrelated to the conclusion or contains no information that supports it.\", \"The conclusion rests only on prior knowledge with no identifiable evidential link to the observation.\"]}, {\"name\": \"IDENTIFIES_MISSING_PREREQUISITE\", \"definition\": \"The reasoning identifies a capability, component, account, resource, or configuration that the goal requires but that is absent or insufficient, using identifiable content of the observation as evidence of the gap.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node stating that something required for the goal is missing or inadequate.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation providing evidence of the absence or insufficiency.\"}], \"assertion_conditions\": [\"The reasoning states that something needed for the task is missing, unavailable, or inadequate.\", \"The observation contains identifiable evidence of the absence or insufficiency, such as a failed lookup, empty listing, missing binary, or missing package.\"], \"exclusion_conditions\": [\"The reasoning merely notes a fact without linking it to a requirement of the goal.\", \"No requirement or gap is stated.\", \"The observation does not show absence or insufficiency of the required item.\"]}, {\"name\": \"CONFIGURES_EVENT_TRIGGERED_AUTOMATION\", \"definition\": \"The action creates or updates a configuration artifact that associates a specified event with a downstream operation, so that later occurrences of the event automatically cause that operation without further manual invocation.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action node that writes or installs the automation configuration.\"}], \"assertion_conditions\": [\"The action writes or installs a hook, trigger, listener, job, or equivalent automation configuration.\", \"The configuration content associates a specified event or condition with a downstream operation to be performed automatically.\"], \"exclusion_conditions\": [\"The action performs a one-off operation with no persistent trigger.\", \"The action only documents a procedure for later manual execution.\", \"The configured artifact does not connect an event or condition to an automatic response.\"]}, {\"name\": \"MITIGATES_ANTICIPATED_FAILURE\", \"definition\": \"Reasoning identifies a foreseeable failure mode that could prevent the goal, an action applies a preventive measure addressing that failure mode before it occurs, and an observation provides evidence that the preventive measure is in place.\", \"parameters\": [{\"name\": \"risk_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node naming the anticipated failure mode or pitfall and its relevance to the goal.\"}, {\"name\": \"mitigation_action\", \"type\": \"action\", \"description\": \"The action node applying a preventive measure against that failure mode.\"}, {\"name\": \"state_observation\", \"type\": \"observation\", \"description\": \"The observation node showing evidence consistent with the preventive measure having been applied.\"}], \"assertion_conditions\": [\"The risk_reasoning names a specific failure mode or pitfall that could prevent the goal, rather than a vague risk.\", \"The mitigation_action changes configuration, permissions, or state in a way that prevents or reduces that failure mode before it occurs.\", \"The state_observation contains evidence consistent with the mitigation being applied.\"], \"exclusion_conditions\": [\"The reasoning only mentions a general risk without a corresponding preventive action.\", \"The action does not address the identified failure mode, or addresses it only after the failure occurred.\", \"The observation does not show the mitigated state.\"]}, {\"name\": \"VALIDATES_CONFIGURATION_BEFORE_ACTIVATION\", \"definition\": \"A configuration artifact is checked for validity by a validation operation before the configured component is activated or relied upon, and the observed result confirms that the validation succeeded.\", \"parameters\": [{\"name\": \"validation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node indicating that the configuration should be validated before activation.\"}, {\"name\": \"validation_action\", \"type\": \"action\", \"description\": \"The action node performing the configuration test or syntax check; activation of the component may occur in the same action or a subsequent one.\"}, {\"name\": \"validation_observation\", \"type\": \"observation\", \"description\": \"The observation node reporting the validation result.\"}], \"assertion_conditions\": [\"The validation_reasoning or the validation_action indicates a validation step is to be performed before the component is activated.\", \"The validation_action executes a configuration test, syntax check, or equivalent validity check on the artifact.\", \"The validation_observation reports a successful validation result, and activation follows that success.\"], \"exclusion_conditions\": [\"The component is activated without any preceding validation step.\", \"The validation fails or its result is not interpretable as success.\", \"Only a post-activation inspection is performed, with no pre-activation check.\"]}], \"revised_existing_predicates\": []}",
+              "reasoning_content": "Let me review each candidate against the registry.\n\n1. IS_PLAN — matched existing PLANS_NEXT_ACTION. Existing definition is nearly identical. The candidate adds exclusion about \"lists possibilities without committing\". Existing is fine. No revision needed? Possibly minor clarification. I'd say no revision needed — existing definition covers it. Actually maybe merge nuance? Not necessary. Keep unchanged.\n\n2. GROUNDS_CONCLUSION_IN_OBSERVATION — new. Does registry already have something equivalent? Registry has CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION (reasoning interprets observation as confirming expected outcome — specific to confirmation of expectation), IDENTIFIES_DEFECT_FROM_OBSERVATION, DIAGNOSES_FAILURE_CAUSE. A general \"reasoning draws conclusion supported by observation evidence\" — is it distinct? Example 2 in the contract explicitly endorses this predicate. CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION requires an expectation. GROUNDS_CONCLUSION is broader: conclusion supported by observation. Distinguishing case: reasoning concludes \"container is minimal Ubuntu with no git\" from listing output — not a confirmation of expected outcome. So distinct. Accept.\n\nParam order: reasoning, observation. Fine.\n\n3. IDENTIFIES_MISSING_PREREQUISITE — new. Supported? Event-0002 reasoning: \"no git, sshd, nginx\" from observation of dpkg list. Observation-1 shows absence. Yes. Registry coverage: CHECKS_PREREQUISITE_AVAILABILITY is ternary about checking availability. IDENTIFIES_MISSING_PREREQUISITE is binary about reasoning identifying a required capability absent, evidenced by observation. Hmm, is this close to IDENTIFIES_DEFECT_FROM_OBSERVATION? That one is about defects in an artifact/state. Missing prerequisite is about a required capability absent. Related but distinct mechanism: gap analysis vs defect identification. Is it distinguishable enough? Example: a defect in the produced artifact (\"syntax error in config\") vs a required component absent. Hmm. This is borderline. The registry has IDENTIFIES_DEFECT_FROM_OBSERVATION defined as \"identifies a defect, error, or incompleteness in the artifact or state described by that observation\". \"Incompleteness\" could cover missing prerequisite... but assertion conditions say \"incomplete, erroneous, or otherwise defective state\" and reasoning \"characterizes that state as a problem, gap, or defect requiring attention\". Missing prerequisite is arguably a subtype of gap. Hmm.\n\nConsider: could I revise IDENTIFIES_DEFECT_FROM_OBSERVATION to cover missing prerequisites? That would broaden it into essentially \"the reasoning identifies a problem (defect or missing requirement) evidenced by the observation\". That might lose the distinction. Alternatively accept IDENTIFIES_MISSING_PREREQUISITE as a genuine distinct mechanism: it links absence to a task requirement, whereas defect identification is about a flawed artifact. A meaningful distinguishing case: environment lacks a tool but nothing is defective; nothing produced yet. I lean toward accepting... but the guidance says conservatism. Hmm.\n\nActually, missing-prerequisite identification is a very common and reusable mechanism (gap analysis: \"we need X but X is absent\"). It's distinct from \"defect in artifact\". I'll accept it. But maybe I could revise IDENTIFIES_DEFECT_FROM_OBSERVATION instead? The task says prefer revision when existing predicate represents the mechanism. Does IDENTIFIES_DEFECT_FROM_OBSERVATION represent \"missing prerequisite\"? It says \"defect, error, or incompleteness in the artifact or state\". Missing prerequisite is a gap in state/capability. Arguably yes... The one-way subsumption issue: missing prerequisite → defect identification? Missing prerequisite is a kind of incompleteness. Hmm, but the defect predicate is about the artifact/state being defective, whereas missing prerequisite is about a requirement not being met.\n\nI think it's a genuine distinction with practical value: which requirement of the goal is unmet vs what is wrong with an existing artifact. Accepting adds one predicate. Alternatively revise. I'd accept since the mechanism (requirement-gap identification) is commonly recurring and clearly separable. Hmm, but \"When novelty remains uncertain, do not accept.\" Let me weigh: the evidence for distinction is strong in this trajectory — event 2: the agent notes no git/sshd/nginx → missing prerequisites, tied to task requirements. Whereas defect identification exists in the future summary (dubious ownership error). These are different steps. I'll accept.\n\n4. IMPLEMENTS_PLANNED_STEP — matched uncertain; registry has ACTION_IMPLEMENTS_PLANNED_STEP with same mechanism, argument order action, reasoning. Suppress. Could revise ACTION_IMPLEMENTS_PLANNED_STEP? Its definition: \"action carries out a step that the reasoning explicitly specified as an intended future action or corrective step.\" That's fine, no clarification needed. Suppress candidate.\n\n5. CONFIGURES_EVENT_TRIGGERED_AUTOMATION — unary on action; writes a post-receive hook. Supported by event-0007 (writing the hook). Distinct from anything in registry. Accept.\n\nWait — does it need to be unary? The mechanism: action creates a configuration artifact binding an event to an automatic downstream operation. Unary is fine (the content is in the action). Accept.\n\n6. MITIGATES_ANTICIPATED_FAILURE — ternary: risk reasoning, mitigation action, observation. Supported? Event-0003 reasoning mentions the locked-account pitfall and usermod -p '*'; event-0005 action creates user with usermod -p '*'; event-0005 observation shows `user:*:...` in shadow — evidence of mitigation. Yes supported. Is there existing coverage? Registry has CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS (post-failure correction) — different from anticipating failure proactively. Accept. But should the third parameter be required? The observation showing the mitigated state exists in event-0005. Keep ternary.\n\nHmm, but is MITIGATES_ANTICIPATED_FAILURE possibly too broad? It's a reasonable mechanism: preventive measure against identified failure mode, verified. Accept.\n\n7. VALIDATES_CONFIGURATION_BEFORE_ACTIVATION — ternary: validation reasoning, validation action (config test then activate), validation observation. Supported: event-0010 action does `nginx -t && nginx`; observation shows \"syntax is ok / test is successful\". Reasoning event-0010 says \"Verify that the symlink... validate the config and start nginx\". Yes. Is that a validation-before-activation mechanism? Yes. Accept? It overlaps with TESTS_ASSUMPTION_WITH_PROBE (probe tests uncertainty). Distinction: validation of configuration correctness before activation with confirmed success. Meaningful case: `nginx -t` succeeded then started, vs probing an unknown. The distinguishing case holds. But is it a duplicate of TESTS_ASSUMPTION_WITH_PROBE? The probe predicate is about testing an uncertainty/hypothesis; the validation one is about pre-activation validation of configuration. Hmm, somewhat similar mechanisms. However, the specific mechanism \"validate artifact before deploying/activating it, confirmed success\" is a reusable distinct pattern. I lean to accept.\n\nBut also note the action here combines validation AND activation in one action node. That's fine, the definition reflects it.\n\n8. INVESTIGATES_UNCERTAINTY_WITH_PROBE — uncertain; registry has TESTS_ASSUMPTION_WITH_PROBE which covers \"reasoning identifies an uncertainty/hypothesis, action probes, observation gives evidence\". That's equivalent. But INVESTIGATES_UNCERTAINTY_WITH_PROBE emphasizes gathering information without primarily modifying state. Could revise TESTS_ASSUMPTION_WITH_PROBE to include the informational-gathering nuance? The existing definition excludes actions unrelated. I think it's equivalent — suppress. Could optionally revise TESTS_ASSUMPTION_WITH_PROBE to add clarification that the probe may be an information-gathering query rather than a state-modifying test. That would be a mild clarification. Is it worthwhile? Adding an assertion condition \"the probe action may gather information even without modifying state\" — the current definition doesn't restrict state modification. Hmm, existing exclusion conditions don't exclude info-gathering. I'll leave unchanged to keep registry stability. Actually, subtle: \"TESTS_ASSUMPTION_WITH_PROBE\" name suggests testing an assumption; investigations of environment are covered as uncertainty/hypothesis. Fine. Suppress.\n\nNow — should I revise PLANS_NEXT_ACTION? Not needed.\n\nFinal: accepted = GROUNDS_CONCLUSION_IN_OBSERVATION, IDENTIFIES_MISSING_PREREQUISITE, CONFIGURES_EVENT_TRIGGERED_AUTOMATION, MITIGATES_ANTICIPATED_FAILURE, VALIDATES_CONFIGURATION_BEFORE_ACTIVATION. revised = [].\n\nLet me refine definitions for mechanism-level granularity.\n\nGROUNDS_CONCLUSION_IN_OBSERVATION: keep, generalize: \"The reasoning draws a conclusion, diagnosis, or assessment supported by identifiable content of the observation.\" Param order reasoning, observation.\n\nIDENTIFIES_MISSING_PREREQUISITE: parameters reasoning, observation. Generalize: \"required capability, component, account, resource, or configuration\".\n\nCONFIGURES_EVENT_TRIGGERED_AUTOMATION: unary action.\n\nMITIGATES_ANTICIPATED_FAILURE: ternary; parameters risk_reasoning, mitigation_action, state_observation.\n\nVALIDATES_CONFIGURATION_BEFORE_ACTIVATION: ternary; parameters validation_reasoning, validation_action, validation_observation. Hmm — should the action param require validation-then-activation bundled, or allow separate actions? The parameter type is action (single node). Keep as is: \"the action node that performs the configuration check and, on success, activates the configured component (or the check action that immediately precedes activation)\". Hmm, better to state requirement that validation precedes activation; the action node performs the validation. But in this trajectory, validation and activation occur in the same bash call. To generalize, state: \"The action node performs a configuration validation operation on the artifact before the component is activated or relied upon; activation may occur in the same action or a subsequent one.\" Assertion conditions: validation precedes activation.\n\nLet me write the JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 28450,
+          "completion_tokens": 3424,
+          "total_tokens": 31874,
+          "prompt_tokens_details": {
+            "cached_tokens": 22272
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2217
+          },
+          "prompt_cache_hit_tokens": 22272,
+          "prompt_cache_miss_tokens": 6178
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\": [{\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws an explicit conclusion, diagnosis, or assessment that is supported by identifiable content of the observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node expressing the conclusion, diagnosis, or assessment.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion, diagnosis, or assessment beyond merely restating the observation.\", \"The conclusion depends on specific identifiable content of the observation, such as presence or absence of items, status, version, or output.\"], \"exclusion_conditions\": [\"The reasoning repeats or describes the observation without inferring anything from it.\", \"The observation is unrelated to the conclusion or contains no information that supports it.\", \"The conclusion rests only on prior knowledge with no identifiable evidential link to the observation.\"]}, {\"name\": \"IDENTIFIES_MISSING_PREREQUISITE\", \"definition\": \"The reasoning identifies a capability, component, account, resource, or configuration that the goal requires but that is absent or insufficient, using identifiable content of the observation as evidence of the gap.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node stating that something required for the goal is missing or inadequate.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation providing evidence of the absence or insufficiency.\"}], \"assertion_conditions\": [\"The reasoning states that something needed for the task is missing, unavailable, or inadequate.\", \"The observation contains identifiable evidence of the absence or insufficiency, such as a failed lookup, empty listing, missing binary, or missing package.\"], \"exclusion_conditions\": [\"The reasoning merely notes a fact without linking it to a requirement of the goal.\", \"No requirement or gap is stated.\", \"The observation does not show absence or insufficiency of the required item.\"]}, {\"name\": \"CONFIGURES_EVENT_TRIGGERED_AUTOMATION\", \"definition\": \"The action creates or updates a configuration artifact that associates a specified event with a downstream operation, so that later occurrences of the event automatically cause that operation without further manual invocation.\", \"parameters\": [{\"name\": \"action\", \"type\": \"action\", \"description\": \"The action node that writes or installs the automation configuration.\"}], \"assertion_conditions\": [\"The action writes or installs a hook, trigger, listener, job, or equivalent automation configuration.\", \"The configuration content associates a specified event or condition with a downstream operation to be performed automatically.\"], \"exclusion_conditions\": [\"The action performs a one-off operation with no persistent trigger.\", \"The action only documents a procedure for later manual execution.\", \"The configured artifact does not connect an event or condition to an automatic response.\"]}, {\"name\": \"MITIGATES_ANTICIPATED_FAILURE\", \"definition\": \"Reasoning identifies a foreseeable failure mode that could prevent the goal, an action applies a preventive measure addressing that failure mode before it occurs, and an observation provides evidence that the preventive measure is in place.\", \"parameters\": [{\"name\": \"risk_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node naming the anticipated failure mode or pitfall and its relevance to the goal.\"}, {\"name\": \"mitigation_action\", \"type\": \"action\", \"description\": \"The action node applying a preventive measure against that failure mode.\"}, {\"name\": \"state_observation\", \"type\": \"observation\", \"description\": \"The observation node showing evidence consistent with the preventive measure having been applied.\"}], \"assertion_conditions\": [\"The risk_reasoning names a specific failure mode or pitfall that could prevent the goal, rather than a vague risk.\", \"The mitigation_action changes configuration, permissions, or state in a way that prevents or reduces that failure mode before it occurs.\", \"The state_observation contains evidence consistent with the mitigation being applied.\"], \"exclusion_conditions\": [\"The reasoning only mentions a general risk without a corresponding preventive action.\", \"The action does not address the identified failure mode, or addresses it only after the failure occurred.\", \"The observation does not show the mitigated state.\"]}, {\"name\": \"VALIDATES_CONFIGURATION_BEFORE_ACTIVATION\", \"definition\": \"A configuration artifact is checked for validity by a validation operation before the configured component is activated or relied upon, and the observed result confirms that the validation succeeded.\", \"parameters\": [{\"name\": \"validation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node indicating that the configuration should be validated before activation.\"}, {\"name\": \"validation_action\", \"type\": \"action\", \"description\": \"The action node performing the configuration test or syntax check; activation of the component may occur in the same action or a subsequent one.\"}, {\"name\": \"validation_observation\", \"type\": \"observation\", \"description\": \"The observation node reporting the validation result.\"}], \"assertion_conditions\": [\"The validation_reasoning or the validation_action indicates a validation step is to be performed before the component is activated.\", \"The validation_action executes a configuration test, syntax check, or equivalent validity check on the artifact.\", \"The validation_observation reports a successful validation result, and activation follows that success.\"], \"exclusion_conditions\": [\"The component is activated without any preceding validation step.\", \"The validation fails or its result is not interpretable as success.\", \"Only a post-activation inspection is performed, with no pre-activation check.\"]}], \"revised_existing_predicates\": []}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws an explicit conclusion, diagnosis, or assessment that is supported by identifiable content of the observation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node expressing the conclusion, diagnosis, or assessment."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying evidence for that conclusion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion, diagnosis, or assessment beyond merely restating the observation.",
+          "The conclusion depends on specific identifiable content of the observation, such as presence or absence of items, status, version, or output."
+        ],
+        "exclusion_conditions": [
+          "The reasoning repeats or describes the observation without inferring anything from it.",
+          "The observation is unrelated to the conclusion or contains no information that supports it.",
+          "The conclusion rests only on prior knowledge with no identifiable evidential link to the observation."
+        ]
+      },
+      {
+        "name": "IDENTIFIES_MISSING_PREREQUISITE",
+        "definition": "The reasoning identifies a capability, component, account, resource, or configuration that the goal requires but that is absent or insufficient, using identifiable content of the observation as evidence of the gap.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node stating that something required for the goal is missing or inadequate."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation providing evidence of the absence or insufficiency."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states that something needed for the task is missing, unavailable, or inadequate.",
+          "The observation contains identifiable evidence of the absence or insufficiency, such as a failed lookup, empty listing, missing binary, or missing package."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely notes a fact without linking it to a requirement of the goal.",
+          "No requirement or gap is stated.",
+          "The observation does not show absence or insufficiency of the required item."
+        ]
+      },
+      {
+        "name": "CONFIGURES_EVENT_TRIGGERED_AUTOMATION",
+        "definition": "The action creates or updates a configuration artifact that associates a specified event with a downstream operation, so that later occurrences of the event automatically cause that operation without further manual invocation.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action node that writes or installs the automation configuration."
+          }
+        ],
+        "assertion_conditions": [
+          "The action writes or installs a hook, trigger, listener, job, or equivalent automation configuration.",
+          "The configuration content associates a specified event or condition with a downstream operation to be performed automatically."
+        ],
+        "exclusion_conditions": [
+          "The action performs a one-off operation with no persistent trigger.",
+          "The action only documents a procedure for later manual execution.",
+          "The configured artifact does not connect an event or condition to an automatic response."
+        ]
+      },
+      {
+        "name": "MITIGATES_ANTICIPATED_FAILURE",
+        "definition": "Reasoning identifies a foreseeable failure mode that could prevent the goal, an action applies a preventive measure addressing that failure mode before it occurs, and an observation provides evidence that the preventive measure is in place.",
+        "parameters": [
+          {
+            "name": "risk_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node naming the anticipated failure mode or pitfall and its relevance to the goal."
+          },
+          {
+            "name": "mitigation_action",
+            "type": "action",
+            "description": "The action node applying a preventive measure against that failure mode."
+          },
+          {
+            "name": "state_observation",
+            "type": "observation",
+            "description": "The observation node showing evidence consistent with the preventive measure having been applied."
+          }
+        ],
+        "assertion_conditions": [
+          "The risk_reasoning names a specific failure mode or pitfall that could prevent the goal, rather than a vague risk.",
+          "The mitigation_action changes configuration, permissions, or state in a way that prevents or reduces that failure mode before it occurs.",
+          "The state_observation contains evidence consistent with the mitigation being applied."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only mentions a general risk without a corresponding preventive action.",
+          "The action does not address the identified failure mode, or addresses it only after the failure occurred.",
+          "The observation does not show the mitigated state."
+        ]
+      },
+      {
+        "name": "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION",
+        "definition": "A configuration artifact is checked for validity by a validation operation before the configured component is activated or relied upon, and the observed result confirms that the validation succeeded.",
+        "parameters": [
+          {
+            "name": "validation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node indicating that the configuration should be validated before activation."
+          },
+          {
+            "name": "validation_action",
+            "type": "action",
+            "description": "The action node performing the configuration test or syntax check; activation of the component may occur in the same action or a subsequent one."
+          },
+          {
+            "name": "validation_observation",
+            "type": "observation",
+            "description": "The observation node reporting the validation result."
+          }
+        ],
+        "assertion_conditions": [
+          "The validation_reasoning or the validation_action indicates a validation step is to be performed before the component is activated.",
+          "The validation_action executes a configuration test, syntax check, or equivalent validity check on the artifact.",
+          "The validation_observation reports a successful validation result, and activation follows that success."
+        ],
+        "exclusion_conditions": [
+          "The component is activated without any preceding validation step.",
+          "The validation fails or its result is not interpretable as success.",
+          "Only a post-activation inspection is performed, with no pre-activation check."
+        ]
+      }
+    ],
+    "revised_existing_predicates": []
+  },
+  "previous_calls": []
+}

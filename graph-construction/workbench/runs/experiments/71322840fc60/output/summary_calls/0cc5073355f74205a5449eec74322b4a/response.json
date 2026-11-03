@@ -1,0 +1,28 @@
+{
+  "id": "9330a427-40e2-434d-8716-8ed797b4df35",
+  "object": "chat.completion",
+  "created": 1793692677,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent found Nginx absent on Debian 12, installed it via apt, rewrote /etc/nginx/nginx.conf adding a benchmark log_format and limit_req_zone (10m, 10r/s), created /etc/nginx/conf.d/benchmark-site.conf (port 8080, logging, burst=10, 404 page), removed the default site, and created index.html and 404.html; config testing and server start remain pending."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 6034,
+    "completion_tokens": 97,
+    "total_tokens": 6131,
+    "prompt_tokens_details": {
+      "cached_tokens": 5888
+    },
+    "prompt_cache_hit_tokens": 5888,
+    "prompt_cache_miss_tokens": 146
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

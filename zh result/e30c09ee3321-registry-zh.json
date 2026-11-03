@@ -1,0 +1,995 @@
+[
+  {
+    "name": "IS_PLAN",
+    "definition": "推理明确表达了智能体承诺执行的至少一项未来行动，或一系列拟执行的未来行动。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "表达拟执行的未来行动或行动序列的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确指出至少一项拟执行的未来行动。",
+      "该行动被表述为智能体接下来将执行的事项，而非仅仅是一种可能性或对任务的重述。"
+    ],
+    "exclusion_conditions": [
+      "推理仅报告已经完成的行动。",
+      "推理仅重述任务要求，没有承诺采取未来行动。"
+    ]
+  },
+  {
+    "name": "SPECIFIES_CORRECTIVE_CONTENT_WITH_JUSTIFICATION",
+    "definition": "推理提供用于纠正、补全或以其他方式修改产物的具体内容，并论证这些内容为何满足目标要求；还可能通过评估并否定无法奏效的替代方案来进行论证。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "陈述具体替换或补全内容，并论证其正确性的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理提出要应用于产物的具体内容，例如明确的步骤、替换文本或证明脚本，而非仅表示修改意图。",
+      "推理结合相关领域实体的语义，解释所给内容为何能够实现目标。",
+      "若考虑了其他候选方案，至少有一个因明确的原因而被否定。"
+    ],
+    "exclusion_conditions": [
+      "推理仅描述缺陷或目标，没有提供可应用的具体内容。",
+      "推理仅列举通用策略，没有指出将采用哪一种策略及其有效原因。"
+    ]
+  },
+  {
+    "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+    "definition": "推理利用观测中可明确识别的内容作为支持证据，从而得出结论。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "表达基于证据所得结论的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "提供支持该结论的证据的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理提出超出简单重述观测内容的结论，例如对正确性、可用性或完成情况的判断。",
+      "使用观测中可明确识别的内容作为结论的依据，例如数值、列出的产物、返回文本或计算输出。"
+    ],
+    "exclusion_conditions": [
+      "推理仅重复或概述观测，没有据此得出结论。",
+      "观测与结论无关，或不包含任何能够支持结论的内容。"
+    ]
+  },
+  {
+    "name": "DIAGNOSES_FAILURE_AND_PRESCRIBES_CORRECTION",
+    "definition": "观测报告了某种尝试方案失败或产生不可用结果；推理识别该方案的具体失败原因、约束或局限，并提出在相应方面有所改变的纠正方案；纠正行动随后执行这一不同的方案。",
+    "parameters": [
+      {
+        "name": "failure_observation",
+        "type": "observation",
+        "description": "报告错误、失败或未成功、不可用结果的观测。"
+      },
+      {
+        "name": "diagnosis_reasoning",
+        "type": "reasoning",
+        "description": "解释失败方案的原因、约束或局限，并明确纠正方案的推理。"
+      },
+      {
+        "name": "corrective_action",
+        "type": "action",
+        "description": "执行诊断所提出的纠正方案的行动。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测报告错误、失败，或无法满足预期目的的结果。",
+      "推理指出尝试方案的具体原因、约束或局限，而非仅指出其失败。",
+      "推理说明应如何依据该原因、约束或局限调整方案。",
+      "纠正行动实施了与失败行动有实质区别的方法、路径或操作。"
+    ],
+    "exclusion_conditions": [
+      "没有证据表明出现失败或不可用结果。",
+      "推理未识别原因、约束或局限，也未改变方案，只是重试同一操作。",
+      "推理猜测的原因与报告的错误无关。",
+      "纠正行动未体现所述诊断，或在诊断所涉及的方面与失败方案没有区别。"
+    ]
+  },
+  {
+    "name": "TESTS_ASSUMPTION_WITH_PROBE",
+    "definition": "针对性行动通过查询环境，消除推理中识别出的某项不确定性或尚未验证的前置条件；所得到的观测在依赖该条件的工作继续之前，提供能够解决该问题或对其判断有实质帮助的证据。",
+    "parameters": [
+      {
+        "name": "assumption_reasoning",
+        "type": "reasoning",
+        "description": "识别出有待确认的不确定性或前置条件的推理。"
+      },
+      {
+        "name": "probe_action",
+        "type": "action",
+        "description": "针对该不确定性发起定向查询的行动。"
+      },
+      {
+        "name": "probe_result",
+        "type": "observation",
+        "description": "报告与该不确定性有关的查询结果的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出一个尚未明确答案的具体问题或前置条件。",
+      "探查行动以从环境中获取该问题所需的信息为目标。",
+      "观测返回的信息能够解决该问题，或为其判断提供实质性依据。"
+    ],
+    "exclusion_conditions": [
+      "没有可识别的不确定性或前置条件来解释为何执行该行动。",
+      "行动与所述问题无关，或观测没有回应该问题。",
+      "探查只是重复轨迹中先前已确定的信息。"
+    ]
+  },
+  {
+    "name": "VERIFIES_REQUIREMENT_SATISFACTION",
+    "definition": "在结果产生之后，独立的验证行动检查已生成的产物或结果；观测直接证明所要求的性质成立，而不只是未发生错误；推理据此认定要求已得到满足。",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "检查或操作已经产生的结果的行动。"
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "包含能证明所要求性质成立的内容的观测。"
+      },
+      {
+        "name": "concluding_reasoning",
+        "type": "reasoning",
+        "description": "根据该观测认定要求已经满足的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "验证行动区别于生成结果的行动，并以已生成的产物或结果为检查对象。",
+      "观测呈现的内容表明所要求的性质确实成立，例如目标对象已存在且包含预期内容。",
+      "推理明确引用该观测并得出要求已满足的结论。"
+    ],
+    "exclusion_conditions": [
+      "该行动是生成结果的行动，而非对结果的独立检查。",
+      "观测仅表明没有错误发生，没有证明所要求的性质成立。",
+      "推理没有根据观测得出结论，或结论未与观测建立联系。"
+    ]
+  },
+  {
+    "name": "ENUMERATES_REQUIRED_COMPONENTS",
+    "definition": "推理将既定目标分解为多个相互区分的必要实体、能力、权限、产物或状态条件；这些要素必须存在或成立，目标才有可能实现，从而将目标描述转化为可识别的具体要求。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "列举为满足既定目标而必须存在或成立的必要实体、能力、权限、产物或状态条件的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别出多个必须存在、完成配置或成立的不同要素，例如实体、能力、权限、产物或状态条件。",
+      "每个要素都能够由目标的预期用法或显式依赖关系加以解释，而非随意列出。",
+      "列举中除了行动顺序之外，还包括必要状态、产物或配置要求。"
+    ],
+    "exclusion_conditions": [
+      "推理仅重述目标，没有识别必要要素。",
+      "推理仅给出有序操作流程或行动计划，没有说明哪些内容必须存在或成立。",
+      "推理只提出一个必要要素或一个附带细节。"
+    ]
+  },
+  {
+    "name": "IMPLEMENTS_PLANNED_STEP",
+    "definition": "行动执行推理此前明确提出的计划步骤，完成某项具体操作或创建、配置某个产物，因此该行动构成先前意图的可观测执行。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "执行预定步骤的工具调用记录。"
+      },
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "明确陈述该行动所执行的预定步骤的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "在行动发生之前，推理已明确指出行动随后要操作的内容或产物。",
+      "行动的目的和目标与预定步骤相符，不能仅仅是主题相关。",
+      "行动实际执行该预定步骤，而非开展无关的探索。"
+    ],
+    "exclusion_conditions": [
+      "行动只是在环境中探索，没有对应的先前明确意图。",
+      "推理是在行动结果已知之后才提及相关操作或产物。",
+      "行动的目标或目的与既定意图不同。"
+    ]
+  },
+  {
+    "name": "ANTICIPATES_PROCEDURAL_PITFALL",
+    "definition": "推理预判默认或简单直接的操作流程可能导致的具体失败模式或不可用结果，并基于这一预测提出预防措施或纠正性配置调整。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "预测失败模式并提出预防或纠正措施的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理描述默认或计划采用的流程可能如何具体失败，或产生不可用结果。",
+      "推理将预测的失败与能够改变流程或配置的预防、纠正措施联系起来。",
+      "预测针对尚未发生的未来失败，而非已经观测到的错误。"
+    ],
+    "exclusion_conditions": [
+      "推理描述的是已经发生的失败，而非预判未来失败。",
+      "推理只列举通用最佳实践，未将其与具体失败模式联系起来。",
+      "推理虽然预测失败，却没有提出应对措施。"
+    ]
+  },
+  {
+    "name": "VALIDATES_BEFORE_ACTIVATION",
+    "definition": "单个行动在同一次调用中先对候选配置、输入或状态变更执行显式有效性检查，只有检查通过才应用或激活该候选项；观测同时报告验证成功及最终应用或激活后的状态。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "先执行有效性检查、再应用或激活候选配置、输入或状态变更的工具调用。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告验证结果和最终应用或激活状态的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "行动在应用或激活候选项之前包含对其进行的显式验证。",
+      "在同一次调用中，应用或激活以验证成功为条件。",
+      "观测报告验证成功，并显示候选项已应用或目标已激活。"
+    ],
+    "exclusion_conditions": [
+      "候选项未经先行验证就被应用或激活。",
+      "虽然执行了验证，但没有后续应用或激活。",
+      "观测显示验证失败，或没有证据表明候选项已应用、目标已激活。",
+      "验证与应用发生在不同调用中，或验证针对的是无关候选项。"
+    ]
+  },
+  {
+    "name": "SIMULATES_END_USER_WORKFLOW",
+    "definition": "行动使用临时或草稿产物，重现外部使用方或最终用户操作已组装系统时会执行的步骤序列，以便按照使用方的真实体验验证系统，而非产生最终交付状态。",
+    "parameters": [
+      {
+        "name": "simulating_action",
+        "type": "action",
+        "description": "执行所模拟的使用方操作序列的工具调用。"
+      },
+      {
+        "name": "consumer_perspective_reasoning",
+        "type": "reasoning",
+        "description": "将即将执行的操作定位为外部使用方或最终用户行为，并说明该序列是用于验证的模拟过程的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理将即将执行的操作描述为外部使用方或最终用户对系统所做的事情。",
+      "行动执行与使用方行为一致的多步骤序列，并与构成交付物的构建或配置步骤相区分。",
+      "行动使用临时或草稿产物，因此模拟过程本身不会成为最终交付状态的一部分。",
+      "所述目的是从使用方视角操作系统，而非构建交付物。"
+    ],
+    "exclusion_conditions": [
+      "行动属于构成交付物本身的常规构建或配置步骤。",
+      "行动只是对单一组件的孤立探查，没有重现使用方可见的操作序列。",
+      "推理没有将行动与使用方行为联系起来。",
+      "行动未使用临时或草稿产物，因此永久改变了交付状态。"
+    ]
+  },
+  {
+    "name": "OBSERVATION_CONFIRMS_EXPECTED_OUTCOME",
+    "definition": "观测报告的结果与推理在获取结果之前预测或要求的具体结果完全一致，因此可以判定先前表达的预期已经满足，而不仅仅是没有报错。",
+    "parameters": [
+      {
+        "name": "expectation_reasoning",
+        "type": "reasoning",
+        "description": "在检查结果之前陈述具体预期或要求结果的推理。"
+      },
+      {
+        "name": "confirming_observation",
+        "type": "observation",
+        "description": "内容与该预期结果相对应的工具结果观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "在相应观测可获得之前，推理已经陈述具体的预期结果，例如数值、响应或状态。",
+      "观测包含与该预期相符的内容，因此可以判断预期是否满足，而非仅判断是否报错。"
+    ],
+    "exclusion_conditions": [
+      "推理未提出预期结果，因此无法根据预期评价实际结果。",
+      "观测报告的结果与预期不同，或只部分符合预期。",
+      "观测与推理中表达的预期无关。",
+      "预期是在结果已经观测到之后才提出的。"
+    ]
+  },
+  {
+    "name": "RECOGNIZES_INCONCLUSIVE_TOOL_RESULT",
+    "definition": "推理发现某项观测虽然没有被报告为错误，却由于所用方法或工具的局限而无法回答原本要解决的问题，并提出另一种旨在获取缺失信息的方法。",
+    "parameters": [
+      {
+        "name": "reassessment_reasoning",
+        "type": "reasoning",
+        "description": "识别先前结果的不足、将不足归因于方法局限并明确替代方法的推理。"
+      },
+      {
+        "name": "uninformative_observation",
+        "type": "observation",
+        "description": "输出为空、被截断或因其他原因无法为目标问题提供有效信息，且未标记为错误的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测返回的输出无法回答目标问题，并且没有被标记为错误。",
+      "推理将信息缺失归因于所用命令、工具或方法形式的局限。",
+      "推理提出不同的命令、选项或方法，以获取缺失信息。"
+    ],
+    "exclusion_conditions": [
+      "观测已充分回答问题，无需替代方法。",
+      "观测报告的是显式失败，且该失败被诊断为缺陷原因，而非方法局限。",
+      "推理原样重试完全相同的方法，没有作出改变。",
+      "推理只指出输出为空，没有将其归因于方法局限，也没有提出替代方案。"
+    ]
+  },
+  {
+    "name": "RESTORES_PRISTINE_STATE_AFTER_TEST",
+    "definition": "在验证或测试活动结束后，智能体主动删除或重置由这些活动创建的产物，使系统恢复到后续使用方在测试发生之前预期看到的初始状态。",
+    "parameters": [
+      {
+        "name": "cleanup_reasoning",
+        "type": "reasoning",
+        "description": "列举验证期间创建的产物，并说明要恢复的目标初始状态的推理。"
+      },
+      {
+        "name": "cleanup_actions",
+        "type": "action[]",
+        "description": "删除、重置或清空上述产物的行动；这些行动共同恢复测试前状态。"
+      },
+      {
+        "name": "state_observation",
+        "type": "observation",
+        "description": "显示清理后受影响资源状态的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别智能体自身验证或测试活动创建的产物，并说明需要将其移除或重置至初始状态。",
+      "清理行动删除、重置或清空已识别的产物。",
+      "状态观测显示受影响资源已清空，或符合预期的初始配置。"
+    ],
+    "exclusion_conditions": [
+      "智能体自身的验证活动没有创建任何产物，因此无需恢复。",
+      "清理后已识别的产物依然存在，或观测显示删除失败、产物仍在。",
+      "删除属于常规构建过程，并非为了恢复后续使用方应看到的状态。"
+    ]
+  },
+  {
+    "name": "VERIFIES_RUNTIME_SERVICE_STATE",
+    "definition": "检查行动查询已部署组件或服务的实际运行状态，例如运行中的进程、监听套接字或实际调用过的端点；观测显示预期的组件或服务已在指定端点处于活动状态。",
+    "parameters": [
+      {
+        "name": "inspection_action",
+        "type": "action",
+        "description": "查询已部署组件或服务运行状态的工具调用。"
+      },
+      {
+        "name": "runtime_observation",
+        "type": "observation",
+        "description": "列出进程、监听地址或端点响应，从而反映组件或服务实际运行状态的工具结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "行动检查组件或服务的实际运行状态（进程、套接字或实际调用的端点），而非仅查看配置文件内容。",
+      "观测报告预期的组件或服务已存在且处于活动状态，并可见预期的端点或监听地址。"
+    ],
+    "exclusion_conditions": [
+      "行动修改配置或启动服务，没有检查运行状态。",
+      "观测仅显示配置语法有效，没有提供服务正在运行的证据。",
+      "观测显示组件或服务不存在，或未在预期端点监听。",
+      "观测涉及与已部署组件或服务无关的资源。"
+    ]
+  },
+  {
+    "name": "ADDS_AVAILABILITY_SAFEGUARD",
+    "definition": "智能体安装一种恢复机制，在组件未来被发现停止运行时恢复其可用性；这一机制旨在防范未来的中断或重启，而非满足当前请求的即时运行需求。",
+    "parameters": [
+      {
+        "name": "safeguard_reasoning",
+        "type": "reasoning",
+        "description": "说明额外恢复机制旨在防范未来中断或重启的推理。"
+      },
+      {
+        "name": "safeguard_action",
+        "type": "action",
+        "description": "创建或安装该恢复机制的工具调用。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理将这一额外机制定位为防范未来中断、重启或不可用的保障，而非当前请求正常运行所必需的步骤。",
+      "行动创建或安装一种机制，用于检查组件是否存在，并在缺失时重启或恢复该组件。",
+      "该机制能够被安全地重复调用，因此可作为自动保障措施。"
+    ],
+    "exclusion_conditions": [
+      "行动只是当前请求正常运行所必需的常规服务启动。",
+      "该机制无法恢复已停止的组件，或在发生错误时会导致调用它的 shell 执行失败。",
+      "没有推理将该机制与未来可用性问题联系起来。",
+      "安装的机制只报告状态，不会恢复组件。"
+    ]
+  },
+  {
+    "name": "DECLARES_TASK_COMPLETE",
+    "definition": "推理宣称任务的整体目标已经实现，并通过概述或列举已交付的组件、配置或已验证的结果来支持该说法，而非仅报告某个孤立步骤成功。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "认定整体任务已经完成，并概述或列举已交付或验证内容的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确宣称整体任务或目标已经完成。",
+      "完成声明附有已交付组件、配置状态或已验证结果的概述或列举。"
+    ],
+    "exclusion_conditions": [
+      "推理只报告某个中间步骤成功，没有声称整体任务完成。",
+      "推理表达将来完成任务的意图，没有宣称任务已经完成。"
+    ]
+  },
+  {
+    "name": "EXPLAINS_ANOMALOUS_OBSERVATION",
+    "definition": "推理将记录的观测视为异常结果（例如为空、缺失、出乎预期或与生成它的检查不一致），并将异常归因于可明确识别的具体机制，因此不会直接把异常内容当作检查所针对条件的证据。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "指出结果意外、为空或缺失，并提出具体解释的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "输出为空、缺失、异常或与生成它的行动目的不一致的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确指出观测结果为空、缺失、出乎预期，或不符合检查原本要揭示的内容。",
+      "推理将异常归因于可识别的机制，例如命令或工具形式的局限、未跟随的链接，或进程启动方式产生的副作用。",
+      "推理由此重新解释异常结果，避免自动将其视为否定待调查条件的证据。"
+    ],
+    "exclusion_conditions": [
+      "推理直接按字面理解观测，将其视为检查目标条件的证据。",
+      "推理只报告结果异常或为空，没有提供因果解释。",
+      "推理仅用笼统的失败来解释结果，没有识别具体机制。"
+    ]
+  },
+  {
+    "name": "AUDITS_STATE_AGAINST_ENUMERATED_CRITERIA",
+    "definition": "推理列举成功所需满足的多个独立条件，单个行动在一次综合检查中收集各条件的证据，观测则报告可与这些条件逐一对应的状态值。",
+    "parameters": [
+      {
+        "name": "criteria_reasoning",
+        "type": "reasoning",
+        "description": "列举多项待审查的独立条件或状态事实的推理。"
+      },
+      {
+        "name": "audit_action",
+        "type": "action",
+        "description": "在一次综合检查中收集上述条件的状态证据的行动。"
+      },
+      {
+        "name": "audit_result",
+        "type": "observation",
+        "description": "报告与所列条件对应的状态值或发现（包括未满足之处）的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确列举至少两个成功所需满足的不同条件或状态事实。",
+      "行动通过一次综合检查收集这些条件的证据，而非每个条件各执行一次检查。",
+      "观测报告能够与列出的条件一一对应的数值或发现。"
+    ],
+    "exclusion_conditions": [
+      "推理只检查单个条件。",
+      "观测未报告所列条件的情况，因此无法建立对应关系。",
+      "检查前没有明确判定标准，因此无法依据标准评价结果。"
+    ]
+  },
+  {
+    "name": "INSPECTS_STATE_WITHOUT_MODIFICATION",
+    "definition": "行动只读取或查询预先存在的系统状态，包括进程、套接字、文件、引用、权限或实际调用的端点，并且不会创建、修改或删除持久化配置、文件内容或数据。",
+    "parameters": [
+      {
+        "name": "inspection_action",
+        "type": "action",
+        "description": "为收集证据而读取或查询现有状态的行动。"
+      }
+    ],
+    "assertion_conditions": [
+      "行动的参数仅包含针对环境中已有状态的只读查询。",
+      "行动不会创建、修改或删除任何持久化配置、文件内容或数据。",
+      "行动的目的是获取环境信息，而非改变环境。"
+    ],
+    "exclusion_conditions": [
+      "行动写入、追加、删除或以其他方式改变持久化状态。",
+      "行动在同一次调用中既检查又修改状态，导致执行后的持久化状态发生变化。"
+    ]
+  },
+  {
+    "name": "SEPARATES_HARD_CONSTRAINTS_FROM_SOFT_PREFERENCES",
+    "definition": "推理将影响解决方案的要求划分为任何可接受方案都必须满足的硬性约束，以及只能在满足硬性约束的候选方案之间用于排序或打破平局的软性偏好，并明确陈述或应用这种优先顺序。",
+    "parameters": [
+      {
+        "name": "constraint_reasoning",
+        "type": "reasoning",
+        "description": "根据约束力度对要求分类，并规定如何应用硬性约束与软性偏好的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理至少将一项要求识别为硬性约束，即违反该要求会使候选方案失去资格。",
+      "推理至少将一项要求识别为可选或优先级较低的软性偏好。",
+      "推理说明或实际采用了这样的顺序：先用硬性约束筛选合格方案，再用偏好在剩余方案中作出选择。"
+    ],
+    "exclusion_conditions": [
+      "所有要求都被同等视为硬性约束，或全都被视为可选要求，因此没有区分约束力度。",
+      "推理只是列出要求，没有指出哪些必须满足、哪些仅属偏好。",
+      "偏好被用来允许违反硬性约束的方案通过，或硬性约束被当成可协商条件。"
+    ]
+  },
+  {
+    "name": "AGGREGATES_MULTIPLE_OBSERVATIONS_INTO_JOINT_CONSTRAINT",
+    "definition": "推理将多个观测的内容合并为单一的联合约束或共享模型；所有可接受的方案都必须针对所涉及的全部实体共同满足该约束，而不是将每条观测仅作为独立的局部事实处理。",
+    "parameters": [
+      {
+        "name": "synthesis_reasoning",
+        "type": "reasoning",
+        "description": "将多个观测的内容合成为一个联合约束或共享模型的推理。"
+      },
+      {
+        "name": "source_observations",
+        "type": "observation[]",
+        "description": "其内容被共同合并到共享约束或模型中的观测；要求至少有两个观测共同提供支持。"
+      }
+    ],
+    "assertion_conditions": [
+      "至少两个观测提供了相关来源内容。",
+      "推理明确将这些内容联合、合并或聚合为一个联合约束或共享模型。",
+      "联合约束被共同应用于这些观测涉及的所有实体，因此任何方案都不能在违反其中某条观测内容的同时声称满足该约束。"
+    ],
+    "exclusion_conditions": [
+      "观测内容仅被分别或局部使用，没有形成共享约束或模型。",
+      "只有一条观测贡献了相关内容。",
+      "推理只是罗列观测，没有将其合成为约束或模型。"
+    ]
+  },
+  {
+    "name": "RESOLVES_OBSERVED_INCONSISTENCY_CONSERVATIVELY",
+    "definition": "推理发现观测数据与标签、预期或假定结构之间存在差异，权衡对差异的多种合理解释，并采用在这些合理解释下都保持有效的解释或工作假设，避免武断地采用尚未验证的单一解读。",
+    "parameters": [
+      {
+        "name": "resolution_reasoning",
+        "type": "reasoning",
+        "description": "发现差异、评估多种合理解释并采用兼容这些解释的解决方案的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "内容与标签、预期或假定结构冲突的观测数据。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测内容与标签、预期结构或先前假设冲突，且推理明确注意到该冲突。",
+      "推理考虑了对差异的至少两种合理解释。",
+      "推理采用一种在这些合理解释下仍然有效的处理方式或工作假设。"
+    ],
+    "exclusion_conditions": [
+      "推理没有注意到差异，或直接按字面接受观测内容。",
+      "虽注意到差异，但该差异与最终采用的解释无关。",
+      "未考虑其他合理解释就采用某一种解释，因此处理方式不够保守。"
+    ]
+  },
+  {
+    "name": "SELECTS_OPTIMAL_CANDIDATE_BY_EXPLICIT_ORDERING",
+    "definition": "推理列举或比较多个候选解决方案，排除违反硬性约束的方案，并根据明确陈述或应用的排序规则或极值准则（例如最早、最便宜或最小），从剩余候选中选出最优方案。",
+    "parameters": [
+      {
+        "name": "selection_reasoning",
+        "type": "reasoning",
+        "description": "比较候选方案、剔除违反约束的方案，并按照明确排序标准选出最优合格方案的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "列举或比较了多个候选解决方案。",
+      "明确排除违反一项或多项硬性约束的候选方案，或依据已声明的过滤规则将其剔除。",
+      "对剩余候选方案明确说明或应用排序规则或极值准则。",
+      "最终选择的方案在该准则下是剩余候选中的最优者。"
+    ],
+    "exclusion_conditions": [
+      "只考虑一个候选方案，没有进行比较或排序。",
+      "选择具有任意性，或没有明确的排序准则。",
+      "没有因违反约束而排除任何候选方案。",
+      "最终选择并非基于所陈述的排序规则。"
+    ]
+  },
+  {
+    "name": "PREPARES_VALIDATION_PROCEDURE",
+    "definition": "推理指定验证已生成方案时应执行的检查或应满足的条件，随后行动创建包含这些检查的可复用测试或检查流程，以便日后据此评估解决方案。",
+    "parameters": [
+      {
+        "name": "validation_plan_reasoning",
+        "type": "reasoning",
+        "description": "指定验证已生成方案所需检查项或预期条件的推理。"
+      },
+      {
+        "name": "procedure_creation_action",
+        "type": "action",
+        "description": "创建体现上述验证标准的测试或检查流程的行动。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理列举验证已生成方案所需的具体检查或预期条件。",
+      "行动创建包含这些检查的流程，例如脚本、测试或检查清单。",
+      "创建该流程的目的是根据既定要求评估已生成的方案，而非使流程本身成为交付方案。"
+    ],
+    "exclusion_conditions": [
+      "行动创建或修改的是交付方案，而非用于检查它的流程。",
+      "创建流程之前没有说明具体检查或预期条件。",
+      "创建的流程未体现所述验证检查。"
+    ]
+  },
+  {
+    "name": "VERIFIES_INPUT_INTEGRITY",
+    "definition": "基于输入资源必须保持未修改的要求，行动获取输入的元数据、校验和或资源列表，观测提供有关完整性的证据，推理据此认定输入没有遭到更改。",
+    "parameters": [
+      {
+        "name": "integrity_check_action",
+        "type": "action",
+        "description": "在不修改输入资源的情况下获取其元数据、校验和或资源列表的行动。"
+      },
+      {
+        "name": "integrity_evidence_observation",
+        "type": "observation",
+        "description": "包含已获取的元数据、校验和、资源列表或其他输入完整性证据的观测。"
+      },
+      {
+        "name": "integrity_conclusion_reasoning",
+        "type": "reasoning",
+        "description": "依据证据认定输入资源没有被更改的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "存在要求或顾虑，要求输入资源保持不被修改。",
+      "行动在不修改输入的前提下获取其元数据、校验和、资源列表或类似完整性证据。",
+      "观测提供所获取的完整性证据。",
+      "推理根据这些证据得出输入未被更改的结论。"
+    ],
+    "exclusion_conditions": [
+      "没有关于输入完整性的要求或顾虑。",
+      "行动修改了输入，或检查的是输入之外的资源。",
+      "观测没有提供能够判断输入是否变化的证据。",
+      "结论未引用证据就被直接提出。"
+    ]
+  },
+  {
+    "name": "OPERATIONALIZES_AMBIGUOUS_REQUIREMENT",
+    "definition": "推理通过将含糊或定义不足的任务术语映射到可执行或可评估的具体字段、操作或测量标准，使其具有明确的操作性含义。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "识别含糊要求并明确其具体操作性解释的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别出含义不明确或存在多种解释的术语或要求。",
+      "推理为该术语提出具体的操作映射、测量规则、计数准则或执行标准。",
+      "该映射得到已有上下文（例如文档、观测到的数据结构或明确的推理）的支持，并非任意选择。"
+    ],
+    "exclusion_conditions": [
+      "推理仅重述任务或要求，没有消除歧义。",
+      "推理选择某种方法，却没有将其与含糊的术语联系起来。",
+      "没有提出具体的操作性解释、测量标准或执行规则。"
+    ]
+  },
+  {
+    "name": "REMEDIES_IDENTIFIED_CAPABILITY_GAP",
+    "definition": "观测揭示任务所需的能力、软件包、资源或配置缺失或不足；推理将这一不足识别为完成任务所需解决的前置条件；行动随后尝试获取、安装、下载或配置缺失项。",
+    "parameters": [
+      {
+        "name": "deficiency_observation",
+        "type": "observation",
+        "description": "显示能力、资源、软件包或配置缺失或不足的观测。"
+      },
+      {
+        "name": "need_reasoning",
+        "type": "reasoning",
+        "description": "将该不足识别为实现任务的前置条件的推理。"
+      },
+      {
+        "name": "remediation_action",
+        "type": "action",
+        "description": "旨在获取、安装、下载或配置缺失项的行动。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测表明某项能力、资源、软件包或配置不存在、缺失或不足。",
+      "推理明确将这一不足视为实现任务所需满足的前置条件。",
+      "补救行动以获取、安装、下载或配置缺失项为目标。"
+    ],
+    "exclusion_conditions": [
+      "观测没有提供任何不足或缺失的证据。",
+      "推理未将该不足与任务所需的能力联系起来。",
+      "行动与不足无关，或仅检查可用性而未进行资源补充或配置。",
+      "缺失项实际上已经存在且可用，因此无需补救。"
+    ]
+  },
+  {
+    "name": "MATERIALIZES_PROCEDURE_AS_EXECUTABLE_ARTIFACT",
+    "definition": "推理明确描述一个多步骤计算流程，随后行动创建可执行产物，并将这些步骤编码到产物中，以供之后执行或复用。",
+    "parameters": [
+      {
+        "name": "procedure_reasoning",
+        "type": "reasoning",
+        "description": "列举构成该流程的操作或步骤的推理。"
+      },
+      {
+        "name": "artifact_action",
+        "type": "action",
+        "description": "创建或写入用于编码该流程的可执行产物的行动。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理列举构成某个流程的至少两个操作。",
+      "行动创建或写入脚本、程序或同等的可执行产物。",
+      "产物内容包含与推理所描述流程相对应的操作。",
+      "创建产物是为了后续执行或复用，而非仅供即时查看文本。"
+    ],
+    "exclusion_conditions": [
+      "行动只是执行一个步骤或命令，没有创建产物。",
+      "所创建的产物没有编码推理中描述的流程。",
+      "推理只有高层目标，没有可执行的操作流程。",
+      "创建的产物是验证或测试流程，而非对任务流程的可执行实现。"
+    ]
+  },
+  {
+    "name": "CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION",
+    "definition": "验证行动通过在数据加载、处理或工具选择方面有实质差异的路径，重新推导此前得到的数值或结果；观测报告的新结果与原结果一致；推理将这种一致性视为对结果的独立佐证，而非简单重复计算。",
+    "parameters": [
+      {
+        "name": "recomputation_action",
+        "type": "action",
+        "description": "使用替代实现路径重新推导数值或结果的行动。"
+      },
+      {
+        "name": "agreement_observation",
+        "type": "observation",
+        "description": "报告重算结果及其与先前数值一致关系的观测。"
+      },
+      {
+        "name": "confirmation_reasoning",
+        "type": "reasoning",
+        "description": "比较两次推导并认定一致性能够佐证结果的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "行动推导与此前计算相同的数值或结果，但采用实质不同的路径，例如不同的库、加载器或处理流水线。",
+      "观测报告与此前结果一致的数值。",
+      "推理明确比较两次推导，并将一致性视为对结果的确认，而非未经检验的重复。"
+    ],
+    "exclusion_conditions": [
+      "行动完全照搬原有计算过程，没有独立的推导路径。",
+      "观测到的数值与此前结果不一致，或没有处理这种差异。",
+      "观测针对不同的数值或与先前计算不同的要求。",
+      "推理没有根据比较得出任何结论，因此未形成确认。"
+    ]
+  },
+  {
+    "name": "LOCATES_HIDDEN_ENTITY_FROM_AUDIT_TRAIL",
+    "definition": "推理解析观测中的历史记录或审计记录（例如以往操作日志、修订历史或引用日志），恢复关于当前状态中已不可见实体的信息，识别其过去的存在、发生记录或来源、位置。",
+    "parameters": [
+      {
+        "name": "locating_reasoning",
+        "type": "reasoning",
+        "description": "通过解释历史或审计记录，推断当前状态中不可见实体的存在、以往发生情况或位置的推理。"
+      },
+      {
+        "name": "audit_observation",
+        "type": "observation",
+        "description": "包含系统先前操作或较早状态的历史、审计轨迹内容的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测包含早于当前状态的操作或状态历史记录、审计记录。",
+      "推理利用这些记录识别当前状态中已不再存在或不可见的实体，确认其过去存在、曾经出现，或其来源、位置。",
+      "识别出的实体来自历史记录的推断，而非对当前状态的直接观测。"
+    ],
+    "exclusion_conditions": [
+      "观测没有包含与缺失实体有关的历史记录或审计轨迹。",
+      "推理没有根据记录识别任何已删除、被隐藏或其他形式缺失的实体。",
+      "推理仅利用记录确认当前仍可直接观测到的实体状态。"
+    ]
+  },
+  {
+    "name": "CHECKS_PRESERVATION_OF_UNRELATED_STATE",
+    "definition": "推理明确提出非干扰约束，要求主要目标之外的状态保持不变；随后一个只读检查行动检查这些无关状态，观测提供证据以判断它们是否得到保留。",
+    "parameters": [
+      {
+        "name": "preservation_reasoning",
+        "type": "reasoning",
+        "description": "说明主要目标之外的状态必须保持不变，并指出哪些状态受该约束保护的推理。"
+      },
+      {
+        "name": "preservation_check_action",
+        "type": "action",
+        "description": "针对受保护的无关状态执行的只读检查行动。"
+      },
+      {
+        "name": "preservation_check_observation",
+        "type": "observation",
+        "description": "报告所检查无关状态的观测，据此可判断状态是否得到保留或被修改。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确提出与主要目标无关的状态必须保持不变的约束，并指出该约束覆盖的具体状态。",
+      "行动在不修改这些状态的前提下检查受约束的无关状态。",
+      "观测报告这些无关状态的当前内容或状态，为判断是否得到保留提供证据。"
+    ],
+    "exclusion_conditions": [
+      "没有明确提出保留无关状态的约束。",
+      "行动只检查主要目标状态，没有检查受到保留约束的无关状态。",
+      "观测没有报告受约束的无关状态，因此无法判断其是否保留。",
+      "行动修改了无关状态，而非仅检查它。"
+    ]
+  },
+  {
+    "name": "RETRIES_WITH_CORRECTED_ACTION",
+    "definition": "在观测报告某次操作尝试失败后，推理指出该尝试中具体且可纠正的缺陷以及修正方式；后续行动在修复缺陷后重试相同的底层操作，而非放弃操作或改用实质不同的方案。",
+    "parameters": [
+      {
+        "name": "failure_observation",
+        "type": "observation",
+        "description": "报告先前尝试发生错误、被拒绝或失败的观测。"
+      },
+      {
+        "name": "corrective_reasoning",
+        "type": "reasoning",
+        "description": "指出先前尝试的具体缺陷、拟采用的修正措施及重试意图的推理。"
+      },
+      {
+        "name": "retry_action",
+        "type": "action",
+        "description": "修复已识别缺陷后重试相同底层操作的行动。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测报告紧前一次尝试发生错误、被拒绝或失败。",
+      "推理指出该尝试中具体且可修复的缺陷，而非仅指出失败，并说明将重试操作。",
+      "重试行动在修复该缺陷后重复相同的底层操作或使用相同的工具。",
+      "重试行动与失败尝试服务于相同目标。"
+    ],
+    "exclusion_conditions": [
+      "轨迹中没有证据表明先前发生失败。",
+      "推理没有指出可识别的缺陷，或没有说明修正措施就重复操作。",
+      "重试行动原样重复完全相同的调用，因此所述缺陷实际上没有被修正。",
+      "智能体放弃原操作，或以实质不同的方法取代原操作，而非修正输入后重试。"
+    ]
+  },
+  {
+    "name": "DECOMPOSES_COMPOUND_OBSERVATION",
+    "definition": "推理将报告多个不同结果的复合观测逐项拆分解释，并对每个组成部分分别得出独立结论，避免把整个结果压缩成一个不加区分的总体结果。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "逐个组成部分解释复合观测的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "包含多个不同结果或结局（例如一项成功与一项错误）的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测报告至少两个不同的结果或结局，例如一个成功结果和一个错误或失败的命令。",
+      "推理明确分别解释各个不同结果或对其得出各自结论。",
+      "推理将各部分结论保持区分，没有合并为单一总体判断。"
+    ],
+    "exclusion_conditions": [
+      "观测只有一个结果或结局。",
+      "推理忽略了观测中的一个或多个组成部分。",
+      "推理将整个观测视为单一且未经区分的结果。"
+    ]
+  },
+  {
+    "name": "RECOGNIZES_EXPECTED_ERROR_AS_VALIDATION",
+    "definition": "推理将观测中报告的错误状态或错误载荷解释为系统对无效或不受支持输入所执行的预期验证行为，而非被测系统本身的缺陷。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "将错误响应评价为预期验证行为的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告系统针对无效输入返回的错误状态或错误载荷的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "观测报告系统对无效或不受支持输入返回的错误状态或错误载荷。",
+      "推理将该错误响应描述为预期的、正确的或可接受的验证行为。",
+      "推理区分了这种错误响应与系统缺陷或非预期失败。"
+    ],
+    "exclusion_conditions": [
+      "推理将错误响应视为失败或缺陷。",
+      "观测没有包含针对无效输入的错误响应。",
+      "推理仅报告错误，没有评价它是否符合预期。"
+    ]
+  },
+  {
+    "name": "SUMMARIZES_TEST_OUTCOMES",
+    "definition": "推理聚合此前已执行的多项检查结果，形成一份整合性摘要，说明各项检查的结果或它们的总体结果。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "概述多项已经执行的检查结果的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理引用多项此前已经执行的检查或测试用例。",
+      "推理说明各项被引用检查的结果，或它们的总体结果。",
+      "摘要以先前实际执行的检查为依据，而非计划或假设中的检查。"
+    ],
+    "exclusion_conditions": [
+      "推理仅讨论一项检查。",
+      "推理仅计划未来检查，没有总结已执行检查的结果。",
+      "推理只报告原始观测，没有将其聚合为摘要。"
+    ]
+  },
+  {
+    "name": "ASSESSES_RESIDUAL_RISK_WITH_MITIGATION",
+    "definition": "推理识别可能损害已实现或预期结果的剩余风险，论证现有措施能够缓解该风险，并认定结果仍可接受。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "同时评估剩余风险及其缓解措施的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出对已实现或预期结果构成威胁的具体剩余风险。",
+      "推理指出为应对该风险而已存在的措施。",
+      "推理解释该措施为何能够缓解风险，并得出结果仍可接受的结论。"
+    ],
+    "exclusion_conditions": [
+      "推理只指出风险，没有识别任何缓解措施。",
+      "推理只描述措施，没有将其与具体风险联系起来。",
+      "推理没有就结果是否可接受得出结论。"
+    ]
+  },
+  {
+    "name": "RECONCILES_INCOMPLETE_EVIDENCE_WITH_CORROBORATION",
+    "definition": "推理承认观测中某项预期证据缺失、为空或含糊，但由于同一观测中的其他内容提供了佐证，仍然维持原有结论。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "承认证据不完整且依靠其他佐证维持结论的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "同时包含不完整证据与佐证证据的观测。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出某项预期证据缺失、为空或存在歧义。",
+      "推理引用同一观测中支持结论的其他证据。",
+      "推理认定尽管证据不完整，相关主张仍然成立。"
+    ],
+    "exclusion_conditions": [
+      "推理将缺失或含糊的证据视为尚未解决的失败。",
+      "推理忽略了证据不完整的问题。",
+      "没有识别任何佐证证据，或佐证来自无关来源。"
+    ]
+  }
+]

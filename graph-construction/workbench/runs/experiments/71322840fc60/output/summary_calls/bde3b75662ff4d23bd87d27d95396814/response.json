@@ -1,0 +1,28 @@
+{
+  "id": "c867f8b4-10a3-4846-b4aa-d98fde9c373b",
+  "object": "chat.completion",
+  "created": 1793692599,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent set up the git user with password auth, sshd on port 22, a bare repo at /git/project, a post-receive hook deploying main to /var/www/html and dev to /var/www/dev via git archive, and used the pre-seeded nginx 8443 self-signed config; end-to-end tests passed, but the repo currently contains test branches from the last run."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 23182,
+    "completion_tokens": 84,
+    "total_tokens": 23266,
+    "prompt_tokens_details": {
+      "cached_tokens": 13440
+    },
+    "prompt_cache_hit_tokens": 13440,
+    "prompt_cache_miss_tokens": 9742
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

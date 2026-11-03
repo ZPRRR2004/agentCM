@@ -1,0 +1,216 @@
+{
+  "stage": "review",
+  "window_file": "xhigh__count-dataset-tokens__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T10:53:47.800405+00:00",
+  "duration_seconds": 25.735,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T10:53:22.075720+00:00",
+      "duration_seconds": 25.719,
+      "raw_response": {
+        "id": "2c0ce5b7-87f7-4698-9998-15aeaaee6832",
+        "object": "chat.completion",
+        "created": 1793703200,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\": [{\"name\": \"DECOMPOSES_TASK_INTO_SUBGOALS\", \"definition\": \"The reasoning breaks an overall task into two or more distinct subgoals, questions, or procedural steps that stand in an ordering or dependency relationship and can guide subsequent execution.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node that decomposes the overall task into subgoals or procedural steps.\"}], \"assertion_conditions\": [\"The reasoning identifies at least two distinct subgoals, questions, or procedural steps.\", \"The subgoals or steps are presented with an ordering, dependency, or execution relationship rather than as an unrelated collection.\", \"The decomposition is derived from the stated task and is specific enough to guide execution.\"], \"exclusion_conditions\": [\"The reasoning identifies only a single intended action or subgoal.\", \"The reasoning merely restates the overall task without dividing it into executable parts.\", \"The reasoning lists unrelated facts or observations that are not presented as parts of the task.\"]}, {\"name\": \"OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT\", \"definition\": \"The reasoning recognizes an ambiguous or underspecified aspect of a requirement and commits to a concrete, executable interpretation — such as which fields to process, which filter condition to apply, which metric to compute, or which tool to use — that can guide the procedure.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node that resolves an ambiguity or underspecification into an operational interpretation.\"}], \"assertion_conditions\": [\"The reasoning identifies an ambiguity, an alternative reading, or an underspecified aspect of the requirement.\", \"The reasoning commits to a concrete operational definition or procedure rather than leaving the ambiguity open.\", \"The selected interpretation is specific enough to determine which data, condition, metric, or tool will be used.\"], \"exclusion_conditions\": [\"The requirement is already fully specified and the reasoning only restates it.\", \"The reasoning notes an ambiguity but does not resolve it into an operational definition.\", \"The reasoning supplies procedural detail that is not tied to interpreting the requirement.\"]}, {\"name\": \"REMEDIES_MISSING_CAPABILITY\", \"definition\": \"The reasoning identifies a specific dependency, tool, library, or capability that the task requires but that is absent; a provisioning action installs or otherwise supplies that identified capability; and an observation confirms that the capability has become available.\", \"parameters\": [{\"name\": \"gap_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node identifying the dependency, tool, or capability that is missing and required for the task.\"}, {\"name\": \"provisioning_action\", \"type\": \"action\", \"description\": \"The action that installs, supplies, or otherwise provisions the identified capability.\"}, {\"name\": \"confirmation_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that the capability has been installed or is now available.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific dependency, tool, or capability as missing and required for the task.\", \"The provisioning action is directed at supplying or installing that identified capability rather than at performing the task work itself.\", \"The observation reports successful installation or confirmed availability of the capability.\"], \"exclusion_conditions\": [\"No specific missing dependency, tool, or capability is identified.\", \"The action does not provision the identified capability.\", \"The observation does not confirm availability, or the provisioning outcome is left unknown.\"]}, {\"name\": \"TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE\", \"definition\": \"An observation supplies structural, schema, field-list, format, or documented layout information about a resource; the reasoning uses that structural information to determine which fields, parameters, or operations the task requires; and an action creates or executes a procedure that implements that determination.\", \"parameters\": [{\"name\": \"schema_observation\", \"type\": \"observation\", \"description\": \"The observation containing schema, field, format, or documented layout information about the resource.\"}, {\"name\": \"interpretation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that maps the task requirements onto the fields, parameters, or operations indicated by the structural evidence.\"}, {\"name\": \"implementation_action\", \"type\": \"action\", \"description\": \"The action creating or executing a procedure that implements the determined interpretation.\"}], \"assertion_conditions\": [\"The observation contains structural, schema, field-list, format, or documented layout information relevant to the resource.\", \"The reasoning explicitly uses that structural information to determine which fields, parameters, or operations the task requires.\", \"The action creates or executes a procedure that operationalizes the interpretation rather than merely retrieving or inspecting data.\"], \"exclusion_conditions\": [\"The observation contains only values or results without structural or schema information.\", \"The reasoning does not reference the structural or field information when determining the procedure.\", \"The action retrieves or inspects data but does not implement a procedure derived from the structural evidence.\"]}, {\"name\": \"SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING\", \"definition\": \"The reasoning indicates that some environment or resource state is unknown, unchecked, or relevant to planning; a reconnaissance action inspects, lists, or queries that state; and the resulting observation reports state information that can inform subsequent decisions.\", \"parameters\": [{\"name\": \"planning_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node indicating that environment or resource state is unknown, must be checked, or is relevant to planning.\"}, {\"name\": \"exploratory_action\", \"type\": \"action\", \"description\": \"The action performing an inspection, listing, or query of the environment or resource state.\"}, {\"name\": \"state_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the inspected environment or resource state.\"}], \"assertion_conditions\": [\"The reasoning indicates that some environment or resource state is unknown, must be checked, or is relevant to planning.\", \"The exploratory action inspects, lists, or queries that environment or resource state rather than performing a substantive transformation or final computation.\", \"The observation reports state information relevant to subsequent planning or decisions.\"], \"exclusion_conditions\": [\"The action performs a substantive transformation or final computation rather than an inspection of state.\", \"The reasoning already has the relevant state and expresses no reconnaissance need.\", \"The observation is unrelated to the environment or resource state being surveyed.\"]}], \"revised_existing_predicates\": [{\"original_name\": \"PLANS_NEXT_ACTION\", \"revised_predicate\": {\"name\": \"PLANS_NEXT_ACTION\", \"definition\": \"The reasoning explicitly expresses an intended future action or sequence of actions that the agent has not yet performed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node that states an intended future action or sequence.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action or step.\", \"The intended action is presented as something still to be done rather than as already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already completed.\", \"The reasoning states a conclusion, diagnosis, or observation summary without expressing future intent.\", \"The reasoning states only a general goal or desired result without identifying any intended action or step.\"]}}]}",
+              "reasoning_content": "Let me review the candidates against the registry.\n\nCandidates:\n1. IS_PLAN — matched to PLANS_NEXT_ACTION. Existing predicate covers this mechanism well. Candidate essentially identical. Could revise slightly? PLANS_NEXT_ACTION definition is fine. The candidate's exclusion adds \"The reasoning states a general goal without identifying any intended action or step.\" — a minor clarification. Consider a revision that adds that exclusion clause. Hmm, the task says prefer revision when meaningful clarification needed. The candidate matches PLANS_NEXT_ACTION; comparison says matched_existing. We should probably either revise or accept nothing. The exclusion about \"general goal without identifying intended action\" is a meaningful clarification distinguishing plan from goal statement. I'd do a small revision. But is it needed? It's a mild clarification that improves precision. I think it's reasonable — but risk of unnecessary churn. Registry stability priority. The definition \"explicitly expresses an intended future action or sequence of actions that the agent has not yet performed\" plus assertion conditions already handles it. Hmm.\n\nActually let me consider: does a revision improve? Adding \"The reasoning states only a general goal without identifying any intended action or step.\" as exclusion is a genuine clarification preserving identity. I'll include that revision — it's low-risk and aligned with \"prefer improving existing definitions\". Hmm, but guidance says \"Leave existing definitions unchanged when no meaningful clarification is needed.\" The candidate's added exclusion is a meaningful clarification. I'll do it.\n\n2. DECOMPOSES_TASK_INTO_SUBGOALS — new. Is there existing predicate? ENUMERATES_REQUIRED_END_STATE is about end-state conditions, not subgoal decomposition. AUDITS_MULTIPLE_INVARIANTS is about checks. No existing predicate covers task decomposition into ordered steps. Evidence: event-0001 reasoning lists numbered steps 1-4; event-0010 lists steps. Support: yes. Distinct mechanism from PLANS_NEXT_ACTION? A plan of actions vs decomposition into subgoals with ordering. Hmm — is DECOMPOSES_TASK_INTO_SUBGOALS just a multi-step plan? PLANS_NEXT_ACTION covers \"a sequence of actions\". That's overlapping. The distinguishing case: task decomposition where subgoals are not immediate actions (questions to answer), ordered with dependencies. This is thin distinction. Risk of semantic duplicate. Hmm.\n\nThe example in the granularity guidance: IS_PLAN captures intended action sequence. DECOMPOSES_TASK_INTO_SUBGOALS captures breaking a task into parts — a distinct cognitive mechanism (problem decomposition) vs planning a next action. There is a meaningful distinguishing case: a plan of a single next action satisfies PLANS_NEXT_ACTION but not decomposition. And decomposition of a task into subgoals with dependency ordering could hold without expressing immediate intended action? E.g., \"This task requires: (a) find X, (b) then filter Y\" — that is both. Hmm, it's arguably a narrowing of plan. But problem decomposition is a recognized distinct mechanism in agent reasoning literature. I lean toward accepting it as a new predicate since the registry lacks any decomposition predicate and it's genuinely distinct (multi-part structured breakdown vs single next action). Yes, accept.\n\n3. OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT — new unary. Evidence: event-0010 reasoning: \"'deepseek tokens' — the README lists deepseek_reasoning and deepseek_solution... I think the intended interpretation is: filter by domain == 'science' and count...\" That resolves ambiguity into an operational definition. Supported. Existing registry: FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS (converts informal requirements into checkable conditions) — related but different: that's about admissibility conditions/ranges for candidate solutions. OPERATIONALIZES is about resolving ambiguity into a concrete procedure. Distinguishable. Accept.\n\n4. GROUNDS_CONCLUSION_IN_OBSERVATION — matched existing. Existing definition is good. Candidate adds \"The relationship between the observation content and the conclusion is explicit enough to identify the evidential link.\" Minor. Probably no revision needed. Leave unchanged.\n\n5. REVISES_APPROACH_IN_RESPONSE_TO_FAILED_ATTEMPT — uncertain; compared against CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS and RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD and DIAGNOSES_FAILURE_CAUSE. The candidate ternary (failure_observation, diagnostic_reasoning, revised_action) with ordering. Existing CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS has parameters (corrected_action: action, diagnostic_reasoning, failure_observation) — same three roles, different order. Mechanism: revised action after diagnosing failure. That's essentially the same mechanism. Note the candidate allows \"acknowledges the problem and selects an alternative approach\" rather than requiring a diagnosis — slightly broader (acknowledgment without causal diagnosis). CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS requires diagnosing the cause.\n\nSo is it the same? Comparison marked uncertain. Aligned ordered roles: CORRECTS has order (corrected_action, diagnostic_reasoning, failure_observation); candidate order (failure_observation, diagnostic_reasoning, revised_action). Reordering isn't permitted? Task says preserve ordered parameter types and roles. Since existing covers the mechanism, suppress the candidate — accept nothing new. But there's evidence in the trajectory: event-0005 observation \"Invalid username or password\" then event-0006 reasoning \"Might be a proxy or authentication issue. Let me try the API endpoint instead\" then action. Does the reasoning diagnose cause? It says \"might be a proxy or authentication issue\" — a hypothesis, not a firm diagnosis. So it fits the broader candidate better than CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS. Hmm. RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD covers: empty/unusable result, reasoning attributes to concrete limitation of method/tooling, alternative action. Here the result was \"Invalid username or password\" — not empty output but an error; the reasoning attributes to a proxy/auth issue (tooling-side) and uses the API endpoint instead. Actually that's quite close to RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD.\n\nGiven registry coverage exists via CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS + RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD, suppress REVISES_APPROACH_IN_RESPONSE_TO_FAILED_ATTEMPT as new. Could I revise CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS to relax \"diagnoses the cause\" to \"acknowledges or diagnoses\"? That would broaden — the guidance says don't broaden an existing predicate to absorb a genuinely different mechanism. But if the candidate is the same mechanism with slightly broader acceptance... Hmm.\n\nI think a modest revision to CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS is reasonable: allow the reasoning to attribute the failure to a likely cause or limitation and select a materially different approach — no, that starts absorbing RECOVERS mechanism.\n\nLet me decide: the candidate's mechanism = failure → diagnostic reasoning → revised alternative action. Existing CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS expresses exactly that with a slightly stricter requirement (diagnosis vs acknowledgment). I'll revise that existing predicate minimally: allow the reasoning to identify the cause or acknowledge the failure's nature and select a materially different approach. Hmm, but that dilutes the \"DIAGNOSIS\" identity. Alternatively leave unchanged and suppress candidate. Registry stability priority → suppress.\n\nI'll go with: no new predicate for REVISES_..., no revision either. Actually, wait — is there meaningful clarification that preserves identity? The candidate adds exclusion \"The observation reports an expected successful result rather than a failure.\" Existing exclusion already: \"The observation does not report a failure or error.\" So no change needed. Suppress.\n\n6. REMEDIES_MISSING_CAPABILITY — ternary: gap_reasoning, provisioning_action, confirmation_observation. Existing: IDENTIFIES_MISSING_PREREQUISITE (reasoning + observation) plus ACTION_IMPLEMENTS_PLANNED_STEP, CHECKS_PREREQUISITE_AVAILABILITY. Is there a predicate capturing install-and-confirm? Not directly. The composite mechanism: reasoning identifies missing capability → action installs → observation confirms availability. Evidence: event-0002/0003: reasoning \"Only pip is installed. I need to install the datasets library, transformers, and tokenizers. Let me check whether there's internet access.\" Then action pip install, observation reports successful installation. Yes, supported.\n\nIs this a genuinely distinct mechanism not expressible via lower-arity existing predicates? Lower-arity: IDENTIFIES_MISSING_PREREQUISITE (reasoning, observation) requires observation showing absence. Here, the absence was observed in event-0002 observation (pip list shows only pip). Actually yes — reasoning event-0003 uses event-0002 observation (\"Almost no packages installed\") → IDENTIFIES_MISSING_PREREQUISITE could hold. Then ACTION_IMPLEMENTS_PLANNED_STEP (action, reasoning). Then CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION. So the joint mechanism is composed of existing predicates. But the ternary joint dependency (install → confirmation) is arguably captured.\n\nHmm. The guidance: \"Use separate lower-arity predicates when relationships are independently meaningful.\" But also \"Prioritize joint evidence, hypothesis testing, conflict resolution, constrained decisions, and outcome verification when supported.\"\n\nThe provisioning-and-confirmation cycle is a recognizable agent mechanism (remedying a capability gap by installation, verified). I think it's a reasonable new ternary since existing registry doesn't have a provisioning predicate. Distinguishing case: a provisioning action that installs a package when no missing-prerequisite has been identified... hmm that's an exclusion.\n\nI lean accept REMEDIES_MISSING_CAPABILITY — it captures the remedy lifecycle which no single existing predicate captures. Registry has many remediation-type predicates but none with a provisioning action + confirmation. Accept.\n\n7. TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE — ternary: schema_observation, interpretation_reasoning, implementation_action. Evidence: event-0009 observation README with metadata columns; event-0010 reasoning maps task onto deepseek_reasoning/deepseek_solution/domain; action-1 writes a script. Strong support. Existing coverage: GROUNDS_CONCLUSION_IN_OBSERVATION (reasoning+observation) and ACTION_IMPLEMENTS_PLANNED_STEP (action+reasoning). Does a ternary add joint distinction? The mechanism \"schema evidence → interpretation → implemented procedure\" is a genuine chain. Existing DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS is related (values, not schema). Hmm.\n\nIs this semantically distinct enough? The distinguishing case: reasoning uses schema info without creating an implementing artifact (GROUNDS holds, TRANSLATES not). Yes, that's a meaningful distinction — it requires a three-way linkage observation→reasoning→action. I'd accept it.\n\nBut careful about proliferation. TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE is fairly specific yet generic in domain (schema/field-layout → procedure). I think it's acceptable. Hmm. Alternatively could be composed. Let me weigh: we already have ACTION_IMPLEMENTS_PLANNED_STEP (action, reasoning) which covers action implementing planned content, and GROUNDS_CONCLUSION_IN_OBSERVATION covering observation→reasoning. So TRANSLATES = conjunction of those two plus restrictive conditions. The joint assertion adds the constraint that the same three nodes form an evidence-to-implementation chain. That is a genuine multi-argument mechanism per the granularity rule for ternary (joint dependencies not expressible by independent lower-arity predicates). I'll accept.\n\nHmm, but be conservative. Maybe accept only 2-3 new. Let me evaluate how many are strong:\n\n- DECOMPOSES_TASK_INTO_SUBGOALS: strong support (event-0001 numbered steps, event-0010 steps 1-6). Distinct from PLANS_NEXT_ACTION? A bit overlapping. But problem decomposition is a widely recognized distinct mechanism. Accept.\n- OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT: strong support, distinct. Accept.\n- REMEDIES_MISSING_CAPABILITY: strong support (pip install), ternary joint. Accept.\n- TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE: supported, ternary joint. Accept moderately.\n- SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING: ternary: planning_reasoning, exploratory_action, state_observation. Evidence: event-0001 reasoning \"I'll start by exploring the /app directory to understand what's available\" + action ls -la /app + observation listing. Strong support. Existing coverage: CHECKS_PREREQUISITE_AVAILABILITY requires a dependency on a planned action for a prerequisite; here it's general reconnaissance of unknown state. TESTS_ASSUMPTION_WITH_PROBE requires a specific hypothesis. Reconnaissance is distinct. Accept? Hmm, is this a meaningful distinction from TESTS_ASSUMPTION_WITH_PROBE? Yes — no specific hypothesis, just unknown state relevant to planning. Accept.\n\nThat's 5 new. Is that too many? Each has evidence. But we should minimize. Let me reconsider each for degree of overlap.\n\nSURVEYS_ENVIRONMENT_STATE_FOR_PLANNING vs TESTS_ASSUMPTION_WITH_PROBE: In event-0001, is there an \"uncertainty\"? The reasoning says explore environment to understand what's available. That's reconnaissance, not hypothesis testing. Distinguishable. Accept.\n\nDECOMPOSES_TASK_INTO_SUBGOALS vs PLANS_NEXT_ACTION: overlap is real. But a task decomposition enumerates multiple subproblems with dependencies; a plan expresses a single next intended action. I'll accept with clear exclusion.\n\nNow revisions: IS_PLAN → PLANS_NEXT_ACTION. Add exclusion about general goal without an action. I'll do that revision. Also GROUNDS_CONCLUSION_IN_OBSERVATION — no revision needed; the existing is fine. Actually candidate's assertion adds \"The relationship between the observation content and the conclusion is explicit enough to identify the evidential link.\" Existing already says \"The conclusion depends on specific identifiable content of the observation\". No revision.\n\nSo output: 5 accepted, 1 revised.\n\nLet me write the revised PLANS_NEXT_ACTION carefully, preserving identity and adding the general-goal exclusion.\n\nNow write full definitions for accepted ones with five fields, English.\n\nAccepted 1: DECOMPOSES_TASK_INTO_SUBGOALS.\n\nAccepted 2: OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT.\n\nAccepted 3: REMEDIES_MISSING_CAPABILITY.\n\nAccepted 4: TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE.\n\nAccepted 5: SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING.\n\nEnsure no name collisions with existing registry names. Fine.\n\nWrite JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 24667,
+          "completion_tokens": 4821,
+          "total_tokens": 29488,
+          "prompt_tokens_details": {
+            "cached_tokens": 12672
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3251
+          },
+          "prompt_cache_hit_tokens": 12672,
+          "prompt_cache_miss_tokens": 11995
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\": [{\"name\": \"DECOMPOSES_TASK_INTO_SUBGOALS\", \"definition\": \"The reasoning breaks an overall task into two or more distinct subgoals, questions, or procedural steps that stand in an ordering or dependency relationship and can guide subsequent execution.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node that decomposes the overall task into subgoals or procedural steps.\"}], \"assertion_conditions\": [\"The reasoning identifies at least two distinct subgoals, questions, or procedural steps.\", \"The subgoals or steps are presented with an ordering, dependency, or execution relationship rather than as an unrelated collection.\", \"The decomposition is derived from the stated task and is specific enough to guide execution.\"], \"exclusion_conditions\": [\"The reasoning identifies only a single intended action or subgoal.\", \"The reasoning merely restates the overall task without dividing it into executable parts.\", \"The reasoning lists unrelated facts or observations that are not presented as parts of the task.\"]}, {\"name\": \"OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT\", \"definition\": \"The reasoning recognizes an ambiguous or underspecified aspect of a requirement and commits to a concrete, executable interpretation — such as which fields to process, which filter condition to apply, which metric to compute, or which tool to use — that can guide the procedure.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node that resolves an ambiguity or underspecification into an operational interpretation.\"}], \"assertion_conditions\": [\"The reasoning identifies an ambiguity, an alternative reading, or an underspecified aspect of the requirement.\", \"The reasoning commits to a concrete operational definition or procedure rather than leaving the ambiguity open.\", \"The selected interpretation is specific enough to determine which data, condition, metric, or tool will be used.\"], \"exclusion_conditions\": [\"The requirement is already fully specified and the reasoning only restates it.\", \"The reasoning notes an ambiguity but does not resolve it into an operational definition.\", \"The reasoning supplies procedural detail that is not tied to interpreting the requirement.\"]}, {\"name\": \"REMEDIES_MISSING_CAPABILITY\", \"definition\": \"The reasoning identifies a specific dependency, tool, library, or capability that the task requires but that is absent; a provisioning action installs or otherwise supplies that identified capability; and an observation confirms that the capability has become available.\", \"parameters\": [{\"name\": \"gap_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node identifying the dependency, tool, or capability that is missing and required for the task.\"}, {\"name\": \"provisioning_action\", \"type\": \"action\", \"description\": \"The action that installs, supplies, or otherwise provisions the identified capability.\"}, {\"name\": \"confirmation_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that the capability has been installed or is now available.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific dependency, tool, or capability as missing and required for the task.\", \"The provisioning action is directed at supplying or installing that identified capability rather than at performing the task work itself.\", \"The observation reports successful installation or confirmed availability of the capability.\"], \"exclusion_conditions\": [\"No specific missing dependency, tool, or capability is identified.\", \"The action does not provision the identified capability.\", \"The observation does not confirm availability, or the provisioning outcome is left unknown.\"]}, {\"name\": \"TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE\", \"definition\": \"An observation supplies structural, schema, field-list, format, or documented layout information about a resource; the reasoning uses that structural information to determine which fields, parameters, or operations the task requires; and an action creates or executes a procedure that implements that determination.\", \"parameters\": [{\"name\": \"schema_observation\", \"type\": \"observation\", \"description\": \"The observation containing schema, field, format, or documented layout information about the resource.\"}, {\"name\": \"interpretation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that maps the task requirements onto the fields, parameters, or operations indicated by the structural evidence.\"}, {\"name\": \"implementation_action\", \"type\": \"action\", \"description\": \"The action creating or executing a procedure that implements the determined interpretation.\"}], \"assertion_conditions\": [\"The observation contains structural, schema, field-list, format, or documented layout information relevant to the resource.\", \"The reasoning explicitly uses that structural information to determine which fields, parameters, or operations the task requires.\", \"The action creates or executes a procedure that operationalizes the interpretation rather than merely retrieving or inspecting data.\"], \"exclusion_conditions\": [\"The observation contains only values or results without structural or schema information.\", \"The reasoning does not reference the structural or field information when determining the procedure.\", \"The action retrieves or inspects data but does not implement a procedure derived from the structural evidence.\"]}, {\"name\": \"SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING\", \"definition\": \"The reasoning indicates that some environment or resource state is unknown, unchecked, or relevant to planning; a reconnaissance action inspects, lists, or queries that state; and the resulting observation reports state information that can inform subsequent decisions.\", \"parameters\": [{\"name\": \"planning_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node indicating that environment or resource state is unknown, must be checked, or is relevant to planning.\"}, {\"name\": \"exploratory_action\", \"type\": \"action\", \"description\": \"The action performing an inspection, listing, or query of the environment or resource state.\"}, {\"name\": \"state_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the inspected environment or resource state.\"}], \"assertion_conditions\": [\"The reasoning indicates that some environment or resource state is unknown, must be checked, or is relevant to planning.\", \"The exploratory action inspects, lists, or queries that environment or resource state rather than performing a substantive transformation or final computation.\", \"The observation reports state information relevant to subsequent planning or decisions.\"], \"exclusion_conditions\": [\"The action performs a substantive transformation or final computation rather than an inspection of state.\", \"The reasoning already has the relevant state and expresses no reconnaissance need.\", \"The observation is unrelated to the environment or resource state being surveyed.\"]}], \"revised_existing_predicates\": [{\"original_name\": \"PLANS_NEXT_ACTION\", \"revised_predicate\": {\"name\": \"PLANS_NEXT_ACTION\", \"definition\": \"The reasoning explicitly expresses an intended future action or sequence of actions that the agent has not yet performed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node that states an intended future action or sequence.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action or step.\", \"The intended action is presented as something still to be done rather than as already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already completed.\", \"The reasoning states a conclusion, diagnosis, or observation summary without expressing future intent.\", \"The reasoning states only a general goal or desired result without identifying any intended action or step.\"]}}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "DECOMPOSES_TASK_INTO_SUBGOALS",
+        "definition": "The reasoning breaks an overall task into two or more distinct subgoals, questions, or procedural steps that stand in an ordering or dependency relationship and can guide subsequent execution.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node that decomposes the overall task into subgoals or procedural steps."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least two distinct subgoals, questions, or procedural steps.",
+          "The subgoals or steps are presented with an ordering, dependency, or execution relationship rather than as an unrelated collection.",
+          "The decomposition is derived from the stated task and is specific enough to guide execution."
+        ],
+        "exclusion_conditions": [
+          "The reasoning identifies only a single intended action or subgoal.",
+          "The reasoning merely restates the overall task without dividing it into executable parts.",
+          "The reasoning lists unrelated facts or observations that are not presented as parts of the task."
+        ]
+      },
+      {
+        "name": "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT",
+        "definition": "The reasoning recognizes an ambiguous or underspecified aspect of a requirement and commits to a concrete, executable interpretation — such as which fields to process, which filter condition to apply, which metric to compute, or which tool to use — that can guide the procedure.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node that resolves an ambiguity or underspecification into an operational interpretation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies an ambiguity, an alternative reading, or an underspecified aspect of the requirement.",
+          "The reasoning commits to a concrete operational definition or procedure rather than leaving the ambiguity open.",
+          "The selected interpretation is specific enough to determine which data, condition, metric, or tool will be used."
+        ],
+        "exclusion_conditions": [
+          "The requirement is already fully specified and the reasoning only restates it.",
+          "The reasoning notes an ambiguity but does not resolve it into an operational definition.",
+          "The reasoning supplies procedural detail that is not tied to interpreting the requirement."
+        ]
+      },
+      {
+        "name": "REMEDIES_MISSING_CAPABILITY",
+        "definition": "The reasoning identifies a specific dependency, tool, library, or capability that the task requires but that is absent; a provisioning action installs or otherwise supplies that identified capability; and an observation confirms that the capability has become available.",
+        "parameters": [
+          {
+            "name": "gap_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node identifying the dependency, tool, or capability that is missing and required for the task."
+          },
+          {
+            "name": "provisioning_action",
+            "type": "action",
+            "description": "The action that installs, supplies, or otherwise provisions the identified capability."
+          },
+          {
+            "name": "confirmation_observation",
+            "type": "observation",
+            "description": "The observation reporting that the capability has been installed or is now available."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific dependency, tool, or capability as missing and required for the task.",
+          "The provisioning action is directed at supplying or installing that identified capability rather than at performing the task work itself.",
+          "The observation reports successful installation or confirmed availability of the capability."
+        ],
+        "exclusion_conditions": [
+          "No specific missing dependency, tool, or capability is identified.",
+          "The action does not provision the identified capability.",
+          "The observation does not confirm availability, or the provisioning outcome is left unknown."
+        ]
+      },
+      {
+        "name": "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+        "definition": "An observation supplies structural, schema, field-list, format, or documented layout information about a resource; the reasoning uses that structural information to determine which fields, parameters, or operations the task requires; and an action creates or executes a procedure that implements that determination.",
+        "parameters": [
+          {
+            "name": "schema_observation",
+            "type": "observation",
+            "description": "The observation containing schema, field, format, or documented layout information about the resource."
+          },
+          {
+            "name": "interpretation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that maps the task requirements onto the fields, parameters, or operations indicated by the structural evidence."
+          },
+          {
+            "name": "implementation_action",
+            "type": "action",
+            "description": "The action creating or executing a procedure that implements the determined interpretation."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains structural, schema, field-list, format, or documented layout information relevant to the resource.",
+          "The reasoning explicitly uses that structural information to determine which fields, parameters, or operations the task requires.",
+          "The action creates or executes a procedure that operationalizes the interpretation rather than merely retrieving or inspecting data."
+        ],
+        "exclusion_conditions": [
+          "The observation contains only values or results without structural or schema information.",
+          "The reasoning does not reference the structural or field information when determining the procedure.",
+          "The action retrieves or inspects data but does not implement a procedure derived from the structural evidence."
+        ]
+      },
+      {
+        "name": "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+        "definition": "The reasoning indicates that some environment or resource state is unknown, unchecked, or relevant to planning; a reconnaissance action inspects, lists, or queries that state; and the resulting observation reports state information that can inform subsequent decisions.",
+        "parameters": [
+          {
+            "name": "planning_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning node indicating that environment or resource state is unknown, must be checked, or is relevant to planning."
+          },
+          {
+            "name": "exploratory_action",
+            "type": "action",
+            "description": "The action performing an inspection, listing, or query of the environment or resource state."
+          },
+          {
+            "name": "state_observation",
+            "type": "observation",
+            "description": "The observation reporting the inspected environment or resource state."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning indicates that some environment or resource state is unknown, must be checked, or is relevant to planning.",
+          "The exploratory action inspects, lists, or queries that environment or resource state rather than performing a substantive transformation or final computation.",
+          "The observation reports state information relevant to subsequent planning or decisions."
+        ],
+        "exclusion_conditions": [
+          "The action performs a substantive transformation or final computation rather than an inspection of state.",
+          "The reasoning already has the relevant state and expresses no reconnaissance need.",
+          "The observation is unrelated to the environment or resource state being surveyed."
+        ]
+      }
+    ],
+    "revised_existing_predicates": [
+      {
+        "original_name": "PLANS_NEXT_ACTION",
+        "revised_predicate": {
+          "name": "PLANS_NEXT_ACTION",
+          "definition": "The reasoning explicitly expresses an intended future action or sequence of actions that the agent has not yet performed.",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "The reasoning node that states an intended future action or sequence."
+            }
+          ],
+          "assertion_conditions": [
+            "The reasoning explicitly identifies at least one intended future action or step.",
+            "The intended action is presented as something still to be done rather than as already completed."
+          ],
+          "exclusion_conditions": [
+            "The reasoning only reports or summarizes actions already completed.",
+            "The reasoning states a conclusion, diagnosis, or observation summary without expressing future intent.",
+            "The reasoning states only a general goal or desired result without identifying any intended action or step."
+          ]
+        }
+      }
+    ]
+  },
+  "previous_calls": []
+}

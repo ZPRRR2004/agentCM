@@ -58,7 +58,11 @@ async function newSplit(sourceId) {
     ${datasetControls("split", selection)}
     <label>已完成的预处理结果<select id="split-preprocess-source" name="preprocess_experiment_id" required></select></label>
     <p class="helper" id="split-source-status" role="status">切分使用上一阶段保存的预处理产物。选择一次已完成的预处理实验，再选择其中的轨迹。</p>
-    <details class="split-inputs"><summary id="split-selection-summary">选择执行轨迹</summary><div class="trajectory-picker" id="split-trajectory-picker"></div></details>
+    <details class="split-inputs"><summary id="split-selection-summary">选择执行轨迹</summary>
+    <div class="trajectory-selection-toolbar"><div role="group" aria-label="批量选择轨迹">
+      <button class="btn small" type="button" data-action="select-split-trajectories" data-selected="true">全选</button>
+      <button class="btn small" type="button" data-action="select-split-trajectories" data-selected="false">全不选</button>
+    </div></div><div class="trajectory-picker" id="split-trajectory-picker"></div></details>
     <div class="split-design-grid"><section><h3>切分边界</h3><div class="form-row"><label>每窗口核心事件上限<input name="max_window_events" type="number" min="1" max="100000" placeholder="例如 10" required></label><label>重叠事件数<input name="overlap_events" type="number" min="0" max="100000" placeholder="例如 2" required></label></div>
     <p class="helper">每个核心窗口按事件数切分，再加入前方的重叠事件。事件内容完整保留。</p>
     <h3>前后文摘要</h3><div class="form-row"><label>前文摘要 Token 上限<input name="max_previous_summary_tokens" type="number" min="0" max="100000" placeholder="0 关闭，例如 150" required></label><label>后文摘要 Token 上限<input name="max_future_summary_tokens" type="number" min="0" max="100000" placeholder="0 关闭，例如 150" required></label></div>

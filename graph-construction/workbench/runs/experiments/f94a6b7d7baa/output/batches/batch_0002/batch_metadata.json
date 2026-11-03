@@ -1,0 +1,22 @@
+{
+  "batch_index": 2,
+  "start_window": 11,
+  "end_window": 20,
+  "prompt_version": "v0001",
+  "new_predicate_count": 22,
+  "revised_existing_predicate_count": 3,
+  "registry_size": 72,
+  "feedback_mode": "registry_feedback",
+  "feedback_required": true,
+  "feedback_completed": true,
+  "feedback_applied": true,
+  "saved_at": "2026-11-03T11:43:31.313760+00:00",
+  "registry_size_after_feedback": 72,
+  "revision_operation_counts": {
+    "KEEP": 72,
+    "DELETE": 0,
+    "REVISE": 0,
+    "MERGE": 0
+  },
+  "feedback_completed_at": "2026-11-03T11:46:07.236068+00:00"
+}

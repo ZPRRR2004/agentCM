@@ -1,0 +1,28 @@
+{
+  "id": "784c48d9-09f5-4b7a-9d37-1e207e4be414",
+  "object": "chat.completion",
+  "created": 1793692572,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent inspected Ubuntu 24.04 (git, sshd, nginx, openssl present, root, no init), created user git with password \"password\", enabled SSH password auth and started sshd on port 22, created bare repo /git/project with main/dev web dirs, wrote a post-receive hook deploying via git archive, generated a self-signed localhost cert, and wrote the nginx 8443 config (after one missing-path error); nginx config is not yet enabled or started."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8235,
+    "completion_tokens": 107,
+    "total_tokens": 8342,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 8107
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

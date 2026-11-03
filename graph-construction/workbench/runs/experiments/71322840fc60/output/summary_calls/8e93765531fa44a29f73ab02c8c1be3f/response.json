@@ -1,0 +1,28 @@
+{
+  "id": "9c9aa201-a114-4064-8e6d-ec50c68dbdc2",
+  "object": "chat.completion",
+  "created": 1793692689,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent created /app/ssl/, generated a 2048-bit RSA key (600 perms), a 365-day self-signed cert (O=DevOps Team, CN=dev-internal.company.local), a combined server.pem, verification.txt with subject/dates/SHA-256 fingerprint, and wrote /app/check_cert.py; it has not yet run the script to verify."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 11622,
+    "completion_tokens": 82,
+    "total_tokens": 11704,
+    "prompt_tokens_details": {
+      "cached_tokens": 11392
+    },
+    "prompt_cache_hit_tokens": 11392,
+    "prompt_cache_miss_tokens": 230
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

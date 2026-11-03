@@ -1,0 +1,342 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__git-multibranch__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T11:09:55.896453+00:00",
+  "duration_seconds": 49.296,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T11:09:06.602866+00:00",
+      "duration_seconds": 49.281,
+      "raw_response": {
+        "id": "27ed1e5e-7a44-4727-8999-73c0d2e9da96",
+        "object": "chat.completion",
+        "created": 1793704150,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_TASK_PLAN\", \"definition\": \"The reasoning expresses an ordered, multi-step program of intended future actions directed at accomplishing the overall task.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the ordered sequence of intended future actions.\"}], \"assertion_conditions\": [\"The reasoning enumerates two or more intended future actions.\", \"The actions are presented in an ordered or prioritized sequence rather than as an unordered set.\", \"The actions are stated as still to be performed, not as already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already completed.\", \"The reasoning restates requirements or facts without expressing intended future actions.\", \"The reasoning contemplates a single isolated next step with no multi-step program.\"]}, {\"name\": \"APPLIES_STATED_CONSTRAINT_TO_DESIGN\", \"definition\": \"The reasoning cites a requirement or constraint taken from the task specification and uses it to justify, validate, or rule out a proposed technical approach.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that links a task constraint to a candidate technical approach.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific requirement or constraint stated in the task.\", \"The reasoning connects that requirement to a concrete candidate approach or configuration choice.\", \"The reasoning states whether the proposed approach satisfies the cited constraint.\"], \"exclusion_conditions\": [\"The reasoning merely lists or restates requirements without connecting them to any approach.\", \"The cited constraint plays no role in judging or selecting the approach.\", \"The reasoning evaluates an approach only on grounds unrelated to any stated requirement.\"]}, {\"name\": \"SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES\", \"definition\": \"The reasoning explicitly weighs two or more alternative ways of achieving the same goal and commits to one of them with an articulated rationale.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text comparing candidate approaches and stating the chosen one.\"}], \"assertion_conditions\": [\"At least two distinct candidate approaches are identified for the same goal.\", \"The reasoning states a comparison or trade-off between them.\", \"The reasoning explicitly commits to one approach and gives a reason for the choice.\"], \"exclusion_conditions\": [\"Only a single approach is described with no alternative considered.\", \"Alternatives are mentioned but no selection is made.\", \"The reasoning restates a chosen approach without comparing it to any alternative.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion about the system state or about what must be done next using identifiable content from an observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the conclusion drawn from the reported result.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion about state, feasibility, or next steps.\", \"Identifiable content of the observation supports that conclusion.\", \"The conclusion goes beyond merely repeating the observation text.\"], \"exclusion_conditions\": [\"The reasoning only restates the observation without drawing any conclusion.\", \"The observation is unrelated to the stated conclusion or provides no identifiable support.\", \"The conclusion is presented as an assumption or guess without relying on the observation.\"]}, {\"name\": \"RECOGNIZES_ANOMALY_IN_OBSERVATION\", \"definition\": \"The reasoning identifies a condition in an observation as unexpected, unplanned, or interfering, and treats it as something requiring explanation or handling.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that flags the reported condition as unexpected and states its significance.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the unexpected condition, conflict, or deviation.\"}], \"assertion_conditions\": [\"The observation reports a warning, conflict, deviation, or otherwise unanticipated condition.\", \"The reasoning characterizes that condition as unexpected, contradictory, or requiring investigation.\", \"The reasoning states why the condition matters for the intended outcome.\"], \"exclusion_conditions\": [\"The observation matches the expected outcome and the reasoning treats it as normal success.\", \"The reasoning merely quotes the reported condition without judging it unexpected.\", \"The deviation is only inferred later without the reasoning connecting it to the observation.\"]}, {\"name\": \"TESTS_HYPOTHESIS_WITH_PROBE\", \"definition\": \"A targeted action investigates a specific hypothesis about the cause, location, or existence of an observed condition, and its result provides evidence bearing on that hypothesis.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The targeted action directed at the hypothesized cause or source.\"}, {\"name\": \"hypothesis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning formulating the specific hypothesis or open question to be checked.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting a result that confirms, refutes, or locates the hypothesized cause.\"}], \"assertion_conditions\": [\"The reasoning formulates a specific hypothesis about the cause or location of an observed condition.\", \"The action is scoped to search for or test precisely that hypothesized cause.\", \"The resulting observation provides interpretable evidence about the hypothesis.\"], \"exclusion_conditions\": [\"The action is a broad survey of the environment rather than a test of a specific hypothesis.\", \"No identifiable hypothesis or open question motivates the action.\", \"The observation does not address the hypothesized cause.\"]}, {\"name\": \"VERIFIES_INTENDED_STATE_WITH_CHECK\", \"definition\": \"An action includes an explicit check of an operational state whose reported result is used to confirm that an intended state was actually reached after setup or change actions were performed.\", \"parameters\": [{\"name\": \"check_action\", \"type\": \"action\", \"description\": \"The action that performs or embeds the state check on the just-established configuration.\"}, {\"name\": \"intent_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the intended state that must be achieved and confirmed.\"}, {\"name\": \"check_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the checked state, confirming or contradicting the intended state.\"}], \"assertion_conditions\": [\"The reasoning states the operational state that the setup is intended to produce or that must be validated.\", \"The action performs a state check covering that intended condition.\", \"The observation reports a directly interpretable outcome of the check for that condition.\"], \"exclusion_conditions\": [\"The query examines pre-existing state before any relevant change was made.\", \"The observation contains no interpretable evidence about the intended state.\", \"Only a validation of syntax or intent is stated without any check result.\"]}, {\"name\": \"IMPLEMENTS_SPECIFIED_ARTIFACT\", \"definition\": \"An action materializes an artifact whose concrete content or structure had been specified in preceding reasoning, so the written artifact embodies the described design.\", \"parameters\": [{\"name\": \"implementation_action\", \"type\": \"action\", \"description\": \"The action that writes or creates the artifact.\"}, {\"name\": \"specification_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning containing the concrete content or structure to be materialized.\"}], \"assertion_conditions\": [\"The reasoning specifies concrete content, structure, or logic of the artifact rather than only a general goal.\", \"The action writes or creates that artifact at the intended location.\", \"The produced artifact corresponds to the specification carried by the reasoning.\"], \"exclusion_conditions\": [\"The reasoning states only a high-level goal without the content to be produced.\", \"The action produces content unrelated to what the reasoning described.\", \"The reasoning describes the artifact only after the action already produced it.\"]}, {\"name\": \"IDENTIFIES_TOOL_FAILURE_CAUSE\", \"definition\": \"The reasoning explains the specific cause of a tool-call failure reported by an observation, attributing the failure to a concrete defect in the preceding invocation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning diagnosing why the invocation failed.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the tool-call error or rejection.\"}], \"assertion_conditions\": [\"The observation reports that the invocation failed or was rejected.\", \"The reasoning names a specific defect or missing element consistent with the reported error.\", \"The diagnosis explains the failure rather than merely acknowledging it.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the error message.\", \"The reasoning retries or changes tactics without diagnosing the cause.\", \"The observation does not indicate any failure.\"]}, {\"name\": \"RETRIES_WITH_CORRECTED_ACTION\", \"definition\": \"After an invocation fails and its error is observed, a follow-up action repeats the same intent while repairing the specific defect reported by the error.\", \"parameters\": [{\"name\": \"failed_action\", \"type\": \"action\", \"description\": \"The invocation that failed and produced the error.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure of that invocation.\"}, {\"name\": \"corrected_action\", \"type\": \"action\", \"description\": \"The subsequent invocation pursuing the same goal with the reported defect fixed.\"}], \"assertion_conditions\": [\"The first action fails and an observation reports the failure.\", \"The subsequent action pursues the same goal as the failed action.\", \"The subsequent action differs in the respect identified by the error, removing the defect.\"], \"exclusion_conditions\": [\"The retry repeats the invocation unchanged after the error.\", \"The subsequent action pursues a different goal rather than retrying.\", \"No error observation exists to motivate the correction.\"]}, {\"name\": \"PERFORMS_PRECEDING_RECONNAISSANCE\", \"definition\": \"A read-only action gathers information about the current environment because the reasoning declares that the existing state must be known before any modification is attempted.\", \"parameters\": [{\"name\": \"reconnaissance_action\", \"type\": \"action\", \"description\": \"The action that only inspects or queries existing system state.\"}, {\"name\": \"plan_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the intent to inspect the current state before making changes.\"}], \"assertion_conditions\": [\"The reasoning states that the current state, configuration, or available tooling must be inspected before modifications.\", \"The action collects existing state without altering it.\", \"The resulting information constitutes the basis for the subsequent setup steps.\"], \"exclusion_conditions\": [\"The read-only query checks whether a change already made took effect.\", \"No inspection-first intent is expressed in the reasoning.\", \"The action changes system state rather than only reading it.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicates from this trajectory. Let's think about the mechanisms.\n\nObservable mechanisms:\n1. Reasoning that outlines a multi-step plan (IS_PLAN) — event-0001, 0003.\n2. Reasoning that interprets observed state to diagnose (e.g., \"sshd is not running, nginx is not running\") — diagnosis from observation.\n3. Action executed to verify a condition (e.g., `ss -tlnp | grep 8443`), observation confirming service listening — verification of a post-condition with a probe.\n4. Reasoning concluding from observation that a service is in a state (GROUNDS_CONCLUSION_IN_OBSERVATION).\n5. Reasoning planning an inspection before making changes — preceded by inspection action (event-0001 reasoning → action inspection). That's more of a plan.\n6. Hypothesis/uncertainty about a conflict: event-0010 reasoning identifies anomaly from warning, then action searches configs → observation finds duplicate 8443 config. That's a diagnostic probe for root cause: reasoning hypothesizes alternative source, action searches, observation locates the cause. A ternary: DIAGNOSES_ANOMALY_SOURCE_WITH_SEARCH.\n7. Recovery from tool failure: event-0007 action fails due to missing required argument, observation error, event-0008 reasoning identifies the cause (\"path parameter missing\"), then corrected action with same intent succeeds. Ternary: RECOVERS_FROM_TOOL_ERROR_WITH_CORRECTED_ACTION (failed_action, error_observation, corrective_reasoning) or 4-arity including the corrected action. Let's define: DIAGNOSES_TOOL_FAILURE_AND_RETRIES — parameters: failed_action, error_observation, reasoning, corrected_action. Hmm, arity 4. Maybe split: unary on observation \"IS_TOOL_ERROR\" and ternary mechanism. Could do a ternary: RECOVERS_FROM_TOOL_FAILURE(failed_action, error_observation, corrective_reasoning, corrected_action) — 4 args. That's supported by evidence: event-0007 action → observation error; event-0008 reasoning \"path was missing, retry\"; event-0008 action includes path; observation success.\n\nBut careful — the corrective action is distinct node. The mechanism \"correction\" is meaningful. I'd use a 4-ary or split into RECOVERS ternary? The important distinct feature is that the retry retains same intent with the reported defect fixed. Requires failed action, error observation, corrective reasoning/action. Maybe ternary: CORRECTS_ACTION_AFTER_ERROR(failed_action, error_observation, corrected_action) with condition that the corrected action fixes the deficiency identified in the error. And separately reasoning? Keep 3 args, and maybe a separate predicate for failure diagnosis on reasoning: IDENTIFIES_FAILURE_CAUSE(error_observation, reasoning) binary.\n\n8. Unary: IS_ENVIRONMENT_INSPECTION / IS_PROBE (action that queries current system state without modifying) — hmm, \"avoid predicates that merely label specific commands\". IS_OBSERVATIONAL_PROBE: action that gathers state without mutation. Might be fine but borderline operational. Could keep as IS_STATE_INSPECTION_ACTION. It's reusable: read-only inspection. I think it's acceptable as a semantic role: \"read-only inspection action\". Let's consider whether a meaningful case can satisfy others without it — yes, mutating actions. I'll include perhaps.\n\n9. Unary: IS_VERIFICATION_CHECK action — an action whose purpose is to confirm a post-condition after a change (e.g., `ss -tlnp | grep 8443` after starting nginx). Distinguish from inspection before change. Both are read-only, but different roles. Actually the difference: verification directed at a just-completed change. That is a meaningful distinction. But evidence: the agent's reasoning states \"verify 8443 listening\". So verification action unary is supported.\n\n10. Binary: PRECEDES_IMPLEMENTATION? No, temporal adjacency insufficient.\n\n11. Binary: CONFIGURES_ACTION_CONSTRAINED_BY_REASONING — reasoning specifies design (directory layout, alias mapping) and action implements it. Could be IMPLEMENTS_DESIGN_SPECIFIED_IN_REASONING (action, reasoning): the action materializes an artifact whose content/structure was specified in the reasoning. Evidence: event-0005 reasoning gives hook script, action writes it; event-0007 reasoning gives nginx config, action writes it. This is a good mechanism: reasoning-derived artifact creation.\n\n12. Binary: reasoning justifies selecting between alternatives (e.g., choosing git archive over checkout, choosing separate deploy dirs over nested). DECIDES_BETWEEN_ALTERNATIVES: reasoning node contains explicit comparison of alternatives and a chosen approach. Unary: EVALUATES_ALTERNATIVES — reasoning explicitly weighs alternatives and picks one. Good unary.\n\n13. Ternary: assumption-tested by probe: reasoning identifies uncertainty whether sshpass installed / whether another config on 8443, action greps, observation finds it. Event-0010 is the clearest: reasoning hypothesizes \"another server block may define localhost:8443, let me search\" → action grep 8443 → observation shows /etc/nginx/sites-available/default has listen 8443 ssl. This is TESTS_ASSUMPTION_WITH_PROBE.\n\n14. Binary: observation MOTIVATES_ADJUSTMENT — observation reveals unanticipated pre-existing state (default site already listens on 8443) which changes plan. That's an observation prompting revision of plan. Event-0010 observation → future summary shows agent adopted pre-seeded config. But within this window, we only see reasoning that decided to search. The observation event-0010 is last; no subsequent reasoning shown. So we can't assert plan revision. But the reasoning at event-0003 concluded from obs event-0002 (services not running) — that's grounded conclusion leading to an action plan. Maybe combine: binary GROUNDS_CONCLUSION_IN_OBSERVATION (reasoning, observation) — event-0003 reasoning states \"sshd is not running, nginx not running (ss shows nothing listening)\" from observation-1 of event-0002. Yes supported.\n\n15. Unary on observation: REPORTS_ERROR (observation is_error true). Could be used in exclusion conditions rather than predicate. Maybe define IS_FAILURE_OBSERVATION? It's a property of the node; but structural metadata already gives is_error. Hmm, it's recorded as content. I'd avoid; instead use it inside correction predicate.\n\n16. Ternary: reasoning identifies precondition requirement (sshd must allow password auth), action sets it, observation confirms listening — that's a \"constraint satisfaction verification\". Could be: IMPLEMENTS_REQUIREMENT_AND_CONFIRMS — but verifying listening on 22 doesn't confirm password auth. Better not overreach.\n\nMaybe define: SATISFIES_REQUIREMENT_WITH_VERIFIED_ACTION? Risky.\n\nLet's think about a predicate capturing configuration change + verification: CHANGES_CONFIGURATION_THEN_VERIFIES(state_change_action, verification_action, verification_observation). Evidence: event-0009 action (enable site, nginx -t, nginx start) then... actually the verification (`ss | grep 8443`) is in the same action. So no separate nodes. Hmm. In event-0003, the action creates user + starts sshd + ss check — same node. So can't separate change and check. Skip.\n\nBut we can do: reasoning expresses verification intent (\"verify 8443 listening\") and the action embeds a check whose observation confirms. Ternary: VERIFIES_OUTCOME_WITH_CHECK(reasoning, check_action, check_observation)? The reasoning in 0009 says \"enable the site, validate the nginx configuration, and start nginx\" and the action includes nginx -t and ss grep. The result observation shows syntax ok and LISTEN on 8443. So the mechanism \"action bundles a validation check whose result is reported\" — call it PERFORMS_SELF_VALIDATING_CHANGE? Hmm, maybe generalize: the action both performs a change and checks it; observation confirms success. Distinguish from plain change action. This is a real mechanism: change-with-inline-verification. But is it reusable/general? Yes: \"action includes built-in validation of the change it performs, and its result reports the validation outcome.\" But arguably it's just about the tool invocation. I think a cleaner predicate: CONFIRMS_CHANGE_EFFECTIVENESS (reasoning stating expected postcondition, observation reporting the postcondition holds). Let's do ternary: PREDICTED_OUTCOME_CONFIRMED_BY_OBSERVATION(reasoning, action?, observation). Hmm.\n\nLet me settle on a set:\n\n1. IS_TASK_PLAN (unary reasoning): expresses ordered multi-step plan of future actions. Evidence: event-0001, 0003.\n2. IDENTIFIES_REQUIREMENTS? event-0001 enumerates task requirements. Could merge into plan. Maybe separate: IS_REQUIREMENT_DECOMPOSITION — reasoning restates task constraints as a checklist. Distinguishable from plan (which orders actions toward those constraints). Hmm — event-0001 has both: requirements list and plan list. Maybe define one: IS_REQUIREMENT_AND_PLAN_DECOMPOSITION? Better keep two predicates? Over-fragmentation risk. I'll define IS_PLAN and maybe IS_ACCEPTANCE_CRITERIA_ANALYSIS? Actually the task constraints (deployment within 3s, password auth) guide decisions later — reasoning references them when designing (e.g., \"deployment must complete within 3 seconds — git archive is fast\"). That's a mechanism: constraint from task specification used to justify a design decision. Binary: APPLIES_TASK_CONSTRAINT_TO_DESIGN_DECISION(reasoning). Unary on reasoning? The constraint and decision are both in the same reasoning node. Could be unary: EVALUATES_DESIGN_AGAINST_CONSTRAINT. Hmm, both nodes are the same reasoning node, so binary would be degenerate. Use unary: INCORPORATES_STATED_CONSTRAINT_IN_DESIGN (reasoning) — reasoning cites a task constraint and checks proposed approach against it. Evidence event-0003: \"deployment must complete within 3 seconds of push — git archive is fast, no problem.\" Good.\n\n3. EVALUATES_ALTERNATIVES_AND_SELECTS (unary reasoning): explicit comparison of approaches with a chosen one. Evidence event-0003 (checkout vs git archive, separate dirs vs nested; \"This is cleaner\"). \n\n4. GROUNDS_CONCLUSION_IN_OBSERVATION (binary: reasoning, observation).\n\n5. DIAGNOSES_ANOMALY_FROM_OBSERVATION? event-0009 observation warns conflicting server name; event-0010 reasoning treats it as anomaly and hypothesizes cause. Binary: reasoning identifies anomaly and proposes cause from observation. That could be RECOGNIZES_ANOMALY_IN_OBSERVATION (reasoning, observation) — distinct from grounding a conclusion because it flags unexpected/unplanned condition. Good.\n\n6. TESTS_HYPOTHESIS_WITH_SEARCH (ternary: hypothesis_reasoning, probe_action, probe_observation). Evidence event-0010 → action grep → observation finds default config. Also event-0001/0002 inspection is more general survey, not hypothesis test. Keep event-0010 as the instance.\n\n7. SPECIFIES_ARTIFACT_CONTENT_IN_REASONING → MATERIALIZES... binary: IMPLEMENTS_SPECIFIED_ARTIFACT(action, reasoning) — the action creates a file whose content is given in prior reasoning. Evidence events 0005, 0007/0008.\n\n8. CORRECTS_FAILED_ACTION_WITH_RETRY (ternary: failed_action, error_observation, corrected_action). Evidence 0007/0008.\n\n9. IDENTIFIES_TOOL_FAILURE_CAUSE (binary: reasoning, observation error). event-0008 reasoning \"The path parameter was missing — I only passed content and i\". Could be folded into 8 as optional. I'd keep separate as binary since it's a distinct mechanism (failure cause diagnosis) supported independent of the retry.\n\n10. IS_VERIFICATION_CHECK_ACTION (unary action): an action whose stated purpose is to confirm a previously established postcondition (e.g., checking a port is listening after starting a service). Evidence 0003, 0009.\n\n11. IS_STATE_INSPECTION_ACTION (unary action): read-only survey of environment before making changes. Evidence 0001, 0002. Distinguish from verification (purpose: assess initial state vs confirm postcondition). Maybe keep only one with both roles? The distinction is meaningful: pre-change reconnaissance vs post-change confirmation. Keep both? Set is getting large but fine. Hmm, but risk of \"labels specific procedures\". I think both generalize.\n\nMaybe better: binary RECONNAISSANCE_INFORMS_SETUP (reasoning follows inspection)? Too weak.\n\n12. IS_PREREQUISITE_ENABLING_ACTION? e.g., mkdir -p /run/sshd before starting sshd — an action creates a precondition required by a later action. Could be binary: ENABLES_SUBSEQUENT_ACTION(action_prev, action_next)? But they're in same action node. Skip.\n\n13. Unary observation: CONFIRMS_SERVICE_AVAILABILITY — observation shows a listener bound. Too operation-specific? It's about confirming availability. Could fold into verification ternary: CONFIRMS_INTENDED_STATE(reasoning predicting, action, observation showing). Let's define ternary: VERIFIES_INTENDED_STATE_WITH_CHECK(check_action, intent_reasoning, check_observation) — hmm parameter order: intent_reasoning first? Ordered parameters — put action? The examples put probe_action first. Let's use (verification_action, intent_reasoning, result_observation)? Example 3 order: probe_action, assumption_reasoning, probe_result. I'll follow: verification_action, intent_reasoning, verification_observation.\n\nThen drop unary IS_VERIFICATION_CHECK_ACTION to avoid duplication. Good — the ternary subsumes.\n\nSimilarly for hypothesis testing, keep TESTS_HYPOTHESIS_WITH_PROBE. But is event-0010 different enough from verification? Yes: hypothesis about cause of anomaly vs confirmation of intended state. Both are probes. Keep both; distinguish.\n\nHmm, might be overkill. But the instructions permit multiple predicates on same event and distinct mechanisms.\n\nAlso consider: the reasoning at event-0002 states environment facts and next steps — IS_PLAN again.\n\nAnother mechanism: designing mapping between request paths and filesystem locations (URL-to-directory mapping reasoning). Too task-specific? It's a config design. Skip.\n\nAnother: observation reveals tooling available → conclusion \"all installed, no need to install\". Grounded conclusion covers.\n\nLet's also consider binary: OBSERVATION_TRIGGERS_PLAN_REVISION — event-0002 obs (nothing listening) → event-0003 reasoning includes plan to start services. But that's basically grounded conclusion + plan. Skip.\n\nNow for unary planning: also could define IS_STEP_DECOMPOSITION. Keep IS_PLAN.\n\nLet's finalize list of maybe 8-9 predicates:\n\n1. IS_TASK_PLAN (reasoning)\n2. INCORPORATES_CONSTRAINT_INTO_DESIGN (reasoning) — maybe rename CONSIDERS_CONSTRAINT_IN_DESIGN_RATIONALE\n3. SELECTS_APPROACH_FROM_ALTERNATIVES (reasoning)\n4. GROUNDS_CONCLUSION_IN_OBSERVATION (reasoning, observation)\n5. RECOGNIZES_ANOMALY_IN_OBSERVATION (reasoning, observation)\n6. TESTS_HYPOTHESIS_WITH_PROBE (action, reasoning, observation)\n7. VERIFIES_INTENDED_STATE_WITH_CHECK (action, reasoning, observation)\n8. IMPLEMENTS_SPECIFIED_ARTIFACT (action, reasoning)\n9. IDENTIFIES_TOOL_FAILURE_CAUSE (reasoning, observation)\n10. RETRIES_WITH_CORRECTED_ACTION (failed_action, error_observation, corrected_action)\n\nHmm 10. Consider merging 9 into 10? 9 is a binary that can hold with a reasoning; 10 requires the retry. Distinguishability: a reasoning could identify a failure cause without retrying (abandon instead). Fine, keep separate.\n\nIs IMPLEMENTS_SPECIFIED_ARTIFACT too close to \"action is prerequisite\"? It's a derivation/implementation relation: reasoning content → artifact produced. I think it's meaningful and distinct from grounding (opposite direction: reasoning→action vs observation→reasoning).\n\nAlso consider a binary: reasoning provides design that later action deviates/complies... covered.\n\nConsider binary PREREQUISITE_STATE_CHECK_BEFORE_MUTATION — event-0001/0002 inspections precede mutation. Predicate: INSPECTS_STATE_BEFORE_MODIFYING (inspection_action, modifying... no, ordering across nodes is temporal; need evidence in reasoning that inspection is intended before modification. Event-0001 reasoning: \"Let me first inspect the state of the container. Plan: 1. Check what's installed...\" then action. That is: reasoning states inspection-first strategy, action performs read-only inspection. Binary: INSPECTS_BEFORE_CHANGE(inspection_action, reasoning) — reasoning declares a deliberate read-only reconnaissance before modifying. That's a reasonable mechanism distinct from verification. Let's include as unary on action? I'd prefer binary with the plan reasoning. Name: PERFORMS_RECONNAISSANCE_ACTION (action, plan_reasoning)? Hmm, parameters: reconnaissance_action (action), plan_reasoning (reasoning). Conditions: reasoning expresses intent to inspect current state before making changes; the action is read-only and gathers state; observation reports state.\n\nActually maybe simplify: unary IS_RECONNAISSANCE_ACTION won't link intent. But linking intent is the distinguishing evidence (read-only actions can be verification). So binary it is.\n\nSo 11 predicates. That's a lot but okay. Maybe trim CONSTRAINTS one? It's reasonably supported by event-0003 (\"deployment within 3 seconds — git archive fast\"). Also event-0001 lists requirements. Keep.\n\nLet me write them carefully with five fields.\n\nOrdering conventions per example: probe action first, then reasoning, then observation.\n\nNow write JSON.\n\nPredicate 1: IS_TASK_PLAN\ndefinition: The reasoning expresses an ordered, multi-step plan of intended future actions toward completing the overall task.\nparams: reasoning.\nassertion: reasoning lists two or more intended future actions in a sequence/prioritized order; the actions are not yet performed.\nexclusion: reasoning only reports completed actions; reasoning only restates requirements without actions; reasoning considers a single hypothetical action.\n\nPredicate 2: APPLIES_STATED_CONSTRAINT_TO_DESIGN (reasoning)\ndefinition: The reasoning explicitly cites a stated requirement or constraint from the task specification and uses it to justify or validate a proposed technical approach.\nassertion: reasoning names a requirement/constraint; reasoning connects it to a candidate approach and states whether the approach satisfies it.\nexclusion: reasoning lists requirements without connecting them to an approach; the constraint is merely restated later without design linkage.\n\nPredicate 3: SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES (reasoning)\ndefinition: The reasoning explicitly compares two or more alternative technical approaches and commits to one, giving a reason for the choice.\nassertion: at least two alternatives identified; a decision stated with rationale.\nexclusion: only one approach considered; alternatives mentioned without selection.\n\nPredicate 4: GROUNDS_CONCLUSION_IN_OBSERVATION (reasoning, observation)\nSame as example. Note param order: reasoning, observation.\n\nPredicate 5: RECOGNIZES_ANOMALY_IN_OBSERVATION (reasoning, observation)\ndefinition: The reasoning identifies an unexpected or unplanned condition in an observation (e.g., warning/conflict) and treats it as something requiring explanation or handling.\nassertion: observation reports something the reasoning treats as unexpected/interfering; reasoning states it needs investigation or explains its significance.\nexclusion: observation matches expectation and reasoning treats it as normal success; reasoning merely restates observation.\nCould merge with 4? 4 is conclusion drawing; 5 flags unexpectedness. Distinct enough — a satisfied expectation doesn't satisfy 5.\n\nPredicate 6: TESTS_HYPOTHESIS_WITH_PROBE (probe_action, hypothesis_reasoning, probe_result)\ndefinition: A targeted action investigates a hypothesis about the cause or source of an observed condition, and its result provides evidence bearing on that hypothesis.\nassertion: reasoning formulates a specific hypothesis/question about cause or location; action targets that; result addresses it.\nexclusion: action is a broad environment survey; result unrelated; no hypothesis.\n\nPredicate 7: VERIFIES_INTENDED_STATE_WITH_CHECK (check_action, intent_reasoning, check_observation)\ndefinition: An action includes an explicit check whose result is used to confirm that an intended operational state was actually achieved after setup actions were taken.\nassertion: reasoning states intended state to be achieved/confirmed; action performs the state check (embedded or standalone); observation reports the state holds (or not).\nexclusion: check examines pre-existing state before any change; observation lacks interpretable evidence; only intent without a check.\n\nPredicate 8: IMPLEMENTS_SPECIFIED_ARTIFACT (action, reasoning)\ndefinition: An action creates or writes an artifact whose content was concretely specified in the reasoning, materializing the described design.\nassertion: reasoning contains the intended content/structure; action writes it; the observation... rather: the written content corresponds.\nexclusion: reasoning gives only a general goal without content; action produces content unrelated.\n\nPredicate 9: IDENTIFIES_TOOL_FAILURE_CAUSE (reasoning, observation)\ndefinition: The reasoning explains the cause of a tool-call failure reported by an observation.\nassertion: observation reports an error/failure; reasoning names the specific cause consistent with the error.\nexclusion: reasoning merely repeats the error; reasoning retries without diagnosing; observation not an error.\n\nPredicate 10: RETRIES_WITH_CORRECTED_ACTION (failed_action, error_observation, corrected_action)\ndefinition: After an action fails and its error is observed, a follow-up action repeats the same intent with the reported defect corrected.\nassertion: failed action; error observation from it; corrected action performs same goal and fixes the defect; corrected action differs in the relevant respect.\nexclusion: retry identical without correction; corrected action pursues a different goal; failure not observed.\n\nPredicate 11: PERFORMS_PRECEDING_RECONNAISSANCE (reconnaissance_action, plan_reasoning)\nparams order: reconnaissance_action (action), plan_reasoning (reasoning). Hmm the schema says ordered; I'll put reasoning first? Let's align with intent-first style used elsewhere? In predicate 7 I put check_action first. For consistency put action first.\n\ndefinition: A read-only action gathers information about the current environment because the reasoning declares that state must be known before any modification is attempted.\nassertion: reasoning expresses intent to inspect current state first (before changes); the action only reads state; its observation reports environment facts the reasoning later uses.\nexclusion: the read-only query confirms a change already made (verification); inspection occurs without a stated inspection-first intent; the action modifies state.\n\nThat's 11. Possibly drop 5 or 11 for tightness. I'll keep 11 since supported strongly by event-0001 & 0002.\n\nAlso maybe drop 3? No, well supported.\n\nWrite in JSON with no extra text."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 13277,
+          "completion_tokens": 7480,
+          "total_tokens": 20757,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 5113
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 11357
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_TASK_PLAN\", \"definition\": \"The reasoning expresses an ordered, multi-step program of intended future actions directed at accomplishing the overall task.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the ordered sequence of intended future actions.\"}], \"assertion_conditions\": [\"The reasoning enumerates two or more intended future actions.\", \"The actions are presented in an ordered or prioritized sequence rather than as an unordered set.\", \"The actions are stated as still to be performed, not as already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already completed.\", \"The reasoning restates requirements or facts without expressing intended future actions.\", \"The reasoning contemplates a single isolated next step with no multi-step program.\"]}, {\"name\": \"APPLIES_STATED_CONSTRAINT_TO_DESIGN\", \"definition\": \"The reasoning cites a requirement or constraint taken from the task specification and uses it to justify, validate, or rule out a proposed technical approach.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that links a task constraint to a candidate technical approach.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific requirement or constraint stated in the task.\", \"The reasoning connects that requirement to a concrete candidate approach or configuration choice.\", \"The reasoning states whether the proposed approach satisfies the cited constraint.\"], \"exclusion_conditions\": [\"The reasoning merely lists or restates requirements without connecting them to any approach.\", \"The cited constraint plays no role in judging or selecting the approach.\", \"The reasoning evaluates an approach only on grounds unrelated to any stated requirement.\"]}, {\"name\": \"SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES\", \"definition\": \"The reasoning explicitly weighs two or more alternative ways of achieving the same goal and commits to one of them with an articulated rationale.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text comparing candidate approaches and stating the chosen one.\"}], \"assertion_conditions\": [\"At least two distinct candidate approaches are identified for the same goal.\", \"The reasoning states a comparison or trade-off between them.\", \"The reasoning explicitly commits to one approach and gives a reason for the choice.\"], \"exclusion_conditions\": [\"Only a single approach is described with no alternative considered.\", \"Alternatives are mentioned but no selection is made.\", \"The reasoning restates a chosen approach without comparing it to any alternative.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion about the system state or about what must be done next using identifiable content from an observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the conclusion drawn from the reported result.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion about state, feasibility, or next steps.\", \"Identifiable content of the observation supports that conclusion.\", \"The conclusion goes beyond merely repeating the observation text.\"], \"exclusion_conditions\": [\"The reasoning only restates the observation without drawing any conclusion.\", \"The observation is unrelated to the stated conclusion or provides no identifiable support.\", \"The conclusion is presented as an assumption or guess without relying on the observation.\"]}, {\"name\": \"RECOGNIZES_ANOMALY_IN_OBSERVATION\", \"definition\": \"The reasoning identifies a condition in an observation as unexpected, unplanned, or interfering, and treats it as something requiring explanation or handling.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that flags the reported condition as unexpected and states its significance.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the unexpected condition, conflict, or deviation.\"}], \"assertion_conditions\": [\"The observation reports a warning, conflict, deviation, or otherwise unanticipated condition.\", \"The reasoning characterizes that condition as unexpected, contradictory, or requiring investigation.\", \"The reasoning states why the condition matters for the intended outcome.\"], \"exclusion_conditions\": [\"The observation matches the expected outcome and the reasoning treats it as normal success.\", \"The reasoning merely quotes the reported condition without judging it unexpected.\", \"The deviation is only inferred later without the reasoning connecting it to the observation.\"]}, {\"name\": \"TESTS_HYPOTHESIS_WITH_PROBE\", \"definition\": \"A targeted action investigates a specific hypothesis about the cause, location, or existence of an observed condition, and its result provides evidence bearing on that hypothesis.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The targeted action directed at the hypothesized cause or source.\"}, {\"name\": \"hypothesis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning formulating the specific hypothesis or open question to be checked.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting a result that confirms, refutes, or locates the hypothesized cause.\"}], \"assertion_conditions\": [\"The reasoning formulates a specific hypothesis about the cause or location of an observed condition.\", \"The action is scoped to search for or test precisely that hypothesized cause.\", \"The resulting observation provides interpretable evidence about the hypothesis.\"], \"exclusion_conditions\": [\"The action is a broad survey of the environment rather than a test of a specific hypothesis.\", \"No identifiable hypothesis or open question motivates the action.\", \"The observation does not address the hypothesized cause.\"]}, {\"name\": \"VERIFIES_INTENDED_STATE_WITH_CHECK\", \"definition\": \"An action includes an explicit check of an operational state whose reported result is used to confirm that an intended state was actually reached after setup or change actions were performed.\", \"parameters\": [{\"name\": \"check_action\", \"type\": \"action\", \"description\": \"The action that performs or embeds the state check on the just-established configuration.\"}, {\"name\": \"intent_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the intended state that must be achieved and confirmed.\"}, {\"name\": \"check_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the checked state, confirming or contradicting the intended state.\"}], \"assertion_conditions\": [\"The reasoning states the operational state that the setup is intended to produce or that must be validated.\", \"The action performs a state check covering that intended condition.\", \"The observation reports a directly interpretable outcome of the check for that condition.\"], \"exclusion_conditions\": [\"The query examines pre-existing state before any relevant change was made.\", \"The observation contains no interpretable evidence about the intended state.\", \"Only a validation of syntax or intent is stated without any check result.\"]}, {\"name\": \"IMPLEMENTS_SPECIFIED_ARTIFACT\", \"definition\": \"An action materializes an artifact whose concrete content or structure had been specified in preceding reasoning, so the written artifact embodies the described design.\", \"parameters\": [{\"name\": \"implementation_action\", \"type\": \"action\", \"description\": \"The action that writes or creates the artifact.\"}, {\"name\": \"specification_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning containing the concrete content or structure to be materialized.\"}], \"assertion_conditions\": [\"The reasoning specifies concrete content, structure, or logic of the artifact rather than only a general goal.\", \"The action writes or creates that artifact at the intended location.\", \"The produced artifact corresponds to the specification carried by the reasoning.\"], \"exclusion_conditions\": [\"The reasoning states only a high-level goal without the content to be produced.\", \"The action produces content unrelated to what the reasoning described.\", \"The reasoning describes the artifact only after the action already produced it.\"]}, {\"name\": \"IDENTIFIES_TOOL_FAILURE_CAUSE\", \"definition\": \"The reasoning explains the specific cause of a tool-call failure reported by an observation, attributing the failure to a concrete defect in the preceding invocation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning diagnosing why the invocation failed.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the tool-call error or rejection.\"}], \"assertion_conditions\": [\"The observation reports that the invocation failed or was rejected.\", \"The reasoning names a specific defect or missing element consistent with the reported error.\", \"The diagnosis explains the failure rather than merely acknowledging it.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the error message.\", \"The reasoning retries or changes tactics without diagnosing the cause.\", \"The observation does not indicate any failure.\"]}, {\"name\": \"RETRIES_WITH_CORRECTED_ACTION\", \"definition\": \"After an invocation fails and its error is observed, a follow-up action repeats the same intent while repairing the specific defect reported by the error.\", \"parameters\": [{\"name\": \"failed_action\", \"type\": \"action\", \"description\": \"The invocation that failed and produced the error.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure of that invocation.\"}, {\"name\": \"corrected_action\", \"type\": \"action\", \"description\": \"The subsequent invocation pursuing the same goal with the reported defect fixed.\"}], \"assertion_conditions\": [\"The first action fails and an observation reports the failure.\", \"The subsequent action pursues the same goal as the failed action.\", \"The subsequent action differs in the respect identified by the error, removing the defect.\"], \"exclusion_conditions\": [\"The retry repeats the invocation unchanged after the error.\", \"The subsequent action pursues a different goal rather than retrying.\", \"No error observation exists to motivate the correction.\"]}, {\"name\": \"PERFORMS_PRECEDING_RECONNAISSANCE\", \"definition\": \"A read-only action gathers information about the current environment because the reasoning declares that the existing state must be known before any modification is attempted.\", \"parameters\": [{\"name\": \"reconnaissance_action\", \"type\": \"action\", \"description\": \"The action that only inspects or queries existing system state.\"}, {\"name\": \"plan_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the intent to inspect the current state before making changes.\"}], \"assertion_conditions\": [\"The reasoning states that the current state, configuration, or available tooling must be inspected before modifications.\", \"The action collects existing state without altering it.\", \"The resulting information constitutes the basis for the subsequent setup steps.\"], \"exclusion_conditions\": [\"The read-only query checks whether a change already made took effect.\", \"No inspection-first intent is expressed in the reasoning.\", \"The action changes system state rather than only reading it.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_TASK_PLAN",
+        "definition": "The reasoning expresses an ordered, multi-step program of intended future actions directed at accomplishing the overall task.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the ordered sequence of intended future actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning enumerates two or more intended future actions.",
+          "The actions are presented in an ordered or prioritized sequence rather than as an unordered set.",
+          "The actions are stated as still to be performed, not as already completed."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports or summarizes actions already completed.",
+          "The reasoning restates requirements or facts without expressing intended future actions.",
+          "The reasoning contemplates a single isolated next step with no multi-step program."
+        ]
+      },
+      {
+        "name": "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+        "definition": "The reasoning cites a requirement or constraint taken from the task specification and uses it to justify, validate, or rule out a proposed technical approach.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that links a task constraint to a candidate technical approach."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific requirement or constraint stated in the task.",
+          "The reasoning connects that requirement to a concrete candidate approach or configuration choice.",
+          "The reasoning states whether the proposed approach satisfies the cited constraint."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely lists or restates requirements without connecting them to any approach.",
+          "The cited constraint plays no role in judging or selecting the approach.",
+          "The reasoning evaluates an approach only on grounds unrelated to any stated requirement."
+        ]
+      },
+      {
+        "name": "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES",
+        "definition": "The reasoning explicitly weighs two or more alternative ways of achieving the same goal and commits to one of them with an articulated rationale.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text comparing candidate approaches and stating the chosen one."
+          }
+        ],
+        "assertion_conditions": [
+          "At least two distinct candidate approaches are identified for the same goal.",
+          "The reasoning states a comparison or trade-off between them.",
+          "The reasoning explicitly commits to one approach and gives a reason for the choice."
+        ],
+        "exclusion_conditions": [
+          "Only a single approach is described with no alternative considered.",
+          "Alternatives are mentioned but no selection is made.",
+          "The reasoning restates a chosen approach without comparing it to any alternative."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion about the system state or about what must be done next using identifiable content from an observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the conclusion drawn from the reported result."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the evidence for that conclusion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion about state, feasibility, or next steps.",
+          "Identifiable content of the observation supports that conclusion.",
+          "The conclusion goes beyond merely repeating the observation text."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only restates the observation without drawing any conclusion.",
+          "The observation is unrelated to the stated conclusion or provides no identifiable support.",
+          "The conclusion is presented as an assumption or guess without relying on the observation."
+        ]
+      },
+      {
+        "name": "RECOGNIZES_ANOMALY_IN_OBSERVATION",
+        "definition": "The reasoning identifies a condition in an observation as unexpected, unplanned, or interfering, and treats it as something requiring explanation or handling.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that flags the reported condition as unexpected and states its significance."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the unexpected condition, conflict, or deviation."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a warning, conflict, deviation, or otherwise unanticipated condition.",
+          "The reasoning characterizes that condition as unexpected, contradictory, or requiring investigation.",
+          "The reasoning states why the condition matters for the intended outcome."
+        ],
+        "exclusion_conditions": [
+          "The observation matches the expected outcome and the reasoning treats it as normal success.",
+          "The reasoning merely quotes the reported condition without judging it unexpected.",
+          "The deviation is only inferred later without the reasoning connecting it to the observation."
+        ]
+      },
+      {
+        "name": "TESTS_HYPOTHESIS_WITH_PROBE",
+        "definition": "A targeted action investigates a specific hypothesis about the cause, location, or existence of an observed condition, and its result provides evidence bearing on that hypothesis.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The targeted action directed at the hypothesized cause or source."
+          },
+          {
+            "name": "hypothesis_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning formulating the specific hypothesis or open question to be checked."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting a result that confirms, refutes, or locates the hypothesized cause."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning formulates a specific hypothesis about the cause or location of an observed condition.",
+          "The action is scoped to search for or test precisely that hypothesized cause.",
+          "The resulting observation provides interpretable evidence about the hypothesis."
+        ],
+        "exclusion_conditions": [
+          "The action is a broad survey of the environment rather than a test of a specific hypothesis.",
+          "No identifiable hypothesis or open question motivates the action.",
+          "The observation does not address the hypothesized cause."
+        ]
+      },
+      {
+        "name": "VERIFIES_INTENDED_STATE_WITH_CHECK",
+        "definition": "An action includes an explicit check of an operational state whose reported result is used to confirm that an intended state was actually reached after setup or change actions were performed.",
+        "parameters": [
+          {
+            "name": "check_action",
+            "type": "action",
+            "description": "The action that performs or embeds the state check on the just-established configuration."
+          },
+          {
+            "name": "intent_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the intended state that must be achieved and confirmed."
+          },
+          {
+            "name": "check_observation",
+            "type": "observation",
+            "description": "The observation reporting the checked state, confirming or contradicting the intended state."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states the operational state that the setup is intended to produce or that must be validated.",
+          "The action performs a state check covering that intended condition.",
+          "The observation reports a directly interpretable outcome of the check for that condition."
+        ],
+        "exclusion_conditions": [
+          "The query examines pre-existing state before any relevant change was made.",
+          "The observation contains no interpretable evidence about the intended state.",
+          "Only a validation of syntax or intent is stated without any check result."
+        ]
+      },
+      {
+        "name": "IMPLEMENTS_SPECIFIED_ARTIFACT",
+        "definition": "An action materializes an artifact whose concrete content or structure had been specified in preceding reasoning, so the written artifact embodies the described design.",
+        "parameters": [
+          {
+            "name": "implementation_action",
+            "type": "action",
+            "description": "The action that writes or creates the artifact."
+          },
+          {
+            "name": "specification_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning containing the concrete content or structure to be materialized."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning specifies concrete content, structure, or logic of the artifact rather than only a general goal.",
+          "The action writes or creates that artifact at the intended location.",
+          "The produced artifact corresponds to the specification carried by the reasoning."
+        ],
+        "exclusion_conditions": [
+          "The reasoning states only a high-level goal without the content to be produced.",
+          "The action produces content unrelated to what the reasoning described.",
+          "The reasoning describes the artifact only after the action already produced it."
+        ]
+      },
+      {
+        "name": "IDENTIFIES_TOOL_FAILURE_CAUSE",
+        "definition": "The reasoning explains the specific cause of a tool-call failure reported by an observation, attributing the failure to a concrete defect in the preceding invocation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning diagnosing why the invocation failed."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting the tool-call error or rejection."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports that the invocation failed or was rejected.",
+          "The reasoning names a specific defect or missing element consistent with the reported error.",
+          "The diagnosis explains the failure rather than merely acknowledging it."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or paraphrases the error message.",
+          "The reasoning retries or changes tactics without diagnosing the cause.",
+          "The observation does not indicate any failure."
+        ]
+      },
+      {
+        "name": "RETRIES_WITH_CORRECTED_ACTION",
+        "definition": "After an invocation fails and its error is observed, a follow-up action repeats the same intent while repairing the specific defect reported by the error.",
+        "parameters": [
+          {
+            "name": "failed_action",
+            "type": "action",
+            "description": "The invocation that failed and produced the error."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting the failure of that invocation."
+          },
+          {
+            "name": "corrected_action",
+            "type": "action",
+            "description": "The subsequent invocation pursuing the same goal with the reported defect fixed."
+          }
+        ],
+        "assertion_conditions": [
+          "The first action fails and an observation reports the failure.",
+          "The subsequent action pursues the same goal as the failed action.",
+          "The subsequent action differs in the respect identified by the error, removing the defect."
+        ],
+        "exclusion_conditions": [
+          "The retry repeats the invocation unchanged after the error.",
+          "The subsequent action pursues a different goal rather than retrying.",
+          "No error observation exists to motivate the correction."
+        ]
+      },
+      {
+        "name": "PERFORMS_PRECEDING_RECONNAISSANCE",
+        "definition": "A read-only action gathers information about the current environment because the reasoning declares that the existing state must be known before any modification is attempted.",
+        "parameters": [
+          {
+            "name": "reconnaissance_action",
+            "type": "action",
+            "description": "The action that only inspects or queries existing system state."
+          },
+          {
+            "name": "plan_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the intent to inspect the current state before making changes."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states that the current state, configuration, or available tooling must be inspected before modifications.",
+          "The action collects existing state without altering it.",
+          "The resulting information constitutes the basis for the subsequent setup steps."
+        ],
+        "exclusion_conditions": [
+          "The read-only query checks whether a change already made took effect.",
+          "No inspection-first intent is expressed in the reasoning.",
+          "The action changes system state rather than only reading it."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

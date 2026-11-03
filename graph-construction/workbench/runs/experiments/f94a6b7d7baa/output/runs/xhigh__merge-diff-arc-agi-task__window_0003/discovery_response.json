@@ -1,0 +1,286 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__merge-diff-arc-agi-task__window_0003.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T11:57:53.067581+00:00",
+  "duration_seconds": 38.406,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T11:57:14.655611+00:00",
+      "duration_seconds": 38.391,
+      "raw_response": {
+        "id": "39a082ec-63b4-4ff0-9ee8-afa30b04f0a3",
+        "object": "chat.completion",
+        "created": 1793707038,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses one or more intended future actions or an intended next step in a sequence of work.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text expressing the intended future action or next step.\"}], \"assertion_conditions\": [\"The reasoning explicitly names at least one action the agent intends to perform next.\", \"The intended action is not yet reported as completed at the time of the reasoning.\"], \"exclusion_conditions\": [\"The reasoning only reports or evaluates actions already completed.\", \"The reasoning only restates the task requirements without committing to a future action.\"]}, {\"name\": \"DIAGNOSES_MISSING_PREREQUISITE\", \"definition\": \"The reasoning interprets a failed operation reported in an observation as being caused by an absent prerequisite (tool, package, runtime, or configuration) and identifies what must be supplied before the operation can succeed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that interprets the failed result and names the absent prerequisite.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The error-bearing tool result being interpreted.\"}], \"assertion_conditions\": [\"The observation reports an execution failure such as a missing command or unresolved dependency.\", \"The reasoning attributes the failure to a specific absent prerequisite rather than to a defect in the agent's own logic.\", \"The reasoning identifies, at least implicitly, what must be obtained or changed for the operation to work.\"], \"exclusion_conditions\": [\"The reasoning merely repeats the error text without identifying a cause.\", \"The observation shows a successful execution with no failure to explain.\", \"The reasoning attributes the failure to an incorrect algorithm or logic choice rather than to an absent prerequisite.\"]}, {\"name\": \"REMEDIATES_DIAGNOSED_PREREQUISITE\", \"definition\": \"An action supplies or installs a prerequisite that the reasoning identified as missing, and the resulting observation confirms that the prerequisite is now available.\", \"parameters\": [{\"name\": \"remediation_action\", \"type\": \"action\", \"description\": \"The action that installs or otherwise provides the missing prerequisite.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text identifying the prerequisite as missing or as needing to be provided.\"}, {\"name\": \"confirmation_observation\", \"type\": \"observation\", \"description\": \"The tool result confirming that the prerequisite is now present or usable.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific prerequisite as absent or as required before further work can proceed.\", \"The action is directed at providing that prerequisite rather than at advancing the main task directly.\", \"The observation provides positive evidence that the prerequisite is now available, such as a version string or a successful setup message.\"], \"exclusion_conditions\": [\"The action does not correspond to the prerequisite identified in the reasoning.\", \"The observation reports that the remediation itself failed or leaves availability undetermined.\", \"No prior identification of a missing prerequisite exists.\"]}, {\"name\": \"VERIFIES_IMPLEMENTATION_AGAINST_CASES\", \"definition\": \"An action executes an automated check that runs an implementation against reference cases and compares its outputs to expected outputs, and the observation reports the per-case comparison outcome.\", \"parameters\": [{\"name\": \"check_action\", \"type\": \"action\", \"description\": \"The action invoking the check that evaluates the implementation on reference cases.\"}, {\"name\": \"verification_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text stating that the implementation is to be validated against the reference cases.\"}, {\"name\": \"case_outcome_observation\", \"type\": \"observation\", \"description\": \"The tool result reporting pass/fail outcomes of the case-by-case comparison.\"}], \"assertion_conditions\": [\"The reasoning frames the upcoming action as a validation of the implementation's correctness against reference cases.\", \"The action runs the implementation on the reference cases and compares results to expected values.\", \"The observation reports identifiable per-case or aggregate pass/fail outcomes of that comparison.\"], \"exclusion_conditions\": [\"The action only inspects or displays the source code without executing a comparison.\", \"The observation reports no comparison outcome, for example only an unrelated error.\", \"The reasoning contains no indication that the action is a validation step.\"]}, {\"name\": \"CONSTRUCTS_GENERALIZATION_PROBE\", \"definition\": \"The agent creates additional test inputs derived from an inferred rule in order to check whether that rule holds beyond the supplied reference cases, rather than merely re-running the provided examples.\", \"parameters\": [{\"name\": \"probe_construction_action\", \"type\": \"action\", \"description\": \"The action writing or assembling the additional, agent-generated test inputs.\"}, {\"name\": \"generalization_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text stating the inferred rule and the intent to test whether it generalizes to new inputs.\"}], \"assertion_conditions\": [\"The reasoning states or presupposes a rule inferred from limited examples.\", \"The action generates new inputs or scenarios that go beyond the provided examples and are constructed from that rule.\", \"The purpose of the constructed inputs is to test the rule's validity on unseen cases.\"], \"exclusion_conditions\": [\"The action only re-runs the supplied reference examples without generating new inputs.\", \"The constructed input is unrelated to any rule inferred from the available examples.\", \"No inferred rule or generalization concern is expressed in the reasoning.\"]}, {\"name\": \"DISAMBIGUATES_COMPETING_INTERPRETATIONS\", \"definition\": \"The reasoning identifies multiple candidate interpretations, hypotheses, or matching options that could explain the same available data and argues for one of them by appealing to distinguishing evidence or by showing that the rivals are excluded.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text weighing at least two candidate interpretations and arguing for one.\"}], \"assertion_conditions\": [\"The reasoning names or clearly describes at least two alternative interpretations that could account for the same evidence.\", \"The reasoning supplies a distinguishing consideration, such as coverage, consistency, or collision, that separates the preferred interpretation from the alternatives.\"], \"exclusion_conditions\": [\"The reasoning asserts a single interpretation without acknowledging a competing one.\", \"The reasoning lists alternatives but makes no attempt to distinguish them.\"]}, {\"name\": \"EXPLAINS_FAILURE_AS_INTRINSICALLY_UNSOLVABLE\", \"definition\": \"The reasoning analyzes failures reported in an observation and attributes them to triggering inputs that lack the information needed for any correct output, concluding that the failures do not indicate a defect in the solution.\", \"parameters\": [{\"name\": \"failure_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text decomposing the reported failures and arguing they arise from unsatisfiable or out-of-contract inputs.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the failures under analysis.\"}], \"assertion_conditions\": [\"The observation reports one or more failing cases or errors.\", \"The reasoning examines the specific conditions of those failing cases rather than dismissing them generically.\", \"The reasoning concludes that under the identified conditions no correct output could be determined, so the failures do not evidence an implementation defect.\"], \"exclusion_conditions\": [\"The reasoning accepts the reported failures as evidence of a genuine defect.\", \"The reasoning dismisses the failures without tying the dismissal to concrete properties of the failing cases.\", \"The observation reports no failures.\"]}, {\"name\": \"AUDITS_REQUIREMENTS_AGAINST_EVIDENCE\", \"definition\": \"The reasoning enumerates the task's required conditions and marks each as met by pointing to specific collected observations, thereby concluding that the overall objective has been achieved.\", \"parameters\": [{\"name\": \"audit_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text enumerating the required conditions and judging each one satisfied.\"}, {\"name\": \"supporting_observations\", \"type\": \"observation[]\", \"description\": \"The tool results collectively supplying the evidence each required condition is matched against; support is collective, spanning the enumerated conditions.\"}], \"assertion_conditions\": [\"The reasoning explicitly enumerates multiple required conditions of the task.\", \"Each enumerated condition is tied to identifiable evidence from the observations rather than asserted without support.\", \"The reasoning concludes from this mapping that the task is complete or the objective achieved.\"], \"exclusion_conditions\": [\"The reasoning only narrates the work performed without mapping it to stated requirements.\", \"The observations do not contain content supporting the claimed satisfaction.\", \"The reasoning acknowledges an unmet requirement, which precludes concluding overall success.\"]}, {\"name\": \"CLEANS_SELF_CREATED_ARTIFACT\", \"definition\": \"An action removes files or state that the agent's own earlier execution produced but that is not part of the intended deliverable, and the resulting observation confirms the workspace is restored to its intended clean state.\", \"parameters\": [{\"name\": \"cleanup_action\", \"type\": \"action\", \"description\": \"The action deleting or reverting the agent-generated artifact.\"}, {\"name\": \"clean_state_observation\", \"type\": \"observation\", \"description\": \"The tool result showing that the artifact is gone and the workspace status is clean.\"}], \"assertion_conditions\": [\"The reasoning or the action target identifies the artifact as produced by the agent's own earlier execution and as extraneous to the deliverable.\", \"The action removes that artifact.\", \"The observation shows a clean or unchanged workspace status after the removal.\"], \"exclusion_conditions\": [\"The action removes content that pre-existed the agent's work or that the task requires to be kept.\", \"The observation does not confirm that the artifact was removed or that the workspace is clean.\", \"No self-created extraneous artifact is identified.\"]}]}",
+              "reasoning_content": "Let me analyze the trajectory for reusable mechanisms.\n\nKey mechanisms:\n\n1. Planning intent — reasoning expresses intended future actions (e.g., \"Let's run the verification\", \"First, let's run the synthetic tests\"). Reusable unary predicate IS_PLAN.\n\n2. Diagnostic reasoning from tool failure — observation reports an error (command not found), reasoning interprets the error and identifies a remedy. Could be a binary predicate: DIAGNOSES_FAILURE_CAUSE(reasoning, observation) — reasoning attributes an observed error to a missing capability/tool and identifies what must change.\n\n3. Failure-driven environment remediation: reasoning identifies missing dependency → action installs it → observation confirms availability. Ternary: REMEDIATES_MISSING_CAPABILITY(action, reasoning, observation). Hmm, could be similar to hypothesis testing but distinct: the action installs/delivers the missing capability and the observation confirms it's now available.\n\n4. Test/verification action with result: VERIFIES_WITH_CHECK — action executes a self-check that tests a claim/property, and observation reports pass/fail. Ternary: verifies implementation against requirement.\n\n5. Distinguishing-case analysis / dismissal of failures as out-of-scope: reasoning explains that observed failures arise from unsatisfiable inputs (unsolvable cases) and thus don't indicate a defect in the implementation. That's a good mechanism: reasoning attributes observed failures to conditions outside the contract / fundamentally unsatisfiable inputs, thus downgrading their evidential weight. Ternary: EXPLAINS_AWAY_FAILURE_AS_UNSATISFIABLE(reasoning, observation). Or binary: DEFUSES_FAILURE_EVIDENCE(reasoning, observation) — reasoning argues observed failures do not indicate a defect because the triggering inputs are unsatisfiable/unfair.\n\n6. Reasoning that predicts the outcome of an action before running it (expected-result reasoning / anticipates). In event-0023 reasoning predicts the strict loop order and \"No problem.\" That's reasoning anticipating behavior. Could be a predicate ANTICIPATES_OUTCOME? Hmm, but it's about predicting the algorithm's behavior rather than the tool's output. Maybe generalize: reasoning predicts a specific outcome/consequence of a planned or performed procedure. Maybe skip or include as distinct.\n\n7. Decision/commitment: reasoning decides to finalize (commit merge) based on verification evidence. Could be binary: DECISION_GROUNDED_IN_VERIFICATION? Hmm, that overlaps with GROUNDS_CONCLUSION_IN_OBSERVATION.\n\n8. Final confirmation: reasoning checks off each task requirement against observed evidence → CONCLUSION_SATISFIES_REQUIREMENTS? Ternary: reasoning concludes that the task requirements are satisfied based on observation evidence. Could be modeled by a binary predicate: CONFIRMS_COMPLETION(reasoning, observation[]).\n\n9. Cleanup action: action removes artifact created during verification, confirmed by observation showing clean tree. E.g., REMOVES_SIDE_EFFECT_ARTIFACT(action, observation)? That's fairly operational. Maybe skip, or generalize as \"remediation of self-induced side effects\". Hmm — mechanism: agent removes artifacts it created to restore a pristine state, verified by observation. It's a bit operational but reusable-ish. I'd consider it: RESTORES_CLEAN_STATE. Possibly over-specific. I'll consider including a modest set.\n\n10. Reasoning selects among candidate interpretations / disambiguates (e.g., anti-diagonal vs main-diagonal ambiguity analysis). Mechanism: reasoning enumerates competing hypotheses and argues why the chosen one is distinguishable / why alternatives are excluded. That's a good reusable mechanism: EVALUATES_COMPETING_HYPOTHESES / DISAMBIGUATES_ALTERNATIVES. Ternary with reasoning only? Could be unary on reasoning: CONSIDERS_ALTERNATIVE_HYPOTHESES. Better: unary predicate on reasoning: the reasoning weighs multiple competing interpretations and argues for one via distinguishing evidence. Name: DISAMBIGUATES_COMPETING_HYPOTHESES (unary, reasoning).\n\n11. Action designed to test robustness beyond given examples (synthetic self-test) — generalization probe. Ternary: PROBES_GENERALIZATION_WITH_SYNTHETIC_CASES(action=write test, reasoning=claim about generalization, observation=results). Hmm, distinguish from verification against examples. Maybe one predicate: TESTS_IMPLEMENTATION_AGAINST_EXAMPLES vs robustness extrapolation. Could combine into \"EVALUATES_ROBUSTNESS_BEYOND_PROVIDED_EXAMPLES\". Might be a variant of hypothesis testing. Let's have one ternary: VERIFIES_IMPLEMENTATION_AGAINST_SPECIFICATION (action, reasoning, observation) where the observation reports pass/fail per case. And another for the synthetic/probing: maybe not needed as separate... Actually distinguishability: verification against required examples vs extrapolation test on synthetic inputs. Both are \"check actions with result evidence\". I could have a single predicate with a broader definition plus a narrower one. The instructions warn not to create separate predicates for superficial variations. Yet \"generalization probe beyond given data\" is a meaningful distinction (tests generalization, not the stated contract). I think I'll include:\n\n- VALIDATES_IMPLEMENTATION_AGAINST_CASES (ternary: action, reasoning, observation) — check action runs implementation on provided examples; observation reports per-case pass/fail.\n- PROBES_GENERALIZATION_WITH_SYNTHETIC_INPUTS — hmm. Might be overkill. Alternatively, one predicate \"EXECUTES_SELF_CHECK_TESTING_A_CLAIM\" with ternary, and a second distinguishing one for interpreting failures. I'll include the generic check predicate and the failure-interpretation one as separate, and maybe not the synthetic one separately... Actually the synthetic probe is meaningfully distinct: the check is constructed by the agent to test beyond required cases, and the observation result prompted reinterpretation. Its counterpart is the \"explains away failures\" predicate. I'll include a \"CONSTRUCTS_STRESS_TEST_FOR_GENERALIZATION\" maybe as binary: action + reasoning. Hmm.\n\nLet me keep the set focused and well-supported.\n\nCandidate list:\n\n1. IS_PLAN (unary, reasoning) — expresses intended future actions. Evidence: \"Let's run the verification.\", \"First, let's run the synthetic tests.\", \"Next, let's also do some additional robustness checks\".\n\n2. DIAGNOSES_TOOL_FAILURE (binary: reasoning, observation) — reasoning interprets an error observation, attributing the failure to a missing capability/prerequisite and identifying what is needed. Evidence: event-0020 reasoning \"python3 is also not installed! Let me check which python is available and install python3 if needed.\" with observation-0019 error command not found. Also event-0021 reasoning about grep/apt.\n\n3. INSTALLS_MISSING_CAPABILITY / REMEDIATES_MISSING_PREREQUISITE (ternary: action, reasoning, observation) — action supplies the missing prerequisite identified in reasoning; observation confirms the capability is now available. Evidence: event-0020.\n\n4. VERIFIES_IMPLEMENTATION_AGAINST_CASES (ternary: action, reasoning, observation) — action executes a check that runs the implementation against reference cases; observation reports per-case pass/fail. Evidence: event-0021 (verify_algo.py run → PASS) and event-0025, event-0026.\n\nCareful: ternary requirement — the reasoning argument: the reasoning states the check's purpose/intent. In event-0021 reasoning: \"python3 installed. Now run the verification.\" Yes.\n\n5. CONSTRUCTS_GENERALIZATION_PROBE (binary: action, reasoning) — action creates additional test inputs derived from an inferred rule to test whether the inferred rule generalizes beyond the supplied examples. Evidence: event-0022 write /tmp/synth_test.py.\n\nMaybe merge 5 into a check-with-constructed-inputs. I'll keep as separate binary predicate; it's distinguishable (constructing tests vs running given checks).\n\n6. ATTRIBUTES_FAILURE_TO_UNSATISFIABLE_INPUT / EXPLAINS_OBSERVED_FAILURES_AS_OUT_OF_CONTRACT (binary: reasoning, observation) — reasoning analyzes each failure and attributes them to inputs that are unsatisfiable/unfair (missing information), concluding no defect. Evidence: event-0024 reasoning analyzing 9 failures.\n\n7. DISAMBIGUATES_COMPETING_INTERPRETATIONS (unary, reasoning) — reasoning enumerates multiple candidate interpretations/hypotheses and argues which one is correct using distinguishing evidence. Evidence: event-0023/0024 (anti-diagonal vs main-diagonal, period 2 vs 3 ordering).\n\n8. CONCLUDES_REQUIREMENTS_SATISFIED (binary: reasoning, observation[])? Or ternary. Evidence: event-0026 reasoning checking off ✅1-9 against observation-0025 output. Could be binary with observation[] collection. Predicate: CONFIRMS_TASK_COMPLETION_FROM_EVIDENCE(reasoning, observation[]). Hmm. That's basically grounded conclusion — overlaps with example's GROUNDS_CONCLUSION_IN_OBSERVATION. But the completion-audit role is distinct enough: an explicit audit enumerating requirements against collected evidence. I'll call it AUDITS_REQUIREMENTS_AGAINST_EVIDENCE (binary: reasoning, observation[]), support collective.\n\n9. RESOLVES_SELF_INDUCED_ARTIFACT (action, observation)? — action removes artifacts created by the agent's own verification, and observation confirms a clean state. Evidence: event-0025 (rm -rf __pycache__ → CLEAN). It's a mechanism: restoring workspace to intended state by removing self-created side effects. I'll include as binary CLEANS_SELF_CREATED_ARTIFACT(action, observation). Hmm, granularity—is it reusable? Restoring pristine state is fairly general. I'll include with careful conditions. Actually maybe fold into broader \"REMEDIATES_SIDE_EFFECT\"? I'll keep binary with action and observation.\n\n10. COMMITS_RESOLUTION / RECORDS_DECISION? The commit action after verification — a decisive action consolidating resolved state. Could be \"COMMITS_RESOLVED_WORK\" but too git-specific; generalized: PERSISTS_VERIFIED_RESULT(action, reasoning, observation)? The reasoning justified committing after verification; observation confirmed commit + branch state. Hmm, this overlaps with \"action guided by prior verification\". Maybe a predicate: EXECUTES_CONSOLIDATION_AFTER_VERIFICATION? Risky. I think the count is enough; but a predicate capturing \"reasoning authorizes action based on verified evidence\" could be useful: e.g., binary: AUTHORIZES_ACTION_FROM_VERIFICATION (reasoning, action). Supporting: event-0024 reasoning concludes synthetic failures acceptable → then commits. And event-0021 \"python3 installed. Now run the verification.\" Both are reasoning-then-action. But adjacency alone is insufficient evidence; here the reasoning does explicitly justify/trigger. Hmm, it's already covered under planning partly. I'll skip to avoid diluting.\n\nAlso maybe a unary predicate on observation: OBSERVATION_REPORTS_CHECK_OUTCOME — observation reports per-case pass/fail verdicts. That's covered within ternary 4.\n\nAlso unary reasoning: FORMULATES_HYPOTHESIS_ABOUT_UNDERLYING_RULE (reasoning infers the transformation rule from examples). Evidence: event-0022/0023/0024 — reasoning infers the period-3 anti-diagonal rule and how the hidden tests likely generated. Could be good: INFERS_UNDERLYING_RULE_FROM_EXAMPLES. Unary on reasoning. But is that demonstrated in this window? event-0024 reasoning discusses the pattern generation (\"the true pattern p=[29,38,18], t=0 ... The generator creates the band so that all are visible\"). Yes, it reasons about the data-generating process. Include as unary: HYPOTHESIZES_GENERATIVE_RULE. Hmm—might be redundant with DISAMBIGUATES. I'll include it? Keep the list moderate: maybe 8-9 predicates. Let me finalize:\n\n1. IS_PLAN — unary reasoning.\n2. DIAGNOSES_MISSING_PREREQUISITE — binary (reasoning, observation).\n3. REMEDIATES_DIAGNOSED_PREREQUISITE — ternary (action, reasoning, observation).\n4. VERIFIES_IMPLEMENTATION_AGAINST_CASES — ternary (action, reasoning, observation).\n5. CONSTRUCTS_GENERALIZATION_PROBE — binary (action, reasoning).\n6. DISAMBIGUATES_COMPETING_INTERPRETATIONS — unary reasoning.\n7. EXPLAINS_FAILURES_AS_UNSOLVABLE — binary (reasoning, observation).\n8. AUDITS_REQUIREMENTS_AGAINST_EVIDENCE — binary (reasoning, observation[]).\n9. CLEANS_SELF_CREATED_ARTIFACT — binary (action, observation).\n\nMaybe also add ternary for 7: could require the observation of failure and reasoning and… the reasoning about generality. Binary is fine.\n\nCheck parameter naming uniqueness and descriptions.\n\nLet me write definitions carefully with assertion/exclusion conditions.\n\nWrite JSON.\n\nFor 5: CONSTRUCTS_GENERALIZATION_PROBE(action, reasoning). Assertion: reasoning states a rule/inference whose validity beyond observed cases is in question; action creates test inputs derived from that rule rather than reusing the provided examples; the action's purpose is to check whether the inferred rule generalizes. Exclusion: action merely re-runs the provided examples; no inferred rule stated.\n\nFor 3: REMEDIATES_DIAGNOSED_PREREQUISITE(action, reasoning, observation). Assertion: reasoning identifies a specific missing prerequisite/capability; action supplies or installs it; observation confirms the prerequisite is now available (e.g., version output, successful installation). Exclusion: action unrelated; observation doesn't confirm availability; prerequisite absence not identified.\n\nFor 2: DIAGNOSES_MISSING_PREREQUISITE(reasoning, observation): reasoning interprets an error result as caused by an absent prerequisite (tool, package, config) and identifies what must change; observation contains the failure. Exclusion: reasoning just restates the error without identifying cause; or attributes failure to logic error rather than missing prerequisite—hmm, careful: better name ATTRIBUTES_FAILURE_TO_ENVIRONMENT_DEFICIT? Let's call DIAGNOSES_ENVIRONMENT_DEFICIT_FROM_FAILURE. Keep as DIAGNOSES_MISSING_PREREQUISITE.\n\nFor 9: CLEANS_SELF_CREATED_ARTIFACT(action, observation): action removes files/state produced by the agent's own earlier execution that are not part of the intended deliverable; observation confirms removal (clean status). Exclusion: removal of pre-existing user files; observation does not confirm.\n\nFor 8: AUDITS_REQUIREMENTS_AGAINST_EVIDENCE(reasoning, observations[]): reasoning enumerates the task's required conditions and marks each as satisfied/aligned with specific collected observations, concluding completion. Exclusion: reasoning only summarizes work without mapping to requirements; observations unrelated.\n\nCollective support for observation[]: specify collective.\n\nFor 6: DISAMBIGUATES_COMPETING_INTERPRETATIONS(reasoning): reasoning identifies at least two competing interpretations/hypotheses that could explain the same data and argues for one by invoking distinguishing evidence or by showing the alternatives are excluded. Exclusion: reasoning asserts a single interpretation without considering alternatives.\n\nFor 1: IS_PLAN.\n\nFor 7: EXPLAINS_FAILURE_AS_INTRINSICALLY_UNSOLVABLE(reasoning, observation): reasoning analyzes failures reported in observation and attributes them to inputs lacking necessary information / outside the fair contract, concluding they do not indicate a defect. Exclusion: reasoning accepts failures as implementation bugs; reasoning dismisses failures without analysis tied to observation content.\n\nFor 4: VERIFIES_IMPLEMENTATION_AGAINST_CASES(action, reasoning, observation): action executes an automated check that runs the implementation on reference cases and compares outputs; observation reports per-case outcome. Exclusion: action only inspects source; observation doesn't report comparison outcome.\n\nGood. Return JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 14118,
+          "completion_tokens": 5549,
+          "total_tokens": 19667,
+          "prompt_tokens_details": {
+            "cached_tokens": 2304
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3438
+          },
+          "prompt_cache_hit_tokens": 2304,
+          "prompt_cache_miss_tokens": 11814
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses one or more intended future actions or an intended next step in a sequence of work.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text expressing the intended future action or next step.\"}], \"assertion_conditions\": [\"The reasoning explicitly names at least one action the agent intends to perform next.\", \"The intended action is not yet reported as completed at the time of the reasoning.\"], \"exclusion_conditions\": [\"The reasoning only reports or evaluates actions already completed.\", \"The reasoning only restates the task requirements without committing to a future action.\"]}, {\"name\": \"DIAGNOSES_MISSING_PREREQUISITE\", \"definition\": \"The reasoning interprets a failed operation reported in an observation as being caused by an absent prerequisite (tool, package, runtime, or configuration) and identifies what must be supplied before the operation can succeed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that interprets the failed result and names the absent prerequisite.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The error-bearing tool result being interpreted.\"}], \"assertion_conditions\": [\"The observation reports an execution failure such as a missing command or unresolved dependency.\", \"The reasoning attributes the failure to a specific absent prerequisite rather than to a defect in the agent's own logic.\", \"The reasoning identifies, at least implicitly, what must be obtained or changed for the operation to work.\"], \"exclusion_conditions\": [\"The reasoning merely repeats the error text without identifying a cause.\", \"The observation shows a successful execution with no failure to explain.\", \"The reasoning attributes the failure to an incorrect algorithm or logic choice rather than to an absent prerequisite.\"]}, {\"name\": \"REMEDIATES_DIAGNOSED_PREREQUISITE\", \"definition\": \"An action supplies or installs a prerequisite that the reasoning identified as missing, and the resulting observation confirms that the prerequisite is now available.\", \"parameters\": [{\"name\": \"remediation_action\", \"type\": \"action\", \"description\": \"The action that installs or otherwise provides the missing prerequisite.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text identifying the prerequisite as missing or as needing to be provided.\"}, {\"name\": \"confirmation_observation\", \"type\": \"observation\", \"description\": \"The tool result confirming that the prerequisite is now present or usable.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific prerequisite as absent or as required before further work can proceed.\", \"The action is directed at providing that prerequisite rather than at advancing the main task directly.\", \"The observation provides positive evidence that the prerequisite is now available, such as a version string or a successful setup message.\"], \"exclusion_conditions\": [\"The action does not correspond to the prerequisite identified in the reasoning.\", \"The observation reports that the remediation itself failed or leaves availability undetermined.\", \"No prior identification of a missing prerequisite exists.\"]}, {\"name\": \"VERIFIES_IMPLEMENTATION_AGAINST_CASES\", \"definition\": \"An action executes an automated check that runs an implementation against reference cases and compares its outputs to expected outputs, and the observation reports the per-case comparison outcome.\", \"parameters\": [{\"name\": \"check_action\", \"type\": \"action\", \"description\": \"The action invoking the check that evaluates the implementation on reference cases.\"}, {\"name\": \"verification_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text stating that the implementation is to be validated against the reference cases.\"}, {\"name\": \"case_outcome_observation\", \"type\": \"observation\", \"description\": \"The tool result reporting pass/fail outcomes of the case-by-case comparison.\"}], \"assertion_conditions\": [\"The reasoning frames the upcoming action as a validation of the implementation's correctness against reference cases.\", \"The action runs the implementation on the reference cases and compares results to expected values.\", \"The observation reports identifiable per-case or aggregate pass/fail outcomes of that comparison.\"], \"exclusion_conditions\": [\"The action only inspects or displays the source code without executing a comparison.\", \"The observation reports no comparison outcome, for example only an unrelated error.\", \"The reasoning contains no indication that the action is a validation step.\"]}, {\"name\": \"CONSTRUCTS_GENERALIZATION_PROBE\", \"definition\": \"The agent creates additional test inputs derived from an inferred rule in order to check whether that rule holds beyond the supplied reference cases, rather than merely re-running the provided examples.\", \"parameters\": [{\"name\": \"probe_construction_action\", \"type\": \"action\", \"description\": \"The action writing or assembling the additional, agent-generated test inputs.\"}, {\"name\": \"generalization_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text stating the inferred rule and the intent to test whether it generalizes to new inputs.\"}], \"assertion_conditions\": [\"The reasoning states or presupposes a rule inferred from limited examples.\", \"The action generates new inputs or scenarios that go beyond the provided examples and are constructed from that rule.\", \"The purpose of the constructed inputs is to test the rule's validity on unseen cases.\"], \"exclusion_conditions\": [\"The action only re-runs the supplied reference examples without generating new inputs.\", \"The constructed input is unrelated to any rule inferred from the available examples.\", \"No inferred rule or generalization concern is expressed in the reasoning.\"]}, {\"name\": \"DISAMBIGUATES_COMPETING_INTERPRETATIONS\", \"definition\": \"The reasoning identifies multiple candidate interpretations, hypotheses, or matching options that could explain the same available data and argues for one of them by appealing to distinguishing evidence or by showing that the rivals are excluded.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text weighing at least two candidate interpretations and arguing for one.\"}], \"assertion_conditions\": [\"The reasoning names or clearly describes at least two alternative interpretations that could account for the same evidence.\", \"The reasoning supplies a distinguishing consideration, such as coverage, consistency, or collision, that separates the preferred interpretation from the alternatives.\"], \"exclusion_conditions\": [\"The reasoning asserts a single interpretation without acknowledging a competing one.\", \"The reasoning lists alternatives but makes no attempt to distinguish them.\"]}, {\"name\": \"EXPLAINS_FAILURE_AS_INTRINSICALLY_UNSOLVABLE\", \"definition\": \"The reasoning analyzes failures reported in an observation and attributes them to triggering inputs that lack the information needed for any correct output, concluding that the failures do not indicate a defect in the solution.\", \"parameters\": [{\"name\": \"failure_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text decomposing the reported failures and arguing they arise from unsatisfiable or out-of-contract inputs.\"}, {\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The tool result reporting the failures under analysis.\"}], \"assertion_conditions\": [\"The observation reports one or more failing cases or errors.\", \"The reasoning examines the specific conditions of those failing cases rather than dismissing them generically.\", \"The reasoning concludes that under the identified conditions no correct output could be determined, so the failures do not evidence an implementation defect.\"], \"exclusion_conditions\": [\"The reasoning accepts the reported failures as evidence of a genuine defect.\", \"The reasoning dismisses the failures without tying the dismissal to concrete properties of the failing cases.\", \"The observation reports no failures.\"]}, {\"name\": \"AUDITS_REQUIREMENTS_AGAINST_EVIDENCE\", \"definition\": \"The reasoning enumerates the task's required conditions and marks each as met by pointing to specific collected observations, thereby concluding that the overall objective has been achieved.\", \"parameters\": [{\"name\": \"audit_reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text enumerating the required conditions and judging each one satisfied.\"}, {\"name\": \"supporting_observations\", \"type\": \"observation[]\", \"description\": \"The tool results collectively supplying the evidence each required condition is matched against; support is collective, spanning the enumerated conditions.\"}], \"assertion_conditions\": [\"The reasoning explicitly enumerates multiple required conditions of the task.\", \"Each enumerated condition is tied to identifiable evidence from the observations rather than asserted without support.\", \"The reasoning concludes from this mapping that the task is complete or the objective achieved.\"], \"exclusion_conditions\": [\"The reasoning only narrates the work performed without mapping it to stated requirements.\", \"The observations do not contain content supporting the claimed satisfaction.\", \"The reasoning acknowledges an unmet requirement, which precludes concluding overall success.\"]}, {\"name\": \"CLEANS_SELF_CREATED_ARTIFACT\", \"definition\": \"An action removes files or state that the agent's own earlier execution produced but that is not part of the intended deliverable, and the resulting observation confirms the workspace is restored to its intended clean state.\", \"parameters\": [{\"name\": \"cleanup_action\", \"type\": \"action\", \"description\": \"The action deleting or reverting the agent-generated artifact.\"}, {\"name\": \"clean_state_observation\", \"type\": \"observation\", \"description\": \"The tool result showing that the artifact is gone and the workspace status is clean.\"}], \"assertion_conditions\": [\"The reasoning or the action target identifies the artifact as produced by the agent's own earlier execution and as extraneous to the deliverable.\", \"The action removes that artifact.\", \"The observation shows a clean or unchanged workspace status after the removal.\"], \"exclusion_conditions\": [\"The action removes content that pre-existed the agent's work or that the task requires to be kept.\", \"The observation does not confirm that the artifact was removed or that the workspace is clean.\", \"No self-created extraneous artifact is identified.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses one or more intended future actions or an intended next step in a sequence of work.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text expressing the intended future action or next step."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly names at least one action the agent intends to perform next.",
+          "The intended action is not yet reported as completed at the time of the reasoning."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports or evaluates actions already completed.",
+          "The reasoning only restates the task requirements without committing to a future action."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_MISSING_PREREQUISITE",
+        "definition": "The reasoning interprets a failed operation reported in an observation as being caused by an absent prerequisite (tool, package, runtime, or configuration) and identifies what must be supplied before the operation can succeed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text that interprets the failed result and names the absent prerequisite."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The error-bearing tool result being interpreted."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an execution failure such as a missing command or unresolved dependency.",
+          "The reasoning attributes the failure to a specific absent prerequisite rather than to a defect in the agent's own logic.",
+          "The reasoning identifies, at least implicitly, what must be obtained or changed for the operation to work."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats the error text without identifying a cause.",
+          "The observation shows a successful execution with no failure to explain.",
+          "The reasoning attributes the failure to an incorrect algorithm or logic choice rather than to an absent prerequisite."
+        ]
+      },
+      {
+        "name": "REMEDIATES_DIAGNOSED_PREREQUISITE",
+        "definition": "An action supplies or installs a prerequisite that the reasoning identified as missing, and the resulting observation confirms that the prerequisite is now available.",
+        "parameters": [
+          {
+            "name": "remediation_action",
+            "type": "action",
+            "description": "The action that installs or otherwise provides the missing prerequisite."
+          },
+          {
+            "name": "diagnosis_reasoning",
+            "type": "reasoning",
+            "description": "Agent text identifying the prerequisite as missing or as needing to be provided."
+          },
+          {
+            "name": "confirmation_observation",
+            "type": "observation",
+            "description": "The tool result confirming that the prerequisite is now present or usable."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific prerequisite as absent or as required before further work can proceed.",
+          "The action is directed at providing that prerequisite rather than at advancing the main task directly.",
+          "The observation provides positive evidence that the prerequisite is now available, such as a version string or a successful setup message."
+        ],
+        "exclusion_conditions": [
+          "The action does not correspond to the prerequisite identified in the reasoning.",
+          "The observation reports that the remediation itself failed or leaves availability undetermined.",
+          "No prior identification of a missing prerequisite exists."
+        ]
+      },
+      {
+        "name": "VERIFIES_IMPLEMENTATION_AGAINST_CASES",
+        "definition": "An action executes an automated check that runs an implementation against reference cases and compares its outputs to expected outputs, and the observation reports the per-case comparison outcome.",
+        "parameters": [
+          {
+            "name": "check_action",
+            "type": "action",
+            "description": "The action invoking the check that evaluates the implementation on reference cases."
+          },
+          {
+            "name": "verification_reasoning",
+            "type": "reasoning",
+            "description": "Agent text stating that the implementation is to be validated against the reference cases."
+          },
+          {
+            "name": "case_outcome_observation",
+            "type": "observation",
+            "description": "The tool result reporting pass/fail outcomes of the case-by-case comparison."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning frames the upcoming action as a validation of the implementation's correctness against reference cases.",
+          "The action runs the implementation on the reference cases and compares results to expected values.",
+          "The observation reports identifiable per-case or aggregate pass/fail outcomes of that comparison."
+        ],
+        "exclusion_conditions": [
+          "The action only inspects or displays the source code without executing a comparison.",
+          "The observation reports no comparison outcome, for example only an unrelated error.",
+          "The reasoning contains no indication that the action is a validation step."
+        ]
+      },
+      {
+        "name": "CONSTRUCTS_GENERALIZATION_PROBE",
+        "definition": "The agent creates additional test inputs derived from an inferred rule in order to check whether that rule holds beyond the supplied reference cases, rather than merely re-running the provided examples.",
+        "parameters": [
+          {
+            "name": "probe_construction_action",
+            "type": "action",
+            "description": "The action writing or assembling the additional, agent-generated test inputs."
+          },
+          {
+            "name": "generalization_reasoning",
+            "type": "reasoning",
+            "description": "Agent text stating the inferred rule and the intent to test whether it generalizes to new inputs."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states or presupposes a rule inferred from limited examples.",
+          "The action generates new inputs or scenarios that go beyond the provided examples and are constructed from that rule.",
+          "The purpose of the constructed inputs is to test the rule's validity on unseen cases."
+        ],
+        "exclusion_conditions": [
+          "The action only re-runs the supplied reference examples without generating new inputs.",
+          "The constructed input is unrelated to any rule inferred from the available examples.",
+          "No inferred rule or generalization concern is expressed in the reasoning."
+        ]
+      },
+      {
+        "name": "DISAMBIGUATES_COMPETING_INTERPRETATIONS",
+        "definition": "The reasoning identifies multiple candidate interpretations, hypotheses, or matching options that could explain the same available data and argues for one of them by appealing to distinguishing evidence or by showing that the rivals are excluded.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text weighing at least two candidate interpretations and arguing for one."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names or clearly describes at least two alternative interpretations that could account for the same evidence.",
+          "The reasoning supplies a distinguishing consideration, such as coverage, consistency, or collision, that separates the preferred interpretation from the alternatives."
+        ],
+        "exclusion_conditions": [
+          "The reasoning asserts a single interpretation without acknowledging a competing one.",
+          "The reasoning lists alternatives but makes no attempt to distinguish them."
+        ]
+      },
+      {
+        "name": "EXPLAINS_FAILURE_AS_INTRINSICALLY_UNSOLVABLE",
+        "definition": "The reasoning analyzes failures reported in an observation and attributes them to triggering inputs that lack the information needed for any correct output, concluding that the failures do not indicate a defect in the solution.",
+        "parameters": [
+          {
+            "name": "failure_reasoning",
+            "type": "reasoning",
+            "description": "Agent text decomposing the reported failures and arguing they arise from unsatisfiable or out-of-contract inputs."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The tool result reporting the failures under analysis."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports one or more failing cases or errors.",
+          "The reasoning examines the specific conditions of those failing cases rather than dismissing them generically.",
+          "The reasoning concludes that under the identified conditions no correct output could be determined, so the failures do not evidence an implementation defect."
+        ],
+        "exclusion_conditions": [
+          "The reasoning accepts the reported failures as evidence of a genuine defect.",
+          "The reasoning dismisses the failures without tying the dismissal to concrete properties of the failing cases.",
+          "The observation reports no failures."
+        ]
+      },
+      {
+        "name": "AUDITS_REQUIREMENTS_AGAINST_EVIDENCE",
+        "definition": "The reasoning enumerates the task's required conditions and marks each as met by pointing to specific collected observations, thereby concluding that the overall objective has been achieved.",
+        "parameters": [
+          {
+            "name": "audit_reasoning",
+            "type": "reasoning",
+            "description": "Agent text enumerating the required conditions and judging each one satisfied."
+          },
+          {
+            "name": "supporting_observations",
+            "type": "observation[]",
+            "description": "The tool results collectively supplying the evidence each required condition is matched against; support is collective, spanning the enumerated conditions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly enumerates multiple required conditions of the task.",
+          "Each enumerated condition is tied to identifiable evidence from the observations rather than asserted without support.",
+          "The reasoning concludes from this mapping that the task is complete or the objective achieved."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only narrates the work performed without mapping it to stated requirements.",
+          "The observations do not contain content supporting the claimed satisfaction.",
+          "The reasoning acknowledges an unmet requirement, which precludes concluding overall success."
+        ]
+      },
+      {
+        "name": "CLEANS_SELF_CREATED_ARTIFACT",
+        "definition": "An action removes files or state that the agent's own earlier execution produced but that is not part of the intended deliverable, and the resulting observation confirms the workspace is restored to its intended clean state.",
+        "parameters": [
+          {
+            "name": "cleanup_action",
+            "type": "action",
+            "description": "The action deleting or reverting the agent-generated artifact."
+          },
+          {
+            "name": "clean_state_observation",
+            "type": "observation",
+            "description": "The tool result showing that the artifact is gone and the workspace status is clean."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning or the action target identifies the artifact as produced by the agent's own earlier execution and as extraneous to the deliverable.",
+          "The action removes that artifact.",
+          "The observation shows a clean or unchanged workspace status after the removal."
+        ],
+        "exclusion_conditions": [
+          "The action removes content that pre-existed the agent's work or that the task requires to be kept.",
+          "The observation does not confirm that the artifact was removed or that the workspace is clean.",
+          "No self-created extraneous artifact is identified."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

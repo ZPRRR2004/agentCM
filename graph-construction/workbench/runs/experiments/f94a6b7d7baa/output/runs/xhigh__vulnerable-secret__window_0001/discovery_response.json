@@ -1,0 +1,234 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__vulnerable-secret__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T14:01:46.060382+00:00",
+  "duration_seconds": 39.89,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T14:01:06.175622+00:00",
+      "duration_seconds": 39.875,
+      "raw_response": {
+        "id": "24aceae9-1c2b-4bf2-850c-01aa1c5ad6f5",
+        "object": "chat.completion",
+        "created": 1793714469,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or sequence of actions that the agent intends to carry out next.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or plan.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action (e.g., an operation to perform, a resource to inspect, a tool to try).\", \"The expressed action is framed as something the agent will do rather than something already done.\"], \"exclusion_conditions\": [\"The reasoning only reports completed actions or describes past observations without expressing a future intention.\", \"The reasoning only restates a goal from the task description without stating an action the agent intends to perform.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion about the target or its state using identifiable content from the observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation whose content supplies the supporting evidence.\"}], \"assertion_conditions\": [\"The reasoning asserts a conclusion (e.g., about the target's type, structure, state, or behavior) rather than only repeating the observation.\", \"The conclusion relies on identifiable content of the observation, such as quoted values, byte patterns, named symbols, or produced output.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without drawing a conclusion.\", \"The observation is unrelated to the stated conclusion or provides no identifiable support.\", \"The reasoning states a future intention rather than a conclusion based on evidence.\"]}, {\"name\": \"TESTS_HYPOTHESIS_WITH_PROBE\", \"definition\": \"A targeted action tests a specific hypothesis or uncertainty stated in reasoning, and its observed result provides evidence for evaluating that hypothesis.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test or elicitation.\"}, {\"name\": \"hypothesis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the hypothesis or uncertainty being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the hypothesis.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific hypothesis or uncertainty about the target's behavior, structure, or weakness.\", \"The action is directed at eliciting information that would confirm, refute, or refine that hypothesis.\", \"The resulting observation provides interpretable evidence about the hypothesis.\"], \"exclusion_conditions\": [\"The action is routine exploration with no identifiable hypothesis motivating it.\", \"The observation does not address the stated hypothesis.\", \"The hypothesis is formulated only after seeing the result, so the action did not test it.\"]}, {\"name\": \"ADAPTS_TOOL_STRATEGY_AFTER_FAILED_PROBE\", \"definition\": \"An observation reporting a tool failure, missing capability, or absence of expected output prompts the reasoning to acknowledge the limitation and adopt a different investigative approach, which a subsequent action implements.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting an error, unavailable tool, or missing expected output.\"}, {\"name\": \"revised_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that acknowledges the limitation and specifies the alternative approach.\"}, {\"name\": \"substitute_action\", \"type\": \"action\", \"description\": \"The action implementing the alternative approach.\"}], \"assertion_conditions\": [\"The observation reports an error, an unavailable command or tool, or the absence of the output the prior action was meant to produce.\", \"The reasoning explicitly acknowledges this limitation and identifies a different way to obtain the needed information.\", \"The substitute action implements the alternative approach and differs in mechanism or tool from the failed attempt.\"], \"exclusion_conditions\": [\"The observation provides the expected information successfully.\", \"The reasoning acknowledges the failure but repeats the same failing operation.\", \"The subsequent action is unchanged from the failed attempt or is unrelated to the acknowledged limitation.\"]}, {\"name\": \"DERIVES_TRIGGER_CONDITION\", \"definition\": \"The reasoning identifies a specific input or state condition that causes the target to take a particular behavior path, deriving that condition from structural evidence in an observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the condition that triggers the target behavior.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation whose structural content (e.g., code, configuration, or data layout) supports the derived condition.\"}], \"assertion_conditions\": [\"The reasoning states a specific, testable condition involving an input value, offset, argument, or state.\", \"The reasoning indicates that satisfying the condition makes the target reach a particular behavior path or outcome.\", \"The condition is derived from identifiable structural content in the observation rather than asserted without support.\"], \"exclusion_conditions\": [\"The reasoning describes target behavior without identifying any condition that controls it.\", \"The stated condition is unrelated to the observation's content or is an unsupported guess.\", \"The reasoning only reports the target's general behavior without linking it to a trigger condition.\"]}, {\"name\": \"INTEGRATES_OBSERVATIONS_INTO_BEHAVIOR_MODEL\", \"definition\": \"The reasoning combines content from two or more observations into a coherent account of how the target operates, such as its sequence of steps, components, or constraints.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning constructing the integrated account of target behavior.\"}, {\"name\": \"observations\", \"type\": \"observation[]\", \"description\": \"The observations whose content jointly supports the integrated behavior model; support is collective across the listed observations.\"}], \"assertion_conditions\": [\"The reasoning constructs an account of how the target operates, such as an ordered list of behaviors, components, or conditions.\", \"The account draws on identifiable content from at least two distinct observations rather than a single observation.\", \"The combined account attributes a functional role to each referenced observed element rather than merely concatenating outputs.\"], \"exclusion_conditions\": [\"The reasoning relies on only one observation to describe the target.\", \"The reasoning merely repeats observations side by side without constructing an integrated account.\", \"The observations belong to unrelated targets or do not jointly support the account.\"]}, {\"name\": \"DECIDES_STATIC_EXTRACTION_OVER_EXECUTION\", \"definition\": \"The reasoning decides to obtain the required result by inspecting or computing directly from the artifact's stored content rather than by executing or interacting with the target, and states a rationale for that choice.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the decision to derive the result statically and the rationale for it.\"}], \"assertion_conditions\": [\"The reasoning explicitly decides to derive the needed result from stored artifact content (e.g., decoding stored data or reading bytes) instead of running or interacting with the target.\", \"The reasoning gives an identifiable rationale for preferring this route, such as simplicity, safety, or reliability.\"], \"exclusion_conditions\": [\"The reasoning only plans to execute or interact with the target.\", \"The reasoning states a static analysis step without deciding to use it in place of execution.\", \"No rationale for preferring the static route is expressed.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicates. Let's analyze the trajectory.\n\nKey mechanisms:\n\n1. Reasoning states a plan of future actions (IS_PLAN). event-0001 reasoning \"First, let's start by exploring...\" event-0002 \"First let's take a look at it\". Many.\n\n2. Action executed to gather information about a target artifact based on a stated hypothesis/uncertainty → TESTS_ASSUMPTION_WITH_PROBE (from example). E.g., event-0004 reasoning hypothesizes \"probably buffer overflow/format string\" then runs program to observe behavior; event-0005 reasoning hypothesizes vulnerability then strings.\n\n3. Failure of a tool → reasoning adapts with alternative approach (RECOVERS_FROM_TOOL_FAILURE / ADAPTS_TOOL_UNAVAILABILITY). event-0002 observation error command not found: file; event-0003 reasoning \"file is not available. Let me check the header with od.\" → binary: reasoning adapts action strategy in response to observed failure. Parameters: reasoning (adapted plan), observation (failure), action (alternative action). Ternary.\n\n4. Reasoning interprets observation → conclusion about structure (GROUNDS_CONCLUSION_IN_OBSERVATION). e.g., event-0003 observation ELF header → event-0004 reasoning \"This is a 64-bit ELF executable\". event-0008 observation symbol list → event-0009 reasoning \"The binary has been stripped.\" Also event-0010 reasoning derives decode mechanism.\n\n5. Reasoning that explains internal logic derived from disassembly → hypothesis about program semantics (FORMS_HYPOTHESIS_FROM_EVIDENCE). Hmm might overlap with GROUNDS_CONCLUSION.\n\n6. Action designed to directly test the derived condition to elicit the secret — maybe \"PROBES_PROGRAM_WITH_CRAFTED_INPUT\"? Not in the given context (future summary mentions, but future summary is offline context; core nodes only through event-0010). Actually the crafted input in event-0010 reasoning plan is described: \"pipe in input: 0x40 bytes of 'A's then 0x01\". But that's future. We should base on core nodes.\n\n7. Reasoning that plans extraction without executing (static extraction decision) — \"I don't even need to run the program — I can just read the encoded bytes\". That's DECISION/alternative selection. Predicate: SELECTS_APPROACH_BY_AVOIDING_RISK? Maybe \"DECIDES_ALTERNATIVE_APPROACH\" reasoning node—unary? It's within reasoning.\n\n8. Action narrowing search/disassembly iteratively based on empty result → \"REFINES_QUERY_FOLLOWING_EMPTY_RESULT\". event-0007 empty output → event-0008 \"main might not be a symbol... let me try listing the symbols.\" That's same mechanism as recovery from failure (uninformative result).\n\n9. Unary: reasoning identifies vulnerability hypothesis (HYPOTHESIZES_WEAKNESS). event-0005 \"probably a buffer overflow / format string vulnerability\". Could be a unary predicate on reasoning: POSITS_EXPLOITABLE_WEAKNESS. But maybe generalized: FORMS_TESTABLE_HYPOTHESIS.\n\n10. Action that inspects artifact metadata/structure to characterize target (static inspection). Unary on action? \"IS_INSPECTION_ACTION\" maybe too operational.\n\nLet's design a reasonable set:\n\n- IS_PLAN (unary reasoning) — expresses intended future actions.\n- GROUNDS_CONCLUSION_IN_OBSERVATION (binary reasoning, observation) — from example.\n- ADAPTS_APPROACH_AFTER_FAILED_ACTION (ternary: failed_action? Actually parameters should be nodes: action, observation, reasoning). Better: ternary (failure_observation, revised_reasoning, followup_action)? The mechanism: an observed failure/uninformative result motivates a revised strategy expressed in reasoning and realized in a subsequent action. Params: observation (failure/uninformative result), reasoning (revised approach), action (substitute action). Could be binary reasoning-observation: REVISES_APPROACH_IN_RESPONSE_TO_FAILURE. But the follow-up action is a distinguishing element. Include ternary.\n\n- FORMS_TESTABLE_HYPOTHESIS_FROM_OBSERVATION? Overlaps.\n\n- TESTS_HYPOTHESIS_WITH_DIAGNOSTIC_ACTION (ternary: action, reasoning, observation) — like example 3. E.g., event-0004: reasoning hypothesizes about input processing → runs program → observes prompt. event-0005: hypothesizes vulnerability → strings → observes \"Access granted\" string. Good.\n\n- PREDICTS_BEHAVIOR_FROM_DERIVED_MECHANISM? e.g., event-0010 reasoning: \"If the byte at offset 0x40 == 1 ... prints secret\" — reasoning predicts that crafted input triggers path. That's a plan/hypothesis about program control flow. Could be \"DERIVES_CONTROL_FLOW_CONDITION\" — reasoning identifies condition required to reach target behavior. Maybe a unary predicate \"IDENTIFIES_TRIGGER_CONDITION\" on reasoning. Hmm, but semantics: reasoning identifies an input condition that would cause a target behavior. Reusable in exploitation, testing. Let's call DERIVES_TRIGGER_CONDITION — unary.\n\n- DECIDES_STATIC_EXTRACTION_OVER_EXECUTION — this is a decision to avoid executing the target, computing result from artifact directly. Might be too specific to domain? Actually it's a mechanism: choosing a lower-risk/lower-effort analysis path over interactive execution. Generalize: SELECTS_NON_EXECUTION_ANALYSIS_PATH. Hmm maybe omit? The instructions say omit unsupported rather than generic. But this one is supported: event-0010 reasoning \"I don't even need to run the program — I can just read the encoded bytes from the file\". It's a decision with a rationale. Could be binary between reasoning nodes? It's within one reasoning node; unary predicate DECIDES_ALTERNATIVE_STRATEGY_WITH_RATIONALE. But it's mixed with many other content in a giant reasoning node. Multiple predicates may hold on one event—fine, conditions refer to identifiable content.\n\n- Observation containing error vs. empty success. Exclusion matters.\n\n- Maybe a predicate capturing that an observation reveals a target-relevant artifact/string: \"EXPOSES_SENSITIVE_INDICATOR\" — observation reveals secret-adjacent material (redacted placeholder, format string). Hmm, this is about the observation's property: the output reveals a partial secret or a format string indicating secret disclosure path. Generalize: observation provides partial/target evidence about protected data. Could be unary on observation: REVEALS_PROTECTED_DATA_INDICATOR. Useful? It supports later conclusion. Perhaps better as part of GROUNDS.\n\n- Another mechanism: reasoning builds a composite model of program logic by synthesizing multiple observation evidence over time (incremental model construction). e.g., event-0006 reasoning synthesizes strings output into behavior list; event-0010 synthesizes disassembly. Binary? Could be \"SYNTHESIZES_BEHAVIORAL_MODEL_FROM_OBSERVATIONS\" with observation[] collection and reasoning. That's plausible: reasoning integrates multiple observations into a unified model of target behavior. Params: reasoning, observation[] (collective support). This is distinct from single-observation grounding.\n\nLet me decide final list:\n\n1. IS_PLAN — unary reasoning.\n2. GROUNDS_CONCLUSION_IN_OBSERVATION — binary (reasoning, observation).\n3. TESTS_HYPOTHESIS_WITH_PROBE — ternary (probe_action, hypothesis_reasoning, probe_result). Order per example: probe_action, assumption_reasoning, probe_result.\n4. REVISES_STRATEGY_AFTER_UNINFORMATIVE_RESULT — ternary (reasoning revised, observation result, substituted action). Hmm order: failed_result, revised_reasoning, substitute_action. Distinguish from TESTS: here the observation is a failure/uninformative output, reasoning explicitly acknowledges it and adopts a different tool/approach, and the action implements it. Conditions: observation reports error or absence of expected content; reasoning references limitation; action differs in method from the failed one.\n5. DERIVES_TRIGGER_CONDITION — unary reasoning: identifies a specific input/state condition that would cause target behavior, based on analysis. Could be binary with observation (derived from disassembly). Let me make it binary: DERIVES_TRIGGER_CONDITION_FROM_EVIDENCE (reasoning, observation)? The trigger condition in event-0010 derives from disassembly observation (event-0009). But it also could be derived from its own reasoning. Hmm. Binary with observation[]—but multiple observations. Let me do binary (reasoning, observation) where observation supplies the code/structure evidence. Actually event-0010 reasoning references \"cmpl $0x1, 0x40(%rsp)\" from event-0009 observation. Yes supported.\n\nBut then it overlaps with GROUNDS_CONCLUSION_IN_OBSERVATION. Distinguishability: GROUNDS is general evidential support for any conclusion; DERIVES_TRIGGER_CONDITION is specific: identifies the condition under which a target outcome occurs (sufficient input/state condition). A case can satisfy one but not other (a conclusion \"binary is stripped\" is grounded but not a trigger condition). Justified as more specific? Granularity rules say don't create separate predicates for superficial variations; but a more specific predicate justified when it captures additional meaningful semantic distinction. I think trigger-condition derivation is a distinct mechanism relevant to exploitation/testing. Keep it.\n\n6. SYNTHESIZES_BEHAVIOR_MODEL_FROM_OBSERVATIONS — ternary-ish: reasoning, observation[] (collective). Hmm, could be seen as generalized grounding over multiple observations. Example: event-0006 reasoning composes strings output into a step list (anti-debug, welcome, gets, print). Also event-0010. I'll include as binary with observation[] collection: \"INTEGRATES_OBSERVATIONS_INTO_MODEL\". Conditions: reasoning constructs an account of how the target operates combining content from two or more observations; not merely restating one.\n\nMaybe too granular? It does represent joint synthesis. I'll include it — with observation[] collective.\n\n7. Maybe unary on observation: REPORTS_ABSENCE_OF_EXPECTED_OUTPUT (empty/no output). Useful to characterize observations distinct from failures. But is that a reusable \"role\"? Could be part of #4's observation argument. But defining a unary predicate for it may be unnecessary. Hmm. The contract says unify... I'd skip to avoid clutter. Actually, distinguishing \"error observation\" vs \"empty result observation\" could matter. But #4 conditions can cover both.\n\n8. SELECTS_LOWER_RISK_ANALYSIS_PATH (unary reasoning): reasoning decides to obtain the result by static analysis instead of executing the target, citing avoidance of execution/dependency. Hmm, this is a decision mechanism; reusable in many domains (choose offline/static verification). Maybe include: DECIDES_ALTERNATIVE_VERIFICATION_ROUTE. But the condition \"avoiding interacting with a potentially unstable/defended target\" is fairly domain-tied but generalizable: choosing an analysis route that bypasses an unreliable or defended process. I think it's supported by event-0010 reasoning: \"I don't even need to run the program ... That's simpler and safer.\" Include as unary \"DECIDES_ANALYSIS_ROUTE_WITH_RATIONALE\"? Meh. Might be seen as a plan.\n\nI'll include a cleaner one: BYPASSES_INTERACTIVE_EXECUTION_VIA_STATIC_EXTRACTION — unary on reasoning. Hmm naming. Maybe \"CHOOSES_STATIC_ANALYSIS_OVER_EXECUTION\". It's a decision type. Keep it but general definition: reasoning decides to derive a required result by inspecting the artifact directly rather than by executing/interacting with it, citing reliability/safety. I'll include.\n\nAlso possibly \"INTERPRETS_DISASSEMBLY\"? Too operational.\n\nAnother: reasoning revises earlier hypothesis after evidence contradicting it. event-0007 reasoning: assumed main symbol; observation empty; event-0008 reasoning \"main might not be a symbol (it could be stripped)\". This is covered by #4.\n\nLet me ensure parameters types are all nodes.\n\nLet me write definitions.\n\nPredicate 1: IS_PLAN\nparams: reasoning.\nassertion: reasoning expresses at least one intended future action, directing subsequent investigation.\nexclusion: reasoning only reports completed actions/results or explains past observations without future intent.\n\nPredicate 2: GROUNDS_CONCLUSION_IN_OBSERVATION\nparams: reasoning, observation.\nassertion: reasoning asserts a conclusion about the target (structure, state, or behavior) that relies on identifiable content of the observation; content is cited, quoted, or clearly referenced (e.g., header bytes, symbol list, string table).\nexclusion: reasoning merely restates or summarizes observation without conclusion; observation unrelated; conclusion is a plan not a conclusion.\n\nPredicate 3: TESTS_HYPOTHESIS_WITH_PROBE\nparams: probe_action, hypothesis_reasoning, probe_result\nassertion: reasoning identifies a specific hypothesis/uncertainty about target behavior or vulnerability; action is chosen to elicit behavior distinguishing that hypothesis; observation yields interpretable output about it.\nexclusion: action performed with no stated hypothesis (routine exploration); observation does not address hypothesis; hypothesis only formed after result (retrofit). Hmm the retrofit exclusion is reasonable but careful.\n\nPredicate 4: ADAPTS_TOOL_STRATEGY_AFTER_FAILED_PROBE\nparams: failure_observation, revised_reasoning, substitute_action\nassertion: observation reports an error, missing tool, or absence of expected output; revised_reasoning explicitly acknowledges this limitation and specifies a different approach; substitute_action implements the alternative that differs in mechanism from the failed attempt.\nexclusion: observation succeeds with expected content; reasoning acknowledges but repeats same failing approach; the follow-up action is unchanged.\n\nPredicate 5: DERIVES_TRIGGER_CONDITION\nparams: reasoning, observation\nassertion: reasoning identifies a specific input/state condition (e.g., byte value at an offset, argument value) that causes the target to reach a particular behavior path, derived from structural evidence in the observation; the condition is stated as testable/sufficient.\nexclusion: reasoning describes behavior without identifying a required condition; the condition is unrelated to the observation evidence; condition is only a generic guess without evidence.\n\nHmm, does reasoning identify condition from observation at event-0010? Yes: \"If the byte at offset 0x40 in the buffer == 1 ... prints Authentication bypassed\". Observation event-0009 disassembly. Good.\n\nPredicate 6: INTEGRATES_OBSERVATIONS_INTO_BEHAVIOR_MODEL\nparams: reasoning, observations (observation[])\nassertion: reasoning combines content from two or more observations into a coherent account of how the target operates (sequence of steps, components, constraints); the account references multiple distinct observed outputs.\nexclusion: reasoning relies on a single observation; reasoning merely concatenates outputs without constructing a model; observations are from unrelated targets.\n\nCheck event-0005 reasoning uses only strings output (single obs). event-0006 uses strings + earlier run output? event-0006 reasoning: \"The program: 1. checks debugging via ptrace ... 4. Displays...\" derived from strings (event-0005) and the run (event-0004). Yes two observations (event-0004 output \"Welcome... Enter your input\", event-0005 strings). So supported. Event-0010 uses disassembly and rodata dump? It precedes rodata dump. It uses event-0009 disasm only mostly. event-0006 works.\n\nPredicate 7: CHOOSES_NON_EXECUTION_EXTRACTION — unary reasoning.\nassertion: reasoning decides to compute the needed result from the artifact's contents (e.g., decode stored data) rather than by running/interacting with it, and states a rationale (simplicity/safety/reliability).\nexclusion: reasoning only plans to execute the target; rationale absent; decision is about unrelated aspect.\n\nHmm, \"non-execution extraction\" might be overly specific but generalizable: choosing static derivation over dynamic interaction. I'll name \"DECIDES_STATIC_EXTRACTION_OVER_EXECUTION\".\n\nAlso could add unary on observation: REPORTS_TOOL_UNAVAILABILITY. But covered.\n\nMaybe a predicate about \"IDENTIFIES_INTERESTING_ARTIFACT_FROM_LISTING\": reasoning/observation. event-0001 observation lists /app; event-0002 reasoning picks \"vulnerable\" and plans inspection. That's ground conclusion + plan. Fine.\n\nMaybe a predicate linking action to the reasoning's stated goal: \"ACTION_IMPLEMENTS_PLAN\" — binary action, reasoning. This is a mechanism: the action performs an operation that the reasoning just specified. Reusable. But is it distinguishable and useful? It's temporal/structural adjacency of intent→execution. Could be seen as generic. Hmm, but it's a real mechanism: plan realization. Yet the contract says temporal adjacency alone insufficient; here semantic match between plan and action. It might risk being trivial. But I think it's a legit mechanism: the action is the direct execution of the plan. However many would call that \"plan grounding\". Let me consider whether the trajectory supports it distinctly: event-0003 reasoning \"Let me check the header with od\" → action od. Yes. But adding it may create redundancy with IS_PLAN. I'll skip to keep quality.\n\nPredicate count: 7 seems reasonable. Maybe drop #7 to reduce risk? The evidence is explicit in event-0010 reasoning: \"Actually, I don't even need to run the program — I can just read the encoded bytes from the file at 0x40405f in .rodata and decode them with Python. That's simpler and safer.\" Strong. Keep.\n\nAlso consider a predicate about anti-analysis/defensive countermeasure recognition: reasoning identifies the target's defensive mechanism (anti-debug ptrace) and its implication. That's an instance of behavioral model/grounded conclusion. Could be distinct: \"IDENTIFIES_DEFENSIVE_COUNTERMEASURE\". Hmm, might be task-specific-ish but reusable in security. I'd rather fold into behavior model.\n\nLet's write JSON.\n\nParameter descriptions must specify binding.\n\nFor collection: observations type observation[] with collective support.\n\nEnsure names unique.\n\nWrite English conditions."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15484,
+          "completion_tokens": 5603,
+          "total_tokens": 21087,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3976
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 13564
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or sequence of actions that the agent intends to carry out next.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or plan.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one intended future action (e.g., an operation to perform, a resource to inspect, a tool to try).\", \"The expressed action is framed as something the agent will do rather than something already done.\"], \"exclusion_conditions\": [\"The reasoning only reports completed actions or describes past observations without expressing a future intention.\", \"The reasoning only restates a goal from the task description without stating an action the agent intends to perform.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion about the target or its state using identifiable content from the observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation whose content supplies the supporting evidence.\"}], \"assertion_conditions\": [\"The reasoning asserts a conclusion (e.g., about the target's type, structure, state, or behavior) rather than only repeating the observation.\", \"The conclusion relies on identifiable content of the observation, such as quoted values, byte patterns, named symbols, or produced output.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without drawing a conclusion.\", \"The observation is unrelated to the stated conclusion or provides no identifiable support.\", \"The reasoning states a future intention rather than a conclusion based on evidence.\"]}, {\"name\": \"TESTS_HYPOTHESIS_WITH_PROBE\", \"definition\": \"A targeted action tests a specific hypothesis or uncertainty stated in reasoning, and its observed result provides evidence for evaluating that hypothesis.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test or elicitation.\"}, {\"name\": \"hypothesis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the hypothesis or uncertainty being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the hypothesis.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific hypothesis or uncertainty about the target's behavior, structure, or weakness.\", \"The action is directed at eliciting information that would confirm, refute, or refine that hypothesis.\", \"The resulting observation provides interpretable evidence about the hypothesis.\"], \"exclusion_conditions\": [\"The action is routine exploration with no identifiable hypothesis motivating it.\", \"The observation does not address the stated hypothesis.\", \"The hypothesis is formulated only after seeing the result, so the action did not test it.\"]}, {\"name\": \"ADAPTS_TOOL_STRATEGY_AFTER_FAILED_PROBE\", \"definition\": \"An observation reporting a tool failure, missing capability, or absence of expected output prompts the reasoning to acknowledge the limitation and adopt a different investigative approach, which a subsequent action implements.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting an error, unavailable tool, or missing expected output.\"}, {\"name\": \"revised_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that acknowledges the limitation and specifies the alternative approach.\"}, {\"name\": \"substitute_action\", \"type\": \"action\", \"description\": \"The action implementing the alternative approach.\"}], \"assertion_conditions\": [\"The observation reports an error, an unavailable command or tool, or the absence of the output the prior action was meant to produce.\", \"The reasoning explicitly acknowledges this limitation and identifies a different way to obtain the needed information.\", \"The substitute action implements the alternative approach and differs in mechanism or tool from the failed attempt.\"], \"exclusion_conditions\": [\"The observation provides the expected information successfully.\", \"The reasoning acknowledges the failure but repeats the same failing operation.\", \"The subsequent action is unchanged from the failed attempt or is unrelated to the acknowledged limitation.\"]}, {\"name\": \"DERIVES_TRIGGER_CONDITION\", \"definition\": \"The reasoning identifies a specific input or state condition that causes the target to take a particular behavior path, deriving that condition from structural evidence in an observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the condition that triggers the target behavior.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation whose structural content (e.g., code, configuration, or data layout) supports the derived condition.\"}], \"assertion_conditions\": [\"The reasoning states a specific, testable condition involving an input value, offset, argument, or state.\", \"The reasoning indicates that satisfying the condition makes the target reach a particular behavior path or outcome.\", \"The condition is derived from identifiable structural content in the observation rather than asserted without support.\"], \"exclusion_conditions\": [\"The reasoning describes target behavior without identifying any condition that controls it.\", \"The stated condition is unrelated to the observation's content or is an unsupported guess.\", \"The reasoning only reports the target's general behavior without linking it to a trigger condition.\"]}, {\"name\": \"INTEGRATES_OBSERVATIONS_INTO_BEHAVIOR_MODEL\", \"definition\": \"The reasoning combines content from two or more observations into a coherent account of how the target operates, such as its sequence of steps, components, or constraints.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning constructing the integrated account of target behavior.\"}, {\"name\": \"observations\", \"type\": \"observation[]\", \"description\": \"The observations whose content jointly supports the integrated behavior model; support is collective across the listed observations.\"}], \"assertion_conditions\": [\"The reasoning constructs an account of how the target operates, such as an ordered list of behaviors, components, or conditions.\", \"The account draws on identifiable content from at least two distinct observations rather than a single observation.\", \"The combined account attributes a functional role to each referenced observed element rather than merely concatenating outputs.\"], \"exclusion_conditions\": [\"The reasoning relies on only one observation to describe the target.\", \"The reasoning merely repeats observations side by side without constructing an integrated account.\", \"The observations belong to unrelated targets or do not jointly support the account.\"]}, {\"name\": \"DECIDES_STATIC_EXTRACTION_OVER_EXECUTION\", \"definition\": \"The reasoning decides to obtain the required result by inspecting or computing directly from the artifact's stored content rather than by executing or interacting with the target, and states a rationale for that choice.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the decision to derive the result statically and the rationale for it.\"}], \"assertion_conditions\": [\"The reasoning explicitly decides to derive the needed result from stored artifact content (e.g., decoding stored data or reading bytes) instead of running or interacting with the target.\", \"The reasoning gives an identifiable rationale for preferring this route, such as simplicity, safety, or reliability.\"], \"exclusion_conditions\": [\"The reasoning only plans to execute or interact with the target.\", \"The reasoning states a static analysis step without deciding to use it in place of execution.\", \"No rationale for preferring the static route is expressed.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or sequence of actions that the agent intends to carry out next.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action or plan."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies at least one intended future action (e.g., an operation to perform, a resource to inspect, a tool to try).",
+          "The expressed action is framed as something the agent will do rather than something already done."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports completed actions or describes past observations without expressing a future intention.",
+          "The reasoning only restates a goal from the task description without stating an action the agent intends to perform."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion about the target or its state using identifiable content from the observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the evidence-based conclusion."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation whose content supplies the supporting evidence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning asserts a conclusion (e.g., about the target's type, structure, state, or behavior) rather than only repeating the observation.",
+          "The conclusion relies on identifiable content of the observation, such as quoted values, byte patterns, named symbols, or produced output."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or summarizes the observation without drawing a conclusion.",
+          "The observation is unrelated to the stated conclusion or provides no identifiable support.",
+          "The reasoning states a future intention rather than a conclusion based on evidence."
+        ]
+      },
+      {
+        "name": "TESTS_HYPOTHESIS_WITH_PROBE",
+        "definition": "A targeted action tests a specific hypothesis or uncertainty stated in reasoning, and its observed result provides evidence for evaluating that hypothesis.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action performing the targeted test or elicitation."
+          },
+          {
+            "name": "hypothesis_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying the hypothesis or uncertainty being tested."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the result relevant to the hypothesis."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific hypothesis or uncertainty about the target's behavior, structure, or weakness.",
+          "The action is directed at eliciting information that would confirm, refute, or refine that hypothesis.",
+          "The resulting observation provides interpretable evidence about the hypothesis."
+        ],
+        "exclusion_conditions": [
+          "The action is routine exploration with no identifiable hypothesis motivating it.",
+          "The observation does not address the stated hypothesis.",
+          "The hypothesis is formulated only after seeing the result, so the action did not test it."
+        ]
+      },
+      {
+        "name": "ADAPTS_TOOL_STRATEGY_AFTER_FAILED_PROBE",
+        "definition": "An observation reporting a tool failure, missing capability, or absence of expected output prompts the reasoning to acknowledge the limitation and adopt a different investigative approach, which a subsequent action implements.",
+        "parameters": [
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting an error, unavailable tool, or missing expected output."
+          },
+          {
+            "name": "revised_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that acknowledges the limitation and specifies the alternative approach."
+          },
+          {
+            "name": "substitute_action",
+            "type": "action",
+            "description": "The action implementing the alternative approach."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an error, an unavailable command or tool, or the absence of the output the prior action was meant to produce.",
+          "The reasoning explicitly acknowledges this limitation and identifies a different way to obtain the needed information.",
+          "The substitute action implements the alternative approach and differs in mechanism or tool from the failed attempt."
+        ],
+        "exclusion_conditions": [
+          "The observation provides the expected information successfully.",
+          "The reasoning acknowledges the failure but repeats the same failing operation.",
+          "The subsequent action is unchanged from the failed attempt or is unrelated to the acknowledged limitation."
+        ]
+      },
+      {
+        "name": "DERIVES_TRIGGER_CONDITION",
+        "definition": "The reasoning identifies a specific input or state condition that causes the target to take a particular behavior path, deriving that condition from structural evidence in an observation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the condition that triggers the target behavior."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation whose structural content (e.g., code, configuration, or data layout) supports the derived condition."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a specific, testable condition involving an input value, offset, argument, or state.",
+          "The reasoning indicates that satisfying the condition makes the target reach a particular behavior path or outcome.",
+          "The condition is derived from identifiable structural content in the observation rather than asserted without support."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes target behavior without identifying any condition that controls it.",
+          "The stated condition is unrelated to the observation's content or is an unsupported guess.",
+          "The reasoning only reports the target's general behavior without linking it to a trigger condition."
+        ]
+      },
+      {
+        "name": "INTEGRATES_OBSERVATIONS_INTO_BEHAVIOR_MODEL",
+        "definition": "The reasoning combines content from two or more observations into a coherent account of how the target operates, such as its sequence of steps, components, or constraints.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning constructing the integrated account of target behavior."
+          },
+          {
+            "name": "observations",
+            "type": "observation[]",
+            "description": "The observations whose content jointly supports the integrated behavior model; support is collective across the listed observations."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning constructs an account of how the target operates, such as an ordered list of behaviors, components, or conditions.",
+          "The account draws on identifiable content from at least two distinct observations rather than a single observation.",
+          "The combined account attributes a functional role to each referenced observed element rather than merely concatenating outputs."
+        ],
+        "exclusion_conditions": [
+          "The reasoning relies on only one observation to describe the target.",
+          "The reasoning merely repeats observations side by side without constructing an integrated account.",
+          "The observations belong to unrelated targets or do not jointly support the account."
+        ]
+      },
+      {
+        "name": "DECIDES_STATIC_EXTRACTION_OVER_EXECUTION",
+        "definition": "The reasoning decides to obtain the required result by inspecting or computing directly from the artifact's stored content rather than by executing or interacting with the target, and states a rationale for that choice.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the decision to derive the result statically and the rationale for it."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly decides to derive the needed result from stored artifact content (e.g., decoding stored data or reading bytes) instead of running or interacting with the target.",
+          "The reasoning gives an identifiable rationale for preferring this route, such as simplicity, safety, or reliability."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only plans to execute or interact with the target.",
+          "The reasoning states a static analysis step without deciding to use it in place of execution.",
+          "No rationale for preferring the static route is expressed."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

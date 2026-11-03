@@ -1,0 +1,263 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__nginx-request-logging__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T12:11:16.262412+00:00",
+  "duration_seconds": 30.016,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T12:10:46.235099+00:00",
+      "duration_seconds": 30.016,
+      "raw_response": {
+        "id": "5d7a6f2b-4879-4d23-8c39-b90569a2ae01",
+        "object": "chat.completion",
+        "created": 1793707849,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [\n  {\n    \"name\": \"CONFIRMS_REQUIREMENT_FROM_OBSERVED_OUTPUT\",\n    \"definition\": \"The reasoning interprets concrete content of an observation as satisfying a specific previously stated requirement, by mapping observed values or artifacts onto the attributes that requirement demands.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text that maps observed output content onto required attributes and declares the requirement met.\"\n      },\n      {\n        \"name\": \"observation\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result supplying the concrete values or artifacts cited as evidence of requirement fulfillment.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning names at least one required attribute (field, behavior, file, setting) and cites corresponding observable content from the observation.\",\n      \"The reasoning states or implies that the cited content demonstrates the requirement is satisfied, rather than merely describing the output.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning restates or transcribes the observation without linking it to a requirement.\",\n      \"The observation contains no identifiable content corresponding to the requirement being claimed.\",\n      \"The reasoning claims satisfaction without any observed evidence.\"\n    ]\n  },\n  {\n    \"name\": \"EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS\",\n    \"definition\": \"Faced with an observation that contradicts the expected outcome, the reasoning proposes a causal or mechanistic account of why the deviation occurred, instead of accepting the result at face value.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text constructing the explanation for the unexpected result.\"\n      },\n      {\n        \"name\": \"observation\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result whose content deviates from what the agent expected.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The observation's outcome differs from the outcome the agent anticipated (for example, no rejections where rejections were expected).\",\n      \"The reasoning identifies a mechanism (timing, pacing, queueing, serialization, absent capability) that would produce that deviation.\",\n      \"The explanation is presented as the reason the observed result occurred, not as an unrelated general remark.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The observation matches the expectation, so no deviation needs explaining.\",\n      \"The reasoning only repeats the result or expresses surprise without proposing any mechanism.\",\n      \"The reasoning attributes the result to a mechanism that is incompatible with the observed content.\"\n    ]\n  },\n  {\n    \"name\": \"ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND\",\n    \"definition\": \"The reasoning diagnoses a confound or limitation in a previous measurement technique, and the following action changes how the measurement is performed specifically to remove that confound.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text identifying the confound (for example, per-invocation startup delay spacing requests, or an unsupported option) and prescribing the adjusted technique.\"\n      },\n      {\n        \"name\": \"adapted_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation performing the measurement with the adjusted technique.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning names a specific property of the earlier technique that distorted or invalidated the measurement.\",\n      \"The adapted action differs from the earlier technique in exactly the respect the reasoning identified.\",\n      \"The reasoning presents the adjustment as a way to obtain a valid measurement, not as an unrelated new objective.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action repeats the same technique without addressing the identified confound.\",\n      \"The reasoning provides no identifiable flaw in the previous approach.\",\n      \"The action changes technique for reasons unrelated to measurement validity (for example, convenience or unrelated requirements).\"\n    ]\n  },\n  {\n    \"name\": \"TESTS_BEHAVIORAL_GUARANTEE_WITH_STRESS_PROBE\",\n    \"definition\": \"An action deliberately generates load or stress conditions to test whether a configured behavioral guarantee (throttling, limiting, rejection behavior) actually holds, and the resulting observation supplies interpretable evidence about that guarantee.\",\n    \"parameters\": [\n      {\n        \"name\": \"probe_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation that drives demand beyond normal levels to exercise the claimed behavior.\"\n      },\n      {\n        \"name\": \"guarantee_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text stating the behavioral guarantee under test and the outcome pattern that would confirm or refute it.\"\n      },\n      {\n        \"name\": \"probe_result\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result reporting the distribution or pattern of responses produced by the probe.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning identifies a behavioral guarantee and an expected signature of it holding (for example, a fraction of rejections when demand exceeds the allowance).\",\n      \"The probe action is constructed to exceed the conditions under which the guarantee would be inert.\",\n      \"The probe result reports an outcome pattern that can be compared against the expected signature.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action exercises only normal single-request usage and cannot discriminate whether the guarantee holds.\",\n      \"The result is not interpretable with respect to the stated guarantee (for example, the probe failed to execute).\",\n      \"No expected signature is stated, so the result cannot confirm or refute anything.\"\n    ]\n  },\n  {\n    \"name\": \"IMPLEMENTS_DIAGNOSED_CORRECTION_AS_CHANGE\",\n    \"definition\": \"The agent modifies an artifact (configuration, file, setting) in exactly the way its own prior diagnostic reasoning concluded was necessary, so the change is the operational realization of a diagnosis rather than an arbitrary edit.\",\n    \"parameters\": [\n      {\n        \"name\": \"change_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation that rewrites or alters the artifact.\"\n      },\n      {\n        \"name\": \"diagnosis_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text concluding which specific modification is needed and why.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning states a deficiency or undesired default behavior and names the modification that would correct it.\",\n      \"The change action applies that named modification to the artifact.\",\n      \"The correspondence between the concluded modification and the applied change is identifiable in the node contents.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The change action implements something other than what the reasoning concluded was required.\",\n      \"The reasoning offers no specific corrective modification, only a general observation.\",\n      \"The action is a read-only inspection rather than an alteration.\"\n    ]\n  },\n  {\n    \"name\": \"SELECTS_VARIANT_BY_ANTICIPATED_EVALUATION\",\n    \"definition\": \"The reasoning chooses among multiple defensible implementation variants by predicting how an external evaluator or downstream check would respond to each variant, rather than by inherent correctness alone.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text weighing alternatives and explaining the choice in terms of predicted evaluation outcomes.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning presents at least two viable implementation variants or interpretations.\",\n      \"The reasoning justifies the selection by predicting how an external check, test, or grader would treat each variant.\",\n      \"The reasoning commits to one variant as a result of that prediction.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning selects a variant purely on technical correctness with no reference to anticipated evaluation.\",\n      \"Only one option is considered, so no selection among alternatives occurs.\",\n      \"The reasoning defers the choice without committing.\"\n    ]\n  },\n  {\n    \"name\": \"VALIDATES_BEFORE_ACTIVATION\",\n    \"definition\": \"A single action gates an activation or restart of a service on a prior validity check, so that activation proceeds only if the check passes.\",\n    \"parameters\": [\n      {\n        \"name\": \"gated_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation combining a validity check with a conditional activation or reload of the service.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The invocation performs an explicit validity or syntax check of the configuration.\",\n      \"The activation or reload operation is conditioned on that check succeeding within the same invocation.\",\n      \"The check and the activation are distinguishable parts of the invocation.\"\n    ],\n    \"exclusion_conditions\": [\n      \"Activation or reload is performed without any preceding validity check.\",\n      \"The invocation only performs a check and no activation.\",\n      \"The check does not gate the activation (for example, they run unconditionally in sequence).\"\n    ]\n  },\n  {\n    \"name\": \"AUDITS_ALL_STATED_REQUIREMENTS_WITH_ENUMERATED_CHECKS\",\n    \"definition\": \"The agent performs a consolidated audit that enumerates each stated requirement and pairs it with a direct check, with the observation reporting a per-requirement status that the subsequent reasoning aggregates into an overall completion judgment.\",\n    \"parameters\": [\n      {\n        \"name\": \"audit_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text declaring an intention to verify every stated requirement as a complete set.\"\n      },\n      {\n        \"name\": \"audit_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation issuing one enumerated check per requirement.\"\n      },\n      {\n        \"name\": \"audit_result\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result reporting the outcome of each individual check.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning frames the check as covering the full set of stated requirements, not a subset.\",\n      \"The audit action produces an individually identifiable result per requirement.\",\n      \"The audit result reports per-requirement statuses that can be aggregated into an overall verdict.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The check covers only one requirement or an arbitrary subset.\",\n      \"The result aggregates outcomes in a way that no per-requirement status is identifiable.\",\n      \"Requirements are asserted as met without a corresponding executed check.\"\n    ]\n  }\n]}",
+              "reasoning_content": "We need to discover predicates from this trajectory. Core nodes are events 0011-0020 (and 0009-0010 are overlap). Let's identify mechanisms.\n\nKey mechanisms visible:\n\n1. Reasoning interprets observation as evidence that a requirement/configuration is verified (e.g., event-0012 reasoning: log format working, each field mapped to observed values). Predicate: CONFIRMS_REQUIREMENT_FROM_OBSERVATION or INTERPRETS_OBSERVATION_AS_VALIDATION.\n\n2. Reasoning diagnoses unexpected observation by forming a causal hypothesis for why the outcome occurred (event-0013: sequential curl self-throttles ~10 r/s explains all 200s; event-0016: plain burst delays instead of rejects). Predicate: EXPLAINS_UNEXPECTED_OBSERVATION_WITH_CAUSAL_HYPOTHESIS (binary).\n\n3. Reasoning revises approach due to unexpected result — adaptive retry with changed method (event-0014, 0015: alternative parallelization methods; event-0016: config change decision). Predicate: REVISES_STRATEGY_IN_RESPONSE_TO_ANOMALOUS_OBSERVATION.\n\n4. Ternary hypothesis testing: action probes uncertainty and observation resolves (event-0012: \"let me verify rate limiting actually works\" → burst test → all 200). That's TESTS_ASSUMPTION_WITH_PROBE — supported, and also event-0014/0015 retries.\n\n5. Decision under uncertainty based on anticipated grader expectations — reasoning selecting configuration option based on predicted evaluation criteria (event-0016: whether to add nodelay). Predicate: SELECTS_OPTION_BASED_ON_ANTICIPATED_VALIDATION_CRITERIA. Hmm, that's fairly specific but reusable: reasoning weighs alternatives and chooses based on predicted acceptance criteria. Might be called CHOOSES_ALTERNATIVE_BY_ANTICIPATED_EVALUATION.\n\n6. Action that modifies configuration in response to diagnostic conclusion (event-0016 write action follows reasoning concluding need for nodelay). Predicate: IMPLEMENTS_DIAGNOSIS_AS_CONFIGURATION_CHANGE (binary action-reasoning).\n\n7. Verification of configuration validity before applying (event-0017 action: nginx -t && reload). Predicate: VALIDATES_BEFORE_APPLYING? This is an action that gates a subsequent operation on a passing check. Could be unary: action performs validation check prior to activation.\n\n8. Requirement checklist verification: action executing comprehensive checks, observation enumerating status per requirement, reasoning concluding all requirements met. Predicate: FINAL_COMPLIANCE_AUDIT — action checks each stated requirement; observation reports per-requirement status. Could define ternary: AUDITS_REQUIREMENTS_AGAINST_TASK (action, observation, reasoning). Hmm.\n\n9. Unary: reasoning stating completion/conclusion (CONCLUDES_TASK_COMPLETE) — maybe too generic but acceptable as \"declares completion\".\n\n10. Unary: reasoning formulating a testable expectation/prediction (event-0012: \"if I send more than 11 requests, some should return 503\"). Predicate: STATES_TESTABLE_PREDICTION. Then observation contradicts prediction → predicate DISCONFIRMS_PREDICTION. But better to use hypothesis testing ternary.\n\n11. Predicate: OBSERVATION_CONTRADICTS_EXPECTATION (binary observation-reasoning) — event-0013: all 200s contradicts expectation of 503s.\n\n12. Predicate: INTERPRETS_OUTPUT_AS_EVIDENCE_OF_FUNCTIONING_BEHAVIOR — e.g., event-0012 reasoning maps log fields to configured variables. Maybe \"VALIDATES_CONFIGURATION_EFFECT_FROM_OUTPUT\".\n\nLet's craft a reasonable set, maybe 6-8 predicates with distinct mechanisms.\n\nCandidates:\n\nA. CONFIRMS_REQUIREMENT_FULFILLMENT_FROM_OUTPUT (binary: reasoning, observation) — reasoning cites specific content of observation as confirming that a specified task requirement is satisfied, mapping observed artifacts to required attributes.\n\nB. EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS (binary: reasoning, observation) — reasoning proposes a causal mechanism accounting for why observation deviates from expectation.\n\nC. REVISES_TEST_APPROACH_AFTER_INCONCLUSIVE_RESULT (binary: reasoning, action) — hmm, better: reasoning prescribes a modified probing method after previous probe failed to discriminate. Could be ternary: REVISES_PROBE_STRATEGY (reasoning, prior observation?, action)? Maybe keep binary: reasoning → action where reasoning derives adjusted approach from prior failure. Let's define ADAPTS_PROBE_TO_OVERCOME_MEASUREMENT_ARTIFACT (reasoning, action) — the action changes the measurement technique to eliminate an identified confound.\n\nD. TESTS_HYPOTHESIS_WITH_CONTROLLED_PROBE (ternary: action, reasoning, observation) — reuse example 3 style with the nodelay/burst test.\n\nE. IMPLEMENTS_DIAGNOSIS_AS_CHANGE (binary: action, reasoning) — the action applies a modification dictated by the reasoning's diagnosis (write config with nodelay). Distinguish from generic.\n\nF. CHOOSES_OPTION_BY_ANTICIPATED_EVALUATION (unary reasoning) — reasoning selects among defensible alternatives based on predicting how outcome will be judged. Reusable.\n\nG. VALIDATES_BEFORE_ACTIVATION (unary action) — action gates an activation/restart on a syntactic/config validity check within the same invocation. Evidence: `nginx -t && nginx -s reload`.\n\nH. AUDITS_EACH_STATED_REQUIREMENT (ternary: action, observation, reasoning) — final comprehensive check enumerating each requirement with status. Maybe binary: action enumerates requirements; observation reports per-requirement status. Define ternary with reasoning identifying the requirement set? Actually the requirements come from the user query, not a reasoning node. Hmm — the reasoning in event-0019 says \"Let me run one final comprehensive check of every task requirement.\" That's the reasoning identifying the full set. So ternary works: reasoning (declares full-requirement check), action (checks each), observation (per-requirement outputs). But requirement set comes from user query — we can frame as reasoning enumerating requirements. Acceptable.\n\nI. Unary: CONCLUDES_ALL_REQUIREMENTS_SATISFIED (reasoning) — event-0019/0020. Maybe merge into A? A is binary per-observation. The final conclusion is aggregate. Could define AGGREGATES_VERIFICATION_INTO_COMPLETION_CLAIM (reasoning, observation[]) — reasoning declaring completion after reviewing multiple verification results. Hmm, maybe keep it as unary DECLARES_TASK_COMPLETION.\n\nLet's not overdo. I'll produce ~7 predicates.\n\nLet me write them carefully.\n\n1. CONFIRMS_REQUIREMENT_FROM_OBSERVED_OUTPUT\nparameters: reasoning, observation.\nDefinition: reasoning interprets specific artifacts in the observation as satisfying a previously stated task requirement, mapping observed values to required attributes.\nAssertion: reasoning names at least one required attribute and cites corresponding observed content; conclusion of satisfaction stated.\nExclusion: reasoning only repeats/describes output without linking to a requirement; or observation unrelated.\n\n2. EXPLAINS_ANOMALY_WITH_CAUSAL_HYPOTHESIS\nparameters: reasoning, observation.\nDefinition: reasoning offers a causal/mechanistic account of why an observation deviates from the expected outcome, rather than accepting or ignoring the deviation.\nAssertion: observation content conflicts with an expectation (all successes where rejections expected); reasoning posits a mechanism (timing, throttling, queueing) explaining it.\nExclusion: reasoning merely restates result; reasoning attributes without mechanism; no deviation.\n\n3. DIAGNOSIS_MOTIVATES_STRATEGY_CHANGE — hmm, could be covered by 2 plus another predicate linking reasoning to new action. Define ADAPTS_PROBE_STRATEGY_TO_REMOVE_CONFOUND (reasoning, action): reasoning identifies a confound (process startup spacing, unknown option) and the action changes the measurement to eliminate it.\n\n4. TESTS_BEHAVIORAL_GUARANTEE_WITH_BURST_PROBE (ternary: probe_action, uncertainty_reasoning, probe_result). Actually generalization: TESTS_BEHAVIORAL_GUARANTEE_WITH_STRESS_PROBE.\n\n5. APPLIES_CONFIGURATION_REVISION_FROM_DIAGNOSIS (action, reasoning): action rewrites a configuration according to a specific modification the reasoning decided was necessary following diagnosis.\n\n6. SELECTS_VARIANT_BY_ANTICIPATED_EVALUATION (unary reasoning): reasoning picks among defensible implementation variants by predicting how an external evaluator/test would judge the outcome.\n\n7. VALIDATES_BEFORE_ACTIVATION (unary action): action combines a syntax/validity check with activation such that activation only occurs if the check passes.\n\n8. AUDITS_REQUIREMENTS_WITH_ENUMERATED_CHECKS (ternary: reasoning, action, observation). Maybe just binary action-observation? The reasoning declares the audit. I'll define ternary.\n\n9. DECLARES_COMPLETION_AFTER_VERIFICATION (unary reasoning) — reasoning concludes all requirements met and summarizes. Might be redundant with 8. Include? It's a distinct mechanism: aggregate completion claim. Keep it maybe.\n\nLet me limit to 8 predicates. Fine.\n\nAlso possibly a predicate about contradiction between expectation and observation, which is embedded in 2. Fine.\n\nWrite JSON with five fields each.\n\nParameter descriptions must be clear.\n\nLet's finalize."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 13268,
+          "completion_tokens": 4341,
+          "total_tokens": 17609,
+          "prompt_tokens_details": {
+            "cached_tokens": 2304
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2092
+          },
+          "prompt_cache_hit_tokens": 2304,
+          "prompt_cache_miss_tokens": 10964
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [\n  {\n    \"name\": \"CONFIRMS_REQUIREMENT_FROM_OBSERVED_OUTPUT\",\n    \"definition\": \"The reasoning interprets concrete content of an observation as satisfying a specific previously stated requirement, by mapping observed values or artifacts onto the attributes that requirement demands.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text that maps observed output content onto required attributes and declares the requirement met.\"\n      },\n      {\n        \"name\": \"observation\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result supplying the concrete values or artifacts cited as evidence of requirement fulfillment.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning names at least one required attribute (field, behavior, file, setting) and cites corresponding observable content from the observation.\",\n      \"The reasoning states or implies that the cited content demonstrates the requirement is satisfied, rather than merely describing the output.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning restates or transcribes the observation without linking it to a requirement.\",\n      \"The observation contains no identifiable content corresponding to the requirement being claimed.\",\n      \"The reasoning claims satisfaction without any observed evidence.\"\n    ]\n  },\n  {\n    \"name\": \"EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS\",\n    \"definition\": \"Faced with an observation that contradicts the expected outcome, the reasoning proposes a causal or mechanistic account of why the deviation occurred, instead of accepting the result at face value.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text constructing the explanation for the unexpected result.\"\n      },\n      {\n        \"name\": \"observation\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result whose content deviates from what the agent expected.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The observation's outcome differs from the outcome the agent anticipated (for example, no rejections where rejections were expected).\",\n      \"The reasoning identifies a mechanism (timing, pacing, queueing, serialization, absent capability) that would produce that deviation.\",\n      \"The explanation is presented as the reason the observed result occurred, not as an unrelated general remark.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The observation matches the expectation, so no deviation needs explaining.\",\n      \"The reasoning only repeats the result or expresses surprise without proposing any mechanism.\",\n      \"The reasoning attributes the result to a mechanism that is incompatible with the observed content.\"\n    ]\n  },\n  {\n    \"name\": \"ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND\",\n    \"definition\": \"The reasoning diagnoses a confound or limitation in a previous measurement technique, and the following action changes how the measurement is performed specifically to remove that confound.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text identifying the confound (for example, per-invocation startup delay spacing requests, or an unsupported option) and prescribing the adjusted technique.\"\n      },\n      {\n        \"name\": \"adapted_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation performing the measurement with the adjusted technique.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning names a specific property of the earlier technique that distorted or invalidated the measurement.\",\n      \"The adapted action differs from the earlier technique in exactly the respect the reasoning identified.\",\n      \"The reasoning presents the adjustment as a way to obtain a valid measurement, not as an unrelated new objective.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action repeats the same technique without addressing the identified confound.\",\n      \"The reasoning provides no identifiable flaw in the previous approach.\",\n      \"The action changes technique for reasons unrelated to measurement validity (for example, convenience or unrelated requirements).\"\n    ]\n  },\n  {\n    \"name\": \"TESTS_BEHAVIORAL_GUARANTEE_WITH_STRESS_PROBE\",\n    \"definition\": \"An action deliberately generates load or stress conditions to test whether a configured behavioral guarantee (throttling, limiting, rejection behavior) actually holds, and the resulting observation supplies interpretable evidence about that guarantee.\",\n    \"parameters\": [\n      {\n        \"name\": \"probe_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation that drives demand beyond normal levels to exercise the claimed behavior.\"\n      },\n      {\n        \"name\": \"guarantee_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text stating the behavioral guarantee under test and the outcome pattern that would confirm or refute it.\"\n      },\n      {\n        \"name\": \"probe_result\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result reporting the distribution or pattern of responses produced by the probe.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning identifies a behavioral guarantee and an expected signature of it holding (for example, a fraction of rejections when demand exceeds the allowance).\",\n      \"The probe action is constructed to exceed the conditions under which the guarantee would be inert.\",\n      \"The probe result reports an outcome pattern that can be compared against the expected signature.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action exercises only normal single-request usage and cannot discriminate whether the guarantee holds.\",\n      \"The result is not interpretable with respect to the stated guarantee (for example, the probe failed to execute).\",\n      \"No expected signature is stated, so the result cannot confirm or refute anything.\"\n    ]\n  },\n  {\n    \"name\": \"IMPLEMENTS_DIAGNOSED_CORRECTION_AS_CHANGE\",\n    \"definition\": \"The agent modifies an artifact (configuration, file, setting) in exactly the way its own prior diagnostic reasoning concluded was necessary, so the change is the operational realization of a diagnosis rather than an arbitrary edit.\",\n    \"parameters\": [\n      {\n        \"name\": \"change_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation that rewrites or alters the artifact.\"\n      },\n      {\n        \"name\": \"diagnosis_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text concluding which specific modification is needed and why.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning states a deficiency or undesired default behavior and names the modification that would correct it.\",\n      \"The change action applies that named modification to the artifact.\",\n      \"The correspondence between the concluded modification and the applied change is identifiable in the node contents.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The change action implements something other than what the reasoning concluded was required.\",\n      \"The reasoning offers no specific corrective modification, only a general observation.\",\n      \"The action is a read-only inspection rather than an alteration.\"\n    ]\n  },\n  {\n    \"name\": \"SELECTS_VARIANT_BY_ANTICIPATED_EVALUATION\",\n    \"definition\": \"The reasoning chooses among multiple defensible implementation variants by predicting how an external evaluator or downstream check would respond to each variant, rather than by inherent correctness alone.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text weighing alternatives and explaining the choice in terms of predicted evaluation outcomes.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning presents at least two viable implementation variants or interpretations.\",\n      \"The reasoning justifies the selection by predicting how an external check, test, or grader would treat each variant.\",\n      \"The reasoning commits to one variant as a result of that prediction.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning selects a variant purely on technical correctness with no reference to anticipated evaluation.\",\n      \"Only one option is considered, so no selection among alternatives occurs.\",\n      \"The reasoning defers the choice without committing.\"\n    ]\n  },\n  {\n    \"name\": \"VALIDATES_BEFORE_ACTIVATION\",\n    \"definition\": \"A single action gates an activation or restart of a service on a prior validity check, so that activation proceeds only if the check passes.\",\n    \"parameters\": [\n      {\n        \"name\": \"gated_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation combining a validity check with a conditional activation or reload of the service.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The invocation performs an explicit validity or syntax check of the configuration.\",\n      \"The activation or reload operation is conditioned on that check succeeding within the same invocation.\",\n      \"The check and the activation are distinguishable parts of the invocation.\"\n    ],\n    \"exclusion_conditions\": [\n      \"Activation or reload is performed without any preceding validity check.\",\n      \"The invocation only performs a check and no activation.\",\n      \"The check does not gate the activation (for example, they run unconditionally in sequence).\"\n    ]\n  },\n  {\n    \"name\": \"AUDITS_ALL_STATED_REQUIREMENTS_WITH_ENUMERATED_CHECKS\",\n    \"definition\": \"The agent performs a consolidated audit that enumerates each stated requirement and pairs it with a direct check, with the observation reporting a per-requirement status that the subsequent reasoning aggregates into an overall completion judgment.\",\n    \"parameters\": [\n      {\n        \"name\": \"audit_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text declaring an intention to verify every stated requirement as a complete set.\"\n      },\n      {\n        \"name\": \"audit_action\",\n        \"type\": \"action\",\n        \"description\": \"The tool invocation issuing one enumerated check per requirement.\"\n      },\n      {\n        \"name\": \"audit_result\",\n        \"type\": \"observation\",\n        \"description\": \"The tool result reporting the outcome of each individual check.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning frames the check as covering the full set of stated requirements, not a subset.\",\n      \"The audit action produces an individually identifiable result per requirement.\",\n      \"The audit result reports per-requirement statuses that can be aggregated into an overall verdict.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The check covers only one requirement or an arbitrary subset.\",\n      \"The result aggregates outcomes in a way that no per-requirement status is identifiable.\",\n      \"Requirements are asserted as met without a corresponding executed check.\"\n    ]\n  }\n]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "CONFIRMS_REQUIREMENT_FROM_OBSERVED_OUTPUT",
+        "definition": "The reasoning interprets concrete content of an observation as satisfying a specific previously stated requirement, by mapping observed values or artifacts onto the attributes that requirement demands.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that maps observed output content onto required attributes and declares the requirement met."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result supplying the concrete values or artifacts cited as evidence of requirement fulfillment."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names at least one required attribute (field, behavior, file, setting) and cites corresponding observable content from the observation.",
+          "The reasoning states or implies that the cited content demonstrates the requirement is satisfied, rather than merely describing the output."
+        ],
+        "exclusion_conditions": [
+          "The reasoning restates or transcribes the observation without linking it to a requirement.",
+          "The observation contains no identifiable content corresponding to the requirement being claimed.",
+          "The reasoning claims satisfaction without any observed evidence."
+        ]
+      },
+      {
+        "name": "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+        "definition": "Faced with an observation that contradicts the expected outcome, the reasoning proposes a causal or mechanistic account of why the deviation occurred, instead of accepting the result at face value.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text constructing the explanation for the unexpected result."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The tool result whose content deviates from what the agent expected."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation's outcome differs from the outcome the agent anticipated (for example, no rejections where rejections were expected).",
+          "The reasoning identifies a mechanism (timing, pacing, queueing, serialization, absent capability) that would produce that deviation.",
+          "The explanation is presented as the reason the observed result occurred, not as an unrelated general remark."
+        ],
+        "exclusion_conditions": [
+          "The observation matches the expectation, so no deviation needs explaining.",
+          "The reasoning only repeats the result or expresses surprise without proposing any mechanism.",
+          "The reasoning attributes the result to a mechanism that is incompatible with the observed content."
+        ]
+      },
+      {
+        "name": "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND",
+        "definition": "The reasoning diagnoses a confound or limitation in a previous measurement technique, and the following action changes how the measurement is performed specifically to remove that confound.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text identifying the confound (for example, per-invocation startup delay spacing requests, or an unsupported option) and prescribing the adjusted technique."
+          },
+          {
+            "name": "adapted_action",
+            "type": "action",
+            "description": "The tool invocation performing the measurement with the adjusted technique."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a specific property of the earlier technique that distorted or invalidated the measurement.",
+          "The adapted action differs from the earlier technique in exactly the respect the reasoning identified.",
+          "The reasoning presents the adjustment as a way to obtain a valid measurement, not as an unrelated new objective."
+        ],
+        "exclusion_conditions": [
+          "The action repeats the same technique without addressing the identified confound.",
+          "The reasoning provides no identifiable flaw in the previous approach.",
+          "The action changes technique for reasons unrelated to measurement validity (for example, convenience or unrelated requirements)."
+        ]
+      },
+      {
+        "name": "TESTS_BEHAVIORAL_GUARANTEE_WITH_STRESS_PROBE",
+        "definition": "An action deliberately generates load or stress conditions to test whether a configured behavioral guarantee (throttling, limiting, rejection behavior) actually holds, and the resulting observation supplies interpretable evidence about that guarantee.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The tool invocation that drives demand beyond normal levels to exercise the claimed behavior."
+          },
+          {
+            "name": "guarantee_reasoning",
+            "type": "reasoning",
+            "description": "The agent text stating the behavioral guarantee under test and the outcome pattern that would confirm or refute it."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The tool result reporting the distribution or pattern of responses produced by the probe."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a behavioral guarantee and an expected signature of it holding (for example, a fraction of rejections when demand exceeds the allowance).",
+          "The probe action is constructed to exceed the conditions under which the guarantee would be inert.",
+          "The probe result reports an outcome pattern that can be compared against the expected signature."
+        ],
+        "exclusion_conditions": [
+          "The action exercises only normal single-request usage and cannot discriminate whether the guarantee holds.",
+          "The result is not interpretable with respect to the stated guarantee (for example, the probe failed to execute).",
+          "No expected signature is stated, so the result cannot confirm or refute anything."
+        ]
+      },
+      {
+        "name": "IMPLEMENTS_DIAGNOSED_CORRECTION_AS_CHANGE",
+        "definition": "The agent modifies an artifact (configuration, file, setting) in exactly the way its own prior diagnostic reasoning concluded was necessary, so the change is the operational realization of a diagnosis rather than an arbitrary edit.",
+        "parameters": [
+          {
+            "name": "change_action",
+            "type": "action",
+            "description": "The tool invocation that rewrites or alters the artifact."
+          },
+          {
+            "name": "diagnosis_reasoning",
+            "type": "reasoning",
+            "description": "The agent text concluding which specific modification is needed and why."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a deficiency or undesired default behavior and names the modification that would correct it.",
+          "The change action applies that named modification to the artifact.",
+          "The correspondence between the concluded modification and the applied change is identifiable in the node contents."
+        ],
+        "exclusion_conditions": [
+          "The change action implements something other than what the reasoning concluded was required.",
+          "The reasoning offers no specific corrective modification, only a general observation.",
+          "The action is a read-only inspection rather than an alteration."
+        ]
+      },
+      {
+        "name": "SELECTS_VARIANT_BY_ANTICIPATED_EVALUATION",
+        "definition": "The reasoning chooses among multiple defensible implementation variants by predicting how an external evaluator or downstream check would respond to each variant, rather than by inherent correctness alone.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text weighing alternatives and explaining the choice in terms of predicted evaluation outcomes."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning presents at least two viable implementation variants or interpretations.",
+          "The reasoning justifies the selection by predicting how an external check, test, or grader would treat each variant.",
+          "The reasoning commits to one variant as a result of that prediction."
+        ],
+        "exclusion_conditions": [
+          "The reasoning selects a variant purely on technical correctness with no reference to anticipated evaluation.",
+          "Only one option is considered, so no selection among alternatives occurs.",
+          "The reasoning defers the choice without committing."
+        ]
+      },
+      {
+        "name": "VALIDATES_BEFORE_ACTIVATION",
+        "definition": "A single action gates an activation or restart of a service on a prior validity check, so that activation proceeds only if the check passes.",
+        "parameters": [
+          {
+            "name": "gated_action",
+            "type": "action",
+            "description": "The tool invocation combining a validity check with a conditional activation or reload of the service."
+          }
+        ],
+        "assertion_conditions": [
+          "The invocation performs an explicit validity or syntax check of the configuration.",
+          "The activation or reload operation is conditioned on that check succeeding within the same invocation.",
+          "The check and the activation are distinguishable parts of the invocation."
+        ],
+        "exclusion_conditions": [
+          "Activation or reload is performed without any preceding validity check.",
+          "The invocation only performs a check and no activation.",
+          "The check does not gate the activation (for example, they run unconditionally in sequence)."
+        ]
+      },
+      {
+        "name": "AUDITS_ALL_STATED_REQUIREMENTS_WITH_ENUMERATED_CHECKS",
+        "definition": "The agent performs a consolidated audit that enumerates each stated requirement and pairs it with a direct check, with the observation reporting a per-requirement status that the subsequent reasoning aggregates into an overall completion judgment.",
+        "parameters": [
+          {
+            "name": "audit_reasoning",
+            "type": "reasoning",
+            "description": "The agent text declaring an intention to verify every stated requirement as a complete set."
+          },
+          {
+            "name": "audit_action",
+            "type": "action",
+            "description": "The tool invocation issuing one enumerated check per requirement."
+          },
+          {
+            "name": "audit_result",
+            "type": "observation",
+            "description": "The tool result reporting the outcome of each individual check."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning frames the check as covering the full set of stated requirements, not a subset.",
+          "The audit action produces an individually identifiable result per requirement.",
+          "The audit result reports per-requirement statuses that can be aggregated into an overall verdict."
+        ],
+        "exclusion_conditions": [
+          "The check covers only one requirement or an arbitrary subset.",
+          "The result aggregates outcomes in a way that no per-requirement status is identifiable.",
+          "Requirements are asserted as met without a corresponding executed check."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

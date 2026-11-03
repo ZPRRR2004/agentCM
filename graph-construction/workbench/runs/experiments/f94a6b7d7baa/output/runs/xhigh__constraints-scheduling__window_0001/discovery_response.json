@@ -1,0 +1,273 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__constraints-scheduling__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T10:47:59.710444+00:00",
+  "duration_seconds": 39.313,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T10:47:20.398374+00:00",
+      "duration_seconds": 39.313,
+      "raw_response": {
+        "id": "694990c1-bd1f-4637-90c9-e8f1c5392823",
+        "object": "chat.completion",
+        "created": 1793702844,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_FUTURE_ACTION_PLAN\", \"definition\": \"The reasoning expresses a committed intention to perform one or more actions that have not yet been executed, thereby framing the next step of the trajectory.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text announcing an intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly states at least one action the agent intends to perform next.\", \"The stated action is prospective, not a report of something already done.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions and results that already occurred.\", \"The reasoning merely describes options or background without committing to a next action.\"]}, {\"name\": \"FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS\", \"definition\": \"The reasoning converts informally stated requirements into explicit, mechanically checkable conditions, such as numeric bounds, inequality ranges, or exclusion intervals, against which candidate solutions can be tested.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text restating requirements as testable conditions or admissible ranges.\"}], \"assertion_conditions\": [\"The reasoning derives at least one explicit checkable condition (e.g., an inequality bound or excluded interval) from the stated requirements.\", \"The derived condition is expressed precisely enough to accept or reject a candidate solution.\"], \"exclusion_conditions\": [\"The reasoning only repeats the original requirement wording without converting it into a testable condition.\", \"The reasoning lists preferences or observations without deriving any admissibility condition.\"]}, {\"name\": \"SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION\", \"definition\": \"The reasoning evaluates an ordered set of candidate options, explicitly discards candidates that violate hard requirements, and identifies the surviving candidate as the chosen outcome, optionally applying soft preferences only among survivors.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text enumerating candidates, rejecting violating ones, and naming the selected option.\"}], \"assertion_conditions\": [\"The reasoning considers more than one candidate option.\", \"At least one candidate is rejected with an explicit reason tied to a hard requirement.\", \"A surviving candidate is identified as the selected outcome.\"], \"exclusion_conditions\": [\"The reasoning asserts a chosen option without evaluating any alternative.\", \"The reasoning enumerates candidates but never reaches a selection.\"]}, {\"name\": \"DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS\", \"definition\": \"The reasoning extracts concrete values from the content of an observation and uses them to compute constraint-relevant quantities (such as occupied intervals or available ranges) that later constrain the solution.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text computing constraint-relevant quantities from observed records.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation whose content supplies the underlying records or values.\"}], \"assertion_conditions\": [\"The reasoning cites or transforms specific content present in the observation.\", \"The derived quantities are used as constraints or inputs to the solution process.\"], \"exclusion_conditions\": [\"The reasoning discusses the observation only in general terms without extracting concrete values.\", \"The observation's content is not used in the derived quantities.\"]}, {\"name\": \"DETECTS_OBSERVED_DATA_INCONSISTENCY\", \"definition\": \"The reasoning identifies an explicit discrepancy between the observed content and what its labeling, structure, or context led the agent to expect, and states that discrepancy as a finding.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text naming the mismatch between observed content and expectation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation whose content contains the unexpected or inconsistent element.\"}], \"assertion_conditions\": [\"The reasoning states what was expected and what was actually observed.\", \"The inconsistency is attributable to identifiable content in the observation.\"], \"exclusion_conditions\": [\"The reasoning only summarizes the observation without comparing it to an expectation.\", \"The mismatch is claimed between two reasoning statements rather than traced to the observation's content.\"]}, {\"name\": \"DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE\", \"definition\": \"The reasoning explains why an observed failing outcome occurred by naming a specific defect in the executed procedure or artifact that produced the failure.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text attributing the observed failure to a specific cause.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation reporting an error, exception, or failed check.\"}], \"assertion_conditions\": [\"The observation reports a failure or erroneous result.\", \"The reasoning identifies a concrete cause of that failure rather than merely noting it.\"], \"exclusion_conditions\": [\"The observation reports success or an inconclusive result.\", \"The reasoning merely acknowledges the failure and proposes to retry without explaining it.\", \"The asserted cause is not supported by the content of the failure observation.\"]}, {\"name\": \"REMEDIATES_DIAGNOSED_FAILURE\", \"definition\": \"A failure observation, a diagnostic explanation of its cause, and a corrective action jointly form a remediation step in which the action alters the procedure or artifact so that the diagnosed cause is removed.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"Observation reporting the failing outcome that motivates remediation.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"Reasoning that identifies the specific cause of the reported failure.\"}, {\"name\": \"corrective_action\", \"type\": \"action\", \"description\": \"Action that modifies the procedure or artifact to eliminate the diagnosed cause.\"}], \"assertion_conditions\": [\"The observation reports a failure consistent with the cause named in the diagnosis reasoning.\", \"The corrective action changes the element identified in the diagnosis (logic, value, or structure) rather than repeating the failed operation unchanged.\"], \"exclusion_conditions\": [\"The action repeats the failed operation without modification.\", \"No failure observation or no causal diagnosis is present.\", \"The action targets something other than the diagnosed cause.\"]}, {\"name\": \"CONFIRMS_PREDICTED_OUTCOME\", \"definition\": \"The reasoning states a specific anticipated result, and a later observation reports a result matching that anticipation, thereby corroborating the agent's prediction.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text stating a specific expected value, verdict, or outcome.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation reporting a result that can be compared to the stated expectation.\"}], \"assertion_conditions\": [\"The reasoning names a concrete expected outcome, not merely a procedure.\", \"The observation reports a result that matches that expected outcome.\"], \"exclusion_conditions\": [\"The observation reports a result contradicting the stated expectation.\", \"The reasoning describes a procedure without predicting any outcome.\", \"The observation's content is unrelated to the stated expectation.\"]}, {\"name\": \"CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION\", \"definition\": \"The reasoning expresses the goal of confirming that read-only inputs are unaltered, a non-mutating inspection action is performed for that purpose, and the resulting observation reports evidence about whether the inputs remain unchanged.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text expressing the intention to confirm inputs were not modified.\"}, {\"name\": \"inspection_action\", \"type\": \"action\", \"description\": \"Non-mutating action (listing, checksum, or read) applied to the input artifacts.\"}, {\"name\": \"inspection_result\", \"type\": \"observation\", \"description\": \"Observation reporting file metadata, checksums, or contents relevant to input integrity.\"}], \"assertion_conditions\": [\"The reasoning states that preserving or confirming the unmodified state of the inputs is the purpose of the check.\", \"The action does not write to or otherwise alter the inspected inputs.\", \"The observation reports state information that bears on whether the inputs are unchanged.\"], \"exclusion_conditions\": [\"The action modifies the inspected inputs.\", \"The inspection serves solution production rather than confirming input integrity.\", \"No observation reports the inspection's outcome.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicates from this trajectory. Let's analyze.\n\nNodes: readings of three ICS files, reasoning analyzing constraints, writing output ICS, writing verification script, running verification script (fails with bug), patching script (fails again), rewriting script, running verification (passes), reading final output, listing files/checksums, final summary.\n\nMechanisms:\n1. Unary: IS_PLAN / PLANNING_INTENT — reasoning expressing intended future actions. Event-0001 reasoning: \"First, let's start by reading the three calendar files...\" — expresses plan. Event-0003 reasoning: \"Next, I'll verify with a simple self-check script. I'll write a Python script...\" Plan. Event-0008 reasoning: \"Next, I'll also verify that the input calendar file has not been modified...\" plan.\n\n2. Unary: CONSTRAINT_DERIVATION / CONSTRAINT_IDENTIFICATION — reasoning deriving explicit hard constraints from task requirements (e.g., Alice's window S ∈ [9,13]). Could be a role: \"extracts and formalizes explicit constraints\". Maybe better as binary: reasoning derives constraints from user query? But query is not a node (USER QUERY isn't a node). So unary.\n\n3. Unary: DIAGNOSES_ERROR — reasoning identifying a defect in prior action/result. Event-0005 reasoning: \"There's a bug in the script: `day + timedelta` returns a date...\" Diagnoses. Event-0006 reasoning: \"The earliest scan returned None — there's a bug... I used absolute minute counts vs within-day...\" Diagnoses.\n\n4. Binary: DIAGNOSES_DEFECT_IN_OBSERVATION (reasoning, observation) — the reasoning identifies a specific defect/error in the observation's result. Event-0005 reasoning vs observation-1 (event-0004 error trace). Event-0006 reasoning vs event-0005 observation-1 (\"Earliest hard-valid slot: None\" failure).\n\n5. Binary: CORRECTIVE_ACTION_ADDRESSES_DIAGNOSED_DEFECT (action, reasoning) — action modifies artifact to fix defect identified in reasoning. Event-0005 action patches script based on diagnosis; event-0006 action rewrites script based on diagnosis. Hmm, maybe combine as ternary? Ternary: (reasoning diagnosis, corrective action, observation showing failure). That'd be interesting: REMEDIATES_DIAGNOSED_FAILURE (diagnosis_reasoning, corrective_action, failure_observation). That is a joint mechanism: failure observation shows error, diagnosis reasoning explains cause, corrective action targets cause. This is supported by event-0005 (failure obs from event-0004, diagnosis reasoning event-0005, patch action) and event-0006 (failure obs event-0005, diagnosis reasoning event-0006, rewrite action).\n\n6. Ternary: VERIFY_ASSUMPTION_WITH_PROBE — reasoning states intent to verify, action runs verification, observation confirms. Maybe separate: VERIFICATION_ACTION_PRODUCES_CONFIRMATION. Could be binary: observation CONFIRMS_EXPECTED_OUTCOME of reasoning (predicted result matches observation). Event-0002 reasoning predicts slot Wednesday 11:00-12:00; event-0007 observation says \"Earliest hard-valid slot: 2024-01-17 11:00:00 / ALL CHECKS PASSED\" — confirms predicted selection. That's EVIDENCE_CONFIRMS_PREDICTION (reasoning, observation).\n\n7. Observation supplies evidence for constraint evaluation: event-0001 observations (calendar data) support the reasoning in event-0002 deriving busy intervals. Binary: PROVIDES_DATA_FOR_ANALYSIS / GROUNDS_CONSTRAINT_ANALYSIS. Hmm, similar to example 2 GROUNDS_CONCLUSION_IN_OBSERVATION. But there's a distinctive one: the reasoning recognizes anomaly in observation content (filename/UID mismatch) — \"the contents of the files don't match the file names\" — that's a distinct mechanism: INCIDENTAL_ANOMALY_DETECTION / NOTES_INCONSISTENCY. That could be \"IDENTIFIES_DISCREPANCY_IN_OBSERVATION\" (reasoning, observation) — reasoning detects content-inconsistency between observed data and expected labeling, then reasons about whether it affects the task. This is distinct from constraint derivation.\n\n8. Unary: SELECTS_OPTION_BY_RANKING / DECISION_JUSTIFICATION. The reasoning enumerates candidates and selects the earliest valid slot with tie-breakers. Could be \"EVALUATES_CANDIDATES_AGAINST_CONSTRAINTS\" or \"DERIVES_OPTIMAL_SOLUTION\". Hmm.\n\n9. Binary: CONSTRAINT_APPLIED_TO_CANDIDATE? Probably too granular.\n\n10. Binary: ACTION_CREATES_ARTIFACT_SATISFYING_SPEC — action writes output file; observation confirms write success. Perhaps unary: IS_ARTIFACT_PRODUCTION? Hmm, an action producing a deliverable — described by tool, that's operational. Better: binary OBSERVATION_CONFIRMS_ACTION_SUCCESS — observation reports successful completion of the action. Event-0002 observation \"Successfully wrote 532 bytes\" confirms write. That's a generic but meaningful mechanism: success confirmation. Distinguish from error-reporting.\n\n11. Unary reasoning: VERIFIES via script — plan to validate. Already covered by IS_PLAN.\n\n12. Binary: VERIFICATION_RESULT_CONFIRMS_COMPLIANCE (observation, reasoning?) Hmm.\n\nLet's define a coherent set:\n\nA. IS_FUTURE_ACTION_PLAN (reasoning) — unary.\nB. FORMALIZES_CONSTRAINTS (reasoning) — unary: reasoning translates task requirements into explicit, testable constraint expressions (time windows, exclusions). Distinguishing: enumerates constraint arithmetic, not just restating requirements.\nC. DIAGNOSES_FAILURE_CAUSE (reasoning) — unary: identifies cause of an observed failure.\nD. DETECTS_DATA_DISCREPANCY (reasoning, observation) — binary: reasoning notes that observation content conflicts with expected structure/labeling and assesses impact.\nE. EVIDENCE_GROUNDS_CONSTRAINT_DERIVATION (reasoning, observation) hmm overlaps with D. Let's do: EXTRACTS_BUSY_INTERVALS_FROM_CALENDAR? too specific. Use GROUNDS_CONCLUSION_IN_OBSERVATION-style: DERIVES_CONSTRAINT_CONSEQUENCE_FROM_OBSERVED_DATA (reasoning, observation) — reasoning computes derived availability/values using content from observation. Distinguish from D (discrepancy detection) and from example generic grounding.\n\nHmm, that might be nearly the example predicate. But fine—it's supported: event-0002 reasoning enumerates busy intervals from the three observations; event-0009 reasoning uses checksum listing observation to conclude input integrity.\n\nMaybe define two:\n- DERIVES_RESTRICTION_FROM_OBSERVED_DATA (reasoning, observation): reasoning computes a constraint or admissible range using specific content of the observation.\n- INTERPRETS_OBSERVATION_TO_DETECT_INCONSISTENCY (reasoning, observation).\n\nF. REMEDIATES_DIAGNOSED_FAILURE (reasoning diagnosis, action, observation failure) — ternary.\nG. VERIFICATION_ACTION_TESTED_PREDICTION (reasoning, action, observation) — ternary: reasoning states expected outcome, action executes check, observation reports outcome relevant to that expectation. Example 3-like. Supported: event-0006 reasoning plans script with checks? Hmm. Better supported by event-0004: reasoning \"let's run the verification script\" — but no assumption stated. Event-0007 action running script, reasoning event-0007 explains scan; observation reports earliest slot. Hmm.\n\nPerhaps simpler: binary CONFIRMS_EXPECTED_RESULT (observation, reasoning) — observation matches a specific outcome the reasoning predicted. Event-0007 observation \"Earliest hard-valid slot: 2024-01-17 11:00:00, ALL CHECKS PASSED\" confirms event-0002 reasoning's predicted slot and validity. Event-0009 reasoning concludes task complete using observation-1 of event-0008 (file content) and observation-2 (checksums) — confirmed output content matches intended, input unchanged.\n\nH. OBSERVATION_CONFIRMS_ACTION_EFFECT: binary (action, observation) — hmm, structural returns edge already exists; the semantic part is success confirmation. Maybe skip? But it's the mechanism of \"success corroboration\". The contract says structural call-result edges must not be rediscovered. So confirming tool success is basically structural. Skip.\n\nI. Unary: SELECTS_OPTIMAL_CANDIDATE / DECIDES_WITH_TIE_BREAKERS: reasoning selects a specific candidate after evaluating alternatives against constraints and preferences. Could be \"JUSTIFIES_SELECTED_OPTION\" — reasoning states the choice and reasons why it satisfies constraints and preferences. Event-0002 reasoning concludes \"I'm confident: Wednesday 2024-01-17 11:00-12:00 UTC\". Event-0009 reasoning concludes task complete.\n\nMaybe define: DECIDES_AMONG_CANDIDATES (reasoning) — reasoning evaluates multiple candidate options against constraints and identifies a selected option, with explicit rejection of alternatives. Supported by event-0002 reasoning (Monday no slot, Tuesday no slot, Wednesday valid).\n\nJ. Unary: CHECKS_COMPLIANCE_VIA_EXHAUSTIVE_SCAN? Event-0006 reasoning defines valid() and scans minutes. Could be reasoning plan. Hmm, could be \"DESIGNS_EXHAUSTIVE_VALIDATION\" — reasoning constructs an exhaustive search/validation procedure covering all constraint dimensions. Distinguish from generic plan: enumerates criteria to be checked. Maybe fold into IS_FUTURE_ACTION_PLAN? Could be separate: SPECIFIES_VALIDATION_CRITERIA (reasoning) — reasoning enumerates the concrete checks a verification will perform. Supported event-0003 reasoning lists items 1-4; event-0006 reasoning. Hmm.\n\nLet's not overload. Choose ~7-8 predicates.\n\nLet me finalize set:\n\n1. IS_FUTURE_ACTION_PLAN (reasoning)\n2. ENUMERATES_VALIDATION_CRITERIA (reasoning) — reasoning specifies the concrete checks/conditions a subsequent verification must establish before accepting the result. Distinguish from plan: criteria, not just action sequencing.\n3. DERIVES_ADMISSIBLE_RANGE_FROM_CONSTRAINTS (reasoning) — reasoning converts stated requirements into explicit numeric/conditional admissibility bounds. Evidence: event-0002 \"Hard constraints on start time S: S ≥ 9:00, S+60 ≤ 14:00...\" Also event-0006.\n   Hmm—should this be separate from ENUMERATES_VALIDATION_CRITERIA? DERIVES bounds vs. enumerating checks. They're near-duplicates actually. Maybe merge into one: FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS. I'll keep one unary: FORMALIZES_CONSTRAINTS (reasoning).\n4. SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION (reasoning) — reasoning evaluates candidate options in order, rejects those violating hard constraints, and identifies the selected one; preferences used as tie-breakers.\n5. DETECTS_OBSERVED_DATA_INCONSISTENCY (reasoning, observation) — binary.\n6. DIAGNOSES_FAILURE_CAUSE (reasoning) — unary. Could be binary with observation (reasoning, observation) but the failure observation is already in the trajectory; binary is better: reasoning explains cause of a failure reported in observation. Define binary DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE (reasoning, observation) where observation is an error/failure result.\n7. REMEDIATES_DIAGNOSED_FAILURE (diagnosis_reasoning, corrective_action, failure_observation) — ternary.\n8. CONFIRMS_PREDICTED_OUTCOME (reasoning, observation) — reasoning predicted specific outcome; observation matches it, corroborating. Evidence: event-0002 prediction of Wed 11:00 + event-0007 observation result. Event-0009 reasoning concluding from event-0008 observations. Hmm—the pair (event-0002 reasoning, event-0007 observation) spans; is the reasoning explicitly predicting? \"So answer: DTSTART:20240117T110000Z\" and \"I'm confident: Wednesday 2024-01-17 11:00-12:00 UTC.\" Yes.\n9. VERIFIES_INPUT_INTEGRITY (reasoning, action, observation) — ternary? Reasoning states need to confirm inputs unmodified, action computes checksums/listing, observation reports. That's a distinct mechanism: non-destructive integrity check of read-only inputs. Supported: event-0008 reasoning \"verify input calendar not modified... confirm /app contains expected files\", action-2 bash ls+md5sum, observation-2. That's a nice ternary. Could also be binary (action, observation) but reasoning matters for intent. Define CHECKS_INPUT_INTEGRITY_BY_READ_ONLY_INSPECTION (reasoning, action, observation).\n\nMaybe too many; but let's include a reasonable 8.\n\nAlso possible unary: PRODUCES_ARTIFACT (action) — writing deliverable file. Operational, skip.\n\nAlso: reasoning that revises an approach after repeated failure (event-0006 reasoning rewrites script entirely after patch failed). Covered by REMEDIATES.\n\nLet me carefully phrase parameters with types.\n\nNow check assertion/exclusion for each.\n\n1. IS_FUTURE_ACTION_PLAN\nparams: reasoning\nassertion: reasoning explicitly states at least one intended future action (e.g., \"I'll start by reading\", \"let me run the verification script\"), expressed as intention not completed report.\nexclusion: only reports completed actions/results; or merely describes a hypothetical without commitment to perform.\n\n2. FORMALIZES_CONSTRAINTS\nparams: reasoning\nassertion: reasoning restates requirements as explicit, checkable conditions — e.g., numeric bounds on a variable, inequality ranges, exclusion intervals — that a candidate solution can be tested against.\nexclusion: merely repeats the requirement wording without converting into checkable conditions; only lists preferences without admissibility bounds.\n\n3. SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION\nparams: reasoning\nassertion: reasoning considers an ordered set of candidate options, explicitly rejects those violating hard constraints (with reasons), and identifies a surviving option as the chosen one; may also rank by tie-breakers.\nexclusion: reasoning states a choice without evaluating alternatives or without constraint-based rejection; or only lists candidates without selection.\n\n4. DETECTS_OBSERVED_DATA_INCONSISTENCY\nparams: reasoning, observation\nassertion: reasoning identifies a concrete discrepancy between the observed content and what was expected (naming/label/structure), and states the discrepancy explicitly.\nexclusion: reasoning merely summarizes the content without noting discrepancy; discrepancy is between two reasoning statements only.\n\n5. DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE\nparams: reasoning, observation\nassertion: observation reports an error/failure (exception, failed check, incorrect result); reasoning identifies the specific cause (wrong types, mismatched units, missing condition) that produced it.\nexclusion: observation reports success; reasoning merely acknowledges the failure (\"it failed, retry\") without causal explanation; reasoning attributes cause to something unsupported by the observation.\n\n6. REMEDIATES_DIAGNOSED_FAILURE\nparams: diagnosis_reasoning (reasoning), corrective_action (action), failure_observation (observation)\nassertion: failure observation reports a failed outcome; diagnosis reasoning names the cause; corrective action modifies the procedure/artifact so that the identified cause is removed (e.g., patch value, replace logic).\nexclusion: corrective action unrelated to diagnosed cause; no failure observation; action merely retries unchanged.\n\n7. CONFIRMS_PREDICTED_OUTCOME\nparams: reasoning, observation\nassertion: reasoning states a specific anticipated result (value, slot, pass/fail); observation reports a result matching it, corroborating the prediction.\nexclusion: observation reports result differing from prediction; reasoning only describes procedure without predicting an outcome; observation content unrelated to prediction.\n\n8. CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION\nparams: reasoning, action, observation\nassertion: reasoning expresses intent to confirm that read-only inputs remain unaltered; action performs non-mutating inspection (listing, checksum, read); observation reports state consistent with inputs being unmodified (or flags modification).\nexclusion: action writes/modifies the inputs; inspection is aimed at producing the solution rather than confirming input integrity; no observation.\n\nHmm, maybe also a binary: \"observation supplies data for constraint formalization\" — covered by 4? Not really. Could add: DERIVES_AVAILABILITY_FROM_OBSERVED_RECORDS (reasoning, observation). But #2 and #4 partially. Should I add? Event-0002 reasoning derives busy intervals from observations — that's a distinct evidential mechanism. Yes, this is the core of example 2. Add:\n\n9. DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS (reasoning, observation) — reasoning computes constraint-relevant quantities (busy intervals, available ranges) using specific records in the observation; observation's content supplies those values.\n\nDistinguish from #4 (discrepancy) and #7 (prediction confirmation). Yes, add it. That makes 9 predicates. Fine.\n\nAlso maybe \"REVISES_APPROACH_AFTER_REPEATED_FAILURE\" — event-0006 reasoning abandons patching and rewrites entire script. Could be unary reasoning: chooses a different strategy rather than incremental fix. That's meaningful mechanism, but REMEDIATES covers. Skip to avoid proliferation.\n\nLet me double check each predicate's parameters bind to actual nodes. Yes.\n\nWrite JSON.\n\nNaming: use UPPER_SNAKE_CASE.\n\nFinal names:\n- IS_FUTURE_ACTION_PLAN\n- FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS\n- SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION\n- DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS\n- DETECTS_OBSERVED_DATA_INCONSISTENCY\n- DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE\n- REMEDIATES_DIAGNOSED_FAILURE\n- CONFIRMS_PREDICTED_OUTCOME\n- CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION\n\nParameter ordering: put the \"subject\" first as in examples (reasoning first, observation second). For ternary, order: failure_observation? Example 3 ordered probe_action, assumption_reasoning, probe_result. I'll order: diagnosis_reasoning, corrective_action, failure_observation — hmm, logical order: failure_observation, diagnosis_reasoning, corrective_action. I'll use that: failure first, then diagnosis, then action.\n\nFor CHECKS_INPUT_INTEGRITY: reasoning (intent), action (inspection), observation (result).\n\nWrite the JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 23767,
+          "completion_tokens": 5956,
+          "total_tokens": 29723,
+          "prompt_tokens_details": {
+            "cached_tokens": 23552
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4145
+          },
+          "prompt_cache_hit_tokens": 23552,
+          "prompt_cache_miss_tokens": 215
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_FUTURE_ACTION_PLAN\", \"definition\": \"The reasoning expresses a committed intention to perform one or more actions that have not yet been executed, thereby framing the next step of the trajectory.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text announcing an intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly states at least one action the agent intends to perform next.\", \"The stated action is prospective, not a report of something already done.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions and results that already occurred.\", \"The reasoning merely describes options or background without committing to a next action.\"]}, {\"name\": \"FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS\", \"definition\": \"The reasoning converts informally stated requirements into explicit, mechanically checkable conditions, such as numeric bounds, inequality ranges, or exclusion intervals, against which candidate solutions can be tested.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text restating requirements as testable conditions or admissible ranges.\"}], \"assertion_conditions\": [\"The reasoning derives at least one explicit checkable condition (e.g., an inequality bound or excluded interval) from the stated requirements.\", \"The derived condition is expressed precisely enough to accept or reject a candidate solution.\"], \"exclusion_conditions\": [\"The reasoning only repeats the original requirement wording without converting it into a testable condition.\", \"The reasoning lists preferences or observations without deriving any admissibility condition.\"]}, {\"name\": \"SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION\", \"definition\": \"The reasoning evaluates an ordered set of candidate options, explicitly discards candidates that violate hard requirements, and identifies the surviving candidate as the chosen outcome, optionally applying soft preferences only among survivors.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text enumerating candidates, rejecting violating ones, and naming the selected option.\"}], \"assertion_conditions\": [\"The reasoning considers more than one candidate option.\", \"At least one candidate is rejected with an explicit reason tied to a hard requirement.\", \"A surviving candidate is identified as the selected outcome.\"], \"exclusion_conditions\": [\"The reasoning asserts a chosen option without evaluating any alternative.\", \"The reasoning enumerates candidates but never reaches a selection.\"]}, {\"name\": \"DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS\", \"definition\": \"The reasoning extracts concrete values from the content of an observation and uses them to compute constraint-relevant quantities (such as occupied intervals or available ranges) that later constrain the solution.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text computing constraint-relevant quantities from observed records.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation whose content supplies the underlying records or values.\"}], \"assertion_conditions\": [\"The reasoning cites or transforms specific content present in the observation.\", \"The derived quantities are used as constraints or inputs to the solution process.\"], \"exclusion_conditions\": [\"The reasoning discusses the observation only in general terms without extracting concrete values.\", \"The observation's content is not used in the derived quantities.\"]}, {\"name\": \"DETECTS_OBSERVED_DATA_INCONSISTENCY\", \"definition\": \"The reasoning identifies an explicit discrepancy between the observed content and what its labeling, structure, or context led the agent to expect, and states that discrepancy as a finding.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text naming the mismatch between observed content and expectation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation whose content contains the unexpected or inconsistent element.\"}], \"assertion_conditions\": [\"The reasoning states what was expected and what was actually observed.\", \"The inconsistency is attributable to identifiable content in the observation.\"], \"exclusion_conditions\": [\"The reasoning only summarizes the observation without comparing it to an expectation.\", \"The mismatch is claimed between two reasoning statements rather than traced to the observation's content.\"]}, {\"name\": \"DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE\", \"definition\": \"The reasoning explains why an observed failing outcome occurred by naming a specific defect in the executed procedure or artifact that produced the failure.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text attributing the observed failure to a specific cause.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation reporting an error, exception, or failed check.\"}], \"assertion_conditions\": [\"The observation reports a failure or erroneous result.\", \"The reasoning identifies a concrete cause of that failure rather than merely noting it.\"], \"exclusion_conditions\": [\"The observation reports success or an inconclusive result.\", \"The reasoning merely acknowledges the failure and proposes to retry without explaining it.\", \"The asserted cause is not supported by the content of the failure observation.\"]}, {\"name\": \"REMEDIATES_DIAGNOSED_FAILURE\", \"definition\": \"A failure observation, a diagnostic explanation of its cause, and a corrective action jointly form a remediation step in which the action alters the procedure or artifact so that the diagnosed cause is removed.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"Observation reporting the failing outcome that motivates remediation.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"Reasoning that identifies the specific cause of the reported failure.\"}, {\"name\": \"corrective_action\", \"type\": \"action\", \"description\": \"Action that modifies the procedure or artifact to eliminate the diagnosed cause.\"}], \"assertion_conditions\": [\"The observation reports a failure consistent with the cause named in the diagnosis reasoning.\", \"The corrective action changes the element identified in the diagnosis (logic, value, or structure) rather than repeating the failed operation unchanged.\"], \"exclusion_conditions\": [\"The action repeats the failed operation without modification.\", \"No failure observation or no causal diagnosis is present.\", \"The action targets something other than the diagnosed cause.\"]}, {\"name\": \"CONFIRMS_PREDICTED_OUTCOME\", \"definition\": \"The reasoning states a specific anticipated result, and a later observation reports a result matching that anticipation, thereby corroborating the agent's prediction.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text stating a specific expected value, verdict, or outcome.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"Observation reporting a result that can be compared to the stated expectation.\"}], \"assertion_conditions\": [\"The reasoning names a concrete expected outcome, not merely a procedure.\", \"The observation reports a result that matches that expected outcome.\"], \"exclusion_conditions\": [\"The observation reports a result contradicting the stated expectation.\", \"The reasoning describes a procedure without predicting any outcome.\", \"The observation's content is unrelated to the stated expectation.\"]}, {\"name\": \"CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION\", \"definition\": \"The reasoning expresses the goal of confirming that read-only inputs are unaltered, a non-mutating inspection action is performed for that purpose, and the resulting observation reports evidence about whether the inputs remain unchanged.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text expressing the intention to confirm inputs were not modified.\"}, {\"name\": \"inspection_action\", \"type\": \"action\", \"description\": \"Non-mutating action (listing, checksum, or read) applied to the input artifacts.\"}, {\"name\": \"inspection_result\", \"type\": \"observation\", \"description\": \"Observation reporting file metadata, checksums, or contents relevant to input integrity.\"}], \"assertion_conditions\": [\"The reasoning states that preserving or confirming the unmodified state of the inputs is the purpose of the check.\", \"The action does not write to or otherwise alter the inspected inputs.\", \"The observation reports state information that bears on whether the inputs are unchanged.\"], \"exclusion_conditions\": [\"The action modifies the inspected inputs.\", \"The inspection serves solution production rather than confirming input integrity.\", \"No observation reports the inspection's outcome.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_FUTURE_ACTION_PLAN",
+        "definition": "The reasoning expresses a committed intention to perform one or more actions that have not yet been executed, thereby framing the next step of the trajectory.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text announcing an intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly states at least one action the agent intends to perform next.",
+          "The stated action is prospective, not a report of something already done."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports or summarizes actions and results that already occurred.",
+          "The reasoning merely describes options or background without committing to a next action."
+        ]
+      },
+      {
+        "name": "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+        "definition": "The reasoning converts informally stated requirements into explicit, mechanically checkable conditions, such as numeric bounds, inequality ranges, or exclusion intervals, against which candidate solutions can be tested.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text restating requirements as testable conditions or admissible ranges."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning derives at least one explicit checkable condition (e.g., an inequality bound or excluded interval) from the stated requirements.",
+          "The derived condition is expressed precisely enough to accept or reject a candidate solution."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only repeats the original requirement wording without converting it into a testable condition.",
+          "The reasoning lists preferences or observations without deriving any admissibility condition."
+        ]
+      },
+      {
+        "name": "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+        "definition": "The reasoning evaluates an ordered set of candidate options, explicitly discards candidates that violate hard requirements, and identifies the surviving candidate as the chosen outcome, optionally applying soft preferences only among survivors.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text enumerating candidates, rejecting violating ones, and naming the selected option."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning considers more than one candidate option.",
+          "At least one candidate is rejected with an explicit reason tied to a hard requirement.",
+          "A surviving candidate is identified as the selected outcome."
+        ],
+        "exclusion_conditions": [
+          "The reasoning asserts a chosen option without evaluating any alternative.",
+          "The reasoning enumerates candidates but never reaches a selection."
+        ]
+      },
+      {
+        "name": "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+        "definition": "The reasoning extracts concrete values from the content of an observation and uses them to compute constraint-relevant quantities (such as occupied intervals or available ranges) that later constrain the solution.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text computing constraint-relevant quantities from observed records."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "Observation whose content supplies the underlying records or values."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning cites or transforms specific content present in the observation.",
+          "The derived quantities are used as constraints or inputs to the solution process."
+        ],
+        "exclusion_conditions": [
+          "The reasoning discusses the observation only in general terms without extracting concrete values.",
+          "The observation's content is not used in the derived quantities."
+        ]
+      },
+      {
+        "name": "DETECTS_OBSERVED_DATA_INCONSISTENCY",
+        "definition": "The reasoning identifies an explicit discrepancy between the observed content and what its labeling, structure, or context led the agent to expect, and states that discrepancy as a finding.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text naming the mismatch between observed content and expectation."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "Observation whose content contains the unexpected or inconsistent element."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states what was expected and what was actually observed.",
+          "The inconsistency is attributable to identifiable content in the observation."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only summarizes the observation without comparing it to an expectation.",
+          "The mismatch is claimed between two reasoning statements rather than traced to the observation's content."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE",
+        "definition": "The reasoning explains why an observed failing outcome occurred by naming a specific defect in the executed procedure or artifact that produced the failure.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text attributing the observed failure to a specific cause."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "Observation reporting an error, exception, or failed check."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a failure or erroneous result.",
+          "The reasoning identifies a concrete cause of that failure rather than merely noting it."
+        ],
+        "exclusion_conditions": [
+          "The observation reports success or an inconclusive result.",
+          "The reasoning merely acknowledges the failure and proposes to retry without explaining it.",
+          "The asserted cause is not supported by the content of the failure observation."
+        ]
+      },
+      {
+        "name": "REMEDIATES_DIAGNOSED_FAILURE",
+        "definition": "A failure observation, a diagnostic explanation of its cause, and a corrective action jointly form a remediation step in which the action alters the procedure or artifact so that the diagnosed cause is removed.",
+        "parameters": [
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "Observation reporting the failing outcome that motivates remediation."
+          },
+          {
+            "name": "diagnosis_reasoning",
+            "type": "reasoning",
+            "description": "Reasoning that identifies the specific cause of the reported failure."
+          },
+          {
+            "name": "corrective_action",
+            "type": "action",
+            "description": "Action that modifies the procedure or artifact to eliminate the diagnosed cause."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a failure consistent with the cause named in the diagnosis reasoning.",
+          "The corrective action changes the element identified in the diagnosis (logic, value, or structure) rather than repeating the failed operation unchanged."
+        ],
+        "exclusion_conditions": [
+          "The action repeats the failed operation without modification.",
+          "No failure observation or no causal diagnosis is present.",
+          "The action targets something other than the diagnosed cause."
+        ]
+      },
+      {
+        "name": "CONFIRMS_PREDICTED_OUTCOME",
+        "definition": "The reasoning states a specific anticipated result, and a later observation reports a result matching that anticipation, thereby corroborating the agent's prediction.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text stating a specific expected value, verdict, or outcome."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "Observation reporting a result that can be compared to the stated expectation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a concrete expected outcome, not merely a procedure.",
+          "The observation reports a result that matches that expected outcome."
+        ],
+        "exclusion_conditions": [
+          "The observation reports a result contradicting the stated expectation.",
+          "The reasoning describes a procedure without predicting any outcome.",
+          "The observation's content is unrelated to the stated expectation."
+        ]
+      },
+      {
+        "name": "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION",
+        "definition": "The reasoning expresses the goal of confirming that read-only inputs are unaltered, a non-mutating inspection action is performed for that purpose, and the resulting observation reports evidence about whether the inputs remain unchanged.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text expressing the intention to confirm inputs were not modified."
+          },
+          {
+            "name": "inspection_action",
+            "type": "action",
+            "description": "Non-mutating action (listing, checksum, or read) applied to the input artifacts."
+          },
+          {
+            "name": "inspection_result",
+            "type": "observation",
+            "description": "Observation reporting file metadata, checksums, or contents relevant to input integrity."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states that preserving or confirming the unmodified state of the inputs is the purpose of the check.",
+          "The action does not write to or otherwise alter the inspected inputs.",
+          "The observation reports state information that bears on whether the inputs are unchanged."
+        ],
+        "exclusion_conditions": [
+          "The action modifies the inspected inputs.",
+          "The inspection serves solution production rather than confirming input integrity.",
+          "No observation reports the inspection's outcome."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

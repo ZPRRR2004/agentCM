@@ -1,0 +1,455 @@
+{
+  "input_directory": "E:\\agent解释性\\agentCM\\graph-construction\\workbench\\runs\\experiments\\f94a6b7d7baa\\inputs",
+  "windows": [
+    {
+      "global_index": 0,
+      "filename": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+      "trajectory_id": "xhigh-rerun-prove__prove-plus-comm",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh-rerun-prove__prove-plus-comm__window_0001",
+      "sha256": "a83da0819d162820f481cd9b2aec27b5607cb7b1d6dde7d536329c0bf1914c91"
+    },
+    {
+      "global_index": 1,
+      "filename": "xhigh__configure-git-webserver__window_0001.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__configure-git-webserver__window_0001",
+      "sha256": "5d95b74f8197fd51c02151dcec78fc87adab9d28d31d4aea22c33f8dc5b83b5d"
+    },
+    {
+      "global_index": 2,
+      "filename": "xhigh__configure-git-webserver__window_0002.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__configure-git-webserver__window_0002",
+      "sha256": "57120812187b6c7808f34b2ca4e13df35801fd43c794023bde940be284bd3fdd"
+    },
+    {
+      "global_index": 3,
+      "filename": "xhigh__configure-git-webserver__window_0003.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__configure-git-webserver__window_0003",
+      "sha256": "088f39523248311766c4b7db55cc034d61f04f8985a66b73623739cbc21883d7"
+    },
+    {
+      "global_index": 4,
+      "filename": "xhigh__constraints-scheduling__window_0001.json",
+      "trajectory_id": "xhigh__constraints-scheduling",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__constraints-scheduling__window_0001",
+      "sha256": "936266118b16ed4794e97fc20ff86bda04707cb74aeae770d25ab7bdf102f8a8"
+    },
+    {
+      "global_index": 5,
+      "filename": "xhigh__count-dataset-tokens__window_0001.json",
+      "trajectory_id": "xhigh__count-dataset-tokens",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__count-dataset-tokens__window_0001",
+      "sha256": "7c63ca8e641ae3ddbafd4ac4ff648be6a71bf6a7eba40cfc3a86aebacb94d8ec"
+    },
+    {
+      "global_index": 6,
+      "filename": "xhigh__count-dataset-tokens__window_0002.json",
+      "trajectory_id": "xhigh__count-dataset-tokens",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__count-dataset-tokens__window_0002",
+      "sha256": "0e07c339687c70a3f323344a6d92b218256103920265e35d3f449c42694c91f9"
+    },
+    {
+      "global_index": 7,
+      "filename": "xhigh__fix-git__window_0001.json",
+      "trajectory_id": "xhigh__fix-git",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__fix-git__window_0001",
+      "sha256": "53bece6996811160fd0f77dd84c6cae87d5ae9cce79129db975608cbaa653039"
+    },
+    {
+      "global_index": 8,
+      "filename": "xhigh__fix-git__window_0002.json",
+      "trajectory_id": "xhigh__fix-git",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__fix-git__window_0002",
+      "sha256": "45131677498b05fa163e103cbf6438680b66f6a10d5f2a151859c379a50b0603"
+    },
+    {
+      "global_index": 9,
+      "filename": "xhigh__git-leak-recovery__window_0001.json",
+      "trajectory_id": "xhigh__git-leak-recovery",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__git-leak-recovery__window_0001",
+      "sha256": "1688d5730c6597e3844ee9e863fd4ddba19f46de8a6f6102942930af34a67e31"
+    },
+    {
+      "global_index": 10,
+      "filename": "xhigh__git-multibranch__window_0001.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__git-multibranch__window_0001",
+      "sha256": "6e70aaf3e8c8d68d17ee80825a68d775ee7e7bbb78a3064a4f3216f092c7df88"
+    },
+    {
+      "global_index": 11,
+      "filename": "xhigh__git-multibranch__window_0002.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__git-multibranch__window_0002",
+      "sha256": "fc05010e5cfcc9f9f767ffcba0740d2e33cef291198dea366fcfd2d7f078b16d"
+    },
+    {
+      "global_index": 12,
+      "filename": "xhigh__git-multibranch__window_0003.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__git-multibranch__window_0003",
+      "sha256": "e764b9c20eade62959417de6a11b494d3554fea05df6e3f892f26ad14bbf6cf8"
+    },
+    {
+      "global_index": 13,
+      "filename": "xhigh__git-multibranch__window_0004.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0004",
+      "window_index": 4,
+      "run_name": "xhigh__git-multibranch__window_0004",
+      "sha256": "72a6266dcff2628cc3962498a988b7aac642fd2753f6bbd6def839b94cd996f9"
+    },
+    {
+      "global_index": 14,
+      "filename": "xhigh__hf-model-inference__window_0001.json",
+      "trajectory_id": "xhigh__hf-model-inference",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__hf-model-inference__window_0001",
+      "sha256": "f567e1c0dbaeb4fb25602fbe54d5eb3d5d15e141919e88772d87b9c981605cb8"
+    },
+    {
+      "global_index": 15,
+      "filename": "xhigh__hf-model-inference__window_0002.json",
+      "trajectory_id": "xhigh__hf-model-inference",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__hf-model-inference__window_0002",
+      "sha256": "256d750b0184033f4aa72a87af6a44671949b73f2643ad33e1f38f088e457ed2"
+    },
+    {
+      "global_index": 16,
+      "filename": "xhigh__kv-store-grpc__window_0001.json",
+      "trajectory_id": "xhigh__kv-store-grpc",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__kv-store-grpc__window_0001",
+      "sha256": "8d502cf908ccd5fe93dbf78897c8ecf5f869ff0770109b634319786ad95bdd63"
+    },
+    {
+      "global_index": 17,
+      "filename": "xhigh__kv-store-grpc__window_0002.json",
+      "trajectory_id": "xhigh__kv-store-grpc",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__kv-store-grpc__window_0002",
+      "sha256": "84a6c468c83f78617add105f483db78ab6ece4b013864714a4b8b778aeb75775"
+    },
+    {
+      "global_index": 18,
+      "filename": "xhigh__log-summary-date-ranges__window_0001.json",
+      "trajectory_id": "xhigh__log-summary-date-ranges",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__log-summary-date-ranges__window_0001",
+      "sha256": "58e73e220f86506cafc48485ace70a51580c59cb61a7bf7b8209fe53c1b74068"
+    },
+    {
+      "global_index": 19,
+      "filename": "xhigh__log-summary-date-ranges__window_0002.json",
+      "trajectory_id": "xhigh__log-summary-date-ranges",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__log-summary-date-ranges__window_0002",
+      "sha256": "a54546e7d4b8422b8f98f96688d535ff67da411fd367b1a76eda5a1ea5e8e1eb"
+    },
+    {
+      "global_index": 20,
+      "filename": "xhigh__merge-diff-arc-agi-task__window_0001.json",
+      "trajectory_id": "xhigh__merge-diff-arc-agi-task",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__merge-diff-arc-agi-task__window_0001",
+      "sha256": "481d591d190433ea56ea816c2ddf992e3db52107ebe3807dcb797b74b8177131"
+    },
+    {
+      "global_index": 21,
+      "filename": "xhigh__merge-diff-arc-agi-task__window_0002.json",
+      "trajectory_id": "xhigh__merge-diff-arc-agi-task",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__merge-diff-arc-agi-task__window_0002",
+      "sha256": "d3bb3cf92697eb931c9a7248f7b54d6e7979dfdba762df4faa8799a00541a846"
+    },
+    {
+      "global_index": 22,
+      "filename": "xhigh__merge-diff-arc-agi-task__window_0003.json",
+      "trajectory_id": "xhigh__merge-diff-arc-agi-task",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__merge-diff-arc-agi-task__window_0003",
+      "sha256": "4a87d2a854ebd70480704ad337de30fbba47b1c131432f85a81d6945739ff0c8"
+    },
+    {
+      "global_index": 23,
+      "filename": "xhigh__modernize-scientific-stack__window_0001.json",
+      "trajectory_id": "xhigh__modernize-scientific-stack",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__modernize-scientific-stack__window_0001",
+      "sha256": "5e3378a954e8408546660b2e4d779fad9e121acca066e972471747ed3b9e22ed"
+    },
+    {
+      "global_index": 24,
+      "filename": "xhigh__multi-source-data-merger__window_0001.json",
+      "trajectory_id": "xhigh__multi-source-data-merger",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__multi-source-data-merger__window_0001",
+      "sha256": "70b6c2e63df4e82bad88b2a25b83a961954c3683a78c4b53bef53bd996956bfc"
+    },
+    {
+      "global_index": 25,
+      "filename": "xhigh__nginx-request-logging__window_0001.json",
+      "trajectory_id": "xhigh__nginx-request-logging",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__nginx-request-logging__window_0001",
+      "sha256": "909df0f8907324f4b866404a4f6e7e1a353030d66e60ebef4357359977228daf"
+    },
+    {
+      "global_index": 26,
+      "filename": "xhigh__nginx-request-logging__window_0002.json",
+      "trajectory_id": "xhigh__nginx-request-logging",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__nginx-request-logging__window_0002",
+      "sha256": "6d369d43bf0843c951dfb42b3e1c8312431f45e03072ff53238a264cab0d7a52"
+    },
+    {
+      "global_index": 27,
+      "filename": "xhigh__openssl-selfsigned-cert__window_0001.json",
+      "trajectory_id": "xhigh__openssl-selfsigned-cert",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__openssl-selfsigned-cert__window_0001",
+      "sha256": "609d5da2204bdd09250a07fc636940c3a3bc1195ec721cccc93388e795901ed4"
+    },
+    {
+      "global_index": 28,
+      "filename": "xhigh__openssl-selfsigned-cert__window_0002.json",
+      "trajectory_id": "xhigh__openssl-selfsigned-cert",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__openssl-selfsigned-cert__window_0002",
+      "sha256": "c5f12191cd6f9994e22dfda61250ad3003046b8b706bf910481940dbc538ba1d"
+    },
+    {
+      "global_index": 29,
+      "filename": "xhigh__password-recovery__window_0001.json",
+      "trajectory_id": "xhigh__password-recovery",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__password-recovery__window_0001",
+      "sha256": "9de7a787348dd734fc0e2fc21d8c8081024060291ebcb2d3311014b2fcc88720"
+    },
+    {
+      "global_index": 30,
+      "filename": "xhigh__password-recovery__window_0002.json",
+      "trajectory_id": "xhigh__password-recovery",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__password-recovery__window_0002",
+      "sha256": "d2c401b7dc537c2be428a55fe9832f961115afcb6b4a0dde29969d63b0544431"
+    },
+    {
+      "global_index": 31,
+      "filename": "xhigh__password-recovery__window_0003.json",
+      "trajectory_id": "xhigh__password-recovery",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__password-recovery__window_0003",
+      "sha256": "10d159238d19aa6b15aa82746a88d4169ee98b74dc4712b29c6ab0100fbb1226"
+    },
+    {
+      "global_index": 32,
+      "filename": "xhigh__polyglot-c-py__window_0001.json",
+      "trajectory_id": "xhigh__polyglot-c-py",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__polyglot-c-py__window_0001",
+      "sha256": "5ecc333f422432cb616ed46f3ee2a9e872593cb8c1748f8c19d407f41704f151"
+    },
+    {
+      "global_index": 33,
+      "filename": "xhigh__polyglot-c-py__window_0002.json",
+      "trajectory_id": "xhigh__polyglot-c-py",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__polyglot-c-py__window_0002",
+      "sha256": "701a2a8cfb94459a955195ab253053cd93179cc592fea7b54d4f8f08a7e276f3"
+    },
+    {
+      "global_index": 34,
+      "filename": "xhigh__portfolio-optimization__window_0001.json",
+      "trajectory_id": "xhigh__portfolio-optimization",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__portfolio-optimization__window_0001",
+      "sha256": "49fd6ce816c2ede76a3e2216485a74cdc80951ababa65cd79a510bd17e217d41"
+    },
+    {
+      "global_index": 35,
+      "filename": "xhigh__portfolio-optimization__window_0002.json",
+      "trajectory_id": "xhigh__portfolio-optimization",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__portfolio-optimization__window_0002",
+      "sha256": "618c730178c2615f7af99f8220782d1f5d86083da381d9a32ecdb415a250a549"
+    },
+    {
+      "global_index": 36,
+      "filename": "xhigh__portfolio-optimization__window_0003.json",
+      "trajectory_id": "xhigh__portfolio-optimization",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__portfolio-optimization__window_0003",
+      "sha256": "73df710c3cbbf12ef804cf32f55fecc7b6e6ea5c86d6424d35b9a9a863f79b88"
+    },
+    {
+      "global_index": 37,
+      "filename": "xhigh__pytorch-model-recovery__window_0001.json",
+      "trajectory_id": "xhigh__pytorch-model-recovery",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__pytorch-model-recovery__window_0001",
+      "sha256": "87cd35fb8361fc1c78b34d72c99e621d1a6aaf78d1bb2ed4f807c1a1c8483363"
+    },
+    {
+      "global_index": 38,
+      "filename": "xhigh__pytorch-model-recovery__window_0002.json",
+      "trajectory_id": "xhigh__pytorch-model-recovery",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__pytorch-model-recovery__window_0002",
+      "sha256": "9981e2ee6f1e0a0b0cf77b3341612a1743573177c1f0f2f4b60ed26f8953005d"
+    },
+    {
+      "global_index": 39,
+      "filename": "xhigh__pytorch-model-recovery__window_0003.json",
+      "trajectory_id": "xhigh__pytorch-model-recovery",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__pytorch-model-recovery__window_0003",
+      "sha256": "79c6e01b93b1992bda8aa5e23505c25b526cf1a0aceddebaf8bba55f7e29aa4e"
+    },
+    {
+      "global_index": 40,
+      "filename": "xhigh__sanitize-git-repo__window_0001.json",
+      "trajectory_id": "xhigh__sanitize-git-repo",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__sanitize-git-repo__window_0001",
+      "sha256": "d1318177e90efc57735eccd143c05ac52a111410bb35f57a94bc727c94f105b8"
+    },
+    {
+      "global_index": 41,
+      "filename": "xhigh__sanitize-git-repo__window_0002.json",
+      "trajectory_id": "xhigh__sanitize-git-repo",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__sanitize-git-repo__window_0002",
+      "sha256": "4aaf990ffa39d735224d59dabad2465350bbc9c993c235c8421fa2a7e9821e71"
+    },
+    {
+      "global_index": 42,
+      "filename": "xhigh__sanitize-git-repo__window_0003.json",
+      "trajectory_id": "xhigh__sanitize-git-repo",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__sanitize-git-repo__window_0003",
+      "sha256": "282e69af0b9bafd6284ef16d5582937454f7dc86f06859932bc33209b030e7bd"
+    },
+    {
+      "global_index": 43,
+      "filename": "xhigh__sparql-university__window_0001.json",
+      "trajectory_id": "xhigh__sparql-university",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__sparql-university__window_0001",
+      "sha256": "8535448dfb363e0f13845f6f18b28973f3c33a5cb12a8d978d2a5a1f055d8524"
+    },
+    {
+      "global_index": 44,
+      "filename": "xhigh__sparql-university__window_0002.json",
+      "trajectory_id": "xhigh__sparql-university",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__sparql-university__window_0002",
+      "sha256": "963ef083f6dac5e63b37e40c9f272f85c1507275df453f85b6e93997ce55d9c4"
+    },
+    {
+      "global_index": 45,
+      "filename": "xhigh__sqlite-db-truncate__window_0001.json",
+      "trajectory_id": "xhigh__sqlite-db-truncate",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__sqlite-db-truncate__window_0001",
+      "sha256": "57c9a4b4b0d24445fe2b211027d790d0706f795a6ff8254ebcba4d0133f1ee8e"
+    },
+    {
+      "global_index": 46,
+      "filename": "xhigh__sqlite-with-gcov__window_0001.json",
+      "trajectory_id": "xhigh__sqlite-with-gcov",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__sqlite-with-gcov__window_0001",
+      "sha256": "890a3da7b904c6b83e7cc8c185f17eb7b6e41832ea2730fd9caa339ea2415a49"
+    },
+    {
+      "global_index": 47,
+      "filename": "xhigh__sqlite-with-gcov__window_0002.json",
+      "trajectory_id": "xhigh__sqlite-with-gcov",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__sqlite-with-gcov__window_0002",
+      "sha256": "067bd54df92f609b5f240cf3c4f939297b978274a31bc1a197fcd81826c47a99"
+    },
+    {
+      "global_index": 48,
+      "filename": "xhigh__vulnerable-secret__window_0001.json",
+      "trajectory_id": "xhigh__vulnerable-secret",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__vulnerable-secret__window_0001",
+      "sha256": "455dff0d3a9b0c8232f0c99fc9024bab63c09bc166b1a95b57a4a9b48810227e"
+    },
+    {
+      "global_index": 49,
+      "filename": "xhigh__vulnerable-secret__window_0002.json",
+      "trajectory_id": "xhigh__vulnerable-secret",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__vulnerable-secret__window_0002",
+      "sha256": "3269a80599eb1cddcac146740dbc30a79c278f15a5570dfae08ca60c2304db34"
+    }
+  ]
+}

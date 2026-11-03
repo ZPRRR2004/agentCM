@@ -1,0 +1,214 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__portfolio-optimization__window_0003.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T12:48:08.005320+00:00",
+  "duration_seconds": 29.656,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T12:47:38.345173+00:00",
+      "duration_seconds": 29.656,
+      "raw_response": {
+        "id": "84570e7c-6ba0-4337-86de-ab542a8be630",
+        "object": "chat.completion",
+        "created": 1793710061,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning expresses one or more intended future actions the agent will perform, as opposed to reporting actions already completed or merely describing current state.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that expresses an intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly names at least one action the agent intends to perform later (e.g., re-run a verification, inspect files, run an additional check).\", \"The intended action is future-oriented relative to the reasoning node.\"], \"exclusion_conditions\": [\"The reasoning only reports actions that have already been executed.\", \"The reasoning only states results, conclusions, or facts without expressing an intention to act.\"]}, {\"name\": \"ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA\", \"definition\": \"The reasoning enumerates plausible checks, test scenarios, or usage patterns that are not explicitly required by the given task specification, treating them as conditions the solution should nevertheless survive.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that identifies possible unstated evaluation conditions and the anticipated behaviors they would exercise.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one potential check or usage scenario that is not stated in the provided task requirements.\", \"The reasoning frames that scenario as something the solution must be robust against, rather than as a restatement of an explicit requirement.\"], \"exclusion_conditions\": [\"The reasoning only restates explicit requirements from the task specification.\", \"The reasoning merely reports completed verification without hypothesizing additional unstated checks.\"]}, {\"name\": \"EXECUTES_PLANNED_STEP\", \"definition\": \"An action carries out a concrete step that a prior reasoning node explicitly announced as an intended next action, linking stated intent to the performed operation.\", \"parameters\": [{\"name\": \"plan_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that announces the intended step to be taken.\"}, {\"name\": \"planned_action\", \"type\": \"action\", \"description\": \"The recorded tool invocation that performs the announced step.\"}], \"assertion_conditions\": [\"The reasoning explicitly announces the specific step that is subsequently performed (e.g., inspect final artifacts, re-run the same verification).\", \"The action's content corresponds to the announced step rather than to an unrelated activity.\"], \"exclusion_conditions\": [\"The action is not announced or implied by the preceding reasoning.\", \"The reasoning announces a step that the action does not actually perform.\", \"The match is based only on topical similarity or temporal adjacency without an explicit announced intent.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action empirically tests a specific uncertainty or suspected failure mode articulated in reasoning, and the resulting observation provides interpretable evidence about whether that concern holds.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test of the suspected condition.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the specific uncertainty or suspected failure mode being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome relevant to the tested concern.\"}], \"assertion_conditions\": [\"The reasoning names a specific uncertainty or suspected defect (e.g., possible resource leak, instability under repeated use).\", \"The action is designed to expose that condition (e.g., repeated invocation with resource measurement).\", \"The observation reports a measurable outcome that addresses the named concern.\"], \"exclusion_conditions\": [\"No identifiable uncertainty or suspected failure mode motivates the action.\", \"The action does not exercise the condition named in the reasoning.\", \"The observation does not provide evidence bearing on the named concern.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"A reasoning node draws an evaluative conclusion that is supported by identifiable content of an observation, such as measured values, reported status, or reported absence of failure.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the conclusion that depends on observed evidence.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the measurements, statuses, or reported outcomes used as evidence.\"}], \"assertion_conditions\": [\"The reasoning asserts a conclusion about stability, correctness, performance, or completeness.\", \"Specific content of the observation (values, pass/fail statuses, reported resource behavior, artifact listing) is used as the basis for that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the observation without drawing a conclusion.\", \"The observation's content is unrelated to the asserted conclusion.\", \"The conclusion is asserted without any corresponding observed evidence in the window.\"]}, {\"name\": \"ASSESSES_MARGIN_AGAINST_REQUIREMENT\", \"definition\": \"The reasoning compares an achieved quantitative outcome with a stated requirement threshold and characterizes the resulting headroom or shortfall.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that contrasts a measured result with a required threshold and comments on the margin.\"}], \"assertion_conditions\": [\"The reasoning cites an achieved quantitative result and the corresponding required threshold.\", \"The reasoning explicitly characterizes the difference between them (e.g., large margin, well within tolerance, exceeds requirement).\"], \"exclusion_conditions\": [\"The reasoning reports a result without reference to a required threshold.\", \"The reasoning states a requirement without reporting a measured outcome to compare against it.\"]}, {\"name\": \"DECLARES_OBJECTIVE_SATISFIED\", \"definition\": \"The reasoning asserts that all stated task requirements have been met and the work is finished, summarizing the evidence and deliverables that support that assertion.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text declaring requirement satisfaction and completion of the task.\"}], \"assertion_conditions\": [\"The reasoning explicitly states that the task is complete or that all requirements are met.\", \"The declaration is accompanied by reference to the concrete evidence or deliverables that satisfy the requirements.\"], \"exclusion_conditions\": [\"The reasoning only describes planned or ongoing work without claiming completion.\", \"The reasoning reports partial progress or an unresolved defect and does not assert overall satisfaction.\", \"The reasoning evaluates a single check without concluding that the overall objective is met.\"]}]}",
+              "reasoning_content": "The context window: core node is event-0021 reasoning (final summary/conclusion). Overlap nodes include event-0019 reasoning + action (soak test) + observation, event-0020 reasoning + action + observation.\n\nTask: discover reusable predicates supported by these trajectories.\n\nSupported mechanisms:\n\n1. Unary: reasoning that plans future verification actions (IS_PLAN) — event-0019 reasoning expresses intended future actions (\"I'll run the benchmark one more time\", \"I'll also consider hidden test scenarios\", \"I'll run a quick memory check\").\n\n2. Unary: reasoning that concludes task completion / requirement satisfaction — event-0021 reasoning \"Everything is complete... All requirements are met with a large margin. Task complete.\" — DECLARES_TASK_COMPLETION or ASSERTS_REQUIREMENTS_SATISFIED.\n\n3. Binary: reasoning that anticipates risks/edge cases (hidden test scenarios) and proposes checks. Hmm.\n\n4. Ternary: hypothesis testing with probe — event-0019 reasoning identifies uncertainty about memory leaks (\"to catch leaks/crashes, I'll run a quick memory check\"), action performs soak test, observation reports no memory growth. That's the TESTS_ASSUMPTION_WITH_PROBE mechanism. Supported.\n\n5. Binary: observation grounds conclusion — event-0019 observation (13.1x, 12.0x, no memory growth) supports event-0020 reasoning \"Everything is stable: no memory growth across 100 calls... consistent results.\" That's GROUNDS_CONCLUSION_IN_OBSERVATION.\n\nAlso event-0020 observation (0 TODOs, .so exists, exports) supporting event-0021 final conclusion. But event-0021 is a core node; supporting observation is event-0020/observation-1. That's a valid binary.\n\n6. Ternary: verification action whose result confirms deliverable completeness? Maybe a predicate CONFIRMS_DELIVERABLE_STATE_WITH_INSPECTION. Hmm, maybe generalize: action inspects final artifacts and observation confirms state required by task (no TODOs, .so exists). Could define binary: CHECKS_DELIVERABLE_COMPLETENESS? Might be operational.\n\nLet me focus on well-supported, mechanism-level predicates:\n\nA. IS_PLAN (unary, reasoning) — explicit intended future actions. Supported by event-0019 reasoning.\n\nB. STATEMENT_OF_COMPLETION / CONCLUDES_OBJECTIVE_SATISFIED (unary, reasoning) — reasoning asserting that all requirements are met and the task is complete, based on accumulated evidence. Supported by event-0021.\n\nC. ASSERTS_REQUIREMENT_MET_WITH_MARGIN? Could be folded into B. Maybe separate: DECLARES_RESIDUAL_RISK_COVERAGE? Hmm.\n\nD. TESTS_ASSUMPTION_WITH_PROBE (ternary: action, reasoning, observation) — supported.\n\nE. GROUNDS_CONCLUSION_IN_OBSERVATION (binary: reasoning, observation) — supported (event-0020 reasoning grounded in event-0019 observation; event-0021 grounded in event-0020 observation).\n\nF. Maybe a binary: CONSIDERS_HIDDEN_TEST_SCENARIOS / ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA — reasoning enumerating potential hidden test conditions not specified in the prompt to preempt failures. That's a distinct mechanism: anticipating unstated evaluator checks. Supported by event-0019 reasoning (\"I'll also consider hidden test scenarios: Might call portfolio_risk_c directly with numpy arrays...\"). Is it reusable? Yes — anticipating unstated evaluation criteria. Could be a unary predicate ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA.\n\nG. Binary: action whose purpose is to verify previously reported results for consistency/reproducibility — re-run benchmark. Hmm \"CONFIRMS_CONSISTENCY_BY_REPETITION\"? Could be a ternary: repeated measurement confirming stability. Actually the soak test also checks stability under repetition. Could define: VERIFIES_STABILITY_UNDER_REPETITION (action, observation) — but structural call-result edge exists so relational predicate between action and result... the contract says structural call-result relationships are provided and must not be rediscovered. So avoid pairing action with its own result only for the \"returns\" edge. Actually TESTS_ASSUMPTION_WITH_PROBE involves action + its observation + reasoning; that's allowed as shown in example 3.\n\nH. Binary: reasoning revising/correcting earlier assessment based on new evidence (13.0x vs 1.3x before). Not in this window (that's previous summary). Skip.\n\nLet me also consider: unary reasoning that evaluates achieved performance against requirement thresholds (margin assessment). Could merge into B.\n\nI think a good set: 4-5 predicates.\n\n1. IS_PLAN\n2. ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA (unary reasoning)\n3. TESTS_ASSUMPTION_WITH_PROBE (ternary)\n4. GROUNDS_CONCLUSION_IN_OBSERVATION (binary)\n5. DECLARES_TASK_COMPLETION (unary reasoning) — asserts all requirements satisfied and work done.\n\nMaybe also: binary between reasoning plan and action motivated by it — EXECUTES_PLANNED_VERIFICATION_STEP (reasoning, action). Distinguishable from TESTS_ASSUMPTION_WITH_PROBE? The plan-based action execution: reasoning states intent to run soak test; action runs soak test. Mechanism: action implements a step explicitly announced in prior reasoning. Could be useful but somewhat overlapping. I'd include it? The granularity guidance says keep separate when meaningful case satisfies one but not the other. Plan-execution: reasoning announces \"I'll run benchmark again\" and action does it — that's not necessarily an assumption test. Hmm but in this window all actions serve verification. I think including EXECUTES_PLANNED_ACTION could be justified but risks genericness. I'll include as it captures plan→action fidelity distinct from hypothesis testing. Actually maybe skip to keep quality high. Let me decide: include 5 predicates, plus maybe one more about verification of deliverable state.\n\nConsider: event-0020 action final verification (ls, grep TODO count, import module) and observation showing 0 TODOs, .so exists. Mechanism: an inspection action gathers artifact-state evidence used to confirm deliverable completeness. Could be a ternary: VERIFIES_DELIVERABLE_STATE (action, observation, reasoning)? Hmm. Or binary CONFIRMS_ARTIFACT_COMPLETENESS — the observation itself reports absence of TODO markers and presence of build artifact. Could be unary on observation: REPORTS_ARTIFACT_STATE? That's more like labeling. I think GROUNDS_CONCLUSION_IN_OBSERVATION covers it (event-0021 conclusion grounded in event-0020 observation directly).\n\nI'll produce 5 predicates:\n\n1. IS_PLAN\n2. ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA\n3. EXECUTES_PLANNED_PROBE? no, use TESTS_ASSUMPTION_WITH_PROBE\n4. GROUNDS_CONCLUSION_IN_OBSERVATION\n5. DECLARES_OBJECTIVE_SATISFIED\n\nMaybe also add unary on observation: REPORTS_NULL_RESULT / CONFIRMS_ABSENCE_OF_FAILURE_SIGNAL — observation reporting zero growth/no crash. Hmm, that's \"the observation reports absence of a fault indicator (zero resource growth, no crash, all tests passed)\". This is a distinct mechanism: negative-evidence observation confirming absence of defect. Could be a unary predicate: REPORTS_ABSENCE_OF_DEFECT_INDICATOR. Is it reusable? Yes — observations that report no error / zero delta / passing state. Distinguishing from positive measurement. I think it's decent but might be too close to generic \"successful observation\". Hmm. The soak observation contains both \"growth 0 MB\" (absence) and \"13.1x speedup\" (positive). Maybe include a unary predicate for observations reporting a quantified measurement result? Too generic.\n\nI'll include the absence-of-fault one maybe as it supports a specific mechanism: negative-evidence check. Actually let me refine: predicate NEGATIVE_EVIDENCE_OBSERVATION: an observation reports that a suspected failure condition did not occur (zero growth, no crash, no errors). Supported. I'll include it as it's a distinct semantic role. Hmm, but risk of being seen as labeling logs. I think it's acceptable and mechanism-level (absence-of-defect evidence). I'll include it but keep definition careful.\n\nActually, maybe better to fold into GROUNDS_CONCLUSION... but the conclusion \"no leaks\" is grounded in the observation reporting zero growth — the binary handles it. The unary would add: observation can serve as negative evidence. I'll include it as optional... The instruction says omit unsupported candidates rather than generic. I'll include it since evidence is clear.\n\nAlso consider: unary reasoning \"EVALUATES_MARGIN_AGAINST_THRESHOLD\" — reasoning quantifies achieved performance relative to required threshold (12-13x vs 1.2x requirement). This is a distinct mechanism: adequacy assessment with margin. Supported by event-0019 and event-0021. Hmm, overlapping with DECLARES_OBJECTIVE_SATISFIED. Could be a separate predicate: ASSESSES_MARGIN_AGAINST_REQUIREMENT. It captures comparing measured value to requirement with margin. Distinguishable: reasoning may declare completion without quantifying margin. I could include it. But maybe too many. Let me pick a balanced set of 6:\n\n1. IS_PLAN\n2. ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA\n3. TESTS_ASSUMPTION_WITH_PROBE\n4. GROUNDS_CONCLUSION_IN_OBSERVATION\n5. DECLARES_OBJECTIVE_SATISFIED\n6. ASSESSES_MARGIN_AGAINST_REQUIREMENT? or NEGATIVE_EVIDENCE...\n\nHmm. I'll include 6: maybe both margin and completion are close. I'd rather include IS_PLAN, ANTICIPATES..., TESTS_ASSUMPTION..., GROUNDS_CONCLUSION..., DECLARES_OBJECTIVE_SATISFIED, and REPORTS_ABSENCE_OF_FAULT (unary observation). And maybe ASSESSES_MARGIN.\n\nLet me write 6 predicates with good conditions.\n\nPredicate 1: IS_PLAN — unary reasoning expressing intended future action(s).\n\nPredicate 2: ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA — reasoning enumerates potential evaluation conditions not stated in the task specification, to preempt failures. Parameters: reasoning. Assertion: reasoning identifies at least one plausible check/test scenario not explicitly required by the task description and treats it as something to guard against. Exclusion: reasoning only restates stated requirements; reasoning only reports completed work.\n\nPredicate 3: TESTS_ASSUMPTION_WITH_PROBE — ternary (probe_action, assumption_reasoning, probe_result).\n\nPredicate 4: GROUNDS_CONCLUSION_IN_OBSERVATION — binary (reasoning, observation).\n\nPredicate 5: DECLARES_OBJECTIVE_SATISFIED — unary reasoning: asserts all task requirements are met and work complete, referencing evidence. Exclusion: reasoning that merely plans; reasoning reporting partial progress without claiming satisfaction.\n\nPredicate 6: ASSESSES_MARGIN_AGAINST_REQUIREMENT — unary reasoning: quantifies achieved result vs required threshold and states the margin. Hmm, could combine with 5? Distinguishability: reasoning may quantify margin without declaring completion; and declaration may cite pass without explicit margin. I'll include.\n\nMaybe also binary: PLAN_MOTIVATES_ACTION (reasoning, action) — action carries out a step announced in the reasoning. Is it distinct from TESTS_ASSUMPTION_WITH_PROBE? For event-0020 action: reasoning says \"I'll do one last ls to make sure everything is in place\"; action does ls. Is that assumption testing? No — it's direct execution of a stated plan step. So EXECUTES_ANNOUNCED_STEP is distinguishable. But it's fairly close to \"temporal adjacency\". Hmm — evidence: reasoning explicitly announces the step (ls final check), action matches. I think this is a legitimate mechanism (plan-following / intent execution). I'll include as EXECUTES_PLANNED_STEP with exclusion for unannounced actions.\n\nThat gives 7. That may be fine. Let me make sure each has explicit ordered parameters and conditions.\n\nLet me finalize.\n\nParameter names must be unique within predicate.\n\nWrite JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 5534,
+          "completion_tokens": 4158,
+          "total_tokens": 9692,
+          "prompt_tokens_details": {
+            "cached_tokens": 2048
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2747
+          },
+          "prompt_cache_hit_tokens": 2048,
+          "prompt_cache_miss_tokens": 3486
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning expresses one or more intended future actions the agent will perform, as opposed to reporting actions already completed or merely describing current state.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that expresses an intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly names at least one action the agent intends to perform later (e.g., re-run a verification, inspect files, run an additional check).\", \"The intended action is future-oriented relative to the reasoning node.\"], \"exclusion_conditions\": [\"The reasoning only reports actions that have already been executed.\", \"The reasoning only states results, conclusions, or facts without expressing an intention to act.\"]}, {\"name\": \"ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA\", \"definition\": \"The reasoning enumerates plausible checks, test scenarios, or usage patterns that are not explicitly required by the given task specification, treating them as conditions the solution should nevertheless survive.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that identifies possible unstated evaluation conditions and the anticipated behaviors they would exercise.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one potential check or usage scenario that is not stated in the provided task requirements.\", \"The reasoning frames that scenario as something the solution must be robust against, rather than as a restatement of an explicit requirement.\"], \"exclusion_conditions\": [\"The reasoning only restates explicit requirements from the task specification.\", \"The reasoning merely reports completed verification without hypothesizing additional unstated checks.\"]}, {\"name\": \"EXECUTES_PLANNED_STEP\", \"definition\": \"An action carries out a concrete step that a prior reasoning node explicitly announced as an intended next action, linking stated intent to the performed operation.\", \"parameters\": [{\"name\": \"plan_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that announces the intended step to be taken.\"}, {\"name\": \"planned_action\", \"type\": \"action\", \"description\": \"The recorded tool invocation that performs the announced step.\"}], \"assertion_conditions\": [\"The reasoning explicitly announces the specific step that is subsequently performed (e.g., inspect final artifacts, re-run the same verification).\", \"The action's content corresponds to the announced step rather than to an unrelated activity.\"], \"exclusion_conditions\": [\"The action is not announced or implied by the preceding reasoning.\", \"The reasoning announces a step that the action does not actually perform.\", \"The match is based only on topical similarity or temporal adjacency without an explicit announced intent.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action empirically tests a specific uncertainty or suspected failure mode articulated in reasoning, and the resulting observation provides interpretable evidence about whether that concern holds.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test of the suspected condition.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the specific uncertainty or suspected failure mode being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome relevant to the tested concern.\"}], \"assertion_conditions\": [\"The reasoning names a specific uncertainty or suspected defect (e.g., possible resource leak, instability under repeated use).\", \"The action is designed to expose that condition (e.g., repeated invocation with resource measurement).\", \"The observation reports a measurable outcome that addresses the named concern.\"], \"exclusion_conditions\": [\"No identifiable uncertainty or suspected failure mode motivates the action.\", \"The action does not exercise the condition named in the reasoning.\", \"The observation does not provide evidence bearing on the named concern.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"A reasoning node draws an evaluative conclusion that is supported by identifiable content of an observation, such as measured values, reported status, or reported absence of failure.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the conclusion that depends on observed evidence.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the measurements, statuses, or reported outcomes used as evidence.\"}], \"assertion_conditions\": [\"The reasoning asserts a conclusion about stability, correctness, performance, or completeness.\", \"Specific content of the observation (values, pass/fail statuses, reported resource behavior, artifact listing) is used as the basis for that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the observation without drawing a conclusion.\", \"The observation's content is unrelated to the asserted conclusion.\", \"The conclusion is asserted without any corresponding observed evidence in the window.\"]}, {\"name\": \"ASSESSES_MARGIN_AGAINST_REQUIREMENT\", \"definition\": \"The reasoning compares an achieved quantitative outcome with a stated requirement threshold and characterizes the resulting headroom or shortfall.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text that contrasts a measured result with a required threshold and comments on the margin.\"}], \"assertion_conditions\": [\"The reasoning cites an achieved quantitative result and the corresponding required threshold.\", \"The reasoning explicitly characterizes the difference between them (e.g., large margin, well within tolerance, exceeds requirement).\"], \"exclusion_conditions\": [\"The reasoning reports a result without reference to a required threshold.\", \"The reasoning states a requirement without reporting a measured outcome to compare against it.\"]}, {\"name\": \"DECLARES_OBJECTIVE_SATISFIED\", \"definition\": \"The reasoning asserts that all stated task requirements have been met and the work is finished, summarizing the evidence and deliverables that support that assertion.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"Agent text declaring requirement satisfaction and completion of the task.\"}], \"assertion_conditions\": [\"The reasoning explicitly states that the task is complete or that all requirements are met.\", \"The declaration is accompanied by reference to the concrete evidence or deliverables that satisfy the requirements.\"], \"exclusion_conditions\": [\"The reasoning only describes planned or ongoing work without claiming completion.\", \"The reasoning reports partial progress or an unresolved defect and does not assert overall satisfaction.\", \"The reasoning evaluates a single check without concluding that the overall objective is met.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning expresses one or more intended future actions the agent will perform, as opposed to reporting actions already completed or merely describing current state.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text that expresses an intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly names at least one action the agent intends to perform later (e.g., re-run a verification, inspect files, run an additional check).",
+          "The intended action is future-oriented relative to the reasoning node."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports actions that have already been executed.",
+          "The reasoning only states results, conclusions, or facts without expressing an intention to act."
+        ]
+      },
+      {
+        "name": "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA",
+        "definition": "The reasoning enumerates plausible checks, test scenarios, or usage patterns that are not explicitly required by the given task specification, treating them as conditions the solution should nevertheless survive.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text that identifies possible unstated evaluation conditions and the anticipated behaviors they would exercise."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least one potential check or usage scenario that is not stated in the provided task requirements.",
+          "The reasoning frames that scenario as something the solution must be robust against, rather than as a restatement of an explicit requirement."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only restates explicit requirements from the task specification.",
+          "The reasoning merely reports completed verification without hypothesizing additional unstated checks."
+        ]
+      },
+      {
+        "name": "EXECUTES_PLANNED_STEP",
+        "definition": "An action carries out a concrete step that a prior reasoning node explicitly announced as an intended next action, linking stated intent to the performed operation.",
+        "parameters": [
+          {
+            "name": "plan_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that announces the intended step to be taken."
+          },
+          {
+            "name": "planned_action",
+            "type": "action",
+            "description": "The recorded tool invocation that performs the announced step."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly announces the specific step that is subsequently performed (e.g., inspect final artifacts, re-run the same verification).",
+          "The action's content corresponds to the announced step rather than to an unrelated activity."
+        ],
+        "exclusion_conditions": [
+          "The action is not announced or implied by the preceding reasoning.",
+          "The reasoning announces a step that the action does not actually perform.",
+          "The match is based only on topical similarity or temporal adjacency without an explicit announced intent."
+        ]
+      },
+      {
+        "name": "TESTS_ASSUMPTION_WITH_PROBE",
+        "definition": "A targeted action empirically tests a specific uncertainty or suspected failure mode articulated in reasoning, and the resulting observation provides interpretable evidence about whether that concern holds.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action performing the targeted test of the suspected condition."
+          },
+          {
+            "name": "assumption_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that identifies the specific uncertainty or suspected failure mode being tested."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the outcome relevant to the tested concern."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a specific uncertainty or suspected defect (e.g., possible resource leak, instability under repeated use).",
+          "The action is designed to expose that condition (e.g., repeated invocation with resource measurement).",
+          "The observation reports a measurable outcome that addresses the named concern."
+        ],
+        "exclusion_conditions": [
+          "No identifiable uncertainty or suspected failure mode motivates the action.",
+          "The action does not exercise the condition named in the reasoning.",
+          "The observation does not provide evidence bearing on the named concern."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "A reasoning node draws an evaluative conclusion that is supported by identifiable content of an observation, such as measured values, reported status, or reported absence of failure.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the conclusion that depends on observed evidence."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the measurements, statuses, or reported outcomes used as evidence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning asserts a conclusion about stability, correctness, performance, or completeness.",
+          "Specific content of the observation (values, pass/fail statuses, reported resource behavior, artifact listing) is used as the basis for that conclusion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or paraphrases the observation without drawing a conclusion.",
+          "The observation's content is unrelated to the asserted conclusion.",
+          "The conclusion is asserted without any corresponding observed evidence in the window."
+        ]
+      },
+      {
+        "name": "ASSESSES_MARGIN_AGAINST_REQUIREMENT",
+        "definition": "The reasoning compares an achieved quantitative outcome with a stated requirement threshold and characterizes the resulting headroom or shortfall.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text that contrasts a measured result with a required threshold and comments on the margin."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning cites an achieved quantitative result and the corresponding required threshold.",
+          "The reasoning explicitly characterizes the difference between them (e.g., large margin, well within tolerance, exceeds requirement)."
+        ],
+        "exclusion_conditions": [
+          "The reasoning reports a result without reference to a required threshold.",
+          "The reasoning states a requirement without reporting a measured outcome to compare against it."
+        ]
+      },
+      {
+        "name": "DECLARES_OBJECTIVE_SATISFIED",
+        "definition": "The reasoning asserts that all stated task requirements have been met and the work is finished, summarizing the evidence and deliverables that support that assertion.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "Agent text declaring requirement satisfaction and completion of the task."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly states that the task is complete or that all requirements are met.",
+          "The declaration is accompanied by reference to the concrete evidence or deliverables that satisfy the requirements."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only describes planned or ongoing work without claiming completion.",
+          "The reasoning reports partial progress or an unresolved defect and does not assert overall satisfaction.",
+          "The reasoning evaluates a single check without concluding that the overall objective is met."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

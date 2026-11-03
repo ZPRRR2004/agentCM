@@ -1,0 +1,28 @@
+{
+  "id": "9f992224-5287-4a49-83a9-0dbac3e855ab",
+  "object": "chat.completion",
+  "created": 1793692797,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent searched the dclm repo and found exposed secrets: AWS access key `<REDACTED_c5988f95044fbaa2bd14>` and secret `D4w8z9wKN1aVeT3BpQj6kIuN7wH8X0M9KfV5OqzF` in ray_processing/process.py and ray_cluster.yaml, a GitHub token in ray_cluster.yaml, HF tokens `hf_abcdefghijklmnopqrstuvwxyz123456` (ray_cluster.yaml) and `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`"
+      },
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 25422,
+    "completion_tokens": 150,
+    "total_tokens": 25572,
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    },
+    "prompt_cache_hit_tokens": 128,
+    "prompt_cache_miss_tokens": 25294
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

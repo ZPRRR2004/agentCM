@@ -1,0 +1,28 @@
+{
+  "id": "2e0098e9-37c9-460a-a54a-f0854dc4f3e9",
+  "object": "chat.completion",
+  "created": 1793692533,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "The agent installed git, openssh-server, and nginx on Ubuntu 24.04, created an unlocked `user` account, a bare repo at /git/server with a post-receive hook deploying to /var/www/html, configured nginx on port 8080, started sshd, added `server` to /etc/hosts, verified clone/commit/push/curl end-to-end, then reset the repo and web root to a clean state."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 25415,
+    "completion_tokens": 94,
+    "total_tokens": 25509,
+    "prompt_tokens_details": {
+      "cached_tokens": 25216
+    },
+    "prompt_cache_hit_tokens": 25216,
+    "prompt_cache_miss_tokens": 199
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}

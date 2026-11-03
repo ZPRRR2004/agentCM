@@ -1,0 +1,7 @@
+Discover reusable predicate definitions supported by this Context Window.
+Include explicit ordered parameters and evidence-based assertion/exclusion conditions.
+
+Context Window with typed action, observation and reasoning nodes:
+{{context_window}}
+
+Return {"candidate_predicates": [...]} using the complete shared definition schema.

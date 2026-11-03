@@ -1,0 +1,299 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__sparql-university__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T13:24:30.611397+00:00",
+  "duration_seconds": 42.344,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T13:23:48.269942+00:00",
+      "duration_seconds": 42.329,
+      "raw_response": {
+        "id": "7640c5b8-4d59-4f59-802c-24a0eccae18c",
+        "object": "chat.completion",
+        "created": 1793712231,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\":[{\"name\":\"IS_PLAN\",\"definition\":\"The reasoning explicitly expresses one or more intended future actions or a sequence of steps the agent commits to carrying out.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text expressing intended future action or a step sequence.\"}],\"assertion_conditions\":[\"The reasoning names at least one action, inspection, or step the agent intends to perform next.\",\"The intended step is presented as a commitment or stated next move rather than a hypothetical aside.\"],\"exclusion_conditions\":[\"The reasoning only reports or summarizes work already completed.\",\"The reasoning states facts or observations without expressing any intended future action.\"]},{\"name\":\"EXECUTES_STATED_INTENT\",\"definition\":\"The action performs the specific operation that the reasoning explicitly announced it would perform next, realizing the stated intention.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text announcing the operation to be carried out.\"},{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that carries out the announced operation.\"}],\"assertion_conditions\":[\"The reasoning names an identifiable operation and/or target to be handled next.\",\"The action performs that named operation on that named target.\",\"The correspondence between the announced operation and the executed operation is identifiable from their content.\"],\"exclusion_conditions\":[\"The reasoning is vague about the next step, so no specific operation can be matched.\",\"The action differs from the announced operation in kind or target.\",\"The only link between the reasoning and the action is temporal order or topical similarity.\"]},{\"name\":\"DERIVES_DOMAIN_FACTS_FROM_DATA\",\"definition\":\"The reasoning constructs structured domain-level facts, such as entity classifications, memberships, or per-entity counts, by interpreting raw data content supplied by the observation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text enumerating, classifying, or counting domain entities.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation containing the raw dataset or record dump being interpreted.\"}],\"assertion_conditions\":[\"The observation supplies raw data content (records, instances, field values).\",\"The reasoning derives structured domain facts from that content, going beyond restating the raw text.\",\"The derived facts are traceable to content present in the observation.\"],\"exclusion_conditions\":[\"The reasoning only repeats or paraphrases the observation without deriving structured facts.\",\"The derived facts are unrelated to or unsupported by the observation content.\"]},{\"name\":\"DETECTS_DATA_ANOMALY\",\"definition\":\"The reasoning identifies a specific inconsistency or defect in the observed data, such as a dangling reference or malformed value, and states its consequence or how it should be treated.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text flagging and interpreting the data defect.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation containing the element identified as anomalous.\"}],\"assertion_conditions\":[\"The reasoning points to a specific element of the observation as inconsistent, malformed, or otherwise defective.\",\"The reasoning states the effect of the anomaly on interpretation or the treatment to apply.\"],\"exclusion_conditions\":[\"The reasoning merely quotes a value without judging it anomalous.\",\"The flagged anomaly cannot be located in the observation content.\"]},{\"name\":\"DIAGNOSES_FAILURE_CAUSE\",\"definition\":\"The reasoning attributes an observed failure, error, or absence result to a specific underlying cause that explains it.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text naming the cause of the observed failure.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation reporting the failure, error, or missing capability.\"}],\"assertion_conditions\":[\"The observation reports an error, negative result, or absence of an expected capability.\",\"The reasoning names a concrete cause that accounts for that result.\"],\"exclusion_conditions\":[\"The reasoning only repeats the error message or retries without attributing any cause.\",\"The observation does not report a failure or negative result.\"]},{\"name\":\"ADAPTS_APPROACH_AFTER_FAILURE\",\"definition\":\"The reasoning proposes a revised or alternative course of action in response to a failure or negative outcome reported by the observation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text describing the changed approach.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation reporting the failure or negative outcome that motivates the change.\"}],\"assertion_conditions\":[\"The observation reports a failure, rejection, or negative result.\",\"The reasoning describes a changed approach, such as a different method, an added preparatory step, or an alternative parameterization, relative to what failed.\"],\"exclusion_conditions\":[\"The reasoning repeats the same approach unchanged.\",\"No failure or negative outcome is present in the observation.\",\"The proposed change is unrelated to the reported failure.\"]},{\"name\":\"TESTS_CAPABILITY_AVAILABILITY\",\"definition\":\"A diagnostic action checks whether a required tool, resource, or environment capability exists, and the resulting observation supplies evidence about its availability.\",\"parameters\":[{\"name\":\"probe_action\",\"type\":\"action\",\"description\":\"The action querying or inspecting for the presence of the capability.\"},{\"name\":\"probe_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning identifying uncertainty about whether the capability is available.\"},{\"name\":\"probe_observation\",\"type\":\"observation\",\"description\":\"The observation reporting presence, absence, or version information for the capability.\"}],\"assertion_conditions\":[\"The reasoning identifies uncertainty about availability of a tool, resource, or environment capability.\",\"The action queries, lists, or otherwise inspects for the presence of that capability.\",\"The observation reports outcome indicating whether the capability is present.\"],\"exclusion_conditions\":[\"The action performs substantive work with the capability rather than checking its availability.\",\"The observation does not address the availability of the queried capability.\",\"No identifiable availability uncertainty motivates the check.\"]},{\"name\":\"VERIFIES_ACTION_OUTCOME\",\"definition\":\"A follow-up inspection action checks the state or artifact produced by an earlier setup action, and its observation confirms or refutes that the setup took effect.\",\"parameters\":[{\"name\":\"setup_action\",\"type\":\"action\",\"description\":\"The earlier action intended to change environment or resource state.\"},{\"name\":\"verification_action\",\"type\":\"action\",\"description\":\"The follow-up action inspecting the state produced by the setup action.\"},{\"name\":\"verification_observation\",\"type\":\"observation\",\"description\":\"The observation reporting the inspected state.\"}],\"assertion_conditions\":[\"The setup action is intended to produce a change in environment, installed tooling, or resource state.\",\"The verification action inspects exactly the state or artifact the setup action was meant to produce.\",\"The observation reports the produced state, confirming or refuting that the setup took effect.\"],\"exclusion_conditions\":[\"The verification action inspects something unrelated to the setup action's intended effect.\",\"The observation does not report the state produced by the setup action.\",\"No identifiable earlier setup action exists for the inspection to verify.\"]},{\"name\":\"RESOLVES_INTERPRETATION_AMBIGUITY\",\"definition\":\"The reasoning identifies an ambiguous requirement, term, or unspecified behavior and adopts a specific interpretation that guides the implementation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text naming the ambiguity and the adopted interpretation.\"}],\"assertion_conditions\":[\"The reasoning identifies at least one ambiguous requirement, undefined term, or unspecified behavior.\",\"The reasoning states a concrete interpretation or rule that will be used for the implementation.\"],\"exclusion_conditions\":[\"The reasoning notes an ambiguity but leaves it unresolved.\",\"No ambiguity or underspecification is identified.\"]},{\"name\":\"PREDICTS_EXPECTED_OUTCOME\",\"definition\":\"The reasoning computes the concrete result it expects the eventual solution to produce, establishing a reference against which a later implementation can be validated.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text enumerating concrete expected outputs.\"}],\"assertion_conditions\":[\"The reasoning enumerates specific expected output values, entities, or rows derived from domain facts.\",\"The predicted result is presented as what a correct solution should yield.\"],\"exclusion_conditions\":[\"The reasoning only states the general goal or success criteria without concrete expected values.\",\"The stated expectations are not derived from domain facts.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicates from the trajectory. Let's examine the nodes.\n\nCore nodes: reasoning/action/observation triples across 10 events.\n\nContent: agent reads Turtle file, analyzes, tries to find SPARQL engine, installs python3, rdflib. The trajectory is about environment probing (checking tooling availability), installation attempts, adaptation to failures.\n\nCandidate mechanisms:\n\n1. Unary: reasoning expressing a plan — IS_PLAN. Event-0001 reasoning: \"Let's start by first examining the Turtle file...\" That's planning. Event-0006 reasoning expresses intent to install python. Yes.\n\n2. Unary: reasoning performing data analysis / extracting facts from observation — maybe \"ANALYZES_DATA\" or \"DERIVES_MODEL_OF_DATASET\". Could be reasoning that enumerates/derives structured facts from an observation.\n\n3. Binary: reasoning draws conclusion supported by observation — GROUNDS_CONCLUSION_IN_OBSERVATION. In event-0003, the long reasoning analyzes data from observations. Yes.\n\n4. Ternary: hypothesis testing with probe — event-0006/0007: attempt to install python, observation failure, then adjust. Actually testing environment capability: \"which python3\" action tests assumption that a SPARQL engine is available. Observation \"command not found\". That's a capability probe.\n\n5. Unary action: environment capability probe action (checking availability of tool) — \"PROBES_ENVIRONMENT_CAPABILITY\". Hmm, better as binary/ternary: tests assumption.\n\n6. Reasoning: diagnosing failure — event-0004 reasoning \"No python3? That's weird. Let me check what's available.\" and event-0007 \"apt can't find python3 — probably the package list is empty\" — DIAGNOSES_FAILURE_FROM_OBSERVATION. That's a distinct mechanism: reasoning attributes an observed failure to a cause.\n\n7. Binary: reasoning revises plan based on observation — event-0007: \"Let me try running apt-get update first\" after failure. ADAPTS_PLAN_AFTER_OBSERVED_FAILURE / REVISES_APPROACH_IN_RESPONSE_TO.\n\n8. Ternary: installation/action followed by verification — event-0007 install, event-0008 verify with `which python3 && python3 --version`; reasoning mentions \"Let me check whether python3 got installed\". That's verification of an action's effect. Predicate VERIFIES_ACTION_OUTCOME with action (install), verification action, observation.\n\nActually a good ternary: OUTCOME_VERIFICATION: action (setup step), verification action, observation confirming. Distinguish from TESTS_ASSUMPTION_WITH_PROBE.\n\n9. Binary: action motivated by reasoning stated plan — EXECUTES_PLANNED_STEP? That's generic maybe. But a distinct mechanism: an action implements the intention expressed in preceding reasoning. Hmm, it's arguably trivial/adjacent. But the contract says don't rely on temporal adjacency. However if reasoning explicitly states \"let me install X\" and action installs X, that's \"action implements stated intention\". Could be too generic. I might include EXECUTES_STATED_INTENT with reasoning and action, requiring explicit correspondence.\n\n10. Observation reporting environment limitation / negative result informing approach — the observation content states command not found; reasoning concludes tool unavailable. That's covered by diagnosis.\n\n11. Unary reasoning: enumerates instance-level facts by interpreting a data dump (semantic interpretation of dataset). This is distinct: reasoning that builds a structured inventory/count of entities from raw data. Name like DERIVES_INSTANCE_INVENTORY_FROM_DATA. Hmm—maybe too specific to SPARQL task? But mechanism \"extracting structured facts from a raw data source to reason about query semantics\" generalizes as \"analyzes data content to derive domain facts\". Could be a binary predicate: reasoning derives domain-level facts from observation data (distinct from conclusion grounding). Actually the GROUNDS_CONCLUSION covers evidence → conclusion. The inventory analysis is a special case. Perhaps include as separate: DERIVES_DOMAIN_MODEL_FROM_DATA_IN_OBSERVATION. Distinguishable? The inventory enumerates entities and counts; perhaps finer.\n\nLet me keep a moderate set.\n\nLet me also consider: reasoning raising design alternatives/tradeoffs and choosing — event-0003 discusses GROUP_CONCAT order determinism, whether to sort, deciding safest. Could be DELIBERATES_DESIGN_TRADEOFF (unary reasoning) — reasoning weighs alternative interpretations/implementations. Yes, that is a distinct mechanism evidenced: \"The order of countries inside GROUP_CONCAT is unspecified... I'll bet the test normalizes.\" And ambiguity resolution: deciding whether \"more than 10 students\" means distinct students or per course. That's AMBIGUITY_RESOLUTION: reasoning identifies an ambiguous requirement and adopts an interpretation. That's supported by event-0003.\n\nAlso planning a verification strategy: event-0003 final \"Plan: 1. Check available tools 2. Write the query 3. Test...\" and event-0006 \"Let me check whether python3 got installed\".\n\nLet's define final predicate list:\n\n1. IS_PLAN (unary reasoning) — expresses intended future actions/sequence.\n2. PROBES_CAPABILITY_WITH_ACTION? Better ternary: TESTS_ENVIRONMENT_CAPABILITY_WITH_PROBE (probe_action, uncertainty_reasoning, probe_result). Hmm this duplicates the example TESTS_ASSUMPTION_WITH_PROBE. We shouldn't just copy the example, but it's a valid mechanism that holds here. We can define a variant: TESTS_TOOLING_AVAILABILITY. But contract says generalize. Maybe define TESTS_ASSUMPTION_WITH_PROBE anyway? The examples illustrate granularity; reusing is fine if supported. But we could add distinction: verification of outcome differs.\n\nLet me design:\n\nA. IS_PLAN (reasoning)\nB. DERIVES_DOMAIN_FACTS_FROM_OBSERVED_DATA (reasoning, observation) — reasoning constructs structured domain facts (entities, counts, classifications) from raw data content in the observation.\nC. DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE (reasoning, observation) — reasoning attributes observed failure/error to a specific cause. Evidence: event-0007 (\"apt can't find python3 — probably the package list is empty\"), event-0004 reasoning \"python3, node, java don't seem to be in the PATH\". Hmm event-0004 attributes to PATH. Yes.\n\nExclusion: reasoning merely retries without attributing cause; observation is not a failure.\n\nD. PROBES_ENVIRONMENT_CAPABILITY (probe_action, hypothesis_reasoning, probe_result) — a diagnostic action checks whether a tool/capability is available, result resolves availability. Evidence: event-0003 action `which python3...`, observation command not found; event-0004 `ls /usr/bin; which python ...`. Also could include event-0008 verification. Distinguish from outcome verification: probe asks \"is capability available\", verification asks \"did my change take effect\".\n\nE. VERIFIES_ACTION_OUTCOME (setup_action, verification_action, verification_observation) — ternary. Evidence: event-0007 install python3 → event-0008 `which python3 && python3 --version` → \"/usr/bin/python3 Python 3.12.3\". The reasoning... wait, parameters must be action/observation/reasoning nodes. Use setup_action, verification_action, verification_observation. But do we need reasoning connecting them? Could be 3 args. However the pair relationships: setup action event-0007 action-1, verification action event-0008 action-1, observation event-0008 observation-1. Is there reasoning that says \"let me check whether python3 got installed\"? Yes event-0008 reasoning. Hmm, four args might be excessive. But without reasoning, linking \"this verifies that\" is inferred. Could include reasoning as needed? Let's define with 3: setup_action, verification_action, verification_observation. Assertion: verification action directly checks the artifact/state produced by setup action; observation reports the state. Exclusion: verification action unrelated; observation doesn't report produced state.\n\nActually the reasoning in event-0008 explicitly says \"Let me check whether python3 got installed\" — that ties. But structurally, using the adjacency and semantics of the check command is enough. I could add a fourth reasoning param but that seems over-arity. Maybe simpler binary: binary between verification action and observation is just returns edge. Hmm. I'll keep ternary.\n\nF. ADAPTS_APPROACH_IN_RESPONSE_TO_FAILURE (reasoning, observation) — reasoning proposes a revised approach after an observed failure. Evidence: event-0007 reasoning after event-0006 failure (\"apt can't find python3 ... try apt-get update first\"). And event-0004→0005 after failure \"let me check more carefully what's in /usr/bin and in other locations\". And event-0009→0010 (PEP 668) revised to --break-system-packages.\n\nDistinguishable from DIAGNOSES: diagnosis may be present or absent; adaptation = revised plan. Yes separate.\n\nG. RESOLVES_REQUIREMENT_AMBIGUITY (reasoning) unary — reasoning identifies an ambiguous requirement/interpretation and adopts a specific interpretation for implementation. Evidence: event-0003 discussing \"more than 10 students ... distinct vs per-course\", \"order of GROUP_CONCAT is unspecified\", \"full professor detection\". Yes.\n\nH. Unary action: INSTALLS_MISSING_TOOL? That's task-specific (tool installation). Generalize: SETUP_ACTION_PROVISIONING_DEPENDENCY. Hmm, maybe not necessary — could be covered by \"action\" roles. Might skip to avoid operational labels. The contract says avoid predicates labeling specific commands. Installing dependencies is somewhat generic but operational. I'd skip or fold into adaptation/verification.\n\nI. Binary: reasoning draws a conclusion about solution correctness / expected result? That's \"predicts expected output\" — reasoning computes expected results to guide verification. Maybe part of B.\n\nJ. Unary reasoning: ESTIMATES_EXPECTED_RESULT? In event-0003, reasoning computes the expected answer rows (Aristotle Tympas → GR, etc.) to enable later validation. This is a distinct mechanism: pre-computing expected outcome as a check reference. Name PREDICTS_EXPECTED_OUTCOME. Evidence: \"So expected result: - Orfeas Menis → GR, US ...\". This is supported and distinguishes from planning. Include as unary reasoning.\n\nHmm, but is it distinguishable enough? It's a mechanism: establishing an oracle for later validation. I'd include.\n\nK. Maybe binary: action implements plan stated in reasoning — could be included as EXECUTES_STATED_INTENTION. Evidence: event-0001 reasoning says inspect Turtle file; action reads it. Event-0002 \"Let me read the remaining lines\" → read :301-306. Event-0003 plan \"Check available tools\" → bash which python3. This is a recurring mechanism. But is it too trivial/adjacent? It requires explicit correspondence of the intended operation with the executed action. I think it's a legitimate predicate: \"action executes the specific step named in the reasoning\". Distinguish from merely temporally following. Let me include with conditions requiring the action matches the named operation. Risk: overly generic. But it's a real information-flow mechanism (intention → execution). I'll include as EXECUTES_PLANNED_STEP.\n\nThat gives ~8-9 predicates. Let's be careful about quality and avoid duplicates.\n\nLet me also consider a binary: OBSERVATION_CONSTRAINS_APPROACH — e.g. observation showing no python3 constrains subsequent method. That overlaps with diagnosis/adaptation.\n\nAlso: reasoning flags data anomaly (typo \"Bio10\") — reasoning identifies a data inconsistency in observed data and decides to exclude it. That's distinct: DETECTS_DATA_ANOMALY (reasoning, observation). Evidence: \"Student5 is enrolled in uni:Bio10 (a typo for Bio101? ... a non-existent course)\". Yes supported and distinct. Could be a binary predicate: reasoning identifies an anomaly/inconsistency in the observation's data and notes how to treat it. Include.\n\nHmm, is this too specific/generalizable? \"Detects data quality anomaly in observed dataset\" generalizes across domains. Fine.\n\nAlso the ordering/determinism discussion → maybe part of ambiguity resolution.\n\nLet me finalize list with 9:\n\n1. IS_PLAN — unary reasoning.\n2. EXECUTES_STATED_INTENT — binary (reasoning, action).\n3. DERIVES_DOMAIN_FACTS_FROM_DATA — binary (reasoning, observation).\n4. DETECTS_DATA_ANOMALY — binary (reasoning, observation).\n5. DIAGNOSES_FAILURE_CAUSE — binary (reasoning, observation).\n6. ADAPTS_APPROACH_AFTER_FAILURE — binary (reasoning, observation). Careful: both 5 and 6 take reasoning+observation, different mechanisms. Distinguishable: diagnosis attributes cause; adaptation proposes revised approach. Event-0004 reasoning does both? \"python3, node, java don't seem to be in the PATH. Let me check more carefully what's in /usr/bin\" — yes both. That's fine (non-exclusive).\n7. PROBES_CAPABILITY — ternary (probe_action, probe_reasoning, probe_observation).\n8. VERIFIES_ACTION_OUTCOME — ternary (setup_action, verification_action, verification_observation).\n9. RESOLVES_INTERPRETATION_AMBIGUITY — unary reasoning.\n10. PREDICTS_EXPECTED_OUTCOME — unary reasoning.\n\nHmm, 10 might be too many. Let's assess each for support.\n\nIS_PLAN: event-0001 \"Let's start by first examining the Turtle file\". Yes.\n\nEXECUTES_STATED_INTENT: event-0002 reasoning \"Let me read the remaining lines of the file (301–306)\" → read with path :301-306. Strong.\n\nDERIVES_DOMAIN_FACTS_FROM_DATA: event-0003 reasoning enumerates universities, departments, enrollments from observations. Very strong.\n\nDETECTS_DATA_ANOMALY: strong (Bio10 typo, also note \"Student5 uni:Bio10\"). Yes.\n\nDIAGNOSES_FAILURE_CAUSE: event-0005 reasoning \"python3, node, java don't seem to be in the PATH\"; event-0007 \"apt can't find python3 — probably the package list is empty\"; event-0010 \"pip is refusing due to PEP 668 (externally managed environment)\". Strong.\n\nADAPTS_APPROACH_AFTER_FAILURE: event-0007 → \"Let me try running apt-get update first\"; event-0010 → \"--break-system-packages\"; event-0004→0005 \"Let me check more carefully what's in /usr/bin and in other locations\". Strong.\n\nPROBES_CAPABILITY: event-0003 action `which python3; python3 -c ...; which sparql arq` with reasoning \"Let me check what SPARQL tools are available\"; result command not found. Strong.\n\nVERIFIES_ACTION_OUTCOME: event-0008. The reasoning \"Let me check whether python3 got installed\" plus action + observation. Use ternary with action/action/observation. Hmm, maybe include reasoning as 4th? Contract says include only essential args. The check action is verification, the observation reports. The link to setup action is the essential third. Fine.\n\nRESOLVES_INTERPRETATION_AMBIGUITY: strong (full professor definition, \"currently enrolled\" definition, distinct vs per-course, GROUP_CONCAT order).\n\nPREDICTS_EXPECTED_OUTCOME: strong.\n\nMaybe also unary: \"proposes fallback strategy\" — covered by adaptation.\n\nI'll include all 10? Might be a bit much but each supported. Perhaps drop EXECUTES_STATED_INTENT as borderline adjacency, or keep. The contract warns \"temporal adjacency or topical similarity alone is insufficient\" — but here there's explicit correspondence: reasoning names the exact operation (read lines 301-306; check python availability; install python3), and action does it. I think it's defensible and a genuinely reusable mechanism (plan execution / intention realization). I'll keep but make the condition strict.\n\nLet me write definitions carefully.\n\nPredicate 1:\nname: IS_PLAN\ndefinition: The reasoning explicitly expresses one or more intended future actions or a sequence of steps the agent will take.\nparameters: reasoning.\nassertion: reasoning identifies at least one future action, probe, or step to be carried out.\nexclusions: reasoning only reports completed work, summarizes results, or states facts without committing to future action.\n\nPredicate 2:\nname: EXECUTES_STATED_INTENT\ndefinition: The action carries out a specific operation that the reasoning explicitly stated it would perform next.\nparameters: reasoning (state intent), action.\nassertion: reasoning names an operation/target; action performs that named operation on that target; the correspondence is identifiable.\nexclusions: reasoning vague about next step; action differs in operation/target; only temporal order.\n\nPredicate 3:\nname: DERIVES_DOMAIN_FACTS_FROM_DATA\ndefinition: The reasoning constructs structured domain-level facts (entity classifications, membership, per-entity counts) by interpreting the raw data content supplied by the observation.\nparameters: reasoning, observation.\nassertion: observation contains raw dataset content; reasoning enumerates/classifies/counts entities derived from it; derived facts go beyond restating raw lines.\nexclusions: reasoning restates observation verbatim; reasoning unrelated to observation content; derived facts unsupported by observation.\n\nPredicate 4:\nname: DETECTS_DATA_ANOMALY\ndefinition: The reasoning identifies an inconsistency or defect in the observed data (e.g., dangling reference, malformed value) and notes how it affects interpretation.\nparameters: reasoning, observation.\nassertion: reasoning points to a specific element of the observation as inconsistent/malformed; states consequence or treatment.\nexclusions: reasoning merely notes a value without judging it anomalous; anomaly not tied to observation content.\n\nPredicate 5:\nname: DIAGNOSES_FAILURE_CAUSE\ndefinition: The reasoning attributes an observed failure or error result to a specific underlying cause.\nparameters: reasoning, observation.\nassertion: observation reports an error/failure/absence; reasoning names a cause explaining it (e.g., environment constraint, missing package list).\nexclusions: reasoning only repeats error or retries without attributing cause; observation not a failure.\n\nPredicate 6:\nname: ADAPTS_APPROACH_AFTER_FAILURE\ndefinition: The reasoning proposes a revised or alternative approach in response to a failure or negative result reported by the observation.\nparameters: reasoning, observation.\nassertion: observation reports failure/negative outcome; reasoning describes a changed approach (different command, added step, altered method) to work around it.\nexclusions: reasoning repeats same approach unchanged; no failure in observation; revision unrelated.\n\nPredicate 7:\nname: PROBES_CAPABILITY_WITH_CHECK\ndefinition: A diagnostic action checks whether a required tool, resource, or environment capability is present, and the resulting observation provides evidence about its availability.\nparameters: probe_action, probe_reasoning, probe_observation.\nassertion: reasoning identifies capability uncertainty; action queries availability; observation reports presence/absence.\nexclusion: action performs substantive work rather than checking availability; observation doesn't address availability.\n\nPredicate 8:\nname: VERIFIES_ACTION_OUTCOME\ndefinition: A follow-up action checks the state or artifact produced by an earlier setup action, and its observation confirms or refutes that the setup took effect.\nparameters: setup_action, verification_action, verification_observation.\nassertion: setup action changes environment/resources; verification action inspects resulting state; observation reports resulting state consistent with checking it.\nexclusion: verification action unrelated to setup's effect; observation doesn't report produced state; no preceding setup action.\n\nHmm careful: includes \"no preceding setup action\" fine.\n\nPredicate 9:\nname: RESOLVES_INTERPRETATION_AMBIGUITY\ndefinition: The reasoning identifies an ambiguous requirement, term, or unspecified behavior and adopts a specific interpretation to guide the implementation.\nparameters: reasoning.\nassertion: reasoning names at least one ambiguity/underspecification and states chosen interpretation or rule.\nexclusion: reasoning notes ambiguity but leaves undecided; no ambiguity identified.\n\nPredicate 10:\nname: PREDICTS_EXPECTED_OUTCOME\ndefinition: The reasoning computes the concrete result it expects the eventual solution to produce, establishing a reference for later validation.\nparameters: reasoning.\nassertion: reasoning enumerates specific expected outputs derived from domain facts.\nexclusion: reasoning only states general goal; no concrete expected values.\n\nAlso could add unary action: e.g., \"PROVISIONS_DEPENDENCY\" — skip.\n\nParameter type constraints: all params are nodes. Fine.\n\nWrite JSON. Include name, definition, parameters (name,type,description), assertion_conditions, exclusion_conditions.\n\nOrder parameters as described.\n\nLet me write concise English.\n\nFor predicate 7 name maybe \"TESTS_CAPABILITY_AVAILABILITY\". Good.\n\nEnsure names unique UPPER_SNAKE_CASE.\n\nReturn JSON only."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 19684,
+          "completion_tokens": 6339,
+          "total_tokens": 26023,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4568
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 17764
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\":[{\"name\":\"IS_PLAN\",\"definition\":\"The reasoning explicitly expresses one or more intended future actions or a sequence of steps the agent commits to carrying out.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text expressing intended future action or a step sequence.\"}],\"assertion_conditions\":[\"The reasoning names at least one action, inspection, or step the agent intends to perform next.\",\"The intended step is presented as a commitment or stated next move rather than a hypothetical aside.\"],\"exclusion_conditions\":[\"The reasoning only reports or summarizes work already completed.\",\"The reasoning states facts or observations without expressing any intended future action.\"]},{\"name\":\"EXECUTES_STATED_INTENT\",\"definition\":\"The action performs the specific operation that the reasoning explicitly announced it would perform next, realizing the stated intention.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text announcing the operation to be carried out.\"},{\"name\":\"action\",\"type\":\"action\",\"description\":\"The tool invocation that carries out the announced operation.\"}],\"assertion_conditions\":[\"The reasoning names an identifiable operation and/or target to be handled next.\",\"The action performs that named operation on that named target.\",\"The correspondence between the announced operation and the executed operation is identifiable from their content.\"],\"exclusion_conditions\":[\"The reasoning is vague about the next step, so no specific operation can be matched.\",\"The action differs from the announced operation in kind or target.\",\"The only link between the reasoning and the action is temporal order or topical similarity.\"]},{\"name\":\"DERIVES_DOMAIN_FACTS_FROM_DATA\",\"definition\":\"The reasoning constructs structured domain-level facts, such as entity classifications, memberships, or per-entity counts, by interpreting raw data content supplied by the observation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text enumerating, classifying, or counting domain entities.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation containing the raw dataset or record dump being interpreted.\"}],\"assertion_conditions\":[\"The observation supplies raw data content (records, instances, field values).\",\"The reasoning derives structured domain facts from that content, going beyond restating the raw text.\",\"The derived facts are traceable to content present in the observation.\"],\"exclusion_conditions\":[\"The reasoning only repeats or paraphrases the observation without deriving structured facts.\",\"The derived facts are unrelated to or unsupported by the observation content.\"]},{\"name\":\"DETECTS_DATA_ANOMALY\",\"definition\":\"The reasoning identifies a specific inconsistency or defect in the observed data, such as a dangling reference or malformed value, and states its consequence or how it should be treated.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text flagging and interpreting the data defect.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation containing the element identified as anomalous.\"}],\"assertion_conditions\":[\"The reasoning points to a specific element of the observation as inconsistent, malformed, or otherwise defective.\",\"The reasoning states the effect of the anomaly on interpretation or the treatment to apply.\"],\"exclusion_conditions\":[\"The reasoning merely quotes a value without judging it anomalous.\",\"The flagged anomaly cannot be located in the observation content.\"]},{\"name\":\"DIAGNOSES_FAILURE_CAUSE\",\"definition\":\"The reasoning attributes an observed failure, error, or absence result to a specific underlying cause that explains it.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text naming the cause of the observed failure.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation reporting the failure, error, or missing capability.\"}],\"assertion_conditions\":[\"The observation reports an error, negative result, or absence of an expected capability.\",\"The reasoning names a concrete cause that accounts for that result.\"],\"exclusion_conditions\":[\"The reasoning only repeats the error message or retries without attributing any cause.\",\"The observation does not report a failure or negative result.\"]},{\"name\":\"ADAPTS_APPROACH_AFTER_FAILURE\",\"definition\":\"The reasoning proposes a revised or alternative course of action in response to a failure or negative outcome reported by the observation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text describing the changed approach.\"},{\"name\":\"observation\",\"type\":\"observation\",\"description\":\"The observation reporting the failure or negative outcome that motivates the change.\"}],\"assertion_conditions\":[\"The observation reports a failure, rejection, or negative result.\",\"The reasoning describes a changed approach, such as a different method, an added preparatory step, or an alternative parameterization, relative to what failed.\"],\"exclusion_conditions\":[\"The reasoning repeats the same approach unchanged.\",\"No failure or negative outcome is present in the observation.\",\"The proposed change is unrelated to the reported failure.\"]},{\"name\":\"TESTS_CAPABILITY_AVAILABILITY\",\"definition\":\"A diagnostic action checks whether a required tool, resource, or environment capability exists, and the resulting observation supplies evidence about its availability.\",\"parameters\":[{\"name\":\"probe_action\",\"type\":\"action\",\"description\":\"The action querying or inspecting for the presence of the capability.\"},{\"name\":\"probe_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning identifying uncertainty about whether the capability is available.\"},{\"name\":\"probe_observation\",\"type\":\"observation\",\"description\":\"The observation reporting presence, absence, or version information for the capability.\"}],\"assertion_conditions\":[\"The reasoning identifies uncertainty about availability of a tool, resource, or environment capability.\",\"The action queries, lists, or otherwise inspects for the presence of that capability.\",\"The observation reports outcome indicating whether the capability is present.\"],\"exclusion_conditions\":[\"The action performs substantive work with the capability rather than checking its availability.\",\"The observation does not address the availability of the queried capability.\",\"No identifiable availability uncertainty motivates the check.\"]},{\"name\":\"VERIFIES_ACTION_OUTCOME\",\"definition\":\"A follow-up inspection action checks the state or artifact produced by an earlier setup action, and its observation confirms or refutes that the setup took effect.\",\"parameters\":[{\"name\":\"setup_action\",\"type\":\"action\",\"description\":\"The earlier action intended to change environment or resource state.\"},{\"name\":\"verification_action\",\"type\":\"action\",\"description\":\"The follow-up action inspecting the state produced by the setup action.\"},{\"name\":\"verification_observation\",\"type\":\"observation\",\"description\":\"The observation reporting the inspected state.\"}],\"assertion_conditions\":[\"The setup action is intended to produce a change in environment, installed tooling, or resource state.\",\"The verification action inspects exactly the state or artifact the setup action was meant to produce.\",\"The observation reports the produced state, confirming or refuting that the setup took effect.\"],\"exclusion_conditions\":[\"The verification action inspects something unrelated to the setup action's intended effect.\",\"The observation does not report the state produced by the setup action.\",\"No identifiable earlier setup action exists for the inspection to verify.\"]},{\"name\":\"RESOLVES_INTERPRETATION_AMBIGUITY\",\"definition\":\"The reasoning identifies an ambiguous requirement, term, or unspecified behavior and adopts a specific interpretation that guides the implementation.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text naming the ambiguity and the adopted interpretation.\"}],\"assertion_conditions\":[\"The reasoning identifies at least one ambiguous requirement, undefined term, or unspecified behavior.\",\"The reasoning states a concrete interpretation or rule that will be used for the implementation.\"],\"exclusion_conditions\":[\"The reasoning notes an ambiguity but leaves it unresolved.\",\"No ambiguity or underspecification is identified.\"]},{\"name\":\"PREDICTS_EXPECTED_OUTCOME\",\"definition\":\"The reasoning computes the concrete result it expects the eventual solution to produce, establishing a reference against which a later implementation can be validated.\",\"parameters\":[{\"name\":\"reasoning\",\"type\":\"reasoning\",\"description\":\"The agent text enumerating concrete expected outputs.\"}],\"assertion_conditions\":[\"The reasoning enumerates specific expected output values, entities, or rows derived from domain facts.\",\"The predicted result is presented as what a correct solution should yield.\"],\"exclusion_conditions\":[\"The reasoning only states the general goal or success criteria without concrete expected values.\",\"The stated expectations are not derived from domain facts.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses one or more intended future actions or a sequence of steps the agent commits to carrying out.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing intended future action or a step sequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names at least one action, inspection, or step the agent intends to perform next.",
+          "The intended step is presented as a commitment or stated next move rather than a hypothetical aside."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports or summarizes work already completed.",
+          "The reasoning states facts or observations without expressing any intended future action."
+        ]
+      },
+      {
+        "name": "EXECUTES_STATED_INTENT",
+        "definition": "The action performs the specific operation that the reasoning explicitly announced it would perform next, realizing the stated intention.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text announcing the operation to be carried out."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The tool invocation that carries out the announced operation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names an identifiable operation and/or target to be handled next.",
+          "The action performs that named operation on that named target.",
+          "The correspondence between the announced operation and the executed operation is identifiable from their content."
+        ],
+        "exclusion_conditions": [
+          "The reasoning is vague about the next step, so no specific operation can be matched.",
+          "The action differs from the announced operation in kind or target.",
+          "The only link between the reasoning and the action is temporal order or topical similarity."
+        ]
+      },
+      {
+        "name": "DERIVES_DOMAIN_FACTS_FROM_DATA",
+        "definition": "The reasoning constructs structured domain-level facts, such as entity classifications, memberships, or per-entity counts, by interpreting raw data content supplied by the observation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating, classifying, or counting domain entities."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation containing the raw dataset or record dump being interpreted."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation supplies raw data content (records, instances, field values).",
+          "The reasoning derives structured domain facts from that content, going beyond restating the raw text.",
+          "The derived facts are traceable to content present in the observation."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only repeats or paraphrases the observation without deriving structured facts.",
+          "The derived facts are unrelated to or unsupported by the observation content."
+        ]
+      },
+      {
+        "name": "DETECTS_DATA_ANOMALY",
+        "definition": "The reasoning identifies a specific inconsistency or defect in the observed data, such as a dangling reference or malformed value, and states its consequence or how it should be treated.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text flagging and interpreting the data defect."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation containing the element identified as anomalous."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning points to a specific element of the observation as inconsistent, malformed, or otherwise defective.",
+          "The reasoning states the effect of the anomaly on interpretation or the treatment to apply."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely quotes a value without judging it anomalous.",
+          "The flagged anomaly cannot be located in the observation content."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_FAILURE_CAUSE",
+        "definition": "The reasoning attributes an observed failure, error, or absence result to a specific underlying cause that explains it.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text naming the cause of the observed failure."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the failure, error, or missing capability."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an error, negative result, or absence of an expected capability.",
+          "The reasoning names a concrete cause that accounts for that result."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only repeats the error message or retries without attributing any cause.",
+          "The observation does not report a failure or negative result."
+        ]
+      },
+      {
+        "name": "ADAPTS_APPROACH_AFTER_FAILURE",
+        "definition": "The reasoning proposes a revised or alternative course of action in response to a failure or negative outcome reported by the observation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text describing the changed approach."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the failure or negative outcome that motivates the change."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a failure, rejection, or negative result.",
+          "The reasoning describes a changed approach, such as a different method, an added preparatory step, or an alternative parameterization, relative to what failed."
+        ],
+        "exclusion_conditions": [
+          "The reasoning repeats the same approach unchanged.",
+          "No failure or negative outcome is present in the observation.",
+          "The proposed change is unrelated to the reported failure."
+        ]
+      },
+      {
+        "name": "TESTS_CAPABILITY_AVAILABILITY",
+        "definition": "A diagnostic action checks whether a required tool, resource, or environment capability exists, and the resulting observation supplies evidence about its availability.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action querying or inspecting for the presence of the capability."
+          },
+          {
+            "name": "probe_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying uncertainty about whether the capability is available."
+          },
+          {
+            "name": "probe_observation",
+            "type": "observation",
+            "description": "The observation reporting presence, absence, or version information for the capability."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies uncertainty about availability of a tool, resource, or environment capability.",
+          "The action queries, lists, or otherwise inspects for the presence of that capability.",
+          "The observation reports outcome indicating whether the capability is present."
+        ],
+        "exclusion_conditions": [
+          "The action performs substantive work with the capability rather than checking its availability.",
+          "The observation does not address the availability of the queried capability.",
+          "No identifiable availability uncertainty motivates the check."
+        ]
+      },
+      {
+        "name": "VERIFIES_ACTION_OUTCOME",
+        "definition": "A follow-up inspection action checks the state or artifact produced by an earlier setup action, and its observation confirms or refutes that the setup took effect.",
+        "parameters": [
+          {
+            "name": "setup_action",
+            "type": "action",
+            "description": "The earlier action intended to change environment or resource state."
+          },
+          {
+            "name": "verification_action",
+            "type": "action",
+            "description": "The follow-up action inspecting the state produced by the setup action."
+          },
+          {
+            "name": "verification_observation",
+            "type": "observation",
+            "description": "The observation reporting the inspected state."
+          }
+        ],
+        "assertion_conditions": [
+          "The setup action is intended to produce a change in environment, installed tooling, or resource state.",
+          "The verification action inspects exactly the state or artifact the setup action was meant to produce.",
+          "The observation reports the produced state, confirming or refuting that the setup took effect."
+        ],
+        "exclusion_conditions": [
+          "The verification action inspects something unrelated to the setup action's intended effect.",
+          "The observation does not report the state produced by the setup action.",
+          "No identifiable earlier setup action exists for the inspection to verify."
+        ]
+      },
+      {
+        "name": "RESOLVES_INTERPRETATION_AMBIGUITY",
+        "definition": "The reasoning identifies an ambiguous requirement, term, or unspecified behavior and adopts a specific interpretation that guides the implementation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text naming the ambiguity and the adopted interpretation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least one ambiguous requirement, undefined term, or unspecified behavior.",
+          "The reasoning states a concrete interpretation or rule that will be used for the implementation."
+        ],
+        "exclusion_conditions": [
+          "The reasoning notes an ambiguity but leaves it unresolved.",
+          "No ambiguity or underspecification is identified."
+        ]
+      },
+      {
+        "name": "PREDICTS_EXPECTED_OUTCOME",
+        "definition": "The reasoning computes the concrete result it expects the eventual solution to produce, establishing a reference against which a later implementation can be validated.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating concrete expected outputs."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning enumerates specific expected output values, entities, or rows derived from domain facts.",
+          "The predicted result is presented as what a correct solution should yield."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only states the general goal or success criteria without concrete expected values.",
+          "The stated expectations are not derived from domain facts."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

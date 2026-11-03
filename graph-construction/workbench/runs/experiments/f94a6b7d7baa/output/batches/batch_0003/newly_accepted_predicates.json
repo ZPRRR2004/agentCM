@@ -1,0 +1,631 @@
+[
+  {
+    "name": "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+    "definition": "The reasoning infers a general input-to-output transformation rule from one or more observed input-output examples and extends that rule to cases beyond the exact observed examples.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "Agent text articulating the derived transformation rule and its generalization to unseen inputs."
+      },
+      {
+        "name": "example_observations",
+        "type": "observation[]",
+        "description": "Observations that collectively supply the example input-output pairs from which the rule is inferred."
+      }
+    ],
+    "assertion_conditions": [
+      "The cited observations contain example input-output pairs.",
+      "The reasoning articulates a rule, procedure, or invariant structure that reproduces the observed outputs from the observed inputs.",
+      "The reasoning extends the rule beyond the exact observed pairs, for example by identifying parameters, invariant structure, or expected behavior on unseen inputs.",
+      "The derived rule relies on identifiable content of the cited observations."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely restates, copies, or summarizes the examples without deriving a rule.",
+      "The reasoning proposes a rule that is unsupported by the example content.",
+      "The reasoning describes a one-off operation rather than a generalizable transformation.",
+      "The reasoning does not address how the derived rule applies beyond the observed examples."
+    ]
+  },
+  {
+    "name": "ATTEMPTS_PREREQUISITE_PROVISIONING",
+    "definition": "The reasoning identifies a specific tool, package, component, or capability required by the task as absent or insufficient, and the action attempts to install, fetch, or otherwise provision that prerequisite, without implying that the attempt succeeded.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "Agent text identifying the missing or insufficient prerequisite and the intent to provision it."
+      },
+      {
+        "name": "provisioning_action",
+        "type": "action",
+        "description": "The action attempting to install, fetch, or otherwise make the identified prerequisite available."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific tool, package, component, or capability required by the task as missing, absent, or insufficient.",
+      "The action attempts to install, fetch, or otherwise provision that specific prerequisite rather than performing the task's primary transformation.",
+      "The predicate does not assert that the provisioning attempt succeeded."
+    ],
+    "exclusion_conditions": [
+      "The action only uses an already available component.",
+      "The action provisions a component without any identified deficiency.",
+      "The action fetches task data rather than provisioning a required capability.",
+      "The action is a pure query or verification step without a provisioning attempt."
+    ]
+  },
+  {
+    "name": "VERIFICATION_CONFIRMS_REQUIRED_STATE",
+    "definition": "An action includes an explicit verification or validation step for a state required by the task, such as tool availability, version, or artifact integrity, and the observation reports a positive result confirming that required state.",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "The action containing the explicit check of the required state; it may also perform related work in the same invocation."
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "The observation reporting the check's result."
+      }
+    ],
+    "assertion_conditions": [
+      "The action explicitly includes a check of availability, version, integrity, or another required precondition.",
+      "The observation reports a positive result confirming the required state, such as a resolved executable path and version string or a passing integrity verification.",
+      "The confirmed state is required for the task rather than an incidental side effect."
+    ],
+    "exclusion_conditions": [
+      "The observation reports a failure or continued absence, which instead supports failure diagnosis.",
+      "The action merely produces task output whose correctness is not explicitly checked.",
+      "The action contains no identifiable verification or validation step.",
+      "The observation does not report a positive confirming result for the required state."
+    ]
+  },
+  {
+    "name": "EVALUATES_COMPETING_IMPLEMENTATIONS",
+    "definition": "The reasoning compares the content or behavior of two or more distinct candidate implementations, versions, or variants of an artifact, as exposed by observations, and reaches a comparative judgement about their relative correctness or suitability.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node contrasting the candidate implementations or versions."
+      },
+      {
+        "name": "variant_observations",
+        "type": "observation[]",
+        "description": "The observations that collectively expose two or more distinct candidate implementations or versions of the artifact."
+      }
+    ],
+    "assertion_conditions": [
+      "The cited observations collectively expose at least two distinct implementations, versions, or variants of the same artifact or of artifacts serving the same role.",
+      "The reasoning contrasts their structure, logic, or behavior using identifiable content of those observations.",
+      "The reasoning reaches a comparative judgement about correctness or suitability, which may reject some or all of the variants rather than selecting one of them."
+    ],
+    "exclusion_conditions": [
+      "Only one implementation or version is exposed, so no comparative evaluation is possible.",
+      "The reasoning describes or summarizes the variants without making any comparative correctness or suitability judgement.",
+      "The contrasted content is not drawn from the cited observations.",
+      "The reasoning compares candidate approaches it has not yet realized as artifacts rather than existing implementations or versions."
+    ]
+  },
+  {
+    "name": "RESOLVES_CONFLICT_WITH_TARGETED_EDIT",
+    "definition": "An observation reports unresolved conflicting content between competing versions or alternatives of an artifact, the reasoning determines how that conflict is to be resolved, and an action edits or overwrites the conflicted artifact so as to apply that resolution.",
+    "parameters": [
+      {
+        "name": "conflict_observation",
+        "type": "observation",
+        "description": "The observation reporting the unresolved conflict between competing versions or alternatives of the artifact."
+      },
+      {
+        "name": "resolution_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node determining how the conflict should be resolved, including any replacement content to be written."
+      },
+      {
+        "name": "resolution_action",
+        "type": "action",
+        "description": "The action that edits or overwrites the conflicted artifact to apply the determined resolution."
+      }
+    ],
+    "assertion_conditions": [
+      "The conflict_observation explicitly reports unresolved conflict, such as conflict markers, a conflict status, or otherwise competing content for the same artifact.",
+      "The resolution_reasoning specifies a resolution strategy or the replacement content to be written for the conflicted artifact.",
+      "The resolution_action modifies or overwrites the conflicted artifact in accordance with that strategy."
+    ],
+    "exclusion_conditions": [
+      "No unresolved conflict is reported by the conflict_observation.",
+      "The resolution_action is unrelated to the conflicted artifact or applies a different resolution than the one specified.",
+      "The conflict is only discussed or described, without any action applying a resolution.",
+      "The reasoning merely notes that a conflict exists without determining how it should be resolved."
+    ]
+  },
+  {
+    "name": "DERIVES_VERSION_LINEAGE_FROM_METADATA",
+    "definition": "The reasoning reconstructs ancestry or divergence relationships among artifact versions — such as a shared base and distinct descendant revisions — from version identifiers or reference metadata supplied by an observation.",
+    "parameters": [
+      {
+        "name": "lineage_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node identifying a common base and/or divergent descendant versions from the reported identifiers."
+      },
+      {
+        "name": "metadata_observation",
+        "type": "observation",
+        "description": "The observation supplying identifiers or references for multiple versions or revisions."
+      }
+    ],
+    "assertion_conditions": [
+      "The metadata_observation supplies identifiers or references for multiple versions or revisions.",
+      "The lineage_reasoning identifies a shared base version and/or distinct descendant or divergent versions using those identifiers."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only repeats or lists identifiers without interpreting ancestry or divergence.",
+      "The metadata_observation does not supply identifiers for multiple versions.",
+      "No common ancestry or divergence relationship among versions is asserted.",
+      "The reasoning compares versions for correctness or suitability without asserting how they are related by ancestry or divergence."
+    ]
+  },
+  {
+    "name": "CONSTRUCTS_GENERALIZATION_PROBE",
+    "definition": "The agent authors new test inputs or scenarios derived from a rule it inferred from limited examples, in order to check whether that rule holds on cases beyond the supplied reference examples rather than merely re-running them.",
+    "parameters": [
+      {
+        "name": "probe_construction_action",
+        "type": "action",
+        "description": "The action that writes or assembles the additional, agent-generated test inputs or scenarios."
+      },
+      {
+        "name": "generalization_reasoning",
+        "type": "reasoning",
+        "description": "Agent text stating or presupposing the inferred rule and the intent to test whether it generalizes to unseen inputs."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states or presupposes a rule, pattern, or transformation inferred from the available examples.",
+      "The action authors new inputs or scenarios that go beyond the supplied examples and are constructed from that inferred rule, for example by generating instances parameterized by the rule.",
+      "The purpose of the constructed inputs is to test whether the rule holds on cases not covered by the supplied examples."
+    ],
+    "exclusion_conditions": [
+      "The action only re-runs or compares against the supplied reference examples without generating new inputs.",
+      "The generated input is not derived from any rule inferred from the available examples.",
+      "No inferred rule or generalization concern is expressed in the reasoning.",
+      "The action merely inspects or displays the implementation without constructing new test material."
+    ]
+  },
+  {
+    "name": "DISAMBIGUATES_COMPETING_INTERPRETATIONS",
+    "definition": "The reasoning identifies two or more candidate interpretations or hypotheses that could account for the same available evidence and argues for one of them by citing a distinguishing consideration that separates the preferred candidate from its rivals.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "Agent text weighing at least two candidate interpretations of the same evidence and arguing for one of them."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names or clearly describes at least two alternative interpretations that could account for the same observed evidence.",
+      "The reasoning supplies a distinguishing consideration, such as coverage of the data, internal consistency, or incompatibility of a rival with the evidence, that separates the preferred interpretation from the alternatives.",
+      "The reasoning adopts one interpretation as preferred on the basis of that distinguishing consideration."
+    ],
+    "exclusion_conditions": [
+      "The reasoning asserts a single interpretation without acknowledging a competing one.",
+      "The reasoning lists alternatives but makes no attempt to distinguish or select among them.",
+      "The alternatives are candidate solution approaches or course-of-action options rather than competing interpretations of the same evidence.",
+      "The alternatives concern different evidence or different scopes, so they are not rivals accounting for the same data.",
+      "No preferred interpretation is identified."
+    ]
+  },
+  {
+    "name": "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION",
+    "definition": "The reasoning identifies specific content of an existing or planned artifact as risking violation of an explicitly stated output, format, or interface constraint, and the associated action produces or attempts revised artifact content in which the flagged element is removed or altered.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text identifying the explicit constraint, the specific artifact element that risks violating it, and the change to be made."
+      },
+      {
+        "name": "revision_action",
+        "type": "action",
+        "description": "The action that writes the revised artifact content without the flagged element."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning refers to an explicit output, format, or interface constraint, such as a required exact output content or format.",
+      "The reasoning identifies a specific element of the artifact that risks violating that constraint and indicates why it is a violation risk.",
+      "The revision action produces or attempts to produce artifact content in which that flagged element is removed or altered."
+    ],
+    "exclusion_conditions": [
+      "The artifact is revised for a functional bug, an added feature, or a stylistic preference without reference to a stated constraint risk.",
+      "The action does not rewrite the artifact content.",
+      "The reasoning discusses a constraint but identifies no specific artifact element as risking its violation.",
+      "The reasoning merely restates the constraint without committing to a content change."
+    ]
+  },
+  {
+    "name": "CONFIRMS_OUTCOME_AGAINST_PREDICTION",
+    "definition": "A reasoning node formulates an expected result before the corresponding execution outcome is observed, the observation reports the actual outcome, and a later reasoning node explicitly compares the actual outcome with the previously stated expectation and states whether they agree.",
+    "parameters": [
+      {
+        "name": "prediction_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node stating the expected result before the outcome is observed."
+      },
+      {
+        "name": "outcome_observation",
+        "type": "observation",
+        "description": "The observation reporting the actual execution outcome."
+      },
+      {
+        "name": "confirmation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node comparing the actual outcome with the previously stated expectation and stating agreement or disagreement."
+      }
+    ],
+    "assertion_conditions": [
+      "The prediction reasoning states at least one expected value or result derived independently of the execution being predicted, before that execution's outcome is observed.",
+      "The outcome observation reports the actual result produced by the execution.",
+      "The confirmation reasoning explicitly compares the actual outcome to the previously stated expectation and states agreement or disagreement."
+    ],
+    "exclusion_conditions": [
+      "No expectation is stated before the outcome is observed.",
+      "The confirmation reasoning restates the observed result without comparing it to a previously stated expectation.",
+      "The expected result and the observed outcome are not comparable quantities.",
+      "The expectation is only formulated after seeing the outcome, so it cannot serve as an advance prediction."
+    ]
+  },
+  {
+    "name": "IDENTIFIES_SPECIFICATION_AMBIGUITY",
+    "definition": "The reasoning explicitly flags that a requirement, specification, or instruction admits multiple interpretations or lacks sufficient detail for a unique action.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text identifying the ambiguous requirement, field, rule, or instruction."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names a specific requirement, field, rule, or instruction that is ambiguous, underspecified, or open to multiple readings.",
+      "The reasoning signals uncertainty or the existence of competing possible interpretations."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely restates requirements without acknowledging any ambiguity.",
+      "The reasoning makes a choice without noting that an ambiguity or interpretation issue exists."
+    ]
+  },
+  {
+    "name": "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL",
+    "definition": "The reasoning integrates content from multiple distinct observations into a single combined representation or understanding rather than treating them independently.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text combining information from multiple observations."
+      },
+      {
+        "name": "observations",
+        "type": "observation[]",
+        "description": "The observations whose contents are integrated into the combined representation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning references or restates content from at least two distinct observations.",
+      "The reasoning produces a unified model, state, schema, summary, or combined representation that integrates the observed information.",
+      "The reasoning cross-references information across the observations rather than only listing them separately."
+    ],
+    "exclusion_conditions": [
+      "The reasoning references only one observation.",
+      "The reasoning lists observations independently without deriving any combined representation.",
+      "No integrated understanding or combined model is stated."
+    ]
+  },
+  {
+    "name": "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS",
+    "definition": "The reasoning specifies correspondences between differently named fields, attributes, or schema elements observed in multiple sources and a common target schema or unified representation.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text defining field, attribute, or schema correspondences between observed sources and a unified representation."
+      },
+      {
+        "name": "observations",
+        "type": "observation[]",
+        "description": "The observations exposing the source schemas, field names, or structural information used to derive the mapping."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies at least two differently named source fields, attributes, or schema elements as equivalent to one target field or schema element.",
+      "The mapping is based on source structures, field names, or schema information exposed by the observations.",
+      "The reasoning addresses correspondences across multiple observed source schemas or representations."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only repeats field names from a single source without cross-source correspondence.",
+      "No equivalence between differently named fields or schema elements is stated.",
+      "The mapping is unrelated to the observed source structures."
+    ]
+  },
+  {
+    "name": "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS",
+    "definition": "A validation action tests produced outputs against requirements or expected properties explicitly stated in reasoning, and its result observation reports evidence about whether those checks passed.",
+    "parameters": [
+      {
+        "name": "validation_action",
+        "type": "action",
+        "description": "The tool invocation that executes checks, assertions, or comparisons against the produced outputs."
+      },
+      {
+        "name": "criteria_reasoning",
+        "type": "reasoning",
+        "description": "The agent text stating the requirements or expected properties to validate."
+      },
+      {
+        "name": "validation_observation",
+        "type": "observation",
+        "description": "The observation reporting the check results or observed values relevant to the stated criteria."
+      }
+    ],
+    "assertion_conditions": [
+      "The criteria reasoning states specific requirements, properties, or expected values to be checked.",
+      "The validation action executes assertions, inspections, or comparisons targeting those requirements.",
+      "The validation observation reports pass/fail status or observed values that address the stated criteria."
+    ],
+    "exclusion_conditions": [
+      "The action generates output rather than checking it against criteria.",
+      "The observation merely displays output without comparison to stated requirements.",
+      "No explicit validation criteria are stated in the reasoning."
+    ]
+  },
+  {
+    "name": "VERIFIES_DEPLOYED_SERVICE_WITH_REQUEST",
+    "definition": "After a service or component has been brought up, the reasoning identifies a specific behavior or requirement of the running service to verify, an action exercises the live service through its exposed interface, and the resulting observation reports a response that can be judged against the expected behavior.",
+    "parameters": [
+      {
+        "name": "verification_reasoning",
+        "type": "reasoning",
+        "description": "Agent text identifying the deployed/running service behavior, endpoint, or requirement that is to be verified."
+      },
+      {
+        "name": "request_action",
+        "type": "action",
+        "description": "The action that exercises the running service through its exposed interface, such as sending a request to its endpoint."
+      },
+      {
+        "name": "response_observation",
+        "type": "observation",
+        "description": "The observation containing the service's response content, status, or other output relevant to the verification goal."
+      }
+    ],
+    "assertion_conditions": [
+      "The verification_reasoning identifies a specific behavior, endpoint, or requirement of a service that has been deployed or started and now must be confirmed.",
+      "The request_action targets that running service through its exposed interface rather than merely reading configuration, files, or process status.",
+      "The response_observation reports response content, status, or other output that can be compared with the expected behavior stated or implied by the verification goal."
+    ],
+    "exclusion_conditions": [
+      "The service has not been started or deployed at the time the request is made.",
+      "The action only inspects process state, files, logs, or configuration instead of exercising the running service interface.",
+      "The request_action is unrelated to the stated verification goal.",
+      "The observation reports only a transport failure or no interpretable service response.",
+      "No verification goal or expected behavior is stated or implied in the reasoning."
+    ]
+  },
+  {
+    "name": "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+    "definition": "The reasoning accounts for an observation whose reported outcome deviates from what the agent anticipated by identifying a causal or mechanistic process that would produce that outcome, instead of merely noting or restating the deviation.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text constructing the causal or mechanistic explanation for the unexpected result."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The tool result whose reported outcome deviates from what the agent anticipated."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports an outcome that differs from the outcome the agent anticipated, for example uniform successes where rejections were expected, an unexpected quantity or timing, or a result that contradicts an assumed behavior.",
+      "The reasoning identifies a concrete mechanism or process (such as pacing, serialization, request queueing/delay, per-invocation overhead, or an ignored or absent capability) that would produce exactly that deviation.",
+      "The reasoning presents that mechanism as the reason this specific observed outcome occurred, rather than as an unrelated general remark or as a restatement of the output."
+    ],
+    "exclusion_conditions": [
+      "The observation matches the expectation, so no deviation needs explaining.",
+      "The reasoning only repeats the observed result, or expresses surprise, without proposing any mechanism.",
+      "The proposed mechanism is incompatible with the content of the observation.",
+      "The observation reports an outright error and the reasoning merely repeats or paraphrases the error text without explaining the causal process."
+    ]
+  },
+  {
+    "name": "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND",
+    "definition": "The reasoning identifies a specific property of a previously used measurement or probing technique that distorted or constrained the result it produced, and the following action changes the technique in exactly that respect so that a valid measurement of the same quantity becomes possible.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text identifying the confound or limitation in the earlier measurement technique and prescribing the adjusted technique."
+      },
+      {
+        "name": "adapted_action",
+        "type": "action",
+        "description": "The tool invocation that performs the same measurement with the adjusted technique."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names a specific property of the earlier technique (for example per-invocation startup delay spreading requests apart, sequential rather than concurrent execution, or an unsupported option) that distorted or invalidated the result obtained with it.",
+      "The adapted action differs from the earlier technique in exactly the respect the reasoning identified, so the identified confound no longer applies.",
+      "The reasoning presents the adjustment as the means of obtaining a valid measurement of the same quantity, not as an unrelated new objective."
+    ],
+    "exclusion_conditions": [
+      "The action repeats the same technique without addressing the identified confound.",
+      "The reasoning provides no identifiable flaw or limitation in the previous approach, so no confound is being eliminated.",
+      "The technique is changed only for convenience or to satisfy an unrelated requirement rather than for measurement validity.",
+      "The earlier attempt yielded no interpretable information because the method or tool was unavailable or unparseable; recovering from an unusable check is a distinct mechanism."
+    ]
+  },
+  {
+    "name": "RESOLVES_INSTRUCTION_CONFLICT",
+    "definition": "The reasoning recognizes that two applicable instructions, rules, or requirements pull in conflicting directions for the current step, and explicitly justifies how the tension is settled, for example by prioritizing one, interpreting their scopes so they do not overlap, or choosing a reading that keeps both acceptable.",
+    "parameters": [
+      {
+        "name": "conflict_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that names the competing instructions or constraints and states how the conflict is resolved."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies at least two instructions, constraints, or requirements that are both applicable to the current action and are in tension or conflict.",
+      "The reasoning explicitly states a resolution of that tension, such as a prioritization, a scope interpretation that removes the overlap, or a compromise reading that keeps both compatible."
+    ],
+    "exclusion_conditions": [
+      "The reasoning follows an instruction or constraint without acknowledging any competing instruction or requirement.",
+      "The reasoning acknowledges a tension or contradiction but leaves it unresolved and proceeds without justification.",
+      "The competing considerations are not both applicable to the action being performed.",
+      "The reasoning resolves a conflict between two versions or facts about an artifact or value rather than between applicable instructions or requirements."
+    ]
+  },
+  {
+    "name": "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY",
+    "definition": "The reasoning weighs an optional enhancement, extra field, or deviation that is not demanded by the stated requirements, and explicitly decides against it in order to stay faithful to what was actually asked, avoiding scope creep or unintended departure from the specification.",
+    "parameters": [
+      {
+        "name": "fidelity_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that considers an optional enhancement or deviation and explicitly rejects it to preserve fidelity to the stated requirements."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a concrete optional enhancement, additional element, or alternative that is not required by the stated requirements.",
+      "The reasoning explicitly states that the option is unnecessary, unrequested, or could conflict with the stated requirements.",
+      "The reasoning explicitly decides not to apply the optional change."
+    ],
+    "exclusion_conditions": [
+      "The reasoning simply never considers the optional change, so nothing is weighed and rejected.",
+      "The reasoning adopts the optional enhancement rather than declining it.",
+      "The optional change is rejected for a reason unrelated to fidelity to the stated requirements, such as performance or convenience.",
+      "The reasoning decides against an approach because a technical constraint or unavailable capability blocks it rather than because the change would exceed the requirements."
+    ]
+  },
+  {
+    "name": "DECLARES_TASK_COMPLETION",
+    "definition": "The reasoning asserts that the task as a whole is complete, with its stated requirements or deliverables satisfied and verified, rather than reporting only a single intermediate check, an individual deliverable, or remaining work.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that declares overall completion of the task and its requirements or deliverables."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly states that the task, or all of its stated requirements or deliverables, is complete, finished, satisfied, or verified.",
+      "The completion assertion covers the task as a whole rather than a single intermediate check, probe, or partial step."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only plans future work or reports partial progress with remaining work outstanding.",
+      "The reasoning reports a single check result or the status of a single deliverable without concluding that the overall task is complete.",
+      "The reasoning presents one final value for a single-question task together with its supporting evidence chain, without making an aggregate completion claim about multiple requirements or deliverables.",
+      "The reasoning's own content acknowledges that a required item remains unverified, failing, or undone, contradicting the completion claim."
+    ]
+  },
+  {
+    "name": "PROPOSES_TESTABLE_HYPOTHESIS",
+    "definition": "The reasoning offers a specific but provisional explanation, interpretation, or assumption about an artifact, system state, or cause that is presented as uncertain and can be checked by further observation or action.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node containing the provisional explanation or assumption."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific candidate explanation or interpretation, such as what an artifact might be, why a result occurred, or where a target may reside.",
+      "The explanation is presented with uncertainty or as something needing verification rather than as an already established fact."
+    ],
+    "exclusion_conditions": [
+      "The reasoning states only a confirmed conclusion, or repeats an observation without proposing any explanation.",
+      "The reasoning contains only a plan of action with no candidate explanation or assumption to test.",
+      "The proposed idea is too vague to be checked by any identifiable subsequent observation or action."
+    ]
+  },
+  {
+    "name": "GUIDES_NEXT_INVESTIGATION_BY_OBSERVED_FEATURE",
+    "definition": "The reasoning uses a specific feature reported in an observation as the basis for selecting the next investigative target or action.",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation reporting a feature, artifact, directory, file listing, size, or result that can motivate further investigation."
+      },
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that references the observed feature and formulates the next investigative step from it."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports an identifiable feature, such as a discovered directory, file, size, content pattern, or occurrence.",
+      "The reasoning explicitly refers to or relies on that feature when selecting what to investigate or do next.",
+      "The next investigative step is connected to the observed feature rather than being unrelated background activity."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely repeats the observation without deriving or selecting a next investigative step.",
+      "The next step is unrelated to any feature reported in the observation.",
+      "The observation contains no identifiable feature that the reasoning uses for guidance.",
+      "The reasoning plans a next step from prior knowledge or a general obligation without citing any feature of the observation."
+    ]
+  },
+  {
+    "name": "DISMISSES_CANDIDATE_AS_UNINFORMATIVE",
+    "definition": "The reasoning rejects or deprioritizes an inspected artifact or information source as a source of useful information because its observed content appears placeholder, random, unreadable, or otherwise uninformative.",
+    "parameters": [
+      {
+        "name": "dismissal_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node explicitly characterizing the candidate as uninformative or deprioritizing it."
+      },
+      {
+        "name": "content_observation",
+        "type": "observation",
+        "description": "The observation showing the candidate's content or metadata that makes it appear uninformative."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation shows content that can reasonably be judged dummy, random, unreadable, or otherwise lacking useful information.",
+      "The reasoning explicitly characterizes that candidate as a dummy, random data, noise, or otherwise not useful, or deprioritizes it in favor of another candidate."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely notes uncertainty or unusual content while continuing to treat the same candidate as a primary source for the same kind of information.",
+      "The reasoning reinterprets the same content as a useful artifact of a different type rather than dismissing the candidate.",
+      "The observation contains no content or metadata supporting the dismissal.",
+      "The reasoning does not actually reject or deprioritize the candidate."
+    ]
+  },
+  {
+    "name": "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT",
+    "definition": "The reasoning interprets observable content evidence — a byte pattern, embedded string, occurrence pattern, size or metadata signature, or internal structure — as indicating that a resource has a particular type, format, or internal structural role.",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node stating the inferred resource type, format, or structural role."
+      },
+      {
+        "name": "content_observation",
+        "type": "observation",
+        "description": "The observation containing the content pattern, embedded artifact, occurrence evidence, or metadata used for the inference."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains a recognizable content pattern, embedded artifact, occurrence pattern, size or metadata signature, or other structural evidence.",
+      "The reasoning states a specific type, format, or structural role for the resource that is supported by that observed evidence.",
+      "The inference goes beyond merely reporting the raw content by assigning the resource an interpretable nature or role."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only reports the raw bytes or raw content without making a type or structural-role inference.",
+      "The inferred resource type or role is unsupported by any identifiable feature in the observation.",
+      "The observation is unrelated to the stated resource type or structural interpretation.",
+      "The reasoning merely dismisses the content as noise or filler without assigning it a type, format, or structural role."
+    ]
+  }
+]

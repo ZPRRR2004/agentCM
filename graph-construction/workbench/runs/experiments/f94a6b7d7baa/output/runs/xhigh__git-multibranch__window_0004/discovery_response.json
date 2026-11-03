@@ -1,0 +1,290 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__git-multibranch__window_0004.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T11:22:01.933568+00:00",
+  "duration_seconds": 45.516,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T11:21:16.409990+00:00",
+      "duration_seconds": 45.516,
+      "raw_response": {
+        "id": "ced8aff0-6953-427e-9334-977779931c98",
+        "object": "chat.completion",
+        "created": 1793704880,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"OUTLINES_PLANNED_NEXT_STEPS\", \"definition\": \"The reasoning enumerates one or more intended future actions that the agent plans to perform next, thereby setting up an ordered work agenda rather than reporting on work already done.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that enumerates the intended forthcoming actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one action that is intended but not yet performed.\", \"The intended actions are presented as the agent's own next work items, optionally with an ordering or grouping.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already completed.\", \"The reasoning expresses only a general intention or goal without any identifiable forthcoming action.\"]}, {\"name\": \"DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE\", \"definition\": \"The reasoning explains why a failure reported in an observation occurred, attributing the observed error to a specific mechanism or condition rather than merely restating the error.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that explains the cause of the failure.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure or error output being explained.\"}], \"assertion_conditions\": [\"The observation reports an error, failure, or otherwise unsuccessful outcome.\", \"The reasoning names a specific cause that accounts for the reported symptom and is consistent with the observation content.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the error message without attributing a cause.\", \"The observation reports success, or the reasoning discusses content unrelated to the reported failure.\"]}, {\"name\": \"APPLIES_CORRECTIVE_ACTION_FOR_DIAGNOSED_CAUSE\", \"definition\": \"A later action is executed with an altered approach specifically chosen to address the cause identified in a diagnosis of an earlier failed action, forming a diagnose-then-correct cycle.\", \"parameters\": [{\"name\": \"prior_action\", \"type\": \"action\", \"description\": \"The earlier action whose execution failed.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the cause of the earlier failure.\"}, {\"name\": \"corrective_action\", \"type\": \"action\", \"description\": \"The subsequent action whose execution conditions were changed to address the diagnosed cause.\"}], \"assertion_conditions\": [\"The prior action produced an unsuccessful outcome.\", \"The diagnosis reasoning attributes the failure to an identifiable cause.\", \"The corrective action differs from the prior action in a way that directly addresses that diagnosed cause.\"], \"exclusion_conditions\": [\"The corrective action is a repeat of the prior action without modification of the failing condition.\", \"No identified cause links the failure to the modification, or the diagnosis addresses an unrelated issue.\"]}, {\"name\": \"TESTS_CRITERION_WITH_PROBE\", \"definition\": \"An action is deliberately constructed to exercise the system so as to obtain evidence about a specific acceptance criterion or requirement named in reasoning, and the resulting observation reports evidence bearing on that criterion.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted check.\"}, {\"name\": \"criterion_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the requirement or criterion to be checked.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome relevant to the named criterion.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific property, behavior, or requirement to be checked.\", \"The action is aimed at producing evidence about that specific property rather than performing ordinary setup or implementation work.\", \"The observation reports a result that can be interpreted with respect to the named criterion.\"], \"exclusion_conditions\": [\"The action implements or configures functionality without being directed at checking a named criterion.\", \"The observation contains no information relevant to the criterion.\", \"No identifiable criterion motivates the check, so the action is exploratory only.\"]}, {\"name\": \"INTERPRETS_OBSERVED_OUTPUT_AS_PROPERTY_CONFIRMATION\", \"definition\": \"The reasoning reads raw output recorded in an observation as evidence that a required qualitative property holds, mapping concrete output fields or served content onto the abstract property being claimed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text asserting that the required property holds.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation containing the raw output on which the property claim rests.\"}], \"assertion_conditions\": [\"The observation records raw output produced by a check or inspection.\", \"The reasoning takes identifiable elements of that output and states that they demonstrate a required property.\"], \"exclusion_conditions\": [\"The reasoning repeats the output without asserting any property derived from it.\", \"The claimed property cannot be traced to any element of the observation, or the observation is not used as evidence.\"]}, {\"name\": \"COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD\", \"definition\": \"The reasoning extracts a quantitative measurement reported in an observation and compares it with a stated limit or requirement, asserting that the measured value satisfies or violates that limit.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text performing the quantitative comparison against the limit.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the numeric measurement that is being compared.\"}], \"assertion_conditions\": [\"The observation contains a numeric value produced by a measurement.\", \"The reasoning restates that numeric value and explicitly relates it to a limit, threshold, or required duration, asserting compliance or violation.\"], \"exclusion_conditions\": [\"The evidence is qualitative and no numeric comparison is made.\", \"The observation's numeric value is not linked to any limit or requirement in the reasoning.\"]}, {\"name\": \"DISCARDS_EVIDENCE_FROM_FAILED_OPERATION\", \"definition\": \"The reasoning judges a value or result recorded in an observation to be unusable evidence because the operation that produced it failed, thereby excluding that data from subsequent conclusions.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text explaining why the reported result is invalid evidence.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation that reports both the failure indication and the derived value in question.\"}], \"assertion_conditions\": [\"The observation contains an indication that the underlying operation failed.\", \"The reasoning explicitly states that the accompanying measurement or result is meaningless or invalid because of that failure.\"], \"exclusion_conditions\": [\"The reasoning accepts the reported value as valid evidence.\", \"The observation shows no failure that would invalidate the value.\"]}, {\"name\": \"IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS\", \"definition\": \"The reasoning names a concrete residual failure scenario that the current setup does not guard against and then explicitly decides not to mitigate it, judging the risk acceptable or the mitigation disproportionate.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that raises the residual risk and decides not to address it.\"}], \"assertion_conditions\": [\"The reasoning describes a specific, plausible failure scenario that remains possible under the current configuration.\", \"The reasoning explicitly concludes that no mitigation will be implemented, with a justification such as low likelihood, environmental stability, or disproportionate effort.\"], \"exclusion_conditions\": [\"The reasoning identifies a problem and proceeds to fix it rather than accepting it.\", \"The reasoning contains only a general statement of confidence with no named residual failure scenario.\"]}, {\"name\": \"RESETS_SYSTEM_STATE_TO_PRISTINE\", \"definition\": \"An action deliberately removes artifacts produced during testing or use and restores the affected resources to their initial empty or pre-test condition, so that the system is left in a clean starting state.\", \"parameters\": [{\"name\": \"reset_action\", \"type\": \"action\", \"description\": \"The action that clears accumulated state and recreates empty target locations.\"}], \"assertion_conditions\": [\"The action deletes or clears data, references, or directories that were created during earlier testing or operation.\", \"The action recreates or preserves the original empty target state without installing substantive new content.\"], \"exclusion_conditions\": [\"The action clears a location only to immediately populate it with new content as part of normal operation, such as a deployment step.\", \"The action removes state as incidental cleanup of temporary files while leaving the primary artifacts in place.\"]}, {\"name\": \"DECLARES_OBJECTIVE_COMPLETE\", \"definition\": \"The reasoning asserts that the overall goal has been achieved, supporting that claim by enumerating the individual requirements or verifications that have been satisfied and indicating that no further work is needed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text declaring the objective achieved and enumerating satisfied requirements.\"}], \"assertion_conditions\": [\"The reasoning states that the overall objective is complete.\", \"The reasoning enumerates multiple previously satisfied requirements or verifications as the basis for that claim.\", \"No further substantive action is proposed as remaining.\"], \"exclusion_conditions\": [\"The reasoning still lists uncompleted actions or open questions requiring further work.\", \"The reasoning describes only partial progress without asserting overall completion.\"]}]}",
+              "reasoning_content": "We need to discover predicates from this context window. Core nodes: event-0031 reasoning (validations passed, planning cleanup), action-1 (cleanup command), observation-1 (final state listing), event-0032 reasoning (final state verified, consideration of edge risks, confidence), action-1 (final sanity check), observation-1 (verification results), event-0033 reasoning (declaring completion, summary).\n\nOverlap nodes: event-0029 reasoning (plan extra verification), action-1 (test update push, timing, cert), observation-1 (push failed, host key verification, garbage timing, cert subject==issuer), event-0030 reasoning (diagnosis of failure cause), action-1 (retry with env inline), observation-1 (push succeeded, timing 215ms, content updated).\n\nLet's derive predicates.\n\nCandidate unary predicates:\n\n1. IS_DIAGNOSIS_OF_FAILURE? That's binary between reasoning (diagnosis) and observation (failure). Predicate: DIAGNOSES_OBSERVED_FAILURE(reasoning, observation). Reasoning identifies cause of failure reported in observation.\n\n2. Unary: IS_PLAN / PLANS_FUTURE_ACTIONS — event-0029 reasoning expresses intended verification steps; event-0031 reasoning expresses planned cleanup. Good.\n\n3. Unary: VERIFICATION_CONCLUSION or AFFIRMS_REQUIREMENT_SATISFACTION — reasoning asserts that validations passed / checks satisfied requirements, based on prior observations. Could be binary: CONCLUDES_REQUIREMENT_MET(reasoning, observation[])? Hmm.\n\nConsider: event-0031 reasoning states \"All validations passed\" citing observations from event-0030 (update push deploy, timing 215ms, cert self-signed). That's a binary: grounds conclusion in observation — already covered by generic GROUNDS_CONCLUSION_IN_OBSERVATION example. But we should define our own; may reuse that mechanism. Since the instruction says discover predicates; using the same name is fine if supported. But maybe better to have a more specific one: CONFIRMS_REQUIREMENT_SATISFACTION(reasoning, observation[]) — reasoning cites observation results as confirming that specified constraints are met (timing under 3s, cert self-signed, deployment content). That's a joint-evidence mechanism. Hmm, that could be a ternary with observation[] collection and reasoning. Also could be binary.\n\nLet's define predicates carefully with distinguishability.\n\nPredicate A: PLANS_NEXT_STEPS (unary, reasoning) — reasoning outlines intended future actions/sequence, distinguishing from reporting completed actions.\n\nPredicate B: DIAGNOSES_FAILURE_CAUSE (binary: reasoning, observation) — reasoning explains why an observed failure occurred, referencing specifics in observation.\n\nPredicate C: RETRIES_WITH_CORRECTED_APPROACH (binary: action, action)? Or ternary: action(retry), reasoning(diagnosis), action(failed)? Actually mechanism: a subsequent action is modified relative to an earlier failed action to address the diagnosed cause. Could be ternary: RETRIES_AFTER_DIAGNOSIS(prior_action, diagnosis_reasoning, retry_action). Hmm, but retry_action is the last. Let's define: REMEDIATES_DIAGNOSED_CAUSE(failed_action, diagnosis_reasoning, corrective_action) — the corrective action alters execution conditions identified in the diagnosis. Assertion conditions: diagnosis identifies a specific cause of the earlier failure; corrective action differs in a way that addresses the cause; typically the corrective action succeeds (but success is separate).\n\nActually we can include the observation of success? No — outcome separate.\n\nPredicate D: VERIFIES_PROPERTY_WITH_MEASUREMENT? Mechanism: an action is designed to measure/check multiple required properties, and observation reports measured values. Hmm.\n\nLet's think about event-0029 action: tests update push, timing, cert self-signed — a validation action targeting multiple requirements. Then observation reports results (partially failure). Then event-0030 action retries. Then event-0031 reasoning consolidates.\n\nPossible predicate: VALIDATES_ACCEPTANCE_CRITERION(reasoning, action, observation) — a check action designed to test a specific requirement, with observation reporting the outcome. Similar to example 3 (TESTS_ASSUMPTION_WITH_PROBE). Could reuse that mechanism but here it's criterion verification rather than assumption. Let's have: TESTS_REQUIREMENT_WITH_PROBE(probe_action, requirement_reasoning, probe_result). Hmm, could overlap with existing example. Since no registry, we can define.\n\nPredicate E: CHECKS_SERVICE_STATE — observation reporting listening ports, file permissions, endpoint HTTP codes. Unary observation: REPORTS_SYSTEM_STATE? Maybe an observation is a \"state snapshot\" — evidence about resource existence, permissions, listeners. Could define unary: IS_STATE_SNAPSHOT_OBSERVATION? That may be too operational.\n\nPredicate F: RESETS_TO_PRISTINE_STATE — action that clears state to return to initial condition for testing. Binary: action removes state reasoned in reasoning. Define: RESTORES_PRISTINE_STATE(action, reasoning)? Hmm.\n\nPredicate G: CONFIRMS_COMPLETION / DECLARES_TASK_COMPLETE (unary reasoning) — reasoning concludes that all requirements are satisfied and the task is complete, enumerating verified requirements. Supported by event-0033 and event-0032. Distinguish from PLANS. Also declare exclusion: merely planning.\n\nPredicate H: ASSESSES_RESIDUAL_RISK (unary reasoning) — reasoning identifies a residual failure mode (services might not restart) and decides it's acceptable / not worth mitigating. Supported by event-0032 reasoning (\"what if container restarted... let's not over-engineer\"). That's a meaningful mechanism: risk assessment with accept-decision. Define: EVALUATES_RESIDUAL_RISK(reasoning) — reasoning identifies potential failure mode not covered by current setup and weighs whether to mitigate, deciding to accept. Hmm, may combine risk identification + decision to accept. Maybe separate: IDENTIFIES_UNMITIGATED_RISK and ACCEPTS_RISK_WITHOUT_MITIGATION. Could keep one predicate: ASSESSES_AND_ACCEPTS_RESIDUAL_RISK.\n\nPredicate I: GROUNDS_CONCLUSION_IN_OBSERVATION — generic evidential support. Supported by event-0031 reasoning citing observations. But event-0031 is reasoning based on overlap observation-1 of event-0030 (update push, timing). Yes.\n\nPredicate J: CONFIRMS_MEASURED_CONSTRAINT_COMPLIANCE(reasoning, observation) — reasoning states a numeric measurement from the observation satisfies a stated threshold (215ms < 3s). That is a distinguishable mechanism: comparing measured value to requirement threshold. Could be ternary: reasoning, observation, reasoning(requirement)? Requirement comes from user query, not a node. Hmm. Could define binary: COMPARES_MEASUREMENT_TO_THRESHOLD(reasoning, observation). Assertion: reasoning extracts a quantitative measurement from observation and asserts it satisfies a threshold. That's distinguishable from generic evidential support. Supported by event-0031 (\"Push + deploy completes in 215ms — well under the 3-second requirement\") and event-0033.\n\nPredicate K: VERIFIES_CONFIG_PROPERTY_EQUIVALENCE? Cert self-signed subject==issuer. Observation reports subject and issuer; reasoning interprets as self-signed. Binary again: INTERPRETS_EVIDENCE_AS_PROPERTY — reasoning interprets raw evidence as confirming a property. Could be subsumed in GROUNDS_CONCLUSION. Let's not over-fragment; maybe one predicate: INTERPRETS_OBSERVED_EVIDENCE_AS_CONFIRMING_REQUIRED_PROPERTY(reasoning, observation). Hmm but that overlaps with COMPARES_MEASUREMENT.\n\nLet's aim for a manageable set of ~6-8 well-supported predicates with clear distinguishability.\n\nLet's list trajectory evidence per predicate:\n\n1. PLANS_FUTURE_VERIFICATION_STEPS (unary reasoning) — event-0029 reasoning: \"Additional verification to consider: 1. Test update push... 2. Verify cert... 3. Verify timing... After that, final cleanup...\" and event-0031 reasoning: \"Next, do a final cleanup ... 1. Reset ... 2. Empty ... 3. Final confirmation\".\n\nBetter generalize: OUTLINES_PLANNED_NEXT_STEPS. Definition: reasoning enumerates one or more intended future actions, optionally with ordering. Exclusion: only reports completed work; vague intention without identifiable action? Keep: \"only expresses satisfaction or summary of completed work.\"\n\n2. DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE (binary: reasoning, observation) — event-0030 reasoning diagnosing host key verification failure cause (missing env in fresh shell). Assertion: observation reports a failure/error; reasoning attributes the failure to a specific cause consistent with observation content. Exclusion: reasoning merely restates the error; reasoning about unrelated content.\n\n3. APPLIES_CORRECTIVE_ACTION_FOR_DIAGNOSED_CAUSE (ternary: prior_action, diagnosis_reasoning, corrective_action) — event-0029 action-1 failed → event-0030 reasoning diagnosis → event-0030 action-1 sets GIT_SSH_COMMAND inline. Assertion: diagnosis identifies cause; corrective action differs from prior action in a way that addresses the identified cause. Exclusion: corrective action identical; no identified cause.\n\n4. VALIDATES_REQUIREMENT_WITH_PROBE (ternary: probe_action, requirement_reasoning, probe_result) — hmm, but requirement statement in reasoning. In event-0029, reasoning lists verification targets (update-push redeploy, timing, cert self-signed); action performs all; observation reports results (some failing). This is a \"criterion validation\" variant of hypothesis testing. Could define: TESTS_ACCEPTANCE_CRITERION_WITH_PROBE(probe_action, criterion_reasoning, probe_result). Assertion: reasoning names a criterion/requirement to check; action exercises the system specifically to obtain evidence about it; observation reports evidence bearing on it. Exclusion: action is ordinary implementation, not a check.\n\nHmm—but is event-0029's action truly a probe? Yes, \"Test update pushes, deploy timing, and self-signed cert properties\".\n\nAlso event-0031 action: cleanup + endpoint checks (checking 404 pre-push). Partly verification. And event-0032 action: final sanity check (ss listening, hook executable, id git) — that's a probe for state verification. Good, supports.\n\n5. CONFIRMS_MEASURED_VALUE_SATISFIES_THRESHOLD (binary: reasoning, observation) — reasoning extracts quantitative measurement and asserts compliance with a limit. Supported: event-0031 (\"215ms — well under the 3-second requirement\"), event-0033 (\"measured 215 ms, far under 3 s\").\n\n6. DECLARES_REQUIREMENTS_SATISFIED / CONCLUDES_TASK_COMPLETE (unary reasoning) — event-0033 reasoning enumerates requirements with checkmarks and states task complete; event-0031 \"All validations passed\". Distinguish from generic: declares completion of the overall objective based on accumulated verified evidence. Assertion: reasoning states completion and enumerates satisfied requirements. Exclusion: ongoing plan, partial progress; states completion without any requirement linkage? Keep it grounded: \"asserts that the overall objective is complete, referencing satisfied requirements\".\n\n7. IDENTIFIES_RESIDUAL_RISK_AND_ACCEPTS (unary reasoning) — event-0032: risk of container restart, decides services stable, don't over-engineer. Definition: reasoning identifies a potential failure mode that remains unmitigated and explicitly decides that mitigation is unnecessary or disproportionate. Distinguishable: risk assessment vs plain confidence. Assertion: identifies specific potential failure scenario; expresses decision not to mitigate. Exclusion: only expresses confidence with no risk; planning mitigation.\n\n8. RESTORES_PRISTINE_STATE_FOR_VERIFICATION (binary: action, reasoning?) — event-0031 action resets repo to empty and clears dirs, planned in reasoning. Mechanism: state is reset to the initial condition so the setup can be validated (or left ready) from a clean state. This is a \"cleanup to known initial state\" mechanism. Could be unary action: RETURNS_SYSTEM_TO_INITIAL_STATE(action). Assertion: action deletes/resets artifacts created during testing, restoring pre-test state. Exclusion: action removes state as part of ordinary setup. Supported.\n\nMaybe make it binary with reasoning: reasoning motivates cleanup and action performs. Hmm; the action content itself shows deleting refs and dirs. Unary on action is fine: \"RESETS_TO_PRISTINE_STATE\".\n\n9. OBSERVATION_REPORTS_SERVICE_AVAILABILITY? event-0031/0032 observations show listeners and 404 codes. This is \"state snapshot\" observation. Could define unary: REPORTS_OPERATIONAL_STATE(observation) — reports runtime state facts (listeners, permissions, ownership, endpoint status codes) usable for verifying system readiness. Hmm, might be too much tool-labeling. But it's a meaningful role: observational state snapshot. I'd include maybe as part of evidence for other predicates. Perhaps better: unary observation predicate CONFIRMS_SYSTEM_READINESS_EVIDENCE? Risky.\n\nAlternative: binary predicate EVIDENCE_SUPPORTS_READINESS_CONCLUSION(reasoning, observation[]). Hmm.\n\nLet's consider making a ternary/collection: CONFIRMS_READINESS_FROM_STATE_EVIDENCE(reasoning, observation[]) — reasoning concludes the system is operational, citing multiple observations reporting listeners, permissions, and endpoint behavior. Supported by event-0032 reasoning citing event-0031 observation and event-0032 observation. Could use observation[] collection with collective support. That's distinguishable from generic evidential support? Somewhat specific. Maybe include as a collection-based predicate: CONSOLIDATES_EVIDENCE_INTO_READINESS_ASSESSMENT.\n\nHmm, we should avoid over-fragmenting. Let's pick:\n\n- OUTLINES_PLANNED_NEXT_STEPS (unary reasoning)\n- DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE (binary reasoning, observation)\n- APPLIES_CORRECTIVE_ACTION_FOR_DIAGNOSED_CAUSE (ternary action, reasoning, action)\n- TESTS_CRITERION_WITH_PROBE (ternary action, reasoning, observation)\n- COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD (binary reasoning, observation)\n- DECLARES_OBJECTIVE_COMPLETE (unary reasoning)\n- IDENTIFIES_UNMITIGATED_RISK_WITH_ACCEPTANCE (unary reasoning)\n- RESETS_STATE_TO_PRISTINE (unary action)\n- CONSOLIDATES_EVIDENCE_INTO_READINESS_CONCLUSION (ternary reasoning, observation[], reasoning?) Hmm.\n\nMaybe also: ACKNOWLEDGES_INCONCLUSIVE_MEASUREMENT — event-0030 reasoning: \"the timing calculation was garbage (push failed ... either way the push failed so this is meaningless)\". This is a valuable mechanism: reasoning discards a measurement as invalid because the underlying operation failed. Define unary on reasoning or binary: DISCARDS_INVALID_EVIDENCE(reasoning, observation) — reasoning judges a reported measurement/result to be unusable because the operation that produced it failed. That's distinguishable and interesting. Include as binary (reasoning, observation).\n\nAlso: MULTI_REQUIREMENT_VALIDATION_BUNDLE? Nah.\n\nLet's check support for COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD: event-0031 reasoning: \"Push + deploy completes in 215ms — well under the 3-second requirement\" — supported by event-0030 observation-1 (215 ms). Good. event-0033 as well.\n\nSupport for DECLARES_OBJECTIVE_COMPLETE: event-0033, event-0032 (\"Everything's done\"), event-0031 partially.\n\nSupport for IDENTIFIES_UNMITIGATED_RISK_WITH_ACCEPTANCE: event-0032 — risk of container restart killing daemons, decides not to add supervisor. Good.\n\nSupport for RESETS_STATE_TO_PRISTINE: event-0031 action. Good.\n\nSupport for DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE: event-0030 reasoning diagnosing. Good.\n\nSupport for APPLIES_CORRECTIVE_ACTION_FOR_DIAGNOSED_CAUSE: event-0029 action (failed) → event-0030 reasoning (diagnosis) → event-0030 action (retry with GIT_SSH_COMMAND inline). Good.\n\nSupport for TESTS_CRITERION_WITH_PROBE: event-0029 (test update pushes, timing, cert), event-0032 action (final sanity check), event-0031 action partly. Good.\n\nSupport for DISCARDS_INVALID_EVIDENCE: event-0030 reasoning about garbage timing. Good.\n\nSupport for GROUNDS_CONCLUSION_IN_OBSERVATION — generic; would it be too generic? It's a legitimate mechanism but maybe redundant with more specific ones. Could include since supported broadly (event-0031 reasoning grounded in event-0030 observation). But the presence of more specific ones may suffice. I'll skip generic to avoid redundancy? The instructions: \"Omit unsupported candidates rather than falling back to generic USES/RELATED_TO.\" Generic evidential support is not forbidden. But I'll keep more specific ones and maybe include one binary for evidence support where the reasoning interprets observations as confirming a requirement: EVIDENCE_CONFIRMS_REQUIRED_PROPERTY(reasoning, observation). Supported: cert subject==issuer interpreted as self-signed (event-0031 reasoning citing observation-1 of event-0029 and event-0030? Actually cert check happened in event-0029 observation-1: subject=CN=localhost, issuer=CN=localhost; reasoning event-0031 says \"Certificate is self-signed (subject == issuer)\"). That's a good support: raw output interpreted as property confirmation. Also event-0031 observation endpoint content served confirms deployment. Could define binary: INTERPRETS_OBSERVED_OUTPUT_AS_PROPERTY_CONFIRMATION(reasoning, observation). Distinguishable from measurement-threshold (quantitative comparison vs qualitative interpretation). I think include.\n\nThat's 9-10 predicates. Let's finalize the list:\n\n1. OUTLINES_PLANNED_NEXT_STEPS — unary reasoning.\n2. DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE — binary (reasoning, observation).\n3. APPLIES_CORRECTIVE_ACTION_FOR_DIAGNOSED_CAUSE — ternary (prior_action, diagnosis_reasoning, corrective_action).\n4. TESTS_CRITERION_WITH_PROBE — ternary (probe_action, criterion_reasoning, probe_result).\n5. INTERPRETS_OBSERVED_OUTPUT_AS_PROPERTY_CONFIRMATION — binary (reasoning, observation).\n6. COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD — binary (reasoning, observation).\n7. DISCARDS_EVIDENCE_FROM_FAILED_OPERATION — binary (reasoning, observation).\n8. IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS — unary reasoning.\n9. RESETS_SYSTEM_STATE_TO_PRISTINE — unary action.\n10. DECLARES_OBJECTIVE_COMPLETE — unary reasoning.\n\nMaybe also CONSOLIDATES_MULTIPLE_OBSERVATIONS_INTO_READINESS_ASSESSMENT — but DECLARES_OBJECTIVE_COMPLETE plus evidence support covers it. Skip.\n\nWrite parameter descriptions carefully: each parameter must bind to an action/observation/reasoning node.\n\nEnsure names UPPER_SNAKE_CASE. Provide assertion_conditions and exclusion_conditions nonempty (exclusion may be empty but better provide).\n\nLet's write JSON.\n\nFor predicate 3, ordering: prior_action (action), diagnosis_reasoning (reasoning), corrective_action (action). Should we include the failure observation? The diagnosis reasoning already references it. Keep ternary.\n\nFor predicate 4: probe_action (action), criterion_reasoning (reasoning), probe_result (observation).\n\nFor predicate 6: reasoning and observation — reasoning contains measurement and threshold. Assertion: observation reports a quantitative measurement; reasoning restates that value and compares it to a stated limit/requirement, asserting compliance or violation. Exclusion: reasoning about qualitative results; no explicit value comparison.\n\nFor predicate 7: reasoning judges a reported measurement invalid because the operation generating it failed. Assertion: observation contains both an error indication and a spurious/derived value; reasoning explicitly states the derived value is meaningless/invalid due to the failure. Exclusion: reasoning accepts the value; no failure.\n\nFor predicate 8: risk. Assertion: reasoning names a specific plausible failure scenario not covered by the current configuration/setup; expresses a decision not to implement mitigation, with justification (low likelihood / disproportionate effort). Exclusion: reasoning identifies a problem and proceeds to fix it; generic confidence statement.\n\nFor predicate 9: action resets. Assertion: action deletes/clears artifacts produced during testing (branches, deployed files) and recreates empty directories, restoring the initial state; evidence in observation confirming empty refs/404. Hmm, the action alone contains commands. Exclusion: action removes state as part of installing/configuring; action deletes then repopulates with real content (that would be deployment). Careful: deployment uses find -delete too, but it repopulates. So exclusion: the action clears a location and then fills it with new content as part of normal operation.\n\nFor 10: DECLARES_OBJECTIVE_COMPLETE. Assertion: reasoning asserts the overall goal is achieved and enumerates the satisfied requirements/verifications; no further action planned. Exclusion: only partial progress; plan for remaining work; summary of work without completion claim? Well she claims complete. Keep exclusion: reasoning still lists uncompleted actions.\n\nFor 5: INTERPRETS_OBSERVED_OUTPUT_AS_PROPERTY_CONFIRMATION. Assertion: observation contains raw output from a check (e.g., subject/issuer fields, served content); reasoning maps that output onto a required property and asserts the property holds. Exclusion: reasoning merely restates output without property claim; output not used.\n\nAlso could add predicate about \"accepting risk\" — done.\n\nWrite definitions task-independent.\n\nNow output JSON only."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 7438,
+          "completion_tokens": 6941,
+          "total_tokens": 14379,
+          "prompt_tokens_details": {
+            "cached_tokens": 2176
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4891
+          },
+          "prompt_cache_hit_tokens": 2176,
+          "prompt_cache_miss_tokens": 5262
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"OUTLINES_PLANNED_NEXT_STEPS\", \"definition\": \"The reasoning enumerates one or more intended future actions that the agent plans to perform next, thereby setting up an ordered work agenda rather than reporting on work already done.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that enumerates the intended forthcoming actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one action that is intended but not yet performed.\", \"The intended actions are presented as the agent's own next work items, optionally with an ordering or grouping.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already completed.\", \"The reasoning expresses only a general intention or goal without any identifiable forthcoming action.\"]}, {\"name\": \"DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE\", \"definition\": \"The reasoning explains why a failure reported in an observation occurred, attributing the observed error to a specific mechanism or condition rather than merely restating the error.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that explains the cause of the failure.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure or error output being explained.\"}], \"assertion_conditions\": [\"The observation reports an error, failure, or otherwise unsuccessful outcome.\", \"The reasoning names a specific cause that accounts for the reported symptom and is consistent with the observation content.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or paraphrases the error message without attributing a cause.\", \"The observation reports success, or the reasoning discusses content unrelated to the reported failure.\"]}, {\"name\": \"APPLIES_CORRECTIVE_ACTION_FOR_DIAGNOSED_CAUSE\", \"definition\": \"A later action is executed with an altered approach specifically chosen to address the cause identified in a diagnosis of an earlier failed action, forming a diagnose-then-correct cycle.\", \"parameters\": [{\"name\": \"prior_action\", \"type\": \"action\", \"description\": \"The earlier action whose execution failed.\"}, {\"name\": \"diagnosis_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the cause of the earlier failure.\"}, {\"name\": \"corrective_action\", \"type\": \"action\", \"description\": \"The subsequent action whose execution conditions were changed to address the diagnosed cause.\"}], \"assertion_conditions\": [\"The prior action produced an unsuccessful outcome.\", \"The diagnosis reasoning attributes the failure to an identifiable cause.\", \"The corrective action differs from the prior action in a way that directly addresses that diagnosed cause.\"], \"exclusion_conditions\": [\"The corrective action is a repeat of the prior action without modification of the failing condition.\", \"No identified cause links the failure to the modification, or the diagnosis addresses an unrelated issue.\"]}, {\"name\": \"TESTS_CRITERION_WITH_PROBE\", \"definition\": \"An action is deliberately constructed to exercise the system so as to obtain evidence about a specific acceptance criterion or requirement named in reasoning, and the resulting observation reports evidence bearing on that criterion.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted check.\"}, {\"name\": \"criterion_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the requirement or criterion to be checked.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the outcome relevant to the named criterion.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific property, behavior, or requirement to be checked.\", \"The action is aimed at producing evidence about that specific property rather than performing ordinary setup or implementation work.\", \"The observation reports a result that can be interpreted with respect to the named criterion.\"], \"exclusion_conditions\": [\"The action implements or configures functionality without being directed at checking a named criterion.\", \"The observation contains no information relevant to the criterion.\", \"No identifiable criterion motivates the check, so the action is exploratory only.\"]}, {\"name\": \"INTERPRETS_OBSERVED_OUTPUT_AS_PROPERTY_CONFIRMATION\", \"definition\": \"The reasoning reads raw output recorded in an observation as evidence that a required qualitative property holds, mapping concrete output fields or served content onto the abstract property being claimed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text asserting that the required property holds.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation containing the raw output on which the property claim rests.\"}], \"assertion_conditions\": [\"The observation records raw output produced by a check or inspection.\", \"The reasoning takes identifiable elements of that output and states that they demonstrate a required property.\"], \"exclusion_conditions\": [\"The reasoning repeats the output without asserting any property derived from it.\", \"The claimed property cannot be traced to any element of the observation, or the observation is not used as evidence.\"]}, {\"name\": \"COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD\", \"definition\": \"The reasoning extracts a quantitative measurement reported in an observation and compares it with a stated limit or requirement, asserting that the measured value satisfies or violates that limit.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text performing the quantitative comparison against the limit.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the numeric measurement that is being compared.\"}], \"assertion_conditions\": [\"The observation contains a numeric value produced by a measurement.\", \"The reasoning restates that numeric value and explicitly relates it to a limit, threshold, or required duration, asserting compliance or violation.\"], \"exclusion_conditions\": [\"The evidence is qualitative and no numeric comparison is made.\", \"The observation's numeric value is not linked to any limit or requirement in the reasoning.\"]}, {\"name\": \"DISCARDS_EVIDENCE_FROM_FAILED_OPERATION\", \"definition\": \"The reasoning judges a value or result recorded in an observation to be unusable evidence because the operation that produced it failed, thereby excluding that data from subsequent conclusions.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text explaining why the reported result is invalid evidence.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation that reports both the failure indication and the derived value in question.\"}], \"assertion_conditions\": [\"The observation contains an indication that the underlying operation failed.\", \"The reasoning explicitly states that the accompanying measurement or result is meaningless or invalid because of that failure.\"], \"exclusion_conditions\": [\"The reasoning accepts the reported value as valid evidence.\", \"The observation shows no failure that would invalidate the value.\"]}, {\"name\": \"IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS\", \"definition\": \"The reasoning names a concrete residual failure scenario that the current setup does not guard against and then explicitly decides not to mitigate it, judging the risk acceptable or the mitigation disproportionate.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that raises the residual risk and decides not to address it.\"}], \"assertion_conditions\": [\"The reasoning describes a specific, plausible failure scenario that remains possible under the current configuration.\", \"The reasoning explicitly concludes that no mitigation will be implemented, with a justification such as low likelihood, environmental stability, or disproportionate effort.\"], \"exclusion_conditions\": [\"The reasoning identifies a problem and proceeds to fix it rather than accepting it.\", \"The reasoning contains only a general statement of confidence with no named residual failure scenario.\"]}, {\"name\": \"RESETS_SYSTEM_STATE_TO_PRISTINE\", \"definition\": \"An action deliberately removes artifacts produced during testing or use and restores the affected resources to their initial empty or pre-test condition, so that the system is left in a clean starting state.\", \"parameters\": [{\"name\": \"reset_action\", \"type\": \"action\", \"description\": \"The action that clears accumulated state and recreates empty target locations.\"}], \"assertion_conditions\": [\"The action deletes or clears data, references, or directories that were created during earlier testing or operation.\", \"The action recreates or preserves the original empty target state without installing substantive new content.\"], \"exclusion_conditions\": [\"The action clears a location only to immediately populate it with new content as part of normal operation, such as a deployment step.\", \"The action removes state as incidental cleanup of temporary files while leaving the primary artifacts in place.\"]}, {\"name\": \"DECLARES_OBJECTIVE_COMPLETE\", \"definition\": \"The reasoning asserts that the overall goal has been achieved, supporting that claim by enumerating the individual requirements or verifications that have been satisfied and indicating that no further work is needed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text declaring the objective achieved and enumerating satisfied requirements.\"}], \"assertion_conditions\": [\"The reasoning states that the overall objective is complete.\", \"The reasoning enumerates multiple previously satisfied requirements or verifications as the basis for that claim.\", \"No further substantive action is proposed as remaining.\"], \"exclusion_conditions\": [\"The reasoning still lists uncompleted actions or open questions requiring further work.\", \"The reasoning describes only partial progress without asserting overall completion.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "OUTLINES_PLANNED_NEXT_STEPS",
+        "definition": "The reasoning enumerates one or more intended future actions that the agent plans to perform next, thereby setting up an ordered work agenda rather than reporting on work already done.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that enumerates the intended forthcoming actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies at least one action that is intended but not yet performed.",
+          "The intended actions are presented as the agent's own next work items, optionally with an ordering or grouping."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports or summarizes actions already completed.",
+          "The reasoning expresses only a general intention or goal without any identifiable forthcoming action."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_CAUSE_OF_OBSERVED_FAILURE",
+        "definition": "The reasoning explains why a failure reported in an observation occurred, attributing the observed error to a specific mechanism or condition rather than merely restating the error.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that explains the cause of the failure."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the failure or error output being explained."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports an error, failure, or otherwise unsuccessful outcome.",
+          "The reasoning names a specific cause that accounts for the reported symptom and is consistent with the observation content."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or paraphrases the error message without attributing a cause.",
+          "The observation reports success, or the reasoning discusses content unrelated to the reported failure."
+        ]
+      },
+      {
+        "name": "APPLIES_CORRECTIVE_ACTION_FOR_DIAGNOSED_CAUSE",
+        "definition": "A later action is executed with an altered approach specifically chosen to address the cause identified in a diagnosis of an earlier failed action, forming a diagnose-then-correct cycle.",
+        "parameters": [
+          {
+            "name": "prior_action",
+            "type": "action",
+            "description": "The earlier action whose execution failed."
+          },
+          {
+            "name": "diagnosis_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that identifies the cause of the earlier failure."
+          },
+          {
+            "name": "corrective_action",
+            "type": "action",
+            "description": "The subsequent action whose execution conditions were changed to address the diagnosed cause."
+          }
+        ],
+        "assertion_conditions": [
+          "The prior action produced an unsuccessful outcome.",
+          "The diagnosis reasoning attributes the failure to an identifiable cause.",
+          "The corrective action differs from the prior action in a way that directly addresses that diagnosed cause."
+        ],
+        "exclusion_conditions": [
+          "The corrective action is a repeat of the prior action without modification of the failing condition.",
+          "No identified cause links the failure to the modification, or the diagnosis addresses an unrelated issue."
+        ]
+      },
+      {
+        "name": "TESTS_CRITERION_WITH_PROBE",
+        "definition": "An action is deliberately constructed to exercise the system so as to obtain evidence about a specific acceptance criterion or requirement named in reasoning, and the resulting observation reports evidence bearing on that criterion.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action performing the targeted check."
+          },
+          {
+            "name": "criterion_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning naming the requirement or criterion to be checked."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the outcome relevant to the named criterion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific property, behavior, or requirement to be checked.",
+          "The action is aimed at producing evidence about that specific property rather than performing ordinary setup or implementation work.",
+          "The observation reports a result that can be interpreted with respect to the named criterion."
+        ],
+        "exclusion_conditions": [
+          "The action implements or configures functionality without being directed at checking a named criterion.",
+          "The observation contains no information relevant to the criterion.",
+          "No identifiable criterion motivates the check, so the action is exploratory only."
+        ]
+      },
+      {
+        "name": "INTERPRETS_OBSERVED_OUTPUT_AS_PROPERTY_CONFIRMATION",
+        "definition": "The reasoning reads raw output recorded in an observation as evidence that a required qualitative property holds, mapping concrete output fields or served content onto the abstract property being claimed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text asserting that the required property holds."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation containing the raw output on which the property claim rests."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation records raw output produced by a check or inspection.",
+          "The reasoning takes identifiable elements of that output and states that they demonstrate a required property."
+        ],
+        "exclusion_conditions": [
+          "The reasoning repeats the output without asserting any property derived from it.",
+          "The claimed property cannot be traced to any element of the observation, or the observation is not used as evidence."
+        ]
+      },
+      {
+        "name": "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+        "definition": "The reasoning extracts a quantitative measurement reported in an observation and compares it with a stated limit or requirement, asserting that the measured value satisfies or violates that limit.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text performing the quantitative comparison against the limit."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the numeric measurement that is being compared."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains a numeric value produced by a measurement.",
+          "The reasoning restates that numeric value and explicitly relates it to a limit, threshold, or required duration, asserting compliance or violation."
+        ],
+        "exclusion_conditions": [
+          "The evidence is qualitative and no numeric comparison is made.",
+          "The observation's numeric value is not linked to any limit or requirement in the reasoning."
+        ]
+      },
+      {
+        "name": "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION",
+        "definition": "The reasoning judges a value or result recorded in an observation to be unusable evidence because the operation that produced it failed, thereby excluding that data from subsequent conclusions.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text explaining why the reported result is invalid evidence."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation that reports both the failure indication and the derived value in question."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains an indication that the underlying operation failed.",
+          "The reasoning explicitly states that the accompanying measurement or result is meaningless or invalid because of that failure."
+        ],
+        "exclusion_conditions": [
+          "The reasoning accepts the reported value as valid evidence.",
+          "The observation shows no failure that would invalidate the value."
+        ]
+      },
+      {
+        "name": "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+        "definition": "The reasoning names a concrete residual failure scenario that the current setup does not guard against and then explicitly decides not to mitigate it, judging the risk acceptable or the mitigation disproportionate.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that raises the residual risk and decides not to address it."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning describes a specific, plausible failure scenario that remains possible under the current configuration.",
+          "The reasoning explicitly concludes that no mitigation will be implemented, with a justification such as low likelihood, environmental stability, or disproportionate effort."
+        ],
+        "exclusion_conditions": [
+          "The reasoning identifies a problem and proceeds to fix it rather than accepting it.",
+          "The reasoning contains only a general statement of confidence with no named residual failure scenario."
+        ]
+      },
+      {
+        "name": "RESETS_SYSTEM_STATE_TO_PRISTINE",
+        "definition": "An action deliberately removes artifacts produced during testing or use and restores the affected resources to their initial empty or pre-test condition, so that the system is left in a clean starting state.",
+        "parameters": [
+          {
+            "name": "reset_action",
+            "type": "action",
+            "description": "The action that clears accumulated state and recreates empty target locations."
+          }
+        ],
+        "assertion_conditions": [
+          "The action deletes or clears data, references, or directories that were created during earlier testing or operation.",
+          "The action recreates or preserves the original empty target state without installing substantive new content."
+        ],
+        "exclusion_conditions": [
+          "The action clears a location only to immediately populate it with new content as part of normal operation, such as a deployment step.",
+          "The action removes state as incidental cleanup of temporary files while leaving the primary artifacts in place."
+        ]
+      },
+      {
+        "name": "DECLARES_OBJECTIVE_COMPLETE",
+        "definition": "The reasoning asserts that the overall goal has been achieved, supporting that claim by enumerating the individual requirements or verifications that have been satisfied and indicating that no further work is needed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text declaring the objective achieved and enumerating satisfied requirements."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states that the overall objective is complete.",
+          "The reasoning enumerates multiple previously satisfied requirements or verifications as the basis for that claim.",
+          "No further substantive action is proposed as remaining."
+        ],
+        "exclusion_conditions": [
+          "The reasoning still lists uncompleted actions or open questions requiring further work.",
+          "The reasoning describes only partial progress without asserting overall completion."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

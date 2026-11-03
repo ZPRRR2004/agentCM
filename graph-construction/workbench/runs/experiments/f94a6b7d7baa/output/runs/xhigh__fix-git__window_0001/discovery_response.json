@@ -1,0 +1,295 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__fix-git__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T10:56:27.082445+00:00",
+  "duration_seconds": 33.0,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T10:55:54.080464+00:00",
+      "duration_seconds": 33.0,
+      "raw_response": {
+        "id": "2a959125-b8c2-4619-bdde-5cb0cca4103b",
+        "object": "chat.completion",
+        "created": 1793703352,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses one or more intended future actions that the agent has not yet executed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action sequence.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one action the agent intends to perform next.\", \"The intended action is presented as forthcoming rather than already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already performed.\", \"The reasoning only describes the current state without committing to a future action.\"]}, {\"name\": \"ENUMERATES_COMPETING_EXPLANATIONS\", \"definition\": \"The reasoning lays out multiple alternative explanations for the same observed situation, treating them as candidates that must be distinguished before a course of action is chosen.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating alternative explanations for the observed situation.\"}], \"assertion_conditions\": [\"At least two distinct candidate explanations are stated for the same observed condition.\", \"The alternatives are presented as competing possibilities whose truth is still to be determined.\"], \"exclusion_conditions\": [\"Only a single explanation is offered.\", \"The enumerated items are steps of a plan or facts about the state rather than rival explanations.\"]}, {\"name\": \"DIAGNOSES_ROOT_CAUSE\", \"definition\": \"The reasoning reconstructs a causal account of how an observed state came about, identifying the specific preceding events responsible for the problem rather than merely restating the symptom.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text presenting the causal reconstruction of the observed state.\"}], \"assertion_conditions\": [\"The reasoning specifies a sequence of prior events as the cause of the observed condition.\", \"The account explains why the current state has the observed properties, not just what those properties are.\"], \"exclusion_conditions\": [\"The reasoning only restates the reported problem or the observed state.\", \"The reasoning lists possible causes without committing to a causal account.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion that is supported by identifiable content of the observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the evidence-supported conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the supporting content.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion about the situation.\", \"Content of the observation is identifiable as the support for that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without concluding anything.\", \"The observation content is unrelated to the conclusion or adds no support.\"]}, {\"name\": \"ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE\", \"definition\": \"The reasoning rejects a candidate explanation because specific observed content contradicts a condition that the explanation requires.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning rejecting the candidate explanation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation whose content contradicts the rejected explanation.\"}], \"assertion_conditions\": [\"The reasoning names or clearly refers to a candidate explanation it discards.\", \"The reasoning cites observation content that conflicts with what that explanation would require.\"], \"exclusion_conditions\": [\"The reasoning narrows possibilities without stating what rules a candidate out.\", \"The observation is compatible with the discarded explanation or unrelated to it.\"]}, {\"name\": \"SELECTS_TARGET_AMONG_CANDIDATES\", \"definition\": \"The reasoning identifies which of several similar candidate artifacts is the one relevant to the goal by citing discriminating attributes from the observation, rather than by order or surface similarity.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning comparing the candidates and selecting one.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation exposing the discriminating attributes of the candidates.\"}], \"assertion_conditions\": [\"At least two candidate artifacts are distinguished in the reasoning.\", \"The selection is justified by at least one discriminating attribute visible in the observation (such as provenance, authorship, timestamp, or creation context).\", \"The reasoning concludes that one candidate is the intended target.\"], \"exclusion_conditions\": [\"Only one candidate is considered, so no discrimination is needed.\", \"A candidate is chosen by position, recency, or guess without cited discriminating evidence.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action is performed to test an assumption or resolve an uncertainty stated in the reasoning, and the resulting observation provides evidence about that assumption.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the assumption or uncertainty being tested, or planning the diagnostic probe.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the tested assumption.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific assumption, uncertainty, or diagnostic question.\", \"The action is aimed at producing information about that assumption.\", \"The observation contains a result interpretable with respect to the assumption.\"], \"exclusion_conditions\": [\"The action is routine and not motivated by the stated uncertainty.\", \"The observation does not address the assumption being tested.\", \"No identifiable assumption or uncertainty motivates the action.\"]}, {\"name\": \"APPLIES_STATED_CONSTRAINT_TO_ACTION\", \"definition\": \"The reasoning invokes an explicit governing rule or procedural requirement, and the accompanying action performs the step that the rule requires, so that compliance with the constraint explains the action.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning citing the governing rule and its required step.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The action performing the step required by the cited rule.\"}], \"assertion_conditions\": [\"The reasoning cites an explicit rule, contract, or procedure that prescribes a step.\", \"The action performs exactly the step the cited rule prescribes.\", \"The reasoning indicates the action is taken to satisfy that rule.\"], \"exclusion_conditions\": [\"The action is taken only because the task requires its outcome, with no cited rule.\", \"The reasoning mentions a rule but no corresponding action follows.\", \"The action departs from the step the cited rule prescribes.\"]}, {\"name\": \"PREDICTS_OUTCOME_OF_PLANNED_OPERATION\", \"definition\": \"The reasoning forecasts a specific consequence of an operation that has not yet been executed, basing the forecast on observed evidence about the current state.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the planned operation and predicting its consequence.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the state evidence that supports the forecast.\"}], \"assertion_conditions\": [\"The reasoning names an operation that is planned but not yet performed.\", \"A specific expected consequence of that operation is stated.\", \"The forecast is tied to identifiable state evidence in the observation.\"], \"exclusion_conditions\": [\"The reasoning describes an outcome that has already been observed.\", \"The forecast is speculation not connected to observable state evidence.\", \"No specific consequence is predicted.\"]}, {\"name\": \"ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE\", \"definition\": \"Given an observation showing that two versions of the same artifact conflict, the reasoning decides which version prevails and justifies that choice with a general precedence rationale rather than an arbitrary pick.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning choosing the prevailing version and stating the precedence rationale.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation exhibiting the conflicting versions of the artifact.\"}], \"assertion_conditions\": [\"The observation presents two conflicting alternatives for the same artifact.\", \"The reasoning selects one alternative as the outcome.\", \"The reasoning states a rationale for why that alternative supersedes the other.\"], \"exclusion_conditions\": [\"The reasoning only describes the conflict without selecting a side.\", \"A side is selected without any justification, or purely by position or convenience.\", \"The observation does not actually show conflicting alternatives.\"]}]}",
+              "reasoning_content": "We need to discover reusable predicates from this trajectory. Let's identify mechanisms.\n\nCore nodes: reasoning, actions (bash, read), observations.\n\nCandidate predicates:\n\n1. Unary: IS_HYPOTHESIS_FORMATION / PROPOSES_CAUSAL_EXPLANATION — reasoning enumerates competing explanations for an observed state before evidence. E.g., event-0003 reasoning lists scenarios. That's a diagnosis/hypothesis enumeration.\n\n2. Binary: GROUNDS_CONCLUSION_IN_OBSERVATION — reasoning draws conclusions from observation (e.g., event-0004 reasoning concludes from reflog observation). This is the standard evidential support predicate.\n\n3. Ternary: TESTS_ASSUMPTION_WITH_PROBE — probing action to test a hypothesis; e.g., event-0003 reasoning hypothesizes dangling commits, action checks reflog and fsck, observation provides evidence. Good.\n\n4. Binary: REVISION_OF_CONCLUSION_BY_EVIDENCE? In event-0005/0006 the reasoning revises its interpretation of the situation (revises candidate explanation set). Could be \"REVISES_INTERPRETATION_IN_LIGHT_OF_EVIDENCE\": reasoning node that updates a prior interpretation. But requires reference to prior reasoning as parameter. Could be binary between two reasoning nodes: REVISES_PRIOR_INTERPRETATION. Hmm, evidence: event-0006 reasoning explicitly says \"This makes the overall picture clearer\" and re-examines the timeline. Is that distinguishable? It may be supported: event-0004 reasoning interprets; event-0005 reasoning says \"Interesting. There are two dangling commits... Hmm, wait. Let me rethink.\" — asking for parentage to resolve ambiguity. That's plausible.\n\n5. Binary: ANTICIPATES_CONFLICT_BETWEEN_GOALS? Event-0006/0007 reasoning predicts merge conflict based on evidence (merge-base and diffs) — \"predicts outcome of planned operation from evidence\". Could be a predicate: PREDICTS_OPERATION_OUTCOME_FROM_EVIDENCE (reasoning, observation). Distinguish from generic conclusion: the reasoning predicts a specific consequence of a planned action (merge conflict) grounded in diff evidence. That's a meaningful distinct mechanism (risk anticipation), maybe.\n\n6. Ternary: RESOLVES_CONFLICT_BY_PRECEDENCE_RULE — reasoning establishes a resolution rule (user's newer change supersedes), conflict observation shows conflict markers, action resolves. Parameters: conflict observation, resolution reasoning, resolution action. Assertion: observation shows conflicting alternatives; reasoning states a principled precedence rule selecting one side; action implements the selection. That is supported: event-0009 reasoning + observation-1 (conflict markers), event-0010 reasoning states precedence, then... the action in the window (event-0010 action-1) is actually verifying bytes, not resolving. Hmm. The resolution action occurs after the window (future summary says agent resolved). Within the context window, resolution action not present. So the resolution action is not in the context window. We should restrict to nodes in the window. But predicate definitions can be general as long as supported by evidence in this window. Hmm—the mechanism of conflict-resolution-by-precedence: reasoning (event-0010) + conflict observation (event-0009 obs) — no action yet. Could make a binary: SELECTS_CONFLICT_RESOLUTION_SIDE (reasoning, observation) — reasoning chooses which side of an observed conflict prevails, with justification. That's supported: event-0010 reasoning justifies taking theirs.\n\n7. Unary: PROPOSES_VERIFICATION_STEP? Event-0010 reasoning plans byte-exact verification before writing — plan predicate. IS_PLAN exists generically. Could define IS_PLAN with explicit conditions.\n\n8. Unary: IDENTIFIES_AMBIGUITY? Event-0005 reasoning identifies competing candidate interpretations and states need to check parentage.\n\n9. Binary: DERIVES_PLAN_FROM_DIAGNOSIS? Maybe too close to grounds conclusion.\n\n10. Binary: CONSTRAINS_ACTION_BY_PROTOCOL? Reasoning states \"per the execution contract, read files before editing\" and action reads files. That's a mechanism: applying a stated procedural constraint to select an action. Predicate: APPLIES_STATED_PROCEDURE_CONSTRAINT (reasoning, action): the reasoning cites a governing rule/contract requiring a step, and the action performs that step. That's distinct and supported (event-0007 reasoning: \"per the execution contract ... I should read those files first (I've seen their content via git show, but let me do a proper read ... to comply)\" → read actions).\n\n11. Binary: EXCLUDES_ALTERNATIVE_EXPLANATION based on evidence — reasoning rules out hypotheses (stash empty, working tree clean) using observation. Could fold into grounds conclusion or make distinct: \"ELIMINATES_CANDIDATE_EXPLANATION_USING_EVIDENCE\". Distinguishable from drawing a conclusion: it's rejecting hypotheses. Evidence: event-0003 reasoning: \"There's no stash list output (empty)... working tree clean\" → eliminates scenarios. Then event-0004 rules out. Supported.\n\n12. Unary: DEFINES_ACCEPTANCE_CRITERIA? Event-0007 reasoning enumerates verification steps. Not exactly acceptance criteria; more plan/verification.\n\n13. Ternary: distinguishing between two similar candidates by comparing evidence — event-0006/0007 reasoning distinguishes the user's commit from the pre-existing dangling line, based on observations (reflog authorship/timestamps, show stat). Predicate: DISAMBIGUATES_AMONG_CANDIDATES_WITH_EVIDENCE (reasoning, observation[], maybe). Hmm, could be ternary: reasoning, candidate-set... but candidates are represented inside reasoning. Maybe a binary: SELECTS_TARGET_AMONG_CANDIDATES_USING_EVIDENCE(reasoning, observation). This is closely the same as grounds conclusion. But distinguishable? The distinguishing condition: multiple candidates identified and the observation provides discriminating attributes (author, timestamp). I think it's a worthwhile distinct predicate: \"DISCRIMINATES_CANDIDATES_BY_EVIDENCE\".\n\nHmm, need to avoid over-generation. Let's pick a reasonably tight set:\n\nUnary:\n- A) ENUMERATES_COMPETING_HYPOTHESES (reasoning)\n- B) IS_PLAN (reasoning) — or more specific: STATES_VERIFICATION_PLAN? Use IS_PLAN generic but with explicit intent for future verification actions? The shared example already provides IS_PLAN. We can define a unary \"PROPOSES_RESOLUTION_STRATEGY\"? Event-0010 reasoning proposes the merge resolution approach + byte-exact verification. Could be IS_PLAN.\n\nMaybe instead: \"IDENTIFIES_ROOT_CAUSE\" — reasoning concludes a causal explanation of how the state arose (detached HEAD commit discarded on checkout). Supported by event-0004/0005/0006 reasoning: reconstructs chronological reflog timeline to explain how the change was lost. That's a distinct semantic role: diagnosing root cause. Good unary predicate: DIAGNOSES_ROOT_CAUSE_OF_OBSERVED_STATE.\n\nBinary:\n- GROUNDS_CONCLUSION_IN_OBSERVATION (reasoning, observation)\n- ELIMINATES_HYPOTHESIS_WITH_CONTRARY_EVIDENCE (reasoning, observation)\n- APPLIES_STATED_PROCEDURE_CONSTRAINT_TO_ACTION (action, reasoning) — ordering: action first? Parameters ordering should preserve roles; let's do (action, reasoning) with action performing the step and reasoning citing the rule. Actually maybe (reasoning, action).\n- PREDICTS_OUTCOME_OF_PLANNED_OPERATION (reasoning, observation) — predicts conflict from diff evidence. Hmm, in event-0006 reasoning predicts conflict; observation-0006 gives merge-base and diffs. Yes supported.\n\nTernary:\n- TESTS_ASSUMPTION_WITH_PROBE (probe_action, assumption_reasoning, probe_result) — this uses the example nearly verbatim but is genuinely supported (reflog/fsck probe).\n- RESOLVES_OBSERVED_CONFLICT_BY_PRECEDENCE (conflict_observation, resolution_reasoning, verification_action?) Hmm. Within window, event-0009 obs conflict markers + event-0010 reasoning choosing theirs with justification. The verification action (od -c) verifies exact bytes to reproduce, not resolve. Could be tri: conflict observation, resolution reasoning, and... Maybe just binary: SELECTS_RESOLUTION_SIDE_FOR_CONFLICT (reasoning, observation).\n\nMaybe combine: ternary RESOLVES_CONFLICT_USING_STATED_PRECEDENCE where third param is action performing resolution — not present in window. Skip action; make binary.\n\nLet me also consider: reasoning verifying exact bytes before writing — \"ENSURES_FIDELITY_OF_RECONSTRUCTED_CONTENT\" — binary (reasoning, observation) where reasoning plans byte-exact reproduction and observation gives byte-level content. Hmm, maybe too specific; could be framed as \"SEEKS_EXACT_RECONSTRUCTION_EVIDENCE\". I'd skip or include as part of verification planning.\n\nAlso: \"TREATS_EVIDENCE_SOURCE_AUTHORITY/ATTRIBUTION\" — reasoning distinguishes commit by author (Test User vs Mike Merrill) and dates to determine which is the user's change. That's part of disambiguation. Could fold into GROUNDS_CONCLUSION.\n\nLet's decide final list (maybe 6-7 predicates):\n\n1. DIAGNOSES_ROOT_CAUSE (unary, reasoning)\n2. ENUMERATES_COMPETING_EXPLANATIONS (unary, reasoning)\n3. GROUNDS_CONCLUSION_IN_OBSERVATION (binary: reasoning, observation)\n4. ELIMINATES_HYPOTHESIS_WITH_CONTRARY_EVIDENCE (binary: reasoning, observation)\n5. TESTS_ASSUMPTION_WITH_PROBE (ternary: probe_action, assumption_reasoning, probe_result)\n6. SELECTS_AMONG_CANDIDATES_USING_DISCRIMINATING_EVIDENCE (binary: reasoning, observation) — distinguish from 3 by requiring multiple candidates and discriminating attributes. Hmm, maybe this is redundant with 4 and 3. But the trajectory shows a strong disambiguation mechanism: two dangling commits, choosing the right one by author/date/reflog. I'd include it as it captures a distinct mechanism (candidate ranking / identity resolution).\n7. APPLIES_STATED_CONSTRAINT_TO_NEXT_ACTION (binary: reasoning, action)\n8. PREDICTS_CONSEQUENCE_OF_PLANNED_OPERATION (binary: reasoning, observation)\n9. SELECTS_CONFLICT_RESOLUTION_SIDE_BY_PRECEDENCE (binary: reasoning, observation)\n\nThat's 9 — maybe a bit many but each distinguishable. Let me trim: 6 and 4 overlap somewhat; 4 is about rejecting a hypothesis with contrary evidence, 6 is about discriminating between two positive candidates. Both fine. But perhaps merge 8 into 3? PREDICTS_CONSEQUENCE is forward-looking (about future action outcome) vs conclusion about current state. Distinguishable. Keep.\n\nMaybe drop 6 to avoid near-duplicate of 4? Hmm. I think 6 adds value: \"identifies which of several similar artifacts is the intended target using discriminating attributes\". Keep but refine conditions to require ≥2 candidates.\n\nAlso consider a ternary: JOINT_EVIDENCE → \"MERGE_SAFETY_ANALYSIS\" combining merge-base observation, conflict prediction reasoning, and a planned resolution — too speculative.\n\nAnother possible ternary: \"ASSESSES_MERGE_RISK_FROM_ANCESTRY_AND_DIFFS\": parameters reasoning, observation[] (merge-base observation and diff observation). Actually the merge-base+diff came in one observation node (observation-1 of event-0006 contains merge-base, d7d3e4b diff, c4e38a1 diff). So a binary PREDICTS_CONSEQUENCE uses that single observation. Fine.\n\nLet me also think about a predicate about \"determining scope of the user's request / interpreting ambiguous request\": event-0003 reasoning interprets \"changes\" as candidate scenarios. That's the enumeration predicate.\n\nNow write definitions carefully with evidence.\n\n1. name: DIAGNOSES_ROOT_CAUSE\ndefinition: The reasoning reconstructs a causal account of how an observed problematic state came about, identifying the specific sequence of events responsible.\nparams: reasoning.\nassertion: reasoning explains the causal sequence producing the observed state; names specific events/steps as the cause, not merely describing current state.\nexclusion: reasoning only restates the observed problem or lists possible causes without committing to a causal account; or only plans remediation.\n\nEvidence: event-0004, 0006 reasoning reconstruct reflog timeline.\n\n2. name: ENUMERATES_COMPETING_EXPLANATIONS\ndefinition: reasoning lays out multiple alternative explanations/hypotheses for the same observed situation before evidence selects among them.\nassertion: at least two distinct alternatives enumerated as candidate explanations; framed as to be distinguished.\nexclusion: single hypothesis; or enumeration of steps of a plan rather than competing explanations.\n\nEvidence: event-0003.\n\n3. name: GROUNDS_CONCLUSION_IN_OBSERVATION — as example. Params: reasoning, observation.\n\n4. name: ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE\ndefinition: reasoning rejects a previously considered candidate explanation because specific observation content contradicts a requirement of that explanation.\nparams: reasoning, observation.\nassertion: reasoning names an explanation and states observation content that rules it out.\nexclusion: reasoning merely narrows without stating contradiction; observation irrelevant.\n\nEvidence: event-0003 (stash empty, clean tree ⇒ untracked/stash scenarios excluded).\n\n5. name: SELECTS_TARGET_AMONG_CANDIDATES (binary reasoning, observation)\ndefinition: reasoning identifies which of several similar artifacts is the one matching the goal, using discriminating attributes in the observation (e.g., provenance, authorship, timestamps) rather than surface similarity.\nassertion: ≥2 candidate artifacts named; discriminating attribute cited; conclusion selects one.\nexclusion: only one candidate; selection based on order/recency without cited evidence.\n\nEvidence: event-0005/0006 reasoning picks c499730 as the user's change vs. 19b5d10.\n\n6. name: TESTS_ASSUMPTION_WITH_PROBE (ternary). Use example-like but with our own wording.\n\n7. name: APPLIES_STATED_CONSTRAINT_TO_ACTION\ndefinition: reasoning invokes an explicit governing rule/procedure and the action performs the step that rule requires, even though the step isn't otherwise needed for the operation.\nparams: reasoning, action.\nassertion: reasoning cites a procedural/contractual requirement; action performs exactly that required step; the reasoning states the action satisfies the requirement.\nexclusion: action motivated purely by task need with no cited rule; reasoning mentions a rule but no corresponding action.\n\nEvidence: event-0007 reasoning + read actions.\n\n8. name: PREDICTS_OUTCOME_OF_PLANNED_OPERATION\ndefinition: reasoning forecasts a specific consequence (e.g., a conflict) of a not-yet-executed action based on evidence about the current state.\nassertion: reasoning names a planned operation; predicts specific outcome; prediction supported by cited evidence from observation(s) about differing state; the operation hasn't been executed yet at that node.\nexclusion: speculation without evidence; describing already observed outcome.\n\nEvidence: event-0006 reasoning predicting conflict in about.md and auto-merge of default.html.\n\n9. name: ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE\ndefinition: reasoning, given an observed conflict between two versions, chooses which version prevails by stating a general precedence rationale (e.g., newer authoritative intent supersedes).\nparams: reasoning, observation (conflict observation).\nassertion: observation shows conflicting alternatives; reasoning selects one side and justifies with a rule/reason; selection is not arbitrary/ordering-based.\nexclusion: reasoning merely describes the conflict; picks a side without justification; the conflict is not between comparable alternatives.\n\nAlso maybe add a unary for verification planning: \"PLANS_BYTE_EXACT_VERIFICATION\" — hmm, overlapping with IS_PLAN. Skip? The trajectory's event-0010 reasoning plans verifying exact bytes before writing, and event-0008 reasoning plans the merge sequence. IS_PLAN generic could be added. The examples include IS_PLAN, and it's supported. I'll include IS_PLAN as a plan predicate since it's clearly supported and reusable.\n\nHmm, but do we want to add it? It's a fine unary. Add with assertion about intended future actions.\n\nTotal 10. Maybe that's acceptable. Let me consider trimming ENUMERATES vs ELIMINATES: distinct (generate vs reject). Keep both.\n\nLet's write JSON.\n\nEnsure parameter types valid. Ensure names UPPER_SNAKE. English descriptions.\n\nWrite moderately concise but precise conditions."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 27851,
+          "completion_tokens": 5513,
+          "total_tokens": 33364,
+          "prompt_tokens_details": {
+            "cached_tokens": 1920
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3645
+          },
+          "prompt_cache_hit_tokens": 1920,
+          "prompt_cache_miss_tokens": 25931
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses one or more intended future actions that the agent has not yet executed.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action sequence.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one action the agent intends to perform next.\", \"The intended action is presented as forthcoming rather than already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports or summarizes actions already performed.\", \"The reasoning only describes the current state without committing to a future action.\"]}, {\"name\": \"ENUMERATES_COMPETING_EXPLANATIONS\", \"definition\": \"The reasoning lays out multiple alternative explanations for the same observed situation, treating them as candidates that must be distinguished before a course of action is chosen.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating alternative explanations for the observed situation.\"}], \"assertion_conditions\": [\"At least two distinct candidate explanations are stated for the same observed condition.\", \"The alternatives are presented as competing possibilities whose truth is still to be determined.\"], \"exclusion_conditions\": [\"Only a single explanation is offered.\", \"The enumerated items are steps of a plan or facts about the state rather than rival explanations.\"]}, {\"name\": \"DIAGNOSES_ROOT_CAUSE\", \"definition\": \"The reasoning reconstructs a causal account of how an observed state came about, identifying the specific preceding events responsible for the problem rather than merely restating the symptom.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text presenting the causal reconstruction of the observed state.\"}], \"assertion_conditions\": [\"The reasoning specifies a sequence of prior events as the cause of the observed condition.\", \"The account explains why the current state has the observed properties, not just what those properties are.\"], \"exclusion_conditions\": [\"The reasoning only restates the reported problem or the observed state.\", \"The reasoning lists possible causes without committing to a causal account.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion that is supported by identifiable content of the observation.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the evidence-supported conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the supporting content.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion about the situation.\", \"Content of the observation is identifiable as the support for that conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats or summarizes the observation without concluding anything.\", \"The observation content is unrelated to the conclusion or adds no support.\"]}, {\"name\": \"ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE\", \"definition\": \"The reasoning rejects a candidate explanation because specific observed content contradicts a condition that the explanation requires.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning rejecting the candidate explanation.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation whose content contradicts the rejected explanation.\"}], \"assertion_conditions\": [\"The reasoning names or clearly refers to a candidate explanation it discards.\", \"The reasoning cites observation content that conflicts with what that explanation would require.\"], \"exclusion_conditions\": [\"The reasoning narrows possibilities without stating what rules a candidate out.\", \"The observation is compatible with the discarded explanation or unrelated to it.\"]}, {\"name\": \"SELECTS_TARGET_AMONG_CANDIDATES\", \"definition\": \"The reasoning identifies which of several similar candidate artifacts is the one relevant to the goal by citing discriminating attributes from the observation, rather than by order or surface similarity.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning comparing the candidates and selecting one.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation exposing the discriminating attributes of the candidates.\"}], \"assertion_conditions\": [\"At least two candidate artifacts are distinguished in the reasoning.\", \"The selection is justified by at least one discriminating attribute visible in the observation (such as provenance, authorship, timestamp, or creation context).\", \"The reasoning concludes that one candidate is the intended target.\"], \"exclusion_conditions\": [\"Only one candidate is considered, so no discrimination is needed.\", \"A candidate is chosen by position, recency, or guess without cited discriminating evidence.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action is performed to test an assumption or resolve an uncertainty stated in the reasoning, and the resulting observation provides evidence about that assumption.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the assumption or uncertainty being tested, or planning the diagnostic probe.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the tested assumption.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific assumption, uncertainty, or diagnostic question.\", \"The action is aimed at producing information about that assumption.\", \"The observation contains a result interpretable with respect to the assumption.\"], \"exclusion_conditions\": [\"The action is routine and not motivated by the stated uncertainty.\", \"The observation does not address the assumption being tested.\", \"No identifiable assumption or uncertainty motivates the action.\"]}, {\"name\": \"APPLIES_STATED_CONSTRAINT_TO_ACTION\", \"definition\": \"The reasoning invokes an explicit governing rule or procedural requirement, and the accompanying action performs the step that the rule requires, so that compliance with the constraint explains the action.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning citing the governing rule and its required step.\"}, {\"name\": \"action\", \"type\": \"action\", \"description\": \"The action performing the step required by the cited rule.\"}], \"assertion_conditions\": [\"The reasoning cites an explicit rule, contract, or procedure that prescribes a step.\", \"The action performs exactly the step the cited rule prescribes.\", \"The reasoning indicates the action is taken to satisfy that rule.\"], \"exclusion_conditions\": [\"The action is taken only because the task requires its outcome, with no cited rule.\", \"The reasoning mentions a rule but no corresponding action follows.\", \"The action departs from the step the cited rule prescribes.\"]}, {\"name\": \"PREDICTS_OUTCOME_OF_PLANNED_OPERATION\", \"definition\": \"The reasoning forecasts a specific consequence of an operation that has not yet been executed, basing the forecast on observed evidence about the current state.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning naming the planned operation and predicting its consequence.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the state evidence that supports the forecast.\"}], \"assertion_conditions\": [\"The reasoning names an operation that is planned but not yet performed.\", \"A specific expected consequence of that operation is stated.\", \"The forecast is tied to identifiable state evidence in the observation.\"], \"exclusion_conditions\": [\"The reasoning describes an outcome that has already been observed.\", \"The forecast is speculation not connected to observable state evidence.\", \"No specific consequence is predicted.\"]}, {\"name\": \"ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE\", \"definition\": \"Given an observation showing that two versions of the same artifact conflict, the reasoning decides which version prevails and justifies that choice with a general precedence rationale rather than an arbitrary pick.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning choosing the prevailing version and stating the precedence rationale.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation exhibiting the conflicting versions of the artifact.\"}], \"assertion_conditions\": [\"The observation presents two conflicting alternatives for the same artifact.\", \"The reasoning selects one alternative as the outcome.\", \"The reasoning states a rationale for why that alternative supersedes the other.\"], \"exclusion_conditions\": [\"The reasoning only describes the conflict without selecting a side.\", \"A side is selected without any justification, or purely by position or convenience.\", \"The observation does not actually show conflicting alternatives.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses one or more intended future actions that the agent has not yet executed.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action sequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least one action the agent intends to perform next.",
+          "The intended action is presented as forthcoming rather than already completed."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports or summarizes actions already performed.",
+          "The reasoning only describes the current state without committing to a future action."
+        ]
+      },
+      {
+        "name": "ENUMERATES_COMPETING_EXPLANATIONS",
+        "definition": "The reasoning lays out multiple alternative explanations for the same observed situation, treating them as candidates that must be distinguished before a course of action is chosen.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating alternative explanations for the observed situation."
+          }
+        ],
+        "assertion_conditions": [
+          "At least two distinct candidate explanations are stated for the same observed condition.",
+          "The alternatives are presented as competing possibilities whose truth is still to be determined."
+        ],
+        "exclusion_conditions": [
+          "Only a single explanation is offered.",
+          "The enumerated items are steps of a plan or facts about the state rather than rival explanations."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_ROOT_CAUSE",
+        "definition": "The reasoning reconstructs a causal account of how an observed state came about, identifying the specific preceding events responsible for the problem rather than merely restating the symptom.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text presenting the causal reconstruction of the observed state."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning specifies a sequence of prior events as the cause of the observed condition.",
+          "The account explains why the current state has the observed properties, not just what those properties are."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only restates the reported problem or the observed state.",
+          "The reasoning lists possible causes without committing to a causal account."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion that is supported by identifiable content of the observation.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the evidence-supported conclusion."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the supporting content."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion about the situation.",
+          "Content of the observation is identifiable as the support for that conclusion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats or summarizes the observation without concluding anything.",
+          "The observation content is unrelated to the conclusion or adds no support."
+        ]
+      },
+      {
+        "name": "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+        "definition": "The reasoning rejects a candidate explanation because specific observed content contradicts a condition that the explanation requires.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning rejecting the candidate explanation."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation whose content contradicts the rejected explanation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names or clearly refers to a candidate explanation it discards.",
+          "The reasoning cites observation content that conflicts with what that explanation would require."
+        ],
+        "exclusion_conditions": [
+          "The reasoning narrows possibilities without stating what rules a candidate out.",
+          "The observation is compatible with the discarded explanation or unrelated to it."
+        ]
+      },
+      {
+        "name": "SELECTS_TARGET_AMONG_CANDIDATES",
+        "definition": "The reasoning identifies which of several similar candidate artifacts is the one relevant to the goal by citing discriminating attributes from the observation, rather than by order or surface similarity.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning comparing the candidates and selecting one."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation exposing the discriminating attributes of the candidates."
+          }
+        ],
+        "assertion_conditions": [
+          "At least two candidate artifacts are distinguished in the reasoning.",
+          "The selection is justified by at least one discriminating attribute visible in the observation (such as provenance, authorship, timestamp, or creation context).",
+          "The reasoning concludes that one candidate is the intended target."
+        ],
+        "exclusion_conditions": [
+          "Only one candidate is considered, so no discrimination is needed.",
+          "A candidate is chosen by position, recency, or guess without cited discriminating evidence."
+        ]
+      },
+      {
+        "name": "TESTS_ASSUMPTION_WITH_PROBE",
+        "definition": "A targeted action is performed to test an assumption or resolve an uncertainty stated in the reasoning, and the resulting observation provides evidence about that assumption.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action performing the targeted test."
+          },
+          {
+            "name": "assumption_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying the assumption or uncertainty being tested, or planning the diagnostic probe."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the result relevant to the tested assumption."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific assumption, uncertainty, or diagnostic question.",
+          "The action is aimed at producing information about that assumption.",
+          "The observation contains a result interpretable with respect to the assumption."
+        ],
+        "exclusion_conditions": [
+          "The action is routine and not motivated by the stated uncertainty.",
+          "The observation does not address the assumption being tested.",
+          "No identifiable assumption or uncertainty motivates the action."
+        ]
+      },
+      {
+        "name": "APPLIES_STATED_CONSTRAINT_TO_ACTION",
+        "definition": "The reasoning invokes an explicit governing rule or procedural requirement, and the accompanying action performs the step that the rule requires, so that compliance with the constraint explains the action.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning citing the governing rule and its required step."
+          },
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action performing the step required by the cited rule."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning cites an explicit rule, contract, or procedure that prescribes a step.",
+          "The action performs exactly the step the cited rule prescribes.",
+          "The reasoning indicates the action is taken to satisfy that rule."
+        ],
+        "exclusion_conditions": [
+          "The action is taken only because the task requires its outcome, with no cited rule.",
+          "The reasoning mentions a rule but no corresponding action follows.",
+          "The action departs from the step the cited rule prescribes."
+        ]
+      },
+      {
+        "name": "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+        "definition": "The reasoning forecasts a specific consequence of an operation that has not yet been executed, basing the forecast on observed evidence about the current state.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning naming the planned operation and predicting its consequence."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the state evidence that supports the forecast."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names an operation that is planned but not yet performed.",
+          "A specific expected consequence of that operation is stated.",
+          "The forecast is tied to identifiable state evidence in the observation."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes an outcome that has already been observed.",
+          "The forecast is speculation not connected to observable state evidence.",
+          "No specific consequence is predicted."
+        ]
+      },
+      {
+        "name": "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE",
+        "definition": "Given an observation showing that two versions of the same artifact conflict, the reasoning decides which version prevails and justifies that choice with a general precedence rationale rather than an arbitrary pick.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning choosing the prevailing version and stating the precedence rationale."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation exhibiting the conflicting versions of the artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation presents two conflicting alternatives for the same artifact.",
+          "The reasoning selects one alternative as the outcome.",
+          "The reasoning states a rationale for why that alternative supersedes the other."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only describes the conflict without selecting a side.",
+          "A side is selected without any justification, or purely by position or convenience.",
+          "The observation does not actually show conflicting alternatives."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

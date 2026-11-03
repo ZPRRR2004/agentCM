@@ -1,0 +1,19 @@
+{
+  "run_id": "549c088cfe6e473ea581512f7dc4ab5f",
+  "run_started_at": "2026-11-03T13:40:01.409513+00:00",
+  "stage": "completed",
+  "event": "completed",
+  "message": "实验已完成，结果已保存",
+  "updated_at": "2026-11-03T14:08:32.721525+00:00",
+  "window_number": 50,
+  "window_total": 50,
+  "window_id": "window_0002",
+  "trajectory_id": "xhigh__vulnerable-secret",
+  "title": "vulnerable-secret",
+  "window_name": "xhigh__vulnerable-secret__window_0002",
+  "attempt": 1,
+  "attempt_limit": 4,
+  "waiting_since": "2026-11-03T14:07:50.111408+00:00",
+  "duration_seconds": 42.36,
+  "completed": 50
+}

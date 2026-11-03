@@ -1,0 +1,187 @@
+{
+  "stage": "review",
+  "window_file": "xhigh__configure-git-webserver__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T10:44:14.492225+00:00",
+  "duration_seconds": 26.25,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T10:43:48.236748+00:00",
+      "duration_seconds": 26.235,
+      "raw_response": {
+        "id": "66623272-ea0f-4bb7-bfd7-4f4a24122509",
+        "object": "chat.completion",
+        "created": 1793702631,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"accepted_predicates\": [{\"name\": \"PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE\", \"definition\": \"The reasoning predicts that state left behind by the agent's own activity (testing, probing, or configuration) will cause a later required operation, typically performed by the end user or an external checker, to fail or behave incorrectly, and uses that prediction as the reason to remove or reset that residual state before handoff.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that identifies residual self-created state, predicts its adverse effect on a later operation, and motivates its removal.\"}], \"assertion_conditions\": [\"The reasoning identifies specific residual state produced by the agent's own activity, such as test commits, branches, keys, files, or running test artifacts.\", \"The reasoning predicts a concrete adverse consequence for a later operation, for example that a required commit will fail because nothing changed, that a push will report nothing to update, or that a check will observe pre-modified content.\", \"The reasoning treats that prediction as the justification for removing or resetting the identified state before handoff.\"], \"exclusion_conditions\": [\"The reasoning expresses only generic cleanliness or tidiness concerns without a predicted operational consequence.\", \"The predicted consequence concerns state the agent did not create, or state unrelated to its own testing or configuration.\", \"The reasoning plans cleanup solely because the state is no longer needed, with no predicted interference with a later operation.\"]}, {\"name\": \"ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT\", \"definition\": \"The reasoning classifies a failure observed during the agent's own verification procedure as an artifact of its test instrumentation or simulated conditions rather than as a defect in the delivered system, distinguishing the test-side conditions from the conditions the end user will actually use.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that reinterprets the observed failure as a test-side artifact.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure whose origin is being classified.\"}], \"assertion_conditions\": [\"The observation reports a failure that occurred during the agent's own verification or simulation procedure.\", \"The reasoning states that the failure originates in the agent's test setup, simulated credentials, ad hoc invocation, or missing test-side configuration rather than in the delivered system.\", \"The reasoning contrasts the test-side conditions with the conditions under which the end user or external checker will operate.\"], \"exclusion_conditions\": [\"The reasoning treats the failure as a genuine defect in the delivered configuration or state.\", \"The reasoning makes no distinction between test-side and user-side conditions.\", \"The reasoning reports the failure without interpreting where it originated.\"]}, {\"name\": \"ENUMERATES_REQUIRED_END_STATE\", \"definition\": \"The reasoning enumerates multiple checkable conditions that the delivered environment must satisfy at handoff, decomposing the final state into individually verifiable invariants rather than listing actions to perform.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text listing the conditions the final environment must satisfy.\"}], \"assertion_conditions\": [\"The reasoning lists multiple distinct conditions the final environment must satisfy, such as services running, repository empty, keys removed, and host entries present.\", \"The listed conditions are phrased as verifiable properties of the resulting state rather than as steps to execute.\"], \"exclusion_conditions\": [\"The reasoning describes a sequence of actions to execute without stating the resulting state conditions.\", \"The reasoning states only a single observation about the current state, with no enumeration of required end-state properties.\"]}, {\"name\": \"IMPLEMENTS_GUARDED_RECOVERY\", \"definition\": \"The reasoning establishes that a required capability must survive interruption or restart, and an action creates a repeatable, guard-checked, non-failing mechanism that restores that capability only when it is absent, with an observation confirming creation of the mechanism.\", \"parameters\": [{\"name\": \"resilience_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text identifying the need for the required capability to be restored after restart or interruption.\"}, {\"name\": \"creation_action\", \"type\": \"action\", \"description\": \"The action creating the guarded recovery mechanism.\"}, {\"name\": \"creation_result\", \"type\": \"observation\", \"description\": \"The observation confirming that the mechanism was created and made usable.\"}], \"assertion_conditions\": [\"The reasoning frames the mechanism as a safety net keeping a required capability available across restarts, rather than as a one-time start of that capability.\", \"The mechanism as created includes a presence check so an already-running capability is not duplicated or restarted.\", \"The mechanism is specified to be silent and to terminate successfully so it cannot break the invoking session.\", \"The observation reports successful creation of the mechanism.\"], \"exclusion_conditions\": [\"The mechanism unconditionally starts the capability regardless of whether it is already running.\", \"The mechanism can fail or emit output that affects the calling context.\", \"The intent is a one-time activation of the capability with no restart or resilience rationale.\"]}], \"revised_existing_predicates\": [{\"original_name\": \"DIAGNOSES_FAILURE_CAUSE\", \"revised_predicate\": {\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning assigns a specific causal mechanism to a failure or error reported in an observation, explaining how the failure arose rather than merely restating the error text.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node explaining the cause or mechanism of the failure.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the error or unsuccessful outcome.\"}], \"assertion_conditions\": [\"The observation reports an error, non-zero exit status, or otherwise unsuccessful outcome.\", \"The reasoning identifies a specific cause or mechanism responsible for that failure, going beyond the literal error message.\", \"The stated cause is consistent with the facts reported in the observation.\"], \"exclusion_conditions\": [\"The reasoning merely notes that a failure occurred.\", \"The reasoning proposes a retry without explaining the cause.\", \"The reasoning only repeats or paraphrases the error message without explaining it.\", \"The stated cause contradicts the observation's reported facts.\", \"The observation does not report a failure or error.\"]}}]}",
+              "reasoning_content": "Let me analyze the candidates.\n\nExisting matches:\n- IS_PLAN → PLANS_NEXT_ACTION: registry already covers. Candidate essentially identical. Suppress (no revision needed).\n- EXPLAINS_OBSERVED_FAILURE_CAUSE → DIAGNOSES_FAILURE_CAUSE: covers. Suppress.\n- GROUNDS_CONCLUSION_IN_OBSERVATION: matches existing exactly. Suppress.\n\nNew candidates:\n1. PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE — evidence: event-0015 reasoning predicts that leaving test commit causes user's commit to fail with \"nothing to commit\". This is a distinguishable mechanism. Is there an existing predicate? MITIGATES_ANTICIPATED_FAILURE covers \"reasoning identifies foreseeable failure mode, action applies preventive measure, observation shows evidence\". Hmm. The residual-artifact prediction is a specific subcase of anticipating failure. But the mechanism here: leftover state from own testing interfering with later operations. Is it distinguishable? MITIGATES_ANTICIPATED_FAILURE requires ternary with action and observation. The candidate is unary reasoning-only. The distinguishing case: agent predicts interference and plans cleanup but doesn't execute it — or the failure mode is caused by the agent's own artifacts specifically. Hmm, that is arguably subsumed by MITIGATES_ANTICIPATED_FAILURE when cleanup action occurs.\n\nHowever, the specific mechanism \"residual state from own testing will interfere with handoff operations\" is a genuinely distinct and reusable mechanism in agent behavior (test-artifact cleanup). I think this deserves acceptance, since it's a prediction about self-created state, not just any anticipated failure mode. But is the distinction resolvable by clarifying MITIGATES_ANTICIPATED_FAILURE? That predicate requires the mitigation action + observation. The candidate focuses on the prediction/diagnosis of self-inflicted interference. Hmm.\n\nThe instructions say accept conservatively. But this mechanism is quite distinctive: \"self-created test artifacts interfering with the delivered-state\". I'd lean to accept — it's a meaningful distinguishing case (agent predicts interference reasoning-only, without necessarily acting yet). Actually in event-0015 the reasoning does predict and plan removal; action follows in event-0016. So both predicates hold.\n\nHmm, but the risk of being duplicate of MITIGATES_ANTICIPATED_FAILURE. Let me consider the distinguishing case: reasoning predicts residual artifact interference but chooses to leave state (no action). MITIGATES_ANTICIPATED_FAILURE would not hold (requires action). So distinguishable. Accept.\n\n2. ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT — evidence: event-0013 reasoning: \"This is purely an artifact of my testing: the actual user has their own login set up...\". Distinguished from DIAGNOSES_FAILURE_CAUSE (which is a specific cause). Here the mechanism is classifying the failure as test-side artifact, not a system defect. Distinguishable: a diagnosis may identify a cause without attributing it to test instrumentation. Accept? The distinction is meaningful: it changes whether the agent fixes the system or fixes its test. I'd accept.\n\n3. REVISES_APPROACH_IN_RESPONSE_TO_FAILURE — existing CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS covers this (ternary: corrected_action, diagnostic_reasoning, failure_observation). The candidate is binary reasoning+observation describing revision. Hmm — the Comparison put it in \"new\". But CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS already represents the same mechanism with the action included; the candidate is a weaker binary version. One-way subsumption: existing ternary subsumes the candidate? Existing requires the corrected action; candidate only requires the reasoning stating the revised approach. Is that distinguishable? A reasoning that states a revised approach but never executes it — existing wouldn't hold. Is that a meaningful mechanism? Marginal. I think suppress as semantic duplicate — prefer reuse of existing. Guidelines: suppress semantic duplicates. I'll suppress REVISES_APPROACH_IN_RESPONSE_TO_FAILURE since CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS covers the mechanism (the revision reasoning is diagnosic_reasoning).\n\n4. TESTS_UNTESTED_PATH — existing TESTS_ASSUMPTION_WITH_PROBE: \"targeted action tests a specific uncertainty or hypothesis identified in reasoning\". A coverage gap (untested path) is a form of uncertainty. I think it's subsumed. Suppress — or revise TESTS_ASSUMPTION_WITH_PROBE? Revision must be meaningful. Hmm. TESTS_UNTESTED_PATH's mechanism: deliberately exercising an uncovered path (branch update vs creation). This is a specific case of testing an uncertainty: whether the update path works. I lean to suppress as covered.\n\n5. CONFIRMS_EXPECTED_OUTCOME_WITH_PROBE (uncertain) — three-arg: expectation reasoning, probe action, probe result. Existing CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION is binary (reasoning interpreting observation as confirmation). And TESTS_ASSUMPTION_WITH_PROBE is ternary but about uncertainty. Does existing cover? Event-0014/0015: reasoning states expected curl output; action curls; observation returns \"hello world\". CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION would hold over reasoning-observation pair (event-0015 reasoning says \"The full flow is working: curl ... hello world ✓\" with observation from event-0014). So the binary already captures it. But is a ternary needed to express the probe action? TESTS_ASSUMPTION_WITH_PROBE also holds. I think it's covered by the combination — suppress. Per instructions \"Use separate lower-arity predicates when relationships are independently meaningful.\" So suppress as redundant.\n\nActually wait — is CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION the same? It requires the reasoning to explicitly treat the observation as confirmation. Yes, event-0015 reasoning does. And the probe action is captured by TESTS_ASSUMPTION_WITH_PROBE. So suppress.\n\n6. ENUMERATES_REQUIRED_END_STATE — event-0015 reasoning enumerates final state conditions (\"Services running, /git/server empty bare repo, /var/www/html empty, authorized_keys empty, server in /etc/hosts, curl 404 before push\"). Is there an existing predicate? No. This is a distinct mechanism: defining acceptance invariants for handoff. Accept? It's plausible a reusable mechanism. But could be considered part of PLANS_NEXT_ACTION. Hmm, assertion conditions are distinct: checkable properties of the delivered state rather than actions. It's a meaningful mechanism (defining acceptance criteria). I lean to accept... but conservative? Let me weigh: the trajectory clearly shows enumeration of final-state verification checklist. It's genuinely distinguishable from planning actions (listing invariants to verify). I'll accept it — but maybe generalize: \"The reasoning enumerates multiple checkable conditions that the final delivered state must satisfy, defining acceptance criteria for handoff.\" Fine.\n\n7. IMPLEMENTS_GUARDED_RECOVERY — triple: resilience reasoning, creation action, observation. Evidence: event-0020 writes ensure-git-server-services with pidof check, silent, exit 0; observation confirms written + made executable. Is there existing? MITIGATES_ANTICIPATED_FAILURE: anticipates failure mode; here it's restart/loss of service. Distinguishable: the mechanism is idempotent guard-checked recovery, not just preventive config. Also VALIDATES... no. I think it's a genuinely distinct mechanism. Accept — though perhaps generalize \"guard: only restores when absent, non-failing\". The definition is decent. Maybe slightly modernize asserts. Accept with revision to be tighter? Let's accept as is with minor polish.\n\nNow, revisions. Task B: revisions only if meaningful clarification. Candidates that matched existing names: IS_PLAN→PLANS_NEXT_ACTION, EXPLAINS_OBSERVED_FAILURE_CAUSE→DIAGNOSES_FAILURE_CAUSE, GROUNDS_CONCLUSION_IN_OBSERVATION. Could any need revision? \n\nDIAGNOSES_FAILURE_CAUSE could be clarified: the candidate emphasizes explaining mechanism rather than restating error text. Maybe revise DIAGNOSES_FAILURE_CAUSE to add exclusion \"The reasoning only repeats or paraphrases the error message without explaining it.\" Actually the existing exclusion says \"merely notes that a failure occurred\" and \"proposes a retry without explaining the cause\". Adding \"repeats the error text\" clarification is a meaningful, small revision preserving identity. Hmm, is it necessary? Comparison matched; definition already fine. I could add the clarification. I'll do a mild revision for DIAGNOSES_FAILURE_CAUSE? Careful not to churn. The instructions: \"Leave existing definitions unchanged when no meaningful clarification is needed.\"\n\nThe candidate's definition adds \"identifying the mechanism by which the failure arose rather than merely restating the error text\" — that's a genuine clarification of the exclusion boundary. I'll revise DIAGNOSES_FAILURE_CAUSE to include that exclusion condition (restating/paraphrasing error without explanation) and \"the stated cause is consistent with the observation\". That's a meaningful clarification.\n\nPLANS_NEXT_ACTION vs IS_PLAN: essentially identical; no clarification needed. Leave unchanged.\n\nGROUNDS_CONCLUSION_IN_OBSERVATION: existing is fine; candidate narrower/equal. Leave unchanged.\n\nCORRECTS_FAILED_ACTION_WITH_DIAGNOSIS — the candidate REVISES_APPROACH_IN_RESPONSE_TO_FAILURE wasn't matched to it in comparison (it was in \"new\"). I suppress it. No revision needed.\n\nSo final output: accepted predicates: PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE, ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT, ENUMERATES_REQUIRED_END_STATE, IMPLEMENTS_GUARDED_RECOVERY. Revised: DIAGNOSES_FAILURE_CAUSE.\n\nHmm, should I be more conservative and drop ENUMERATES_REQUIRED_END_STATE? Let me reconsider. Evidence: event-0015 \"After cleanup, verify the final state: - Services running (nginx on 8080, sshd on 22) - /git/server is an empty bare repo ... - /var/www/html is empty ...\". Yes, clear enumeration of required end-state invariants. This is a reusable agent mechanism (defining acceptance criteria / handoff checklist). I accept.\n\nLet me double-check ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT isn't just DIAGNOSES_FAILURE_CAUSE. In event-0013 the diagnosis and attribution are the same reasoning. Distinguishing case: agent diagnoses failure cause as (say) \"port conflict\" — that's a system defect, not a test artifact. Conversely, agent might say \"this failure is just my test setup\" without a detailed causal mechanism. Distinguishable. Also similar to \"distinguishes attempt vs. environment\". Accept, generalizing: \"classifies observed failure as artifact of agent's own verification instrumentation or simulated conditions rather than a defect in the delivered system, contrasting test conditions with end-user conditions.\"\n\nNow write the definitions carefully with five fields each, parameters binding to nodes.\n\nPREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE: unary reasoning. Definition: \"The reasoning predicts that residual state created by the agent's own testing or configuration activity will cause a later required operation — typically performed by the end user or an external checker — to fail or behave incorrectly, and treats that prediction as the reason to remove or reset the residual state before handoff.\" Parameters: reasoning. Assertion conditions as candidate; exclusions.\n\nATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT: binary reasoning+observation.\n\nENUMERATES_REQUIRED_END_STATE: unary reasoning.\n\nIMPLEMENTS_GUARDED_RECOVERY: ternary.\n\nRevised DIAGNOSES_FAILURE_CAUSE: keep parameters reasoning, observation; definition: \"The reasoning assigns a specific causal mechanism to a failure or error reported in an observation, explaining how the failure arose rather than merely restating the error.\" Assertion conditions: obs reports error; reasoning identifies a specific cause or mechanism, consistent with the observed content. Exclusions: merely notes failure; proposes retry without cause; only repeats/paraphrases the error text; cause contradicts observation.\n\nNames must be unique — DIAGNOSES_FAILURE_CAUSE exists, revision keeps same name (fine).\n\nWrite JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 24578,
+          "completion_tokens": 4051,
+          "total_tokens": 28629,
+          "prompt_tokens_details": {
+            "cached_tokens": 2432
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2681
+          },
+          "prompt_cache_hit_tokens": 2432,
+          "prompt_cache_miss_tokens": 22146
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"accepted_predicates\": [{\"name\": \"PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE\", \"definition\": \"The reasoning predicts that state left behind by the agent's own activity (testing, probing, or configuration) will cause a later required operation, typically performed by the end user or an external checker, to fail or behave incorrectly, and uses that prediction as the reason to remove or reset that residual state before handoff.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that identifies residual self-created state, predicts its adverse effect on a later operation, and motivates its removal.\"}], \"assertion_conditions\": [\"The reasoning identifies specific residual state produced by the agent's own activity, such as test commits, branches, keys, files, or running test artifacts.\", \"The reasoning predicts a concrete adverse consequence for a later operation, for example that a required commit will fail because nothing changed, that a push will report nothing to update, or that a check will observe pre-modified content.\", \"The reasoning treats that prediction as the justification for removing or resetting the identified state before handoff.\"], \"exclusion_conditions\": [\"The reasoning expresses only generic cleanliness or tidiness concerns without a predicted operational consequence.\", \"The predicted consequence concerns state the agent did not create, or state unrelated to its own testing or configuration.\", \"The reasoning plans cleanup solely because the state is no longer needed, with no predicted interference with a later operation.\"]}, {\"name\": \"ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT\", \"definition\": \"The reasoning classifies a failure observed during the agent's own verification procedure as an artifact of its test instrumentation or simulated conditions rather than as a defect in the delivered system, distinguishing the test-side conditions from the conditions the end user will actually use.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text that reinterprets the observed failure as a test-side artifact.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the failure whose origin is being classified.\"}], \"assertion_conditions\": [\"The observation reports a failure that occurred during the agent's own verification or simulation procedure.\", \"The reasoning states that the failure originates in the agent's test setup, simulated credentials, ad hoc invocation, or missing test-side configuration rather than in the delivered system.\", \"The reasoning contrasts the test-side conditions with the conditions under which the end user or external checker will operate.\"], \"exclusion_conditions\": [\"The reasoning treats the failure as a genuine defect in the delivered configuration or state.\", \"The reasoning makes no distinction between test-side and user-side conditions.\", \"The reasoning reports the failure without interpreting where it originated.\"]}, {\"name\": \"ENUMERATES_REQUIRED_END_STATE\", \"definition\": \"The reasoning enumerates multiple checkable conditions that the delivered environment must satisfy at handoff, decomposing the final state into individually verifiable invariants rather than listing actions to perform.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text listing the conditions the final environment must satisfy.\"}], \"assertion_conditions\": [\"The reasoning lists multiple distinct conditions the final environment must satisfy, such as services running, repository empty, keys removed, and host entries present.\", \"The listed conditions are phrased as verifiable properties of the resulting state rather than as steps to execute.\"], \"exclusion_conditions\": [\"The reasoning describes a sequence of actions to execute without stating the resulting state conditions.\", \"The reasoning states only a single observation about the current state, with no enumeration of required end-state properties.\"]}, {\"name\": \"IMPLEMENTS_GUARDED_RECOVERY\", \"definition\": \"The reasoning establishes that a required capability must survive interruption or restart, and an action creates a repeatable, guard-checked, non-failing mechanism that restores that capability only when it is absent, with an observation confirming creation of the mechanism.\", \"parameters\": [{\"name\": \"resilience_reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text identifying the need for the required capability to be restored after restart or interruption.\"}, {\"name\": \"creation_action\", \"type\": \"action\", \"description\": \"The action creating the guarded recovery mechanism.\"}, {\"name\": \"creation_result\", \"type\": \"observation\", \"description\": \"The observation confirming that the mechanism was created and made usable.\"}], \"assertion_conditions\": [\"The reasoning frames the mechanism as a safety net keeping a required capability available across restarts, rather than as a one-time start of that capability.\", \"The mechanism as created includes a presence check so an already-running capability is not duplicated or restarted.\", \"The mechanism is specified to be silent and to terminate successfully so it cannot break the invoking session.\", \"The observation reports successful creation of the mechanism.\"], \"exclusion_conditions\": [\"The mechanism unconditionally starts the capability regardless of whether it is already running.\", \"The mechanism can fail or emit output that affects the calling context.\", \"The intent is a one-time activation of the capability with no restart or resilience rationale.\"]}], \"revised_existing_predicates\": [{\"original_name\": \"DIAGNOSES_FAILURE_CAUSE\", \"revised_predicate\": {\"name\": \"DIAGNOSES_FAILURE_CAUSE\", \"definition\": \"The reasoning assigns a specific causal mechanism to a failure or error reported in an observation, explaining how the failure arose rather than merely restating the error text.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning node explaining the cause or mechanism of the failure.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation reporting the error or unsuccessful outcome.\"}], \"assertion_conditions\": [\"The observation reports an error, non-zero exit status, or otherwise unsuccessful outcome.\", \"The reasoning identifies a specific cause or mechanism responsible for that failure, going beyond the literal error message.\", \"The stated cause is consistent with the facts reported in the observation.\"], \"exclusion_conditions\": [\"The reasoning merely notes that a failure occurred.\", \"The reasoning proposes a retry without explaining the cause.\", \"The reasoning only repeats or paraphrases the error message without explaining it.\", \"The stated cause contradicts the observation's reported facts.\", \"The observation does not report a failure or error.\"]}}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "accepted_predicates": [
+      {
+        "name": "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE",
+        "definition": "The reasoning predicts that state left behind by the agent's own activity (testing, probing, or configuration) will cause a later required operation, typically performed by the end user or an external checker, to fail or behave incorrectly, and uses that prediction as the reason to remove or reset that residual state before handoff.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that identifies residual self-created state, predicts its adverse effect on a later operation, and motivates its removal."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies specific residual state produced by the agent's own activity, such as test commits, branches, keys, files, or running test artifacts.",
+          "The reasoning predicts a concrete adverse consequence for a later operation, for example that a required commit will fail because nothing changed, that a push will report nothing to update, or that a check will observe pre-modified content.",
+          "The reasoning treats that prediction as the justification for removing or resetting the identified state before handoff."
+        ],
+        "exclusion_conditions": [
+          "The reasoning expresses only generic cleanliness or tidiness concerns without a predicted operational consequence.",
+          "The predicted consequence concerns state the agent did not create, or state unrelated to its own testing or configuration.",
+          "The reasoning plans cleanup solely because the state is no longer needed, with no predicted interference with a later operation."
+        ]
+      },
+      {
+        "name": "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+        "definition": "The reasoning classifies a failure observed during the agent's own verification procedure as an artifact of its test instrumentation or simulated conditions rather than as a defect in the delivered system, distinguishing the test-side conditions from the conditions the end user will actually use.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that reinterprets the observed failure as a test-side artifact."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation reporting the failure whose origin is being classified."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a failure that occurred during the agent's own verification or simulation procedure.",
+          "The reasoning states that the failure originates in the agent's test setup, simulated credentials, ad hoc invocation, or missing test-side configuration rather than in the delivered system.",
+          "The reasoning contrasts the test-side conditions with the conditions under which the end user or external checker will operate."
+        ],
+        "exclusion_conditions": [
+          "The reasoning treats the failure as a genuine defect in the delivered configuration or state.",
+          "The reasoning makes no distinction between test-side and user-side conditions.",
+          "The reasoning reports the failure without interpreting where it originated."
+        ]
+      },
+      {
+        "name": "ENUMERATES_REQUIRED_END_STATE",
+        "definition": "The reasoning enumerates multiple checkable conditions that the delivered environment must satisfy at handoff, decomposing the final state into individually verifiable invariants rather than listing actions to perform.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text listing the conditions the final environment must satisfy."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning lists multiple distinct conditions the final environment must satisfy, such as services running, repository empty, keys removed, and host entries present.",
+          "The listed conditions are phrased as verifiable properties of the resulting state rather than as steps to execute."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes a sequence of actions to execute without stating the resulting state conditions.",
+          "The reasoning states only a single observation about the current state, with no enumeration of required end-state properties."
+        ]
+      },
+      {
+        "name": "IMPLEMENTS_GUARDED_RECOVERY",
+        "definition": "The reasoning establishes that a required capability must survive interruption or restart, and an action creates a repeatable, guard-checked, non-failing mechanism that restores that capability only when it is absent, with an observation confirming creation of the mechanism.",
+        "parameters": [
+          {
+            "name": "resilience_reasoning",
+            "type": "reasoning",
+            "description": "The agent text identifying the need for the required capability to be restored after restart or interruption."
+          },
+          {
+            "name": "creation_action",
+            "type": "action",
+            "description": "The action creating the guarded recovery mechanism."
+          },
+          {
+            "name": "creation_result",
+            "type": "observation",
+            "description": "The observation confirming that the mechanism was created and made usable."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning frames the mechanism as a safety net keeping a required capability available across restarts, rather than as a one-time start of that capability.",
+          "The mechanism as created includes a presence check so an already-running capability is not duplicated or restarted.",
+          "The mechanism is specified to be silent and to terminate successfully so it cannot break the invoking session.",
+          "The observation reports successful creation of the mechanism."
+        ],
+        "exclusion_conditions": [
+          "The mechanism unconditionally starts the capability regardless of whether it is already running.",
+          "The mechanism can fail or emit output that affects the calling context.",
+          "The intent is a one-time activation of the capability with no restart or resilience rationale."
+        ]
+      }
+    ],
+    "revised_existing_predicates": [
+      {
+        "original_name": "DIAGNOSES_FAILURE_CAUSE",
+        "revised_predicate": {
+          "name": "DIAGNOSES_FAILURE_CAUSE",
+          "definition": "The reasoning assigns a specific causal mechanism to a failure or error reported in an observation, explaining how the failure arose rather than merely restating the error text.",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "The reasoning node explaining the cause or mechanism of the failure."
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "The observation reporting the error or unsuccessful outcome."
+            }
+          ],
+          "assertion_conditions": [
+            "The observation reports an error, non-zero exit status, or otherwise unsuccessful outcome.",
+            "The reasoning identifies a specific cause or mechanism responsible for that failure, going beyond the literal error message.",
+            "The stated cause is consistent with the facts reported in the observation."
+          ],
+          "exclusion_conditions": [
+            "The reasoning merely notes that a failure occurred.",
+            "The reasoning proposes a retry without explaining the cause.",
+            "The reasoning only repeats or paraphrases the error message without explaining it.",
+            "The stated cause contradicts the observation's reported facts.",
+            "The observation does not report a failure or error."
+          ]
+        }
+      }
+    ]
+  },
+  "previous_calls": []
+}

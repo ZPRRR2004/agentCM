@@ -1,0 +1,496 @@
+[
+  {
+    "name": "ASSESSES_CANDIDATE_AGAINST_CONSTRAINTS",
+    "definition": "Reasoning considers an identifiable candidate value or fragment supplied by an observation and evaluates whether it satisfies one or more explicitly stated requirements, reaching a judgment of compliance, partial compliance, or violation.",
+    "parameters": [
+      {
+        "name": "assessment_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that evaluates the candidate against the stated requirements."
+      },
+      {
+        "name": "candidate_evidence",
+        "type": "observation",
+        "description": "The observation containing the candidate value or the evidence from which it is extracted."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains an identifiable candidate value or fragment.",
+      "The assessment_reasoning refers to at least one explicit requirement and compares the candidate to it.",
+      "The reasoning reaches a conclusion about compliance, partial compliance, or noncompliance."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only extracts or repeats the candidate without evaluating requirements.",
+      "No explicit requirement is applied to the candidate.",
+      "The observation does not contain the candidate being assessed.",
+      "The reasoning evaluates a requirement or deliverable independently of any candidate value."
+    ]
+  },
+  {
+    "name": "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION",
+    "definition": "A proposed candidate or candidate fragment is checked by re-reading the exact stored location, offset, or field from which it was claimed to originate, and the returned data are compared with the candidate to confirm or refute it.",
+    "parameters": [
+      {
+        "name": "verification_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning selecting the candidate and the exact location or field to re-read."
+      },
+      {
+        "name": "extraction_action",
+        "type": "action",
+        "description": "The action that retrieves data from the identified location."
+      },
+      {
+        "name": "extraction_result",
+        "type": "observation",
+        "description": "The observation reporting the retrieved data for comparison with the candidate."
+      }
+    ],
+    "assertion_conditions": [
+      "The verification_reasoning identifies a candidate or fragment and a specific location, offset, or field to inspect.",
+      "The extraction_action retrieves data from that identified location rather than performing an untargeted search.",
+      "The extraction_result contains data that can be directly compared with the candidate, confirming or refuting it."
+    ],
+    "exclusion_conditions": [
+      "The action is an untargeted exploration not tied to a proposed candidate.",
+      "The retrieved data cannot be compared with the candidate.",
+      "The reasoning does not identify what is being verified or where it should be found.",
+      "The action independently recomputes the candidate through a different path rather than re-reading the claimed source location."
+    ]
+  },
+  {
+    "name": "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH",
+    "definition": "Reasoning establishes that a candidate is unique, or that no competing candidate satisfies the relevant criterion, by directing an exhaustive search over the available artifact or corpus and interpreting the search result as excluding alternatives.",
+    "parameters": [
+      {
+        "name": "exclusion_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that seeks to rule out competing candidates or confirm uniqueness."
+      },
+      {
+        "name": "exhaustive_search_action",
+        "type": "action",
+        "description": "The action that enumerates occurrences of a relevant pattern or feature across the available artifact or corpus."
+      },
+      {
+        "name": "search_result",
+        "type": "observation",
+        "description": "The observation listing the occurrences found by the search."
+      }
+    ],
+    "assertion_conditions": [
+      "The exclusion_reasoning identifies a need to rule out alternatives or confirm that a candidate is the only qualifying occurrence.",
+      "The exhaustive_search_action searches the relevant artifact or corpus for a pattern or feature rather than checking a single known location.",
+      "The search_result shows that no additional qualifying candidate was found, or that the only qualifying hit is the known candidate, and the reasoning uses this to exclude alternatives."
+    ],
+    "exclusion_conditions": [
+      "The search is limited to a single known location and cannot reveal alternatives.",
+      "The observation reports additional qualifying candidates that are not excluded.",
+      "The search result is not interpreted as relevant to uniqueness or alternative exclusion.",
+      "The reasoning searches for additional context about one already identified match rather than attempting to enumerate competing candidates across the artifact."
+    ]
+  },
+  {
+    "name": "CORROBORATES_CANDIDATE_WITH_INDEPENDENT_METADATA",
+    "definition": "Reasoning uses a separately recorded metadata value, such as a length, size, count, or structural field, that is independent of a proposed candidate's own expression to check the candidate's consistency and thereby corroborate or undermine it.",
+    "parameters": [
+      {
+        "name": "corroboration_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that compares the candidate with the independent metadata value."
+      },
+      {
+        "name": "metadata_observation",
+        "type": "observation",
+        "description": "The observation containing the metadata value used for the consistency check."
+      }
+    ],
+    "assertion_conditions": [
+      "The metadata_observation contains a value that is independent of the candidate's own expression, such as a stored length, size, count, or structural field.",
+      "The corroboration_reasoning compares the candidate or its expected properties with that metadata value.",
+      "The comparison yields a consistency result that the reasoning uses to corroborate or undermine the candidate."
+    ],
+    "exclusion_conditions": [
+      "The metadata is merely the candidate itself or a direct repetition of it.",
+      "The reasoning mentions metadata without comparing it to the candidate.",
+      "No consistency conclusion is drawn from the metadata.",
+      "The metadata is used to generate a new requirement for an action rather than to check an already proposed candidate."
+    ]
+  },
+  {
+    "name": "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS",
+    "definition": "The reasoning treats two or more partial segments as complementary parts of a single result, combines them into one candidate, and evaluates the combined candidate against at least one whole-candidate constraint such as total length, boundary pattern, allowed character set, or checksum.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that identifies the complementary segments, combines them into one candidate, and checks the combined candidate."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies at least two partial segments that are treated as complementary parts of the same result rather than as separate results.",
+      "The reasoning combines the segments into a single candidate result.",
+      "The reasoning evaluates the combined candidate against at least one whole-candidate constraint, such as total length, prefix, suffix, allowed character set, or checksum."
+    ],
+    "exclusion_conditions": [
+      "The reasoning deals with only one segment or does not combine segments.",
+      "The reasoning combines segments but does not evaluate the combined candidate against any whole-candidate constraint.",
+      "The segments are not presented as parts of the same candidate result.",
+      "The reasoning merely restates a combined value without any constraint evaluation."
+    ]
+  },
+  {
+    "name": "FORMULATES_IMPLEMENTATION_DESIGN",
+    "definition": "The reasoning constructs a concrete candidate implementation design, specifying artifact structure, algorithmic components, or syntax/mechanism choices intended to satisfy stated requirements.",
+    "parameters": [
+      {
+        "name": "design_reasoning",
+        "type": "reasoning",
+        "description": "Reasoning that specifies the intended structure, algorithm, or mechanism of a proposed solution."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning specifies a concrete solution structure, algorithm, artifact organization, or syntax/mechanism choice rather than only restating a goal.",
+      "The reasoning indicates how at least one specified component or mechanism is expected to contribute to satisfying a stated requirement."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only states that an implementation, inspection, or test will be performed without describing the proposed design.",
+      "The reasoning only evaluates observed results without proposing or constructing a design.",
+      "The reasoning only enumerates requirements or constraints without describing a concrete implementation structure."
+    ]
+  },
+  {
+    "name": "VERIFIES_MULTI_INTERFACE_COMPATIBILITY",
+    "definition": "The reasoning sets an acceptance requirement that an artifact must operate through multiple specified invocation interfaces or execution paths, the action exercises those paths, and the observation reports successful or equivalent outcomes from them.",
+    "parameters": [
+      {
+        "name": "verification_reasoning",
+        "type": "reasoning",
+        "description": "Reasoning identifying the multiple interfaces or execution paths that must succeed."
+      },
+      {
+        "name": "execution_action",
+        "type": "action",
+        "description": "Action exercising the artifact through those interfaces or paths."
+      },
+      {
+        "name": "result_observation",
+        "type": "observation",
+        "description": "Observation reporting outcomes from the exercised paths."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies at least two specified invocation interfaces or execution paths that the artifact must satisfy.",
+      "The action exercises the artifact through each of those identified paths, optionally across multiple inputs.",
+      "The observation reports outcomes from those paths that can be compared for correctness or equivalence and that demonstrate successful operation."
+    ],
+    "exclusion_conditions": [
+      "Only one invocation interface or execution path is exercised.",
+      "The action only compiles the artifact or checks syntax without executing the required paths.",
+      "The observation does not report outcomes for the paths being compared.",
+      "At least one required path fails or produces an outcome inconsistent with the others, so compatibility is not verified.",
+      "The multiple paths are not identified in the reasoning as an acceptance requirement."
+    ]
+  },
+  {
+    "name": "EXPLAINS_ARTIFACT_BEHAVIOR_FROM_SOURCE",
+    "definition": "The reasoning explains how an artifact realizes its behavior—including differing behavior across execution contexts—by interpreting specific source constructs present in an observation of the artifact's content.",
+    "parameters": [
+      {
+        "name": "explanation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node interpreting source constructs to explain the artifact's behavior."
+      },
+      {
+        "name": "source_observation",
+        "type": "observation",
+        "description": "The observation containing the artifact or source content being interpreted."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains source or artifact content.",
+      "The reasoning references at least one specific construct, block, directive, or code element in that content.",
+      "The reasoning explains how that construct causes or enables the artifact's behavior, including, where relevant, its differing behavior across execution contexts."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only summarizes test results, restates content, or describes behavior without tying it to specific source constructs.",
+      "The observation does not contain source or artifact content.",
+      "The reasoning references no concrete source construct."
+    ]
+  },
+  {
+    "name": "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS",
+    "definition": "The reasoning derives or bounds the magnitude of accumulated numerical error expected from a proposed computation and compares that magnitude with the required equivalence tolerance, concluding that the produced results will or will not be accepted as equivalent.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text performing the error-magnitude derivation or bound and the comparison against the required tolerance."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning quantifies an expected error magnitude or worst-case bound for the proposed computation, for example from the number of accumulation steps and machine epsilon.",
+      "The reasoning explicitly relates that magnitude to the stated tolerance and concludes that the tolerance will or will not be met."
+    ],
+    "exclusion_conditions": [
+      "The reasoning asserts correctness or equivalence without deriving or bounding any error magnitude.",
+      "The quantified quantity concerns something other than numerical accuracy, such as runtime, memory, or cost.",
+      "The error magnitude is only taken from an already reported measurement rather than derived or estimated for the proposed computation."
+    ]
+  },
+  {
+    "name": "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+    "definition": "The reasoning estimates the time or resource cost of one or more implementations, operations, or commands from operation counts, data sizes, conversion overhead, or algorithmic complexity, and uses that estimate to judge whether a performance requirement will be met or to choose how a command should be executed.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text containing the cost, operation-count, or duration estimate and the judgement or execution decision drawn from it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning gives a quantitative cost, operation-count, or duration estimate for at least one implementation, operation, or command, before the corresponding outcome is observed.",
+      "The estimate is used either to conclude that a performance requirement will be met or violated, or to decide how a command should be executed, such as its expected duration, timeout, or background execution."
+    ],
+    "exclusion_conditions": [
+      "The reasoning names a performance requirement without estimating any cost or duration.",
+      "The estimate concerns numerical accuracy or correctness rather than time or resource cost.",
+      "The estimate is stated but no performance judgement or execution decision is drawn from it."
+    ]
+  },
+  {
+    "name": "MIRRORS_REFERENCE_OPERATION_ORDER",
+    "definition": "The reasoning deliberately adopts the evaluation or accumulation order of a reference implementation exposed by an observation, so that the new implementation reproduces the reference's numerical results within the required tolerance.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text stating that the new computation follows the reference implementation's order of operations in order to match its results."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation containing the reference implementation or its computational procedure, whose operation order can be identified."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains an implementation or computational procedure whose sequence of operations can be identified.",
+      "The reasoning explicitly states that the new computation reproduces that same order or sequence of operations.",
+      "The reasoning links the adopted order to matching the reference results within the required tolerance."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only states that results must match, without any reference to reproducing the reference's operation order.",
+      "The referenced content does not describe an implementation or computational procedure.",
+      "The reasoning selects a materially different order for speed or convenience without claiming to reproduce the reference's results through it."
+    ]
+  },
+  {
+    "name": "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE",
+    "definition": "A write action supplies the missing bodies of an artifact whose observed skeleton contains explicit unfilled placeholders together with declared interface elements, while preserving those declared names, signatures, and interface contract.",
+    "parameters": [
+      {
+        "name": "implementation_action",
+        "type": "action",
+        "description": "The write action producing the filled-in implementation of the skeleton artifact."
+      },
+      {
+        "name": "skeleton_observation",
+        "type": "observation",
+        "description": "The observation showing the artifact with explicit unfilled placeholders and its declared interface elements."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation shows an artifact containing explicit unfilled placeholders or stub bodies together with declared interface elements such as function names, argument order, entry points, or module name.",
+      "The action writes content that supplies those missing bodies while retaining the declared interface elements."
+    ],
+    "exclusion_conditions": [
+      "The action creates a wholly new artifact for which no declared interface was observed.",
+      "The action only reads, inspects, or builds the artifact without supplying the missing bodies.",
+      "The action replaces the declared interface elements with a different interface rather than implementing them."
+    ]
+  },
+  {
+    "name": "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE",
+    "definition": "The reasoning states a tolerance within which candidate outputs must match an independent reference implementation; the action evaluates candidate and reference computations on identical inputs; and the observation reports quantified deviations or explicit equality that can be judged against that tolerance.",
+    "parameters": [
+      {
+        "name": "tolerance_reasoning",
+        "type": "reasoning",
+        "description": "The agent text stating the required equivalence or tolerance that candidate outputs must meet relative to the reference implementation."
+      },
+      {
+        "name": "comparison_action",
+        "type": "action",
+        "description": "The action that runs both the candidate and the reference computation on the same inputs and obtains their differences."
+      },
+      {
+        "name": "deviation_observation",
+        "type": "observation",
+        "description": "The observation reporting the quantified differences or explicit equality between candidate and reference outputs."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states a tolerance or equivalence requirement for matching the outputs of an independent reference implementation.",
+      "The action evaluates both the candidate and the reference on identical inputs within the same check.",
+      "The observation reports quantified deviations or explicit equality for the compared quantities, sufficient to judge compliance with the stated tolerance."
+    ],
+    "exclusion_conditions": [
+      "The action runs only the candidate implementation, with no reference computation in the same check.",
+      "The observation reports only an unquantified pass or fail without comparison to reference outputs.",
+      "The comparison uses an absolute expected value rather than an independently computed reference result.",
+      "The reference side merely reuses the candidate's own computation path, so agreement is not informative."
+    ]
+  },
+  {
+    "name": "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION",
+    "definition": "The reasoning orders verification into two tiers, deciding that a fast reduced-scale check is performed first while the expensive full-scale validation is deferred until after that probe, and the corresponding actions execute the reduced check followed by the complete required workload.",
+    "parameters": [
+      {
+        "name": "sequencing_reasoning",
+        "type": "reasoning",
+        "description": "The agent text expressing the intent to run a quick reduced check before the full or expensive validation."
+      },
+      {
+        "name": "precursor_check_action",
+        "type": "action",
+        "description": "The action executing the reduced or small-scale check."
+      },
+      {
+        "name": "full_validation_action",
+        "type": "action",
+        "description": "The action executing the complete, expensive, required workload after the precursor check."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning expresses the intent to perform a quick or small-scale check before the full or expensive validation.",
+      "The precursor action exercises a reduced or small-scale case rather than the complete required workload.",
+      "The full validation action exercises the complete required workload and occurs after the precursor action."
+    ],
+    "exclusion_conditions": [
+      "Only one of the two verification steps is performed.",
+      "The first action already exercises the full workload rather than a reduced case.",
+      "The reasoning does not order the checks by cost or scale.",
+      "The precursor check and the full validation are not linked as stages of the same verification effort."
+    ]
+  },
+  {
+    "name": "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES",
+    "definition": "The reasoning identifies input conditions or variations that the stated requirements and given test harness do not exercise, and commits to verifying them in order to reduce the risk of undetected failure.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text naming extra input variations and stating the intention to test them for additional assurance."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names at least one concrete input variation not exercised by the stated test harness, such as a size edge case, an alternative memory layout, an alternative data type, a malformed input, or an alternative invocation interface.",
+      "The reasoning states that these additional checks will be performed to gain assurance beyond the required tests."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only repeats the tests required by the task specification.",
+      "Additional checks are mentioned without identifying any concrete input variation to be exercised.",
+      "The extra activity substitutes for required verification rather than extending it, with no additional assurance motive stated."
+    ]
+  },
+  {
+    "name": "IDENTIFIES_PERFORMANCE_BOTTLENECK",
+    "definition": "The reasoning localizes the dominant share of a measured runtime to a specific stage, component, or operation in the execution pipeline, using timing evidence, and presents that localization as the reason to optimize or redesign that stage.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text attributing most of the measured runtime to a specific stage or component and motivating optimization of it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning references a measured runtime, timing breakdown, or comparable quantitative performance evidence.",
+      "The reasoning attributes the dominant cost to an identifiable stage, component, or operation rather than to the system as a whole.",
+      "The reasoning presents the identified bottleneck as the reason to redesign or optimize that stage."
+    ],
+    "exclusion_conditions": [
+      "The reasoning states only that performance is inadequate without locating a dominant cost.",
+      "The reasoning proposes optimizations unrelated to any identified cost contributor.",
+      "The timing evidence is used only to check a threshold, with no stage or component singled out as the dominant cost."
+    ]
+  },
+  {
+    "name": "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA",
+    "definition": "The reasoning identifies one or more plausible checks, usage patterns, or evaluation scenarios that an external evaluator, hidden test harness, or checker might apply even though the task specification does not state them, and assesses whether the current solution already satisfies or would survive them.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "Agent text that names unstated evaluation scenarios an external checker might exercise and assesses the solution's robustness against them."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names at least one specific check, usage pattern, or scenario that is not stated in the provided task requirements.",
+      "The reasoning treats that scenario as a condition an external evaluator or checker might impose on the solution, and assesses whether the solution already handles it or would survive it."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only restates or addresses checks that are explicitly required by the task specification.",
+      "The reasoning merely reports results of checks already executed without hypothesizing an unstated external check.",
+      "The reasoning describes hypothetical environment or user behaviors without connecting them to evaluation or acceptance of the solution.",
+      "The reasoning enumerates a concrete additional input variation and commits to verifying it, rather than assessing robustness against an unstated evaluator check."
+    ]
+  },
+  {
+    "name": "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION",
+    "definition": "A previously stated expectation, hypothesis, or interpretation is replaced or corrected after an observation reports a result incompatible with it, with the revised reasoning explicitly incorporating that contradictory evidence as the reason for the change.",
+    "parameters": [
+      {
+        "name": "prior_reasoning",
+        "type": "reasoning",
+        "description": "The earlier reasoning node stating the expectation, hypothesis, or interpretation that is being revised."
+      },
+      {
+        "name": "contradicting_observation",
+        "type": "observation",
+        "description": "The observation reporting a result, error, or measured value that does not match the prior expectation."
+      },
+      {
+        "name": "revised_reasoning",
+        "type": "reasoning",
+        "description": "The later reasoning node that corrects or replaces the prior expectation in light of the contradicting observation."
+      }
+    ],
+    "assertion_conditions": [
+      "The prior reasoning asserts a specific expectation, hypothesis, structural assumption, or interpretation that is identifiable.",
+      "The observation reports a result or error that is incompatible with that prior expectation.",
+      "The revised reasoning changes or corrects the prior expectation and refers to the conflicting result as the reason for the change."
+    ],
+    "exclusion_conditions": [
+      "No prior expectation or hypothesis is identifiable in the earlier reasoning.",
+      "The observation adds information without contradicting the prior expectation.",
+      "The revision is unrelated to the observed evidence, or the prior expectation is merely restated unchanged.",
+      "The earlier statement is only a plan of action rather than an expectation or interpretation that could be contradicted."
+    ]
+  },
+  {
+    "name": "DERIVES_DECISION_FROM_MEASURED_RESULT",
+    "definition": "The reasoning uses quantitative results reported in an observation to compare candidate options or configurations and select or endorse the one with the more favorable measured outcome, or to establish a measured baseline that a subsequent choice or target must improve upon.",
+    "parameters": [
+      {
+        "name": "decision_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that compares measured values and makes or endorses a selection, or fixes a numeric baseline for subsequent action."
+      },
+      {
+        "name": "measurement_observation",
+        "type": "observation",
+        "description": "The observation reporting the measured values used in the comparison or baseline."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports measured quantities, such as metrics, losses, counts, or comparable numeric outcomes, for at least two candidate options or for a quantity used as a baseline.",
+      "The reasoning compares or reuses those quantities to select or endorse a candidate option or to fix a numerical baseline or target for subsequent action."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only repeats the measured numbers without using them to select, endorse, or set a baseline.",
+      "The observation contains no measurement relevant to the decision or baseline.",
+      "The reasoning selects among options using only qualitative considerations with no measured comparison.",
+      "The measurement is used only to check compliance with an already stated external threshold, with no selection among candidates and no baseline derivation."
+    ]
+  }
+]

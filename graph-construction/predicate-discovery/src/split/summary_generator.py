@@ -37,13 +37,15 @@ class SummaryGenerator:
             f'{kind}_trajectory': serialize_events(events),
             f'max_{kind}_summary_tokens': str(max_tokens),
         }
-        rendered = self._prompt(kind, 'user')
-        for key, value in values.items():
-            rendered = rendered.replace('{{' + key + '}}', value)
-        unresolved = re.findall(r'{{[^{}]+}}', rendered)
-        if unresolved:
-            raise SummaryError(f'Unresolved prompt placeholders: {unresolved}')
-        return rendered
+        template = self._prompt(kind, 'user')
+
+        def substitute(match):
+            key = match.group(1)
+            if key not in values:
+                raise SummaryError(f'Unknown summary prompt placeholder: {key}')
+            return values[key]
+
+        return re.sub(r'{{([^{}]+)}}', substitute, template)
 
     def _render_retry(self, validation_error, previous_response):
         values = {

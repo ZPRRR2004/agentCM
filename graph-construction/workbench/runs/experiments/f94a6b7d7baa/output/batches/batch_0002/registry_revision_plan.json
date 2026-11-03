@@ -1,0 +1,292 @@
+{
+  "revisions": [
+    {
+      "original_name": "PLANS_NEXT_ACTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IDENTIFIES_DEFECT_FROM_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "FORMULATES_CORRECTIVE_SOLUTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CHECKS_PREREQUISITE_AVAILABILITY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "TESTS_ASSUMPTION_WITH_PROBE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_FAILURE_CAUSE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IDENTIFIES_MISSING_PREREQUISITE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONFIGURES_EVENT_TRIGGERED_AUTOMATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "MITIGATES_ANTICIPATED_FAILURE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENUMERATES_REQUIRED_END_STATE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IMPLEMENTS_GUARDED_RECOVERY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DISMISSES_ANOMALY_AS_BENIGN",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "REPRODUCES_STIPULATED_WORKFLOW",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "AUDITS_MULTIPLE_INVARIANTS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DETECTS_OBSERVED_DATA_INCONSISTENCY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DECOMPOSES_TASK_INTO_SUBGOALS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "REMEDIES_MISSING_CAPABILITY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONCLUDES_WITH_FINAL_ANSWER",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENUMERATES_COMPETING_EXPLANATIONS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_TARGET_AMONG_CANDIDATES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_ROOT_CAUSE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PLANS_POST_ACTION_VERIFICATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DERIVES_EXACTNESS_CONSTRAINT_FROM_MEASUREMENT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RECOGNIZES_ANOMALY_IN_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "INTERPRETS_NEGATIVE_RESULT_AS_EXPECTED_STATE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ACKNOWLEDGES_RECURRING_OWN_ERROR",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "LAUNCHES_PROCESS_ASYNCHRONOUSLY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "REVEALS_UNAVAILABLE_CAPABILITY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_EFFECT_OF_PRIOR_ACTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ASSESSES_REQUIREMENT_COMPLETION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IDENTIFIES_ERROR_PITFALL",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_CONFLICTING_INFORMATION_SOURCES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IDENTIFIES_CONFORMANCE_RISK",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENFORCES_OUTPUT_SCOPE_CONSTRAINT",
+      "operation": "KEEP"
+    }
+  ]
+}

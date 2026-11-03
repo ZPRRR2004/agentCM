@@ -1,0 +1,326 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__git-multibranch__window_0003.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-flash",
+  "succeeded": true,
+  "completed_at": "2026-11-03T11:19:51.824237+00:00",
+  "duration_seconds": 35.093,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-03T11:19:16.727027+00:00",
+      "duration_seconds": 35.093,
+      "raw_response": {
+        "id": "387537ce-5606-4350-836c-30877614da58",
+        "object": "chat.completion",
+        "created": 1793704760,
+        "model": "deepseek-flash",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of actions that the agent intends to carry out next.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one action the agent intends to perform next.\", \"The intention concerns future work rather than only reporting what has already happened.\"], \"exclusion_conditions\": [\"The reasoning only summarizes completed actions or observations without stating a future intention.\", \"The reasoning only restates the task description with no commitment to a next step.\"]}, {\"name\": \"DIAGNOSES_OBSERVED_FAILURE\", \"definition\": \"The reasoning explains the causal reason for a failure, error, or anomalous result reported in observations, identifying the mechanism that produced the unwanted outcome.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text assigning a cause to the observed failure or anomaly.\"}], \"assertion_conditions\": [\"The reasoning refers to an observed failure, error message, or anomalous result.\", \"The reasoning states a specific cause or explanatory mechanism for that failure rather than merely noting that it happened.\"], \"exclusion_conditions\": [\"The reasoning merely restates the error text without explaining its cause.\", \"The reasoning discusses a failure only as a hypothetical possibility that has not been observed.\"]}, {\"name\": \"ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS\", \"definition\": \"The reasoning enumerates multiple hypothetical behaviors of an external actor or environment and selects the configuration or state that remains correct under every enumerated hypothesis.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating alternative hypothetical scenarios and comparing the validity of candidate states across them.\"}], \"assertion_conditions\": [\"The reasoning describes at least two distinct hypothetical scenarios or procedures that an external actor might follow.\", \"The reasoning evaluates which candidate state or action stays valid across those scenarios and favors the option that survives the most or all of them.\"], \"exclusion_conditions\": [\"The reasoning considers only a single expected scenario.\", \"The reasoning lists scenarios without drawing any comparative conclusion about which state to adopt.\"]}, {\"name\": \"ACKNOWLEDGES_RECURRING_OWN_ERROR\", \"definition\": \"The reasoning recognizes that the agent itself has repeatedly made the same mistake and imposes a corrective self-instruction to avoid it in the next action.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text noting the repeated nature of its own mistake and stating the corrective rule it will follow.\"}], \"assertion_conditions\": [\"The reasoning identifies a mistake attributable to the agent's own prior actions.\", \"The reasoning explicitly notes that the mistake has recurred or is a recurring pattern.\", \"The reasoning states a concrete corrective commitment for the upcoming action.\"], \"exclusion_conditions\": [\"The reasoning describes a first-time mistake without indicating recurrence.\", \"The reasoning attributes the failure to the environment or external actor rather than to its own recurring behavior.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion using identifiable information from a prior observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion supported by identifiable content from the observation.\", \"The observation contributes evidential support to the stated conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats the observation without drawing a conclusion.\", \"The observation is unrelated to the conclusion or provides no identifiable support.\"]}, {\"name\": \"PREDICTS_OBSERVED_OUTCOME\", \"definition\": \"The reasoning states in advance a specific expected observable result of a forthcoming action, and the observation reports exactly that expected result.\", \"parameters\": [{\"name\": \"prediction_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the expected observable result before it is obtained.\"}, {\"name\": \"confirming_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the result that matches the stated expectation.\"}], \"assertion_conditions\": [\"The reasoning formulates a concrete expectation about a future observation, not merely a general hope.\", \"The observation contains the specific result anticipated by the reasoning.\", \"The temporal order is reasoning first, observation afterwards.\"], \"exclusion_conditions\": [\"The reasoning is produced after the observation and only interprets it.\", \"The observation differs from or does not address the expectation stated in the reasoning.\", \"The expectation is too vague to be matched against the observation.\"]}, {\"name\": \"ADDRESSES_ERROR_WITH_CORRECTED_RETRY\", \"definition\": \"An action re-executes a previously failed operation after modifying the specific element that the error observation identified as the cause of failure.\", \"parameters\": [{\"name\": \"error_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that the earlier attempt failed and indicating the defective element.\"}, {\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The action repeating the operation with the identified defect corrected.\"}], \"assertion_conditions\": [\"The observation reports a failure or validation error of a prior attempt at the same operation.\", \"The retry action performs the same operation while supplying or changing the element named in the error.\", \"The error observation precedes the retry action.\"], \"exclusion_conditions\": [\"The retry action repeats the operation unchanged, or changes an element unrelated to the reported error.\", \"The prior attempt did not fail, or the retry targets a different operation.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action tests an uncertainty about system behavior identified in reasoning, and the resulting observation provides interpretable evidence that resolves that uncertainty.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test of the uncertain behavior.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the specific uncertainty or assumption being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the behavior relevant to the tested uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific uncertainty or assumption about how something behaves.\", \"The action is designed to elicit that behavior in isolation.\", \"The observation reports a result interpretable as supporting or refuting the assumption.\"], \"exclusion_conditions\": [\"No identifiable uncertainty motivates the action.\", \"The action exercises the whole system rather than isolating the questioned behavior.\", \"The observation does not address the assumption being tested.\"]}, {\"name\": \"VERIFIES_REQUIREMENT_WITH_END_TO_END_EXECUTION\", \"definition\": \"The reasoning states the acceptance outcomes expected from the delivered system, a single execution exercises the complete user-facing flow, and the observation reports each expected outcome together with completion evidence.\", \"parameters\": [{\"name\": \"acceptance_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the end-to-end flow to be exercised and the outcomes each step must produce.\"}, {\"name\": \"execution_action\", \"type\": \"action\", \"description\": \"The action running the complete end-to-end flow in one execution.\"}, {\"name\": \"outcome_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the produced outputs for every step of the flow.\"}], \"assertion_conditions\": [\"The reasoning specifies the full sequence of user-facing steps and the output each step must yield.\", \"The execution action exercises the whole sequence rather than an isolated component.\", \"The observation reports the produced output for each expected outcome, allowing direct comparison with the stated expectations.\"], \"exclusion_conditions\": [\"The reasoning states only a general goal without checkable expected outcomes.\", \"The execution covers only a fragment of the user-facing flow.\", \"The observation omits the outputs required for the comparison.\"]}, {\"name\": \"SELECTS_ACTION_FORM_TO_SATISFY_CONSTRAINT\", \"definition\": \"The reasoning invokes an operating constraint that forbids a direct form of action and selects an alternative compliant form, and the action implements that compliant form.\", \"parameters\": [{\"name\": \"constraint_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning citing the constraint and choosing the compliant alternative form of action.\"}, {\"name\": \"compliant_action\", \"type\": \"action\", \"description\": \"The action carried out in the alternative form permitted by the constraint.\"}], \"assertion_conditions\": [\"The reasoning names a rule or constraint that restricts how the operation may be performed.\", \"The reasoning selects a different form of action because of that restriction.\", \"The action instantiates the selected compliant form.\"], \"exclusion_conditions\": [\"The reasoning selects an action form for efficiency or convenience without citing a restricting rule.\", \"The action does not correspond to the form chosen in the reasoning.\"]}, {\"name\": \"RESTORES_PRISTINE_STATE_FOR_EXTERNAL_EVALUATION\", \"definition\": \"The reasoning decides to return the system to its initial empty state because an external evaluator is expected to build that state itself, an action deletes the accumulated artifacts, and an observation confirms the state is empty.\", \"parameters\": [{\"name\": \"reset_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning deciding which residual state must be removed because the evaluator will create its own.\"}, {\"name\": \"reset_action\", \"type\": \"action\", \"description\": \"The action removing the accumulated refs, files, or objects.\"}, {\"name\": \"reset_observation\", \"type\": \"observation\", \"description\": \"The observation confirming that no residual artifacts remain.\"}], \"assertion_conditions\": [\"The reasoning argues that leftover state created during testing could conflict with the evaluator's own setup steps.\", \"The action removes the artifacts produced by the agent's own verification activity.\", \"The observation shows that the corresponding state is now empty.\"], \"exclusion_conditions\": [\"The reasoning removes state for tidiness without reference to a future external evaluation.\", \"The observation shows residual artifacts still present.\", \"The deleted state is part of the required deliverable rather than test residue.\"]}]}",
+              "reasoning_content": "Let me analyze the trajectory to discover reusable predicates.\n\nKey mechanisms observed:\n\n1. Tool call with missing required parameter → validation error → agent corrects by re-invoking with the parameter. Event 0020 action-1 (write missing path) → observation-1 error; event 0021 reasoning \"I forgot the path parameter again\" → action-1 with path. This is a mechanism: invalid action corrected by retry.\n\n2. Reasoning identifies a possible failure mode (edge case: `git checkout -b main` on empty clone) and plans a probe action; action performs the test; observation reports the behavior. That's the hypothesis-testing ternary: reasoning states uncertainty about git behavior, action tests it, observation resolves it. Event 0023/0025.\n\n3. Reasoning predicting an outcome in advance and observation confirming: event 0020 reasoning predicts curl outputs; event 0022 observation shows them. That's a prediction-confirmation relation (forecast verification).\n\n4. Failure observation → diagnosis reasoning explaining why it failed (event 0024 observation of failed clone → event 0025 reasoning explains missing GIT_SSH_COMMAND / no password). Diagnostic reasoning grounded in failure evidence.\n\n5. Observation including error → agent revises approach (strategy revision / corrective action). Event 0023 observation (dubious ownership?) Actually event 0026 observation shows \"dubious ownership\" errors → event 0027 reasoning explains and changes approach (run as git user). That's: failure observation triggers root-cause reasoning and revised corrective action.\n\n6. Reasoning justifying a state choice based on risk analysis of possible verifier behaviors (event 0023/0026 long analysis) — that's decision/planning. Could be a unary predicate: RISK_ANALYSIS / anticipates-alternative-test-procedures.\n\n7. Event 0029 observation: push failed due to host key verification; timing output garbage. Event 0030 reasoning diagnoses \"GIT_SSH_COMMAND not set in new shell\" → retries with inline env; observation confirms update deployed and timing 215ms.\n\n8. Verification: action executes end-to-end test; observation confirms expected outputs; reasoning concludes success. Ternary: verification action + expected criteria in reasoning + observation confirming. Event 0022/0028.\n\nLet me define a set of predicates.\n\nCandidate list:\n\nUnary:\n- IS_PLAN (already example, but supported? event 0022 reasoning \"Let's run the end-to-end test\" — expresses intended future action). Yes, supported.\n- IS_FAILURE_DIAGNOSIS: reasoning explains the cause of an observed failure. Supported by 0025, 0027, 0030.\n- IS_RISK_ANALYSIS? Reasoning enumerates alternative possible procedures/outcomes and assesses risk to choose a safest state. Events 0023, 0026. Could name ANTICIPATES_ALTERNATIVE_OUTCOMES. Maybe worth including as it's a distinct mechanism: evaluating hypothetical verifier behaviors to choose a robust configuration state. Hmm, it's a distinct reasoning role but might be considered generic. I think it's justified: reasoning enumerates multiple hypothetical external behaviors and selects the option that remains valid under all of them. Name: EVALUATES_ROBUSTNESS_ACROSS_SCENARIOS or REASONING_ANTICIPATES_ALTERNATIVE_TEST_BEHAVIORS. I'll include one.\n\nBinary:\n- GROUNDS_CONCLUSION_IN_OBSERVATION (example). Supported: 0022 observation → 0023 reasoning conclusion \"test passed\". Also 0030 observation → 0031? No reasoning after 0030 in window; summary says declared complete. Event 0022 obs → 0023 reasoning conclusion. Yes.\n- DIAGNOSES_FAILURE_IN_OBSERVATION: reasoning explains root cause of an error reported in observation. Binary reasoning+observation. Supported: 0025 (obs 0024 clone fail) — actually 0024's observation was success exit=0... let's map: 0023 observation failed clone → 0024 reasoning \"The clone failed! ... what changed?\" hmm 0024 reasoning hypothesizes. Then 0025 reasoning explains: \"when I explicitly specify GIT_SSH_COMMAND, the clone succeeds... without password authentication it fails\". That's diagnosis grounded in observations 0023 (error) and 0024 (success). So binary DIAGNOSES with observation.\n- CORRECTS_PRIOR_ACTION_WITH_MODIFIED_RETRY: action after failure observation retries with corrected parameters. Binary action+observation? Or ternary: failed_action? Structural edges only give returns; using a failed observation from prior event. I'd define: RESOLVES_ACTION_ERROR_WITH_CORRECTED_RETRY(retry_action, error_observation) — the retry action re-executes the same operation with the parameter fixed, addressing the specific validation error. Supported: 0020 observation (write missing path) → 0021 action (write with path). Also 0029 observation failure → 0030 action retry with env inline.\n\nDistinguish: correction of malformed invocation (missing required argument) vs correction of environmental precondition (env var not set). Same mechanism: retry action addresses cause identified in error observation. Could keep single predicate ADDRESSES_PRIOR_ERROR_WITH_CORRECTED_RETRY.\n\nTernary:\n- TESTS_ASSUMPTION_WITH_PROBE: 0023 reasoning (\"I need to know how git checkout -b main behaves\") → action 0023-1 or 0025-1 → observation 0025-1 \"fatal: a branch named 'main' already exists\". Yes. Good.\n- VERIFIES_REQUIREMENT_WITH_END_TO_END_EXECUTION: reasoning states expected acceptance outcomes, action runs full end-to-end script, observation shows all expected outputs including timing. Ternary (reasoning, action, observation). Supported by 0020/0022 and 0023-pre/0028. Hmm 0020 reasoning states expected curl outputs; 0022 action runs; 0022 observation confirms.\n\n- ENSURES_CLEAN_INITIAL_STATE... that's operational.\n\nMaybe also: PREDICTS_OUTCOME_CONFIRMED_BY_OBSERVATION (binary reasoning+observation). Supported: 0020 reasoning predicts \"curl → main branch content\"; 0022 obs shows that. Also 0029. Could be binary: reasoning states expected observable result, observation matches. Distinguishable from generic grounding? Grounding is observation→conclusion; prediction is reasoning→expectation confirmed by observation. I'll include PREDICTS_OBSERVED_OUTCOME as binary.\n\nCareful about overlapping: VERIFIES_REQUIREMENT_WITH_END_TO_END_EXECUTION is ternary with action; PREDICTS_OBSERVED_OUTCOME binary avoiding action. Distinct enough.\n\nAlso: hook deployment triggered by push — task-specific, skip.\n\nAnother: EXPLAINS_UNEXPECTED_TIMING_MISMEASUREMENT? Event 0030 reasoning notes timing calculation garbage. Part of diagnosis.\n\nAlso: \"RECOGNIZES_REPEATED_MISTAKE\" — event 0021 \"I forgot the path parameter again. This keeps happening\". Could be unary reasoning flagging a recurring self-error pattern motivating heightened care. Might be a valid unary: SELF_CORRECTIVE_AWARENESS. Hmm—maybe too fine. It is a distinguishable mechanism (identifying a repeated own failure pattern and imposing a constraint). I could include as unary: ACKNOWLEDGES_RECURRING_SELF_ERROR. I'll include maybe. It might be judged incidental. Let's consider granularity policy: prefer mechanisms. Acknowledging recurring self-error is arguably a mechanism of self-monitoring. I'll include but keep it well-defined... Risk of being seen as over-specific. I'll include it since evidence is clear (\"This keeps happening—I need to be careful to always include `path`\").\n\nAlso: choosing to write script file rather than inline multi-line command due to constraint \"Never embed multi-line source code inside a bash command\" — reasoning applies a rule/constraint to choose an action form. That's a mechanism: CONSTRAINT_COMPLIANT_ACTION_SELECTION (reasoning, action). Supported by 0020 reasoning (\"to be safe I'll write it as a script file ... write the test script\") → 0020 action write. Also 0021. Hmm, the constraint reasoning is in 0020 reasoning (overlap node). Predicate: action chosen to comply with a stated operational constraint in reasoning. Distinguishable from planning? Planning is generic intention; this is constraint-driven method selection. I think include as binary: SELECTS_ACTION_FORM_TO_SATISFY_CONSTRAINT. Maybe. Keep it; it's supported by clear evidence.\n\nAlso: state reset to pristine — \"restores system to initial state for verifier\". Ternary? reasoning 0026 decides to reset → action 0026/0027 cleanup → observation 0027 no refs. Mechanism: resetting environment to a pristine state because external verification will start from that state. Could be a predicate: PREPARES_PRISTINE_STATE_FOR_EXTERNAL_EVALUATION(reasoning, action, observation). Hmm, that's a bit specific but has clear mechanism (idempotent reset for reproducibility). I'll consider including; maybe safer to skip to avoid task-specific. But it generalizes: restoring state that a future external test assumes. I'd include it as it's a distinct decision mechanism.\n\nLet me limit to a coherent set:\n\n1. IS_PLAN (unary reasoning)\n2. DIAGNOSES_OBSERVED_FAILURE (unary reasoning) — reasoning identifies cause for failure reported in observations.\n3. EVALUATES_ALTERNATIVE_EXTERNAL_SCENARIOS (unary reasoning) — enumerates hypothetical behaviors of an external actor and picks an option valid across them. Name: ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS.\n4. ACKNOWLEDGES_RECURRING_OWN_ERROR (unary reasoning).\n5. GROUNDS_CONCLUSION_IN_OBSERVATION (binary: reasoning, observation).\n6. PREDICTS_OBSERVED_OUTCOME (binary: reasoning, observation).\n7. ADDRESSES_ERROR_WITH_CORRECTED_RETRY (binary: action, observation).\n8. TESTS_ASSUMPTION_WITH_PROBE (ternary).\n9. VERIFIES_REQUIREMENT_WITH_END_TO_END_EXECUTION (ternary).\n10. SELECTS_ACTION_FORM_TO_SATISFY_CONSTRAINT (binary reasoning-action).\n\nMaybe also RESTORES_PRISTINE_STATE_FOR_VERIFICATION ternary. I'll include as (reasoning, action, observation). Hmm, arity 3: reasoning decides, action resets state, observation confirms empty. It's fine.\n\nOrder of parameters must be explicit ordered. Let's finalize with careful conditions.\n\nFor #7, parameters: action (retry), observation (error). Order? Put retry_action first, then error_observation. Actually maybe error_observation first then retry? Contract says preserve parameter roles and ordering. I'll do (error_observation, retry_action)? The example TESTS puts probe_action first. I'll do (retry_action, error_observation) — the action follows the observation temporally? The observation precedes. I'll order (error_observation, retry_action) to reflect causality order. Fine.\n\nFor #9: (verification_reasoning, verification_action, verification_observation).\n\nLet me also double-check #6 vs #5 distinguishability: #5: observation → reasoning conclusion (post-hoc). #6: reasoning → expected outcome matched by observation (prospective). Distinguishable case: 0022 obs confirms 0020 prediction → #6 holds, #5? The reasoning in 0022 has no conclusion... Actually the conclusion is in 0023. So distinct pairs. Good.\n\nLet me write the JSON.\n\nEnsure definitions English, five fields.\n\nWrite it out.\n\nFor #3, define: reasoning enumerates two or more hypothetical behaviors of an external evaluator or environment and chooses the state/action that remains correct under every enumerated hypothesis. Evidence 0023/0026.\n\nFor #10: SELECTS_ACTION_FORM_TO_SATISFY_CONSTRAINT: reasoning cites an operating constraint/rule that prohibits a direct form of action and selects a compliant alternative form; the action implements the compliant form. Evidence: 0020 reasoning \"Never embed multi-line source code inside a bash command ... to be safe I'll write it as a script file\" → action write test script to path. Note the action failed first due to missing path, then 0021 retried. The compliant-form selection still holds for 0021. Good.\n\nInclude also possibly \"RECOGNIZES_MISSING_REQUIRED_ARGUMENT\"? Covered by #4 and #7.\n\nLet me write.\n\nAlso add exclusion conditions properly.\n\nFinal JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 16307,
+          "completion_tokens": 5041,
+          "total_tokens": 21348,
+          "prompt_tokens_details": {
+            "cached_tokens": 2176
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2760
+          },
+          "prompt_cache_hit_tokens": 2176,
+          "prompt_cache_miss_tokens": 14131
+        },
+        "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of actions that the agent intends to carry out next.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended future action or sequence of actions.\"}], \"assertion_conditions\": [\"The reasoning explicitly identifies at least one action the agent intends to perform next.\", \"The intention concerns future work rather than only reporting what has already happened.\"], \"exclusion_conditions\": [\"The reasoning only summarizes completed actions or observations without stating a future intention.\", \"The reasoning only restates the task description with no commitment to a next step.\"]}, {\"name\": \"DIAGNOSES_OBSERVED_FAILURE\", \"definition\": \"The reasoning explains the causal reason for a failure, error, or anomalous result reported in observations, identifying the mechanism that produced the unwanted outcome.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text assigning a cause to the observed failure or anomaly.\"}], \"assertion_conditions\": [\"The reasoning refers to an observed failure, error message, or anomalous result.\", \"The reasoning states a specific cause or explanatory mechanism for that failure rather than merely noting that it happened.\"], \"exclusion_conditions\": [\"The reasoning merely restates the error text without explaining its cause.\", \"The reasoning discusses a failure only as a hypothetical possibility that has not been observed.\"]}, {\"name\": \"ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS\", \"definition\": \"The reasoning enumerates multiple hypothetical behaviors of an external actor or environment and selects the configuration or state that remains correct under every enumerated hypothesis.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text enumerating alternative hypothetical scenarios and comparing the validity of candidate states across them.\"}], \"assertion_conditions\": [\"The reasoning describes at least two distinct hypothetical scenarios or procedures that an external actor might follow.\", \"The reasoning evaluates which candidate state or action stays valid across those scenarios and favors the option that survives the most or all of them.\"], \"exclusion_conditions\": [\"The reasoning considers only a single expected scenario.\", \"The reasoning lists scenarios without drawing any comparative conclusion about which state to adopt.\"]}, {\"name\": \"ACKNOWLEDGES_RECURRING_OWN_ERROR\", \"definition\": \"The reasoning recognizes that the agent itself has repeatedly made the same mistake and imposes a corrective self-instruction to avoid it in the next action.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text noting the repeated nature of its own mistake and stating the corrective rule it will follow.\"}], \"assertion_conditions\": [\"The reasoning identifies a mistake attributable to the agent's own prior actions.\", \"The reasoning explicitly notes that the mistake has recurred or is a recurring pattern.\", \"The reasoning states a concrete corrective commitment for the upcoming action.\"], \"exclusion_conditions\": [\"The reasoning describes a first-time mistake without indicating recurrence.\", \"The reasoning attributes the failure to the environment or external actor rather than to its own recurring behavior.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion using identifiable information from a prior observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion supported by identifiable content from the observation.\", \"The observation contributes evidential support to the stated conclusion.\"], \"exclusion_conditions\": [\"The reasoning merely repeats the observation without drawing a conclusion.\", \"The observation is unrelated to the conclusion or provides no identifiable support.\"]}, {\"name\": \"PREDICTS_OBSERVED_OUTCOME\", \"definition\": \"The reasoning states in advance a specific expected observable result of a forthcoming action, and the observation reports exactly that expected result.\", \"parameters\": [{\"name\": \"prediction_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the expected observable result before it is obtained.\"}, {\"name\": \"confirming_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the result that matches the stated expectation.\"}], \"assertion_conditions\": [\"The reasoning formulates a concrete expectation about a future observation, not merely a general hope.\", \"The observation contains the specific result anticipated by the reasoning.\", \"The temporal order is reasoning first, observation afterwards.\"], \"exclusion_conditions\": [\"The reasoning is produced after the observation and only interprets it.\", \"The observation differs from or does not address the expectation stated in the reasoning.\", \"The expectation is too vague to be matched against the observation.\"]}, {\"name\": \"ADDRESSES_ERROR_WITH_CORRECTED_RETRY\", \"definition\": \"An action re-executes a previously failed operation after modifying the specific element that the error observation identified as the cause of failure.\", \"parameters\": [{\"name\": \"error_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that the earlier attempt failed and indicating the defective element.\"}, {\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The action repeating the operation with the identified defect corrected.\"}], \"assertion_conditions\": [\"The observation reports a failure or validation error of a prior attempt at the same operation.\", \"The retry action performs the same operation while supplying or changing the element named in the error.\", \"The error observation precedes the retry action.\"], \"exclusion_conditions\": [\"The retry action repeats the operation unchanged, or changes an element unrelated to the reported error.\", \"The prior attempt did not fail, or the retry targets a different operation.\"]}, {\"name\": \"TESTS_ASSUMPTION_WITH_PROBE\", \"definition\": \"A targeted action tests an uncertainty about system behavior identified in reasoning, and the resulting observation provides interpretable evidence that resolves that uncertainty.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted test of the uncertain behavior.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning identifying the specific uncertainty or assumption being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the behavior relevant to the tested uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific uncertainty or assumption about how something behaves.\", \"The action is designed to elicit that behavior in isolation.\", \"The observation reports a result interpretable as supporting or refuting the assumption.\"], \"exclusion_conditions\": [\"No identifiable uncertainty motivates the action.\", \"The action exercises the whole system rather than isolating the questioned behavior.\", \"The observation does not address the assumption being tested.\"]}, {\"name\": \"VERIFIES_REQUIREMENT_WITH_END_TO_END_EXECUTION\", \"definition\": \"The reasoning states the acceptance outcomes expected from the delivered system, a single execution exercises the complete user-facing flow, and the observation reports each expected outcome together with completion evidence.\", \"parameters\": [{\"name\": \"acceptance_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning stating the end-to-end flow to be exercised and the outcomes each step must produce.\"}, {\"name\": \"execution_action\", \"type\": \"action\", \"description\": \"The action running the complete end-to-end flow in one execution.\"}, {\"name\": \"outcome_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the produced outputs for every step of the flow.\"}], \"assertion_conditions\": [\"The reasoning specifies the full sequence of user-facing steps and the output each step must yield.\", \"The execution action exercises the whole sequence rather than an isolated component.\", \"The observation reports the produced output for each expected outcome, allowing direct comparison with the stated expectations.\"], \"exclusion_conditions\": [\"The reasoning states only a general goal without checkable expected outcomes.\", \"The execution covers only a fragment of the user-facing flow.\", \"The observation omits the outputs required for the comparison.\"]}, {\"name\": \"SELECTS_ACTION_FORM_TO_SATISFY_CONSTRAINT\", \"definition\": \"The reasoning invokes an operating constraint that forbids a direct form of action and selects an alternative compliant form, and the action implements that compliant form.\", \"parameters\": [{\"name\": \"constraint_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning citing the constraint and choosing the compliant alternative form of action.\"}, {\"name\": \"compliant_action\", \"type\": \"action\", \"description\": \"The action carried out in the alternative form permitted by the constraint.\"}], \"assertion_conditions\": [\"The reasoning names a rule or constraint that restricts how the operation may be performed.\", \"The reasoning selects a different form of action because of that restriction.\", \"The action instantiates the selected compliant form.\"], \"exclusion_conditions\": [\"The reasoning selects an action form for efficiency or convenience without citing a restricting rule.\", \"The action does not correspond to the form chosen in the reasoning.\"]}, {\"name\": \"RESTORES_PRISTINE_STATE_FOR_EXTERNAL_EVALUATION\", \"definition\": \"The reasoning decides to return the system to its initial empty state because an external evaluator is expected to build that state itself, an action deletes the accumulated artifacts, and an observation confirms the state is empty.\", \"parameters\": [{\"name\": \"reset_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning deciding which residual state must be removed because the evaluator will create its own.\"}, {\"name\": \"reset_action\", \"type\": \"action\", \"description\": \"The action removing the accumulated refs, files, or objects.\"}, {\"name\": \"reset_observation\", \"type\": \"observation\", \"description\": \"The observation confirming that no residual artifacts remain.\"}], \"assertion_conditions\": [\"The reasoning argues that leftover state created during testing could conflict with the evaluator's own setup steps.\", \"The action removes the artifacts produced by the agent's own verification activity.\", \"The observation shows that the corresponding state is now empty.\"], \"exclusion_conditions\": [\"The reasoning removes state for tidiness without reference to a future external evaluation.\", \"The observation shows residual artifacts still present.\", \"The deleted state is part of the required deliverable rather than test residue.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or ordered sequence of actions that the agent intends to carry out next.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies at least one action the agent intends to perform next.",
+          "The intention concerns future work rather than only reporting what has already happened."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only summarizes completed actions or observations without stating a future intention.",
+          "The reasoning only restates the task description with no commitment to a next step."
+        ]
+      },
+      {
+        "name": "DIAGNOSES_OBSERVED_FAILURE",
+        "definition": "The reasoning explains the causal reason for a failure, error, or anomalous result reported in observations, identifying the mechanism that produced the unwanted outcome.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text assigning a cause to the observed failure or anomaly."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to an observed failure, error message, or anomalous result.",
+          "The reasoning states a specific cause or explanatory mechanism for that failure rather than merely noting that it happened."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely restates the error text without explaining its cause.",
+          "The reasoning discusses a failure only as a hypothetical possibility that has not been observed."
+        ]
+      },
+      {
+        "name": "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS",
+        "definition": "The reasoning enumerates multiple hypothetical behaviors of an external actor or environment and selects the configuration or state that remains correct under every enumerated hypothesis.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating alternative hypothetical scenarios and comparing the validity of candidate states across them."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning describes at least two distinct hypothetical scenarios or procedures that an external actor might follow.",
+          "The reasoning evaluates which candidate state or action stays valid across those scenarios and favors the option that survives the most or all of them."
+        ],
+        "exclusion_conditions": [
+          "The reasoning considers only a single expected scenario.",
+          "The reasoning lists scenarios without drawing any comparative conclusion about which state to adopt."
+        ]
+      },
+      {
+        "name": "ACKNOWLEDGES_RECURRING_OWN_ERROR",
+        "definition": "The reasoning recognizes that the agent itself has repeatedly made the same mistake and imposes a corrective self-instruction to avoid it in the next action.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text noting the repeated nature of its own mistake and stating the corrective rule it will follow."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a mistake attributable to the agent's own prior actions.",
+          "The reasoning explicitly notes that the mistake has recurred or is a recurring pattern.",
+          "The reasoning states a concrete corrective commitment for the upcoming action."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes a first-time mistake without indicating recurrence.",
+          "The reasoning attributes the failure to the environment or external actor rather than to its own recurring behavior."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion using identifiable information from a prior observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the evidence-based conclusion."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying evidence for that conclusion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion supported by identifiable content from the observation.",
+          "The observation contributes evidential support to the stated conclusion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats the observation without drawing a conclusion.",
+          "The observation is unrelated to the conclusion or provides no identifiable support."
+        ]
+      },
+      {
+        "name": "PREDICTS_OBSERVED_OUTCOME",
+        "definition": "The reasoning states in advance a specific expected observable result of a forthcoming action, and the observation reports exactly that expected result.",
+        "parameters": [
+          {
+            "name": "prediction_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the expected observable result before it is obtained."
+          },
+          {
+            "name": "confirming_observation",
+            "type": "observation",
+            "description": "The observation reporting the result that matches the stated expectation."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning formulates a concrete expectation about a future observation, not merely a general hope.",
+          "The observation contains the specific result anticipated by the reasoning.",
+          "The temporal order is reasoning first, observation afterwards."
+        ],
+        "exclusion_conditions": [
+          "The reasoning is produced after the observation and only interprets it.",
+          "The observation differs from or does not address the expectation stated in the reasoning.",
+          "The expectation is too vague to be matched against the observation."
+        ]
+      },
+      {
+        "name": "ADDRESSES_ERROR_WITH_CORRECTED_RETRY",
+        "definition": "An action re-executes a previously failed operation after modifying the specific element that the error observation identified as the cause of failure.",
+        "parameters": [
+          {
+            "name": "error_observation",
+            "type": "observation",
+            "description": "The observation reporting that the earlier attempt failed and indicating the defective element."
+          },
+          {
+            "name": "retry_action",
+            "type": "action",
+            "description": "The action repeating the operation with the identified defect corrected."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a failure or validation error of a prior attempt at the same operation.",
+          "The retry action performs the same operation while supplying or changing the element named in the error.",
+          "The error observation precedes the retry action."
+        ],
+        "exclusion_conditions": [
+          "The retry action repeats the operation unchanged, or changes an element unrelated to the reported error.",
+          "The prior attempt did not fail, or the retry targets a different operation."
+        ]
+      },
+      {
+        "name": "TESTS_ASSUMPTION_WITH_PROBE",
+        "definition": "A targeted action tests an uncertainty about system behavior identified in reasoning, and the resulting observation provides interpretable evidence that resolves that uncertainty.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action performing the targeted test of the uncertain behavior."
+          },
+          {
+            "name": "assumption_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying the specific uncertainty or assumption being tested."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the behavior relevant to the tested uncertainty."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific uncertainty or assumption about how something behaves.",
+          "The action is designed to elicit that behavior in isolation.",
+          "The observation reports a result interpretable as supporting or refuting the assumption."
+        ],
+        "exclusion_conditions": [
+          "No identifiable uncertainty motivates the action.",
+          "The action exercises the whole system rather than isolating the questioned behavior.",
+          "The observation does not address the assumption being tested."
+        ]
+      },
+      {
+        "name": "VERIFIES_REQUIREMENT_WITH_END_TO_END_EXECUTION",
+        "definition": "The reasoning states the acceptance outcomes expected from the delivered system, a single execution exercises the complete user-facing flow, and the observation reports each expected outcome together with completion evidence.",
+        "parameters": [
+          {
+            "name": "acceptance_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the end-to-end flow to be exercised and the outcomes each step must produce."
+          },
+          {
+            "name": "execution_action",
+            "type": "action",
+            "description": "The action running the complete end-to-end flow in one execution."
+          },
+          {
+            "name": "outcome_observation",
+            "type": "observation",
+            "description": "The observation reporting the produced outputs for every step of the flow."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning specifies the full sequence of user-facing steps and the output each step must yield.",
+          "The execution action exercises the whole sequence rather than an isolated component.",
+          "The observation reports the produced output for each expected outcome, allowing direct comparison with the stated expectations."
+        ],
+        "exclusion_conditions": [
+          "The reasoning states only a general goal without checkable expected outcomes.",
+          "The execution covers only a fragment of the user-facing flow.",
+          "The observation omits the outputs required for the comparison."
+        ]
+      },
+      {
+        "name": "SELECTS_ACTION_FORM_TO_SATISFY_CONSTRAINT",
+        "definition": "The reasoning invokes an operating constraint that forbids a direct form of action and selects an alternative compliant form, and the action implements that compliant form.",
+        "parameters": [
+          {
+            "name": "constraint_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning citing the constraint and choosing the compliant alternative form of action."
+          },
+          {
+            "name": "compliant_action",
+            "type": "action",
+            "description": "The action carried out in the alternative form permitted by the constraint."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a rule or constraint that restricts how the operation may be performed.",
+          "The reasoning selects a different form of action because of that restriction.",
+          "The action instantiates the selected compliant form."
+        ],
+        "exclusion_conditions": [
+          "The reasoning selects an action form for efficiency or convenience without citing a restricting rule.",
+          "The action does not correspond to the form chosen in the reasoning."
+        ]
+      },
+      {
+        "name": "RESTORES_PRISTINE_STATE_FOR_EXTERNAL_EVALUATION",
+        "definition": "The reasoning decides to return the system to its initial empty state because an external evaluator is expected to build that state itself, an action deletes the accumulated artifacts, and an observation confirms the state is empty.",
+        "parameters": [
+          {
+            "name": "reset_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning deciding which residual state must be removed because the evaluator will create its own."
+          },
+          {
+            "name": "reset_action",
+            "type": "action",
+            "description": "The action removing the accumulated refs, files, or objects."
+          },
+          {
+            "name": "reset_observation",
+            "type": "observation",
+            "description": "The observation confirming that no residual artifacts remain."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning argues that leftover state created during testing could conflict with the evaluator's own setup steps.",
+          "The action removes the artifacts produced by the agent's own verification activity.",
+          "The observation shows that the corresponding state is now empty."
+        ],
+        "exclusion_conditions": [
+          "The reasoning removes state for tidiness without reference to a future external evaluation.",
+          "The observation shows residual artifacts still present.",
+          "The deleted state is part of the required deliverable rather than test residue."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

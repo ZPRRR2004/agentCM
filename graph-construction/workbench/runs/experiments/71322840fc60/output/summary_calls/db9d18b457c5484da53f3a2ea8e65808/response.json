@@ -1,0 +1,28 @@
+{
+  "id": "03e0f383-de3d-4056-96ef-0ac263b482f9",
+  "object": "chat.completion",
+  "created": 1793692670,
+  "model": "deepseek-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Verified the custom access log format and log locations, found that plain `burst=10` delayed rather than rejected excess requests, added `nodelay` to `limit_req`, reloaded Nginx, confirmed 15×200/15×503 on a 30-request burst, and passed a final check of all 9 requirements with the server live on localhost:8080."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8134,
+    "completion_tokens": 80,
+    "total_tokens": 8214,
+    "prompt_tokens_details": {
+      "cached_tokens": 7936
+    },
+    "prompt_cache_hit_tokens": 7936,
+    "prompt_cache_miss_tokens": 198
+  },
+  "system_fingerprint": "bc19ba97cbe016479903222bb1578db6"
+}
