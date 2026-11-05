@@ -21,9 +21,11 @@ import {
   experimentTable,
   experimentNavigation,
   chart,
+  experimentKinds,
 } from "./core.js";
 import { preprocessDetail } from "./preprocessing.js";
 import { splitDetail } from "./splitting.js";
+import { clusteringDetail } from "./clustering.js";
 import {
   selectedData,
   datasetControls,
@@ -65,7 +67,7 @@ function experiments() {
         btn("新建实验", "new-experiment", "primary", "", "plus"),
       "EXPERIMENTS / RUN & COMPARE",
     ) +
-    `<div class="toolbar"><input class="search" id="experiment-search" value="${esc(state.experimentFilters.search)}" placeholder="搜索实验名称或模型…" aria-label="搜索实验"><select id="experiment-filter" aria-label="按数据集筛选实验"><option value="all">全部数据集</option>${state.datasets.map((d) => `<option value="${esc(d.id)}" ${state.experimentFilters.dataset === d.id ? 'selected' : ''}>${esc(d.name)}</option>`).join("")}</select><span class="spacer"></span><span class="refresh-indicator">${state.experiments.length} 条本地记录</span></div><section class="panel" id="experiment-list"></section>`;
+    `<div class="toolbar"><input class="search" id="experiment-search" value="${esc(state.experimentFilters.search)}" placeholder="搜索名称、类型、来源或模型…" aria-label="搜索实验"><select id="experiment-filter" aria-label="按数据集筛选实验"><option value="all">全部数据集 / 来源</option><option value="local-json" ${state.experimentFilters.dataset === 'local-json' ? 'selected' : ''}>本地 JSON</option>${state.datasets.map((d) => `<option value="${esc(d.id)}" ${state.experimentFilters.dataset === d.id ? 'selected' : ''}>${esc(d.name)}</option>`).join("")}</select><span class="spacer"></span><span class="refresh-indicator">${state.experiments.length} 条本地记录</span></div><section class="panel" id="experiment-list"></section>`;
   filterExperiments();
 }
 function filterExperiments() {
@@ -75,8 +77,8 @@ function filterExperiments() {
   $("#experiment-list").innerHTML = experimentTable(
     state.experiments.filter(
       (e) =>
-        (kind === "all" || kind === e.dataset_id) &&
-        (e.title + " " + (e.model || "")).toLowerCase().includes(term),
+        (kind === "all" || kind === e.dataset_id || (kind === 'local-json' && e.kind === 'clustering' && e.source.type === 'upload')) &&
+        [e.title, e.model || '', e.source_title || '', experimentKinds[e.kind] || '', e.kind].join(' ').toLowerCase().includes(term),
     ),
   );
 }
@@ -89,7 +91,9 @@ function experimentDetail(e) {
   const focusFollow = document.activeElement?.id === "execution-follow";
   if (e.kind === "preprocess") preprocessDetail(e);
   else if (e.kind === "split") splitDetail(e);
-  else predicateDetail(e);
+  else if (e.kind === "predicate") predicateDetail(e);
+  else if (e.kind === "clustering") clusteringDetail(e);
+  else { $("#main").innerHTML = empty('无法展示未知实验类型。'); return; }
   $("#main .cards").insertAdjacentHTML("afterend", executionConsole(e, follow));
   const log = $("#execution-output");
   log.scrollTop = follow ? log.scrollHeight : scrollTop;
@@ -116,7 +120,7 @@ function predicateDetail(e) {
       : item,
   );
   $("#main").innerHTML =
-    `<div class="experiment-detail">${experimentNavigation(e)}${head(e.title, "谓词定义发现 · " + e.dataset_name + " · 来源：" + e.source_title, `${e.status === "running" || e.status === "waiting" ? btn("停止运行", "stop-experiment", "danger") : e.status === "completed" ? "" : btn(e.status === "draft" ? "开始运行" : "恢复实验", "start-experiment", "primary", "", "play")}${btn("审核定义", "open-review", "", "", "review")}${btn("导出 JSON", "export", "", "", "download")}`, "EXPERIMENT / " + "PREDICATE DISCOVERY")}${e.question ? `<div class="experiment-question"><span class="eyebrow">RESEARCH QUESTION</span>${esc(e.question)}</div>` : ""}${e.status === "waiting" ? `<div class="status-banner"><strong>第 ${e.batch} 批等待你的审核</strong>查看这一批的定义和轨迹，把修改意见提交给流程后继续下一个批次。 ${btn("填写批次反馈", "feedback", "small")}</div>` : ""}${e.lifecycle?.error ? `<div class="status-banner"><strong>本次运行记录</strong>${esc(e.lifecycle.error)}</div>` : ""}<div class="cards">${metric("执行状态", pill(e.status), "", esc(executionStatus(e)), "experiments")}${metric("窗口进度", e.completed + "/" + e.total, "", "按轨迹及窗口索引顺序处理", "data")}${metric("谓词定义", e.registry_count, "个", `已保存 ${e.batches.length} 个批次`, "review")}${metric("Prompt 快照", e.prompt_hash.slice(0, 6), "", "创建时固定 · SHA-256 摘要", "prompts")}</div><div class="subtabs">${[
+    `<div class="experiment-detail">${experimentNavigation(e)}${head(e.title, "谓词定义发现 · " + e.dataset_name + " · 来源：" + e.source_title, `${e.status === "running" || e.status === "waiting" ? btn("停止运行", "stop-experiment", "danger") : e.status === "completed" ? "" : btn(e.status === "draft" ? "开始运行" : "恢复实验", "start-experiment", "primary", "", "play")}${btn("审核定义", "open-review", "", "", "review")}${btn("导出 JSON", "export", "", "", "download")}`, "EXPERIMENT / " + "PREDICATE DISCOVERY")}${e.question ? `<div class="experiment-question"><span class="eyebrow">RESEARCH QUESTION</span>${esc(e.question)}</div>` : ""}${e.status === "waiting" ? `<div class="status-banner"><strong>第 ${e.batch} 批等待你的审核</strong>${e.completed === e.total ? "这是最后一批，提交反馈并完成定义库修订后，实验才会结束。" : "查看这一批的定义和轨迹，把修改意见提交给流程后继续下一个批次。"} ${btn("填写批次反馈", "feedback", "small")}</div>` : ""}${e.lifecycle?.error ? `<div class="status-banner"><strong>本次运行记录</strong>${esc(e.lifecycle.error)}</div>` : ""}<div class="cards">${metric("执行状态", pill(e.status), "", esc(executionStatus(e)), "experiments")}${metric("窗口进度", e.completed + "/" + e.total, "", "按轨迹及窗口索引顺序处理", "data")}${metric("谓词定义", e.registry_count, "个", `已保存 ${e.batches.length} 个批次`, "review")}${metric("Prompt 快照", e.prompt_hash.slice(0, 6), "", "创建时固定 · SHA-256 摘要", "prompts")}</div><div class="subtabs">${[
       ["registry", "定义库"],
       ["windows", "窗口与阶段"],
       ["batches", "批次与反馈"],
@@ -127,6 +131,8 @@ function predicateDetail(e) {
           `<button class="${state.experimentTab === id ? "selected" : ""}" data-action="experiment-tab" data-tab="${id}">${label}</button>`,
       )
       .join("")}</div><div id="experiment-tab"></div></div>`;
+  if (e.status === 'completed') $('#main .page-head .head-actions').insertAdjacentHTML('beforeend',
+    btn('基于此定义库新建聚类实验', 'new-clustering', '', `data-source="${esc(e.id)}"`));
   experimentTab(e);
 }
 
@@ -136,6 +142,10 @@ const executionStages = {
   preprocess: "精简轨迹字段", split: "切分轨迹", previous_summary: "生成前文摘要",
   future_summary: "生成后文摘要", revising_registry: "根据你的反馈修改谓词库",
   applying_revision: "保存反馈修订结果", collecting_feedback: "等待你提交审核意见",
+  registry_read: "读取 Predicate Registry", embedding_inputs: "构造 Embedding 输入",
+  embedding_api: "调用 Embedding API", embedding_save: "保存 Embedding",
+  clustering: "执行各元数组聚类", cluster_statistics: "计算 Cluster 统计",
+  clustering_save: "保存聚类结果",
 };
 function currentExecution(e) {
   const p = e.execution || {};
@@ -162,6 +172,7 @@ function executionConsole(e, follow) {
     ? `第 ${e.batch} 批反馈 · 已处理 ${e.completed}/${e.total} 个窗口`
     : e.kind === "predicate" && w
     ? `第 ${currentIndex + 1}/${e.total} 个窗口 · ${w.title} / ${w.window_id}`
+    : e.kind === 'clustering' ? `已生成 ${e.completed}/${e.total} 个 Embedding · 已完成 ${p.completed_groups ?? e.state?.completed_groups ?? 0}/${Object.keys(e.arity_counts).length} 个元数组`
     : p.trajectory_id ? `${p.trajectory_id}${p.window_id ? " / " + p.window_id : ""}`
       : `已处理 ${e.completed}/${e.total} 条轨迹`;
   const stages = ["discovery", "comparison", "review", "commit"];
@@ -210,7 +221,7 @@ function experimentOptions(selected, kind) {
     .filter((e) => !kind || e.kind === kind)
     .map(
       (e) =>
-        `<option value="${e.id}" ${e.id === selected ? "selected" : ""}>${esc(e.title)} · ${e.kind === "preprocess" ? "轨迹预处理" : e.kind === "split" ? "轨迹切分" : "谓词发现"} · ${esc(e.dataset_name)}</option>`,
+        `<option value="${e.id}" ${e.id === selected ? "selected" : ""}>${esc(e.title)} · ${esc(experimentKinds[e.kind] || '未知类型')} · ${esc(e.dataset_name)}</option>`,
     )
     .join("");
 }
@@ -537,11 +548,24 @@ function settingsView() {
   $("#main").innerHTML =
     head(
       "模型连接",
-      "设置摘要生成与谓词发现使用的模型服务。",
+      "分别设置摘要、谓词发现使用的实验模型与语义聚类使用的 Embedding 模型。",
       "",
       "SETTINGS / MODEL PROVIDER",
     ) +
-    `<div class="settings-grid"><section class="panel settings-panel"><h2>实验模型</h2><form id="settings-form"><label>模型名称<input name="model" required value="${esc(state.settings.model)}" autocomplete="off"></label><label>API Base URL<input name="base_url" type="url" required value="${esc(state.settings.base_url)}" autocomplete="off"></label><label>API Key<input name="api_key" type="text" value="${esc(state.settings.api_key)}" placeholder="${state.settings.key_configured ? "留空保留当前密钥" : "输入 API Key"}" autocomplete="off" spellcheck="false" autocapitalize="none"></label><p class="helper">密钥保存在本机权限为 600 的独立文件中；新实验记录模型名称与 API 地址。开启切分摘要或运行谓词发现时，会向该地址发送相关轨迹、窗口和 Prompt，并产生模型用量。</p><div class="form-error" id="settings-error"></div><button class="btn primary" type="submit">保存模型设置</button></form></section><aside class="side-note"><span class="eyebrow">CURRENT PIPELINE</span><h3>DeepSeek 兼容的发现流程</h3><p>工作台调用仓库中的 PredicateDiscoveryLLM。请求使用 JSON 输出与当前代码中的 thinking、reasoning_effort 设置。</p><ul><li>发现 → 比较 → 模型审核</li><li>每批次人工审核反馈</li><li>修订定义库后继续</li></ul><p>连接状态表示密钥已配置；实际请求结果会记录在实验日志中。</p></aside></div>`;
+    `<div class="settings-grid"><section class="panel settings-panel"><h2>实验模型</h2><form id="settings-form"><label>模型名称<input name="model" required value="${esc(state.settings.model)}" autocomplete="off"></label><label>API Base URL<input name="base_url" type="url" required value="${esc(state.settings.base_url)}" autocomplete="off"></label><label>API Key<input name="api_key" type="text" value="${esc(state.settings.api_key)}" placeholder="${state.settings.key_configured ? "留空保留当前密钥" : "输入 API Key"}" autocomplete="off" spellcheck="false" autocapitalize="none"></label><p class="helper">密钥保存在本机权限为 600 的独立文件中；新实验记录模型名称与 API 地址。开启切分摘要或运行谓词发现时，会向该地址发送相关轨迹、窗口和 Prompt，并产生模型用量。</p><div class="form-error" id="settings-error"></div><button class="btn primary" type="submit">保存模型设置</button></form></section><aside class="side-note"><span class="eyebrow">CURRENT PIPELINE</span><h3>DeepSeek 兼容的发现流程</h3><p>工作台调用仓库中的 PredicateDiscoveryLLM。请求使用 JSON 输出与当前代码中的 thinking、reasoning_effort 设置。</p><ul><li>发现 → 比较 → 模型审核</li><li>每批次人工审核反馈</li><li>修订定义库后继续</li></ul><p>连接状态表示密钥已配置；实际请求结果会记录在实验日志中。</p></aside></div>` + embeddingSettingsPanel();
+}
+
+function embeddingSettingsPanel() {
+  const s = state.settings;
+  return `<div class="settings-grid section-gap"><section class="panel settings-panel"><h2>Embedding 模型</h2><form id="embedding-settings-form"><input type="hidden" name="section" value="embedding">
+    <label>Embedding 模型名称<input name="embedding_model" value="${esc(s.embedding_model || 'qwen3.7-text-embedding')}" maxlength="200" required autocomplete="off"></label>
+    <label>Embedding API Base URL<input name="embedding_base_url" type="url" value="${esc(s.embedding_base_url)}" placeholder="https://{WorkspaceId}.cn-beijing.maas.aliyuncs.com/compatible-mode/v1" required autocomplete="off"></label>
+    <label>Embedding API Key<input name="embedding_api_key" type="password" placeholder="${s.embedding_key_configured ? '已配置，留空保留当前密钥' : '输入 Embedding API Key'}" autocomplete="new-password" spellcheck="false"></label>
+    <label>Embedding 输出维度（可选）<input name="embedding_dimensions" type="number" min="1" step="1" value="${esc(s.embedding_dimensions ?? '')}" placeholder="留空使用模型默认维度"></label>
+    <p class="helper">仅在服务与模型支持 dimensions 参数时填写维度。模型名称、地址和密钥可与实验模型分别配置。</p>
+    <label class="cluster-check"><input name="clear_embedding_key" type="checkbox">清除已保存的 Embedding 密钥</label>
+    <div class="form-error" id="embedding-settings-error"></div><button class="btn primary" type="submit">保存 Embedding 设置</button></form></section>
+    <aside class="side-note"><span class="eyebrow">PREDICATE SEMANTIC CLUSTERING</span><h3>OpenAI 兼容 Embeddings API</h3><p>支持百炼等兼容接口。填写你所在工作空间与地域的地址，模型可自由修改，例如 text-embedding-v4。</p><p>保存设置后，在“新建实验 → 谓词语义聚类”选择 Registry 并配置类数。运行时发送 Definition、参数类型和参数描述。</p><p>密钥沿用本机私有配置保存方式，不进入实验快照、聚类结果或导出文件。连接状态仅表示密钥已配置。</p></aside></div>`;
 }
 
 export {

@@ -1,0 +1,449 @@
+{
+  "revisions": [
+    {
+      "original_name": "IS_PLAN",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_OBSERVED_ARTIFACT_DEFECT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PROPOSES_CONCRETE_REMEDIATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PROBES_CAPABILITY_AVAILABILITY",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "PROBES_CAPABILITY_AVAILABILITY",
+        "definition": "An action queries the environment for the availability, identity, version, or other status of a target capability, resource, or environmental property, and its observation reports evidence about that target.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The diagnostic action that queries the environment for the target capability, resource, or environmental property."
+          },
+          {
+            "name": "probe_observation",
+            "type": "observation",
+            "description": "The observation reporting evidence about the presence, absence, availability, identity, version, or status of the queried target."
+          }
+        ],
+        "assertion_conditions": [
+          "The action is a diagnostic query about a target capability, resource, or environmental property.",
+          "The observation reports evidence such as presence, absence, availability, identity, version, or status of the queried target."
+        ],
+        "exclusion_conditions": [
+          "The action performs the primary task rather than checking the target capability, resource, or environmental property.",
+          "The observation does not report any information about the queried target.",
+          "The probe is unrelated to the target capability, resource, or environmental property under consideration."
+        ]
+      }
+    },
+    {
+      "original_name": "IMPLEMENTS_SPECIFIED_CHANGE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PRODUCES_EXPECTED_DERIVED_OUTPUT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_ACTION_FAILURE_FROM_ERROR",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSED_REVISION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONCLUDES_TASK_SUCCESS_FROM_ACCUMULATED_EVIDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EVALUATES_ALTERNATIVES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IS_STATE_PROBE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "TESTS_ASSUMPTION_WITH_PROBE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ADAPTS_PLAN_TO_OBSERVED_STATE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "MITIGATES_ANTICIPATED_FAILURE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_PRECONDITION_BEFORE_DEPENDENT_ACTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_EXPECTED_OUTCOME",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CLASSIFIES_FAILURE_AS_TEST_ARTIFACT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SUCCESSFUL_CORRECTIVE_RETRY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PLANS_MULTI_CRITERIA_VERIFICATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "AUDITS_PLANNED_CRITERIA",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ASSESSES_ANOMALY_AS_NON_IMPACTING",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DECODES_ENCODED_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "REINVESTIGATES_SUSPECT_RESULT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESTORES_BASELINE_STATE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DETECTS_DATA_INCONSISTENCY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_AMBIGUITY_BY_INVARIANT_INTERPRETATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SEPARATES_MANDATORY_FROM_OPTIONAL_CRITERIA",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_VALID_CANDIDATE_BY_ELIMINATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_OUTPUT_BY_INDEPENDENT_CHECK",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_INPUT_INTEGRITY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IDENTIFIES_PREREQUISITE_GAP",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_AMBIGUITY_BY_COMMITTED_INTERPRETATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENUMERATES_FAILURE_HYPOTHESES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RECONSTRUCTS_EVENT_TIMELINE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_LOST_STATE_CAUSE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONSULTS_HISTORY_TO_LOCATE_LOST_ARTIFACT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DISAMBIGUATES_CANDIDATES_BY_PROVENANCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PREDICTS_CONFLICT_FROM_OVERLAPPING_CHANGES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "JUSTIFIES_CONFLICT_RESOLUTION_PRECEDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_EXACT_REPRESENTATION_BEFORE_TRANSFORMATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ELIMINATES_HYPOTHESIS_WITH_NEGATIVE_EVIDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "INTERPRETS_CONFLICT_MARKERS_AS_COMPETING_VERSIONS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ADOPTS_OBSERVED_EXACT_REPRESENTATION_AS_CONSTRAINT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_CONFLICT_BY_ADOPTING_DESIGNATED_VERSION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME",
+        "definition": "The reasoning provides a final synthesis or accountability record for a completed task, presenting the task as complete and supporting that conclusion with verified outcome evidence, such as a narrative of the original problem or cause and remediation actions, or a mapping of stated requirements to satisfied outcomes, or both.",
+        "parameters": [
+          {
+            "name": "completion_summary_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning providing the final task synthesis, completion claim, and supporting outcome or requirement evidence."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning presents a final answer or explicitly concludes that the overall task is complete.",
+          "The reasoning provides an accountable synthesis of the completed work, including either a summary of the original problem or cause and the actions taken, or an association of one or more stated requirements with satisfied outcomes or evidence, or both.",
+          "The reasoning cites a verified resulting state or observed outcome evidence rather than only a plan, intention, or action sequence.",
+          "No requirement is presented as satisfied while also being described as unresolved."
+        ],
+        "exclusion_conditions": [
+          "The reasoning is an intermediate plan, status update, or progress note rather than a final completion synthesis.",
+          "The reasoning claims completion without citing any verified outcome evidence or requirement-to-outcome mapping.",
+          "The reasoning does not synthesize cause, actions, and outcome and does not map requirements to outcomes.",
+          "The reasoning maps requirements to outcomes but also presents some requirements as unresolved while claiming full completion."
+        ]
+      }
+    },
+    {
+      "original_name": "FRAMES_OBJECTIVE_WITH_CONSTRAINTS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EXPLAINS_ANOMALOUS_OBSERVATION_WITH_CAUSAL_MECHANISM",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IS_VERIFICATION_ACTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONFIRMS_TARGET_ABSENCE_ACROSS_SEARCH_SPACE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_NON_INTERFERENCE_WITH_PROTECTED_CONTENT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_CAUSE_DIRECTED_REMEDIATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENACTS_DERIVED_CONSTRAINT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_CHANGE_EFFECT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT",
+        "definition": "The reasoning identifies a duplication or conflict in which redundant artifacts overlap or compete with an authoritative configuration or artifact that is to be preserved, and the action removes or disables those redundant artifacts so that only the authoritative configuration remains in effect.",
+        "parameters": [
+          {
+            "name": "cleanup_action",
+            "type": "action",
+            "description": "The action that deletes or disables the redundant or conflicting artifacts."
+          },
+          {
+            "name": "conflict_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that identifies the duplication or conflict, designates the authoritative configuration to keep, and prescribes removal of the redundant artifacts."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a duplication or conflict between redundant artifacts and an authoritative configuration or artifact that should be preserved.",
+          "The cleanup action removes or disables those specific redundant or conflicting artifacts.",
+          "The authoritative configuration or artifact referenced in the reasoning is left in place and remains the operative one after the action."
+        ],
+        "exclusion_conditions": [
+          "The action removes artifacts without any identified duplication or conflict, such as routine tidying of unrelated files.",
+          "The action merely overwrites, patches, or reconfigures the offending artifact instead of removing or disabling it.",
+          "The reasoning identifies the conflict but no corresponding removal action is performed.",
+          "The removed artifacts are not redundant or conflicting duplicates of the configuration or artifact being preserved."
+        ]
+      }
+    },
+    {
+      "original_name": "PLANS_WITH_FALLBACK",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ANALYZES_EXTERNAL_VALIDATION_RISK",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_UNDERTESTED_PATH_FOR_VERIFICATION",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "SELECTS_UNDERTESTED_PATH_FOR_VERIFICATION",
+        "definition": "The reasoning identifies a specific behavior, path, condition, or requirement aspect that prior verification did not exercise and proposes an additional check for it, explaining what that check would reveal about the implementation or requirements.",
+        "parameters": [
+          {
+            "name": "selection_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying an unexercised behavior, path, condition, or requirement aspect and proposing a check for it."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific behavior, path, condition, or requirement aspect that earlier verification did not exercise.",
+          "The reasoning proposes an additional check directed at that unexercised behavior, path, condition, or requirement aspect.",
+          "The reasoning states what the proposed check would reveal or confirm about the implementation or requirements.",
+          "The proposed check is treated as pending at the time of the reasoning rather than already performed and confirmed."
+        ],
+        "exclusion_conditions": [
+          "The reasoning proposes repeating a check that was already performed and confirmed.",
+          "The reasoning lists planned steps without identifying any specific untested behavior, path, condition, or requirement aspect.",
+          "The proposed work concerns cleanup, reporting, or modification rather than verification of behavior.",
+          "No specific unexercised behavior, path, condition, or requirement aspect is identified."
+        ]
+      }
+    },
+    {
+      "original_name": "MEASURES_OPERATION_LATENCY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION",
+        "definition": "The reasoning compares identifiable content of an observation—such as a concrete value, measurement, property, outcome, or the absence of an expected condition—against a stated or clearly implied requirement, expectation, threshold, or acceptance criterion, and judges whether that criterion is satisfied or contradicted.",
+        "parameters": [
+          {
+            "name": "evaluation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that states or implies the requirement, expectation, threshold, or acceptance criterion and renders a judgment about the observed content."
+          },
+          {
+            "name": "measured_observation",
+            "type": "observation",
+            "description": "The observation supplying the concrete value, measurement, property, outcome, or absence being judged."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains identifiable content such as a concrete value, measurement, property, outcome, or absence of an expected condition.",
+          "The reasoning states or clearly implies a requirement, expectation, threshold, or acceptance criterion and explicitly relates the observed content to it.",
+          "The reasoning concludes that the criterion is met, not met, or contradicted by the observed content."
+        ],
+        "exclusion_conditions": [
+          "The reasoning cites the observed result without comparing it to any stated or implied requirement, expectation, or acceptance criterion.",
+          "The comparison is asserted without an observed value, property, outcome, or absence to compare.",
+          "The observation lacks the content that the requirement or expectation concerns.",
+          "The reasoning only restates the observation without rendering a judgment about satisfaction or contradiction."
+        ]
+      }
+    },
+    {
+      "original_name": "DECLARES_TASK_COMPLETION_WITH_REQUIREMENT_MAPPING",
+      "operation": "MERGE",
+      "merge_into": "SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME"
+    },
+    {
+      "original_name": "INTERPRETS_SPECIFICATION_CONSTRAINT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_ALTERNATIVE_TOOL_AFTER_UNAVAILABILITY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ASSESSES_PERSISTENCE_BY_DEPLOYMENT_MECHANISM",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "ASSESSES_PERSISTENCE_BY_DEPLOYMENT_MECHANISM",
+        "definition": "The reasoning evaluates whether a launched resource, process, or service will persist beyond the current session or command context, justifying that assessment from properties of the lifecycle or deployment mechanism—such as detachment, signal handling, backgrounding, or output redirection—rather than from the mere fact that it is currently executing.",
+        "parameters": [
+          {
+            "name": "persistence_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that raises the post-session survival question for a launched resource, process, or service and justifies its answer from lifecycle or deployment mechanics."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a persistence or lifecycle concern for a launched resource, process, or service, such as whether it survives session termination.",
+          "The reasoning explains why the resource should or should not survive by appealing to a lifecycle or deployment mechanism, such as detachment, ignore-signal handling, backgrounding, or output redirection.",
+          "The persistence conclusion is derived from that mechanism rather than from merely observing that the resource is currently running."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only states that the resource is currently running or reachable.",
+          "No durability or post-session survival question is considered.",
+          "The reasoning asserts persistence without any mechanism-based justification.",
+          "The reasoning merely plans to guard against a failure mode without assessing whether the deployed resource will persist."
+        ]
+      }
+    },
+    {
+      "original_name": "REPORTS_EXECUTION_ERROR",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "JUDGES_PRIOR_RESULT_INCONCLUSIVE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DISAMBIGUATES_FALSE_POSITIVE_MATCH",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CHECKS_REQUIREMENTS_AGAINST_OBSERVED_STATE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "REVISES_BELIEF_WITH_NEW_EVIDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IDENTIFIES_DATA_AMBIGUITY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "OBSERVATION_CONTRADICTS_EXPECTATION",
+      "operation": "MERGE",
+      "merge_into": "EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION"
+    },
+    {
+      "original_name": "ASSERTS_TASK_COMPLETION",
+      "operation": "KEEP"
+    }
+  ]
+}

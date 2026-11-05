@@ -1,0 +1,69 @@
+{
+  "id": "6c91df0da7a9",
+  "kind": "predicate",
+  "title": "20窗口试验-修改修订prompt",
+  "question": "",
+  "dataset_id": "terminal-bench-2.1",
+  "dataset_name": "terminal-bench-2.1",
+  "source_experiment_id": "71322840fc60",
+  "source_title": "50窗口切分",
+  "source_output_hash": "a57e9b443ddf522dc34d94e2a94c159d1296f186b3f8b2e1b82a8dcf59e0cd68",
+  "split_config": {
+    "max_window_events": 10,
+    "overlap_events": 2,
+    "max_previous_summary_tokens": 150,
+    "max_future_summary_tokens": 150
+  },
+  "input_hash": "111217c16b442a80d8bf899c86661f9c3065dc92f4f7f6e944642572f1148404",
+  "trajectory_ids": [
+    "xhigh-rerun-prove__prove-plus-comm",
+    "xhigh__configure-git-webserver",
+    "xhigh__constraints-scheduling",
+    "xhigh__count-dataset-tokens",
+    "xhigh__fix-git",
+    "xhigh__git-leak-recovery",
+    "xhigh__git-multibranch",
+    "xhigh__hf-model-inference",
+    "xhigh__kv-store-grpc",
+    "xhigh__log-summary-date-ranges"
+  ],
+  "window_ids": [
+    "xhigh-rerun-prove__prove-plus-comm__window_0001",
+    "xhigh__configure-git-webserver__window_0001",
+    "xhigh__configure-git-webserver__window_0002",
+    "xhigh__configure-git-webserver__window_0003",
+    "xhigh__constraints-scheduling__window_0001",
+    "xhigh__count-dataset-tokens__window_0001",
+    "xhigh__count-dataset-tokens__window_0002",
+    "xhigh__fix-git__window_0001",
+    "xhigh__fix-git__window_0002",
+    "xhigh__git-leak-recovery__window_0001",
+    "xhigh__git-multibranch__window_0001",
+    "xhigh__git-multibranch__window_0002",
+    "xhigh__git-multibranch__window_0003",
+    "xhigh__git-multibranch__window_0004",
+    "xhigh__hf-model-inference__window_0001",
+    "xhigh__hf-model-inference__window_0002",
+    "xhigh__kv-store-grpc__window_0001",
+    "xhigh__kv-store-grpc__window_0002",
+    "xhigh__log-summary-date-ranges__window_0001",
+    "xhigh__log-summary-date-ranges__window_0002"
+  ],
+  "window_count": 20,
+  "created_at": "2026-11-04T02:59:51.369382+00:00",
+  "predicate_schema_version": "predicate-definition/v2",
+  "node_schema_version": "trajectory-nodes/v1",
+  "node_counts": {
+    "action": 153,
+    "observation": 153,
+    "reasoning": 157
+  },
+  "prompt_hash": "0012e131c5fcbc0c3cec67eea641853926c2a886ba09000395cc05dbfa33d3aa",
+  "model": "deepseek-v4.1-flash-1017",
+  "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+  "config": {
+    "human_feedback_interval": 10,
+    "feedback_mode": "registry_feedback",
+    "max_llm_retries": 3
+  }
+}

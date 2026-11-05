@@ -1,0 +1,5745 @@
+{
+  "schema": "predicate-clustering/v1",
+  "experiment_id": "af6007579aed",
+  "source": {
+    "type": "experiment",
+    "experiment_id": "f94a6b7d7baa",
+    "title": "50窗口-反馈合并-人工反馈间隔10-1",
+    "dataset_id": "terminal-bench-2.1",
+    "dataset_name": "terminal-bench-2.1"
+  },
+  "input_hash": "0c129c5094a1b086f50bf96299b3cc620151418b50bbfd9c932a67557ad93815",
+  "snapshot_hash": "f5954e14596aaafa7d905a81be3dd549302f437077571131975f75394cb41a60",
+  "embedding": {
+    "model": "qwen3.7-text-embedding",
+    "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "dimensions": null,
+    "input_template": "predicate-embedding-input/v1",
+    "batch_size": 10,
+    "max_retries": 3,
+    "timeout_seconds": 120
+  },
+  "embedding_dimensions": 1024,
+  "input_template": "predicate-embedding-input/v1",
+  "algorithm": "kmeans",
+  "target_clusters": 50,
+  "clusters_by_arity": {
+    "1": 15,
+    "2": 22,
+    "3": 12,
+    "4": 1
+  },
+  "metric": "euclidean",
+  "n_init": 20,
+  "random_state": 42,
+  "similarity_metric": "cosine",
+  "actual_clusters": 50,
+  "predicate_count": 135,
+  "statistics": {
+    "predicate_count": 135,
+    "target_clusters": 50,
+    "actual_clusters": 50,
+    "singleton_count": 17,
+    "arity_counts": {
+      "1": 42,
+      "2": 61,
+      "3": 31,
+      "4": 1
+    },
+    "cluster_size_distribution": {
+      "1": 17,
+      "2": 10,
+      "3": 11,
+      "4": 4,
+      "5": 2,
+      "6": 3,
+      "7": 3
+    },
+    "pairwise_similarity": {
+      "pair_count": 195,
+      "mean": 0.6905569191216755,
+      "min": 0.47500760221376304
+    },
+    "arities": [
+      {
+        "arity": 1,
+        "predicate_count": 42,
+        "target_clusters": 15,
+        "actual_clusters": 15,
+        "singleton_count": 4
+      },
+      {
+        "arity": 2,
+        "predicate_count": 61,
+        "target_clusters": 22,
+        "actual_clusters": 22,
+        "singleton_count": 7
+      },
+      {
+        "arity": 3,
+        "predicate_count": 31,
+        "target_clusters": 12,
+        "actual_clusters": 12,
+        "singleton_count": 5
+      },
+      {
+        "arity": 4,
+        "predicate_count": 1,
+        "target_clusters": 1,
+        "actual_clusters": 1,
+        "singleton_count": 1
+      }
+    ],
+    "embedding_dimensions": 1024
+  },
+  "groups": [
+    {
+      "arity": 1,
+      "size": 5,
+      "representative": "PLANS_NEXT_ACTION",
+      "medoid_index": 0,
+      "mean_similarity": 0.6326186638245371,
+      "min_similarity": 0.5235118332532945,
+      "minimum_pair": {
+        "predicates": [
+          "DECOMPOSES_TASK_INTO_SUBGOALS",
+          "ACKNOWLEDGES_RECURRING_OWN_ERROR"
+        ],
+        "similarity": 0.5235118332532945
+      },
+      "member_indices": [
+        0,
+        14,
+        28,
+        42,
+        55
+      ],
+      "members": [
+        {
+          "name": "PLANS_NEXT_ACTION",
+          "definition": "推理明确表达智能体尚未执行的未来行动或行动序列。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "表述计划执行的未来行动或序列的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确指出至少一项未来拟执行的行动或步骤。",
+            "所述行动尚待执行，未被表述为已完成。"
+          ],
+          "exclusion_conditions": [
+            "推理仅报告或概述已完成的行动。",
+            "推理只陈述结论、诊断或观察摘要，未表达未来意图。",
+            "推理只说明总体目标或期望结果，未指出具体行动或步骤。"
+          ]
+        },
+        {
+          "name": "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE",
+          "definition": "推理预判智能体自身活动遗留的状态会干扰后续必要操作或验收条件，并据此要求在交付或完成前清除或重置残留状态。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "识别自身产生的残留状态、预测其对后续操作或验收的负面影响并说明清除或重置理由的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理识别自身活动产生的具体残留状态，如文件、分支、密钥、测试数据或配置变更。",
+            "推理预测其对后续操作或验收的具体不利后果，如失败、不匹配或误导性检查。",
+            "推理以该预测作为交付或完成前清除或重置残留状态的理由。"
+          ],
+          "exclusion_conditions": [
+            "推理仅担忧整洁问题，没有预测实际操作后果。",
+            "预测后果涉及非智能体自身创建的状态，或与其活动无关的状态。",
+            "推理仅因状态不再需要而计划清理，未预测其会干扰后续操作或验收。"
+          ]
+        },
+        {
+          "name": "DECOMPOSES_TASK_INTO_SUBGOALS",
+          "definition": "推理将整体任务划分为至少两个不同的子目标、问题或步骤，它们之间存在顺序或依赖关系，能够指导后续执行。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将整体任务拆分为子目标或步骤的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理识别至少两个不同的子目标、问题或操作步骤。",
+            "各部分具有顺序、依赖或执行关系，并非无关事项集合。",
+            "拆分基于任务要求，具体到能够指导执行。"
+          ],
+          "exclusion_conditions": [
+            "推理仅指定单个行动或子目标。",
+            "推理只复述整体任务，没有拆成可执行部分。",
+            "推理列出与任务分解无关的事实或观察。"
+          ]
+        },
+        {
+          "name": "PLANS_POST_ACTION_VERIFICATION",
+          "definition": "推理明确安排在行动之后执行一项或多项检查，判断行动是否产生所需结果或最终状态。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指定未来验证检查及目的的推理文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理涉及未来的验证或检查步骤。",
+            "检查旨在确认已完成或计划行动的结果或终态，而非初步探索。",
+            "至少能确定一项检查标准或目标状态。"
+          ],
+          "exclusion_conditions": [
+            "推理仅描述行动之前的探索性检查。",
+            "推理只报告已完成的检查，没有安排后续验证。",
+            "推理只提一般后续步骤，缺乏验证目的。"
+          ]
+        },
+        {
+          "name": "ACKNOWLEDGES_RECURRING_OWN_ERROR",
+          "definition": "推理认识到智能体先前行动中的错误已重复发生，并明确下一步要遵循的具体纠正规则或承诺。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出自身错误重复性并说明纠正规则的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理确认错误来自智能体此前自身行动。",
+            "推理明确指出错误反复出现或呈现重复模式，而非偶发一次。",
+            "推理给出下一行动需遵循的具体纠正规则或承诺。"
+          ],
+          "exclusion_conditions": [
+            "推理只描述首次错误，没有说明重复性。",
+            "推理将失败归因于环境、工具或外部参与者，而非自身重复行为。",
+            "推理指出错误却没有承诺下一步纠正规则。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "PLANS_NEXT_ACTION": 1,
+        "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE": 0.6533314354325981,
+        "DECOMPOSES_TASK_INTO_SUBGOALS": 0.6937223942549687,
+        "PLANS_POST_ACTION_VERIFICATION": 0.7314271704267923,
+        "ACKNOWLEDGES_RECURRING_OWN_ERROR": 0.6723456032948789
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6533314354325981,
+          0.6937223942549687,
+          0.7314271704267923,
+          0.6723456032948789
+        ],
+        [
+          0.6533314354325981,
+          1,
+          0.5670952317284916,
+          0.6426200202490316,
+          0.6547687002330422
+        ],
+        [
+          0.6937223942549687,
+          0.5670952317284916,
+          1,
+          0.5761037385948448,
+          0.5235118332532945
+        ],
+        [
+          0.7314271704267923,
+          0.6426200202490316,
+          0.5761037385948448,
+          1,
+          0.6112605107774267
+        ],
+        [
+          0.6723456032948789,
+          0.6547687002330422,
+          0.5235118332532945,
+          0.6112605107774267,
+          1
+        ]
+      ],
+      "cluster_id": "unary-001"
+    },
+    {
+      "arity": 1,
+      "size": 1,
+      "representative": "CONFIGURES_EVENT_TRIGGERED_AUTOMATION",
+      "medoid_index": 11,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        11
+      ],
+      "members": [
+        {
+          "name": "CONFIGURES_EVENT_TRIGGERED_AUTOMATION",
+          "definition": "行动创建或更新将指定事件与后续操作关联的配置产物，使以后该事件发生时自动执行操作，无需再次手动调用。",
+          "parameters": [
+            {
+              "name": "action",
+              "type": "action",
+              "description": "写入或安装自动化配置的行动节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "行动写入或安装钩子、触发器、监听器、任务或等效自动化配置。",
+            "配置将指定事件或条件与自动执行的后续操作关联起来。"
+          ],
+          "exclusion_conditions": [
+            "行动仅执行一次性操作，不具有持久触发机制。",
+            "行动只记录日后手动执行的流程。",
+            "配置产物未建立事件或条件与自动响应之间的关联。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "CONFIGURES_EVENT_TRIGGERED_AUTOMATION": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "unary-002"
+    },
+    {
+      "arity": 1,
+      "size": 3,
+      "representative": "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+      "medoid_index": 23,
+      "mean_similarity": 0.6067224113798412,
+      "min_similarity": 0.5484619157631846,
+      "minimum_pair": {
+        "predicates": [
+          "IDENTIFIES_CONFORMANCE_RISK",
+          "IDENTIFIES_SPECIFICATION_AMBIGUITY"
+        ],
+        "similarity": 0.5484619157631846
+      },
+      "member_indices": [
+        23,
+        68,
+        81
+      ],
+      "members": [
+        {
+          "name": "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+          "definition": "推理将自然语言表达的要求或偏好转化为明确且可机械检查的条件，如数值阈值、最低性能倍数、大小限制、边界、允许范围或排除区间，用以判断候选方案或产物是否符合要求。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将要求重述为可检验的验收条件、阈值或允许范围的推理文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理从所给要求提炼至少一项明确验收或准入条件，如数值容差、最低性能倍数、大小限制、边界或允许范围。",
+            "条件足够精确，可判断候选方案或产物是否被接受或合规。"
+          ],
+          "exclusion_conditions": [
+            "推理仅复述原要求，没有形成可对候选方案或产物执行检查的条件。",
+            "推理只列出偏好或观察，没有推导准入条件。",
+            "推理仅报告已执行检查的结果，没有规定待满足的条件。"
+          ]
+        },
+        {
+          "name": "IDENTIFIES_CONFORMANCE_RISK",
+          "definition": "推理预判内容实质正确的产物仍可能因具体表示或格式属性，在外部验证器、严格字节比较或验收要求下被拒绝或判为不合规。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出可能导致外部验证或严格比较失败的具体属性的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出产物的具体表示或格式属性，如换行约定、字节布局、编码或准确文本排版。",
+            "推理解释在内容正确时该属性如何仍导致外部拒绝或不匹配。"
+          ],
+          "exclusion_conditions": [
+            "推理只泛泛要求质量检查，没有具体合规失败模式。",
+            "推理报告内容自身的实际缺陷，而非正确内容被外部拒绝的风险。",
+            "推理只计划或执行修复，没有评估验收风险。",
+            "没有涉及外部验收要求、验证器或严格比较。"
+          ]
+        },
+        {
+          "name": "IDENTIFIES_SPECIFICATION_AMBIGUITY",
+          "definition": "推理明确指出要求、规范或指令存在多种解释或细节不足，无法唯一确定行动。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出有歧义的要求、字段、规则或指令的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出具体要求、字段、规则或指令存在歧义、欠明确或多种解读。",
+            "推理表达不确定性或承认多种竞争解释。"
+          ],
+          "exclusion_conditions": [
+            "推理只复述要求，没有识别歧义。",
+            "推理直接作出选择，没有指出解释问题。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS": 1,
+        "IDENTIFIES_CONFORMANCE_RISK": 0.6721748782940355,
+        "IDENTIFIES_SPECIFICATION_AMBIGUITY": 0.5995304400823033
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6721748782940355,
+          0.5995304400823033
+        ],
+        [
+          0.6721748782940355,
+          1,
+          0.5484619157631846
+        ],
+        [
+          0.5995304400823033,
+          0.5484619157631846,
+          1
+        ]
+      ],
+      "cluster_id": "unary-003"
+    },
+    {
+      "arity": 1,
+      "size": 2,
+      "representative": "DIAGNOSES_ROOT_CAUSE",
+      "medoid_index": 40,
+      "mean_similarity": 0.7315229656023869,
+      "min_similarity": 0.7315229656023869,
+      "minimum_pair": {
+        "predicates": [
+          "DIAGNOSES_ROOT_CAUSE",
+          "PROPOSES_TESTABLE_HYPOTHESIS"
+        ],
+        "similarity": 0.7315229656023869
+      },
+      "member_indices": [
+        40,
+        91
+      ],
+      "members": [
+        {
+          "name": "DIAGNOSES_ROOT_CAUSE",
+          "definition": "推理通过重建先前事件或行动的因果经过，解释观察状态如何形成，超越对当前状态的直接复述。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "呈现观察状态因果重建的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理按顺序指出导致观察状态的一项或多项先前事件或行动。",
+            "因果说明解释当前状态为何具有这些属性，而非仅说明属性本身。"
+          ],
+          "exclusion_conditions": [
+            "推理只复述问题或观察状态。",
+            "推理列举可能原因，却未确定因果解释。",
+            "推理仅转述观察输出，没有指出造成结果的先前事件。"
+          ]
+        },
+        {
+          "name": "PROPOSES_TESTABLE_HYPOTHESIS",
+          "definition": "推理对产物、系统状态或成因提出具体但暂定的解释、解读或假设，承认其不确定并可以通过后续观察或行动检验。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "包含暂定解释或假设的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出具体候选解释，例如产物可能是什么、结果为何出现或目标可能位于何处。",
+            "解释带有不确定性或待验证属性，没有被视为既定事实。"
+          ],
+          "exclusion_conditions": [
+            "推理只陈述已确认结论，或复述观察而没有提出解释。",
+            "推理仅提出行动计划，没有待测试的候选解释或假设。",
+            "想法过于模糊，无法通过具体后续观察或行动检验。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DIAGNOSES_ROOT_CAUSE": 1,
+        "PROPOSES_TESTABLE_HYPOTHESIS": 0.7315229656023869
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7315229656023869
+        ],
+        [
+          0.7315229656023869,
+          1
+        ]
+      ],
+      "cluster_id": "unary-004"
+    },
+    {
+      "arity": 1,
+      "size": 6,
+      "representative": "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+      "medoid_index": 49,
+      "mean_similarity": 0.6853154760417247,
+      "min_similarity": 0.5813988334262865,
+      "minimum_pair": {
+        "predicates": [
+          "DEFINES_DETECTION_SIGNATURE",
+          "PREDICTS_EXPECTED_OUTCOME"
+        ],
+        "similarity": 0.5813988334262865
+      },
+      "member_indices": [
+        2,
+        29,
+        49,
+        100,
+        114,
+        124
+      ],
+      "members": [
+        {
+          "name": "FORMULATES_CORRECTIVE_SOLUTION",
+          "definition": "推理推导并明确提出用于修复已识别缺陷或缺口的具体方法、内容或步骤。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "推导并说明修复方法或步骤的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理提及已发现的缺陷、缺口或问题状态。",
+            "推理至少给出一项旨在解决该缺陷的具体修复步骤、替换内容或方法。"
+          ],
+          "exclusion_conditions": [
+            "推理只说需要修复，却未说明如何修复。",
+            "推理仅总结已经执行的修复。",
+            "推理只计划调查或收集信息，未形成修复方案。"
+          ]
+        },
+        {
+          "name": "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT",
+          "definition": "推理识别要求中存在的歧义或未明确部分，并选定具体可执行的解释，如处理哪些字段、应用什么过滤条件、计算什么指标或使用什么工具，以指导后续操作。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将歧义或欠明确要求转换为操作性解释的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出要求的歧义、其他可能解读或未具体说明之处。",
+            "推理确定明确的操作定义或流程，没有让歧义悬而未决。",
+            "选定解释足以决定所需数据、条件、指标或工具。"
+          ],
+          "exclusion_conditions": [
+            "要求本已完整明确，推理只是复述。",
+            "推理发现歧义却未给出操作性定义。",
+            "推理提供的操作细节与解释要求无关。"
+          ]
+        },
+        {
+          "name": "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+          "definition": "推理将任务规范中的具体要求或约束与技术方法、配置结构、参数或取值相联系，说明选择如何实现、满足或违反该要求。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将任务要求与具体方法、配置、参数或取值关联的推理文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出任务或请求者明确提出的要求或约束。",
+            "推理选择或评估具体实现方式、配置结构、参数或取值。",
+            "推理明确说明该选择如何实现、满足或违反所引用要求。"
+          ],
+          "exclusion_conditions": [
+            "推理只列举或复述要求，没有关联具体选择。",
+            "所引用要求对选择或判断没有作用。",
+            "评估选择的依据与已提出的要求无关。",
+            "要求仅被抽象成可检查准入条件，没有对具体方案进行选择或判断。"
+          ]
+        },
+        {
+          "name": "FORMULATES_IMPLEMENTATION_DESIGN",
+          "definition": "推理提出具体候选实现设计，说明为满足要求而采用的产物结构、算法组件或语法与机制选择。",
+          "parameters": [
+            {
+              "name": "design_reasoning",
+              "type": "reasoning",
+              "description": "规定拟议方案结构、算法或机制的推理。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理具体说明方案结构、算法、产物组织或语法机制选择，超越目标复述。",
+            "推理说明至少一个组件或机制预计如何帮助满足明确要求。"
+          ],
+          "exclusion_conditions": [
+            "推理仅说要实现、检查或测试，没有设计细节。",
+            "推理只评估观察结果，没有提出或构建设计。",
+            "推理只列举要求或限制，没有具体实现结构。"
+          ]
+        },
+        {
+          "name": "DEFINES_DETECTION_SIGNATURE",
+          "definition": "推理指定用于识别目标类别实例的一个或多个可辨识结构条件或特征签名，如模式、前缀、格式、字符类别、长度或结构形态。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "阐述检测模式或结构标准的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理提出至少一项识别目标实例的具体结构条件或模式。",
+            "条件足够明确，能将目标实例与无关文本或一般提及区分。"
+          ],
+          "exclusion_conditions": [
+            "推理只要求搜索某类对象，没有任何可辨识结构标准。",
+            "推理只复述搜索结果或观察匹配项，没有定义未来匹配的识别方式。"
+          ]
+        },
+        {
+          "name": "PREDICTS_EXPECTED_OUTCOME",
+          "definition": "推理计算并说明最终方案或实现应产生的具体预期数值、实体或记录，为后续实现或输出验证提供参照。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "列举最终方案具体预期输出的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理根据领域事实列举具体预期值、实体、记录或数据行。",
+            "预测结果被视为正确方案或实现应产生的输出。",
+            "预期足够具体，可用于后续验证。"
+          ],
+          "exclusion_conditions": [
+            "推理只有总体目标或成功标准，没有具体预期值。",
+            "预期缺乏领域事实依据或过于模糊。",
+            "推理只是将已观察结果当作既成事实复述，没有预测未来方案应产生的结果。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "FORMULATES_CORRECTIVE_SOLUTION": 0.7474355561182481,
+        "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT": 0.7843418372437574,
+        "APPLIES_STATED_CONSTRAINT_TO_DESIGN": 1,
+        "FORMULATES_IMPLEMENTATION_DESIGN": 0.8022779676502998,
+        "DEFINES_DETECTION_SIGNATURE": 0.6363565573048096,
+        "PREDICTS_EXPECTED_OUTCOME": 0.7191568864038511
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7092115059776168,
+          0.7474355561182481,
+          0.7119515873823147,
+          0.6023656569151128,
+          0.6632418299362829
+        ],
+        [
+          0.7092115059776168,
+          1,
+          0.7843418372437574,
+          0.693421119418441,
+          0.6070979997381649,
+          0.6618017671884483
+        ],
+        [
+          0.7474355561182481,
+          0.7843418372437574,
+          1,
+          0.8022779676502998,
+          0.6363565573048096,
+          0.7191568864038511
+        ],
+        [
+          0.7119515873823147,
+          0.693421119418441,
+          0.8022779676502998,
+          1,
+          0.638115499199975,
+          0.7215575367222626
+        ],
+        [
+          0.6023656569151128,
+          0.6070979997381649,
+          0.6363565573048096,
+          0.638115499199975,
+          1,
+          0.5813988334262865
+        ],
+        [
+          0.6632418299362829,
+          0.6618017671884483,
+          0.7191568864038511,
+          0.7215575367222626,
+          0.5813988334262865,
+          1
+        ]
+      ],
+      "cluster_id": "unary-005"
+    },
+    {
+      "arity": 1,
+      "size": 2,
+      "representative": "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+      "medoid_index": 58,
+      "mean_similarity": 0.7076843462474892,
+      "min_similarity": 0.7076843462474892,
+      "minimum_pair": {
+        "predicates": [
+          "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+          "IDENTIFIES_ERROR_PITFALL"
+        ],
+        "similarity": 0.7076843462474892
+      },
+      "member_indices": [
+        58,
+        65
+      ],
+      "members": [
+        {
+          "name": "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+          "definition": "推理指出当前设置尚未防护的具体剩余失败场景，并明确决定接受风险，理由是风险可接受或缓解成本不成比例。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "提出剩余失败场景并决定不处理的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理描述当前配置下仍可能发生的具体可信失败场景。",
+            "推理明确决定不采取缓解措施，并说明发生概率低、环境稳定或成本过高等理由。"
+          ],
+          "exclusion_conditions": [
+            "推理发现问题后着手修复或缓解，没有接受风险。",
+            "推理仅表达笼统信心，没有指出具体剩余失败场景。",
+            "推理提及风险，但尚未决定是否缓解。"
+          ]
+        },
+        {
+          "name": "IDENTIFIES_ERROR_PITFALL",
+          "definition": "推理指出看似合理但简单的方法在当前任务中会产生错误或误导性结果的具体机制，并说明避免该机制的保障措施或方法。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "诊断潜在错误机制及缓解措施的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指明与当前数据或任务相关的具体致错机制，例如子串重复计数或边界计数错误。",
+            "推理说明或暗示所选方法如何避免该失败模式。"
+          ],
+          "exclusion_conditions": [
+            "推理仅表达笼统谨慎，没有具体失败机制。",
+            "失败模式在执行检查发现偏差后才被识别。",
+            "推理指出失败模式，但没有与当前任务或数据关联。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS": 1,
+        "IDENTIFIES_ERROR_PITFALL": 0.7076843462474892
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7076843462474892
+        ],
+        [
+          0.7076843462474892,
+          1
+        ]
+      ],
+      "cluster_id": "unary-006"
+    },
+    {
+      "arity": 1,
+      "size": 1,
+      "representative": "LAUNCHES_PROCESS_ASYNCHRONOUSLY",
+      "medoid_index": 59,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        59
+      ],
+      "members": [
+        {
+          "name": "LAUNCHES_PROCESS_ASYNCHRONOUSLY",
+          "definition": "行动以脱离终端或后台方式启动长期进程，使调用者无须等待进程结束即可收回控制权。",
+          "parameters": [
+            {
+              "name": "launch_action",
+              "type": "action",
+              "description": "以脱离终端或后台方式启动进程的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "行动显式使用后台作业符、nohup 式脱离或等效异步启动机制。",
+            "调用方式让控制权立即返回，同时启动的进程继续运行。"
+          ],
+          "exclusion_conditions": [
+            "行动以前台方式运行进程，并等待进程结束后返回。",
+            "行动仅注册事件或重启后启动进程，没有立即启动。",
+            "行动没有任何脱离、后台或异步执行机制。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "LAUNCHES_PROCESS_ASYNCHRONOUSLY": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "unary-007"
+    },
+    {
+      "arity": 1,
+      "size": 1,
+      "representative": "REVEALS_UNAVAILABLE_CAPABILITY",
+      "medoid_index": 60,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        60
+      ],
+      "members": [
+        {
+          "name": "REVEALS_UNAVAILABLE_CAPABILITY",
+          "definition": "观察直接报告智能体调用的命令、工具、软件包、服务或其他能力不存在、未找到或不可用，因此限制了可选方法。",
+          "parameters": [
+            {
+              "name": "limitation_observation",
+              "type": "observation",
+              "description": "报告命令、工具、包、服务或能力缺失的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察明确指出某项命令、工具、软件包、服务或其他能力缺失、未找到或不可用。",
+            "不可用性由观察内容直接报告，而非仅由智能体另行推断。"
+          ],
+          "exclusion_conditions": [
+            "观察只报告参数无效或非零退出等一般失败，没有指出能力缺失。",
+            "观察报告成功或可用，而非缺失。",
+            "缺失的是普通数据内容，不是智能体尝试调用的命令、工具或能力。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "REVEALS_UNAVAILABLE_CAPABILITY": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "unary-008"
+    },
+    {
+      "arity": 1,
+      "size": 6,
+      "representative": "DISAMBIGUATES_COMPETING_INTERPRETATIONS",
+      "medoid_index": 78,
+      "mean_similarity": 0.7125622415276286,
+      "min_similarity": 0.5981738063042616,
+      "minimum_pair": {
+        "predicates": [
+          "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+          "RESOLVES_CONFLICTING_INFORMATION_SOURCES"
+        ],
+        "similarity": 0.5981738063042616
+      },
+      "member_indices": [
+        24,
+        36,
+        50,
+        66,
+        78,
+        88
+      ],
+      "members": [
+        {
+          "name": "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+          "definition": "推理评估多个候选方案，明确淘汰违反硬性要求的候选项，从剩余候选项中作出选择；可用软性偏好打破剩余候选项之间的平局。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "列举候选项、排除违规项并明确所选项的推理文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理考虑了不止一个候选方案。",
+            "至少一个候选项因违反硬性要求而被明确淘汰。",
+            "一个符合要求的候选项被确定为最终选择。"
+          ],
+          "exclusion_conditions": [
+            "推理直接宣布选择，没有评估其他方案。",
+            "推理列出候选项却没有作出选择。",
+            "淘汰理由任意或未说明，与给定要求无关。"
+          ]
+        },
+        {
+          "name": "ENUMERATES_COMPETING_EXPLANATIONS",
+          "definition": "推理针对同一观察情况列出至少两种替代解释，将其视为尚未确定真伪、需要在决策前加以区分的竞争假设。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "列举观察情况的替代解释的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "针对同一观察条件提出至少两种不同候选解释。",
+            "各解释仍是相互竞争、尚未确定的可能性，而非既定事实。"
+          ],
+          "exclusion_conditions": [
+            "只有一种解释。",
+            "所列项目是计划步骤、候选方案或状态事实，未构成对观察原因的竞争解释。",
+            "某种解释已被确认为事实，因此不存在真正的竞争假设。"
+          ]
+        },
+        {
+          "name": "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES",
+          "definition": "推理比较至少两种实现同一目标的方案，明确选定其中一种并说明偏好理由。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "比较候选方案、指出选择及理由的推理文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "识别同一目标下至少两个不同候选方法。",
+            "推理说明这些方法的比较或权衡。",
+            "推理明确选择一种方法，并给出优于其他方法的理由。"
+          ],
+          "exclusion_conditions": [
+            "只描述一种方法，没有考虑替代项。",
+            "提及多个方法却没有作出选择。",
+            "只复述选定方法，没有与替代项比较。",
+            "比较仅按硬性要求排除方案，没有权衡任何取舍。"
+          ]
+        },
+        {
+          "name": "RESOLVES_CONFLICTING_INFORMATION_SOURCES",
+          "definition": "推理发现不同来源对同一实体提供的信息相冲突，依据明确理由选定其中一个来源或值作为权威。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出差异并论证所选来源的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确对照同一实体的两个不同数值或事实，如环境提供值与指令提供值。",
+            "推理选择其一为权威，并给出可识别的理由。"
+          ],
+          "exclusion_conditions": [
+            "只有一个一致来源，没有冲突。",
+            "推理指出差异却未解决或无理由搁置。",
+            "冲突信息涉及不同实体或无关事实，并非同一实体。"
+          ]
+        },
+        {
+          "name": "DISAMBIGUATES_COMPETING_INTERPRETATIONS",
+          "definition": "推理针对同一证据提出至少两种解释或假设，引用能区分候选项的因素进行比较，并据此偏好其中一种解释。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "权衡同一证据的多种解读并论证首选解释的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出可解释同一观察证据的至少两种替代解读。",
+            "推理提出区分性因素，如数据覆盖、一致性或竞争解释与证据不符。",
+            "推理依据该因素选定偏好解释。"
+          ],
+          "exclusion_conditions": [
+            "推理只断言一种解读，没有承认其他解释。",
+            "推理列举替代解释，却未区分或选择。",
+            "候选项是行动方案，而非同一证据的竞争解释。",
+            "备选项涉及不同证据或范围，不能构成同一数据的竞争解释。",
+            "没有确定首选解释。"
+          ]
+        },
+        {
+          "name": "RESOLVES_INSTRUCTION_CONFLICT",
+          "definition": "推理发现当前步骤适用的两项指令、规则或要求相互冲突，明确说明采用优先级、范围解释或兼容解读解决冲突的理由。",
+          "parameters": [
+            {
+              "name": "conflict_reasoning",
+              "type": "reasoning",
+              "description": "指出竞争指令或约束并解释解决方式的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理识别至少两项同时适用于当前行动且存在冲突的指令、约束或要求。",
+            "推理明确说明如何解决冲突，如确定优先级、划分适用范围或选择两者兼容的解释。"
+          ],
+          "exclusion_conditions": [
+            "推理遵循某项要求，没有承认其他冲突要求。",
+            "推理承认冲突却未解决，也未说明处理依据。",
+            "竞争要求并非都适用于当前行动。",
+            "解决的是产物版本或事实冲突，而非适用指令或要求之间的冲突。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION": 0.6874165267096013,
+        "ENUMERATES_COMPETING_EXPLANATIONS": 0.810878310308183,
+        "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES": 0.7669444558711117,
+        "RESOLVES_CONFLICTING_INFORMATION_SOURCES": 0.709059859655179,
+        "DISAMBIGUATES_COMPETING_INTERPRETATIONS": 1,
+        "RESOLVES_INSTRUCTION_CONFLICT": 0.7103780626281097
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6803841503320841,
+          0.7468534935353396,
+          0.5981738063042616,
+          0.6874165267096013,
+          0.6682137565553694
+        ],
+        [
+          0.6803841503320841,
+          1,
+          0.7645646055944392,
+          0.6837017589609793,
+          0.810878310308183,
+          0.7054812756822804
+        ],
+        [
+          0.7468534935353396,
+          0.7645646055944392,
+          1,
+          0.6635103638380909,
+          0.7669444558711117,
+          0.6937602907701782
+        ],
+        [
+          0.5981738063042616,
+          0.6837017589609793,
+          0.6635103638380909,
+          1,
+          0.709059859655179,
+          0.7991129061692224
+        ],
+        [
+          0.6874165267096013,
+          0.810878310308183,
+          0.7669444558711117,
+          0.709059859655179,
+          1,
+          0.7103780626281097
+        ],
+        [
+          0.6682137565553694,
+          0.7054812756822804,
+          0.6937602907701782,
+          0.7991129061692224,
+          0.7103780626281097,
+          1
+        ]
+      ],
+      "cluster_id": "unary-009"
+    },
+    {
+      "arity": 1,
+      "size": 2,
+      "representative": "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY",
+      "medoid_index": 89,
+      "mean_similarity": 0.7000679171909454,
+      "min_similarity": 0.7000679171909454,
+      "minimum_pair": {
+        "predicates": [
+          "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY",
+          "RESTRICTS_MODIFICATION_SCOPE"
+        ],
+        "similarity": 0.7000679171909454
+      },
+      "member_indices": [
+        89,
+        116
+      ],
+      "members": [
+        {
+          "name": "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY",
+          "definition": "推理权衡任务未要求的可选增强、额外字段或其他偏离做法，明确拒绝它们以忠实遵守原始要求，避免范围蔓延。",
+          "parameters": [
+            {
+              "name": "fidelity_reasoning",
+              "type": "reasoning",
+              "description": "考虑可选增强或偏离并为遵守要求而明确拒绝的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出一项具体、非任务必需的增强、附加元素或替代做法。",
+            "推理说明该选项没有必要、未获要求或可能与要求冲突。",
+            "推理明确决定不采用该可选更改。"
+          ],
+          "exclusion_conditions": [
+            "推理根本没有考虑可选更改，因此无权衡和拒绝。",
+            "推理采纳了可选增强。",
+            "拒绝理由与保持要求一致无关，如性能或便利性。",
+            "因技术限制或能力缺失而放弃方法，而非因为该更改超出需求。"
+          ]
+        },
+        {
+          "name": "RESTRICTS_MODIFICATION_SCOPE",
+          "definition": "推理明确将修改限制在已确定受影响的产物，并保留或避免修改未受影响或无关的产物。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "说明预定修改范围边界的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确哪些产物应修改，哪些需保持原样。",
+            "推理提出避免改动未受影响或无关产物的约束。"
+          ],
+          "exclusion_conditions": [
+            "推理没有说明任何修改边界。",
+            "推理计划广泛修改，未区分受影响和不受影响产物。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY": 1,
+        "RESTRICTS_MODIFICATION_SCOPE": 0.7000679171909454
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7000679171909454
+        ],
+        [
+          0.7000679171909454,
+          1
+        ]
+      ],
+      "cluster_id": "unary-010"
+    },
+    {
+      "arity": 1,
+      "size": 4,
+      "representative": "DECLARES_TASK_COMPLETION",
+      "medoid_index": 90,
+      "mean_similarity": 0.7274888478921716,
+      "min_similarity": 0.6604126912535211,
+      "minimum_pair": {
+        "predicates": [
+          "ENUMERATES_REQUIRED_END_STATE",
+          "CONCLUDES_WITH_FINAL_ANSWER"
+        ],
+        "similarity": 0.6604126912535211
+      },
+      "member_indices": [
+        16,
+        35,
+        64,
+        90
+      ],
+      "members": [
+        {
+          "name": "ENUMERATES_REQUIRED_END_STATE",
+          "definition": "推理列举交付环境在移交时必须满足的多项可检查条件，将最终状态拆分为可独立验证的不变量，而非操作步骤清单。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "列举最终环境必须满足的条件的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理列出多项不同终态条件，如服务运行、仓库为空、密钥已删除、主机条目存在。",
+            "所列条件描述结果状态的可验证属性，而非执行步骤。"
+          ],
+          "exclusion_conditions": [
+            "推理仅描述执行步骤，没有明确结果状态的要求。",
+            "推理仅描述当前状态的单一观察，未列举所需终态属性。"
+          ]
+        },
+        {
+          "name": "CONCLUDES_WITH_FINAL_ANSWER",
+          "definition": "推理给出任务确定的最终结果，将其与支持证据链及适用的输出产物关联，并声明任务已完成。",
+          "parameters": [
+            {
+              "name": "conclusion_reasoning",
+              "type": "reasoning",
+              "description": "提供最终结果、支持理由及完成声明的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理以具体最终数值或结果回答任务。",
+            "推理将结果与先前观察等可识别证据及必要输出产物关联。",
+            "推理明确声明任务已经完成。"
+          ],
+          "exclusion_conditions": [
+            "推理仍处于中间、探索或暂定阶段。",
+            "未给出最终数值或结果。",
+            "推理仅描述步骤或计划，没有宣告完成。",
+            "所述结果仍是待进一步验证的候选项。"
+          ]
+        },
+        {
+          "name": "ASSESSES_REQUIREMENT_COMPLETION",
+          "definition": "推理逐一对照证据或完成判断评估多项明确要求或交付物的满足情况，而非笼统宣称全部完成。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "列举要求或交付物并评估完成状态的推理。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出至少两项不同要求或交付物。",
+            "对于每项要求，推理给出满足状态、支持证据或明确完成判断。"
+          ],
+          "exclusion_conditions": [
+            "只有总体完成声明，没有逐项评估。",
+            "仅列出要求，没有说明各项是否满足。",
+            "只评估单项要求，没有多项评估。"
+          ]
+        },
+        {
+          "name": "DECLARES_TASK_COMPLETION",
+          "definition": "推理声明整个任务及其要求或交付物已全部满足并验证，而非只报告单项中间检查、个别交付物或剩余工作。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "声明任务整体及要求或交付物完成的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确声明任务或其全部要求、交付物已完成、满足或验证。",
+            "完成声明覆盖整个任务，而非单个中间检查、探测或部分步骤。"
+          ],
+          "exclusion_conditions": [
+            "推理只计划后续工作或报告仍有未完成事项的部分进展。",
+            "推理只报告单次检查或单个交付物状态，未宣告整体任务完成。",
+            "推理仅为单问题任务给出最终值和证据链，没有对多项要求作整体完成声明。",
+            "推理自身承认必要项目仍未验证、失败或未完成，与完成声明矛盾。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ENUMERATES_REQUIRED_END_STATE": 0.6875970556118388,
+        "CONCLUDES_WITH_FINAL_ANSWER": 0.7696182705058323,
+        "ASSESSES_REQUIREMENT_COMPLETION": 0.8221614815870433,
+        "DECLARES_TASK_COMPLETION": 1
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6604126912535211,
+          0.7063597912225497,
+          0.6875970556118388
+        ],
+        [
+          0.6604126912535211,
+          1,
+          0.7187837971722443,
+          0.7696182705058323
+        ],
+        [
+          0.7063597912225497,
+          0.7187837971722443,
+          1,
+          0.8221614815870433
+        ],
+        [
+          0.6875970556118388,
+          0.7696182705058323,
+          0.8221614815870433,
+          1
+        ]
+      ],
+      "cluster_id": "unary-011"
+    },
+    {
+      "arity": 1,
+      "size": 1,
+      "representative": "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS",
+      "medoid_index": 103,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        103
+      ],
+      "members": [
+        {
+          "name": "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS",
+          "definition": "推理推导或界定预期计算的累计数值误差，与规定的等价容差比较，判断结果能否被接受为等价。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "推导或界定误差量级并与容差比较的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理定量估计计算误差或最坏界限，例如根据累加步骤数和机器精度。",
+            "推理明确将误差量级与指定容差比较，判断是否达标。"
+          ],
+          "exclusion_conditions": [
+            "推理直接声称正确或等价，没有推导或界定误差。",
+            "定量估计对象是运行时间、内存或成本，而非数值精度。",
+            "误差量级只是读取已有测量结果，未对拟议计算进行推导或估计。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "unary-012"
+    },
+    {
+      "arity": 1,
+      "size": 2,
+      "representative": "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+      "medoid_index": 104,
+      "mean_similarity": 0.7257649373316387,
+      "min_similarity": 0.7257649373316387,
+      "minimum_pair": {
+        "predicates": [
+          "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+          "IDENTIFIES_PERFORMANCE_BOTTLENECK"
+        ],
+        "similarity": 0.7257649373316387
+      },
+      "member_indices": [
+        104,
+        110
+      ],
+      "members": [
+        {
+          "name": "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+          "definition": "推理依据操作次数、数据大小、转换开销或算法复杂度，估算实现或命令的时间及资源成本，并据此判断性能要求或决定命令执行方式。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "包含成本、操作数或耗时估算及相应决策的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理在结果出现前对至少一个实现、操作或命令给出定量成本、操作数或耗时估算。",
+            "估算用于判断性能要求是否满足，或决定预期耗时、超时设置、后台运行等执行方式。"
+          ],
+          "exclusion_conditions": [
+            "推理仅提出性能要求，没有估计成本或耗时。",
+            "估算涉及数值精度或正确性，而非时间资源成本。",
+            "给出估算，却没有据此作性能判断或执行决策。"
+          ]
+        },
+        {
+          "name": "IDENTIFIES_PERFORMANCE_BOTTLENECK",
+          "definition": "推理基于时间测量证据，将主要运行耗时定位到执行流程中的具体阶段、组件或操作，并据此提出优化或重设计。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将大部分测量耗时归于具体阶段并推动优化的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理引用运行时间、时间分解或类似定量性能证据。",
+            "推理把主要成本归于明确阶段、组件或操作，而非整个系统。",
+            "推理以识别的瓶颈为优化或重设计该阶段的理由。"
+          ],
+          "exclusion_conditions": [
+            "推理只说性能不足，没有定位主导开销。",
+            "优化建议与已识别成本来源无关。",
+            "计时证据只用来检查阈值，没有指出主导阶段或组件。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE": 1,
+        "IDENTIFIES_PERFORMANCE_BOTTLENECK": 0.7257649373316387
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7257649373316387
+        ],
+        [
+          0.7257649373316387,
+          1
+        ]
+      ],
+      "cluster_id": "unary-013"
+    },
+    {
+      "arity": 1,
+      "size": 3,
+      "representative": "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA",
+      "medoid_index": 111,
+      "mean_similarity": 0.7208387148498527,
+      "min_similarity": 0.6868263190503563,
+      "minimum_pair": {
+        "predicates": [
+          "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS",
+          "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES"
+        ],
+        "similarity": 0.6868263190503563
+      },
+      "member_indices": [
+        54,
+        109,
+        111
+      ],
+      "members": [
+        {
+          "name": "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS",
+          "definition": "推理考虑外部参与者、流程或环境可能采取的至少两种假设行为，选择在全部或尽可能多的场景下仍有效的状态、配置或行动。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "列举假设场景并比较候选状态或行动适用性的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理提出外部参与者或环境可能表现的至少两种不同假设场景或行为。",
+            "推理评估哪种候选状态、配置或行动在这些场景下仍有效。",
+            "推理选择或偏好适用于最多、最好是全部场景的候选项。"
+          ],
+          "exclusion_conditions": [
+            "推理仅考虑单一预期场景。",
+            "推理列举场景却未比较应选哪种状态或行动。",
+            "所列是对已观察情况的竞争解释，而非假设未来行为。",
+            "候选状态仅有无关细节差别，没有实际鲁棒性权衡。"
+          ]
+        },
+        {
+          "name": "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES",
+          "definition": "推理识别规范和现有测试未覆盖的具体输入情形或变化，决定增加验证以降低漏检失败的风险。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出额外输入变化并计划测试以增强保证的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出测试未覆盖的具体变化，如尺寸边界、不同内存布局、数据类型、畸形输入或另一调用接口。",
+            "推理说明将执行这些附加检查，以在必要测试之外增加保证。"
+          ],
+          "exclusion_conditions": [
+            "推理只重复任务明确要求的测试。",
+            "提到附加检查，却没有具体输入变化。",
+            "额外活动取代必要验证，而非拓展验证，且未提出增强保证的目的。"
+          ]
+        },
+        {
+          "name": "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA",
+          "definition": "推理提出规范未明确规定、但外部评估者或隐藏测试可能采用的检查或使用场景，并评估现有方案能否应对。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出未写明的外部评估场景并评价鲁棒性的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理列举至少一个任务要求未说明的具体检查、使用模式或场景。",
+            "推理将其视为外部评估者可能施加的条件，并判断当前方案是否能满足或承受。"
+          ],
+          "exclusion_conditions": [
+            "推理只处理规范明确要求的检查。",
+            "推理只报告已运行测试，没有假设额外外部检查。",
+            "推理仅讨论假设环境或用户行为，没有关联方案的评估或验收。",
+            "推理提出额外具体输入并承诺实际测试，属于扩展验证而非评估未说明检查下的鲁棒性。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS": 0.7176651713066433,
+        "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES": 0.7580246541925586,
+        "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA": 1
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6868263190503563,
+          0.7176651713066433
+        ],
+        [
+          0.6868263190503563,
+          1,
+          0.7580246541925586
+        ],
+        [
+          0.7176651713066433,
+          0.7580246541925586,
+          1
+        ]
+      ],
+      "cluster_id": "unary-014"
+    },
+    {
+      "arity": 1,
+      "size": 3,
+      "representative": "ASSESSES_COMPLETENESS_OF_RECOVERY",
+      "medoid_index": 128,
+      "mean_similarity": 0.589492637354585,
+      "min_similarity": 0.5162857872019174,
+      "minimum_pair": {
+        "predicates": [
+          "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS",
+          "ASSESSES_RESIDUAL_STORAGE_RISK"
+        ],
+        "similarity": 0.5162857872019174
+      },
+      "member_indices": [
+        99,
+        117,
+        128
+      ],
+      "members": [
+        {
+          "name": "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS",
+          "definition": "推理将至少两个部分片段视作同一结果的互补部分，组合成候选项，并按整体长度、边界模式、允许字符集或校验和等整体约束检查。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "识别互补片段、组合候选值并检查其整体约束的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理识别至少两个属于同一结果的互补片段，而非独立结果。",
+            "推理将片段合并为单一候选结果。",
+            "推理根据总长度、前后缀、允许字符集或校验和等至少一项整体约束检查候选项。"
+          ],
+          "exclusion_conditions": [
+            "推理只涉及一个片段，或没有组合。",
+            "组合了片段却未检查任何整体约束。",
+            "片段未被视为同一结果的组成部分。",
+            "推理只复述合并值，没有约束评估。"
+          ]
+        },
+        {
+          "name": "ASSESSES_RESIDUAL_STORAGE_RISK",
+          "definition": "推理评估目标产物或值是否可能残留在直接可见或已编辑文件以外的次级、历史存储中，如版本历史、缓存、压缩对象或生成副本。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "评估可能残留或隐藏匹配项的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理提及直接修改的工作文件以外的存储位置或产物类型。",
+            "推理评估目标值是否可能仍存在其中，以及该位置是否属于清理范围。"
+          ],
+          "exclusion_conditions": [
+            "推理只考虑可见工作文件。",
+            "推理未考虑历史、缓存、压缩、生成或其他非主要存储中的残留。"
+          ]
+        },
+        {
+          "name": "ASSESSES_COMPLETENESS_OF_RECOVERY",
+          "definition": "推理评估从现有产物中恢复或提取的信息是否完整，分别核算已恢复与缺失、不可读或不可用区域，据此证明恢复结果的上限。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "评估恢复或提取完整性及限制的推理。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理同时说明已恢复的数据区域与缺失、不可读或不可用区域。",
+            "推理解释现有产物中为何没有更多可恢复信息，例如剩余区域为空、非数据或已被处理。",
+            "推理得出有依据的最大可恢复量界限。"
+          ],
+          "exclusion_conditions": [
+            "推理只报告最终输出，没有评估完整性。",
+            "推理未经证据核算未检查或不可用数据便宣称完整。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS": 0.6035927210737431,
+        "ASSESSES_RESIDUAL_STORAGE_RISK": 0.6485994037880943,
+        "ASSESSES_COMPLETENESS_OF_RECOVERY": 1
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.5162857872019174,
+          0.6035927210737431
+        ],
+        [
+          0.5162857872019174,
+          1,
+          0.6485994037880943
+        ],
+        [
+          0.6035927210737431,
+          0.6485994037880943,
+          1
+        ]
+      ],
+      "cluster_id": "unary-015"
+    },
+    {
+      "arity": 2,
+      "size": 3,
+      "representative": "IDENTIFIES_DEFECT_FROM_OBSERVATION",
+      "medoid_index": 1,
+      "mean_similarity": 0.7607440845952643,
+      "min_similarity": 0.7050542528788333,
+      "minimum_pair": {
+        "predicates": [
+          "IDENTIFIES_MISSING_PREREQUISITE",
+          "RECOGNIZES_INCOMPLETE_OBSERVATION"
+        ],
+        "similarity": 0.7050542528788333
+      },
+      "member_indices": [
+        1,
+        10,
+        130
+      ],
+      "members": [
+        {
+          "name": "IDENTIFIES_DEFECT_FROM_OBSERVATION",
+          "definition": "推理利用观察中可识别的内容，指出该观察所描述的产物或状态存在缺陷、错误或不完整之处。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出缺陷、错误或缺口的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "其内容为缺陷或不完整状态提供证据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含可识别的证据，表明状态不完整、错误或存在其他缺陷。",
+            "推理明确将该状态定性为需要关注或纠正的问题、缺口或缺陷。"
+          ],
+          "exclusion_conditions": [
+            "推理仅复述或描述观察，未指出缺陷。",
+            "观察没有提供缺陷或缺口的证据。",
+            "推理声称存在缺陷，但无法从观察内容中找到支持证据。"
+          ]
+        },
+        {
+          "name": "IDENTIFIES_MISSING_PREREQUISITE",
+          "definition": "推理结合观察中的可识别证据，指出目标所需的能力、组件、账户、资源或配置缺失或不足。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "说明目标所需项目缺失或不足的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "为缺失或不足提供证据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理说明任务所需的某项内容缺失、不可用或不足。",
+            "观察提供可识别的缺失或不足证据，例如查询失败、列表为空、可执行文件缺失或软件包缺失。"
+          ],
+          "exclusion_conditions": [
+            "推理只陈述事实，没有将其关联到目标要求。",
+            "没有指出任何要求或缺口。",
+            "观察未显示所需项目缺失或不足。"
+          ]
+        },
+        {
+          "name": "RECOGNIZES_INCOMPLETE_OBSERVATION",
+          "definition": "推理识别观察只包含目标信息的一部分、受限部分或截断内容，仍需取得剩余部分。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出观察只覆盖所需信息一部分的推理节点。"
+            },
+            {
+              "name": "incomplete_observation",
+              "type": "observation",
+              "description": "报告相关信息开头、有限范围或截断部分的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察仅包含所需信息开头、有限范围或截断部分，如受行数限制的输出、不完整列表或中断响应。",
+            "推理明确指出观察不完整或被截断，仍有后续内容需检查。",
+            "缺失部分与当前信息需求有关。"
+          ],
+          "exclusion_conditions": [
+            "推理请求无关额外信息，没有指出观察不完整。",
+            "观察已包含全部所需信息。",
+            "推理只总结或复述已见内容，没有识别缺失部分。",
+            "观察完整，只是内容较多或详细。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "IDENTIFIES_DEFECT_FROM_OBSERVATION": 1,
+        "IDENTIFIES_MISSING_PREREQUISITE": 0.8475934349235139,
+        "RECOGNIZES_INCOMPLETE_OBSERVATION": 0.7295845659834459
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.8475934349235139,
+          0.7295845659834459
+        ],
+        [
+          0.8475934349235139,
+          1,
+          0.7050542528788333
+        ],
+        [
+          0.7295845659834459,
+          0.7050542528788333,
+          1
+        ]
+      ],
+      "cluster_id": "binary-001"
+    },
+    {
+      "arity": 2,
+      "size": 1,
+      "representative": "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "medoid_index": 3,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        3
+      ],
+      "members": [
+        {
+          "name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+          "definition": "行动执行了推理明确指定的未来计划步骤或纠正步骤。",
+          "parameters": [
+            {
+              "name": "action",
+              "type": "action",
+              "description": "执行计划步骤的行动。"
+            },
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "说明计划步骤、目标或修正内容的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指定了未来行动、目标或修正内容。",
+            "行动采用对应的操作、目标或内容来执行该步骤。"
+          ],
+          "exclusion_conditions": [
+            "行动与推理所述意图无关。",
+            "推理仅描述结果或诊断，未指定行动。",
+            "行动属于推理未提及的临时反应。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ACTION_IMPLEMENTS_PLANNED_STEP": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "binary-002"
+    },
+    {
+      "arity": 2,
+      "size": 2,
+      "representative": "REPRODUCES_STIPULATED_WORKFLOW",
+      "medoid_index": 19,
+      "mean_similarity": 0.6773619428065638,
+      "min_similarity": 0.6773619428065638,
+      "minimum_pair": {
+        "predicates": [
+          "REPRODUCES_STIPULATED_WORKFLOW",
+          "MIRRORS_REFERENCE_OPERATION_ORDER"
+        ],
+        "similarity": 0.6773619428065638
+      },
+      "member_indices": [
+        19,
+        105
+      ],
+      "members": [
+        {
+          "name": "REPRODUCES_STIPULATED_WORKFLOW",
+          "definition": "行动复现任务或请求者指定的确切流程，按其步骤执行以直接验证流程本身，而不使用替代性检查。",
+          "parameters": [
+            {
+              "name": "validation_reasoning",
+              "type": "reasoning",
+              "description": "说明重放指定流程以便验证的推理。"
+            },
+            {
+              "name": "replay_action",
+              "type": "action",
+              "description": "操作重现指定步骤的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出正在重放请求者预期运行的流程，以验证该流程。",
+            "行动包含与指定流程相同的操作及顺序或实质逻辑，而非状态查询、配置检查等间接替代。"
+          ],
+          "exclusion_conditions": [
+            "行动执行等效但不同的检查，没有重现指定步骤。",
+            "推理未将行动与指定流程关联。",
+            "行动仅检查状态或配置，没有实际执行用户流程。"
+          ]
+        },
+        {
+          "name": "MIRRORS_REFERENCE_OPERATION_ORDER",
+          "definition": "推理主动沿用观察揭示的参考实现的求值或累加顺序，使新实现在规定容差内复现参考数值结果。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "说明新计算采用参考操作顺序以匹配结果的智能体文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "包含可辨识操作顺序的参考实现或计算流程的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含操作顺序可辨识的实现或计算流程。",
+            "推理明确表示新计算复现相同顺序或操作序列。",
+            "推理将该顺序与在规定容差内匹配参考结果关联。"
+          ],
+          "exclusion_conditions": [
+            "推理只要求结果一致，没有提及复现参考操作顺序。",
+            "引用内容没有描述实现或计算流程。",
+            "推理为了速度或便利采用显著不同的顺序，且未声称通过该顺序复现参考结果。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "REPRODUCES_STIPULATED_WORKFLOW": 1,
+        "MIRRORS_REFERENCE_OPERATION_ORDER": 0.6773619428065638
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6773619428065638
+        ],
+        [
+          0.6773619428065638,
+          1
+        ]
+      ],
+      "cluster_id": "binary-003"
+    },
+    {
+      "arity": 2,
+      "size": 2,
+      "representative": "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+      "medoid_index": 22,
+      "mean_similarity": 0.7386815958696705,
+      "min_similarity": 0.7386815958696705,
+      "minimum_pair": {
+        "predicates": [
+          "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+          "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT"
+        ],
+        "similarity": 0.7386815958696705
+      },
+      "member_indices": [
+        22,
+        48
+      ],
+      "members": [
+        {
+          "name": "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+          "definition": "推理说明为避免接收方后续使用出现冲突，环境应恢复初始或干净状态；行动清除工作过程中产生的产物，同时保留必要配置和基础设施。",
+          "parameters": [
+            {
+              "name": "handoff_reasoning",
+              "type": "reasoning",
+              "description": "论证移交前恢复初始或干净状态的推理。"
+            },
+            {
+              "name": "reset_action",
+              "type": "action",
+              "description": "删除、清空或撤销工作期间生成产物的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理说明为后续使用而将环境恢复到初始、空白或干净状态。",
+            "重置行动删除或清空工作期间产生的产物。",
+            "重置行动保留接收方所需的已配置基础设施或交付物。"
+          ],
+          "exclusion_conditions": [
+            "仅为整洁而删除产物，未说明移交或后续使用的理由。",
+            "行动撤销了必要配置或交付物，而非仅清除生成数据。",
+            "推理未考虑移交时的环境状态。"
+          ]
+        },
+        {
+          "name": "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT",
+          "definition": "行动对推理指定的待清理产物、记录或保留机制实施删除或清除操作。",
+          "parameters": [
+            {
+              "name": "action",
+              "type": "action",
+              "description": "执行清理或删除操作的行动。"
+            },
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出不需要的产物、记录或保留机制以及删除策略的推理。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出具体不需要的产物、记录或其保留机制。",
+            "推理给出清除目标的策略。",
+            "行动实际执行针对目标的删除，而非探索或验证。"
+          ],
+          "exclusion_conditions": [
+            "行动用于探索、诊断或无关维护。",
+            "推理未指出需移除的产物或保留机制。",
+            "行动只检查是否需要删除，未执行删除。",
+            "行动仅为整洁删除状态，缺乏明确清理目标。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF": 1,
+        "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT": 0.7386815958696705
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7386815958696705
+        ],
+        [
+          0.7386815958696705,
+          1
+        ]
+      ],
+      "cluster_id": "binary-004"
+    },
+    {
+      "arity": 2,
+      "size": 3,
+      "representative": "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+      "medoid_index": 25,
+      "mean_similarity": 0.6688208076265888,
+      "min_similarity": 0.6351465120515297,
+      "minimum_pair": {
+        "predicates": [
+          "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL",
+          "INTERPRETS_RAW_REPRESENTATION_AS_STRUCTURED_DATA"
+        ],
+        "similarity": 0.6351465120515297
+      },
+      "member_indices": [
+        25,
+        82,
+        127
+      ],
+      "members": [
+        {
+          "name": "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+          "definition": "推理从观察记录提取具体值，并转换为占用区间、范围、总量或解析记录等派生量，用作约束后续方案或决策的输入。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "从观察记录提取数值并计算派生量的推理文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "提供待转换基础记录或数值的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理引用或转换观察中的具体内容。",
+            "派生量用于后续约束评估或决策，而非仅被描述。"
+          ],
+          "exclusion_conditions": [
+            "推理笼统讨论观察，没有提取具体数值。",
+            "派生量没有使用观察内容。",
+            "推理仅复述观察内容，未进行计算。"
+          ]
+        },
+        {
+          "name": "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL",
+          "definition": "推理把多个不同观察中的内容整合为单一模型、表示或理解，而非分别孤立处理。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "整合多个观察信息的智能体文本。"
+            },
+            {
+              "name": "observations",
+              "type": "observation[]",
+              "description": "其内容被整合的观察集合。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理引用或重述至少两个不同观察的内容。",
+            "推理构建整合这些信息的统一模型、状态、模式、摘要或表示。",
+            "推理交叉关联各观察的信息，超越简单逐项列举。"
+          ],
+          "exclusion_conditions": [
+            "仅引用一个观察。",
+            "推理只是分别列出观察，没有综合表示。",
+            "未提出整合理解或统一模型。"
+          ]
+        },
+        {
+          "name": "INTERPRETS_RAW_REPRESENTATION_AS_STRUCTURED_DATA",
+          "definition": "推理依据推断或重建的格式，将观察报告的原始字节、字符或低层内容解码为结构化字段、记录或数值。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将原始观察解码为结构化信息的推理。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "包含产物原始或低层表示的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含产物的原始字节级、字符级或其他低层表示。",
+            "推理从表示中识别结构边界、字段类型、记录布局或编码值。",
+            "推理明确将原始内容映射为记录、字段或解码值等高层结构数据，而非仅重复原内容。"
+          ],
+          "exclusion_conditions": [
+            "推理只评论文件大小、元数据或产物存在，没有解码原始内容。",
+            "观察不包含原始或低层表示。",
+            "推理只重述字节或原始内容，没有赋予结构或语义。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS": 1,
+        "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL": 0.6760623445806112,
+        "INTERPRETS_RAW_REPRESENTATION_AS_STRUCTURED_DATA": 0.6952535662476252
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6760623445806112,
+          0.6952535662476252
+        ],
+        [
+          0.6760623445806112,
+          1,
+          0.6351465120515297
+        ],
+        [
+          0.6952535662476252,
+          0.6351465120515297,
+          1
+        ]
+      ],
+      "cluster_id": "binary-005"
+    },
+    {
+      "arity": 2,
+      "size": 4,
+      "representative": "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+      "medoid_index": 37,
+      "mean_similarity": 0.6530490236392372,
+      "min_similarity": 0.5260196747583287,
+      "minimum_pair": {
+        "predicates": [
+          "SELECTS_TARGET_AMONG_CANDIDATES",
+          "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION"
+        ],
+        "similarity": 0.5260196747583287
+      },
+      "member_indices": [
+        37,
+        38,
+        57,
+        93
+      ],
+      "members": [
+        {
+          "name": "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+          "definition": "推理因观察中的可识别内容与某候选解释所必需的条件相矛盾，而排除该解释。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "排除候选解释的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "其内容反驳被排除解释的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确提及要排除的候选解释。",
+            "推理引用与该解释必要条件冲突的观察证据，例如空列表否定暂存假设，干净状态否定未提交修改假设。"
+          ],
+          "exclusion_conditions": [
+            "推理仅缩小可能性范围，未说明排除理由。",
+            "观察与被排除解释相容或无关。",
+            "被排除的是候选方案或产物，而非对观察情况的解释。"
+          ]
+        },
+        {
+          "name": "SELECTS_TARGET_AMONG_CANDIDATES",
+          "definition": "推理比较若干相似候选项，依据观察中可见的区分性属性选出任务相关对象，避免单凭位置、时间新旧或表面相似性选择。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "比较候选项并指出目标项的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "展示候选项区分性属性的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理区分至少两个可比候选项。",
+            "选择依据观察中的来源、作者、时间戳或创建背景等区分性属性。",
+            "推理确定某个候选项与任务相关。"
+          ],
+          "exclusion_conditions": [
+            "只考虑一个候选项，无须区分。",
+            "仅凭位置、时间或猜测选择，未引用区分性证据。",
+            "所声称的区分属性实际未出现在观察中。"
+          ]
+        },
+        {
+          "name": "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION",
+          "definition": "推理判定观察中的数值或结果因产生它的操作失败而缺乏证据效力，并将其排除在后续结论之外。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "说明失败使报告结果失去证据效力的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "同时报告底层操作失败及相关派生数值或结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察表明底层操作失败或未按预期执行。",
+            "观察仍报告了本可提供信息的测量值或结果。",
+            "推理明确表示该伴随结果因失败而无意义、无效或不可使用。"
+          ],
+          "exclusion_conditions": [
+            "推理仍接受或依赖该数值作为有效证据。",
+            "观察没有会损害结果效力的失败。",
+            "推理指出失败，却未讨论伴随数值是否有效。"
+          ]
+        },
+        {
+          "name": "DISMISSES_CANDIDATE_AS_UNINFORMATIVE",
+          "definition": "推理因已检查候选产物或信息来源的观察内容像占位、随机数据、无法读取或没有信息量，而将其排除或降低优先级。",
+          "parameters": [
+            {
+              "name": "dismissal_reasoning",
+              "type": "reasoning",
+              "description": "将候选项定性为无信息量或降低其优先级的推理节点。"
+            },
+            {
+              "name": "content_observation",
+              "type": "observation",
+              "description": "展示候选项无信息量内容或元数据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察内容可合理判断为虚构填充、随机、不可读或缺乏有用信息。",
+            "推理明确将候选项视为占位、随机数据、噪声或无用信息，或降低其优先级。"
+          ],
+          "exclusion_conditions": [
+            "推理只是感到不确定或内容异常，却仍将其作为同类信息的主要来源。",
+            "推理将同一内容重新解释为另一种有用产物，而非排除候选项。",
+            "观察无支持排除判断的内容或元数据。",
+            "推理实际上未排除或降低候选项优先级。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE": 1,
+        "SELECTS_TARGET_AMONG_CANDIDATES": 0.7200571433866318,
+        "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION": 0.7071423753068077,
+        "DISMISSES_CANDIDATE_AS_UNINFORMATIVE": 0.6706581013746996
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7200571433866318,
+          0.7071423753068077,
+          0.6706581013746996
+        ],
+        [
+          0.7200571433866318,
+          1,
+          0.5260196747583287,
+          0.6257823082331793
+        ],
+        [
+          0.7071423753068077,
+          0.5260196747583287,
+          1,
+          0.6686345387757765
+        ],
+        [
+          0.6706581013746996,
+          0.6257823082331793,
+          0.6686345387757765,
+          1
+        ]
+      ],
+      "cluster_id": "binary-006"
+    },
+    {
+      "arity": 2,
+      "size": 4,
+      "representative": "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE",
+      "medoid_index": 46,
+      "mean_similarity": 0.6902379630485407,
+      "min_similarity": 0.5895173131769812,
+      "minimum_pair": {
+        "predicates": [
+          "DISTINGUISHES_BENIGN_REFERENCES_FROM_TARGETS",
+          "DERIVES_STORAGE_LOCATION_FROM_LAYOUT_METADATA"
+        ],
+        "similarity": 0.5895173131769812
+      },
+      "member_indices": [
+        46,
+        92,
+        118,
+        133
+      ],
+      "members": [
+        {
+          "name": "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE",
+          "definition": "推理在观察描述的结构、历史或记录集合中，定位包含、保存或提供目标对象的具体元素。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出目标在观察结构中具体位置的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "描述正在搜索的结构、历史或记录集合的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察描述包含可识别单独元素的结构、历史或记录集合。",
+            "推理指出其中至少一个具体元素，作为目标所在、保留或关联的位置。"
+          ],
+          "exclusion_conditions": [
+            "推理仅概述结构，没有指出具体元素。",
+            "推理只给出目标值，未关联观察中可见的位置或记录。",
+            "观察没有包含所定位的结构或记录。"
+          ]
+        },
+        {
+          "name": "GUIDES_NEXT_INVESTIGATION_BY_OBSERVED_FEATURE",
+          "definition": "推理根据观察报告的某项具体特征，选择下一步调查目标或行动。",
+          "parameters": [
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告可引导后续调查的特征、产物、目录、文件、大小或结果的观察。"
+            },
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "引用观察特征并由此提出下一调查步骤的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察报告可识别特征，如目录、文件、大小、内容模式或出现位置。",
+            "推理明确引用或依赖该特征来选择下一调查或行动对象。",
+            "下一调查步骤与观察特征直接相关，而非无关背景活动。"
+          ],
+          "exclusion_conditions": [
+            "推理仅复述观察，没有导出或选择下一调查步骤。",
+            "下一步骤与观察的任何特征都无关。",
+            "观察不包含可供推理使用的特征。",
+            "推理仅依据先验知识或一般职责安排后续步骤，没有引用观察特征。"
+          ]
+        },
+        {
+          "name": "DISTINGUISHES_BENIGN_REFERENCES_FROM_TARGETS",
+          "definition": "推理根据观察上下文，区分只是名称、示例、占位符、无关文本等良性引用与真正的敏感值或目标值。",
+          "parameters": [
+            {
+              "name": "evaluation_reasoning",
+              "type": "reasoning",
+              "description": "将观察匹配项分类为良性引用或真实目标的推理节点。"
+            },
+            {
+              "name": "reference_observation",
+              "type": "observation",
+              "description": "展示匹配项及上下文的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含容易误判为目标值的出现项。",
+            "推理依据上下文将至少一个出现项认定为名称、示例、占位等良性引用，而非真实目标。"
+          ],
+          "exclusion_conditions": [
+            "推理将所有出现项都当作真实目标值。",
+            "推理没有利用观察上下文区分良性引用与目标。"
+          ]
+        },
+        {
+          "name": "DERIVES_STORAGE_LOCATION_FROM_LAYOUT_METADATA",
+          "definition": "推理利用观察报告的基地址、段偏移、大小、对齐或索引映射等布局元数据，计算目标在容器中的具体地址、文件偏移、索引或路径。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "依据布局元数据计算目标位置的推理。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "提供节段地址、文件偏移、大小、对齐或索引映射等位置元数据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察提供可识别的位置映射元数据，如节段地址、偏移、大小、对齐或索引对应关系。",
+            "推理通过算术或结构映射计算目标在容器中的具体位置。",
+            "计算位置是推导出的坐标，超越观察中直接给出的位置信息。"
+          ],
+          "exclusion_conditions": [
+            "推理只命名章节、区域或容器，没有计算目标具体位置。",
+            "观察没有地址、偏移、大小或索引映射信息。",
+            "计算位置缺少元数据支持或与之矛盾。",
+            "推理只复述观察中已有位置，没有推导。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE": 1,
+        "GUIDES_NEXT_INVESTIGATION_BY_OBSERVED_FEATURE": 0.7912329767059082,
+        "DISTINGUISHES_BENIGN_REFERENCES_FROM_TARGETS": 0.7094868039599058,
+        "DERIVES_STORAGE_LOCATION_FROM_LAYOUT_METADATA": 0.7388136831414139
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7912329767059082,
+          0.7094868039599058,
+          0.7388136831414139
+        ],
+        [
+          0.7912329767059082,
+          1,
+          0.6844160215804261,
+          0.6279609797266088
+        ],
+        [
+          0.7094868039599058,
+          0.6844160215804261,
+          1,
+          0.5895173131769812
+        ],
+        [
+          0.7388136831414139,
+          0.6279609797266088,
+          0.5895173131769812,
+          1
+        ]
+      ],
+      "cluster_id": "binary-007"
+    },
+    {
+      "arity": 2,
+      "size": 2,
+      "representative": "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+      "medoid_index": 47,
+      "mean_similarity": 0.6495336326437777,
+      "min_similarity": 0.6495336326437777,
+      "minimum_pair": {
+        "predicates": [
+          "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+          "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION"
+        ],
+        "similarity": 0.6495336326437777
+      },
+      "member_indices": [
+        47,
+        69
+      ],
+      "members": [
+        {
+          "name": "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+          "definition": "行动将推理识别为恢复或提取的信息的具体值写入指定输出产物，从而使该发现脱离搜索过程得到保存。",
+          "parameters": [
+            {
+              "name": "action",
+              "type": "action",
+              "description": "写入或创建指定输出产物的行动。"
+            },
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "识别恢复值及应保存位置的推理。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确提取或恢复的具体值及其持久化位置。",
+            "行动将该值写入指定输出产物。"
+          ],
+          "exclusion_conditions": [
+            "行动写入无关、占位或未验证内容。",
+            "推理未指定恢复值或输出位置。",
+            "行动只读取或查看信息，没有保存。"
+          ]
+        },
+        {
+          "name": "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION",
+          "definition": "行动改写或重新格式化产物，只改变附带的表示属性，同时保留此前经推理确认正确的实质内容。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "确认内容已验证且仅需修正表示属性的智能体文本。"
+            },
+            {
+              "name": "action",
+              "type": "action",
+              "description": "保留已验证内容并调整附带表示属性的改写行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理确认产物的实质内容或数值已验证正确，只有附带表示属性需要修正。",
+            "行动保留原有实质内容，仅改变换行格式、编码或布局等属性。",
+            "行动没有重新计算、增加或删除实质数值。"
+          ],
+          "exclusion_conditions": [
+            "行动改变实质数值，或增加删除数据。",
+            "改写前推理未确认内容已正确或验证。",
+            "行动旨在纠正内容，而非仅调整附带表示属性。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "PERSISTS_RECOVERED_VALUE_TO_OUTPUT": 1,
+        "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION": 0.6495336326437777
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6495336326437777
+        ],
+        [
+          0.6495336326437777,
+          1
+        ]
+      ],
+      "cluster_id": "binary-008"
+    },
+    {
+      "arity": 2,
+      "size": 7,
+      "representative": "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+      "medoid_index": 56,
+      "mean_similarity": 0.720451240700229,
+      "min_similarity": 0.6289284429534082,
+      "minimum_pair": {
+        "predicates": [
+          "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS",
+          "DERIVES_DECISION_FROM_MEASURED_RESULT"
+        ],
+        "similarity": 0.6289284429534082
+      },
+      "member_indices": [
+        44,
+        56,
+        67,
+        74,
+        95,
+        98,
+        113
+      ],
+      "members": [
+        {
+          "name": "DERIVES_EXACTNESS_CONSTRAINT_FROM_MEASUREMENT",
+          "definition": "推理从观察中提取精确的可测量或格式属性，并将保留该属性设定为后续行动或验收检查的要求。",
+          "parameters": [
+            {
+              "name": "measurement_observation",
+              "type": "observation",
+              "description": "报告精确数量或格式属性（如字节数、哈希、空白模式或文本布局）的观察。"
+            },
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将该精确属性视为必须匹配或保留之要求的推理。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察提供精确的可测量、字节级或格式属性。",
+            "推理明确指出该属性必须匹配或保留。",
+            "该属性被用作后续行动约束或验收标准。"
+          ],
+          "exclusion_conditions": [
+            "观察只有定性或近似信息。",
+            "推理未要求保留或匹配测量属性。",
+            "虽提及测量属性，但未作为要求或验收条件。"
+          ]
+        },
+        {
+          "name": "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+          "definition": "推理提取观察报告的定量测量值，与指定上限、阈值或所需量级比较，判断其满足或违反要求，并可评价与阈值之间的裕度。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "重述测量结果并与限制或要求比较的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告待评估数值测量的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含测量、计时或计数产生的数值。",
+            "推理明确将数值与要求的限制、阈值或量级关联，并判断符合或违反。"
+          ],
+          "exclusion_conditions": [
+            "观察只有定性内容，未进行数值比较。",
+            "推理只报告数值，没有关联限制或要求。",
+            "推理仅比较两个数量，没有引用任何规定阈值。"
+          ]
+        },
+        {
+          "name": "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS",
+          "definition": "推理根据比较范围或类别的定义，检查所报告结果之间必须满足的结构关系，并据此评估数值的合理性。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "对照包含关系、单调性或聚合关系检查数值的智能体文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "提供待检查结果值的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察报告多个相关范围或类别的数值。",
+            "推理提出由范围定义决定的必然关系，如嵌套范围包含、时间窗口扩大时的单调关系或分项总和等于总数。",
+            "推理据此判定结果符合或违反关系。"
+          ],
+          "exclusion_conditions": [
+            "推理仅复述数值，没有检查预期关系。",
+            "所用关系不能从比较范围的定义推出。",
+            "推理执行独立重新计算，而非内部一致性检查。"
+          ]
+        },
+        {
+          "name": "EVALUATES_COMPETING_IMPLEMENTATIONS",
+          "definition": "推理比较观察揭示的至少两个既有候选实现、版本或变体的内容或行为，并对相对正确性或适用性作出判断。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "对比候选实现或版本的推理节点。"
+            },
+            {
+              "name": "variant_observations",
+              "type": "observation[]",
+              "description": "共同揭示至少两个不同候选实现或版本的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "引用的观察共同展示同一产物或同类产物的至少两种实现、版本或变体。",
+            "推理根据观察的具体内容对比其结构、逻辑或行为。",
+            "推理判断其相对正确性或适用性，也可能排除部分乃至所有变体。"
+          ],
+          "exclusion_conditions": [
+            "只展示一种实现或版本，无法比较。",
+            "推理只描述变体，没有比较正确性或适用性。",
+            "比较内容不来自所引观察。",
+            "比较的是尚未实现为产物的候选思路，而非现有实现或版本。"
+          ]
+        },
+        {
+          "name": "ASSESSES_CANDIDATE_AGAINST_CONSTRAINTS",
+          "definition": "推理针对观察提供的候选值、片段或出现位置，依据明确要求判断其符合、部分符合或违反约束，也可结合候选项周边上下文进行评估。",
+          "parameters": [
+            {
+              "name": "assessment_reasoning",
+              "type": "reasoning",
+              "description": "依据给定要求评估候选项的推理。"
+            },
+            {
+              "name": "candidate_evidence",
+              "type": "observation",
+              "description": "包含候选值、片段或其提取、组合上下文的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含可识别候选值、片段、出现位置或构造候选项的内容。",
+            "评估推理引用至少一项明确要求并将候选项与之比较。",
+            "推理判定符合、部分符合或不合规，包括根据相邻上下文违反格式或字符集而排除伪匹配。"
+          ],
+          "exclusion_conditions": [
+            "推理只提取或复述候选项，没有评估要求。",
+            "没有将任何明确要求应用到候选项。",
+            "观察没有候选项或评估所用上下文。",
+            "推理在没有候选值的情况下独立评估要求或交付物。"
+          ]
+        },
+        {
+          "name": "CORROBORATES_CANDIDATE_WITH_INDEPENDENT_METADATA",
+          "definition": "推理使用独立于候选项自身表达而另行记录的元数据值，如长度、大小、计数或结构字段，检查候选项一致性以支持或削弱其可信度。",
+          "parameters": [
+            {
+              "name": "corroboration_reasoning",
+              "type": "reasoning",
+              "description": "将候选项与独立元数据值比较的推理。"
+            },
+            {
+              "name": "metadata_observation",
+              "type": "observation",
+              "description": "包含一致性检查所用元数据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "元数据观察包含独立于候选项表达的值，如记录的长度、大小、计数或结构字段。",
+            "推理将候选项或预期属性与该元数据比较。",
+            "比较得到一致性判断，用于支持或否定候选项。"
+          ],
+          "exclusion_conditions": [
+            "元数据只是候选项自身或其直接重复。",
+            "推理提及元数据，却没有与候选项比较。",
+            "没有根据元数据得出一致性结论。",
+            "元数据用于形成后续行动新要求，而非检查既有候选项。"
+          ]
+        },
+        {
+          "name": "DERIVES_DECISION_FROM_MEASURED_RESULT",
+          "definition": "推理依据观察中的定量结果比较候选方案或配置，选择或支持测量表现较优者，或确立后续选择必须超越的数值基线。",
+          "parameters": [
+            {
+              "name": "decision_reasoning",
+              "type": "reasoning",
+              "description": "比较测量值并作出选择或设立基线的推理。"
+            },
+            {
+              "name": "measurement_observation",
+              "type": "observation",
+              "description": "报告用于比较或基线的测量值的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察给出至少两个候选方案的指标、损失、计数等可比数值，或提供设立基线的量。",
+            "推理比较或使用这些量来选择方案，或设定后续数值基线、目标。"
+          ],
+          "exclusion_conditions": [
+            "推理只重复测量值，未选择方案或确立基线。",
+            "观察没有与决策或基线有关的测量。",
+            "推理仅凭定性因素选择，没有测量比较。",
+            "测量仅用于检查已有外部阈值，没有候选选择或基线推导。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DERIVES_EXACTNESS_CONSTRAINT_FROM_MEASUREMENT": 0.7493940894877169,
+        "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD": 1,
+        "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS": 0.7450712886532866,
+        "EVALUATES_COMPETING_IMPLEMENTATIONS": 0.7128022071207141,
+        "ASSESSES_CANDIDATE_AGAINST_CONSTRAINTS": 0.7871665882403814,
+        "CORROBORATES_CANDIDATE_WITH_INDEPENDENT_METADATA": 0.7412507454543885,
+        "DERIVES_DECISION_FROM_MEASURED_RESULT": 0.7575833530236701
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7493940894877169,
+          0.6843933553489134,
+          0.6731757798602138,
+          0.7339501362018618,
+          0.7284961937443943,
+          0.6579170338946237
+        ],
+        [
+          0.7493940894877169,
+          1,
+          0.7450712886532866,
+          0.7128022071207141,
+          0.7871665882403814,
+          0.7412507454543885,
+          0.7575833530236701
+        ],
+        [
+          0.6843933553489134,
+          0.7450712886532866,
+          1,
+          0.6734678453780095,
+          0.7525222141723146,
+          0.7529063845250494,
+          0.6289284429534082
+        ],
+        [
+          0.6731757798602138,
+          0.7128022071207141,
+          0.6734678453780095,
+          1,
+          0.7519100064007009,
+          0.7122857940030745,
+          0.7543622119640345
+        ],
+        [
+          0.7339501362018618,
+          0.7871665882403814,
+          0.7525222141723146,
+          0.7519100064007009,
+          1,
+          0.7565747462855432,
+          0.6817143455346568
+        ],
+        [
+          0.7284961937443943,
+          0.7412507454543885,
+          0.7529063845250494,
+          0.7122857940030745,
+          0.7565747462855432,
+          1,
+          0.6936032924578536
+        ],
+        [
+          0.6579170338946237,
+          0.7575833530236701,
+          0.6289284429534082,
+          0.7543622119640345,
+          0.6817143455346568,
+          0.6936032924578536,
+          1
+        ]
+      ],
+      "cluster_id": "binary-009"
+    },
+    {
+      "arity": 2,
+      "size": 4,
+      "representative": "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR",
+      "medoid_index": 61,
+      "mean_similarity": 0.6272086448098446,
+      "min_similarity": 0.5279975934086537,
+      "minimum_pair": {
+        "predicates": [
+          "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED",
+          "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND"
+        ],
+        "similarity": 0.5279975934086537
+      },
+      "member_indices": [
+        41,
+        52,
+        61,
+        87
+      ],
+      "members": [
+        {
+          "name": "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE",
+          "definition": "观察发现同一产物的两个版本相互冲突时，推理确定哪个版本优先，并基于明确优先级理由论证选择。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "选定优先版本并说明理由的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "展示产物冲突版本的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察展示同一产物的两个冲突备选版本。",
+            "推理选定其中一个版本作为结果。",
+            "推理解释优先理由，如更新较新或更符合当前情况。"
+          ],
+          "exclusion_conditions": [
+            "推理只描述冲突，没有选定版本。",
+            "选择无理由，或仅凭位置、便利性决定。",
+            "观察并未展示同一产物的冲突版本。"
+          ]
+        },
+        {
+          "name": "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED",
+          "definition": "推理将观察发现的现有配置、产物或布局视为环境原定或权威设计，并修改计划以适配和保留它，避免覆盖或重复创建。",
+          "parameters": [
+            {
+              "name": "conforming_reasoning",
+              "type": "reasoning",
+              "description": "认定发现产物为预定或权威配置并据此修订计划的推理。"
+            },
+            {
+              "name": "discovery_observation",
+              "type": "observation",
+              "description": "展示现有配置、布局或产物的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察发现包含实质设置、结构或布局信息的既有配置或产物。",
+            "推理明确认定该产物为环境中预先准备、预定或权威的设计。",
+            "推理调整计划，以适配或保留发现的产物，避免替换或重复创建。"
+          ],
+          "exclusion_conditions": [
+            "推理只注意到产物存在，没有调整计划。",
+            "发现的产物被视为偶然、错误或应覆盖替换的内容。",
+            "没有表达符合或保留现有产物的计划调整。"
+          ]
+        },
+        {
+          "name": "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR",
+          "definition": "推理识别要求、工具或系统行为的歧义或相互冲突的预期，以观察报告的实际行为作为权威事实解决歧义，并据此调整解释或计划。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出歧义或预期冲突并采纳观察行为的智能体文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告消除歧义的具体行为的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确指出某项行为的具体歧义、不同解读或预期冲突。",
+            "推理明确以观察报告的实际结果为准，而非继续猜测。",
+            "推理据此调整解释、决策或计划。"
+          ],
+          "exclusion_conditions": [
+            "推理只将观察用作一般证据，没有指出歧义或预期冲突。",
+            "观察与该歧义无关。",
+            "歧义通过假定或惯常解释解决，未依据观察行为。",
+            "推理继续猜测，没有采纳观察到的结果。"
+          ]
+        },
+        {
+          "name": "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND",
+          "definition": "推理识别先前测量、验证或比较方法中的具体混杂因素（包括错误参照值或基线），后续行动针对该因素调整技术或参照，以实现对同一量的有效测量或比较。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出先前技术或参照的混杂因素，并规定调整方法的智能体文本。"
+            },
+            {
+              "name": "adapted_action",
+              "type": "action",
+              "description": "采用调整后的方法或参照重新测量、比较的工具调用。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出先前技术或参照的具体问题，如每次启动延迟使请求分散、顺序执行代替并发、不支持的选项、低精度参考值或不当量纲及求和顺序。",
+            "调整行动准确改变已识别的问题之处，从而消除该混杂因素。",
+            "推理将调整作为有效测量或比较同一量的方法，而非新的无关目标。"
+          ],
+          "exclusion_conditions": [
+            "行动重复原技术或参照，没有解决混杂因素。",
+            "推理未指出先前方法的具体缺陷或限制。",
+            "仅为方便或无关要求而改变技术，没有提升测量比较有效性。",
+            "先前结果完全不可解释是因工具不可用或解析失败，属于恢复无效检查的另一机制。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE": 0.6941917702105508,
+        "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED": 0.7055733074451794,
+        "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR": 1,
+        "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND": 0.6170914284000881
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6382430956996711,
+          0.6941917702105508,
+          0.5801546736949247
+        ],
+        [
+          0.6382430956996711,
+          1,
+          0.7055733074451794,
+          0.5279975934086537
+        ],
+        [
+          0.6941917702105508,
+          0.7055733074451794,
+          1,
+          0.6170914284000881
+        ],
+        [
+          0.5801546736949247,
+          0.5279975934086537,
+          0.6170914284000881,
+          1
+        ]
+      ],
+      "cluster_id": "binary-010"
+    },
+    {
+      "arity": 2,
+      "size": 3,
+      "representative": "VERIFIES_EFFECT_OF_PRIOR_ACTION",
+      "medoid_index": 62,
+      "mean_similarity": 0.773309494917125,
+      "min_similarity": 0.737113745741022,
+      "minimum_pair": {
+        "predicates": [
+          "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT",
+          "VERIFICATION_CONFIRMS_REQUIRED_STATE"
+        ],
+        "similarity": 0.737113745741022
+      },
+      "member_indices": [
+        45,
+        62,
+        73
+      ],
+      "members": [
+        {
+          "name": "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT",
+          "definition": "观察报告的结果状态确认行动已产生预期效果，证据超越了行动已被调用或执行完毕这一事实。",
+          "parameters": [
+            {
+              "name": "action",
+              "type": "action",
+              "description": "待评估预期效果的行动。"
+            },
+            {
+              "name": "result_observation",
+              "type": "observation",
+              "description": "报告行动后结果状态的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含与行动预期效果一致的结果状态。",
+            "不存在推翻该效果的错误或矛盾状态。",
+            "效果从报告的状态推断，而非仅凭命令已执行的确认。"
+          ],
+          "exclusion_conditions": [
+            "观察仅表明行动已调用或完成，缺乏效果证据。",
+            "观察报告错误、失败或预期效果不完整。",
+            "观察与行动预期效果无关。"
+          ]
+        },
+        {
+          "name": "VERIFIES_EFFECT_OF_PRIOR_ACTION",
+          "definition": "检查行动独立查看先前状态修改行动产生的可观察状态或行为，确认变更是否真正生效，而不依赖先前行动自身报告的结果。",
+          "parameters": [
+            {
+              "name": "modification_action",
+              "type": "action",
+              "description": "先前修改持久或运行时状态的行动。"
+            },
+            {
+              "name": "verification_action",
+              "type": "action",
+              "description": "随后检查结果状态以确认修改效果的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "修改行动变更可独立观察的状态，如进程状态、日志、文件、产物或监听端点。",
+            "验证行动专门读取或查询结果状态以确认修改生效，没有直接重复预期工作。"
+          ],
+          "exclusion_conditions": [
+            "验证行动查看与修改无关的状态。",
+            "验证行动为其他目的收集信息，未确认修改效果。",
+            "两行动仅时间相邻，没有检查修改效果。",
+            "验证行动重复修改，而非检查结果状态。"
+          ]
+        },
+        {
+          "name": "VERIFICATION_CONFIRMS_REQUIRED_STATE",
+          "definition": "行动明确包含对任务所需状态（如工具可用性、版本或产物完整性）的验证步骤，观察给出确认该状态的正面结果。",
+          "parameters": [
+            {
+              "name": "verification_action",
+              "type": "action",
+              "description": "包含必要状态显式检查的行动，可在同一调用中执行相关工作。"
+            },
+            {
+              "name": "verification_observation",
+              "type": "observation",
+              "description": "报告检查结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "行动明确检查可用性、版本、完整性或其他必要前置条件。",
+            "观察给出肯定结果，如可执行文件路径及版本号或完整性验证通过。",
+            "被确认的状态是任务必需条件，而非偶然副作用。"
+          ],
+          "exclusion_conditions": [
+            "观察报告失败或仍然缺失。",
+            "行动只产生任务输出，未显式检查正确性。",
+            "行动没有可识别的验证步骤。",
+            "观察未报告对必要状态的肯定确认结果。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT": 0.7965058694585043,
+        "VERIFIES_EFFECT_OF_PRIOR_ACTION": 1,
+        "VERIFICATION_CONFIRMS_REQUIRED_STATE": 0.7863088695518485
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7965058694585043,
+          0.737113745741022
+        ],
+        [
+          0.7965058694585043,
+          1,
+          0.7863088695518485
+        ],
+        [
+          0.737113745741022,
+          0.7863088695518485,
+          1
+        ]
+      ],
+      "cluster_id": "binary-011"
+    },
+    {
+      "arity": 2,
+      "size": 2,
+      "representative": "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+      "medoid_index": 71,
+      "mean_similarity": 0.7398161348286098,
+      "min_similarity": 0.7398161348286098,
+      "minimum_pair": {
+        "predicates": [
+          "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+          "CONSTRUCTS_GENERALIZATION_PROBE"
+        ],
+        "similarity": 0.7398161348286098
+      },
+      "member_indices": [
+        71,
+        77
+      ],
+      "members": [
+        {
+          "name": "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+          "definition": "推理从至少一个观察到的输入输出示例中归纳一般转换规则，并将其推广到具体示例之外的情况。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "阐述所得转换规则及其对未见输入的泛化的智能体文本。"
+            },
+            {
+              "name": "example_observations",
+              "type": "observation[]",
+              "description": "共同提供用于归纳规则的输入输出示例的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "引用的观察包含输入输出样例对。",
+            "推理提出能由观察输入再现观察输出的规则、流程或不变结构。",
+            "推理通过参数、不变结构或未见输入的预期行为将规则推广至样例之外。",
+            "规则依赖所引观察的具体内容。"
+          ],
+          "exclusion_conditions": [
+            "推理只复述、复制或总结示例，没有归纳规则。",
+            "所提规则缺乏示例支持。",
+            "推理描述一次性操作，而非可泛化转换。",
+            "推理没有说明规则如何适用于样例之外。"
+          ]
+        },
+        {
+          "name": "CONSTRUCTS_GENERALIZATION_PROBE",
+          "definition": "智能体依据从有限示例归纳的规则自行构造新测试输入或场景，用来检验规则是否能推广至参考示例之外，而非只是重跑示例。",
+          "parameters": [
+            {
+              "name": "probe_construction_action",
+              "type": "action",
+              "description": "编写或组装智能体生成的额外测试输入或场景的行动。"
+            },
+            {
+              "name": "generalization_reasoning",
+              "type": "reasoning",
+              "description": "说明或预设推导规则并意图检验未见输入泛化性的智能体文本。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理说明或预设从现有示例归纳的规则、模式或转换。",
+            "行动依据该规则构造超出给定示例的新输入或场景，例如按规则参数化生成实例。",
+            "构造输入的目的是检验规则在参考示例未覆盖的情况中是否成立。"
+          ],
+          "exclusion_conditions": [
+            "行动只重跑或比较给定参考示例，没有生成新输入。",
+            "新输入并非根据已归纳规则产生。",
+            "推理未表达规则或泛化验证需求。",
+            "行动只查看或展示实现，没有构造新的测试材料。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DERIVES_GENERAL_RULE_FROM_EXAMPLES": 1,
+        "CONSTRUCTS_GENERALIZATION_PROBE": 0.7398161348286098
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7398161348286098
+        ],
+        [
+          0.7398161348286098,
+          1
+        ]
+      ],
+      "cluster_id": "binary-012"
+    },
+    {
+      "arity": 2,
+      "size": 1,
+      "representative": "ATTEMPTS_PREREQUISITE_PROVISIONING",
+      "medoid_index": 72,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        72
+      ],
+      "members": [
+        {
+          "name": "ATTEMPTS_PREREQUISITE_PROVISIONING",
+          "definition": "推理指出任务所需具体工具、软件包、组件或能力缺失或不足，行动尝试安装、获取或提供该前置条件，但不保证尝试成功。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出缺失前置条件及供应意图的智能体文本。"
+            },
+            {
+              "name": "provisioning_action",
+              "type": "action",
+              "description": "尝试安装、获取或提供该条件的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出任务需要的具体工具、包、组件或能力缺失或不足。",
+            "行动尝试安装、获取或提供该条件，而非执行任务主要转换。",
+            "该谓词不宣称供应尝试已经成功。"
+          ],
+          "exclusion_conditions": [
+            "行动仅使用已有组件。",
+            "没有指出缺陷却供应组件。",
+            "行动获取的是任务数据，而非提供必要能力。",
+            "行动只是查询或验证，没有供应尝试。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ATTEMPTS_PREREQUISITE_PROVISIONING": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "binary-013"
+    },
+    {
+      "arity": 2,
+      "size": 1,
+      "representative": "DERIVES_VERSION_LINEAGE_FROM_METADATA",
+      "medoid_index": 76,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        76
+      ],
+      "members": [
+        {
+          "name": "DERIVES_VERSION_LINEAGE_FROM_METADATA",
+          "definition": "推理利用观察提供的版本标识符或引用元数据，重建产物版本之间的祖先关系或分叉关系，例如共同基线及不同后代修订。",
+          "parameters": [
+            {
+              "name": "lineage_reasoning",
+              "type": "reasoning",
+              "description": "根据标识符识别共同基线或分叉后代版本的推理节点。"
+            },
+            {
+              "name": "metadata_observation",
+              "type": "observation",
+              "description": "提供多个版本或修订标识符、引用的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "元数据观察提供多个版本或修订的标识符、引用。",
+            "推理依据这些标识符识别共享基线、不同后代或分叉版本。"
+          ],
+          "exclusion_conditions": [
+            "推理仅复述或列举标识符，没有解释版本关系。",
+            "观察没有提供多个版本的标识符。",
+            "推理未断言任何共同祖先或分叉关系。",
+            "推理只比较版本正确性或适用性，没有说明祖先或分叉关系。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DERIVES_VERSION_LINEAGE_FROM_METADATA": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "binary-014"
+    },
+    {
+      "arity": 2,
+      "size": 3,
+      "representative": "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION",
+      "medoid_index": 79,
+      "mean_similarity": 0.7533237574082653,
+      "min_similarity": 0.7179664066985774,
+      "minimum_pair": {
+        "predicates": [
+          "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT",
+          "ENFORCES_OUTPUT_SCOPE_CONSTRAINT"
+        ],
+        "similarity": 0.7179664066985774
+      },
+      "member_indices": [
+        20,
+        70,
+        79
+      ],
+      "members": [
+        {
+          "name": "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT",
+          "definition": "推理识别设施不可用或操作规则限制等约束，权衡在约束下实现目标效果的方法，并说明后续行动所实施的替代方案为何合适。",
+          "parameters": [
+            {
+              "name": "constraint_reasoning",
+              "type": "reasoning",
+              "description": "识别限制或规则并论证替代方案的推理。"
+            },
+            {
+              "name": "substitute_action",
+              "type": "action",
+              "description": "实施该替代方案的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明确指出不可用的工具或能力，或阻止直接做法的规则限制。",
+            "推理考虑至少一种替代方法，解释选中方案如何在满足限制时实现预期效果。",
+            "相关行动实施推理论证的方案。"
+          ],
+          "exclusion_conditions": [
+            "推理描述行动却未给出约束动机。",
+            "行动与所论证的方案不符。",
+            "推理仅因效率或便利选择方法，未指出规则限制或设施不可用。",
+            "只是普通步骤，既无约束也未比较替代方案。"
+          ]
+        },
+        {
+          "name": "ENFORCES_OUTPUT_SCOPE_CONSTRAINT",
+          "definition": "推理引用交付环境中允许保留或创建哪些产物的范围约束，行动为遵守约束而删除或避免生成不允许的产物。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出输出范围或文件许可约束并将清理行为与合规性关联的文本。"
+            },
+            {
+              "name": "action",
+              "type": "action",
+              "description": "删除、移除或避免不允许产物的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理引用限制产物创建或保留的输出范围或文件许可约束。",
+            "行动为满足约束而删除不允许产物，或避免创建、保留它。",
+            "推理明确将删除或避免行为与所引约束关联。"
+          ],
+          "exclusion_conditions": [
+            "没有指出输出范围或权限约束。",
+            "行动与允许保留哪些产物无关。",
+            "行动修改或产生允许的交付物，而非清除不允许的产物。",
+            "产物仅因不再需要或整洁而删除，未引用范围限制。"
+          ]
+        },
+        {
+          "name": "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION",
+          "definition": "推理指出已有或计划产物的具体元素可能违反明确的输出、格式或接口约束，行动生成或尝试生成移除或修改该元素后的产物内容。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出明确约束、风险元素及拟修改内容的智能体文本。"
+            },
+            {
+              "name": "revision_action",
+              "type": "action",
+              "description": "写入去除问题元素后的修订产物的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理引用明确输出、格式或接口限制，如精确输出内容或格式。",
+            "推理指出产物中可能违约的具体元素，并说明风险原因。",
+            "修订行动生成或尝试生成移除或修改该元素后的产物。"
+          ],
+          "exclusion_conditions": [
+            "产物因功能错误、新功能或风格偏好而修改，未引用明确约束风险。",
+            "行动没有改写产物内容。",
+            "推理讨论约束，却未指出具体违约元素。",
+            "推理仅复述约束，未决定修改内容。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT": 0.7358887551234362,
+        "ENFORCES_OUTPUT_SCOPE_CONSTRAINT": 0.8061161104027825,
+        "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION": 1
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7179664066985774,
+          0.7358887551234362
+        ],
+        [
+          0.7179664066985774,
+          1,
+          0.8061161104027825
+        ],
+        [
+          0.7358887551234362,
+          0.8061161104027825,
+          1
+        ]
+      ],
+      "cluster_id": "binary-015"
+    },
+    {
+      "arity": 2,
+      "size": 1,
+      "representative": "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS",
+      "medoid_index": 83,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        83
+      ],
+      "members": [
+        {
+          "name": "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS",
+          "definition": "推理建立多个来源中名称不同的字段、属性或模式元素与统一目标模式之间的对应映射。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "定义源字段、属性或模式与统一表示对应关系的智能体文本。"
+            },
+            {
+              "name": "observations",
+              "type": "observation[]",
+              "description": "展示用于推导映射的来源模式、字段名或结构信息的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理识别至少两个名称不同的源字段、属性或模式元素对应同一目标字段或元素。",
+            "映射依据观察揭示的结构、字段名或模式信息。",
+            "推理涉及多个观察来源之间的模式或表示对应关系。"
+          ],
+          "exclusion_conditions": [
+            "推理仅复述单个来源的字段名，没有跨源映射。",
+            "未说明不同名称字段或模式元素的等价关系。",
+            "映射与观察到的源结构无关。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "binary-016"
+    },
+    {
+      "arity": 2,
+      "size": 7,
+      "representative": "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+      "medoid_index": 86,
+      "mean_similarity": 0.7225241881046607,
+      "min_similarity": 0.6149535295459246,
+      "minimum_pair": {
+        "predicates": [
+          "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+          "DETECTS_OBSERVED_DATA_INCONSISTENCY"
+        ],
+        "similarity": 0.6149535295459246
+      },
+      "member_indices": [
+        6,
+        15,
+        26,
+        51,
+        53,
+        86,
+        123
+      ],
+      "members": [
+        {
+          "name": "DIAGNOSES_FAILURE_CAUSE",
+          "definition": "推理针对观察报告的失败或错误给出具体因果机制，解释失败如何发生，超越对报错文本的复述。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "解释失败原因或机制的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告错误或未成功结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察报告错误、非零退出状态或其他失败结果。",
+            "推理明确失败的具体原因或机制，超越字面报错内容。",
+            "所述原因与观察报告的事实一致。"
+          ],
+          "exclusion_conditions": [
+            "推理仅指出发生了失败。",
+            "推理提出重试，却未解释原因。",
+            "推理仅重复或改写错误信息，未作解释。",
+            "所述原因与观察事实相矛盾。",
+            "观察并未报告失败或错误。"
+          ]
+        },
+        {
+          "name": "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+          "definition": "推理将智能体在自行验证、探测或模拟执行中观察到的失败归因于检查环境（工具、缺失模块、检测设施或模拟条件），认为被检查产物本身的有效性和结构未受影响。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将失败重新解释为检查环境问题而非产物缺陷的智能体文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告被归因失败的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察报告智能体自身验证、探测或模拟过程中出现的失败。",
+            "推理将失败归因于缺失工具或模块、测试设施、模拟输入、临时调用或测试端配置等检查环境因素，而非被检产物。",
+            "推理直接确认产物有效性、结构或行为未受影响，或指出测试条件与实际使用条件存在差别。"
+          ],
+          "exclusion_conditions": [
+            "推理将失败视为交付产物、配置或状态的真实缺陷。",
+            "推理仅报告失败，未解释其来源。",
+            "推理将失败归因于产物自身或实际使用条件。",
+            "没有证据说明产物仍有效，或检查条件与实际使用条件不同。"
+          ]
+        },
+        {
+          "name": "DETECTS_OBSERVED_DATA_INCONSISTENCY",
+          "definition": "推理识别观察内容与其标签、结构或上下文所引出的预期之间存在的明确差异，并将该差异作为发现提出。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出观察内容与预期不一致之处的推理文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "包含意外或不一致元素的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理同时说明预期内容与实际观察内容。",
+            "不一致可追溯到观察中的具体内容。"
+          ],
+          "exclusion_conditions": [
+            "推理只总结观察，没有与预期比较。",
+            "所述不一致发生在两个推理陈述之间，无法追溯到观察内容。",
+            "没有明确表达对观察内容的预期。"
+          ]
+        },
+        {
+          "name": "RECOGNIZES_ANOMALY_IN_OBSERVATION",
+          "definition": "推理认为观察报告的状况意外、矛盾或偏离预期，并因其影响目标结果而要求解释、调查或处理。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "指出观察状况意外及其重要性的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告警告、冲突、偏差或其他意外状况的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察报告警告、冲突、偏差或意外情况，而非预期的正常结果。",
+            "推理将其定性为异常、矛盾或需调查处理。",
+            "推理说明该情况为何影响目标结果。"
+          ],
+          "exclusion_conditions": [
+            "观察符合预期且被视为正常成功。",
+            "推理仅引用观察，没有判断其异常性或后果。",
+            "异常已有良性原因解释，且对所需行为无害。",
+            "推理在事后才推断偏差，未将其与该观察直接关联。"
+          ]
+        },
+        {
+          "name": "INTERPRETS_ADVERSE_OBSERVATION_AS_BENIGN_OR_EXPECTED",
+          "definition": "推理解释观察中的错误、缺失内容、残留物或其他不利、意外结果为何属于正常或预期现象，并认为它不妨碍必要功能或符合正确进展。",
+          "parameters": [
+            {
+              "name": "result_reasoning",
+              "type": "reasoning",
+              "description": "解释为何当前阶段的不利或意外结果正常、无害的推理。"
+            },
+            {
+              "name": "negative_observation",
+              "type": "observation",
+              "description": "包含错误、缺失、残留、意外条目等结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察出现报错、资源缺失、内容为空、残留产物、意外条目、非零状态等情况。",
+            "推理明确解释结果为何正常、无害或源于非缺陷因素，如中间阶段、测试设施或无害残留。",
+            "推理结合其他证据判断必要功能未受影响或进展正常。"
+          ],
+          "exclusion_conditions": [
+            "推理认定异常是真正需要修复的失败。",
+            "推理忽略或复述异常，没有作良性解释。",
+            "观察报告明确成功的正面结果。",
+            "推理无理由地否认异常，或与必要功能受损的证据相冲突。",
+            "错误表明必要输出缺失或任务无法按要求完成。"
+          ]
+        },
+        {
+          "name": "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+          "definition": "推理为偏离预期的观察结果提出能产生该偏差的具体因果机制，解释其成因，而非只注意到异常。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "构建意外结果因果或机制解释的智能体文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告与智能体预期不符结果的工具观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察结果偏离预期，如本应拒绝却全部成功、数量或耗时异常、与假定行为矛盾。",
+            "推理指出能产生该偏差的具体过程，如节奏控制、序列化、请求排队或延迟、每次调用开销、能力被忽略或缺失。",
+            "推理明确以该机制解释本次具体结果，而非泛泛陈述或复述输出。"
+          ],
+          "exclusion_conditions": [
+            "观察符合预期，无须解释偏差。",
+            "推理只重复结果或表达惊讶，没有机制。",
+            "提出的机制与观察内容不相容。",
+            "观察出现明确报错，而推理只复述错误信息，没有解释因果过程。"
+          ]
+        },
+        {
+          "name": "ADAPTS_APPROACH_AFTER_FAILURE",
+          "definition": "针对观察报告的失败或负面结果，推理提出不同或调整后的行动方法，以克服造成失败的条件。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "描述修订或替代方案的智能体文本。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告引发方案调整的失败或负面结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察报告失败、拒绝、错误或其他负面结果。",
+            "推理提出相对失败做法有所变化的方法，如替代技术、补充准备步骤或修改参数。",
+            "所提变化明确是对该负面结果的回应。"
+          ],
+          "exclusion_conditions": [
+            "推理原样重复相同做法。",
+            "观察没有失败或负面结果。",
+            "所提改变与报告的失败无关。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DIAGNOSES_FAILURE_CAUSE": 0.8359772415698493,
+        "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT": 0.640471271710812,
+        "DETECTS_OBSERVED_DATA_INCONSISTENCY": 0.7948916293246464,
+        "RECOGNIZES_ANOMALY_IN_OBSERVATION": 0.7855549353924003,
+        "INTERPRETS_ADVERSE_OBSERVATION_AS_BENIGN_OR_EXPECTED": 0.7839960841458793,
+        "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS": 1,
+        "ADAPTS_APPROACH_AFTER_FAILURE": 0.7487527195294579
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6693543205125146,
+          0.7143534058868112,
+          0.7189835650774855,
+          0.7560727673368793,
+          0.8359772415698493,
+          0.7559476258987682
+        ],
+        [
+          0.6693543205125146,
+          1,
+          0.6149535295459246,
+          0.6318889362169823,
+          0.7275495502249979,
+          0.640471271710812,
+          0.6372453090307272
+        ],
+        [
+          0.7143534058868112,
+          0.6149535295459246,
+          1,
+          0.8149910154409458,
+          0.7452242776016568,
+          0.7948916293246464,
+          0.6333494407409942
+        ],
+        [
+          0.7189835650774855,
+          0.6318889362169823,
+          0.8149910154409458,
+          1,
+          0.7861955090419016,
+          0.7855549353924003,
+          0.6757626851861512
+        ],
+        [
+          0.7560727673368793,
+          0.7275495502249979,
+          0.7452242776016568,
+          0.7861955090419016,
+          1,
+          0.7839960841458793,
+          0.7014921307820896
+        ],
+        [
+          0.8359772415698493,
+          0.640471271710812,
+          0.7948916293246464,
+          0.7855549353924003,
+          0.7839960841458793,
+          1,
+          0.7487527195294579
+        ],
+        [
+          0.7559476258987682,
+          0.6372453090307272,
+          0.6333494407409942,
+          0.6757626851861512,
+          0.7014921307820896,
+          0.7487527195294579,
+          1
+        ]
+      ],
+      "cluster_id": "binary-017"
+    },
+    {
+      "arity": 2,
+      "size": 1,
+      "representative": "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE",
+      "medoid_index": 106,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        106
+      ],
+      "members": [
+        {
+          "name": "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE",
+          "definition": "写入行动填充观察到的骨架产物中的明确占位或空实现，并保留预先声明的名称、签名和接口契约。",
+          "parameters": [
+            {
+              "name": "implementation_action",
+              "type": "action",
+              "description": "为骨架产物填充具体实现的写入行动。"
+            },
+            {
+              "name": "skeleton_observation",
+              "type": "observation",
+              "description": "展示未填充占位和既有接口声明的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察展示包含明确占位符或桩函数体及函数名、参数顺序、入口或模块名等接口元素的产物。",
+            "行动补全缺失实现，同时保留声明的接口。"
+          ],
+          "exclusion_conditions": [
+            "行动创建完全新的产物，没有观察到预先声明的接口。",
+            "行动只读取、检查或构建产物，未补全实现。",
+            "行动将既有接口替换为不同接口，而非实现原接口。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "binary-018"
+    },
+    {
+      "arity": 2,
+      "size": 1,
+      "representative": "REFINES_DETECTION_CRITERIA_FROM_OBSERVATION",
+      "medoid_index": 115,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        115
+      ],
+      "members": [
+        {
+          "name": "REFINES_DETECTION_CRITERIA_FROM_OBSERVATION",
+          "definition": "推理根据先前观察显示的噪声、误报、截断或结果不足，调整或收紧搜索及检测策略。",
+          "parameters": [
+            {
+              "name": "refined_reasoning",
+              "type": "reasoning",
+              "description": "提出修订后搜索或检测条件的推理节点。"
+            },
+            {
+              "name": "prior_observation",
+              "type": "observation",
+              "description": "其噪声、误报、截断或不足促成修订的早期观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出先前观察过于嘈杂、范围过宽、被截断或不足以识别目标。",
+            "推理提出更具体、不同或其他调整后的搜索检测条件。"
+          ],
+          "exclusion_conditions": [
+            "推理没有引用先前观察作为调整依据。",
+            "推理仅重复原条件，未作调整。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "REFINES_DETECTION_CRITERIA_FROM_OBSERVATION": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "binary-019"
+    },
+    {
+      "arity": 2,
+      "size": 1,
+      "representative": "ESTABLISHES_PRE_MODIFICATION_BASELINE",
+      "medoid_index": 119,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        119
+      ],
+      "members": [
+        {
+          "name": "ESTABLISHES_PRE_MODIFICATION_BASELINE",
+          "definition": "在修改目标产物前，行动计算或记录哈希、校验和、大小等参考指纹，观察保存这些基线值，供修改后检测意外变更。",
+          "parameters": [
+            {
+              "name": "baseline_action",
+              "type": "action",
+              "description": "修改前计算或记录目标产物参考标识符的行动。"
+            },
+            {
+              "name": "baseline_observation",
+              "type": "observation",
+              "description": "报告目标产物基线标识符的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "基线行动在至少一个目标产物被修改前计算或记录其参考标识符。",
+            "基线观察报告所得标识符。",
+            "这些标识符用于或可用于与相同产物后续状态比较，以发现意外变化。"
+          ],
+          "exclusion_conditions": [
+            "标识符仅在目标产物修改开始或完成后生成。",
+            "行动没有产生可识别的目标参考值。",
+            "观察未报告基线值。",
+            "记录值用于无关目的，并非为之后的修改前后比较提供参照。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "ESTABLISHES_PRE_MODIFICATION_BASELINE": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "binary-020"
+    },
+    {
+      "arity": 2,
+      "size": 2,
+      "representative": "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL",
+      "medoid_index": 121,
+      "mean_similarity": 0.6403057286744674,
+      "min_similarity": 0.6403057286744674,
+      "minimum_pair": {
+        "predicates": [
+          "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL",
+          "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE"
+        ],
+        "similarity": 0.6403057286744674
+      },
+      "member_indices": [
+        121,
+        122
+      ],
+      "members": [
+        {
+          "name": "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL",
+          "definition": "行动将一组已接受、已生成的更改提交到版本控制系统；观察报告所建提交及变更集，使更改持久记录在仓库历史中。",
+          "parameters": [
+            {
+              "name": "persistence_action",
+              "type": "action",
+              "description": "根据已接受更改创建版本控制提交的行动。"
+            },
+            {
+              "name": "commit_observation",
+              "type": "observation",
+              "description": "报告提交及其变更集的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "行动根据智能体已接受或验证的更改创建版本控制提交。",
+            "观察报告与预定更改相符的提交标识、摘要或变更文件清单。"
+          ],
+          "exclusion_conditions": [
+            "行动没有创建版本控制提交。",
+            "观察只说尝试提交，没有报告结果。",
+            "提交集合包含与已接受或验证集合无关的更改。",
+            "更改只是暂存或描述，尚未提交。"
+          ]
+        },
+        {
+          "name": "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE",
+          "definition": "推理论证应将修正或验证后的状态写入权威持久存储，以便后续检查或外部查询读取到更新，行动实际执行该记录操作。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "说明为何需把修正状态写入权威存储的智能体文本。"
+            },
+            {
+              "name": "persist_action",
+              "type": "action",
+              "description": "将修正更改写入、提交或记录到该存储的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理说明修正状态须权威保存，使后续对该存储的查询或检查可见。",
+            "行动将修正更改写入存储，而非只读取、检查或报告。",
+            "写入内容与先前已经确定或验证的修正一致。"
+          ],
+          "exclusion_conditions": [
+            "行动只读取、检查或报告，没有记录更改。",
+            "没有解释写入操作为何关系到修正状态的持久化。",
+            "推理只描述个别修正内容，没有考虑持久保存。",
+            "推理考虑保存修正状态，但最终决定不保存。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL": 1,
+        "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE": 0.6403057286744674
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6403057286744674
+        ],
+        [
+          0.6403057286744674,
+          1
+        ]
+      ],
+      "cluster_id": "binary-021"
+    },
+    {
+      "arity": 2,
+      "size": 6,
+      "representative": "DERIVES_TRIGGER_CONDITION",
+      "medoid_index": 132,
+      "mean_similarity": 0.7311736530232337,
+      "min_similarity": 0.6150765255197723,
+      "minimum_pair": {
+        "predicates": [
+          "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+          "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT"
+        ],
+        "similarity": 0.6150765255197723
+      },
+      "member_indices": [
+        8,
+        9,
+        39,
+        94,
+        102,
+        132
+      ],
+      "members": [
+        {
+          "name": "CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION",
+          "definition": "推理将观察解释为预期条件、成功标准或目标结果已经达成的确认。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "将观察解释为确认信息的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "提供符合预期结果证据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理明示或暗示预期结果或成功标准。",
+            "观察包含与该预期相符的可识别证据。",
+            "推理明确将观察视作预期结果成立的确认。"
+          ],
+          "exclusion_conditions": [
+            "观察仅用于后续行动的输入，未被用作确认。",
+            "推理仅预测结果，没有与观察核对。",
+            "观察含糊不清或与预期条件无关。"
+          ]
+        },
+        {
+          "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+          "definition": "推理得出明确的结论、诊断或评估，且观察中的可识别内容能够支持该结论。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "表达结论、诊断或评估的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "为该结论提供证据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理在复述观察之外作出结论、诊断或评估。",
+            "结论依赖观察中的具体内容，例如条目的存在与否、状态、版本或输出。"
+          ],
+          "exclusion_conditions": [
+            "推理仅复述或描述观察，没有作出推断。",
+            "观察与结论无关或不含支持信息。",
+            "结论只依据先验知识，与观察没有可识别的证据联系。"
+          ]
+        },
+        {
+          "name": "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+          "definition": "推理根据观察报告的可识别状态证据，预测尚未执行的计划操作会带来的具体后果。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "说明计划操作及预期后果的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "提供预测所依据状态证据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出一项已计划但未执行的操作。",
+            "说明具体预期后果，如冲突、失败或产生变更。",
+            "预测与观察中的具体状态证据关联。"
+          ],
+          "exclusion_conditions": [
+            "推理描述已观察到的结果。",
+            "预测只是没有证据支撑的猜测。",
+            "没有预测任何具体后果。",
+            "引用的观察内容与预测后果无关。"
+          ]
+        },
+        {
+          "name": "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT",
+          "definition": "推理把观察到的字节模式、嵌入字符串、出现规律、大小、元数据签名或内部结构解释为资源具有特定类型、格式或结构角色的证据。",
+          "parameters": [
+            {
+              "name": "interpretation_reasoning",
+              "type": "reasoning",
+              "description": "说明推断资源类型、格式或结构作用的推理节点。"
+            },
+            {
+              "name": "content_observation",
+              "type": "observation",
+              "description": "包含推断所依据模式、嵌入内容、出现证据或元数据的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含可识别内容模式、嵌入产物、出现规律、大小或元数据签名等结构证据。",
+            "推理据此提出有证据支持的特定资源类型、格式或结构角色。",
+            "推理超越原始内容报告，赋予资源可解释的性质或作用。"
+          ],
+          "exclusion_conditions": [
+            "推理只报告原始字节或内容，没有类型或结构角色推断。",
+            "所推断类型或角色缺乏可识别观察特征支持。",
+            "观察与该类型或结构解释无关。",
+            "推理仅将内容视为噪声或填充，没有赋予类型、格式或结构角色。"
+          ]
+        },
+        {
+          "name": "EXPLAINS_ARTIFACT_BEHAVIOR_FROM_SOURCE",
+          "definition": "推理解释观察中产物源代码的具体构造如何实现其行为，包括不同执行环境中的差异表现。",
+          "parameters": [
+            {
+              "name": "explanation_reasoning",
+              "type": "reasoning",
+              "description": "解释源代码构造与产物行为关系的推理节点。"
+            },
+            {
+              "name": "source_observation",
+              "type": "observation",
+              "description": "包含被解释产物或源代码内容的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含源代码或产物内容。",
+            "推理引用其中至少一个具体结构、代码块、指令或代码元素。",
+            "推理解释该构造如何导致或支持产物行为，包括适用时不同执行上下文的差异。"
+          ],
+          "exclusion_conditions": [
+            "推理只总结测试结果、复述内容或描述行为，没有关联具体源代码。",
+            "观察不含源代码或产物内容。",
+            "推理没有引用具体代码结构。"
+          ]
+        },
+        {
+          "name": "DERIVES_TRIGGER_CONDITION",
+          "definition": "推理根据观察中的结构证据推导可检验的输入或状态条件，当条件成立时目标沿特定行为路径执行或产生特定结果。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "陈述控制目标行为路径条件的推理节点。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "其代码、配置、布局或数据结构支持该条件的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理给出涉及目标输入值、偏移、参数或状态的具体可检验条件。",
+            "推理说明条件成立时目标会进入特定路径或结果，而非继续默认路径。",
+            "条件源于观察中的可识别结构内容，而非无证据断言。"
+          ],
+          "exclusion_conditions": [
+            "推理只描述行为，没有指出控制路径的条件。",
+            "所提条件与观察无关或纯属猜测。",
+            "推理只报告一般行为或复述输出，没有关联控制条件。",
+            "推理只说明行为实现方式，没有提出选择该行为的输入或状态条件。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION": 0.806444311056092,
+        "GROUNDS_CONCLUSION_IN_OBSERVATION": 0.759397676188169,
+        "PREDICTS_OUTCOME_OF_PLANNED_OPERATION": 0.7859463183272282,
+        "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT": 0.7043275690236737,
+        "EXPLAINS_ARTIFACT_BEHAVIOR_FROM_SOURCE": 0.7838993920895063,
+        "DERIVES_TRIGGER_CONDITION": 1
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7897078067057817,
+          0.7714295754833818,
+          0.691732795233238,
+          0.718543619479163,
+          0.806444311056092
+        ],
+        [
+          0.7897078067057817,
+          1,
+          0.7524029232053482,
+          0.6961325277598925,
+          0.7062621842994187,
+          0.759397676188169
+        ],
+        [
+          0.7714295754833818,
+          0.7524029232053482,
+          1,
+          0.6150765255197723,
+          0.6908181784805851,
+          0.7859463183272282
+        ],
+        [
+          0.691732795233238,
+          0.6961325277598925,
+          0.6150765255197723,
+          1,
+          0.6954833924972535,
+          0.7043275690236737
+        ],
+        [
+          0.718543619479163,
+          0.7062621842994187,
+          0.6908181784805851,
+          0.6954833924972535,
+          1,
+          0.7838993920895063
+        ],
+        [
+          0.806444311056092,
+          0.759397676188169,
+          0.7859463183272282,
+          0.7043275690236737,
+          0.7838993920895063,
+          1
+        ]
+      ],
+      "cluster_id": "binary-022"
+    },
+    {
+      "arity": 3,
+      "size": 2,
+      "representative": "CHECKS_PREREQUISITE_AVAILABILITY",
+      "medoid_index": 4,
+      "mean_similarity": 0.7614346556731095,
+      "min_similarity": 0.7614346556731095,
+      "minimum_pair": {
+        "predicates": [
+          "CHECKS_PREREQUISITE_AVAILABILITY",
+          "REMEDIES_MISSING_CAPABILITY"
+        ],
+        "similarity": 0.7614346556731095
+      },
+      "member_indices": [
+        4,
+        30
+      ],
+      "members": [
+        {
+          "name": "CHECKS_PREREQUISITE_AVAILABILITY",
+          "definition": "推理识别某个计划或拟议行动所依赖的工具、资源或环境能力，检查行动查询该前置条件的可用性、版本或就绪状态，观察则报告检查结果。",
+          "parameters": [
+            {
+              "name": "prerequisite_reasoning",
+              "type": "reasoning",
+              "description": "说明拟议行动依赖某项必要能力或资源，或需验证其可用性的推理节点。"
+            },
+            {
+              "name": "check_action",
+              "type": "action",
+              "description": "查询前置条件可用性、版本或就绪状态的行动。"
+            },
+            {
+              "name": "check_result",
+              "type": "observation",
+              "description": "报告前置条件可用性、版本或就绪状态的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理将计划行动与必要工具、资源、能力或环境条件联系起来。",
+            "检查行动查询该前置条件的可用性、版本或就绪状态，尚未直接执行计划工作。",
+            "观察报告前置条件是否可用或就绪。"
+          ],
+          "exclusion_conditions": [
+            "没有任何计划行动依赖被检查的前置条件。",
+            "检查行动查询了与所述依赖无关的内容。",
+            "观察未报告前置条件的可用性、版本或就绪状态。"
+          ]
+        },
+        {
+          "name": "REMEDIES_MISSING_CAPABILITY",
+          "definition": "推理指出任务所需的具体前置条件（工具、库、软件包、凭据、配置或索引）缺失、过期或不足；供应行动安装、获取或刷新该条件，观察确认它已可用。",
+          "parameters": [
+            {
+              "name": "gap_reasoning",
+              "type": "reasoning",
+              "description": "指出任务所需前置条件缺失、过期或不足的推理。"
+            },
+            {
+              "name": "provisioning_action",
+              "type": "action",
+              "description": "安装、获取、刷新或提供该前置条件的行动。"
+            },
+            {
+              "name": "confirmation_observation",
+              "type": "observation",
+              "description": "报告前置条件已安装、准备完成或可用的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出任务必需的依赖、工具、库、包、凭据或配置、索引状态存在缺失或不足。",
+            "供应行动专门补齐、安装或刷新该前置条件，而非执行任务的主要工作。",
+            "观察报告成功安装、准备完成或确认前置条件可用。"
+          ],
+          "exclusion_conditions": [
+            "未指出具体缺失或不足的前置条件。",
+            "行动未补齐该条件，或只是重试先前失败操作。",
+            "观察未确认可用性，或供应结果未知。",
+            "所供应内容只是便利项，并非已认定的任务前置条件。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "CHECKS_PREREQUISITE_AVAILABILITY": 1,
+        "REMEDIES_MISSING_CAPABILITY": 0.7614346556731095
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7614346556731095
+        ],
+        [
+          0.7614346556731095,
+          1
+        ]
+      ],
+      "cluster_id": "ternary-001"
+    },
+    {
+      "arity": 3,
+      "size": 5,
+      "representative": "MITIGATES_ANTICIPATED_FAILURE",
+      "medoid_index": 12,
+      "mean_similarity": 0.6433264468323191,
+      "min_similarity": 0.5021239407155516,
+      "minimum_pair": {
+        "predicates": [
+          "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS",
+          "VERIFIES_NEGATIVE_CONSTRAINT"
+        ],
+        "similarity": 0.5021239407155516
+      },
+      "member_indices": [
+        5,
+        7,
+        12,
+        80,
+        126
+      ],
+      "members": [
+        {
+          "name": "TESTS_ASSUMPTION_WITH_PROBE",
+          "definition": "定向探测行动检验推理中明确提出的特定不确定性或假设，其结果观察提供可解释的相关证据。",
+          "parameters": [
+            {
+              "name": "probe_action",
+              "type": "action",
+              "description": "针对不确定性或假设进行探测的行动。"
+            },
+            {
+              "name": "assumption_reasoning",
+              "type": "reasoning",
+              "description": "指出待检验假设、属性或不确定性的推理节点。"
+            },
+            {
+              "name": "probe_result",
+              "type": "observation",
+              "description": "报告与该假设或不确定性相关结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出具体待检查的不确定性、假设或属性。",
+            "探测行动旨在获取有关该特定不确定性的证据。",
+            "观察报告的结果可解释为对该不确定性的证据。"
+          ],
+          "exclusion_conditions": [
+            "行动与所述不确定性或假设无关。",
+            "观察未涉及被检验的不确定性。",
+            "行动没有可识别的不确定性或假设作为动机。",
+            "不确定性或假设在观察结果出现后才被提出，因此行动未起到检验作用。"
+          ]
+        },
+        {
+          "name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS",
+          "definition": "后续行动依据诊断出的原因改变先前失败行动的方法、参数或资源，以克服已观察到的失败。",
+          "parameters": [
+            {
+              "name": "corrected_action",
+              "type": "action",
+              "description": "改变方法、参数或资源的后续行动。"
+            },
+            {
+              "name": "diagnostic_reasoning",
+              "type": "reasoning",
+              "description": "诊断原因并指出所需修改的推理节点。"
+            },
+            {
+              "name": "failure_observation",
+              "type": "observation",
+              "description": "报告先前失败或错误的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "失败观察报告行动未成功或出现错误。",
+            "推理诊断失败原因并指出必要修改。",
+            "纠正行动在参数、资源或方法上实施了相应修改。"
+          ],
+          "exclusion_conditions": [
+            "后续行动没有相关改动，仅重复失败行动。",
+            "行动并非基于诊断出的原因。",
+            "观察未报告失败或错误。"
+          ]
+        },
+        {
+          "name": "MITIGATES_ANTICIPATED_FAILURE",
+          "definition": "推理识别可能妨碍目标实现的可预见失败模式；行动在失败发生前实施针对性预防措施，观察提供预防措施已落实的证据。",
+          "parameters": [
+            {
+              "name": "risk_reasoning",
+              "type": "reasoning",
+              "description": "指出预期失败模式或陷阱及其与目标关系的推理节点。"
+            },
+            {
+              "name": "mitigation_action",
+              "type": "action",
+              "description": "采取针对该失败模式的预防措施的行动节点。"
+            },
+            {
+              "name": "state_observation",
+              "type": "observation",
+              "description": "提供预防措施已实施的相符证据的观察节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "风险推理指出可能妨碍目标的具体失败模式或陷阱，而非笼统风险。",
+            "缓解行动在失败发生前修改配置、权限或状态，以预防或降低该失败风险。",
+            "状态观察包含预防措施已应用的相符证据。"
+          ],
+          "exclusion_conditions": [
+            "推理只提及泛泛的风险，没有对应预防行动。",
+            "行动未针对所识别的失败模式，或仅在失败后才处理。",
+            "观察未显示风险已缓解的状态。"
+          ]
+        },
+        {
+          "name": "CONFIRMS_OUTCOME_AGAINST_PREDICTION",
+          "definition": "一个推理节点在执行结果出现前给出预期；观察报告实际结果，后续推理明确比较实际与预期，并说明是否一致。",
+          "parameters": [
+            {
+              "name": "prediction_reasoning",
+              "type": "reasoning",
+              "description": "在结果被观察前陈述预期的推理节点。"
+            },
+            {
+              "name": "outcome_observation",
+              "type": "observation",
+              "description": "报告实际执行结果的观察。"
+            },
+            {
+              "name": "confirmation_reasoning",
+              "type": "reasoning",
+              "description": "对照先前预期比较实际结果并判断是否一致的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "预测推理在执行结果出现前独立提出至少一项预期数值或结果。",
+            "结果观察报告实际执行产出。",
+            "确认推理明确比较实际与先前预期，说明一致或不一致。"
+          ],
+          "exclusion_conditions": [
+            "结果观察之前没有任何预期。",
+            "确认推理只重述观察结果，没有与先前预期比较。",
+            "预期与实际结果属于不可比较的量。",
+            "预期在看过结果之后才提出，不能算事先预测。"
+          ]
+        },
+        {
+          "name": "VERIFIES_NEGATIVE_CONSTRAINT",
+          "definition": "推理指定结果或状态中禁止出现的具体项目、数值或条件；行动检查其缺失情况，观察确认指定项目均不存在。",
+          "parameters": [
+            {
+              "name": "exclusion_reasoning",
+              "type": "reasoning",
+              "description": "指出不得出现的具体项目、值或条件的推理。"
+            },
+            {
+              "name": "negative_check_action",
+              "type": "action",
+              "description": "检查结果或状态中是否缺少指定项的行动。"
+            },
+            {
+              "name": "check_observation",
+              "type": "observation",
+              "description": "报告缺失检查结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理至少指定一项结果或状态中不得出现的项目、数值或条件。",
+            "行动专门检查这些项目是否缺失，而非只验证正面预期内容。",
+            "观察报告所有指定项均未出现，确认负向约束。"
+          ],
+          "exclusion_conditions": [
+            "检查只验证应有内容是否存在。",
+            "观察报告禁用项存在，或没有涉及排除项。",
+            "推理没有指定具体禁止项目、值或条件。",
+            "缺失检查未针对所验证的结果或状态。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "TESTS_ASSUMPTION_WITH_PROBE": 0.6748798317835559,
+        "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS": 0.7071142947504373,
+        "MITIGATES_ANTICIPATED_FAILURE": 1,
+        "CONFIRMS_OUTCOME_AGAINST_PREDICTION": 0.7277260497361708,
+        "VERIFIES_NEGATIVE_CONSTRAINT": 0.6775396451609346
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6322413442193171,
+          0.6748798317835559,
+          0.6873917356954824,
+          0.5811542850722904
+        ],
+        [
+          0.6322413442193171,
+          1,
+          0.7071142947504373,
+          0.608681042455999,
+          0.5021239407155516
+        ],
+        [
+          0.6748798317835559,
+          0.7071142947504373,
+          1,
+          0.7277260497361708,
+          0.6775396451609346
+        ],
+        [
+          0.6873917356954824,
+          0.608681042455999,
+          0.7277260497361708,
+          1,
+          0.6344122987334512
+        ],
+        [
+          0.5811542850722904,
+          0.5021239407155516,
+          0.6775396451609346,
+          0.6344122987334512,
+          1
+        ]
+      ],
+      "cluster_id": "ternary-002"
+    },
+    {
+      "arity": 3,
+      "size": 1,
+      "representative": "IMPLEMENTS_GUARDED_RECOVERY",
+      "medoid_index": 17,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        17
+      ],
+      "members": [
+        {
+          "name": "IMPLEMENTS_GUARDED_RECOVERY",
+          "definition": "推理要求某项必要能力在中断或重启后仍可恢复；行动建立可重复、带防护检查的恢复机制，仅在能力缺失时恢复，并避免失败或干扰性输出，观察确认机制已创建。",
+          "parameters": [
+            {
+              "name": "resilience_reasoning",
+              "type": "reasoning",
+              "description": "指出必须在重启或中断后恢复必要能力的智能体文本。"
+            },
+            {
+              "name": "creation_action",
+              "type": "action",
+              "description": "创建带防护检查的恢复机制的行动。"
+            },
+            {
+              "name": "creation_result",
+              "type": "observation",
+              "description": "确认机制创建成功且可用的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理将该机制定位为保障能力跨重启可用的安全网，而非一次性启动。",
+            "机制检查能力是否已存在，避免重复创建或重启正在运行的能力。",
+            "机制被设计为安全失败，避免影响调用上下文的输出或副作用。",
+            "观察报告机制成功创建。"
+          ],
+          "exclusion_conditions": [
+            "机制无条件启动能力，不检查是否已经运行。",
+            "机制可能失败或输出影响调用上下文的内容。",
+            "目的仅为一次性激活，没有重启恢复或韧性方面的理由。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "IMPLEMENTS_GUARDED_RECOVERY": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "ternary-003"
+    },
+    {
+      "arity": 3,
+      "size": 3,
+      "representative": "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+      "medoid_index": 32,
+      "mean_similarity": 0.6496691882707784,
+      "min_similarity": 0.6308154225732875,
+      "minimum_pair": {
+        "predicates": [
+          "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+          "RETRIEVES_MISSING_SECTION_WITH_FOLLOWUP"
+        ],
+        "similarity": 0.6308154225732875
+      },
+      "member_indices": [
+        31,
+        32,
+        131
+      ],
+      "members": [
+        {
+          "name": "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+          "definition": "观察提供资源的结构、模式、字段列表、格式或布局说明；推理据此确定任务所需字段、参数或操作，行动创建或执行落实这一判断的流程。",
+          "parameters": [
+            {
+              "name": "schema_observation",
+              "type": "observation",
+              "description": "包含资源结构、模式、字段、格式或布局信息的观察。"
+            },
+            {
+              "name": "interpretation_reasoning",
+              "type": "reasoning",
+              "description": "将任务要求映射到结构证据所指字段、参数或操作的推理。"
+            },
+            {
+              "name": "implementation_action",
+              "type": "action",
+              "description": "创建或执行落实该解释之流程的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含与资源有关的结构、模式、字段列表、格式或布局信息。",
+            "推理明确利用这些信息确定任务所需字段、参数或操作。",
+            "行动创建或执行实际处理流程，而非仅检索或查看数据。"
+          ],
+          "exclusion_conditions": [
+            "观察只有数值或结果，没有结构或模式信息。",
+            "推理制定流程时未引用结构或字段信息。",
+            "行动仅检索或查看数据，未落实基于结构证据推导的流程。"
+          ]
+        },
+        {
+          "name": "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+          "definition": "推理指出某项环境或资源状态未知、尚未检查或对规划有意义；探查行动进行检查、列举或查询，观察报告供后续决策使用的状态信息。",
+          "parameters": [
+            {
+              "name": "planning_reasoning",
+              "type": "reasoning",
+              "description": "指出环境或资源状态未知、需检查或与规划有关的推理。"
+            },
+            {
+              "name": "exploratory_action",
+              "type": "action",
+              "description": "检查、列举或查询环境或资源状态的行动。"
+            },
+            {
+              "name": "state_observation",
+              "type": "observation",
+              "description": "报告所检查状态的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出某项环境或资源状态未知、需检查或与规划有关。",
+            "探索行动只检查、列举或查询状态，没有执行实质转换或最终计算。",
+            "观察报告与后续规划或决策相关的状态信息。"
+          ],
+          "exclusion_conditions": [
+            "行动执行实质转换或最终计算，而非状态检查。",
+            "推理已有相关状态，不存在探查需要。",
+            "观察与待调查的环境或资源状态无关。"
+          ]
+        },
+        {
+          "name": "RETRIEVES_MISSING_SECTION_WITH_FOLLOWUP",
+          "definition": "后续行动专门获取先前部分或截断观察中缺失的信息段，新的观察补充该缺失内容。",
+          "parameters": [
+            {
+              "name": "gap_reasoning",
+              "type": "reasoning",
+              "description": "指出先前部分观察中具体缺失部分的推理。"
+            },
+            {
+              "name": "followup_action",
+              "type": "action",
+              "description": "针对缺失章节、范围或余下内容执行检索的行动。"
+            },
+            {
+              "name": "followup_observation",
+              "type": "observation",
+              "description": "提供先前缺失信息的结果观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指出此前截断观察中缺失的具体章节、行范围、字段或余下部分。",
+            "后续行动专门检索该缺失范围，如请求下一页或余下数据，而非重新获取全部。",
+            "后续观察包含先前明确缺失的信息。"
+          ],
+          "exclusion_conditions": [
+            "后续行动与缺失部分无关。",
+            "后续行动仅重新获取已经有的信息。",
+            "后续观察没有提供指定缺失内容。",
+            "此前未发现任何观察不完整，因此不存在已识别缺口。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE": 0.6843065295903613,
+        "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING": 1,
+        "RETRIEVES_MISSING_SECTION_WITH_FOLLOWUP": 0.6338856126486861
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6843065295903613,
+          0.6308154225732875
+        ],
+        [
+          0.6843065295903613,
+          1,
+          0.6338856126486861
+        ],
+        [
+          0.6308154225732875,
+          0.6338856126486861,
+          1
+        ]
+      ],
+      "cluster_id": "ternary-004"
+    },
+    {
+      "arity": 3,
+      "size": 3,
+      "representative": "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH",
+      "medoid_index": 33,
+      "mean_similarity": 0.6853222579745787,
+      "min_similarity": 0.6651198753913103,
+      "minimum_pair": {
+        "predicates": [
+          "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE",
+          "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE"
+        ],
+        "similarity": 0.6651198753913103
+      },
+      "member_indices": [
+        33,
+        34,
+        107
+      ],
+      "members": [
+        {
+          "name": "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH",
+          "definition": "为检验一致性，通过实质不同的数据访问或实现路径重新计算已有结果，第二个观察给出同一量的相同数值。",
+          "parameters": [
+            {
+              "name": "baseline_result",
+              "type": "observation",
+              "description": "报告原实现路径所得首次计算值的观察。"
+            },
+            {
+              "name": "validation_action",
+              "type": "action",
+              "description": "通过实质不同路径重新计算同一量的行动。"
+            },
+            {
+              "name": "validation_result",
+              "type": "observation",
+              "description": "报告替代路径重新计算值的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "基线观察报告具体计算值。",
+            "验证行动使用不同于基线路径的数据加载、访问或实现方式，如换用库、接口或格式读取器。",
+            "验证观察报告同一量与基线相同的数值，两条独立路径吻合。"
+          ],
+          "exclusion_conditions": [
+            "第二次运行使用完全相同的代码或访问路径，一致性没有独立验证意义。",
+            "重新计算的量、范围或选择与基线不同。",
+            "两次观察数值不同或缺乏基线值。",
+            "第二个观察仅查看持久化输出，没有重新计算。"
+          ]
+        },
+        {
+          "name": "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE",
+          "definition": "行动检查已持久化的输出产物，观察发现其内容与智能体先前计算值完全相同，确认保存结果忠实反映计算结果。",
+          "parameters": [
+            {
+              "name": "computed_result",
+              "type": "observation",
+              "description": "报告计算产出数值的观察。"
+            },
+            {
+              "name": "inspection_action",
+              "type": "action",
+              "description": "读取、列举或检查持久化输出产物的行动。"
+            },
+            {
+              "name": "artifact_observation",
+              "type": "observation",
+              "description": "展示持久化产物内容的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "计算结果观察报告具体计算值。",
+            "检查行动针对写入该值的文件或产物。",
+            "产物观察显示内容与计算值完全一致，且符合必要的格式要求。"
+          ],
+          "exclusion_conditions": [
+            "产物内容缺失、为空、截断或与计算值不同。",
+            "检查行动未读取或列举输出产物。",
+            "没有先前计算值可供比较。",
+            "一致性只在推理中被声称，产物观察没有显示。"
+          ]
+        },
+        {
+          "name": "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE",
+          "definition": "推理规定候选输出与独立参考实现匹配所需的容差；行动在相同输入上计算候选和参考结果，观察报告可用于容差判断的定量偏差或明确相等性。",
+          "parameters": [
+            {
+              "name": "tolerance_reasoning",
+              "type": "reasoning",
+              "description": "说明候选与参考输出等价要求或容差的智能体文本。"
+            },
+            {
+              "name": "comparison_action",
+              "type": "action",
+              "description": "在相同输入上运行候选和参考计算并取得差异的行动。"
+            },
+            {
+              "name": "deviation_observation",
+              "type": "observation",
+              "description": "报告两者定量差异或明确相等的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理给出相对独立参考实现的容差或等价要求。",
+            "行动在同一次检查中以相同输入分别运行候选和参考计算。",
+            "观察报告足以判断是否达标的定量偏差或明确相等性。"
+          ],
+          "exclusion_conditions": [
+            "行动只运行候选实现，没有参考计算。",
+            "观察只报告未经量化的通过或失败，没有与参考输出比较。",
+            "比较对象是固定预期值，而非独立计算的参考结果。",
+            "参考侧沿用候选自身计算路径，因此一致性不具验证意义。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH": 1,
+        "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE": 0.7125412242363337,
+        "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE": 0.6783056742960918
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.7125412242363337,
+          0.6783056742960918
+        ],
+        [
+          0.7125412242363337,
+          1,
+          0.6651198753913103
+        ],
+        [
+          0.6783056742960918,
+          0.6651198753913103,
+          1
+        ]
+      ],
+      "cluster_id": "ternary-005"
+    },
+    {
+      "arity": 3,
+      "size": 3,
+      "representative": "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION",
+      "medoid_index": 43,
+      "mean_similarity": 0.731500251436028,
+      "min_similarity": 0.6244494490175553,
+      "minimum_pair": {
+        "predicates": [
+          "RESOLVES_CONFLICT_WITH_TARGETED_EDIT",
+          "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION"
+        ],
+        "similarity": 0.6244494490175553
+      },
+      "member_indices": [
+        43,
+        75,
+        112
+      ],
+      "members": [
+        {
+          "name": "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION",
+          "definition": "观察指出目标产物存在互相冲突的内容版本；推理提出明确理由选择其中一个，行动实施所选版本以解决冲突。",
+          "parameters": [
+            {
+              "name": "conflict_observation",
+              "type": "observation",
+              "description": "展示不兼容备选、冲突标记或竞争版本的观察。"
+            },
+            {
+              "name": "resolution_reasoning",
+              "type": "reasoning",
+              "description": "选定版本并说明选择理由的推理。"
+            },
+            {
+              "name": "resolution_action",
+              "type": "action",
+              "description": "应用所选版本或执行冲突解决的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察包含可识别的冲突或竞争内容。",
+            "推理说明采用哪个版本，并给出优先级、正确性或取代关系等明确语义理由。",
+            "行动实施所选版本，例如采用、暂存或提交该版本。"
+          ],
+          "exclusion_conditions": [
+            "观察没有可识别的冲突或竞争版本。",
+            "推理只指出存在冲突，没有选择版本。",
+            "行动与所选版本无关，或采用其他解决方案。",
+            "未给出选择理由。"
+          ]
+        },
+        {
+          "name": "RESOLVES_CONFLICT_WITH_TARGETED_EDIT",
+          "definition": "观察报告同一产物的不同版本或替代内容存在未解决冲突；推理决定解决方式，行动定向编辑或覆盖产物以落实解决方案。",
+          "parameters": [
+            {
+              "name": "conflict_observation",
+              "type": "observation",
+              "description": "报告产物竞争版本之间尚未解决冲突的观察。"
+            },
+            {
+              "name": "resolution_reasoning",
+              "type": "reasoning",
+              "description": "确定冲突解决方式及必要替换内容的推理节点。"
+            },
+            {
+              "name": "resolution_action",
+              "type": "action",
+              "description": "编辑或覆盖冲突产物以实施方案的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "冲突观察明确报告未解决冲突，如冲突标记、冲突状态或同一产物的竞争内容。",
+            "解决推理指定解决策略或要写入的替换内容。",
+            "解决行动按照策略修改或覆盖冲突产物。"
+          ],
+          "exclusion_conditions": [
+            "观察没有报告未解决冲突。",
+            "行动与冲突产物无关或实施了另一解决方案。",
+            "只讨论或描述冲突，没有采取解决行动。",
+            "推理仅指出存在冲突，未决定如何解决。"
+          ]
+        },
+        {
+          "name": "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION",
+          "definition": "先前明确提出的预期、假设或解释与后续观察结果相冲突，推理据此修正或替换原先观点，并明确将矛盾证据作为修改原因。",
+          "parameters": [
+            {
+              "name": "prior_reasoning",
+              "type": "reasoning",
+              "description": "提出待修正预期、假设或解释的早期推理节点。"
+            },
+            {
+              "name": "contradicting_observation",
+              "type": "observation",
+              "description": "报告不符合原预期的结果、错误或测量值的观察。"
+            },
+            {
+              "name": "revised_reasoning",
+              "type": "reasoning",
+              "description": "依据矛盾观察修正或替换原观点的后续推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "先前推理提出可识别的具体预期、假设、结构假定或解释。",
+            "观察报告与原预期不相容的结果或错误。",
+            "修订推理更改原观点，并以冲突结果解释修改理由。"
+          ],
+          "exclusion_conditions": [
+            "前面没有可识别的预期或假设。",
+            "观察只增加信息，未与原预期冲突。",
+            "修订与观察无关，或原观点未变。",
+            "先前陈述仅为行动计划，缺乏可被事实反驳的预期或解释。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION": 1,
+        "RESOLVES_CONFLICT_WITH_TARGETED_EDIT": 0.9135437918708181,
+        "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION": 0.6565075134197105
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.9135437918708181,
+          0.6565075134197105
+        ],
+        [
+          0.9135437918708181,
+          1,
+          0.6244494490175553
+        ],
+        [
+          0.6565075134197105,
+          0.6244494490175553,
+          1
+        ]
+      ],
+      "cluster_id": "ternary-006"
+    },
+    {
+      "arity": 3,
+      "size": 7,
+      "representative": "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS",
+      "medoid_index": 84,
+      "mean_similarity": 0.6588587438616831,
+      "min_similarity": 0.47500760221376304,
+      "minimum_pair": {
+        "predicates": [
+          "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST",
+          "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION"
+        ],
+        "similarity": 0.47500760221376304
+      },
+      "member_indices": [
+        13,
+        21,
+        63,
+        84,
+        85,
+        101,
+        108
+      ],
+      "members": [
+        {
+          "name": "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION",
+          "definition": "验证操作在依赖组件激活或投入使用前检查产物、配置或准备状态的有效性，观察确认验证成功。",
+          "parameters": [
+            {
+              "name": "validation_reasoning",
+              "type": "reasoning",
+              "description": "说明产物或配置应在激活或使用前验证的推理节点。"
+            },
+            {
+              "name": "validation_action",
+              "type": "action",
+              "description": "执行配置测试、语法检查或等效有效性检查的行动；激活可在同一行动或后续行动中进行。"
+            },
+            {
+              "name": "validation_observation",
+              "type": "observation",
+              "description": "报告验证结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "验证推理或验证行动表明应先进行验证，再激活或依赖该组件。",
+            "验证行动对产物、配置或准备状态执行配置测试、语法检查或等效有效性检查。",
+            "验证观察报告成功，随后才激活或依赖该组件。"
+          ],
+          "exclusion_conditions": [
+            "组件未经事先验证便被激活或使用。",
+            "验证失败或结果无法解释为成功。",
+            "仅在激活后检查，没有激活前或使用前的验证。"
+          ]
+        },
+        {
+          "name": "AUDITS_MULTIPLE_INVARIANTS",
+          "definition": "推理列出环境须满足的多项独立条件，一次行动共同评估这些条件，观察给出可归属于各条件的结果。",
+          "parameters": [
+            {
+              "name": "checklist_reasoning",
+              "type": "reasoning",
+              "description": "列出审计所需独立条件的推理。"
+            },
+            {
+              "name": "audit_action",
+              "type": "action",
+              "description": "单次调用中共同评估这些条件的行动。"
+            },
+            {
+              "name": "audit_result",
+              "type": "observation",
+              "description": "分别报告审计各条件结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理列出至少两个待验证的独立条件或不变量。",
+            "审计行动在一次调用中检查其中多项条件。",
+            "观察能够区分各条件的结果，而非只有整体状态。"
+          ],
+          "exclusion_conditions": [
+            "仅检查单一条件。",
+            "观察汇总结果，无法区分各条件。",
+            "行动实际上未检查所列条件。"
+          ]
+        },
+        {
+          "name": "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST",
+          "definition": "智能体编写含有明确预期行为或断言的可执行测试或自检，实际运行该测试，并利用报告结果判断组件行为是否符合预期。",
+          "parameters": [
+            {
+              "name": "test_authoring_action",
+              "type": "action",
+              "description": "创建或编写含断言或预期值的可执行测试的行动。"
+            },
+            {
+              "name": "test_execution_action",
+              "type": "action",
+              "description": "针对组件执行所编写测试的行动。"
+            },
+            {
+              "name": "test_result_observation",
+              "type": "observation",
+              "description": "报告测试输出、通过与否或断言结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "编写行动产生至少包含一项明确行为预期或断言的可执行测试。",
+            "执行行动针对目标组件运行该测试。",
+            "观察结果足以判断测试通过还是失败。"
+          ],
+          "exclusion_conditions": [
+            "测试仅被编写或查看，没有运行。",
+            "执行的命令不是该测试，或不含行为断言及预期结果。",
+            "观察与测试无关，或没有通过失败的证据。"
+          ]
+        },
+        {
+          "name": "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS",
+          "definition": "验证行动依据推理明确提出的要求或预期属性测试已生成输出，结果观察报告检查是否通过的证据。",
+          "parameters": [
+            {
+              "name": "validation_action",
+              "type": "action",
+              "description": "执行输出检查、断言或比较的工具调用。"
+            },
+            {
+              "name": "criteria_reasoning",
+              "type": "reasoning",
+              "description": "陈述验证要求或预期属性的智能体文本。"
+            },
+            {
+              "name": "validation_observation",
+              "type": "observation",
+              "description": "报告相关检查结果或观察值的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "标准推理明确指定需检查的要求、属性或预期值。",
+            "验证行动针对要求执行断言、检查或比较。",
+            "验证观察给出通过失败状态或对应数值。"
+          ],
+          "exclusion_conditions": [
+            "行动是在生成输出，而非对照标准检查。",
+            "观察只展示输出，没有与所述要求比较。",
+            "推理未提出明确验证标准。"
+          ]
+        },
+        {
+          "name": "VERIFIES_DEPLOYED_SERVICE_WITH_REQUEST",
+          "definition": "服务或组件启动后，推理指定需验证的运行时行为或要求；行动通过其对外接口向服务发送请求，观察提供可与预期比较的响应。",
+          "parameters": [
+            {
+              "name": "verification_reasoning",
+              "type": "reasoning",
+              "description": "指出待验证服务行为、端点或要求的智能体文本。"
+            },
+            {
+              "name": "request_action",
+              "type": "action",
+              "description": "通过公开接口访问运行服务（如发送端点请求）的行动。"
+            },
+            {
+              "name": "response_observation",
+              "type": "observation",
+              "description": "提供响应内容、状态或相关输出的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "验证推理指出已部署或启动服务的具体行为、端点或必要要求。",
+            "请求行动通过服务暴露的接口调用运行实例，而非只读配置、文件或进程状态。",
+            "响应观察报告足以与预期行为比较的内容、状态或输出。"
+          ],
+          "exclusion_conditions": [
+            "发出请求时服务尚未启动或部署。",
+            "行动只检查进程、文件、日志或配置，没有调用服务接口。",
+            "请求与验证目标无关。",
+            "观察只有传输失败或没有可解释的服务响应。",
+            "推理未明示或暗示验证目标、预期行为。"
+          ]
+        },
+        {
+          "name": "VERIFIES_MULTI_INTERFACE_COMPATIBILITY",
+          "definition": "推理要求产物能通过多个指定调用接口或执行路径运行，行动逐一执行这些路径，观察报告成功或等效结果。",
+          "parameters": [
+            {
+              "name": "verification_reasoning",
+              "type": "reasoning",
+              "description": "指出必须成功的多个接口或执行路径的推理。"
+            },
+            {
+              "name": "execution_action",
+              "type": "action",
+              "description": "通过这些接口或路径执行产物的行动。"
+            },
+            {
+              "name": "result_observation",
+              "type": "observation",
+              "description": "报告各路径运行结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理指定至少两个产物必须支持的调用接口或执行路径。",
+            "行动通过每条指定路径实际运行产物，可使用多个输入。",
+            "观察报告可比较正确性或等价性且证明运行成功的路径结果。"
+          ],
+          "exclusion_conditions": [
+            "只运行一种接口或路径。",
+            "行动仅编译或检查语法，没有运行必要路径。",
+            "观察没有报告比较路径的结果。",
+            "至少一条必要路径失败或与其他路径结果不一致，未验证兼容性。",
+            "推理未将多路径列为验收要求。"
+          ]
+        },
+        {
+          "name": "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION",
+          "definition": "推理将验证分为两级：先执行快速缩小规模的检查，再进行昂贵的完整验证；对应行动依次运行小规模测试和完整必需工作负载。",
+          "parameters": [
+            {
+              "name": "sequencing_reasoning",
+              "type": "reasoning",
+              "description": "说明先快速小规模检查再完整验证的智能体文本。"
+            },
+            {
+              "name": "precursor_check_action",
+              "type": "action",
+              "description": "执行缩小规模检查的行动。"
+            },
+            {
+              "name": "full_validation_action",
+              "type": "action",
+              "description": "在先行检查之后执行完整昂贵工作负载的行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理计划先运行快速或小规模检查，再运行完整昂贵验证。",
+            "先行行动只执行缩小规模案例，未覆盖全部必需负载。",
+            "完整验证行动在先行检查后运行全部要求的工作负载。"
+          ],
+          "exclusion_conditions": [
+            "两级验证仅执行了其中一级。",
+            "首次行动已经运行完整负载，而非缩小规模案例。",
+            "推理未按照成本或规模安排检查次序。",
+            "先行检查与完整验证没有构成同一验证流程的两个阶段。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION": 0.7829092007369158,
+        "AUDITS_MULTIPLE_INVARIANTS": 0.6999115520337053,
+        "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST": 0.6744619900834715,
+        "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS": 1,
+        "VERIFIES_DEPLOYED_SERVICE_WITH_REQUEST": 0.7562614083732,
+        "VERIFIES_MULTI_INTERFACE_COMPATIBILITY": 0.7185648614472832,
+        "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION": 0.6618124913480388
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.6073461889832384,
+          0.5747352319427858,
+          0.7829092007369158,
+          0.6807971510987297,
+          0.6695214334990648,
+          0.6661100705447163
+        ],
+        [
+          0.6073461889832384,
+          1,
+          0.5759238026361461,
+          0.6999115520337053,
+          0.6611000026429723,
+          0.7141863084588344,
+          0.5931606473848146
+        ],
+        [
+          0.5747352319427858,
+          0.5759238026361461,
+          1,
+          0.6744619900834715,
+          0.7199661415146381,
+          0.5974270008656904,
+          0.47500760221376304
+        ],
+        [
+          0.7829092007369158,
+          0.6999115520337053,
+          0.6744619900834715,
+          1,
+          0.7562614083732,
+          0.7185648614472832,
+          0.6618124913480388
+        ],
+        [
+          0.6807971510987297,
+          0.6611000026429723,
+          0.7199661415146381,
+          0.7562614083732,
+          1,
+          0.7234371264751304,
+          0.6473167067586876
+        ],
+        [
+          0.6695214334990648,
+          0.7141863084588344,
+          0.5974270008656904,
+          0.7185648614472832,
+          0.7234371264751304,
+          1,
+          0.636076702053519
+        ],
+        [
+          0.6661100705447163,
+          0.5931606473848146,
+          0.47500760221376304,
+          0.6618124913480388,
+          0.6473167067586876,
+          0.636076702053519,
+          1
+        ]
+      ],
+      "cluster_id": "ternary-007"
+    },
+    {
+      "arity": 3,
+      "size": 1,
+      "representative": "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION",
+      "medoid_index": 96,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        96
+      ],
+      "members": [
+        {
+          "name": "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION",
+          "definition": "通过重新读取候选值声称来自的准确存储位置、偏移或字段，并与候选项比较，以确认或否定所提候选值或片段。",
+          "parameters": [
+            {
+              "name": "verification_reasoning",
+              "type": "reasoning",
+              "description": "指定候选项及要重读的准确位置或字段的推理。"
+            },
+            {
+              "name": "extraction_action",
+              "type": "action",
+              "description": "从指定位置提取数据的行动。"
+            },
+            {
+              "name": "extraction_result",
+              "type": "observation",
+              "description": "报告提取数据供比较的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "验证推理明确候选值或片段以及具体检查位置、偏移或字段。",
+            "提取行动直接从指定位置取数，而非无目标搜索。",
+            "提取结果包含可直接与候选项比较的数据，以验证真假。"
+          ],
+          "exclusion_conditions": [
+            "行动是未关联候选项的无目标探索。",
+            "提取数据无法与候选项比较。",
+            "推理没有指出验证什么或到哪里找。",
+            "行动经由不同路径独立重算候选项，而非重读声称的源位置。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "ternary-008"
+    },
+    {
+      "arity": 3,
+      "size": 1,
+      "representative": "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH",
+      "medoid_index": 97,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        97
+      ],
+      "members": [
+        {
+          "name": "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH",
+          "definition": "推理指示对可用产物或语料进行穷尽搜索，通过结果排除竞争候选项，确认某个候选项唯一或不存在其他符合标准者。",
+          "parameters": [
+            {
+              "name": "exclusion_reasoning",
+              "type": "reasoning",
+              "description": "试图排除其他候选项或确认唯一性的推理。"
+            },
+            {
+              "name": "exhaustive_search_action",
+              "type": "action",
+              "description": "在产物或语料中枚举相关模式或特征的行动。"
+            },
+            {
+              "name": "search_result",
+              "type": "observation",
+              "description": "列出搜索匹配结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "排除推理要求排除替代候选项或确认唯一符合条件项。",
+            "穷尽搜索行动覆盖相关产物或语料，而非仅检查已知位置。",
+            "搜索结果表明没有额外合格候选项，或唯一合格项为已知候选项，推理据此排除替代项。"
+          ],
+          "exclusion_conditions": [
+            "只检查一个已知位置，无法发现其他候选项。",
+            "观察报告未被排除的其他合格项。",
+            "搜索结果未被用于判断唯一性或排除替代项。",
+            "推理只寻找某个已知匹配项的更多上下文，没有枚举全产物的竞争项。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "ternary-009"
+    },
+    {
+      "arity": 3,
+      "size": 1,
+      "representative": "CONDUCTS_RESIDUAL_RISK_SWEEP",
+      "medoid_index": 120,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        120
+      ],
+      "members": [
+        {
+          "name": "CONDUCTS_RESIDUAL_RISK_SWEEP",
+          "definition": "定向工作完成后，推理因担心遗漏目标而要求扩大范围搜索；行动扫描更多位置、模式或产物类型，观察用于排除或发现其他需处理的实例。",
+          "parameters": [
+            {
+              "name": "sweep_reasoning",
+              "type": "reasoning",
+              "description": "说明广泛排查动机或根据扫描结果作结论的推理。"
+            },
+            {
+              "name": "sweep_action",
+              "type": "action",
+              "description": "扫描既有目标之外的位置、模式或产物类别的行动。"
+            },
+            {
+              "name": "sweep_observation",
+              "type": "observation",
+              "description": "报告是否发现其他待处理实例的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理在定向修复或验证后提出搜索可能遗漏的实例。",
+            "行动搜索比已知目标更广的位置、模式或产物类别。",
+            "观察被用于判断额外可处理实例，可能没有发现或发现新实例。"
+          ],
+          "exclusion_conditions": [
+            "行动只复查已知目标值或位置。",
+            "没有提出更广泛的残留风险搜索。",
+            "观察没有用于识别遗漏实例。",
+            "扫描是初次发现搜索，而非工作完成后的残留检查。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "CONDUCTS_RESIDUAL_RISK_SWEEP": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "ternary-010"
+    },
+    {
+      "arity": 3,
+      "size": 3,
+      "representative": "EXPLORATORY_INSPECTION_REVEALS_CAPABILITY",
+      "medoid_index": 129,
+      "mean_similarity": 0.5818494622083951,
+      "min_similarity": 0.5135194385738859,
+      "minimum_pair": {
+        "predicates": [
+          "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD",
+          "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION"
+        ],
+        "similarity": 0.5135194385738859
+      },
+      "member_indices": [
+        18,
+        27,
+        129
+      ],
+      "members": [
+        {
+          "name": "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD",
+          "definition": "原检查因结果为空、缺失、不可解析，或依赖的工具、命令不可用而无法提供有效信息；推理将原因归于检查方法或工具的具体局限，后续行动使用实质不同的方法获取同一信息。",
+          "parameters": [
+            {
+              "name": "inconclusive_result",
+              "type": "observation",
+              "description": "报告原检查为空、缺失、不可解析或报错结果的观察，包括工具或命令不可用的报错。"
+            },
+            {
+              "name": "method_diagnosis",
+              "type": "reasoning",
+              "description": "解释检查方法或工具的何种局限造成结果不可用的推理，如语法不支持、格式错误或命令不可用。"
+            },
+            {
+              "name": "alternative_action",
+              "type": "action",
+              "description": "通过实质不同技术获取目标信息的后续行动。"
+            }
+          ],
+          "assertion_conditions": [
+            "观察表明原检查没有可解释的信息，如输出为空、条目缺失、解析失败或所依赖工具不可用。",
+            "推理指出具体方法或工具局限，如语法不受支持、符号链接处理问题、格式错误或命令缺失。",
+            "替代行动针对同一信息，采用实质不同的技术或调用方式。"
+          ],
+          "exclusion_conditions": [
+            "推理将结果不可用归因于被检系统的真实缺陷或缺失，而非检查方法。",
+            "后续行动重复相同方法或仅作表面调整。",
+            "推理未区分工具造成的假象与被检状态的真实发现。",
+            "原观察已经提供目标信息，无须替代获取。"
+          ]
+        },
+        {
+          "name": "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION",
+          "definition": "推理提出确认受保护元素（输入、参数、组件或预定修改范围外的产物）保持未变；随后执行只读检查，观察报告状态或变更清单，以判断它们未被修改或仅在允许范围内修改。",
+          "parameters": [
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "表明要确认受保护的输入、参数、组件或产物未被修改的推理文本。"
+            },
+            {
+              "name": "inspection_action",
+              "type": "action",
+              "description": "对这些元素或变更集执行的非修改性检查行动，如列举、状态查询、校验和、读取或比较。"
+            },
+            {
+              "name": "inspection_result",
+              "type": "observation",
+              "description": "报告元数据、校验和、内容、变更文件或比较结果的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理说明检查目的在于保持或确认受保护元素未变。",
+            "检查行动不会写入或改动被检元素。",
+            "观察报告可判断受保护元素是否未变或只在允许范围内变更的状态信息。"
+          ],
+          "exclusion_conditions": [
+            "行动修改了被检元素。",
+            "检查旨在生成方案，而非确认元素保持未变。",
+            "没有观察报告检查结果。",
+            "没有指定必须保持不变的受保护元素。"
+          ]
+        },
+        {
+          "name": "EXPLORATORY_INSPECTION_REVEALS_CAPABILITY",
+          "definition": "对现有产物或资源进行不修改内容的检查，观察揭示其已有的功能、选项、组件或支持；推理明确认定这项能力可用于当前任务。",
+          "parameters": [
+            {
+              "name": "inspection_action",
+              "type": "action",
+              "description": "不修改资源、通过检查了解其内容、选项或能力的行动。"
+            },
+            {
+              "name": "observation",
+              "type": "observation",
+              "description": "报告检查发现的既有功能、选项、组件或支持的观察。"
+            },
+            {
+              "name": "reasoning",
+              "type": "reasoning",
+              "description": "明确认定发现的能力可用于任务的推理节点。"
+            }
+          ],
+          "assertion_conditions": [
+            "行动检查现有产物或资源，没有修改或运行目标系统。",
+            "观察报告资源中已存在且与任务相关的具体功能、选项、组件或支持。",
+            "推理明确承认该能力已可用且能完成任务。"
+          ],
+          "exclusion_conditions": [
+            "行动修改产物或运行目标系统，而非检查。",
+            "观察没有可识别的既有功能、选项、组件或支持。",
+            "推理没有认可或采用该能力。",
+            "报告的是能力缺失或不可用，而非可用功能。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD": 0.5695980683395673,
+        "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION": 0.6624308797117321,
+        "EXPLORATORY_INSPECTION_REVEALS_CAPABILITY": 1
+      },
+      "similarity_matrix": [
+        [
+          1,
+          0.5135194385738859,
+          0.5695980683395673
+        ],
+        [
+          0.5135194385738859,
+          1,
+          0.6624308797117321
+        ],
+        [
+          0.5695980683395673,
+          0.6624308797117321,
+          1
+        ]
+      ],
+      "cluster_id": "ternary-011"
+    },
+    {
+      "arity": 3,
+      "size": 1,
+      "representative": "DECODES_OBFUSCATED_DATA_USING_INFERRED_TRANSFORMATION",
+      "medoid_index": 134,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        134
+      ],
+      "members": [
+        {
+          "name": "DECODES_OBFUSCATED_DATA_USING_INFERRED_TRANSFORMATION",
+          "definition": "推理从产物代码或数据分析中推导转换或解码规则，行动将其应用于混淆数据，观察报告恢复的载荷或解码内容。",
+          "parameters": [
+            {
+              "name": "transformation_reasoning",
+              "type": "reasoning",
+              "description": "说明由产物代码或数据推断的转换、密钥、替换规则或终止符约定的推理。"
+            },
+            {
+              "name": "decoding_action",
+              "type": "action",
+              "description": "将推断转换应用于目标数据的行动。"
+            },
+            {
+              "name": "decoded_observation",
+              "type": "observation",
+              "description": "报告恢复载荷或解码内容的观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "推理识别从产物代码或数据推断出的具体转换、密钥、替换规则或终止符约定。",
+            "行动实际对目标数据应用该转换，而非仅展示或复制。",
+            "观察报告与推断转换相符的恢复内容。"
+          ],
+          "exclusion_conditions": [
+            "行动之前没有确定转换或解码规则。",
+            "行动没有应用解码或反混淆转换。",
+            "观察没有恢复内容，或内容与推断转换不符。",
+            "推理只复述原本可读的内容，没有任何转换。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "DECODES_OBFUSCATED_DATA_USING_INFERRED_TRANSFORMATION": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "ternary-012"
+    },
+    {
+      "arity": 4,
+      "size": 1,
+      "representative": "RESOLVES_OBSERVED_FAILURE_WITH_CONFIRMED_WORKAROUND",
+      "medoid_index": 125,
+      "mean_similarity": null,
+      "min_similarity": null,
+      "minimum_pair": null,
+      "member_indices": [
+        125
+      ],
+      "members": [
+        {
+          "name": "RESOLVES_OBSERVED_FAILURE_WITH_CONFIRMED_WORKAROUND",
+          "definition": "观察报告失败、拒绝或阻碍；推理诊断原因并提出具体替代补救办法，后续行动实施该办法，最后观察确认障碍已克服。",
+          "parameters": [
+            {
+              "name": "failure_observation",
+              "type": "observation",
+              "description": "报告初始错误、拒绝或阻碍条件的观察。"
+            },
+            {
+              "name": "diagnosis_reasoning",
+              "type": "reasoning",
+              "description": "指出原因或限制并提出替代补救办法的推理。"
+            },
+            {
+              "name": "remediation_action",
+              "type": "action",
+              "description": "执行替代补救而非重复失败做法的行动。"
+            },
+            {
+              "name": "confirmation_observation",
+              "type": "observation",
+              "description": "报告成功或障碍消除的后续观察。"
+            }
+          ],
+          "assertion_conditions": [
+            "失败观察报告阻止预期操作的错误、拒绝或约束。",
+            "诊断推理指出原因或限制，并提出不同于失败做法的替代补救。",
+            "补救行动执行指定的方案。",
+            "确认观察报告成功或障碍消除，与补救已实施相符。"
+          ],
+          "exclusion_conditions": [
+            "没有报告失败或阻碍。",
+            "行动仅重复失败方法或未实施指定补救。",
+            "确认观察仍报告失败，或与障碍无关。",
+            "推理只指出失败，没有诊断原因或给出补救。",
+            "后续没有观察证实障碍解决。"
+          ]
+        }
+      ],
+      "member_similarities": {
+        "RESOLVES_OBSERVED_FAILURE_WITH_CONFIRMED_WORKAROUND": 1
+      },
+      "similarity_matrix": [
+        [
+          1
+        ]
+      ],
+      "cluster_id": "quaternary-001"
+    }
+  ]
+}

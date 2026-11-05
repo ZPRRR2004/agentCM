@@ -1,0 +1,1787 @@
+[
+  {
+    "name": "IS_PLAN",
+    "definition": "推理明确表达了为完成任务而计划在未来执行的至少一个动作或动作序列。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "表达未来预期动作或计划的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确指出智能体稍后打算执行的至少一项操作或一系列操作。",
+      "预期动作被表述为尚待执行的事项，而非已完成的观察或事实陈述。"
+    ],
+    "exclusion_conditions": [
+      "推理仅报告已经完成的动作。",
+      "推理只陈述事实或诊断，没有表达任何未来动作意图。",
+      "推理仅复述任务要求，没有承诺由智能体自身执行任何操作。"
+    ]
+  },
+  {
+    "name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+    "definition": "已记录的动作执行了推理节点明确提出的未来步骤，且任务目的相符，关联不能仅由主题相近或时间相邻构成。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "执行该步骤的已记录工具调用。"
+      },
+      {
+        "name": "plan_reasoning",
+        "type": "reasoning",
+        "description": "提出未来操作的推理节点。"
+      }
+    ],
+    "assertion_conditions": [
+      "plan_reasoning 表达预期执行的未来操作或操作集合。",
+      "action 执行的操作与拟议步骤的目的和目标一致。"
+    ],
+    "exclusion_conditions": [
+      "推理仅描述过去或已经完成的动作。",
+      "动作与拟议步骤无关，或服务于其他目的。",
+      "两者仅在时间上相邻，缺乏意图上的对应。"
+    ]
+  },
+  {
+    "name": "DIAGNOSES_OBSERVED_ARTIFACT_DEFECT",
+    "definition": "推理解释观察中呈现的产物内容，并识别需要修复的具体缺失、不完整或错误部分。",
+    "parameters": [
+      {
+        "name": "diagnosis_reasoning",
+        "type": "reasoning",
+        "description": "识别产物缺陷或不完整之处的推理。"
+      },
+      {
+        "name": "artifact_observation",
+        "type": "observation",
+        "description": "呈现被诊断产物内容的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察展示了可辨识的产物内容。",
+      "推理根据预期要求识别出该产物的具体缺陷、缺口或不完整部分。"
+    ],
+    "exclusion_conditions": [
+      "推理只是复述或改写产物内容，未识别缺陷。",
+      "没有指出具体缺失、不完整或错误的部分。",
+      "观察未呈现与诊断有关的产物内容。"
+    ]
+  },
+  {
+    "name": "PROPOSES_CONCRETE_REMEDIATION",
+    "definition": "推理针对已识别的缺陷、缺口或要求提出具体修正、补全或补救措施，包括使目标满足要求的替换内容或执行步骤。",
+    "parameters": [
+      {
+        "name": "remediation_reasoning",
+        "type": "reasoning",
+        "description": "包含具体补救或补全方案的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理提出至少一项具体更改、替换或新增步骤，以修复、补全或解决已识别的缺陷、缺口或未满足的要求。",
+      "拟议补救措施与已识别的问题或要求直接相关，而非笼统地表示要修复。"
+    ],
+    "exclusion_conditions": [
+      "推理只识别缺陷，却未说明如何修复或补全。",
+      "推理仅笼统表示要修复或改进，没有具体内容或步骤。",
+      "拟议更改与已识别的缺陷或要求无关。"
+    ]
+  },
+  {
+    "name": "PROBES_CAPABILITY_AVAILABILITY",
+    "definition": "动作查询环境中的目标能力、资源或环境属性是否可用，以及其标识、版本或其他状态；对应观察报告该目标的相关证据。",
+    "parameters": [
+      {
+        "name": "probe_action",
+        "type": "action",
+        "description": "查询目标能力、资源或环境属性的诊断动作。"
+      },
+      {
+        "name": "probe_observation",
+        "type": "observation",
+        "description": "报告所查询目标的存在、缺失、可用性、标识、版本或状态等证据的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "该动作是针对目标能力、资源或环境属性的诊断查询。",
+      "观察报告查询目标的存在、缺失、可用性、标识、版本或状态等证据。"
+    ],
+    "exclusion_conditions": [
+      "动作执行主要任务，而非检查目标能力、资源或环境属性。",
+      "观察未报告查询目标的任何信息。",
+      "探测与所考虑的目标能力、资源或环境属性无关。"
+    ]
+  },
+  {
+    "name": "IMPLEMENTS_SPECIFIED_CHANGE",
+    "definition": "动作将推理节点指定的具体内容、设置或修正写入或应用于相关目标，并且观察报告应用成功。",
+    "parameters": [
+      {
+        "name": "change_action",
+        "type": "action",
+        "description": "写入或应用指定内容、设置或修正的动作。"
+      },
+      {
+        "name": "change_reasoning",
+        "type": "reasoning",
+        "description": "说明预期内容、设置、目标更改或修正的推理。"
+      },
+      {
+        "name": "application_observation",
+        "type": "observation",
+        "description": "报告指定更改是否成功应用的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确说明要落实的内容、设置、目标更改或修正。",
+      "动作对相关目标应用与上述意图一致的内容或更改。",
+      "观察报告该更改已成功创建、写入、修改或应用。"
+    ],
+    "exclusion_conditions": [
+      "动作没有落实推理描述的内容或更改。",
+      "观察报告失败、错误，或仅报告尝试而未确认写入或应用成功。",
+      "推理仅讨论更改，却未明确预期的规格或修正内容。"
+    ]
+  },
+  {
+    "name": "PRODUCES_EXPECTED_DERIVED_OUTPUT",
+    "definition": "动作对源输入执行转换、构建、编译或生成步骤，观察提供预期衍生产物或输出已经生成的证据。",
+    "parameters": [
+      {
+        "name": "transformation_action",
+        "type": "action",
+        "description": "执行转换、构建、编译或生成过程的动作。"
+      },
+      {
+        "name": "generation_observation",
+        "type": "observation",
+        "description": "报告预期衍生输出已经生成或存在的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作对源输入执行转换、构建、编译或同类生成步骤。",
+      "观察提供了预期衍生产物或输出已生成或在执行后存在的证据。"
+    ],
+    "exclusion_conditions": [
+      "动作仅检查文件或输入，没有执行转换或生成。",
+      "观察无法证明预期衍生产物或输出已经生成。",
+      "转换或生成过程报告了阻止输出产生的错误。"
+    ]
+  },
+  {
+    "name": "DIAGNOSES_ACTION_FAILURE_FROM_ERROR",
+    "definition": "推理解释观察报告的错误或失败结果，识别具体原因或修正尝试必须满足的条件；这些判断须依据故障细节，不能仅复述错误或笼统归咎于目标功能。",
+    "parameters": [
+      {
+        "name": "diagnosis_reasoning",
+        "type": "reasoning",
+        "description": "解释失败并识别具体原因或所需修正的推理。"
+      },
+      {
+        "name": "error_observation",
+        "type": "observation",
+        "description": "报告错误或失败结果的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察报告先前动作发生错误、非零退出或其他不成功结果。",
+      "推理识别导致失败的原因、被误解的条件或修正尝试的必要要求。",
+      "识别出的原因或要求与所报告错误的具体细节一致，而非笼统断言目标功能损坏。"
+    ],
+    "exclusion_conditions": [
+      "推理只重复错误消息，没有解释原因或影响。",
+      "推理直接重试相同操作，没有指出任何修正条件。",
+      "推理将失败归咎于目标功能，却没有与已观察的错误细节建立联系。",
+      "观察没有报告错误或失败。"
+    ]
+  },
+  {
+    "name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSED_REVISION",
+    "definition": "后续动作依据对先前失败的明确诊断修订原操作，避免原样重复失败操作。",
+    "parameters": [
+      {
+        "name": "failed_action",
+        "type": "action",
+        "description": "导致错误结果的先前动作。"
+      },
+      {
+        "name": "error_observation",
+        "type": "observation",
+        "description": "报告先前动作错误的观察。"
+      },
+      {
+        "name": "correction_reasoning",
+        "type": "reasoning",
+        "description": "诊断失败并指出所需修订的推理。"
+      },
+      {
+        "name": "corrective_action",
+        "type": "action",
+        "description": "实施修订后方案的后续动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "failed_action 对应报告失败的 error_observation。",
+      "correction_reasoning 指出原因或需要调整的方法。",
+      "corrective_action 在追求相同目标时调整相关参数、命令或方法，以处理已诊断的失败。"
+    ],
+    "exclusion_conditions": [
+      "后续动作未做修订，直接原样重复失败动作。",
+      "修正动作与已诊断失败无关，或目标不同。",
+      "缺乏支持该修订的错误观察或明确诊断。"
+    ]
+  },
+  {
+    "name": "CONCLUDES_TASK_SUCCESS_FROM_ACCUMULATED_EVIDENCE",
+    "definition": "推理宣告任务成功完成，并引用一个或多个已观察到的验证结果作为依据，不能仅复述计划或动作序列。",
+    "parameters": [
+      {
+        "name": "conclusion_reasoning",
+        "type": "reasoning",
+        "description": "宣告完成并引用验证证据的最终推理。"
+      },
+      {
+        "name": "supporting_observations",
+        "type": "observation[]",
+        "description": "共同为完成声明提供结果证据的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "conclusion_reasoning 断言任务已成功完成。",
+      "推理引用或概述至少一个已观察结果，例如生成的产物或经确认的内容。",
+      "supporting_observations 共同包含验证证据，而非仅有动作确认或计划。"
+    ],
+    "exclusion_conditions": [
+      "推理只复述计划或中间动作，没有声明完成。",
+      "成功声明缺乏任何已观察的结果证据。",
+      "引用的观察与完成声明无关。"
+    ]
+  },
+  {
+    "name": "EVALUATES_ALTERNATIVES",
+    "definition": "推理对比至少两种能实现相同目的的候选方案，并依据明确的比较理由选定其中一种。",
+    "parameters": [
+      {
+        "name": "deliberating_reasoning",
+        "type": "reasoning",
+        "description": "对比候选方案并为所选方案提供理由的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理列出至少两种可服务同一目的的候选方法、工具或配置。",
+      "推理给出比较依据（稳健性、可用性、兼容性、便利性、简洁性），说明所选方案优于其他方案。"
+    ],
+    "exclusion_conditions": [
+      "推理仅描述一种方案，没有与其他方案比较。",
+      "推理只列出计划步骤，没有权衡选项。",
+      "其他选项仅顺带提及，未在选项之间作出选择。"
+    ]
+  },
+  {
+    "name": "IS_STATE_PROBE",
+    "definition": "该动作是为了获取信息而对系统、环境或产物状态进行的只读检查，不改变被检查的状态。",
+    "parameters": [
+      {
+        "name": "probe_action",
+        "type": "action",
+        "description": "检查而非修改系统或产物状态的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作由信息查询或检查操作组成，例如列出目录或进程、读取或导出配置、查询软件包、用户或服务状态。",
+      "动作描述或命令组合体现信息收集目的，且不持久修改被检查的状态。"
+    ],
+    "exclusion_conditions": [
+      "动作安装、创建、删除或重新配置资源。",
+      "检查命令仅附带出现在主要目的为持久更改的动作中。",
+      "动作执行了更改，并仅报告该更改的输出。"
+    ]
+  },
+  {
+    "name": "TESTS_ASSUMPTION_WITH_PROBE",
+    "definition": "针对环境、资源、工具、数据或任务要求，推理提出一项具体不确定性或暂定假设，动作执行有针对性的检验，观察提供支持或反驳该假设的证据。",
+    "parameters": [
+      {
+        "name": "probe_action",
+        "type": "action",
+        "description": "执行针对性测试或检查的动作。"
+      },
+      {
+        "name": "assumption_reasoning",
+        "type": "reasoning",
+        "description": "陈述待检验的不确定性或暂定假设的推理。"
+      },
+      {
+        "name": "probe_observation",
+        "type": "observation",
+        "description": "内容涉及所述不确定性的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确提出一项具体不确定性或暂定假设，其真假会影响结果、过程或计划。",
+      "选择该动作是为了让结果能够区分假设成立与不成立。",
+      "观察包含可解释为支持或反驳该假设的内容。"
+    ],
+    "exclusion_conditions": [
+      "检查没有受到任何可识别的假设或不确定性驱动。",
+      "动作检查的事项与假设无关。",
+      "观察没有回答待检验的假设。",
+      "动作只是重复先前操作，且未提出任何假设。"
+    ]
+  },
+  {
+    "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+    "definition": "推理以观察中可辨识的内容为证据，对系统、环境、产物或任务情境得出结论、解释或一般性发现。",
+    "parameters": [
+      {
+        "name": "concluding_reasoning",
+        "type": "reasoning",
+        "description": "陈述证据支持的结论的推理。"
+      },
+      {
+        "name": "evidential_observation",
+        "type": "observation",
+        "description": "提供支持该结论的内容的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理提出结论、解释或一般性发现，超出了对观察内容的简单复述。",
+      "观察的具体内容（报告的项目、缺失项、版本、状态、列表或获取的输出）可明确认定为结论依据。"
+    ],
+    "exclusion_conditions": [
+      "推理只复述或改写观察，没有作出推断。",
+      "观察与结论无关，或不提供可辨识的支持。",
+      "结论完全来自先验知识或任务指令，观察没有提供可辨识的证据支持。"
+    ]
+  },
+  {
+    "name": "ADAPTS_PLAN_TO_OBSERVED_STATE",
+    "definition": "观察揭示的状态偏离先前计划的假设或限制了可选方案，因此推理调整预期行动路线。",
+    "parameters": [
+      {
+        "name": "revised_plan_reasoning",
+        "type": "reasoning",
+        "description": "提出调整后行动路线的推理。"
+      },
+      {
+        "name": "state_revealing_observation",
+        "type": "observation",
+        "description": "揭示促使调整的状态的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察报告的状态与先前行动路线的假设不符，或排除了其中某些选项。",
+      "推理明确基于该状态推导出不同的后续步骤。"
+    ],
+    "exclusion_conditions": [
+      "观察之后推理原样重复先前计划。",
+      "推理仅记录已观察状态，没有改变后续行动意图。",
+      "该调整只是对尝试动作错误的反应，已由失败诊断与修正机制处理。"
+    ]
+  },
+  {
+    "name": "MITIGATES_ANTICIPATED_FAILURE",
+    "definition": "推理预见可能阻碍任务成功完成的具体失败模式，动作在失败发生前采取措施预防或消除这种风险。",
+    "parameters": [
+      {
+        "name": "safeguard_action",
+        "type": "action",
+        "description": "实施预防措施的动作。"
+      },
+      {
+        "name": "risk_reasoning",
+        "type": "reasoning",
+        "description": "识别失败模式并说明防护措施动机的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出可能阻碍目标实现或使结果失效的具体失败模式或陷阱。",
+      "动作包含明确旨在或显然用于预防、消除该失败模式的措施。"
+    ],
+    "exclusion_conditions": [
+      "推理未指出失败模式，因此措施无法与特定风险对应。",
+      "动作只是普通准备工作，与所述失败模式没有可辨识联系。",
+      "防护措施只在推理中提出，未执行对应动作。"
+    ]
+  },
+  {
+    "name": "VALIDATES_PRECONDITION_BEFORE_DEPENDENT_ACTION",
+    "definition": "动作在同一个有序、受条件保护的序列中先验证前置条件、配置或产物的正确性，验证成功后才执行依赖它的启用或使用操作。",
+    "parameters": [
+      {
+        "name": "guarded_action",
+        "type": "action",
+        "description": "在同一个受条件保护序列中执行验证检查及依赖性启用或使用的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作对即将使用或启用的前置条件、配置或产物执行语法、完整性或有效性检查。",
+      "依赖性启用或使用被安排在检查之后，且以检查成功为执行条件。"
+    ],
+    "exclusion_conditions": [
+      "动作在未经前置条件或产物验证的情况下直接启用或使用。",
+      "依赖动作早已完成，之后才单独运行验证命令。",
+      "无论验证结果如何，依赖动作都会继续。"
+    ]
+  },
+  {
+    "name": "VERIFIES_EXPECTED_OUTCOME",
+    "definition": "动作针对推理所预期的具体行为、输出、内容、结果、结果状态或约束执行操作或检查，观察报告与预期一致的结果，从而予以确认。",
+    "parameters": [
+      {
+        "name": "expectation_reasoning",
+        "type": "reasoning",
+        "description": "陈述预期行为、输出、内容、结果、状态或约束的推理。"
+      },
+      {
+        "name": "check_action",
+        "type": "action",
+        "description": "执行可产生或观察预期结果的操作、检查或比较的动作。"
+      },
+      {
+        "name": "result_observation",
+        "type": "observation",
+        "description": "报告操作、检查或比较结果的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确指出预期发生、存在或保持的具体行为、输出、内容、结果、状态或约束。",
+      "动作旨在执行、产生、观察或比较该预期。",
+      "观察报告的内容与所述预期一致，且无矛盾。"
+    ],
+    "exclusion_conditions": [
+      "推理中无法识别任何具体预期行为、输出、内容、结果、状态或约束。",
+      "动作与预期无关，或仅偶然观察到它。",
+      "观察与预期矛盾，或无法就预期得出确定结论。",
+      "检查只确认存在性或未经检查的元数据，未检验明确预期的结果、内容、状态或约束。"
+    ]
+  },
+  {
+    "name": "CLASSIFIES_FAILURE_AS_TEST_ARTIFACT",
+    "definition": "推理将观察到的失败、异常、误导性或空结果归因于智能体自身的测试设置、执行上下文、工具或测量方法，而非目标系统本身的缺陷。",
+    "parameters": [
+      {
+        "name": "assessment_reasoning",
+        "type": "reasoning",
+        "description": "将失败或异常结果归类为自身测试、工具或测量方法引入的推理。"
+      },
+      {
+        "name": "failure_observation",
+        "type": "observation",
+        "description": "报告失败、异常、误导性结果或空结果的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察报告失败、错误、异常、空结果或误导性结果。",
+      "推理将该结果归因于智能体自己的测试设置、执行上下文、工具或测量方法。",
+      "推理将这种原因与目标系统真实的缺陷或限制区分开来。"
+    ],
+    "exclusion_conditions": [
+      "推理认为失败源于目标系统的真实缺陷或限制。",
+      "推理仅复述失败或指出原因，没有认定其由自身设置或测量方法引起。",
+      "观察未报告失败、异常、误导性结果或空结果。"
+    ]
+  },
+  {
+    "name": "SUCCESSFUL_CORRECTIVE_RETRY",
+    "definition": "操作失败并被诊断出原因后，后续动作针对该原因修订原操作；相应观察显示操作成功或先前故障已消失。",
+    "parameters": [
+      {
+        "name": "failure_observation",
+        "type": "observation",
+        "description": "报告最初操作失败或受阻的观察。"
+      },
+      {
+        "name": "diagnosis_reasoning",
+        "type": "reasoning",
+        "description": "识别失败原因并说明修正动机的推理。"
+      },
+      {
+        "name": "retry_action",
+        "type": "action",
+        "description": "加入修正变更后重试操作的动作。"
+      },
+      {
+        "name": "retry_observation",
+        "type": "observation",
+        "description": "报告重试结果的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "失败观察报告操作未成功或受阻。",
+      "诊断推理明确指出失败的具体原因。",
+      "重试动作与原失败操作不同，且差异针对诊断出的原因。",
+      "重试观察报告成功或先前故障不再出现。"
+    ],
+    "exclusion_conditions": [
+      "重试没有针对诊断原因修正原操作。",
+      "重试前没有诊断失败原因。",
+      "重试观察仍显示相同故障或未提供结果证据。"
+    ]
+  },
+  {
+    "name": "PLANS_MULTI_CRITERIA_VERIFICATION",
+    "definition": "推理列举完成任务前需要确认的多项不同条件、产物或行为，形成以观察或比较为内容的验证清单，而非修改步骤清单。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "列举待确认条件或标准的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理列出至少两项不同的待检查条件、产物或行为。",
+      "所列项目用于确认、检查或观察，而非修改系统。",
+      "至少一项包含可与后续观察比较的预期值、验收标准或预期状态。"
+    ],
+    "exclusion_conditions": [
+      "推理仅描述一次检查，没有形成多项验证集合。",
+      "推理仅列举修改步骤，没有确认标准。",
+      "推理仅复述已观察到的结果，没有列出尚待确认的条件。"
+    ]
+  },
+  {
+    "name": "AUDITS_PLANNED_CRITERIA",
+    "definition": "动作针对先前验证计划列举的具体条件收集当前状态，其结果报告这些条件对应的值或产物，使各项计划标准都可以与返回状态比较。",
+    "parameters": [
+      {
+        "name": "plan_reasoning",
+        "type": "reasoning",
+        "description": "列举待验证标准的推理。"
+      },
+      {
+        "name": "audit_action",
+        "type": "action",
+        "description": "收集对应系统状态的动作，单次调用中可能包含多项检查。"
+      },
+      {
+        "name": "audit_result",
+        "type": "observation",
+        "description": "报告计划标准对应值或产物的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "plan_reasoning 列举待确认的具体条件。",
+      "audit_action 检查与这些条件相对应的系统方面。",
+      "audit_result 包含足以逐项判断计划标准的可辨识值。"
+    ],
+    "exclusion_conditions": [
+      "动作检查的方面与已列标准无关。",
+      "观察未报告计划标准对应的值。",
+      "此前未列举任何标准，动作属于探索性检查而非计划审计。"
+    ]
+  },
+  {
+    "name": "ASSESSES_ANOMALY_AS_NON_IMPACTING",
+    "definition": "推理承认观察报告的异常确实存在，但依据所需功能仍能成功运行的独立证据，判断该异常不会影响要求的功能。",
+    "parameters": [
+      {
+        "name": "assessment_reasoning",
+        "type": "reasoning",
+        "description": "评估已观察异常重要性的智能体文本。"
+      },
+      {
+        "name": "anomaly_observation",
+        "type": "observation",
+        "description": "报告异常的观察，例如意外的进程状态、遗留连接状态或多余产物。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出观察到的异常，明确说明它不影响要求的行为。",
+      "判断有独立功能证据支持，例如同一子系统成功运行的操作，而非仅凭主观断言。"
+    ],
+    "exclusion_conditions": [
+      "异常被直接忽略，缺少解释或支持性功能证据。",
+      "推理把异常视为必须排除的阻断问题。",
+      "异常实际上阻止或降低了所需功能。"
+    ]
+  },
+  {
+    "name": "DECODES_ENCODED_OBSERVATION",
+    "definition": "推理将观察返回的底层或编码字段（如数字状态码、十六进制地址、原始表格或机器格式）解读为领域层面的状态，且结论依赖这种解码。",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "将原始字段映射为领域含义的智能体文本。"
+      },
+      {
+        "name": "encoded_observation",
+        "type": "observation",
+        "description": "内容采用编码或机器可读格式的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察内容未以直接的领域语义呈现，而使用代码、十六进制值或原始表格字段等。",
+      "推理明确把编码值映射为具体领域状态，并据此得出结论。"
+    ],
+    "exclusion_conditions": [
+      "观察已用清晰的语义术语报告状态。",
+      "推理只复述原始内容，没有映射到领域含义。",
+      "推理的结论不依赖解码字段。"
+    ]
+  },
+  {
+    "name": "REINVESTIGATES_SUSPECT_RESULT",
+    "definition": "推理认为某项检查结果缺乏结论、为空或可疑，随后动作使用不同方法或证据来源重新检查同一问题。",
+    "parameters": [
+      {
+        "name": "doubt_reasoning",
+        "type": "reasoning",
+        "description": "对先前或当前结果表示怀疑并提出重新检查需要的智能体文本。"
+      },
+      {
+        "name": "recheck_action",
+        "type": "action",
+        "description": "通过替代方式重新检查同一问题的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理对现有结果表达怀疑、认为其缺乏结论或存在异常。",
+      "动作针对同一底层问题，使用与先前尝试不同的方法、来源或工具。"
+    ],
+    "exclusion_conditions": [
+      "动作调查新问题，而非被怀疑的原结果。",
+      "推理没有表达对现有结果的怀疑或不确定性。",
+      "动作未改变技术手段，直接重复产生可疑结果的同一探测。"
+    ]
+  },
+  {
+    "name": "RESTORES_BASELINE_STATE",
+    "definition": "动作清除或撤销智能体自身操作产生的产物或状态，使目标恢复到基线；推理明确表示此举旨在为后续使用留下干净的初始环境。",
+    "parameters": [
+      {
+        "name": "restore_action",
+        "type": "action",
+        "description": "删除或撤销智能体自身操作产生的产物或状态的动作。"
+      },
+      {
+        "name": "restore_reasoning",
+        "type": "reasoning",
+        "description": "说明将目标恢复到基线或干净状态之意图的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作删除、清空或撤销智能体自身操作产生的状态。",
+      "推理说明目标是为后续使用保留干净或初始状态，避免自身操作造成干扰。"
+    ],
+    "exclusion_conditions": [
+      "动作修改状态的目的与恢复基线无关。",
+      "推理只指出清理已完成，没有说明恢复基线的意图。",
+      "动作虽移除产物，但系统仍处于妨碍后续预期使用的状态。"
+    ]
+  },
+  {
+    "name": "DETECTS_DATA_INCONSISTENCY",
+    "definition": "推理发现数据的预期属性（根据命名、元数据、规格或标签推断）与观察到的实际属性之间存在具体不一致。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "指出预期与观察内容差异的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确对比数据的预期属性和实际观察属性。",
+      "差异具体且可辨认，例如标签或标识符与文件或资源名称暗示的数据来源不符。"
+    ],
+    "exclusion_conditions": [
+      "推理仅概述或复述检索内容，没有与预期比较。",
+      "推理只表达笼统的不确定或惊讶，没有指出具体不匹配。"
+    ]
+  },
+  {
+    "name": "RESOLVES_AMBIGUITY_BY_INVARIANT_INTERPRETATION",
+    "definition": "推理采用一种在所有合理解读下均产生相同结果的解释或表述，从而消除歧义对最终结果的影响。",
+    "parameters": [
+      {
+        "name": "resolution_reasoning",
+        "type": "reasoning",
+        "description": "评估不同解释并采用不受歧义影响的解释的智能体文本。"
+      },
+      {
+        "name": "ambiguity_evidence",
+        "type": "observation[]",
+        "description": "内容共同构成歧义证据的多个观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理列举歧义证据至少两种合理解释。",
+      "推理说明每种解释都会得到相同结论，或选择在所有解释下均安全的超集或并集表述。",
+      "推理明确采用该结果不变的解释作为后续工作的依据。"
+    ],
+    "exclusion_conditions": [
+      "推理任意或仅凭风格偏好选定一种解释，未证明结果不变。",
+      "正确解释不同会导致所选结果不同。",
+      "解决歧义的推理没有引用歧义证据。"
+    ]
+  },
+  {
+    "name": "SEPARATES_MANDATORY_FROM_OPTIONAL_CRITERIA",
+    "definition": "推理将要求区分为必须满足的硬性约束和可选偏好，并将偏好安排为次要条件（例如用于打破平局），使可行性仅由硬性约束决定。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "对要求分类并分配优先级的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确将至少一项要求标为必须满足的硬约束，另至少一项标为偏好、软约束或信息性要求。",
+      "推理说明偏好只在满足硬约束后仍有选择空间时适用，或偏好不能凌驾于硬约束之上。"
+    ],
+    "exclusion_conditions": [
+      "推理对所有要求一视同仁，没有区分强制和可选。",
+      "推理只列举要求，没有设置优先顺序。"
+    ]
+  },
+  {
+    "name": "SELECTS_VALID_CANDIDATE_BY_ELIMINATION",
+    "definition": "推理按既定顺序系统列举候选选项，剔除违反任一强制约束的候选，最终选出首个满足全部约束的候选。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "列举候选、排除违规者并指出首个合格候选的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理按照明确顺序考虑多个候选选项。",
+      "对每个被排除的候选，推理指出其至少违反的一项强制约束。",
+      "推理将首个通过全部约束的候选确定为答案。"
+    ],
+    "exclusion_conditions": [
+      "推理只考虑单个候选，没有比较。",
+      "剔除候选时没有指明违反的约束。",
+      "选择过程没有明确排序或排除程序。"
+    ]
+  },
+  {
+    "name": "VALIDATES_OUTPUT_BY_INDEPENDENT_CHECK",
+    "definition": "动作运行独立于原始推导过程设计的检查程序，验证已经产生的决策或输出，观察结果用于确认或否定该输出。",
+    "parameters": [
+      {
+        "name": "claim_reasoning",
+        "type": "reasoning",
+        "description": "陈述待验证决策或输出以及／或者检查意图的推理。"
+      },
+      {
+        "name": "check_action",
+        "type": "action",
+        "description": "针对原始输入与已生成输出执行独立检查程序的动作。"
+      },
+      {
+        "name": "check_result",
+        "type": "observation",
+        "description": "报告可据此判断通过或失败的检查结果的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理陈述或引用待验证的决策或已生成输出。",
+      "检查动作从原始输入重新推导或检验相同要求，而非仅显示输出。",
+      "检查结果可解释为该决策或输出通过或未通过验证。"
+    ],
+    "exclusion_conditions": [
+      "动作只重新展示输出，没有按要求检验它。",
+      "结果不能用于判断决策是否通过验证。",
+      "不存在可识别的待验证先前决策或输出。"
+    ]
+  },
+  {
+    "name": "VERIFIES_INPUT_INTEGRITY",
+    "definition": "动作检查必须保持不变的输入产物的元数据、校验和或其他完整性相关状态，观察报告的信息可用于确认这些输入仍未被修改。",
+    "parameters": [
+      {
+        "name": "inspection_action",
+        "type": "action",
+        "description": "检查受保护输入产物的时间戳、校验和或目录列表的动作。"
+      },
+      {
+        "name": "inspection_observation",
+        "type": "observation",
+        "description": "报告这些输入产物完整性相关状态的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作针对必须保持原样的输入产物，检查修改时间、校验和或存在性等完整性信息。",
+      "观察以可供判断输入是否未被修改的形式报告这些状态。"
+    ],
+    "exclusion_conditions": [
+      "动作读取产物内容以进行计算，而非检查完整性。",
+      "观察未报告输入的完整性相关状态。",
+      "动作修改输入产物，而非检查它们。"
+    ]
+  },
+  {
+    "name": "IDENTIFIES_PREREQUISITE_GAP",
+    "definition": "推理发现完成任务必需的能力、依赖、资源或输入缺失、不可用或不足，从而确定继续任务前必须解决的前置条件缺口。",
+    "parameters": [
+      {
+        "name": "gap_reasoning",
+        "type": "reasoning",
+        "description": "识别任务所需前置条件并指出其缺失或不足的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出或描述任务所需的能力、依赖、资源或输入。",
+      "推理明确表示或清楚暗示该前置条件当前缺失、不可用或不充分。"
+    ],
+    "exclusion_conditions": [
+      "推理只列举已具备或安装的事物，没有指出不足。",
+      "推理指出缺失的事物与完成任务无关。",
+      "推理只报告错误信息，没有将任务必需的前置条件判定为不足。"
+    ]
+  },
+  {
+    "name": "RESOLVES_AMBIGUITY_BY_COMMITTED_INTERPRETATION",
+    "definition": "推理识别任务规格、术语或要求存在多种合理解读，并承诺选择一种具体解读作为后续工作依据，各种解读无须得出相同结果。",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "识别歧义并选择后续采用的解释的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理承认要求、术语或规格存在不确定性或多种合理解读。",
+      "推理选定一种具体解读，并将其确定为后续工作遵循的解释。"
+    ],
+    "exclusion_conditions": [
+      "推理直接采用某项要求或术语，没有承认其他解读。",
+      "推理仅复述任务措辞，没有在不同解读间作选择。",
+      "推理提出歧义，却将解释悬置到后续工作。"
+    ]
+  },
+  {
+    "name": "MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES",
+    "definition": "任务要求中的某个术语与目标数据的任何字面取值都不对应，推理利用列举或归组相关具体类别、来源或别名的参考资料，将该术语映射为具体取值，并用这些取值作为实际选择标准。",
+    "parameters": [
+      {
+        "name": "mapping_reasoning",
+        "type": "reasoning",
+        "description": "将未充分指定的要求术语映射到具体数据值的推理。"
+      },
+      {
+        "name": "documentation_observation",
+        "type": "observation",
+        "description": "包含参考资料（文档、模式或规格）并列举类别、来源或别名的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "要求或规格中的术语与相关数据的任何实际取值都不完全一致。",
+      "观察包含列举或归组该术语对应的具体类别、来源或别名的参考内容。",
+      "推理依据参考内容选择与该术语相对应的具体取值，并将其用作后续筛选或选择的标准。"
+    ],
+    "exclusion_conditions": [
+      "推理只复述要求术语，没有将其转为具体取值。",
+      "观察报告的是目标数据的测量值或数值，而非列举类别的参考资料。",
+      "参考内容无法确定术语对应哪些具体取值。",
+      "映射仅依赖智能体先验知识或猜测，缺乏观察中的可辨识证据。"
+    ]
+  },
+  {
+    "name": "ENUMERATES_FAILURE_HYPOTHESES",
+    "definition": "推理针对同一已观察异常、状态缺失或意外结果，提出至少两种不同候选解释，将其作为待调查或待区分的假设，而不立即确定唯一原因。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "列举异常或状态缺失的不同解释的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确提出针对同一异常、状态缺失或意外结果的至少两种不同候选原因或解释。",
+      "候选解释被视为需要调查、区分或解决的备选假设。"
+    ],
+    "exclusion_conditions": [
+      "推理只提出一种诊断或结论。",
+      "推理仅报告症状或当前状态，没有提出候选原因。",
+      "推理列出的是备选行动，而非备选解释。",
+      "所列解释没有指向同一个异常或缺失状态。"
+    ]
+  },
+  {
+    "name": "RECONSTRUCTS_EVENT_TIMELINE",
+    "definition": "推理根据记录的历史重建按时间排序的过去事件序列，并利用该顺序解释当前状态或产物配置如何形成。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "重建历史事件顺序及其与当前状态关系的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理按时间顺序排列至少两个已记录事件。",
+      "推理明确联系过去事件序列与当前系统、产物、数据或代码仓库状态。",
+      "重建过程提供事件之间的时间或因果联系。"
+    ],
+    "exclusion_conditions": [
+      "推理仅罗列历史记录，没有排序或解释。",
+      "推理只讨论一个过去事件。",
+      "推理仅报告当前状态，没有重建其形成过程。"
+    ]
+  },
+  {
+    "name": "DIAGNOSES_LOST_STATE_CAUSE",
+    "definition": "推理对预期内容、产物或状态为何从当前视图中消失给出具体因果解释，并识别导致其脱离、丢弃、隐藏、覆盖或被移除的操作或操作序列。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "说明内容、产物或状态缺失原因的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理说明内容、产物或状态未出现在当前视图中的原因。",
+      "推理识别负责造成丢失、脱离、隐藏或覆盖的操作或操作序列。",
+      "该解释被作为结论提出，而非未经检验的可能性。"
+    ],
+    "exclusion_conditions": [
+      "推理仅列举可能原因，没有选择或支持任何一个。",
+      "推理只报告缺失内容的当前所在位置或缺失状态。",
+      "推理只指出产物在哪里，没有解释它为何不可见。"
+    ]
+  },
+  {
+    "name": "CONSULTS_HISTORY_TO_LOCATE_LOST_ARTIFACT",
+    "definition": "动作查询历史记录、引用日志、审计轨迹、备份或不可达对象存储，以定位当前可见状态中缺失的产物或状态；观察返回能够指认缺失产物的历史记录或孤立对象。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "查询历史记录、引用日志、审计轨迹、备份或不可达对象存储的动作。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "返回当前状态中不可见的历史记录或孤立产物的结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作针对历史记录或恢复存储进行查询，而非只查看当前工作状态。",
+      "观察返回当前可见状态中不存在的历史条目、孤立对象或历史引用。",
+      "返回的信息能够用于定位缺失的产物或状态。"
+    ],
+    "exclusion_conditions": [
+      "动作只检查当前文件、当前引用或当前状态。",
+      "观察中没有历史信息或不可达产物信息。",
+      "历史查询与定位缺失产物或状态无关。"
+    ]
+  },
+  {
+    "name": "DISAMBIGUATES_CANDIDATES_BY_PROVENANCE",
+    "definition": "推理比较观察报告的作者、时间、来源或父级关系等溯源属性，从多个候选产物中选出预期目标，并排除或暂置至少一个其他候选。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "比较候选并选择预期目标的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告候选产物溯源属性的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察报告至少两个候选产物之间可辨别的溯源属性。",
+      "推理利用至少一项溯源属性选出一个候选作为预期目标。",
+      "推理根据溯源证据明确或隐含地排除或暂置至少一个其他候选。"
+    ],
+    "exclusion_conditions": [
+      "只考虑一个候选产物。",
+      "选择完全基于内容相似性或任意偏好，缺少溯源证据。",
+      "观察缺少可区分候选的属性。"
+    ]
+  },
+  {
+    "name": "PREDICTS_CONFLICT_FROM_OVERLAPPING_CHANGES",
+    "definition": "在尝试整合之前，观察表明两个版本都修改了同一产物或重叠区域，推理因此预测合并这些版本会发生冲突。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "预测整合会在特定产物或区域发生冲突的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "显示两个版本对同一产物或重叠区域进行更改的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察识别两方对同一产物或重叠区域所做的修改。",
+      "推理在尝试合并或整合前预测相关产物或区域会发生冲突。",
+      "所预测冲突明确对应观察到的修改重叠。"
+    ],
+    "exclusion_conditions": [
+      "只观察到一方修改了该产物或区域。",
+      "推理没有重叠修改证据就预测冲突。",
+      "冲突是尝试整合后才发现的，并非依据事先比较预测。"
+    ]
+  },
+  {
+    "name": "JUSTIFIES_CONFLICT_RESOLUTION_PRECEDENCE",
+    "definition": "推理选择已识别冲突中应保留的一方，并以时间新近性、权威性、预期语义、优先级或替代关系等实质标准说明原因。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "选择冲突中应保留一方并为之提供理由的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别存在冲突的版本或更改。",
+      "推理选定应优先保留的一方。",
+      "推理提供实质性标准，解释为何所选一方优先于另一方。"
+    ],
+    "exclusion_conditions": [
+      "推理只描述双方，没有作出选择。",
+      "推理选择一方却未给出实质性理由。",
+      "推理没有识别任何冲突。"
+    ]
+  },
+  {
+    "name": "VERIFIES_EXACT_REPRESENTATION_BEFORE_TRANSFORMATION",
+    "definition": "动作获取即将复制、转换或采用的源内容的精确字节级或格式级表示，观察报告这些精确细节，以便后续操作保持保真度。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "获取源内容字节级或格式级细节的动作。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告确切字节、编码、行尾、尾部空白或内容长度的结果。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作查询待复制、转换或采用内容的精确表示。",
+      "观察报告字节级或格式级细节，而非仅语义内容。",
+      "该检查发生在源内容写入、合并、转换或其他复制操作之前。"
+    ],
+    "exclusion_conditions": [
+      "动作只读取语义内容，没有精确格式细节。",
+      "内容已被写入、合并、转换或复制后才进行精确内容检查。",
+      "观察未报告与保持内容保真度相关的细节。"
+    ]
+  },
+  {
+    "name": "ELIMINATES_HYPOTHESIS_WITH_NEGATIVE_EVIDENCE",
+    "definition": "观察表明某候选解释所必需的预期痕迹、条件或指标不存在，推理据此排除该解释或降低其优先级。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "利用预期指标缺失排除或降低候选解释优先级的智能体文本。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告干净状态或预期痕迹、条件缺失的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出某候选解释成立必须存在的特定痕迹或条件。",
+      "观察报告所需痕迹或条件缺失。",
+      "推理根据这种缺失认定候选解释不太可能成立或应被排除。"
+    ],
+    "exclusion_conditions": [
+      "观察确认预期痕迹存在，而非缺失。",
+      "推理只是提及缺失，未用它排除或降低假设优先级。",
+      "缺失证据与候选解释无关。"
+    ]
+  },
+  {
+    "name": "INTERPRETS_CONFLICT_MARKERS_AS_COMPETING_VERSIONS",
+    "definition": "推理将观察中明确的差异标记或同一产物明显不同的备选内容解释为竞争版本之间的冲突，并指出至少一方或冲突范围。",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "将备选内容识别为竞争版本并描述冲突的推理。"
+      },
+      {
+        "name": "conflict_observation",
+        "type": "observation",
+        "description": "呈现同一产物差异标记或不同备选内容的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察包含冲突标记等明确差异标记，或同一产物明显不同的备选版本。",
+      "推理将这一情况识别为竞争版本之间的冲突或差异。",
+      "推理识别至少一方或冲突内容的范围。"
+    ],
+    "exclusion_conditions": [
+      "观察没有差异标记，也没有不同的备选版本。",
+      "推理仅复述观察，没有识别冲突或差异。",
+      "推理讨论的冲突缺乏观察证据。"
+    ]
+  },
+  {
+    "name": "ADOPTS_OBSERVED_EXACT_REPRESENTATION_AS_CONSTRAINT",
+    "definition": "推理将观察报告的精确字节级或字符级表示细节（例如字节数、尾部空白或末尾换行状态）作为复制、转换或采用产物时必须遵守的约束。",
+    "parameters": [
+      {
+        "name": "spec_reasoning",
+        "type": "reasoning",
+        "description": "复述已观察精确细节并将其用作约束的推理。"
+      },
+      {
+        "name": "exact_representation_observation",
+        "type": "observation",
+        "description": "报告产物精确字节级或字符级细节的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察报告待复制、转换或采用产物的精确表示细节，例如字节数、空白字符或换行状态。",
+      "推理明确复述这些细节。",
+      "推理将复述的细节作为控制后续复制、转换或采用动作或方法的约束。"
+    ],
+    "exclusion_conditions": [
+      "推理仅引用观察中的一般语义内容。",
+      "推理虽然提及细节，却未使其约束后续操作。",
+      "观察缺少精确表示细节。"
+    ]
+  },
+  {
+    "name": "RESOLVES_CONFLICT_BY_ADOPTING_DESIGNATED_VERSION",
+    "definition": "推理在已识别冲突中指定要采用的竞争版本，动作应用该版本并完成最终化步骤，观察确认冲突已成功解决且没有未解决状态。",
+    "parameters": [
+      {
+        "name": "resolution_decision_reasoning",
+        "type": "reasoning",
+        "description": "指定冲突中采用哪一方并意图完成解决过程的推理。"
+      },
+      {
+        "name": "resolution_action",
+        "type": "action",
+        "description": "采用指定版本并完成冲突解决的动作，例如暂存与提交等。"
+      },
+      {
+        "name": "completion_observation",
+        "type": "observation",
+        "description": "确认解决过程已成功结束且不存在冲突状态的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别冲突中要采用的一方或版本，并意图最终完成解决。",
+      "动作采用指定的一方并执行最终化步骤，例如暂存、提交或其他完成操作。",
+      "观察确认解决成功，例如报告新结果提交和干净的工作状态。"
+    ],
+    "exclusion_conditions": [
+      "动作仅检查或显示冲突，没有解决它。",
+      "没有指定应采用的一方或版本。",
+      "观察没有确认完成，或冲突仍未解决。"
+    ]
+  },
+  {
+    "name": "SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME",
+    "definition": "推理为已完成任务提供最终综合说明或可追溯记录，依据经过验证的结果证据宣告完成，例如说明原始问题或原因与补救动作、将规定要求映射到已满足的结果，或同时提供两者。",
+    "parameters": [
+      {
+        "name": "completion_summary_reasoning",
+        "type": "reasoning",
+        "description": "提供最终任务综合说明、完成声明及结果或要求证据的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理给出最终答案或明确认定整个任务已完成。",
+      "推理对已完成工作给出可核查的综合说明，包括原问题或原因及所采取动作的概述，或至少一项要求与已满足结果或证据的对应关系，或两者兼有。",
+      "推理引用经过验证的结果状态或观察到的结果证据，而非仅有计划、意图或动作序列。",
+      "没有任何要求在被宣称已满足的同时又被描述为尚未解决。"
+    ],
+    "exclusion_conditions": [
+      "推理只是中间计划、状态更新或进度记录，缺少最终完成综合说明。",
+      "推理宣称完成，但没有引用经验证结果证据或要求与结果的对应关系。",
+      "推理既未综合原因、动作与结果，也未映射要求和结果。",
+      "推理在宣称全部完成的同时，仍将一些要求描述为未解决。"
+    ]
+  },
+  {
+    "name": "FRAMES_OBJECTIVE_WITH_CONSTRAINTS",
+    "definition": "推理明确提出要实现的目标，同时说明限制可接受动作或结果的至少一项约束、禁止事项或保持不变的要求。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "界定目标及其相关约束的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出要实现的目标或预期结果。",
+      "推理指出至少一项与目标有关的约束、禁止事项或保留要求。"
+    ],
+    "exclusion_conditions": [
+      "推理仅列出计划动作，没有说明约束或保留要求。",
+      "推理仅报告已完成结果，没有界定目标及其约束。",
+      "推理只提出约束，却没有指出任何目标。"
+    ]
+  },
+  {
+    "name": "EXPLAINS_ANOMALOUS_OBSERVATION_WITH_CAUSAL_MECHANISM",
+    "definition": "推理通过识别因果机制，解释某个意外、表面上与先前预期不一致或显著缺失的观察结果。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "使用因果机制解释表面异常的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "报告意外、缺失或表面不一致结果的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察报告意外、与先前证据或预期表面不符或明显缺失的结果。",
+      "推理识别能够解释该表面异常的因果机制。",
+      "解释被表述为对观察为何发生或未发生的推断。"
+    ],
+    "exclusion_conditions": [
+      "观察符合预期，没有需要解释的异常。",
+      "推理仅复述观察或作出普通结论，没有解释异常。",
+      "推理只指出惊讶或不一致，没有识别因果机制。"
+    ]
+  },
+  {
+    "name": "IS_VERIFICATION_ACTION",
+    "definition": "动作旨在检查某个结果、后置条件或约束是否成立，主要用途是验证，而非执行主要更改。",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "被评估是否属于验证动作的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作执行检查、比较、搜索或读取，以确认某种状态或结果。",
+      "该动作的主要目的并非创建、修改、删除或初步探索。",
+      "检查针对已经与任务有关的结果、后置条件或约束。"
+    ],
+    "exclusion_conditions": [
+      "动作主要旨在创建、修改或移除数据。",
+      "动作属于探索性发现，没有先前结果或约束可供检查。",
+      "动作虽然包含检查，但检查仅附带于主要修改操作。"
+    ]
+  },
+  {
+    "name": "CONFIRMS_TARGET_ABSENCE_ACROSS_SEARCH_SPACE",
+    "definition": "验证动作搜索目标领域的多个相关位置或表示形式，观察报告指定目标在所有搜索位置都不存在，从而按要求确认已移除或不存在。",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "在多个相关位置或表示形式中搜索目标的动作。"
+      },
+      {
+        "name": "verification_result",
+        "type": "observation",
+        "description": "报告搜索位置中是否发现目标的观察。"
+      },
+      {
+        "name": "requirement_reasoning",
+        "type": "reasoning",
+        "description": "确立目标不得残留在搜索范围内之要求的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "要求推理规定指定目标不得残留在搜索范围内。",
+      "验证动作在多个相关位置或表示形式中搜索该目标。",
+      "验证结果报告这些位置均未发现目标。"
+    ],
+    "exclusion_conditions": [
+      "动作找到目标，或没有报告其缺失。",
+      "搜索仅覆盖单个表面位置，或没有针对指定项目。",
+      "未识别任何目标必须缺失的要求。"
+    ]
+  },
+  {
+    "name": "VALIDATES_NON_INTERFERENCE_WITH_PROTECTED_CONTENT",
+    "definition": "验证动作检查保留约束要求保持不变的内容或元数据，观察表明受保护内容完好，支持未干扰约束的成立。",
+    "parameters": [
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "干预后检查受保护内容或其元数据的动作。"
+      },
+      {
+        "name": "verification_result",
+        "type": "observation",
+        "description": "表明受保护内容是否保持完整的观察。"
+      },
+      {
+        "name": "constraint_reasoning",
+        "type": "reasoning",
+        "description": "规定无关内容、文件、消息或历史记录必须保持不变的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "约束推理规定特定无关内容、文件、消息或历史记录必须保持不变。",
+      "验证动作在干预后检查这些受保护项目或其状态。",
+      "验证结果表明所检查项目仍存在且未改变，或与先前状态一致。"
+    ],
+    "exclusion_conditions": [
+      "动作只检查目标的删除或正确性，未检查无关受保护内容。",
+      "观察没有提供无关内容保持不变的证据。",
+      "没有识别保留约束。"
+    ]
+  },
+  {
+    "name": "SELECTS_CAUSE_DIRECTED_REMEDIATION",
+    "definition": "推理识别导致目标持续存在或可被检测的底层机制，并选择或提出针对该机制的补救措施，而非仅删除一个可见实例。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "识别持久存在机制并选择对应补救措施的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别具体的持久化或保留机制。",
+      "推理选择或提出直接作用于该机制的干预措施。"
+    ],
+    "exclusion_conditions": [
+      "推理只提出一般清理，没有关联到已识别的持久化机制。",
+      "推理仅报告补救已经执行。",
+      "推理只识别表面症状，没有识别持久化或保留机制。"
+    ]
+  },
+  {
+    "name": "ENACTS_DERIVED_CONSTRAINT",
+    "definition": "推理根据要求或运行时观察推导出目标系统正确运行必须满足的必要条件，动作执行使该条件成立的操作。",
+    "parameters": [
+      {
+        "name": "constraint_reasoning",
+        "type": "reasoning",
+        "description": "根据要求或观察到的运行事实推导并陈述系统正确运行必要条件或逻辑蕴含的推理。"
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "实现所述必要条件的已记录调用。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理从任务要求或已观察运行事实推导出系统正确运行必须满足的必要条件或蕴含关系，而非仅将其当作目标宣称。",
+      "动作执行建立该条件的操作，例如调整所有权、权限或其他必要设置。"
+    ],
+    "exclusion_conditions": [
+      "推理只提出一般目标或预期结果，没有推导必要条件。",
+      "动作满足某项要求，但推理从未将其表达为条件。",
+      "推理指出条件，却没有执行使其成立的动作。"
+    ]
+  },
+  {
+    "name": "VERIFIES_CHANGE_EFFECT",
+    "definition": "动作对目标对象应用或启动状态变更，观察以可判断预期效果是否出现的形式报告同一对象变更后的状态。",
+    "parameters": [
+      {
+        "name": "change_action",
+        "type": "action",
+        "description": "应用或启动状态更改的已记录调用。"
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "报告目标对象变更后状态的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作对目标对象执行或启动状态更改，例如启动服务、写入文件、创建资源或更改配置。",
+      "观察报告同一目标对象的结果状态，能够据此判断预期效果是否存在。"
+    ],
+    "exclusion_conditions": [
+      "观察仅报告更改前状态或与更改对象无关的输出。",
+      "动作纯粹读取，未改变任何内容。",
+      "观察报告预期更改效果不存在。"
+    ]
+  },
+  {
+    "name": "REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT",
+    "definition": "推理识别冗余产物与应保留的权威配置或产物之间的重复或冲突，动作删除或禁用冗余产物，使只有权威配置继续生效。",
+    "parameters": [
+      {
+        "name": "cleanup_action",
+        "type": "action",
+        "description": "删除或禁用冗余、冲突产物的动作。"
+      },
+      {
+        "name": "conflict_reasoning",
+        "type": "reasoning",
+        "description": "识别重复或冲突、指定应保留的权威配置并要求移除冗余产物的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别冗余产物与应保留的权威配置或产物之间的重复或冲突。",
+      "清理动作删除或禁用这些特定的冗余或冲突产物。",
+      "推理指定的权威配置或产物被保留，动作之后仍作为生效版本。"
+    ],
+    "exclusion_conditions": [
+      "动作删除产物却未识别重复或冲突，例如例行清理无关文件。",
+      "动作仅覆盖、修补或重新配置有问题的产物，而未删除或禁用它。",
+      "推理虽识别冲突，但没有执行对应移除动作。",
+      "被移除产物并非与应保留配置或产物重复或冲突的副本。"
+    ]
+  },
+  {
+    "name": "PLANS_WITH_FALLBACK",
+    "definition": "推理提出主要行动方案，并明确保留一个仅在主要方案不可用、失败或必要前提不成立时才启用的备选方案，使两条路线均保持可用。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "描述主要方案及预留应急备选方案的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出智能体计划尝试的主要动作或方案。",
+      "推理提出至少一个备选动作或方案，并明确将其触发条件设为主要方案失败、不可用或前提不成立。",
+      "主要方案和应急方案均被保留为可行行动路线。"
+    ],
+    "exclusion_conditions": [
+      "推理只提出单一方案或无条件的步骤序列。",
+      "推理提及备选方案，却没有说明触发它们的条件。",
+      "推理比较互斥候选并选定一个、放弃其他选项，属于方案选择而非回退规划。"
+    ]
+  },
+  {
+    "name": "ANALYZES_EXTERNAL_VALIDATION_RISK",
+    "definition": "推理模拟外部验证器、测试框架或交付物使用者可能采用的程序、假设或边界情况，并识别当前或计划系统状态在某种具体条件下会验证失败。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "推测外部验证器可能如何运行，以及当前或计划状态在哪些情况下会失败的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理描述外部验证器或交付物使用者可能采用的至少一种合理流程、命令序列、假设或边界情况。",
+      "推理识别当前或计划系统状态在该验证下会失败的具体条件。",
+      "所识别风险涉及外部施加的验证，而非智能体自己计划的检查。"
+    ],
+    "exclusion_conditions": [
+      "推理仅安排智能体自己的验证步骤。",
+      "推理只笼统表达担忧或不确定性，没有指出验证器行为及对应失败条件。",
+      "没有涉及交付物的外部验证或下游使用者。",
+      "推理仅解释已观察到的失败，没有预见潜在验证结果。"
+    ]
+  },
+  {
+    "name": "SELECTS_UNDERTESTED_PATH_FOR_VERIFICATION",
+    "definition": "推理识别此前验证未覆盖的具体行为、路径、条件或要求方面，并提出针对性补充检查，说明该检查能够揭示实现或要求的哪些信息。",
+    "parameters": [
+      {
+        "name": "selection_reasoning",
+        "type": "reasoning",
+        "description": "识别尚未测试的行为、路径、条件或要求方面并提出检查的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出早期验证没有覆盖的具体行为、路径、条件或要求方面。",
+      "推理针对这些未覆盖方面提出额外检查。",
+      "推理说明拟议检查可揭示或确认实现或要求的什么内容。",
+      "在该推理发生时，拟议检查仍待执行，尚未完成并确认。"
+    ],
+    "exclusion_conditions": [
+      "推理只提出重复已完成且确认的检查。",
+      "推理只列举计划步骤，没有识别未测试的具体行为、路径、条件或要求方面。",
+      "拟议工作主要是清理、报告或修改，而非行为验证。",
+      "没有指出任何具体尚未覆盖的行为、路径、条件或要求方面。"
+    ]
+  },
+  {
+    "name": "MEASURES_OPERATION_LATENCY",
+    "definition": "动作在特定操作前后设置计时标记，计算或报告归属于该操作的耗时，从而产生量化的延迟测量结果。",
+    "parameters": [
+      {
+        "name": "timed_action",
+        "type": "action",
+        "description": "用计时标记包围特定操作并计算或报告其耗时的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "动作在特定操作之前和之后记录时间标记。",
+      "动作根据这些标记计算或报告归属于该操作的耗时。",
+      "能够识别被测操作就是两个计时标记之间执行的操作。"
+    ],
+    "exclusion_conditions": [
+      "动作只报告时间戳或时长，没有明确围绕某个操作计时。",
+      "计时标记跨越多个无关操作，因此耗时无法归属于单一操作。",
+      "动作未计算或报告经过的时间。"
+    ]
+  },
+  {
+    "name": "EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION",
+    "definition": "推理将观察中的可辨识内容（例如具体数值、测量、属性、结果或预期条件的缺失）与明确或隐含的要求、预期、阈值或验收标准比较，判断是否满足或违反该标准。",
+    "parameters": [
+      {
+        "name": "evaluation_reasoning",
+        "type": "reasoning",
+        "description": "陈述或暗含要求、预期、阈值或验收标准并判断观察内容的推理。"
+      },
+      {
+        "name": "measured_observation",
+        "type": "observation",
+        "description": "提供被评判的具体数值、测量、属性、结果或缺失情况的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察包含具体数值、测量、属性、结果或预期条件缺失等可辨识内容。",
+      "推理陈述或清楚暗示某项要求、预期、阈值或验收标准，并明确将观察内容与之联系。",
+      "推理根据观察内容判断标准被满足、未满足或遭到违背。"
+    ],
+    "exclusion_conditions": [
+      "推理只引用观察结果，没有将其与任何明示或暗示的要求、预期或验收标准比较。",
+      "比较缺少可供比较的已观察数值、属性、结果或缺失情况。",
+      "观察缺少要求或预期所涉及的内容。",
+      "推理仅复述观察，没有判断标准是否被满足或违反。"
+    ]
+  },
+  {
+    "name": "INTERPRETS_SPECIFICATION_CONSTRAINT",
+    "definition": "推理解释明确规定的要求、模式、契约或验收条件，并由此导出具体的实现、验证或响应决策，包括确定有歧义要求应如何应用。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "解释明确要求或验收条件并由此推导具体实现或验证决策的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确引用某项规定的要求、模式、契约或验收条件。",
+      "推理根据该要求推导出具体实现、验证、响应或格式决策，而非只复述要求。"
+    ],
+    "exclusion_conditions": [
+      "推理只复述或改写要求，没有导出任何实现或验证决策。",
+      "推理作出实现选择，却没有将其与规定的要求或验收条件关联。",
+      "推理是根据要求评估观察结果，而非决定该要求应如何实现或强制执行。"
+    ]
+  },
+  {
+    "name": "SELECTS_ALTERNATIVE_TOOL_AFTER_UNAVAILABILITY",
+    "definition": "观察报告原定工具、命令、能力或方法不可用，推理选择能实现同一目标的功能等效替代方案，后续动作实际调用该替代方案。",
+    "parameters": [
+      {
+        "name": "unavailability_observation",
+        "type": "observation",
+        "description": "报告原定工具、命令、能力或方法缺失、无法找到或不可用的观察。"
+      },
+      {
+        "name": "adaptation_reasoning",
+        "type": "reasoning",
+        "description": "为同一目标选择功能等效替代工具或方法的推理。"
+      },
+      {
+        "name": "alternative_action",
+        "type": "action",
+        "description": "调用所选替代工具或方法的动作。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察报告原定工具、命令、能力或方法缺失、未找到或不可用。",
+      "推理明确选择能够完成同一目标的另一工具、命令或方法。",
+      "替代动作实际调用所选方案，而非重复不可用方案。"
+    ],
+    "exclusion_conditions": [
+      "已观察失败与工具或方法可用性无关，例如参数错误、生成产物缺陷或输入被拒。",
+      "推理仅承认不可用，却未选择替代方案。",
+      "替代动作与不可用工具无关，或不服务于同一目标。",
+      "在发现不可用之前就比较候选方案并作选择，缺少促成切换的具体不可用工具。"
+    ]
+  },
+  {
+    "name": "ASSESSES_PERSISTENCE_BY_DEPLOYMENT_MECHANISM",
+    "definition": "推理根据生命周期或部署机制（例如脱离会话、信号处理、后台运行或输出重定向），判断已启动资源、进程或服务能否在当前会话或命令结束后继续存在，不能仅凭它当前正在运行来判断。",
+    "parameters": [
+      {
+        "name": "persistence_reasoning",
+        "type": "reasoning",
+        "description": "提出已启动资源、进程或服务在会话结束后是否存活的问题，并依据生命周期或部署机制论证答案的推理。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别已启动资源、进程或服务的持久性或生命周期问题，例如能否在会话终止后继续存在。",
+      "推理依据脱离会话、忽略信号、后台运行或输出重定向等生命周期或部署机制，解释资源为何会或不会继续存在。",
+      "持久性结论来自这些机制，而非仅观察到资源当前运行。"
+    ],
+    "exclusion_conditions": [
+      "推理只指出资源目前正在运行或可以访问。",
+      "没有考虑持久性或会话结束后的存活问题。",
+      "推理断言资源可持续存在，却没有基于机制的理由。",
+      "推理只计划防范失败模式，没有评估已部署资源能否持续存在。"
+    ]
+  },
+  {
+    "name": "REPORTS_EXECUTION_ERROR",
+    "definition": "观察报告一次尝试操作未成功，包含错误状态、失败消息、工具或资源缺失故障或请求被拒绝等信息，而非返回请求操作的有效结果。",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "传达尝试操作未成功的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察具有可辨识的失败指示，例如显式错误标志、错误或失败消息、命令或资源缺失故障或请求被拒。",
+      "该失败指示针对所尝试的操作，因此无法确认该操作成功。"
+    ],
+    "exclusion_conditions": [
+      "观察报告所请求操作成功完成或返回正常结果值。",
+      "观察报告领域状态的否定事实，例如空目录、缺少键或缺失产物，但操作本身执行成功。",
+      "观察报告诊断检查的有效结果，能够正常回答所提出的问题。"
+    ]
+  },
+  {
+    "name": "JUDGES_PRIOR_RESULT_INCONCLUSIVE",
+    "definition": "推理判定先前观察因内容为空、出错、含糊或无法区分可能答案，因而不足以确立目标状态，结论不充分。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "评估先前观察不足以确定目标状态的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "被判断为不充分、含糊或无信息量的先前观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理提及此前观察，并将其内容描述为空、含糊、失败或无法确定目标状态。",
+      "推理说明该结果为何不能回答问题，例如无法区分可能情况，或需要进一步采用不同的检查。"
+    ],
+    "exclusion_conditions": [
+      "推理将先前观察视为对目标状态的确定性肯定或否定。",
+      "推理没有引用任何先前观察。",
+      "观察与推理试图确定的状态无关。"
+    ]
+  },
+  {
+    "name": "DISAMBIGUATES_FALSE_POSITIVE_MATCH",
+    "definition": "推理说明观察中的表面匹配或候选因来自附带、上下文性或无关材料而不满足目标条件，从而将误报与真实匹配区分开来。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "解释表面匹配为何是假阳性的推理。"
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "包含表面匹配或候选项的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "观察包含至少一个看似符合所搜条件或目标的候选匹配。",
+      "推理引用匹配内容的附带性、上下文性或无关来源，解释该候选为何实际不满足条件。",
+      "推理将误报与真实匹配区分开，或认定表面候选中没有真正的匹配。"
+    ],
+    "exclusion_conditions": [
+      "推理未经解释就将表面匹配视为真实匹配。",
+      "推理没有在观察中识别任何表面匹配。",
+      "推理仅指出没有匹配，没有解释为何候选项具有误导性。",
+      "推理排除候选项，却未解释匹配内容的来源。"
+    ]
+  },
+  {
+    "name": "CHECKS_REQUIREMENTS_AGAINST_OBSERVED_STATE",
+    "definition": "推理列举多个不同的要求、交付物或验收条件，将多个观察共同提供的事实用作逐项判断是否满足要求的证据。",
+    "parameters": [
+      {
+        "name": "requirement_reasoning",
+        "type": "reasoning",
+        "description": "列举要求或交付物并对照观察事实进行评估的推理。"
+      },
+      {
+        "name": "evidence_observations",
+        "type": "observation[]",
+        "description": "共同提供各项列举要求相关事实的观察，证据支持是集体性的。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理识别或列举多个不同的要求、交付物或验收条件。",
+      "多个证据观察共同报告与这些要求对应的事实。",
+      "推理将观察事实映射或对照到各项要求进行评估，而非只复述任务陈述。"
+    ],
+    "exclusion_conditions": [
+      "推理只列举要求，没有将其与观察事实联系。",
+      "观察不包含能够回应所列要求的事实。",
+      "只评估一项要求，不存在多要求证据映射。",
+      "推理只复述任务要求，没有提供其已满足的观察证据。"
+    ]
+  },
+  {
+    "name": "REVISES_BELIEF_WITH_NEW_EVIDENCE",
+    "definition": "推理依据观察报告的可辨识新证据，明确纠正或更新早先的信念、解释或假设，并陈述修订后的判断。",
+    "parameters": [
+      {
+        "name": "revision_reasoning",
+        "type": "reasoning",
+        "description": "取代先前信念并陈述修订后信念或解释的推理文本。"
+      },
+      {
+        "name": "evidence_observation",
+        "type": "observation",
+        "description": "提供触发修订的新证据的观察。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理提及先前信念、假设或暂定解释，并表明它已被取代或修正。",
+      "推理根据观察中的可辨识内容改变或纠正该信念。",
+      "推理明确陈述修订后的信念。"
+    ],
+    "exclusion_conditions": [
+      "推理只重复观察，没有涉及先前信念。",
+      "观察与被修订的信念无关。",
+      "推理中无法识别先前信念或暂定解释。",
+      "推理只调整计划行动路线，没有修订信念、假设或解释。"
+    ]
+  },
+  {
+    "name": "IDENTIFIES_DATA_AMBIGUITY",
+    "definition": "推理识别所处理数据中的词元、字段值或记录可能承担多种语义角色或出现在不同上下文中，因此简单提取、计数或分类可能错误地把非目标出现当作目标出现。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "识别某个值在数据中可能担任不同角色及误分类风险的智能体文本。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理指出某个特定词元、取值或记录类型在数据中可能以多种角色或上下文出现。",
+      "推理明确说明或清楚暗示混淆这些出现会导致提取、计数或分类错误。",
+      "推理将目标结构化出现与同一词元或取值的其他出现区分开来。"
+    ],
+    "exclusion_conditions": [
+      "推理只描述数据格式，没有指出词元或取值的竞争性角色。",
+      "推理选择解析或提取规则，却未识别可能混淆角色的词元。",
+      "歧义涉及任务或要求的措辞，而非数据内容。"
+    ]
+  },
+  {
+    "name": "ASSERTS_TASK_COMPLETION",
+    "definition": "推理最终宣称整个任务及其所需交付物已完成，将完成视为最终状态的结论，而非未来意图、计划或中间进度报告。",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "包含最终完成声明的推理节点。"
+      }
+    ],
+    "assertion_conditions": [
+      "推理明确宣告任务或其必需交付物已完成、结束或最终实现。",
+      "声明针对整体任务结果或其验收条件，而非单个中间子任务。",
+      "表述针对最终状态给出结论，而非未来预期动作或进度报告。"
+    ],
+    "exclusion_conditions": [
+      "推理仅描述未来计划工作、清理或部分进展。",
+      "推理对要求是否满足仍表达未解决的不确定性。",
+      "推理只报告子任务完成，没有宣称整体任务完成。",
+      "推理只复述任务要求，没有断言要求已经满足。"
+    ]
+  }
+]

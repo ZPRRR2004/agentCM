@@ -1,0 +1,5 @@
+{
+  "token": "32a02bc79bf84c1a948fa3c680a7e33f",
+  "text": "MERGE predicates that share the same underlying mechanism, and REVISE overly specific definitions to remove scenario-dependent details while preserving fundamental semantic distinctions. DELETE redundant or excessively narrow predicates that lack independent, reusable mechanisms, prioritizing consistent granularity and generalizability.",
+  "submitted_at": "2026-11-04T03:42:54.699783+00:00"
+}

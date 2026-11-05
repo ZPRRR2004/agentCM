@@ -8,7 +8,7 @@ def deleted_experiments(workspace):
         root, _ = workspace.paths(marker.parent.name, include_deleted=True)
         meta = read(root / 'experiment.json')
         rows.append({'id': root.name, 'title': meta['title'],
-                     'kind': meta.get('kind', 'predicate'), 'dataset_name': meta['dataset_name'],
+                     'kind': meta.get('kind', 'predicate'), 'dataset_name': meta.get('dataset_name', '本地 JSON'),
                      'deleted_at': read(marker)['deleted_at']})
     return sorted(rows, key=lambda row: row['deleted_at'], reverse=True)
 

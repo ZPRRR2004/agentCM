@@ -1,0 +1,13 @@
+{
+  "kind": "clustering",
+  "snapshot_hash": "8e3c7cf46594579b38a2d1d6c72319b2566968c2a7cde3d7232401da0893a3db",
+  "status": "completed",
+  "completed_groups": 4,
+  "group_total": 4,
+  "next_stage": "completed",
+  "updated_at": "2026-11-05T02:57:45.249570+00:00",
+  "completed_embeddings": 135,
+  "completed_predicates": 135,
+  "dimensions": 1024,
+  "actual_clusters": 50
+}

@@ -13,7 +13,7 @@ function deleteExperimentDialog(id) {
 
 async function deletedExperimentsDialog() {
   const rows = await api('experiments/deleted');
-  const kind = { preprocess: '轨迹预处理', split: '轨迹切分', predicate: '谓词发现' };
+  const kind = { preprocess: '轨迹预处理', split: '轨迹切分', predicate: '谓词发现', clustering: '谓词聚类' };
   modal('实验回收站', `<div class="modal-error" id="modal-error"></div><p class="helper">恢复后，实验会回到实验管理列表，并保留删除前的结果与记录。</p>${rows.length ? `<div class="deleted-experiments">${rows.map(e => `<article class="deleted-experiment" data-deleted-id="${esc(e.id)}"><div><strong>${esc(e.title)}</strong><p class="helper">${esc(kind[e.kind])} · ${esc(e.dataset_name)}<br>删除于 ${esc(new Date(e.deleted_at).toLocaleString('zh-CN'))}</p></div>${btn('恢复实验', 'restore-experiment', '', `data-id="${esc(e.id)}" aria-label="恢复实验：${esc(e.title)}"`)}</article>`).join('')}</div>` : empty('回收站为空。')}`, btn('关闭', 'close-modal'), true);
 }
 

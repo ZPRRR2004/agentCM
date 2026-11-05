@@ -1,0 +1,304 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__git-multibranch__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-v4.1-flash-1017",
+  "succeeded": true,
+  "completed_at": "2026-11-04T03:52:40.631612+00:00",
+  "duration_seconds": 49.062,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-04T03:51:51.557145+00:00",
+      "duration_seconds": 49.062,
+      "raw_response": {
+        "id": "chatcmpl-bc9470c0-5a93-9a5a-a0e0-3e7ec8d96903",
+        "object": "chat.completion",
+        "created": 1793764316,
+        "model": "deepseek-v4.1-flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "reasoning_content": "Let me identify mechanisms in this context window.\n\nCore nodes span events 0011–0020, with overlap nodes 0009–0010 (but I should focus on core nodes and their connections to overlap nodes).\n\nKey mechanisms:\n\n1. Diagnosing an anomaly/conflict observation → hypothesis about cause → targeted search action → observation confirming the cause. E.g., event-0010 reasoning hypothesizes another config on 8443; grep finds it. Event-0011 reasoning then inspects. This is hypothesis-testing / diagnosing. Predicate: DIAGNOSES_ANOMALY_WITH_TARGETED_SEARCH? Or existing triadic TESTS_ASSUMPTION_WITH_PROBE. Let me think about distinct mechanisms worth defining.\n\n2. Unary predicates:\n- IS_PLAN: reasoning expresses intended future actions (event-0013 reasoning has step list, event-0020 reasoning has test plan). Yes.\n- IS_DIAGNOSIS / HYPOTHESIZES_CAUSE: reasoning proposes a causal explanation for an observed anomaly. event-0010 reasoning (overlap) but also event-0011 reasoning \"This is an existing file in the container — it's probably part of the task setup\". event-0012 reasoning infers intended layout.\n- IS_ENVIRONMENT_INFERENCE? Interpreting discovered pre-existing configuration as intended design/constraint that the solution must conform to. That's a distinctive mechanism: \"preexisting artifact interpreted as authoritative skeleton → plan to conform.\" Could be a predicate: IDENTIFIES_PREEXISTING_CONFIG_AS_CONSTRAINT (reasoning node unary). Maybe better as binary: ADAPTS_PLAN_TO_PREEXISTING_CONFIGURATION(reasoning_plan, observation). Hmm.\n\n3. Action failure → retry with corrected parameters. event-0014 action → error observation (missing path) → event-0015 reasoning acknowledges omission → event-0015 action retries with path → success. That's a ternary: RETRIES_AFTER_PARAMETER_VALIDATION_ERROR(corrected_action, failed_action/observation, diagnosis_reasoning). Similar to example. Worth defining.\n\n4. Binary: observation → reasoning conclusion (GROUNDS_CONCLUSION_IN_OBSERVATION). Applies e.g., event-0012 observation (certs exist, dirs owned) → event-0013 reasoning concludes intended layout confirmed. Also event-0016 observation (nginx listening, 404) → event-0017 reasoning \"nginx is running without conflict warnings... 404 as expected\". Yes, reusable.\n\n5. Binary: reasoning plan → action implementing that plan (EXECUTES_STEP_OF_PLAN). Could be generic. Maybe define PLAN_STEP_EXECUTED_BY_ACTION.\n\n6. Binary: observation of a deficiency (tool missing) → reasoning selects alternative approach/fallback: event-0017/0018 reasoning: no sshpass → fallback ptty; event-0019 apt-get update. Ternary: SELECTS_FALLBACK_STRATEGY_AFTER_CAPABILITY_ABSENCE(reasoning_plan, observation_capability_check, action)? Hmm, need care.\n\n7. Unary: reasoning evaluating success of action / verifying state (IS_VERIFICATION / IS_EVALUATION). E.g., event-0016? Actually event-0017 reasoning interprets the observation as expected. Predicate: INTERPRETS_RESULT_AS_EXPECTED_OUTCOME? That's close to GROUNDS_CONCLUSION.\n\n8. Cleanup predicate: action removes superseded artifacts to resolve a conflict — event-0013 action rm duplicates + chown. Binary: RESOLVES_CONFLICT_BY_REMOVING_SUPERSEDED_ARTIFACTS(action, reasoning). Hmm, maybe a predicate about the reasoning that identifies conflict and prescribes removal.\n\nLet me be disciplined and pick maybe 6-8 predicates.\n\nCandidate list:\n\nA. IS_PLAN (unary reasoning): reasoning specifies intended future actions/steps.\nEvidence: event-0013 reasoning enumerates steps 1-6; event-0020 reasoning enumerates test steps.\n\nB. HYPOTHESIZES_ANOMALY_CAUSE (unary reasoning): reasoning proposes a specific candidate explanation for an unexpected observation/anomaly, especially as needing verification.\nEvidence: event-0010 reasoning (overlap) \"There's a conflicting server name warning — something else already defines a server on 8443\"; event-0011 reasoning about pre-existing default site. But overlap nodes can be used in predicates? The instruction says \"Focus on assertions involving Core Nodes and their supported connections to Overlap Nodes.\" So overlap nodes can appear, but core nodes primary. Let's prefer core node evidence, maybe include overlap.\n\nHmm—event-0011 reasoning: \"In /etc/nginx/sites-available/default there's already a config that listens on 8443 with SSL. This is an existing file in the container — it's probably part of the task setup (a pre-configured default site).\" That's explaining a cause, with uncertainty (\"probably\"). Good for HYPOTHESIZES_ANOMALY_CAUSE using core node.\n\nC. TESTS_HYPOTHESIS_WITH_PROBE / binary or ternary: action targets a hypothesized cause and observation resolves it. e.g., event-0010 (overlap) grep. Core: event-0011 read of default config to determine what pre-existing site serves; observation reveals. Ternary with assumption reasoning + probe action + result observation. Evidence: event-0011 reasoning \"it might be the intended configuration skeleton, and I might need to check what it's doing. Let me try reading the whole file.\" → read action → observation. Good.\n\nD. GROUNDS_CONCLUSION_IN_OBSERVATION (binary): observation evidence → reasoning conclusion. Evidence: event-0013 reasoning derives intended layout from event-0012 observation; event-0017 reasoning interprets 404 as expected/permitted.\n\nE. ADAPTS_SOLUTION_TO_DISCOVERED_PRECEDENT / CONFORMS_PLAN_TO_PREEXISTING_CONFIGURATION (binary reasoning-reasoning? or reasoning-observation). Mechanism: agent treats discovered pre-existing artifact as intended design, and revises its plan to conform rather than override, removing its own duplicate work. Ternary-ish: observation (pre-existing config discovered) + reasoning plan that conforms + action that removes duplicate artifacts. Define as binary: CONFORMS_TO_DISCOVERED_CONFIGURATION(reasoning, observation) — reasoning decides to align implementation with pre-existing artifact revealed by observation. Exclusion: reasoning merely notes presence without changing plan.\n\nAlso action-level: DISMANTLES_SUPERSEDED_ARTIFACTS(action, reasoning) — action removes previously created duplicate artifacts to eliminate a conflict identified in reasoning. Evidence: event-0013 action removes gitproject site, /var/www/main, cert. Good distinguishable mechanism (cleanup/resolution of self-created conflict).\n\nF. RETRIES_CORRECTED_ACTION_AFTER_VALIDATION_FAILURE (ternary): failed action/its error observation + reasoning diagnosing the missing parameter + corrected action. Evidence: event-0014 action → observation error → event-0015 reasoning → action. Good.\n\nG. IDENTIFIES_RESULT_AS_EXPECTED / VERIFIES_DEPLOY... The {404} interpretation. Maybe fold into D.\n\nH. SELECTS_ALTERNATIVE_APPROACH_AFTER_CAPABILITY_UNAVAILABLE (ternary or binary): reasoning evaluates absence of tool (observation) and commits to alternative fallback while attempting installation. Evidence: event-0017 observation: no sshpass/expect/paramiko → event-0018 reasoning: options, try apt-get install, fall back to pty; event-0018 action attempt fails → event-0019 reasoning: apt-get update, then install; success. Mechanism: after capability check reveals absence, agent attempts acquisition via package install, holding fallback plan. Distinguish from generic retry: here it's capability acquisition with fallback.\n\nMaybe define: PLANS_FALLBACK_FOR_MISSING_CAPABILITY (unary? binary?). Let's define binary: SEEKING_CAPABILITY_WITH_FALLBACK (reasoning, observation): the reasoning, prompted by an observation showing a required capability is absent, specifies an acquisition attempt and a fallback alternative, with success criteria (existence check). Good.\n\nI. Also the earlier \"PLANS_INSTALL_THEN_RETRY\" — include in H.\n\nJ. Also possibly a predicate about reasoning enumerating explicit verification of task requirements: IS_TEST_PLAN / PLANS_END_TO_END_VALIDATION mimicking acceptance criteria (event-0020 reasoning). Could be more specific than IS_PLAN: \"PLANS_ACCEPTANCE_CRITERIA_REPLICATION\" — reasoning designs a validation procedure replicating the stated external tests. Evidence: event-0017 reasoning \"simulating exactly what the test does\"; event-0020 reasoning test script. That is distinguishable: mechanism of mirroring stated acceptance criteria to self-verify. Define binary? Unary on reasoning is fine: PLANS_VALIDATION_MIRRORING_ACCEPTANCE_CRITERIA. Hmm, but parameters must bind to nodes; unary works. Actually could be binary relating requirement statement in reasoning to test plan — but requirement comes from user query (not a node). So unary on reasoning: the reasoning specifies a validation procedure reproducing the externally stated acceptance tests.\n\nCareful about too many predicates; but this is defensible. Though maybe simpler: IS_PLAN covers it and specific one adds distinction (mirroring acceptance criteria). I'll include it as a separate predicate since it's distinguishable (a plan may be a plan but not mirror the stated test).\n\nK. Another: reasoning acknowledges repeated mistake / self-correction (\"I forgot the path parameter again. This is the second time\") — that's diagnosis of own error, covered by F's reasoning parameter.\n\nL. Binary: reasoning prescribing modification of deployment target to match discovered server root mapping — covered by E.\n\nM. Observation-driven state check: VERIFIES_SERVICE_STATE_WITH_PROBE (action + observation)? E.g., action curl/ss → confirms listening. That's essentially TESTS_ASSUMPTION_WITH_PROBE with reasoning \"the endpoints up... expect 404 until push\". Could skip.\n\nLet me also consider a predicate for \"action modifies configuration to align with discovered layout\" — covered.\n\nAlso potentially: ASSOCIATES_ENDPOINT_WITH_DIRECTORY_MAPPING — reasoning derives URL→filesystem mapping from config text. E.g., event-0012 reasoning \"location /dev → root /var/www → /var/www/dev\". That's a mechanism: deriving concrete resource mapping from configuration syntax, then using it as a constraint for later actions. Could define binary: DERIVES_TARGET_MAPPING_FROM_CONFIGURATION(reasoning, observation). This is fairly specific but generalizes: interpreting configuration semantics to derive deployment target paths. Perhaps fold into GROUNDS_CONCLUSION_IN_OBSERVATION plus CONFORMS. I think adding DERIVES_ARTIFACT_TARGET_FROM_CONFIGURATION could be justified but risks over-granularity. Maybe include as a distinguishing specific predicate: \"DERIVES_DEPLOYMENT_TARGET_FROM_CONFIGURATION\" — reasoning derives concrete output locations from interpreting an existing configuration observation, and these locations constrain subsequent writes. I'll skip to keep granularity manageable? The task says don't force count. I think it's a meaningful mechanism (binding configuration semantics to implementation targets). Hmm, but it overlaps with CONFORMS_TO_DISCOVERED_CONFIGURATION. I'll fold: CONFORMS_TO_DISCOVERED_PATTERN includes deriving targets. Better to state condition: \"reasoning derives specific implementation targets/values from the discovered artifact and commits to matching them.\"\n\nLet's finalize predicate set:\n\n1. IS_PLAN (unary reasoning)\n2. HYPOTHESIZES_OBSERVED_ANOMALY_CAUSE (unary reasoning)\n3. TESTS_HYPOTHESIS_WITH_PROBE (ternary: probe_action, assumption_reasoning, probe_result) — or use existing example shape. Yes, use it.\n4. DERIVES_CONCLUSION_FROM_OBSERVATION (binary: reasoning, observation) — identical to example GROUNDS_CONCLUSION_IN_OBSERVATION; I'll name it GROUNDS_CONCLUSION_IN_OBSERVATION.\n5. CONFORMS_PLAN_TO_DISCOVERED_PATTERN (binary: conforming_reasoning, observation) — reasoning treats discovered pre-existing artifact as the intended design and adjusts implementation plan/targets to match it.\n6. REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT (binary: action, reasoning) — action deletes self-created or duplicate resources that the reasoning identified as conflicting/superseded, retaining the authoritative one.\n7. RECOVERS_FROM_INVALID_ACTION_RETRY (ternary: retry_action, failed_action_observation, correction_reasoning) — hmm parameters: the error observation is the result of the failed action; that's structurally linked, but the semantic mechanism (retry with corrected args) is fine. Maybe name RETRIES_ACTION_WITH_CORRECTED_PARAMETERS. Parameters: failed_observation (observation), correcting_reasoning (reasoning), retry_action (action). Assertion: the failed observation reports a validation/error about missing or invalid parameter; the reasoning identifies the specific missing parameter; the retry action repeats the same operation with that parameter supplied and succeeds (or is directed at succeeding). Outcome: success must be demonstrated/attempted; the contract says distinguish attempts from confirmed outcomes. I'd require the retry action to repeat the same operation with the corrected parameter; success confirmed optionally (we can require the retry result? that's another observation—if we want confirmed success, we'd need a fourth parameter). Keep to three, requiring the retry action to supply the identified parameter; separate predicate could capture success. Actually we could make it 4 args? Better: keep 3 and require the retry action to include the previously missing parameter; not claim success.\n\nHmm, but \"Outcome: Distinguish intentions, attempts, checks, and confirmed outcomes.\" So assertion: the retry_action repeats the operation and includes the previously missing parameter. Exclusion: retry with unrelated change; no error.\n\n8. ACQUIRES_MISSING_CAPABILITY_WITH_FALLBACK (binary: reasoning, observation) — reasoning, prompted by an observation showing a needed capability/tool unavailable, defines an acquisition attempt plus a fallback alternative that avoids the dependency. Parameters: reasoning (plan/decision), observation (capability absence result). Evidence event-0018 reasoning + event-0017 observation (no sshpass/expect/paramiko). Also event-0019 reasoning after failed install (apt lists empty) with apt-get update. Good.\n\n9. PLANS_VALIDATION_MIRRORING_ACCEPTANCE_CRITERIA (unary reasoning) — reasoning defines an end-to-end verification procedure deliberately reproducing the externally stated acceptance tests. Evidence event-0017/0020 reasoning.\n\n10. Maybe: DECLARES_RESIDUAL_STATE_AS_ACCEPTABLE / INTERPRETS_EMPTY_RESULT_AS_EXPECTED. event-0017: \"getting 404 is as expected since there are no files yet.\" That's interpretation of result consistent with prediction → the agent explains observation as expected given prior state. Could be predicate: EXPLAINS_RESULT_AS_EXPECTED_PRECONDITION_STATE(reasoning, observation). Is it distinguishable from GROUNDS_CONCLUSION? Somewhat: it's not a conclusion about evidence; it's dismissing/validating a seemingly negative result as consistent with the pre-deployment state. I think it's a meaningful and reusable mechanism (distinguishing expected intermediate states from failures). I'll include it: INTERPRETS_NEGATIVE_RESULT_AS_EXPECTED_STATE. Hmm—keep? It adds a distinct mechanism: avoiding false failure detection. I'll include.\n\nAlso possible: BINDS_CONFIGURATION_TOKEN_TO_IMPLEMENTATION_TARGET — skip.\n\nAlso: IS_REASONING_ABOUT risk of conflict... skip.\n\nLet me also consider a binary linking action to reasoning: EXECUTES_CONFIGURATION_CHANGE_PRESCRIBED_BY_PLAN — generic plan-execution. Might be too generic (USES-like). Skip.\n\nEnsure parameters types allowed, names unique, ordered.\n\nWrite JSON.\n\nFor each predicate, write definition, parameters (name/type/description), assertion_conditions, exclusion_conditions.\n\nPredicate 1: IS_PLAN — same as example.\n\nPredicate 2: HYPOTHESIZES_ANOMALY_CAUSE — unary reasoning: reasoning proposes a specific candidate explanation for an unexpected observation or unexplained state, marked with uncertainty and implying a means of verification. Assertion: identifies an observation/state as unexpected or noteworthy AND offers a candidate cause/explanation. Exclusion: merely describes the observation; no candidate explanation; conclusion stated as certain final fact without hypothesis (hmm, careful—that would exclude event-0011 \"probably part of task setup\" fine since it has \"probably\"). Let me word exclusion: \"The reasoning only restates the observation without proposing any explanation\" and \"The reasoning reports a fully verified fact with no remaining uncertainty and no candidate cause.\"\n\nPredicate 3: TESTS_HYPOTHESIS_WITH_PROBE — ternary.\n\nPredicate 4: GROUNDS_CONCLUSION_IN_OBSERVATION — binary.\n\nPredicate 5: CONFORMS_IMPLEMENTATION_TO_DISCOVERED_PATTERN — binary (reasoning, observation). Definition: The reasoning treats a pre-existing configuration/artifact revealed by the observation as the intended or authoritative design and commits to adjusting the agent's own implementation (targets, paths, values) to match it, rather than overriding it. Assertion conditions: observation reveals pre-existing artifact; reasoning identifies it as authoritative/intended; reasoning states concrete adjustments to its own implementation to align. Exclusion: reasoning notes the artifact but keeps own independent design; reasoning ignores it.\n\nPredicate 6: REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT — binary (action, reasoning). Definition: action deletes/undoes artifacts the agent itself previously created (or duplicates) that the reasoning identified as redundant or conflicting with the authoritative configuration, while retaining the authoritative artifact. Assertion: reasoning identifies duplication/conflict and prescribes removal; action performs deletion of exactly those; action does not remove the retained authoritative artifact. Exclusion: action deletes unrelated files; action merely overwrites; no identified conflict.\n\nPredicate 7: RETRIES_WITH_CORRECTED_PARAMETERS — ternary (retry_action, failure_observation, correction_reasoning). Note ordering: let's put failure_observation first? Any order fine as long as described. I'll use (failure_observation, correction_reasoning, retry_action) — ordered logically.\n\nPredicate 8: PLANS_CAPABILITY_ACQUISITION_WITH_FALLBACK — binary (reasoning, capability_observation). Definition: prompted by an observation that a required tool/capability is unavailable, the reasoning commits to attempting to acquire it while specifying an alternative approach that avoids the dependency, so the goal can proceed either way. Assertion: observation reports absence/availability failure; reasoning states acquisition attempt AND an explicit alternative/fallback. Exclusion: reasoning only retries the same absent capability blindly; no fallback; observation shows capability present.\n\nPredicate 9: PLANS_VALIDATION_MIRRORING_STATED_ACCEPTANCE_CRITERIA — unary reasoning. Assertion: reasoning specifies verification steps that replicate the externally specified acceptance checks (same operations & expected outputs), intended to be executed before declaring completion. Exclusion: plan is general testing without reference to stated criteria; or reasoning merely restates requirements without constructing a procedure.\n\nPredicate 10: INTERPRETS_RESULT_AS_EXPECTED_INTERMEDIATE_STATE — binary (reasoning, observation). Definition: reasoning explains an apparently negative or empty result as the expected consequence of a prior state the agent knows about (e.g., nothing deployed yet), so it is not treated as a failure. Assertion: observation shows a missing/unavailable/404-type result; reasoning states it is expected given a known precondition. Exclusion: reasoning treats it as a failure or the result is unexplained; the reasoning claims success/evidence of working feature beyond expectation.\n\nThat's 10. Maybe trim to keep quality. I think 9-10 is fine but let me reconsider predicate 9 vs 1 overlap and predicate 10 value. I'll keep both—they're distinguishable.\n\nShould I add unary on action: IS_STATE_VERIFICATION_PROBE? Skip.\n\nAlso consider a predicate about the reasoning enumerating multiple options before choosing (option enumeration). Event-0018: \"Options: 1... 2...\" and event-0013 numbered plan. Could be ENUMERATES_ALTERNATIVES_BEFORE_CHOOSING (unary reasoning). Might be covered by 8. Skip.\n\nWrite final JSON carefully.",
+              "content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future sequence of actions or steps the agent will take.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended actions or ordered plan.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one intended future action or an ordered list of upcoming steps.\", \"The intended actions are presented as something the agent will do, not as something already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already performed or observations already obtained.\", \"The reasoning merely restates requirements without committing to any future action.\"]}, {\"name\": \"HYPOTHESIZES_ANOMALY_CAUSE\", \"definition\": \"The reasoning proposes a specific candidate explanation for an unexpected observation or unexplained system state, and treats that explanation as provisional.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text offering a candidate cause for the observed anomaly or unexpected state.\"}], \"assertion_conditions\": [\"The reasoning flags a state or result as unexpected, conflicting, or noteworthy.\", \"The reasoning offers a concrete candidate cause or source for that state.\", \"The candidate explanation is expressed with remaining uncertainty (e.g., 'probably', 'might be', 'could be').\"], \"exclusion_conditions\": [\"The reasoning only restates or quotes the unexpected observation without proposing any cause.\", \"The reasoning reports an already verified fact with no remaining uncertainty and no candidate explanation.\"]}, {\"name\": \"TESTS_HYPOTHESIS_WITH_PROBE\", \"definition\": \"A targeted action is used to test an uncertainty or candidate explanation identified in reasoning, and the resulting observation supplies interpretable evidence about it.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted inspection or query.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the uncertainty or candidate explanation being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the tested uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific uncertainty, suspicion, or candidate source that must be resolved.\", \"The action is directed at resolving that specific uncertainty (e.g., searching for or reading the suspected artifact).\", \"The observation contains information that distinguishes between the candidate explanations.\"], \"exclusion_conditions\": [\"The action is unrelated to the stated uncertainty or is routine setup work.\", \"The observation does not address the tested uncertainty.\", \"No identifiable uncertainty motivates the action.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion using identifiable content of the observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion, inference, or decision that goes beyond restating the observation.\", \"The conclusion cites or depends on identifiable content of the observation.\"], \"exclusion_conditions\": [\"The reasoning merely repeats the observation without drawing a conclusion.\", \"The observation is unrelated to the conclusion or provides no identifiable support.\"]}, {\"name\": \"CONFORMS_IMPLEMENTATION_TO_DISCOVERED_PATTERN\", \"definition\": \"The reasoning treats a pre-existing configuration or artifact revealed by the observation as the intended or authoritative design and commits to adjusting the agent's own implementation targets or values to match it, rather than overriding it.\", \"parameters\": [{\"name\": \"conforming_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that interprets the discovered artifact as the intended design and states the alignment changes.\"}, {\"name\": \"pattern_observation\", \"type\": \"observation\", \"description\": \"The observation revealing the pre-existing configuration or artifacts.\"}], \"assertion_conditions\": [\"The observation reveals pre-existing configuration or artifacts relevant to the goal.\", \"The reasoning interprets that pre-existing artifact as intended, authoritative, or a design to be preserved.\", \"The reasoning states concrete changes to the agent's own implementation (targets, paths, values, or the removal of its own competing artifacts) so as to match the discovered pattern.\"], \"exclusion_conditions\": [\"The reasoning notes the pre-existing artifact but retains its own independent design.\", \"The reasoning treats the discovered artifact as an obstacle to be replaced without deriving any implementation values from it.\"]}, {\"name\": \"REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT\", \"definition\": \"An action deletes or undoes artifacts the agent itself previously created or that duplicate an authoritative configuration, where the reasoning identified them as redundant or conflicting and intended to keep the authoritative one.\", \"parameters\": [{\"name\": \"cleanup_action\", \"type\": \"action\", \"description\": \"The action performing the removal or dismantling of the superseded artifacts.\"}, {\"name\": \"conflict_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the duplication or conflict and prescribes removal while retaining the authoritative artifact.\"}], \"assertion_conditions\": [\"The reasoning identifies a duplication or conflict caused by artifacts that duplicate or overlap an authoritative configuration.\", \"The cleanup action removes exactly those redundant or conflicting artifacts.\", \"The authoritative configuration referenced in the reasoning is left in place by the action.\"], \"exclusion_conditions\": [\"The action removes artifacts unrelated to any identified duplication or conflict.\", \"The action merely overwrites or patches the offending artifact instead of removing it.\", \"No reasoning identifies the duplication or decides that removal is required.\"]}, {\"name\": \"RETRIES_WITH_CORRECTED_PARAMETERS\", \"definition\": \"After an action fails because a required parameter is missing or invalid, the reasoning identifies the specific defect and the subsequent action repeats the same operation with the corrected parameter supplied.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the validation error or invalid-argument failure of the earlier attempt.\"}, {\"name\": \"correction_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that names the missing or invalid parameter and states how the retry will fix it.\"}, {\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The action repeating the same operation with the corrected parameter included.\"}], \"assertion_conditions\": [\"The failure observation reports a parameter validation error or invalid/missing argument for an attempted operation.\", \"The correction reasoning identifies the specific missing or invalid parameter.\", \"The retry action performs the same operation as the failed attempt and includes the previously missing or corrected parameter.\"], \"exclusion_conditions\": [\"The failure is not attributable to a parameter or argument problem.\", \"The retry changes the operation itself or the goal rather than supplying the identified parameter.\", \"No reasoning connects the failure to the corrected retry.\"]}, {\"name\": \"PLANS_CAPABILITY_ACQUISITION_WITH_FALLBACK\", \"definition\": \"Prompted by an observation that a required tool or capability is unavailable, the reasoning commits to an attempt to acquire it while specifying an alternative approach that avoids the dependency, so progress is possible either way.\", \"parameters\": [{\"name\": \"acquisition_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that reacts to the capability gap by planning acquisition and an alternative approach.\"}, {\"name\": \"capability_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that the required tool or capability is absent or unavailable.\"}], \"assertion_conditions\": [\"The observation shows that a needed tool, package, or capability is missing or that an availability check failed.\", \"The reasoning plans a concrete attempt to obtain the missing capability.\", \"The reasoning also states at least one alternative approach that achieves the goal without that capability.\"], \"exclusion_conditions\": [\"The reasoning simply reattempts the same unavailable capability without any alternative plan.\", \"The observation shows the capability is available, so no gap exists.\", \"The reasoning abandons the goal instead of planning acquisition or an alternative.\"]}, {\"name\": \"PLANS_VALIDATION_MIRRORING_STATED_ACCEPTANCE_CRITERIA\", \"definition\": \"The reasoning defines a verification procedure that deliberately reproduces the externally stated acceptance checks (same operations and expected outputs) so the agent can self-confirm compliance before declaring completion.\", \"parameters\": [{\"name\": \"validation_plan_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning specifying the end-to-end verification procedure that mirrors the stated acceptance checks.\"}], \"assertion_conditions\": [\"The reasoning refers to the externally stated acceptance checks or test procedure.\", \"The reasoning specifies verification steps that reproduce those checks, including the expected outputs to be compared.\", \"The validation is presented as a prerequisite for considering the task complete.\"], \"exclusion_conditions\": [\"The reasoning describes only a general sanity check that does not reproduce the stated acceptance criteria.\", \"The reasoning merely restates the requirements without constructing an executable verification procedure.\"]}, {\"name\": \"INTERPRETS_RESULT_AS_EXPECTED_INTERMEDIATE_STATE\", \"definition\": \"The reasoning explains an apparently negative, empty, or unavailable result as the expected consequence of a known prior state, so the result is not treated as a failure of the setup.\", \"parameters\": [{\"name\": \"interpretation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that classifies the result as expected given the known current state.\"}, {\"name\": \"negative_result_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the empty, missing, or error-like result being interpreted.\"}], \"assertion_conditions\": [\"The observation reports a missing resource, empty response, error status, or otherwise negative-looking outcome.\", \"The reasoning states that this outcome follows from a known precondition or incomplete stage of the work.\", \"The reasoning does not treat the outcome as evidence that the configuration is broken.\"], \"exclusion_conditions\": [\"The reasoning treats the negative result as a failure or a defect requiring repair.\", \"The reasoning leaves the negative result unexplained.\", \"The reasoning claims the result demonstrates a working feature rather than an expected intermediate state.\"]}]}"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 12352,
+          "total_tokens": 19127,
+          "completion_tokens": 6775,
+          "prompt_tokens_details": {
+            "cached_tokens": 2304,
+            "image_tokens": 0,
+            "text_tokens": 12352
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4531,
+            "text_tokens": 2243
+          }
+        }
+      },
+      "response_content": "{\"candidate_predicates\": [{\"name\": \"IS_PLAN\", \"definition\": \"The reasoning explicitly expresses an intended future sequence of actions or steps the agent will take.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text expressing the intended actions or ordered plan.\"}], \"assertion_conditions\": [\"The reasoning identifies at least one intended future action or an ordered list of upcoming steps.\", \"The intended actions are presented as something the agent will do, not as something already completed.\"], \"exclusion_conditions\": [\"The reasoning only reports actions already performed or observations already obtained.\", \"The reasoning merely restates requirements without committing to any future action.\"]}, {\"name\": \"HYPOTHESIZES_ANOMALY_CAUSE\", \"definition\": \"The reasoning proposes a specific candidate explanation for an unexpected observation or unexplained system state, and treats that explanation as provisional.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The agent text offering a candidate cause for the observed anomaly or unexpected state.\"}], \"assertion_conditions\": [\"The reasoning flags a state or result as unexpected, conflicting, or noteworthy.\", \"The reasoning offers a concrete candidate cause or source for that state.\", \"The candidate explanation is expressed with remaining uncertainty (e.g., 'probably', 'might be', 'could be').\"], \"exclusion_conditions\": [\"The reasoning only restates or quotes the unexpected observation without proposing any cause.\", \"The reasoning reports an already verified fact with no remaining uncertainty and no candidate explanation.\"]}, {\"name\": \"TESTS_HYPOTHESIS_WITH_PROBE\", \"definition\": \"A targeted action is used to test an uncertainty or candidate explanation identified in reasoning, and the resulting observation supplies interpretable evidence about it.\", \"parameters\": [{\"name\": \"probe_action\", \"type\": \"action\", \"description\": \"The action performing the targeted inspection or query.\"}, {\"name\": \"assumption_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the uncertainty or candidate explanation being tested.\"}, {\"name\": \"probe_result\", \"type\": \"observation\", \"description\": \"The observation reporting the result relevant to the tested uncertainty.\"}], \"assertion_conditions\": [\"The reasoning identifies a specific uncertainty, suspicion, or candidate source that must be resolved.\", \"The action is directed at resolving that specific uncertainty (e.g., searching for or reading the suspected artifact).\", \"The observation contains information that distinguishes between the candidate explanations.\"], \"exclusion_conditions\": [\"The action is unrelated to the stated uncertainty or is routine setup work.\", \"The observation does not address the tested uncertainty.\", \"No identifiable uncertainty motivates the action.\"]}, {\"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\", \"definition\": \"The reasoning draws a conclusion using identifiable content of the observation as supporting evidence.\", \"parameters\": [{\"name\": \"reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning expressing the evidence-based conclusion.\"}, {\"name\": \"observation\", \"type\": \"observation\", \"description\": \"The observation supplying the evidence for that conclusion.\"}], \"assertion_conditions\": [\"The reasoning states a conclusion, inference, or decision that goes beyond restating the observation.\", \"The conclusion cites or depends on identifiable content of the observation.\"], \"exclusion_conditions\": [\"The reasoning merely repeats the observation without drawing a conclusion.\", \"The observation is unrelated to the conclusion or provides no identifiable support.\"]}, {\"name\": \"CONFORMS_IMPLEMENTATION_TO_DISCOVERED_PATTERN\", \"definition\": \"The reasoning treats a pre-existing configuration or artifact revealed by the observation as the intended or authoritative design and commits to adjusting the agent's own implementation targets or values to match it, rather than overriding it.\", \"parameters\": [{\"name\": \"conforming_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that interprets the discovered artifact as the intended design and states the alignment changes.\"}, {\"name\": \"pattern_observation\", \"type\": \"observation\", \"description\": \"The observation revealing the pre-existing configuration or artifacts.\"}], \"assertion_conditions\": [\"The observation reveals pre-existing configuration or artifacts relevant to the goal.\", \"The reasoning interprets that pre-existing artifact as intended, authoritative, or a design to be preserved.\", \"The reasoning states concrete changes to the agent's own implementation (targets, paths, values, or the removal of its own competing artifacts) so as to match the discovered pattern.\"], \"exclusion_conditions\": [\"The reasoning notes the pre-existing artifact but retains its own independent design.\", \"The reasoning treats the discovered artifact as an obstacle to be replaced without deriving any implementation values from it.\"]}, {\"name\": \"REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT\", \"definition\": \"An action deletes or undoes artifacts the agent itself previously created or that duplicate an authoritative configuration, where the reasoning identified them as redundant or conflicting and intended to keep the authoritative one.\", \"parameters\": [{\"name\": \"cleanup_action\", \"type\": \"action\", \"description\": \"The action performing the removal or dismantling of the superseded artifacts.\"}, {\"name\": \"conflict_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that identifies the duplication or conflict and prescribes removal while retaining the authoritative artifact.\"}], \"assertion_conditions\": [\"The reasoning identifies a duplication or conflict caused by artifacts that duplicate or overlap an authoritative configuration.\", \"The cleanup action removes exactly those redundant or conflicting artifacts.\", \"The authoritative configuration referenced in the reasoning is left in place by the action.\"], \"exclusion_conditions\": [\"The action removes artifacts unrelated to any identified duplication or conflict.\", \"The action merely overwrites or patches the offending artifact instead of removing it.\", \"No reasoning identifies the duplication or decides that removal is required.\"]}, {\"name\": \"RETRIES_WITH_CORRECTED_PARAMETERS\", \"definition\": \"After an action fails because a required parameter is missing or invalid, the reasoning identifies the specific defect and the subsequent action repeats the same operation with the corrected parameter supplied.\", \"parameters\": [{\"name\": \"failure_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the validation error or invalid-argument failure of the earlier attempt.\"}, {\"name\": \"correction_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that names the missing or invalid parameter and states how the retry will fix it.\"}, {\"name\": \"retry_action\", \"type\": \"action\", \"description\": \"The action repeating the same operation with the corrected parameter included.\"}], \"assertion_conditions\": [\"The failure observation reports a parameter validation error or invalid/missing argument for an attempted operation.\", \"The correction reasoning identifies the specific missing or invalid parameter.\", \"The retry action performs the same operation as the failed attempt and includes the previously missing or corrected parameter.\"], \"exclusion_conditions\": [\"The failure is not attributable to a parameter or argument problem.\", \"The retry changes the operation itself or the goal rather than supplying the identified parameter.\", \"No reasoning connects the failure to the corrected retry.\"]}, {\"name\": \"PLANS_CAPABILITY_ACQUISITION_WITH_FALLBACK\", \"definition\": \"Prompted by an observation that a required tool or capability is unavailable, the reasoning commits to an attempt to acquire it while specifying an alternative approach that avoids the dependency, so progress is possible either way.\", \"parameters\": [{\"name\": \"acquisition_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that reacts to the capability gap by planning acquisition and an alternative approach.\"}, {\"name\": \"capability_observation\", \"type\": \"observation\", \"description\": \"The observation reporting that the required tool or capability is absent or unavailable.\"}], \"assertion_conditions\": [\"The observation shows that a needed tool, package, or capability is missing or that an availability check failed.\", \"The reasoning plans a concrete attempt to obtain the missing capability.\", \"The reasoning also states at least one alternative approach that achieves the goal without that capability.\"], \"exclusion_conditions\": [\"The reasoning simply reattempts the same unavailable capability without any alternative plan.\", \"The observation shows the capability is available, so no gap exists.\", \"The reasoning abandons the goal instead of planning acquisition or an alternative.\"]}, {\"name\": \"PLANS_VALIDATION_MIRRORING_STATED_ACCEPTANCE_CRITERIA\", \"definition\": \"The reasoning defines a verification procedure that deliberately reproduces the externally stated acceptance checks (same operations and expected outputs) so the agent can self-confirm compliance before declaring completion.\", \"parameters\": [{\"name\": \"validation_plan_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning specifying the end-to-end verification procedure that mirrors the stated acceptance checks.\"}], \"assertion_conditions\": [\"The reasoning refers to the externally stated acceptance checks or test procedure.\", \"The reasoning specifies verification steps that reproduce those checks, including the expected outputs to be compared.\", \"The validation is presented as a prerequisite for considering the task complete.\"], \"exclusion_conditions\": [\"The reasoning describes only a general sanity check that does not reproduce the stated acceptance criteria.\", \"The reasoning merely restates the requirements without constructing an executable verification procedure.\"]}, {\"name\": \"INTERPRETS_RESULT_AS_EXPECTED_INTERMEDIATE_STATE\", \"definition\": \"The reasoning explains an apparently negative, empty, or unavailable result as the expected consequence of a known prior state, so the result is not treated as a failure of the setup.\", \"parameters\": [{\"name\": \"interpretation_reasoning\", \"type\": \"reasoning\", \"description\": \"The reasoning that classifies the result as expected given the known current state.\"}, {\"name\": \"negative_result_observation\", \"type\": \"observation\", \"description\": \"The observation reporting the empty, missing, or error-like result being interpreted.\"}], \"assertion_conditions\": [\"The observation reports a missing resource, empty response, error status, or otherwise negative-looking outcome.\", \"The reasoning states that this outcome follows from a known precondition or incomplete stage of the work.\", \"The reasoning does not treat the outcome as evidence that the configuration is broken.\"], \"exclusion_conditions\": [\"The reasoning treats the negative result as a failure or a defect requiring repair.\", \"The reasoning leaves the negative result unexplained.\", \"The reasoning claims the result demonstrates a working feature rather than an expected intermediate state.\"]}]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future sequence of actions or steps the agent will take.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended actions or ordered plan."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least one intended future action or an ordered list of upcoming steps.",
+          "The intended actions are presented as something the agent will do, not as something already completed."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports actions already performed or observations already obtained.",
+          "The reasoning merely restates requirements without committing to any future action."
+        ]
+      },
+      {
+        "name": "HYPOTHESIZES_ANOMALY_CAUSE",
+        "definition": "The reasoning proposes a specific candidate explanation for an unexpected observation or unexplained system state, and treats that explanation as provisional.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text offering a candidate cause for the observed anomaly or unexpected state."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning flags a state or result as unexpected, conflicting, or noteworthy.",
+          "The reasoning offers a concrete candidate cause or source for that state.",
+          "The candidate explanation is expressed with remaining uncertainty (e.g., 'probably', 'might be', 'could be')."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only restates or quotes the unexpected observation without proposing any cause.",
+          "The reasoning reports an already verified fact with no remaining uncertainty and no candidate explanation."
+        ]
+      },
+      {
+        "name": "TESTS_HYPOTHESIS_WITH_PROBE",
+        "definition": "A targeted action is used to test an uncertainty or candidate explanation identified in reasoning, and the resulting observation supplies interpretable evidence about it.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action performing the targeted inspection or query."
+          },
+          {
+            "name": "assumption_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that identifies the uncertainty or candidate explanation being tested."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the result relevant to the tested uncertainty."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific uncertainty, suspicion, or candidate source that must be resolved.",
+          "The action is directed at resolving that specific uncertainty (e.g., searching for or reading the suspected artifact).",
+          "The observation contains information that distinguishes between the candidate explanations."
+        ],
+        "exclusion_conditions": [
+          "The action is unrelated to the stated uncertainty or is routine setup work.",
+          "The observation does not address the tested uncertainty.",
+          "No identifiable uncertainty motivates the action."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion using identifiable content of the observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the evidence-based conclusion."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying the evidence for that conclusion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion, inference, or decision that goes beyond restating the observation.",
+          "The conclusion cites or depends on identifiable content of the observation."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats the observation without drawing a conclusion.",
+          "The observation is unrelated to the conclusion or provides no identifiable support."
+        ]
+      },
+      {
+        "name": "CONFORMS_IMPLEMENTATION_TO_DISCOVERED_PATTERN",
+        "definition": "The reasoning treats a pre-existing configuration or artifact revealed by the observation as the intended or authoritative design and commits to adjusting the agent's own implementation targets or values to match it, rather than overriding it.",
+        "parameters": [
+          {
+            "name": "conforming_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that interprets the discovered artifact as the intended design and states the alignment changes."
+          },
+          {
+            "name": "pattern_observation",
+            "type": "observation",
+            "description": "The observation revealing the pre-existing configuration or artifacts."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reveals pre-existing configuration or artifacts relevant to the goal.",
+          "The reasoning interprets that pre-existing artifact as intended, authoritative, or a design to be preserved.",
+          "The reasoning states concrete changes to the agent's own implementation (targets, paths, values, or the removal of its own competing artifacts) so as to match the discovered pattern."
+        ],
+        "exclusion_conditions": [
+          "The reasoning notes the pre-existing artifact but retains its own independent design.",
+          "The reasoning treats the discovered artifact as an obstacle to be replaced without deriving any implementation values from it."
+        ]
+      },
+      {
+        "name": "REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT",
+        "definition": "An action deletes or undoes artifacts the agent itself previously created or that duplicate an authoritative configuration, where the reasoning identified them as redundant or conflicting and intended to keep the authoritative one.",
+        "parameters": [
+          {
+            "name": "cleanup_action",
+            "type": "action",
+            "description": "The action performing the removal or dismantling of the superseded artifacts."
+          },
+          {
+            "name": "conflict_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that identifies the duplication or conflict and prescribes removal while retaining the authoritative artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a duplication or conflict caused by artifacts that duplicate or overlap an authoritative configuration.",
+          "The cleanup action removes exactly those redundant or conflicting artifacts.",
+          "The authoritative configuration referenced in the reasoning is left in place by the action."
+        ],
+        "exclusion_conditions": [
+          "The action removes artifacts unrelated to any identified duplication or conflict.",
+          "The action merely overwrites or patches the offending artifact instead of removing it.",
+          "No reasoning identifies the duplication or decides that removal is required."
+        ]
+      },
+      {
+        "name": "RETRIES_WITH_CORRECTED_PARAMETERS",
+        "definition": "After an action fails because a required parameter is missing or invalid, the reasoning identifies the specific defect and the subsequent action repeats the same operation with the corrected parameter supplied.",
+        "parameters": [
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting the validation error or invalid-argument failure of the earlier attempt."
+          },
+          {
+            "name": "correction_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that names the missing or invalid parameter and states how the retry will fix it."
+          },
+          {
+            "name": "retry_action",
+            "type": "action",
+            "description": "The action repeating the same operation with the corrected parameter included."
+          }
+        ],
+        "assertion_conditions": [
+          "The failure observation reports a parameter validation error or invalid/missing argument for an attempted operation.",
+          "The correction reasoning identifies the specific missing or invalid parameter.",
+          "The retry action performs the same operation as the failed attempt and includes the previously missing or corrected parameter."
+        ],
+        "exclusion_conditions": [
+          "The failure is not attributable to a parameter or argument problem.",
+          "The retry changes the operation itself or the goal rather than supplying the identified parameter.",
+          "No reasoning connects the failure to the corrected retry."
+        ]
+      },
+      {
+        "name": "PLANS_CAPABILITY_ACQUISITION_WITH_FALLBACK",
+        "definition": "Prompted by an observation that a required tool or capability is unavailable, the reasoning commits to an attempt to acquire it while specifying an alternative approach that avoids the dependency, so progress is possible either way.",
+        "parameters": [
+          {
+            "name": "acquisition_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that reacts to the capability gap by planning acquisition and an alternative approach."
+          },
+          {
+            "name": "capability_observation",
+            "type": "observation",
+            "description": "The observation reporting that the required tool or capability is absent or unavailable."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation shows that a needed tool, package, or capability is missing or that an availability check failed.",
+          "The reasoning plans a concrete attempt to obtain the missing capability.",
+          "The reasoning also states at least one alternative approach that achieves the goal without that capability."
+        ],
+        "exclusion_conditions": [
+          "The reasoning simply reattempts the same unavailable capability without any alternative plan.",
+          "The observation shows the capability is available, so no gap exists.",
+          "The reasoning abandons the goal instead of planning acquisition or an alternative."
+        ]
+      },
+      {
+        "name": "PLANS_VALIDATION_MIRRORING_STATED_ACCEPTANCE_CRITERIA",
+        "definition": "The reasoning defines a verification procedure that deliberately reproduces the externally stated acceptance checks (same operations and expected outputs) so the agent can self-confirm compliance before declaring completion.",
+        "parameters": [
+          {
+            "name": "validation_plan_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning specifying the end-to-end verification procedure that mirrors the stated acceptance checks."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to the externally stated acceptance checks or test procedure.",
+          "The reasoning specifies verification steps that reproduce those checks, including the expected outputs to be compared.",
+          "The validation is presented as a prerequisite for considering the task complete."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes only a general sanity check that does not reproduce the stated acceptance criteria.",
+          "The reasoning merely restates the requirements without constructing an executable verification procedure."
+        ]
+      },
+      {
+        "name": "INTERPRETS_RESULT_AS_EXPECTED_INTERMEDIATE_STATE",
+        "definition": "The reasoning explains an apparently negative, empty, or unavailable result as the expected consequence of a known prior state, so the result is not treated as a failure of the setup.",
+        "parameters": [
+          {
+            "name": "interpretation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that classifies the result as expected given the known current state."
+          },
+          {
+            "name": "negative_result_observation",
+            "type": "observation",
+            "description": "The observation reporting the empty, missing, or error-like result being interpreted."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a missing resource, empty response, error status, or otherwise negative-looking outcome.",
+          "The reasoning states that this outcome follows from a known precondition or incomplete stage of the work.",
+          "The reasoning does not treat the outcome as evidence that the configuration is broken."
+        ],
+        "exclusion_conditions": [
+          "The reasoning treats the negative result as a failure or a defect requiring repair.",
+          "The reasoning leaves the negative result unexplained.",
+          "The reasoning claims the result demonstrates a working feature rather than an expected intermediate state."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

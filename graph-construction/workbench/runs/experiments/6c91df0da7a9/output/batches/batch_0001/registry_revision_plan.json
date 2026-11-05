@@ -1,0 +1,553 @@
+{
+  "revisions": [
+    {
+      "original_name": "IS_PLAN",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DIAGNOSES_OBSERVED_ARTIFACT_DEFECT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PROPOSES_ARTIFACT_REPAIR",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "PROPOSES_CONCRETE_REMEDIATION",
+        "definition": "The reasoning specifies a concrete correction, completion, or remediation for an identified defect, gap, or requirement, including replacement content or steps intended to make the target satisfy the requirement.",
+        "parameters": [
+          {
+            "name": "remediation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning containing the proposed concrete remediation or completion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies at least one concrete change, replacement, or added step intended to repair, complete, or remedy an identified defect, gap, or unmet requirement.",
+          "The proposed remediation is tied to an identified defect, gap, or requirement rather than being a generic intention to fix something."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only identifies a defect without proposing how to repair or complete it.",
+          "The reasoning expresses only a generic intention to fix or improve without concrete content or steps.",
+          "The proposed change is unrelated to the identified defect or requirement."
+        ]
+      }
+    },
+    {
+      "original_name": "CHECKS_ENVIRONMENT_PREREQUISITE",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "PROBES_CAPABILITY_AVAILABILITY",
+        "definition": "An action probes the execution environment for the availability, identity, or version of a capability or resource required for the task, and its observation reports capability evidence.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The diagnostic action that queries the environment for capability or resource availability."
+          },
+          {
+            "name": "probe_observation",
+            "type": "observation",
+            "description": "The observation reporting the presence, absence, availability, identity, or version of the queried capability or resource."
+          }
+        ],
+        "assertion_conditions": [
+          "The action is a diagnostic query about a capability or resource relevant to the task.",
+          "The observation reports capability evidence such as presence, absence, availability, identity, or version of the queried capability or resource."
+        ],
+        "exclusion_conditions": [
+          "The action performs the primary task rather than checking capability or resource availability.",
+          "The observation does not report any information about capability availability, identity, or version.",
+          "The probe is unrelated to a capability or resource required by the task."
+        ]
+      }
+    },
+    {
+      "original_name": "IMPLEMENTS_PROPOSED_REPAIR",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "IMPLEMENTS_SPECIFIED_CHANGE",
+        "definition": "An action applies concrete content, settings, or corrections that a reasoning node specified as intended, writing or applying them to the relevant target, and the observation reports that the application succeeded.",
+        "parameters": [
+          {
+            "name": "change_action",
+            "type": "action",
+            "description": "The action that writes or applies the specified content, settings, or correction."
+          },
+          {
+            "name": "change_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning specifying the intended content, settings, target change, or correction."
+          },
+          {
+            "name": "application_observation",
+            "type": "observation",
+            "description": "The observation reporting whether the specified change was successfully applied."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning specifies intended content, settings, a target change, or a correction to be put in place.",
+          "The action applies content or changes corresponding to that stated intent to the relevant target.",
+          "The observation reports successful creation, writing, modification, or application of that change."
+        ],
+        "exclusion_conditions": [
+          "The action does not implement the content or change described in the reasoning.",
+          "The observation reports failure, an error, or only an attempt without confirming the write or application.",
+          "The reasoning only discusses a change without stating an intended specification or correction."
+        ]
+      }
+    },
+    {
+      "original_name": "PRODUCES_EXPECTED_BUILD_ARTIFACT",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "PRODUCES_EXPECTED_DERIVED_OUTPUT",
+        "definition": "An action invokes a transformation, build, compilation, or generation step on a source input, and its observation provides evidence that the expected derived artifact or output was generated.",
+        "parameters": [
+          {
+            "name": "transformation_action",
+            "type": "action",
+            "description": "The action that runs the transformation, build, compilation, or generation process."
+          },
+          {
+            "name": "generation_observation",
+            "type": "observation",
+            "description": "The observation reporting generation or existence of the expected derived output."
+          }
+        ],
+        "assertion_conditions": [
+          "The action invokes a transformation, build, compilation, or equivalent generation step on a source input.",
+          "The observation provides evidence that the expected derived artifact or output was produced or exists after the step."
+        ],
+        "exclusion_conditions": [
+          "The action only inspects files or inputs without invoking a transformation or generation step.",
+          "The observation does not show that the expected derived artifact or output was generated.",
+          "The transformation or generation reports an error preventing output production."
+        ]
+      }
+    },
+    {
+      "original_name": "DIAGNOSES_ACTION_FAILURE_FROM_ERROR",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSED_REVISION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_ARTIFACT_CONTENT_BY_INDEPENDENT_INSPECTION",
+      "operation": "MERGE",
+      "merge_into": "VERIFIES_EXPECTED_BEHAVIOR"
+    },
+    {
+      "original_name": "CONCLUDES_TASK_SUCCESS_FROM_ACCUMULATED_EVIDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EVALUATES_ALTERNATIVES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IS_STATE_PROBE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "TESTS_ASSUMPTION_WITH_PROBE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ADAPTS_PLAN_TO_OBSERVED_STATE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "MITIGATES_ANTICIPATED_FAILURE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CHECKS_VALIDITY_BEFORE_ACTIVATION",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "VALIDATES_PRECONDITION_BEFORE_DEPENDENT_ACTION",
+        "definition": "The action validates a precondition, configuration, or artifact for correctness and performs a dependent activation or use only after that validation succeeds, within one ordered guarded sequence.",
+        "parameters": [
+          {
+            "name": "guarded_action",
+            "type": "action",
+            "description": "The action that runs the validation check and the dependent activation or use in a single guarded sequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The action invokes a syntax, integrity, or validity check on a precondition, configuration, or artifact that is about to be used or activated.",
+          "The dependent activation or use is sequenced after the check and is conditioned on the check succeeding."
+        ],
+        "exclusion_conditions": [
+          "The action performs the dependent activation or use without any preceding validation of the precondition or artifact.",
+          "A validation command is run in isolation long after the dependent action has already been performed.",
+          "The dependent action proceeds regardless of the validation outcome."
+        ]
+      }
+    },
+    {
+      "original_name": "IMPLEMENTS_CONFIGURATION_AS_SPECIFIED",
+      "operation": "MERGE",
+      "merge_into": "IMPLEMENTS_PROPOSED_REPAIR"
+    },
+    {
+      "original_name": "VERIFIES_EXPECTED_BEHAVIOR",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "VERIFIES_EXPECTED_OUTCOME",
+        "definition": "An action performs an operation or check directed at a specific behavior, output, content, result, resulting state, or constraint that reasoning identified as expected, and the observation reports an outcome consistent with that expectation, thereby confirming it.",
+        "parameters": [
+          {
+            "name": "expectation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the expected behavior, output, content, result, state, or constraint."
+          },
+          {
+            "name": "check_action",
+            "type": "action",
+            "description": "The action executing an operation, inspection, or comparison capable of producing or observing the expected outcome."
+          },
+          {
+            "name": "result_observation",
+            "type": "observation",
+            "description": "The observation reporting the outcome of the operation, inspection, or comparison."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a specific behavior, output, content, result, state, or constraint that is expected to occur, be present, or be preserved.",
+          "The action is directed at exercising, producing, observing, or comparing against that expectation.",
+          "The observation reports content consistent with the stated expectation, without contradiction."
+        ],
+        "exclusion_conditions": [
+          "No expected behavior, output, content, result, state, or constraint is identifiable in the reasoning.",
+          "The action is unrelated to the expectation or only incidentally observes it.",
+          "The observation contradicts the expectation or is inconclusive about it.",
+          "The check confirms only bare existence or uninspected metadata without testing any stated expected result, content, state, or constraint."
+        ]
+      }
+    },
+    {
+      "original_name": "CLASSIFIES_FAILURE_AS_TEST_ARTIFACT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SUCCESSFUL_CORRECTIVE_RETRY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IS_STATE_AUDIT_PLAN",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "PLANS_MULTI_CRITERIA_VERIFICATION",
+        "definition": "The reasoning enumerates a set of distinct conditions, artifacts, or behaviors to be confirmed before completion, forming a verification checklist whose items are observations or comparisons to be checked rather than modifications to be made.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating the conditions or criteria to be confirmed."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning lists two or more distinct conditions, artifacts, or behaviors to be checked.",
+          "The listed items are framed as things to confirm, inspect, or observe, not as actions that modify the system.",
+          "At least one item includes an anticipated value, acceptance criterion, or expected state against which a later observation can be compared."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes a single check without forming a multi-item verification set.",
+          "The reasoning lists only modification steps with no confirmation criteria.",
+          "The reasoning merely restates results already observed without enumerating conditions still to be confirmed."
+        ]
+      }
+    },
+    {
+      "original_name": "AUDITS_PLANNED_CRITERIA",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ASSESSES_ANOMALY_AS_NON_IMPACTING",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DECODES_ENCODED_OBSERVATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "REINVESTIGATES_SUSPECT_RESULT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESTORES_BASELINE_STATE",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "RESTORES_BASELINE_STATE",
+        "definition": "The action removes or reverts artifacts or state created during the agent's own operations so the target returns to a baseline condition, and the reasoning states that the purpose is to leave a clean starting point for subsequent use.",
+        "parameters": [
+          {
+            "name": "restore_action",
+            "type": "action",
+            "description": "The action deleting or reverting artifacts or state produced by the agent's own operations."
+          },
+          {
+            "name": "restore_reasoning",
+            "type": "reasoning",
+            "description": "The agent text stating the intent to return the target to its baseline or clean state."
+          }
+        ],
+        "assertion_conditions": [
+          "The action deletes, empties, or reverts state that was produced by the agent's own operations.",
+          "The reasoning states that the goal is a clean or initial state for subsequent use without interference from the agent's operations."
+        ],
+        "exclusion_conditions": [
+          "The action modifies state for a purpose other than reverting to the baseline condition.",
+          "The reasoning only notes that cleanup finished without stating the baseline-state intent.",
+          "The action removes artifacts but leaves the system in a state that still blocks the intended subsequent use."
+        ]
+      }
+    },
+    {
+      "original_name": "DETECTS_DATA_INCONSISTENCY",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_AMBIGUITY_BY_INVARIANT_INTERPRETATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SEPARATES_MANDATORY_FROM_OPTIONAL_CRITERIA",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_EARLIEST_VALID_CANDIDATE_BY_ELIMINATION",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "SELECTS_VALID_CANDIDATE_BY_ELIMINATION",
+        "definition": "The reasoning systematically enumerates candidate options in a defined order and eliminates each candidate that violates any mandatory constraint, in order to select the first surviving candidate that satisfies all of them.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text enumerating candidates, eliminating violators, and naming the first surviving candidate."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning considers multiple candidate options in a defined order.",
+          "For each rejected candidate, the reasoning identifies at least one mandatory constraint that it violates.",
+          "The reasoning names the first candidate that survives all constraints as the selected answer."
+        ],
+        "exclusion_conditions": [
+          "The reasoning considers only a single candidate without comparison.",
+          "Candidates are rejected without identifying which constraint they violate.",
+          "The selection is made without any ordering or elimination procedure."
+        ]
+      }
+    },
+    {
+      "original_name": "VALIDATES_OUTPUT_BY_INDEPENDENT_CHECK",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_READ_ONLY_INPUT_UNCHANGED",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "VERIFIES_INPUT_INTEGRITY",
+        "definition": "The action inspects metadata, checksums, or other integrity-relevant state of input artifacts that must remain unmodified, and the resulting observation reports state from which the continued integrity (non-modification) of those inputs can be confirmed.",
+        "parameters": [
+          {
+            "name": "inspection_action",
+            "type": "action",
+            "description": "The action inspecting timestamps, checksums, or directory listings of the protected input artifacts."
+          },
+          {
+            "name": "inspection_observation",
+            "type": "observation",
+            "description": "The observation reporting the integrity-relevant state of those input artifacts."
+          }
+        ],
+        "assertion_conditions": [
+          "The action targets input artifacts whose preservation is required and inspects integrity-relevant state such as modification times, checksums, or existence.",
+          "The observation reports that state in a form from which non-modification of the inputs can be judged."
+        ],
+        "exclusion_conditions": [
+          "The action retrieves artifact content for use in computation rather than checking integrity.",
+          "The observation does not report integrity-relevant state of the inputs.",
+          "The action modifies the input artifacts instead of inspecting them."
+        ]
+      }
+    },
+    {
+      "original_name": "IDENTIFIES_PREREQUISITE_GAP",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RESOLVES_AMBIGUITY_BY_COMMITTED_INTERPRETATION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ENUMERATES_FAILURE_HYPOTHESES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "RECONSTRUCTS_EVENT_TIMELINE",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "RECONSTRUCTS_EVENT_TIMELINE",
+        "definition": "The reasoning reconstructs an ordered chronological sequence of past events from recorded history and uses that ordering to explain how the current state or artifact configuration arose.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text reconstructing the historical sequence and its relation to the current state."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning orders at least two recorded events in time.",
+          "The reasoning explicitly relates the sequence of past events to the current system, artifact, data, or repository state.",
+          "The reconstruction provides temporal or causal connections among the events."
+        ],
+        "exclusion_conditions": [
+          "The reasoning lists historical entries without ordering or interpreting them.",
+          "The reasoning discusses only a single past event.",
+          "The reasoning reports only the current state without reconstructing how it arose."
+        ]
+      }
+    },
+    {
+      "original_name": "DIAGNOSES_LOST_STATE_CAUSE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONSULTS_HISTORY_TO_LOCATE_LOST_ARTIFACT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "DISAMBIGUATES_CANDIDATES_BY_PROVENANCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "PREDICTS_CONFLICT_FROM_OVERLAPPING_CHANGES",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "JUSTIFIES_CONFLICT_RESOLUTION_PRECEDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VERIFIES_EXACT_CONTENT_BEFORE_REPRODUCTION",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "VERIFIES_EXACT_REPRESENTATION_BEFORE_TRANSFORMATION",
+        "definition": "An action retrieves the exact byte-level or formatting-level representation of source content that is about to be reproduced, transformed, or adopted, and the observation reports those exact details so that the subsequent operation can preserve fidelity.",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "action",
+            "description": "The action retrieving byte-level or formatting-level details of the source content."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The result reporting exact bytes, encoding, line endings, trailing whitespace, or content length."
+          }
+        ],
+        "assertion_conditions": [
+          "The action queries an exact representation of content intended for reproduction, transformation, or adoption.",
+          "The observation reports byte-level or formatting-level details rather than only semantic content.",
+          "The check occurs before the source content is written, merged, transformed, or otherwise reproduced."
+        ],
+        "exclusion_conditions": [
+          "The action reads only semantic content without exact-format details.",
+          "The exact-content check occurs after the content has already been written, merged, transformed, or otherwise reproduced.",
+          "The observation does not report details relevant to preserving content fidelity."
+        ]
+      }
+    },
+    {
+      "original_name": "ELIMINATES_HYPOTHESIS_WITH_NEGATIVE_EVIDENCE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "INTERPRETS_CONFLICT_MARKERS_AS_COMPETING_VERSIONS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "ADOPTS_OBSERVED_EXACT_REPRESENTATION_AS_SPEC",
+      "operation": "REVISE",
+      "revised_predicate": {
+        "name": "ADOPTS_OBSERVED_EXACT_REPRESENTATION_AS_CONSTRAINT",
+        "definition": "The reasoning takes precise byte- or character-level representation details reported by an observation, such as byte count, trailing whitespace, or final-newline status, and treats them as binding constraints for reproducing, transforming, or adopting the artifact.",
+        "parameters": [
+          {
+            "name": "spec_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that restates observed exact details and adopts them as constraints."
+          },
+          {
+            "name": "exact_representation_observation",
+            "type": "observation",
+            "description": "The observation reporting exact byte- or character-level details of the artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports exact representation details of an artifact intended for reproduction, transformation, or adoption, such as byte count, whitespace, or newline status.",
+          "The reasoning explicitly restates those details.",
+          "The reasoning uses the restated details as constraints that govern a subsequent reproduction, transformation, or adoption action or method."
+        ],
+        "exclusion_conditions": [
+          "The reasoning cites only general semantic content from the observation.",
+          "The reasoning notes the details without making them constrain any subsequent reproduction, transformation, or adoption.",
+          "The observation lacks exact representation details."
+        ]
+      }
+    },
+    {
+      "original_name": "RESOLVES_CONFLICT_BY_ADOPTING_DESIGNATED_VERSION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CHECKS_CHANGE_SCOPE_AND_SOURCE_EQUIVALENCE",
+      "operation": "MERGE",
+      "merge_into": "VERIFIES_EXPECTED_BEHAVIOR"
+    },
+    {
+      "original_name": "SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "FRAMES_OBJECTIVE_WITH_CONSTRAINTS",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "EXPLAINS_ANOMALOUS_OBSERVATION_WITH_CAUSAL_MECHANISM",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "IS_VERIFICATION_ACTION",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "CONFIRMS_TARGET_ABSENCE_ACROSS_SEARCH_SPACE",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "VALIDATES_NON_INTERFERENCE_WITH_PROTECTED_CONTENT",
+      "operation": "KEEP"
+    },
+    {
+      "original_name": "SELECTS_CAUSE_DIRECTED_REMEDIATION",
+      "operation": "KEEP"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "id": "af6007579aed",
+  "kind": "clustering",
+  "schema": "predicate-clustering/v1",
+  "title": "聚类-2-kmeans",
+  "question": "",
+  "created_at": "2026-11-04T10:41:18.538104+00:00",
+  "dataset_id": "terminal-bench-2.1",
+  "dataset_name": "terminal-bench-2.1",
+  "source": {
+    "type": "experiment",
+    "experiment_id": "f94a6b7d7baa",
+    "title": "50窗口-反馈合并-人工反馈间隔10-1",
+    "dataset_id": "terminal-bench-2.1",
+    "dataset_name": "terminal-bench-2.1"
+  },
+  "source_title": "50窗口-反馈合并-人工反馈间隔10-1",
+  "source_experiment_id": "f94a6b7d7baa",
+  "input_hash": "0c129c5094a1b086f50bf96299b3cc620151418b50bbfd9c932a67557ad93815",
+  "predicate_count": 135,
+  "arity_counts": {
+    "1": 42,
+    "2": 61,
+    "3": 31,
+    "4": 1
+  },
+  "embedding": {
+    "model": "qwen3.7-text-embedding",
+    "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "dimensions": null,
+    "input_template": "predicate-embedding-input/v1",
+    "batch_size": 10,
+    "max_retries": 3,
+    "timeout_seconds": 120
+  },
+  "config": {
+    "algorithm": "kmeans",
+    "target_clusters": 50,
+    "clusters_by_arity": {
+      "1": 15,
+      "2": 22,
+      "3": 12,
+      "4": 1
+    },
+    "metric": "euclidean",
+    "n_init": 20,
+    "random_state": 42
+  },
+  "model": "qwen3.7-text-embedding",
+  "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+  "snapshot_hash": "f5954e14596aaafa7d905a81be3dd549302f437077571131975f75394cb41a60"
+}

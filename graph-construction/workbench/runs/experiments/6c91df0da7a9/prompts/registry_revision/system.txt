@@ -1,0 +1,58 @@
+Apply the human's feedback to the complete typed predicate registry.
+Assign exactly one operation to every original name. Apply the shared mechanism-level
+granularity policy and five-field definition contract.
+
+Evaluate granularity consistently across the entire registry. Prefer reusable
+mechanism-level definitions over unnecessarily task-specific formulations, while
+preserving meaningful semantic distinctions and observable conditions.
+
+KEEP preserves the complete predicate unchanged.
+DELETE removes a predicate only when the feedback and supplied definitions justify
+removal independently of granularity differences or one-way subsumption.
+REVISE returns a complete five-field revised_predicate, clarifying its meaning while
+preserving semantic identity and ordered parameter roles. Remove incidental
+tool-, resource-, or task-specific restrictions when they are not essential to the
+underlying mechanism, but must preserve the predicate's distinguishing conditions
+and semantic boundaries.
+MERGE removes a semantically redundant definition into another ORIGINAL name in
+merge_into; that target must use KEEP or REVISE.
+
+For every MERGE, compare the source with the FINAL retained target definition.
+Require the same underlying mechanism, compatible ordered argument types, and aligned
+parameter roles. Allow differences in wording, task context, specificity, or incidental
+conditions when they do not represent meaningful semantic distinctions.
+
+Consider whether the predicates describe genuinely different mechanisms, causal roles,
+temporal stages, or outcomes. If a distinguishing case reveals such a difference, keep
+them separate. One-way subsumption alone does not justify merging, but a context-specific
+variant may be merged into a reusable general definition when its additional restrictions
+are incidental rather than mechanism-defining.
+
+In particular, do not merge USES_AS_INPUT or USES_AS_CRITERION into generic USES.
+Do not broaden a retained target to absorb genuinely different mechanisms, or use
+DELETE to disguise such a collapse.
+
+If feedback asks for an umbrella category, preserve the concrete mechanisms; this output
+schema supports flat definitions and has no parent/subtype fields. If feedback calls for
+splitting a broad definition, retain it for a discovery/review pass with trajectory
+evidence; this revision plan has no ADD or SPLIT operation.
+The supplied inputs contain definitions and feedback. Do not invent trajectory evidence
+or missing sibling predicates. When evidence is insufficient to establish a shared
+underlying mechanism without losing meaningful distinctions, KEEP.
+
+Before finalizing, review all retained definitions for consistent mechanism-level
+granularity, semantic boundaries, and unintended overlap introduced by revisions.
+Do not force consolidation where meaningful distinctions remain.
+
+A renamed target is referenced by its original name. Final names must be unique.
+Return JSON only:
+{"revisions": [
+ {"original_name": "...", "operation": "KEEP"},
+ {"original_name": "...", "operation": "DELETE"},
+ {"original_name": "...", "operation": "REVISE", "revised_predicate": <complete definition>},
+ {"original_name": "...", "operation": "MERGE", "merge_into": "original_target_name"}
+]}.
+
+Use predicate-definition/v2: every parameter must bind to an action, observation,
+or reasoning node (or a homogeneous [] collection). Respect the shared node contract.
+Return names, definitions, parameter descriptions and conditions in English.

@@ -1,0 +1,185 @@
+{
+  "input_directory": "E:\\agent解释性\\agentCM\\graph-construction\\workbench\\runs\\experiments\\6c91df0da7a9\\inputs",
+  "windows": [
+    {
+      "global_index": 0,
+      "filename": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+      "trajectory_id": "xhigh-rerun-prove__prove-plus-comm",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh-rerun-prove__prove-plus-comm__window_0001",
+      "sha256": "a83da0819d162820f481cd9b2aec27b5607cb7b1d6dde7d536329c0bf1914c91"
+    },
+    {
+      "global_index": 1,
+      "filename": "xhigh__configure-git-webserver__window_0001.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__configure-git-webserver__window_0001",
+      "sha256": "5d95b74f8197fd51c02151dcec78fc87adab9d28d31d4aea22c33f8dc5b83b5d"
+    },
+    {
+      "global_index": 2,
+      "filename": "xhigh__configure-git-webserver__window_0002.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__configure-git-webserver__window_0002",
+      "sha256": "57120812187b6c7808f34b2ca4e13df35801fd43c794023bde940be284bd3fdd"
+    },
+    {
+      "global_index": 3,
+      "filename": "xhigh__configure-git-webserver__window_0003.json",
+      "trajectory_id": "xhigh__configure-git-webserver",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__configure-git-webserver__window_0003",
+      "sha256": "088f39523248311766c4b7db55cc034d61f04f8985a66b73623739cbc21883d7"
+    },
+    {
+      "global_index": 4,
+      "filename": "xhigh__constraints-scheduling__window_0001.json",
+      "trajectory_id": "xhigh__constraints-scheduling",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__constraints-scheduling__window_0001",
+      "sha256": "936266118b16ed4794e97fc20ff86bda04707cb74aeae770d25ab7bdf102f8a8"
+    },
+    {
+      "global_index": 5,
+      "filename": "xhigh__count-dataset-tokens__window_0001.json",
+      "trajectory_id": "xhigh__count-dataset-tokens",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__count-dataset-tokens__window_0001",
+      "sha256": "7c63ca8e641ae3ddbafd4ac4ff648be6a71bf6a7eba40cfc3a86aebacb94d8ec"
+    },
+    {
+      "global_index": 6,
+      "filename": "xhigh__count-dataset-tokens__window_0002.json",
+      "trajectory_id": "xhigh__count-dataset-tokens",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__count-dataset-tokens__window_0002",
+      "sha256": "0e07c339687c70a3f323344a6d92b218256103920265e35d3f449c42694c91f9"
+    },
+    {
+      "global_index": 7,
+      "filename": "xhigh__fix-git__window_0001.json",
+      "trajectory_id": "xhigh__fix-git",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__fix-git__window_0001",
+      "sha256": "53bece6996811160fd0f77dd84c6cae87d5ae9cce79129db975608cbaa653039"
+    },
+    {
+      "global_index": 8,
+      "filename": "xhigh__fix-git__window_0002.json",
+      "trajectory_id": "xhigh__fix-git",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__fix-git__window_0002",
+      "sha256": "45131677498b05fa163e103cbf6438680b66f6a10d5f2a151859c379a50b0603"
+    },
+    {
+      "global_index": 9,
+      "filename": "xhigh__git-leak-recovery__window_0001.json",
+      "trajectory_id": "xhigh__git-leak-recovery",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__git-leak-recovery__window_0001",
+      "sha256": "1688d5730c6597e3844ee9e863fd4ddba19f46de8a6f6102942930af34a67e31"
+    },
+    {
+      "global_index": 10,
+      "filename": "xhigh__git-multibranch__window_0001.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__git-multibranch__window_0001",
+      "sha256": "6e70aaf3e8c8d68d17ee80825a68d775ee7e7bbb78a3064a4f3216f092c7df88"
+    },
+    {
+      "global_index": 11,
+      "filename": "xhigh__git-multibranch__window_0002.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__git-multibranch__window_0002",
+      "sha256": "fc05010e5cfcc9f9f767ffcba0740d2e33cef291198dea366fcfd2d7f078b16d"
+    },
+    {
+      "global_index": 12,
+      "filename": "xhigh__git-multibranch__window_0003.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0003",
+      "window_index": 3,
+      "run_name": "xhigh__git-multibranch__window_0003",
+      "sha256": "e764b9c20eade62959417de6a11b494d3554fea05df6e3f892f26ad14bbf6cf8"
+    },
+    {
+      "global_index": 13,
+      "filename": "xhigh__git-multibranch__window_0004.json",
+      "trajectory_id": "xhigh__git-multibranch",
+      "window_id": "window_0004",
+      "window_index": 4,
+      "run_name": "xhigh__git-multibranch__window_0004",
+      "sha256": "72a6266dcff2628cc3962498a988b7aac642fd2753f6bbd6def839b94cd996f9"
+    },
+    {
+      "global_index": 14,
+      "filename": "xhigh__hf-model-inference__window_0001.json",
+      "trajectory_id": "xhigh__hf-model-inference",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__hf-model-inference__window_0001",
+      "sha256": "f567e1c0dbaeb4fb25602fbe54d5eb3d5d15e141919e88772d87b9c981605cb8"
+    },
+    {
+      "global_index": 15,
+      "filename": "xhigh__hf-model-inference__window_0002.json",
+      "trajectory_id": "xhigh__hf-model-inference",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__hf-model-inference__window_0002",
+      "sha256": "256d750b0184033f4aa72a87af6a44671949b73f2643ad33e1f38f088e457ed2"
+    },
+    {
+      "global_index": 16,
+      "filename": "xhigh__kv-store-grpc__window_0001.json",
+      "trajectory_id": "xhigh__kv-store-grpc",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__kv-store-grpc__window_0001",
+      "sha256": "8d502cf908ccd5fe93dbf78897c8ecf5f869ff0770109b634319786ad95bdd63"
+    },
+    {
+      "global_index": 17,
+      "filename": "xhigh__kv-store-grpc__window_0002.json",
+      "trajectory_id": "xhigh__kv-store-grpc",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__kv-store-grpc__window_0002",
+      "sha256": "84a6c468c83f78617add105f483db78ab6ece4b013864714a4b8b778aeb75775"
+    },
+    {
+      "global_index": 18,
+      "filename": "xhigh__log-summary-date-ranges__window_0001.json",
+      "trajectory_id": "xhigh__log-summary-date-ranges",
+      "window_id": "window_0001",
+      "window_index": 1,
+      "run_name": "xhigh__log-summary-date-ranges__window_0001",
+      "sha256": "58e73e220f86506cafc48485ace70a51580c59cb61a7bf7b8209fe53c1b74068"
+    },
+    {
+      "global_index": 19,
+      "filename": "xhigh__log-summary-date-ranges__window_0002.json",
+      "trajectory_id": "xhigh__log-summary-date-ranges",
+      "window_id": "window_0002",
+      "window_index": 2,
+      "run_name": "xhigh__log-summary-date-ranges__window_0002",
+      "sha256": "a54546e7d4b8422b8f98f96688d535ff67da411fd367b1a76eda5a1ea5e8e1eb"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "run_id": "73d879ed090244b38e42068556297caa",
+  "run_started_at": "2026-11-04T10:29:25.721599+00:00",
+  "stage": "completed",
+  "event": "completed",
+  "message": "实验已完成，结果已保存",
+  "updated_at": "2026-11-04T10:29:54.841706+00:00",
+  "embedding_start": 130,
+  "embedding_end": 135,
+  "embedding_total": 135,
+  "completed": 135,
+  "arity": 4,
+  "completed_groups": 4,
+  "group_total": 4
+}

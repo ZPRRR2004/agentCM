@@ -1,0 +1,827 @@
+{
+  "schema": "predicate-embedding-index/v1",
+  "embedding": {
+    "model": "qwen3.7-text-embedding",
+    "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "dimensions": null,
+    "input_template": "predicate-embedding-input/v1",
+    "batch_size": 10,
+    "max_retries": 3,
+    "timeout_seconds": 120
+  },
+  "input_hash": "0c129c5094a1b086f50bf96299b3cc620151418b50bbfd9c932a67557ad93815",
+  "dimensions": 1024,
+  "vectors_hash": "0fb07bbdd552ff2863175fdb89e1cfae145240c952b12b04eb8e0bfe9bd74d7a",
+  "items": [
+    {
+      "index": 0,
+      "predicate_name": "PLANS_NEXT_ACTION",
+      "arity": 1,
+      "text_hash": "5a6b0326388ba333331d3cfe7230bfeb1aabac36bee938da198c0e3726777bf1"
+    },
+    {
+      "index": 1,
+      "predicate_name": "IDENTIFIES_DEFECT_FROM_OBSERVATION",
+      "arity": 2,
+      "text_hash": "469ba265bd171e35d70806c8b6a72f073faf1173c1278fe882b1d92a4160b9c0"
+    },
+    {
+      "index": 2,
+      "predicate_name": "FORMULATES_CORRECTIVE_SOLUTION",
+      "arity": 1,
+      "text_hash": "a74ee7db6f367adbdd4ff57e6a97e45f520ce3411fa568e6dfc63da88278efb3"
+    },
+    {
+      "index": 3,
+      "predicate_name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "arity": 2,
+      "text_hash": "d26eb0779b8e3992d39bbed9983cc944fac675a6c9b4869bc1bdf1acd7a771ed"
+    },
+    {
+      "index": 4,
+      "predicate_name": "CHECKS_PREREQUISITE_AVAILABILITY",
+      "arity": 3,
+      "text_hash": "f7e6840eb655534351b9f85e09df94364524d2340eb2500d286b99cb9ded59b7"
+    },
+    {
+      "index": 5,
+      "predicate_name": "TESTS_ASSUMPTION_WITH_PROBE",
+      "arity": 3,
+      "text_hash": "965022014b1c72fcf873ad8da01e40efd8048c07d57ca92fa336f712b788f148"
+    },
+    {
+      "index": 6,
+      "predicate_name": "DIAGNOSES_FAILURE_CAUSE",
+      "arity": 2,
+      "text_hash": "aea40a666685c7043c49b25666c0ce13e9e728b42d2164a672fe385ab777c601"
+    },
+    {
+      "index": 7,
+      "predicate_name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS",
+      "arity": 3,
+      "text_hash": "1031e329eed3b470c4bb2e128b34327be591bbb799c1c341db9638762ecdf023"
+    },
+    {
+      "index": 8,
+      "predicate_name": "CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION",
+      "arity": 2,
+      "text_hash": "dd585d0db77d8d55512c7f6a47f1d14946383359003a26e1954423a73954709a"
+    },
+    {
+      "index": 9,
+      "predicate_name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+      "arity": 2,
+      "text_hash": "4cbd21c50af04f864d7ac8943c2aab754defa1ef4bb3f316958db80b2e9db146"
+    },
+    {
+      "index": 10,
+      "predicate_name": "IDENTIFIES_MISSING_PREREQUISITE",
+      "arity": 2,
+      "text_hash": "dca33e97ef32faf189637ece4f6ae0cd7332fe380b1a405811d75ef4b3fbe9ac"
+    },
+    {
+      "index": 11,
+      "predicate_name": "CONFIGURES_EVENT_TRIGGERED_AUTOMATION",
+      "arity": 1,
+      "text_hash": "6665af84cba8b50a2f67dc497aa994c667ad740eaf54d14df1dcf2f71426891b"
+    },
+    {
+      "index": 12,
+      "predicate_name": "MITIGATES_ANTICIPATED_FAILURE",
+      "arity": 3,
+      "text_hash": "332e583f81365988e7c6baf50a96be0f52ce9023025cb75192d140a56f50367a"
+    },
+    {
+      "index": 13,
+      "predicate_name": "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION",
+      "arity": 3,
+      "text_hash": "9c8e7f820493566e534b28323bb3608cdf26b6b7ecf557837f6d07a8b91e8108"
+    },
+    {
+      "index": 14,
+      "predicate_name": "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE",
+      "arity": 1,
+      "text_hash": "374218db449b1c31a00b7e4828fe17be90a991e73671ff0b69c41ea1fc7c63d6"
+    },
+    {
+      "index": 15,
+      "predicate_name": "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+      "arity": 2,
+      "text_hash": "d41add15947e17ba4d0afc2d449f83eaa38a725036067b456f2c74b07991caaa"
+    },
+    {
+      "index": 16,
+      "predicate_name": "ENUMERATES_REQUIRED_END_STATE",
+      "arity": 1,
+      "text_hash": "9ae15d79cbd69655c903b0d37ee2202006d772dcafadef09907e0a6a508cf74b"
+    },
+    {
+      "index": 17,
+      "predicate_name": "IMPLEMENTS_GUARDED_RECOVERY",
+      "arity": 3,
+      "text_hash": "50d8b5d865962c520c70f0b875b8dae6473e2f43f60e245c724d3a5d59ca2ccb"
+    },
+    {
+      "index": 18,
+      "predicate_name": "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD",
+      "arity": 3,
+      "text_hash": "6d6910ba0b2554eb2f7933d97d7c9e359b0355b15ac43dabbe2d7c3c40788eb0"
+    },
+    {
+      "index": 19,
+      "predicate_name": "REPRODUCES_STIPULATED_WORKFLOW",
+      "arity": 2,
+      "text_hash": "686944085843d700975564d675c20aebe881cb760f2a85d5d73aed714e3783e7"
+    },
+    {
+      "index": 20,
+      "predicate_name": "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT",
+      "arity": 2,
+      "text_hash": "529bb04fe080cbb15d63c779b4b72a8d47da2a1c73def42a121c08c65a68f9e7"
+    },
+    {
+      "index": 21,
+      "predicate_name": "AUDITS_MULTIPLE_INVARIANTS",
+      "arity": 3,
+      "text_hash": "9dc62b083b7cab1ba868d787d484b71f61351e09edb0b12f12ab67d7e75e9eee"
+    },
+    {
+      "index": 22,
+      "predicate_name": "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+      "arity": 2,
+      "text_hash": "de6cde8c6f8d1c5ea9ef2a6f64b44d679a0f09e5f48e43196fceeeedae900c1c"
+    },
+    {
+      "index": 23,
+      "predicate_name": "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+      "arity": 1,
+      "text_hash": "c44680591c0f602c1f0549876c64bd16abd124642279c2a4b1b2d65c2d2d5e7a"
+    },
+    {
+      "index": 24,
+      "predicate_name": "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+      "arity": 1,
+      "text_hash": "e0d034113d42657a3d2e06cdfe7076ba636e3db2a5dd0ba4f116ca033b0ea2d1"
+    },
+    {
+      "index": 25,
+      "predicate_name": "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+      "arity": 2,
+      "text_hash": "eeb0ecdf72b066a9612abc8e3fe30d8f0b6cc6fed1d2e930731e1a70cceac72d"
+    },
+    {
+      "index": 26,
+      "predicate_name": "DETECTS_OBSERVED_DATA_INCONSISTENCY",
+      "arity": 2,
+      "text_hash": "4739c12fcf18f37ab82ac1daa7fad6d552ed38b1c07b9906fda2b04499393902"
+    },
+    {
+      "index": 27,
+      "predicate_name": "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION",
+      "arity": 3,
+      "text_hash": "4eaed8019c309ee89f6a25140a04700f1746a83fe179a5a11ac5c0408efe459c"
+    },
+    {
+      "index": 28,
+      "predicate_name": "DECOMPOSES_TASK_INTO_SUBGOALS",
+      "arity": 1,
+      "text_hash": "17c24e102b01f62b1905cb7cadebeb8ae6207220da936ecd0f18e708aa8ac144"
+    },
+    {
+      "index": 29,
+      "predicate_name": "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT",
+      "arity": 1,
+      "text_hash": "9228b5ac97949dd522a17ec991b4137c9cd08e5ce6d9bbc0f6c90a9e3ce4d2a6"
+    },
+    {
+      "index": 30,
+      "predicate_name": "REMEDIES_MISSING_CAPABILITY",
+      "arity": 3,
+      "text_hash": "5b023a20e175da7ddcde6e127b4b6aeee45127f7860e10257dedaa20a212a88d"
+    },
+    {
+      "index": 31,
+      "predicate_name": "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+      "arity": 3,
+      "text_hash": "848197167e5b5e7f8c3739d8391feeeab214cd113abb83c9e31a1d7ca236ed55"
+    },
+    {
+      "index": 32,
+      "predicate_name": "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+      "arity": 3,
+      "text_hash": "d1e13790330c25f0e101c267340d59775f663128303a12fb0815a12101434c92"
+    },
+    {
+      "index": 33,
+      "predicate_name": "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH",
+      "arity": 3,
+      "text_hash": "23f8865bbd683c3bf90122d5601186b36c7d54bb8f7b64ea021a29ab84a2d2a1"
+    },
+    {
+      "index": 34,
+      "predicate_name": "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE",
+      "arity": 3,
+      "text_hash": "98f8ca2fa3a8b8545ac270b2f41877a4e1e8012a4066a6bc8e85e9bb9f771306"
+    },
+    {
+      "index": 35,
+      "predicate_name": "CONCLUDES_WITH_FINAL_ANSWER",
+      "arity": 1,
+      "text_hash": "719a62672d99bf1068fa5683a1d174cfb4d9244c6a5544aed4d0f993381598a8"
+    },
+    {
+      "index": 36,
+      "predicate_name": "ENUMERATES_COMPETING_EXPLANATIONS",
+      "arity": 1,
+      "text_hash": "41c7424c12edf39523be9c8f7b76ebb5f7021b21778744a55bd314394e677fbd"
+    },
+    {
+      "index": 37,
+      "predicate_name": "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+      "arity": 2,
+      "text_hash": "7457820d4fdb0b4536132eaf93878ce974883e406c1e4e53aa458f9bfbc331fe"
+    },
+    {
+      "index": 38,
+      "predicate_name": "SELECTS_TARGET_AMONG_CANDIDATES",
+      "arity": 2,
+      "text_hash": "b3bb4929ec7c98e3bfe283b914708685f186cab90800eb3e6dd5b610b21342ce"
+    },
+    {
+      "index": 39,
+      "predicate_name": "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+      "arity": 2,
+      "text_hash": "840925366e6e7345a8f0d7b911b80f7cba993345fefb2232a95e5d888b24b797"
+    },
+    {
+      "index": 40,
+      "predicate_name": "DIAGNOSES_ROOT_CAUSE",
+      "arity": 1,
+      "text_hash": "70b39859bde658beb36cf98701bd46818a41576358c113fdea69132cfea2bc3f"
+    },
+    {
+      "index": 41,
+      "predicate_name": "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE",
+      "arity": 2,
+      "text_hash": "058fa59cbf070c292f646ef23a853dcf5fdd353d8e1246eeb540ca3bd409fc37"
+    },
+    {
+      "index": 42,
+      "predicate_name": "PLANS_POST_ACTION_VERIFICATION",
+      "arity": 1,
+      "text_hash": "9ca6bb8e2f8ebb5488b91ee13d727c38df649d8910165a6dc8b93df2aaf13302"
+    },
+    {
+      "index": 43,
+      "predicate_name": "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION",
+      "arity": 3,
+      "text_hash": "e43922308fc839748b07429f2d236e6891bee213b4c36ac9c5c459d06f124c4e"
+    },
+    {
+      "index": 44,
+      "predicate_name": "DERIVES_EXACTNESS_CONSTRAINT_FROM_MEASUREMENT",
+      "arity": 2,
+      "text_hash": "f71c56c033994bdd8ec7ba9a6f2c8da441948826b1371c55e59c659bb7b08e38"
+    },
+    {
+      "index": 45,
+      "predicate_name": "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT",
+      "arity": 2,
+      "text_hash": "3ba4f0c07f4f1ab069e7abe7e43d562c53d15936f95fb95d7d59c338734fd454"
+    },
+    {
+      "index": 46,
+      "predicate_name": "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE",
+      "arity": 2,
+      "text_hash": "c4200dbfb284f0c20f85c58a67c2bf9f4069686bd85dd4baf9d07877f3a1e123"
+    },
+    {
+      "index": 47,
+      "predicate_name": "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+      "arity": 2,
+      "text_hash": "282dcf810ba814f1171dc38031998cef562bc7216cf54cc276c26e6f0429e0b2"
+    },
+    {
+      "index": 48,
+      "predicate_name": "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT",
+      "arity": 2,
+      "text_hash": "07c41744eb2d491e80347e70bf1d6bbd6f057bbbd49fa5f284bf1fce14eaf110"
+    },
+    {
+      "index": 49,
+      "predicate_name": "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+      "arity": 1,
+      "text_hash": "9e9d07d0d02409cacdbb1e105c70f465a664a082780c6546ab33787ca9ea9d19"
+    },
+    {
+      "index": 50,
+      "predicate_name": "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES",
+      "arity": 1,
+      "text_hash": "553d3e188423611913e151d5e8c19d2f9b3fc1cdb20d4f6fbd8d19509988ae74"
+    },
+    {
+      "index": 51,
+      "predicate_name": "RECOGNIZES_ANOMALY_IN_OBSERVATION",
+      "arity": 2,
+      "text_hash": "d3d24765d41d798065478ec5515617cea9a8c67aaffefc9a1533159cf85f8693"
+    },
+    {
+      "index": 52,
+      "predicate_name": "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED",
+      "arity": 2,
+      "text_hash": "6016a0e32b78a2fe448022f42256a8ca232eeac4e725b5ab21b9cffd1c67b024"
+    },
+    {
+      "index": 53,
+      "predicate_name": "INTERPRETS_ADVERSE_OBSERVATION_AS_BENIGN_OR_EXPECTED",
+      "arity": 2,
+      "text_hash": "bee8c787fe1dd440f74529a1583d9802c9fe7bf05627fb17a4cdfc20c44599fe"
+    },
+    {
+      "index": 54,
+      "predicate_name": "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS",
+      "arity": 1,
+      "text_hash": "8b067169ad8db3f892b6bc9c66910378889daaaee90fda0af2e0dc37b7f09016"
+    },
+    {
+      "index": 55,
+      "predicate_name": "ACKNOWLEDGES_RECURRING_OWN_ERROR",
+      "arity": 1,
+      "text_hash": "17e1660830e56e22183bc24749700dbfd81cdafcbbea1195d16a9845a2baa523"
+    },
+    {
+      "index": 56,
+      "predicate_name": "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+      "arity": 2,
+      "text_hash": "4ee7eb76921c800a9471e929b91f4de4eaf0a06a92eb3c645b7d4e3c7946e959"
+    },
+    {
+      "index": 57,
+      "predicate_name": "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION",
+      "arity": 2,
+      "text_hash": "fc35219c9f5a7592f19ddbcf382dc132f0dc14aece7092b3a0221c2fa70191d5"
+    },
+    {
+      "index": 58,
+      "predicate_name": "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+      "arity": 1,
+      "text_hash": "0c0569ddf389541d1fcb69f00e4235d330cf3d3b18d4bfe39d758ad6695de358"
+    },
+    {
+      "index": 59,
+      "predicate_name": "LAUNCHES_PROCESS_ASYNCHRONOUSLY",
+      "arity": 1,
+      "text_hash": "ca2d2c8174b9cf679cd54326e3d63015e17c7d851cd5b84587be6148da7388a3"
+    },
+    {
+      "index": 60,
+      "predicate_name": "REVEALS_UNAVAILABLE_CAPABILITY",
+      "arity": 1,
+      "text_hash": "8dda5e80f00448f239b442fe345e2ded1cf7b9b725255dcde2c5267b16ccf6a6"
+    },
+    {
+      "index": 61,
+      "predicate_name": "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR",
+      "arity": 2,
+      "text_hash": "3d9c42424e3fb79aa8495b08a50e463277ac933fa12964a8f2876f59b469f135"
+    },
+    {
+      "index": 62,
+      "predicate_name": "VERIFIES_EFFECT_OF_PRIOR_ACTION",
+      "arity": 2,
+      "text_hash": "81540018a37371d147497d9e9c3bd6a5732f9904a68802ecb69cf442d3ef8a21"
+    },
+    {
+      "index": 63,
+      "predicate_name": "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST",
+      "arity": 3,
+      "text_hash": "7106d11600774e1525f91beafc5d12ed2a04cec26926dee92faa5656fafc9ecf"
+    },
+    {
+      "index": 64,
+      "predicate_name": "ASSESSES_REQUIREMENT_COMPLETION",
+      "arity": 1,
+      "text_hash": "1c699dcef59337574f5b6bec73105788aa663daf78cf072bc3f9bbf9b0c8b84f"
+    },
+    {
+      "index": 65,
+      "predicate_name": "IDENTIFIES_ERROR_PITFALL",
+      "arity": 1,
+      "text_hash": "b64a5a6375ad4b07e210689f9a6c748e3f0d9e76c186330dabbf079ffb1fe1c6"
+    },
+    {
+      "index": 66,
+      "predicate_name": "RESOLVES_CONFLICTING_INFORMATION_SOURCES",
+      "arity": 1,
+      "text_hash": "d539a1afeb7f664a193b45e311887c8ec02f09c7dfe9174fa4e2b1524730e208"
+    },
+    {
+      "index": 67,
+      "predicate_name": "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS",
+      "arity": 2,
+      "text_hash": "b9a1468297baa631d69a233c38399090bd6082674bf899a294d387ce7477da4f"
+    },
+    {
+      "index": 68,
+      "predicate_name": "IDENTIFIES_CONFORMANCE_RISK",
+      "arity": 1,
+      "text_hash": "db59a2564c1e158075fdb0532790f9d170b75a1f58164870a7d6919f7de89447"
+    },
+    {
+      "index": 69,
+      "predicate_name": "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION",
+      "arity": 2,
+      "text_hash": "01474652f5f61471ad736b95c80f18b0ae19bd325fdf5a7dc75b0b9eeacb4aa0"
+    },
+    {
+      "index": 70,
+      "predicate_name": "ENFORCES_OUTPUT_SCOPE_CONSTRAINT",
+      "arity": 2,
+      "text_hash": "2a6e4edcc79aab8a4ad6ffc38fe0e2f716126f1b0b2890e61d9f808e5273bed6"
+    },
+    {
+      "index": 71,
+      "predicate_name": "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+      "arity": 2,
+      "text_hash": "677fd9de2469530bf80e4d582bdf0f7e5cc33c47cd9a2e7c955835520992a0c5"
+    },
+    {
+      "index": 72,
+      "predicate_name": "ATTEMPTS_PREREQUISITE_PROVISIONING",
+      "arity": 2,
+      "text_hash": "b7ef354bedf280c30ebba01dff316498f6616c87410d0c82d918419fb57b431c"
+    },
+    {
+      "index": 73,
+      "predicate_name": "VERIFICATION_CONFIRMS_REQUIRED_STATE",
+      "arity": 2,
+      "text_hash": "83e50232e15e24a240454cddabf9e2461c4225ac2e1bc589b8e93f57ebe6fcc1"
+    },
+    {
+      "index": 74,
+      "predicate_name": "EVALUATES_COMPETING_IMPLEMENTATIONS",
+      "arity": 2,
+      "text_hash": "c9519cdf89446f38e0b2b5605a7ac23b9ff28785c3c1a07f3e9beb9d96eeec72"
+    },
+    {
+      "index": 75,
+      "predicate_name": "RESOLVES_CONFLICT_WITH_TARGETED_EDIT",
+      "arity": 3,
+      "text_hash": "0cf00c4d56541fce572b4f20d2b6729fba144db4c05ced7a84fd8009edf3ecb0"
+    },
+    {
+      "index": 76,
+      "predicate_name": "DERIVES_VERSION_LINEAGE_FROM_METADATA",
+      "arity": 2,
+      "text_hash": "434c109c9f3860fbf662e53a9ce6e9aa4689ba1790fabdf5c42896f835b85f74"
+    },
+    {
+      "index": 77,
+      "predicate_name": "CONSTRUCTS_GENERALIZATION_PROBE",
+      "arity": 2,
+      "text_hash": "4f3af7b1672f7c776deda9e77ad5fef241cbad71658546e97a0fdfd5dde010a7"
+    },
+    {
+      "index": 78,
+      "predicate_name": "DISAMBIGUATES_COMPETING_INTERPRETATIONS",
+      "arity": 1,
+      "text_hash": "c18afff225da1532256bea52af0824833f058233652ae80812e613e4c65e89b5"
+    },
+    {
+      "index": 79,
+      "predicate_name": "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION",
+      "arity": 2,
+      "text_hash": "7c8cef3b6fc2528895f1753c900fe54fadb2c9d7bf05c062c0ed0c9eb72dd485"
+    },
+    {
+      "index": 80,
+      "predicate_name": "CONFIRMS_OUTCOME_AGAINST_PREDICTION",
+      "arity": 3,
+      "text_hash": "daba007eef186b6e5030f1e7e04b19d2919439d48a97ee4767a4c35be885e932"
+    },
+    {
+      "index": 81,
+      "predicate_name": "IDENTIFIES_SPECIFICATION_AMBIGUITY",
+      "arity": 1,
+      "text_hash": "2bbd9c296337050c5f9b3080416b4758f5a0b05d6bd555b4ea9673369daaaf7e"
+    },
+    {
+      "index": 82,
+      "predicate_name": "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL",
+      "arity": 2,
+      "text_hash": "a3dde267d976a276a9f886b917a45b951f10e8a142b5ab78bbc67b168530e329"
+    },
+    {
+      "index": 83,
+      "predicate_name": "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS",
+      "arity": 2,
+      "text_hash": "5512a586b76c82336a6d497400ec35b43be23518312a5df491b2b905247565c9"
+    },
+    {
+      "index": 84,
+      "predicate_name": "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS",
+      "arity": 3,
+      "text_hash": "9b84d7d44f588689e25261db19b55c0494220193c0660687a9fbb7fd05c9e86a"
+    },
+    {
+      "index": 85,
+      "predicate_name": "VERIFIES_DEPLOYED_SERVICE_WITH_REQUEST",
+      "arity": 3,
+      "text_hash": "d0dd1629435aa55d9d8fdcdf790ca8651140c8181ca79df5bb64c2cdedb73682"
+    },
+    {
+      "index": 86,
+      "predicate_name": "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+      "arity": 2,
+      "text_hash": "f94edd6f55551a37f99c4b601d776ceaa056928b6366ef50bd3b1a8c7ee62f79"
+    },
+    {
+      "index": 87,
+      "predicate_name": "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND",
+      "arity": 2,
+      "text_hash": "b5a4a46ced039735bdda46b9888544c215e2e8d3c2bd4f0268a60776a045be9e"
+    },
+    {
+      "index": 88,
+      "predicate_name": "RESOLVES_INSTRUCTION_CONFLICT",
+      "arity": 1,
+      "text_hash": "35eaff2ff008c13d14a584f4e91590d000150800b2b2d0ac1c16eb944bc1ef58"
+    },
+    {
+      "index": 89,
+      "predicate_name": "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY",
+      "arity": 1,
+      "text_hash": "4d81277e00830d73ed9621a4ff7542870d41940faa81502bceea1ad323afcaaa"
+    },
+    {
+      "index": 90,
+      "predicate_name": "DECLARES_TASK_COMPLETION",
+      "arity": 1,
+      "text_hash": "b7a7d5dc1f704f9ab5aca974093f8b3889d353f08a2ff6b0b205e462c21d1963"
+    },
+    {
+      "index": 91,
+      "predicate_name": "PROPOSES_TESTABLE_HYPOTHESIS",
+      "arity": 1,
+      "text_hash": "48f0db01df3706077ecf2bc3af265eb3d576d0567f38eaace543f553f84981c9"
+    },
+    {
+      "index": 92,
+      "predicate_name": "GUIDES_NEXT_INVESTIGATION_BY_OBSERVED_FEATURE",
+      "arity": 2,
+      "text_hash": "9bc026e51f79edae8815b1069f099e035b06192fccf1f29aeb3bc51d9d578399"
+    },
+    {
+      "index": 93,
+      "predicate_name": "DISMISSES_CANDIDATE_AS_UNINFORMATIVE",
+      "arity": 2,
+      "text_hash": "083b777fba650316f16da95cf973d24ca847c67049293c159865045d5e1f395f"
+    },
+    {
+      "index": 94,
+      "predicate_name": "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT",
+      "arity": 2,
+      "text_hash": "d7c047bac0b7295688f4c778cfa8a6b3c4ceae0119221b80f673ed1c31af75e1"
+    },
+    {
+      "index": 95,
+      "predicate_name": "ASSESSES_CANDIDATE_AGAINST_CONSTRAINTS",
+      "arity": 2,
+      "text_hash": "49ceb8046676b5dd7bbe84d144c9ae11f14cdb485ac35e6afaef7ce37629bc83"
+    },
+    {
+      "index": 96,
+      "predicate_name": "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION",
+      "arity": 3,
+      "text_hash": "b024e362b8279a59af7a285257de030764b7e9a985e8fbbfae7c6a0e6ce6d960"
+    },
+    {
+      "index": 97,
+      "predicate_name": "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH",
+      "arity": 3,
+      "text_hash": "ec9d199f342910984a35256a21b7bd1b351dd40eebfcae8334fd181782f68a44"
+    },
+    {
+      "index": 98,
+      "predicate_name": "CORROBORATES_CANDIDATE_WITH_INDEPENDENT_METADATA",
+      "arity": 2,
+      "text_hash": "b3ff645754205c0399f2cddd269f0f0521f80449077ce0b0e9bdd722f3371bb0"
+    },
+    {
+      "index": 99,
+      "predicate_name": "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS",
+      "arity": 1,
+      "text_hash": "24d4be1614be5f8f5325d4ee611bd5e745fe5e11d196abfb0a29c9c14c872013"
+    },
+    {
+      "index": 100,
+      "predicate_name": "FORMULATES_IMPLEMENTATION_DESIGN",
+      "arity": 1,
+      "text_hash": "8ef9900a4a6facae94f7ca75e41335701ef13e65bddc29b38ed0df7f0f489830"
+    },
+    {
+      "index": 101,
+      "predicate_name": "VERIFIES_MULTI_INTERFACE_COMPATIBILITY",
+      "arity": 3,
+      "text_hash": "24dc2d9319d519b60cd5eae47f114664a4e5c28bfcf8ddbe20087e94aa92f3d3"
+    },
+    {
+      "index": 102,
+      "predicate_name": "EXPLAINS_ARTIFACT_BEHAVIOR_FROM_SOURCE",
+      "arity": 2,
+      "text_hash": "d26d5e58b69cf72ca3e6dddf4ae9ce6f10027a9e5e2619a5a2ee0af54b73245e"
+    },
+    {
+      "index": 103,
+      "predicate_name": "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS",
+      "arity": 1,
+      "text_hash": "5f9b95eb2216fb99b4d94199c17cb44caeff5da4f09754725e6a1e82d1a462c6"
+    },
+    {
+      "index": 104,
+      "predicate_name": "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+      "arity": 1,
+      "text_hash": "2aa82fc655acaee1ff0cbbdaf0d85246596ea322e67f0475d0957d62cb30fbc0"
+    },
+    {
+      "index": 105,
+      "predicate_name": "MIRRORS_REFERENCE_OPERATION_ORDER",
+      "arity": 2,
+      "text_hash": "e85bc8e3569056aacf22347e1e6540dbb06e417e393630e2f310d5f91c99328e"
+    },
+    {
+      "index": 106,
+      "predicate_name": "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE",
+      "arity": 2,
+      "text_hash": "e7bc3608b98c68296ae931caef41ab8efe62e55e61a245d90fcf36d8ea84a871"
+    },
+    {
+      "index": 107,
+      "predicate_name": "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE",
+      "arity": 3,
+      "text_hash": "74505182c57595245a2cffcc7d73541e910806f278a4961d3621d7d3c7e6a026"
+    },
+    {
+      "index": 108,
+      "predicate_name": "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION",
+      "arity": 3,
+      "text_hash": "965beb92d74cded09aa3ca1b08a3f68a2aed942eb6349172aedd0b559e5a7728"
+    },
+    {
+      "index": 109,
+      "predicate_name": "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES",
+      "arity": 1,
+      "text_hash": "86293614cfbc2a78695b812caff91cee81c9ff46efad8f4aac99b4cfca9ea0f5"
+    },
+    {
+      "index": 110,
+      "predicate_name": "IDENTIFIES_PERFORMANCE_BOTTLENECK",
+      "arity": 1,
+      "text_hash": "61bb437403e47985df1b67356cec15d7cba3055274949c1bb8db0db90bf0b5d5"
+    },
+    {
+      "index": 111,
+      "predicate_name": "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA",
+      "arity": 1,
+      "text_hash": "d60c4988936c735a5d4a531bdc41844afd839a90fd7032cc63f573efea8096e4"
+    },
+    {
+      "index": 112,
+      "predicate_name": "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION",
+      "arity": 3,
+      "text_hash": "58a0179ac4aab9326040cc578e0c713f496c55b9cdcc9427bb6a265a5ff28f17"
+    },
+    {
+      "index": 113,
+      "predicate_name": "DERIVES_DECISION_FROM_MEASURED_RESULT",
+      "arity": 2,
+      "text_hash": "58d617032dda0c221dc34613af1a7f5c907fd31f222017efe5b59bdbdf04798c"
+    },
+    {
+      "index": 114,
+      "predicate_name": "DEFINES_DETECTION_SIGNATURE",
+      "arity": 1,
+      "text_hash": "097eedde6ebc8015224c913473dde234f21104bb8ae8cc9e6656ba6db689dfeb"
+    },
+    {
+      "index": 115,
+      "predicate_name": "REFINES_DETECTION_CRITERIA_FROM_OBSERVATION",
+      "arity": 2,
+      "text_hash": "38e193825815d683fd2bbc85307ddb9a1d67e379bf5a55e39cdbb013481a90ce"
+    },
+    {
+      "index": 116,
+      "predicate_name": "RESTRICTS_MODIFICATION_SCOPE",
+      "arity": 1,
+      "text_hash": "509348c614c0208d195868f377ab9ddd81f79c4a21bf3952ca7a377b139890f4"
+    },
+    {
+      "index": 117,
+      "predicate_name": "ASSESSES_RESIDUAL_STORAGE_RISK",
+      "arity": 1,
+      "text_hash": "1dbe6009a07eaefd953323cd131e7ddd21f96bec52b077933e9206d8321e5983"
+    },
+    {
+      "index": 118,
+      "predicate_name": "DISTINGUISHES_BENIGN_REFERENCES_FROM_TARGETS",
+      "arity": 2,
+      "text_hash": "ddab3887625ba50388eb1374b0bd0f4e4dd54a62c73314eeb70d7935af63ad6f"
+    },
+    {
+      "index": 119,
+      "predicate_name": "ESTABLISHES_PRE_MODIFICATION_BASELINE",
+      "arity": 2,
+      "text_hash": "b2f239917ec1862322fd2a7efbc832554ca6d82644c50facd46138ead994c870"
+    },
+    {
+      "index": 120,
+      "predicate_name": "CONDUCTS_RESIDUAL_RISK_SWEEP",
+      "arity": 3,
+      "text_hash": "f3a373394956fa8e8ca95ab65fff103558380a6b28fb48eb9f8affc037550446"
+    },
+    {
+      "index": 121,
+      "predicate_name": "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL",
+      "arity": 2,
+      "text_hash": "488724c0f8fd68f1e0170b968a6eba235d230f938e4c5e691460e87a3e7917f4"
+    },
+    {
+      "index": 122,
+      "predicate_name": "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE",
+      "arity": 2,
+      "text_hash": "f7b371cd168353832fa54ebe991da627fe57b45e0a177436c7a2ae7aa2fa7133"
+    },
+    {
+      "index": 123,
+      "predicate_name": "ADAPTS_APPROACH_AFTER_FAILURE",
+      "arity": 2,
+      "text_hash": "0caa523962a0161d7ff2becab9946bc562291ddaeb45cc0b86d90c70b0b257da"
+    },
+    {
+      "index": 124,
+      "predicate_name": "PREDICTS_EXPECTED_OUTCOME",
+      "arity": 1,
+      "text_hash": "bd4bf1a7539a65b61bcc4e1ebd8885170763c98960550359a962953aca29e00a"
+    },
+    {
+      "index": 125,
+      "predicate_name": "RESOLVES_OBSERVED_FAILURE_WITH_CONFIRMED_WORKAROUND",
+      "arity": 4,
+      "text_hash": "aa8d0b351458afbc0914bdb6cf57985c3fe1a192ffbb96698b27437b8016a3cc"
+    },
+    {
+      "index": 126,
+      "predicate_name": "VERIFIES_NEGATIVE_CONSTRAINT",
+      "arity": 3,
+      "text_hash": "6144510e6b52d4ecb39e3a77f03e4759af9a0d15175a415cbccc052b19bfae59"
+    },
+    {
+      "index": 127,
+      "predicate_name": "INTERPRETS_RAW_REPRESENTATION_AS_STRUCTURED_DATA",
+      "arity": 2,
+      "text_hash": "0cfc07b4d3f59494f33b35ade59ca5b8d915565b2ca6e5e2f8b9a5cc069a02b4"
+    },
+    {
+      "index": 128,
+      "predicate_name": "ASSESSES_COMPLETENESS_OF_RECOVERY",
+      "arity": 1,
+      "text_hash": "d596a02f616352d17309bb9e964f504d4aec8ad402e568ee8f8f9a0858677920"
+    },
+    {
+      "index": 129,
+      "predicate_name": "EXPLORATORY_INSPECTION_REVEALS_CAPABILITY",
+      "arity": 3,
+      "text_hash": "43ee32222e1110d9c7dc2bd235ec14bd5749926902cf23fded815cdb61484702"
+    },
+    {
+      "index": 130,
+      "predicate_name": "RECOGNIZES_INCOMPLETE_OBSERVATION",
+      "arity": 2,
+      "text_hash": "447df92e3e8182b7a4f9845d3f1c5be1795c4d324813f754f90d4bcf60cfd87d"
+    },
+    {
+      "index": 131,
+      "predicate_name": "RETRIEVES_MISSING_SECTION_WITH_FOLLOWUP",
+      "arity": 3,
+      "text_hash": "99e0c32abd15c75fc2fe6c614931c98bc0512869c5b499594b92ab9489d74946"
+    },
+    {
+      "index": 132,
+      "predicate_name": "DERIVES_TRIGGER_CONDITION",
+      "arity": 2,
+      "text_hash": "00885034f7fd39136e52e5fde4f5e9d3bc8fabf6d268d21ed4db6868b92f802e"
+    },
+    {
+      "index": 133,
+      "predicate_name": "DERIVES_STORAGE_LOCATION_FROM_LAYOUT_METADATA",
+      "arity": 2,
+      "text_hash": "51c85ce73d6ee42ce3c52d8ad9bb85dd825441d841db83d7d1e6a2d78b198c5c"
+    },
+    {
+      "index": 134,
+      "predicate_name": "DECODES_OBFUSCATED_DATA_USING_INFERRED_TRANSFORMATION",
+      "arity": 3,
+      "text_hash": "bb88d149a27ae4774531d340667d28f4aa903c66d5ecb469f73c48db73fba2bf"
+    }
+  ]
+}

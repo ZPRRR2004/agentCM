@@ -11,7 +11,7 @@ from urllib.parse import parse_qs, urlparse
 
 from .common import PROMPTS, ROOT, PromptManager, read, write
 from .store import Workspace
-from . import splitting, preprocessing, experiment_lifecycle
+from . import splitting, preprocessing, experiment_lifecycle, clustering
 from .split_preview import preview as split_preview
 from .browser_sessions import BrowserSessions
 
@@ -136,10 +136,17 @@ def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_ti
                     elif path == '/api/prompts':
                         value = workspace.prompts()
                     elif path == '/api/export':
-                        value = workspace.experiment(query['id'], detail=True)['registry']
+                        experiment = workspace.experiment(query['id'], detail=True)
+                        if experiment['kind'] != 'predicate':
+                            raise ValueError('该导出入口仅用于谓词发现定义库')
+                        value = experiment['registry']
+                    elif path == '/api/clustering/export':
+                        value = clustering.export(workspace, query['id'])
+                    elif path == '/api/clustering/mapping':
+                        value = clustering.export(workspace, query['id'], mapping=True)
                     else:
                         assets = {'/': 'index.html', **{'/' + name: name for name in (
-                            'predicate-selection.js', 'browser-session.js', 'experiment-management.js', 'preprocessing.js', 'preprocess-selection.js', 'app.js', 'core.js', 'views.js', 'forms.js', 'datasets.js', 'splitting.js', 'split-preview.js', 'style.css')}}
+                            'clustering.js', 'predicate-selection.js', 'browser-session.js', 'experiment-management.js', 'preprocessing.js', 'preprocess-selection.js', 'app.js', 'core.js', 'views.js', 'forms.js', 'datasets.js', 'splitting.js', 'split-preview.js', 'style.css')}}
                         if path not in assets:
                             return self.send({'error': '页面不存在'}, 404)
                         file = ROOT / 'web' / assets[path]
@@ -170,6 +177,8 @@ def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_ti
                         raise ValueError('工作台正在停止，请从项目入口重新打开')
                     if self.path == '/api/experiment/create':
                         value = workspace.create(body)
+                    elif self.path == '/api/experiment/clustering-preview':
+                        value = clustering.preview(workspace, body)
                     elif self.path == '/api/experiment/split-preview':
                         value = split_preview(workspace, body)
                     elif self.path == '/api/experiment/preprocess-preview':

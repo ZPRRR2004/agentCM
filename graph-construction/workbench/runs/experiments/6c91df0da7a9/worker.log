@@ -1,0 +1,797 @@
+[11:00:11] 开始运行，正在读取实验输入与配置
+
+============================================================
+【Predicate Discovery】启动
+============================================================
+
+Context Window 数量：20
+人工反馈间隔：每 10 个 Window
+反馈模式：Registry Feedback
+当前 Prompt 版本：v0001
+当前 Registry：0 个谓词
+
+开始处理...
+[11:00:11] 处理第 1/20 个窗口：prove-plus-comm · 基础设施重跑 / window_0001
+[11:00:11] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:00:28] 发现候选谓词：DeepSeek 网络请求失败或超时；重新运行原命令即可继续。即将重试
+
+【LLM 调用失败】
+当前 Window：xhigh-rerun-prove__prove-plus-comm__window_0001
+当前阶段：Step 1 - Blind Discovery
+失败原因：DeepSeek 网络请求失败或超时；重新运行原命令即可继续
+正在进行第 1 / 3 次重试...
+[11:00:28] 发现候选谓词：已发送请求，等待模型返回（第 2/4 次尝试）
+[11:01:34] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:01:34] 发现候选谓词：结果检查通过，用时 66.8 秒
+[11:01:34] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:01:51] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:01:51] 与已有谓词比较：结果检查通过，用时 16.4 秒
+[11:01:51] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:02:46] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:02:46] 模型审核谓词：结果检查通过，用时 54.9 秒
+[11:02:46] 第 1/20 个窗口已保存，谓词库共有 11 个定义
+
+【Predicate Discovery】Window 1 处理完成
+
+Discovery 候选谓词：11
+Comparison：
+  EXISTING：0
+  NEW：11
+  UNCERTAIN：0
+
+Review：
+  接受新增谓词：11
+  修订已有谓词：0
+
+当前 Registry 谓词总数：11
+[11:02:46] 处理第 2/20 个窗口：configure-git-webserver / window_0001
+[11:02:46] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:03:28] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:03:28] 发现候选谓词：结果检查通过，用时 41.7 秒
+[11:03:28] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:04:07] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:04:07] 与已有谓词比较：结果检查通过，用时 39.6 秒
+[11:04:07] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:04:54] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:04:54] 模型审核谓词：结果检查通过，用时 47.1 秒
+[11:04:55] 第 2/20 个窗口已保存，谓词库共有 18 个定义
+
+【Predicate Discovery】Window 2 处理完成
+
+Discovery 候选谓词：10
+Comparison：
+  EXISTING：1
+  NEW：9
+  UNCERTAIN：0
+
+Review：
+  接受新增谓词：7
+  修订已有谓词：0
+
+当前 Registry 谓词总数：18
+[11:04:55] 处理第 3/20 个窗口：configure-git-webserver / window_0002
+[11:04:55] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:06:53] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:06:53] 发现候选谓词：结果检查通过，用时 118.6 秒
+[11:06:53] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:10:14] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:10:14] 与已有谓词比较：结果检查通过，用时 200.8 秒
+[11:10:14] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:11:32] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:11:32] 模型审核谓词：结果检查通过，用时 78.1 秒
+[11:11:32] 第 3/20 个窗口已保存，谓词库共有 22 个定义
+
+【Predicate Discovery】Window 3 处理完成
+
+Discovery 候选谓词：12
+Comparison：
+  EXISTING：4
+  NEW：5
+  UNCERTAIN：3
+
+Review：
+  接受新增谓词：4
+  修订已有谓词：0
+
+当前 Registry 谓词总数：22
+[11:11:32] 处理第 4/20 个窗口：configure-git-webserver / window_0003
+[11:11:32] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:12:36] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:12:36] 发现候选谓词：结果检查通过，用时 63.9 秒
+[11:12:36] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:14:38] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:14:38] 与已有谓词比较：结果检查通过，用时 121.5 秒
+[11:14:38] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:15:55] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:15:55] 模型审核谓词：结果检查通过，用时 77.2 秒
+[11:15:55] 第 4/20 个窗口已保存，谓词库共有 28 个定义
+
+【Predicate Discovery】Window 4 处理完成
+
+Discovery 候选谓词：11
+Comparison：
+  EXISTING：1
+  NEW：6
+  UNCERTAIN：4
+
+Review：
+  接受新增谓词：6
+  修订已有谓词：1
+
+当前 Registry 谓词总数：28
+[11:15:55] 处理第 5/20 个窗口：constraints-scheduling / window_0001
+[11:15:55] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:16:49] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:16:49] 发现候选谓词：结果检查通过，用时 54.4 秒
+[11:16:49] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:18:27] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:18:27] 与已有谓词比较：结果检查通过，用时 97.9 秒
+[11:18:27] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:19:36] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:19:36] 模型审核谓词：结果检查通过，用时 68.6 秒
+[11:19:36] 第 5/20 个窗口已保存，谓词库共有 34 个定义
+
+【Predicate Discovery】Window 5 处理完成
+
+Discovery 候选谓词：11
+Comparison：
+  EXISTING：2
+  NEW：7
+  UNCERTAIN：2
+
+Review：
+  接受新增谓词：6
+  修订已有谓词：0
+
+当前 Registry 谓词总数：34
+[11:19:36] 处理第 6/20 个窗口：count-dataset-tokens / window_0001
+[11:19:36] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:20:28] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:20:28] 发现候选谓词：结果检查通过，用时 52.0 秒
+[11:20:28] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:21:55] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:21:55] 与已有谓词比较：结果检查通过，用时 86.8 秒
+[11:21:55] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:23:01] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:23:01] 模型审核谓词：结果检查通过，用时 66.1 秒
+[11:23:01] 第 6/20 个窗口已保存，谓词库共有 36 个定义
+
+【Predicate Discovery】Window 6 处理完成
+
+Discovery 候选谓词：8
+Comparison：
+  EXISTING：3
+  NEW：5
+  UNCERTAIN：0
+
+Review：
+  接受新增谓词：2
+  修订已有谓词：0
+
+当前 Registry 谓词总数：36
+[11:23:01] 处理第 7/20 个窗口：count-dataset-tokens / window_0002
+[11:23:01] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:23:46] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:23:46] 发现候选谓词：结果检查通过，用时 44.4 秒
+[11:23:46] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:25:18] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:25:18] 与已有谓词比较：结果检查通过，用时 92.6 秒
+[11:25:18] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:25:56] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:25:56] 模型审核谓词：结果检查通过，用时 37.8 秒
+[11:25:56] 第 7/20 个窗口已保存，谓词库共有 37 个定义
+
+【Predicate Discovery】Window 7 处理完成
+
+Discovery 候选谓词：9
+Comparison：
+  EXISTING：3
+  NEW：1
+  UNCERTAIN：5
+
+Review：
+  接受新增谓词：1
+  修订已有谓词：1
+
+当前 Registry 谓词总数：37
+[11:25:56] 处理第 8/20 个窗口：fix-git / window_0001
+[11:25:56] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:27:27] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:27:27] 发现候选谓词：结果检查通过，用时 90.2 秒
+[11:27:27] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:28:52] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:28:52] 与已有谓词比较：结果检查通过，用时 85.3 秒
+[11:28:52] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:29:42] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:29:42] 模型审核谓词：结果检查通过，用时 50.0 秒
+[11:29:42] 第 8/20 个窗口已保存，谓词库共有 46 个定义
+
+【Predicate Discovery】Window 8 处理完成
+
+Discovery 候选谓词：12
+Comparison：
+  EXISTING：2
+  NEW：9
+  UNCERTAIN：1
+
+Review：
+  接受新增谓词：9
+  修订已有谓词：1
+
+当前 Registry 谓词总数：46
+[11:29:42] 处理第 9/20 个窗口：fix-git / window_0002
+[11:29:42] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:31:12] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:31:12] 发现候选谓词：结果检查通过，用时 89.9 秒
+[11:31:12] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:32:42] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:32:42] 与已有谓词比较：结果检查通过，用时 90.0 秒
+[11:32:42] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:34:16] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:34:16] 模型审核谓词：结果检查通过，用时 93.9 秒
+[11:34:16] 第 9/20 个窗口已保存，谓词库共有 51 个定义
+
+【Predicate Discovery】Window 9 处理完成
+
+Discovery 候选谓词：9
+Comparison：
+  EXISTING：3
+  NEW：5
+  UNCERTAIN：1
+
+Review：
+  接受新增谓词：5
+  修订已有谓词：1
+
+当前 Registry 谓词总数：51
+[11:34:16] 处理第 10/20 个窗口：git-leak-recovery / window_0001
+[11:34:16] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:36:00] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:36:00] 发现候选谓词：结果检查通过，用时 103.9 秒
+[11:36:00] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:38:26] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:38:26] 与已有谓词比较：结果检查通过，用时 146.0 秒
+[11:38:26] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:40:07] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:40:08] 模型审核谓词：结果检查通过，用时 101.2 秒
+[11:40:08] 第 10/20 个窗口已保存，谓词库共有 57 个定义
+
+【Predicate Discovery】Window 10 处理完成
+
+Discovery 候选谓词：13
+Comparison：
+  EXISTING：4
+  NEW：6
+  UNCERTAIN：3
+
+Review：
+  接受新增谓词：6
+  修订已有谓词：0
+
+当前 Registry 谓词总数：57
+
+============================================================
+【Predicate Discovery】第 1 批处理完成
+============================================================
+
+处理进度：10 / 20 个 Window
+本批新增谓词：57 个
+当前谓词总数：57 个
+当前 Prompt 版本：v0001
+反馈模式：Registry Feedback
+
+当前 Registry：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\predicate_registry.json
+
+本批结果：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\batches\batch_0001\review_packet.md
+
+请查看当前谓词发现结果。
+
+请输入你对当前 Predicate Registry 的自然语言反馈。
+支持输入多行内容。
+输入完成后，请单独输入 END 并按 Enter。
+
+[11:40:08] 第 1 批已完成，等待你在网页提交审核意见
+[11:42:54] 收到你的审核意见，继续处理
+[11:42:54] 根据你的反馈修改谓词库：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:46:13] 根据你的反馈修改谓词库：已收到模型返回，正在检查结果格式
+[11:46:13] 根据你的反馈修改谓词库：模型响应未完整结束：finish_reason=length。即将重试
+
+【Registry Revision 失败】
+当前 Window：batch_0001
+当前阶段：Registry Revision
+失败原因：模型响应未完整结束：finish_reason=length
+正在进行第 1 / 3 次重试...
+[11:46:13] 根据你的反馈修改谓词库：已发送请求，等待模型返回（第 2/4 次尝试）
+[11:49:25] 根据你的反馈修改谓词库：已收到模型返回，正在检查结果格式
+[11:49:25] 根据你的反馈修改谓词库：结果检查通过，用时 192.4 秒
+
+============================================================
+【Registry Revision】完成
+============================================================
+
+反馈前谓词数量：57
+反馈后谓词数量：54
+
+本轮操作统计：
+
+  保留 KEEP：      41
+  删除 DELETE：    0
+  修订 REVISE：    13
+  合并 MERGE：     3
+
+Revision Plan：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\batches\batch_0001\registry_revision_plan.json
+
+修改后 Registry：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\predicate_registry.json
+
+【REVISE】
+
+PROPOSES_ARTIFACT_REPAIR
+  → PROPOSES_CONCRETE_REMEDIATION
+
+CHECKS_ENVIRONMENT_PREREQUISITE
+  → PROBES_CAPABILITY_AVAILABILITY
+
+IMPLEMENTS_PROPOSED_REPAIR
+  → IMPLEMENTS_SPECIFIED_CHANGE
+
+PRODUCES_EXPECTED_BUILD_ARTIFACT
+  → PRODUCES_EXPECTED_DERIVED_OUTPUT
+
+CHECKS_VALIDITY_BEFORE_ACTIVATION
+  → VALIDATES_PRECONDITION_BEFORE_DEPENDENT_ACTION
+
+VERIFIES_EXPECTED_BEHAVIOR
+  → VERIFIES_EXPECTED_OUTCOME
+
+IS_STATE_AUDIT_PLAN
+  → PLANS_MULTI_CRITERIA_VERIFICATION
+
+RESTORES_BASELINE_STATE
+  → RESTORES_BASELINE_STATE
+
+SELECTS_EARLIEST_VALID_CANDIDATE_BY_ELIMINATION
+  → SELECTS_VALID_CANDIDATE_BY_ELIMINATION
+
+VERIFIES_READ_ONLY_INPUT_UNCHANGED
+  → VERIFIES_INPUT_INTEGRITY
+
+RECONSTRUCTS_EVENT_TIMELINE
+  → RECONSTRUCTS_EVENT_TIMELINE
+
+VERIFIES_EXACT_CONTENT_BEFORE_REPRODUCTION
+  → VERIFIES_EXACT_REPRESENTATION_BEFORE_TRANSFORMATION
+
+ADOPTS_OBSERVED_EXACT_REPRESENTATION_AS_SPEC
+  → ADOPTS_OBSERVED_EXACT_REPRESENTATION_AS_CONSTRAINT
+
+【MERGE】
+
+VERIFIES_ARTIFACT_CONTENT_BY_INDEPENDENT_INSPECTION
+  → VERIFIES_EXPECTED_BEHAVIOR
+
+IMPLEMENTS_CONFIGURATION_AS_SPECIFIED
+  → IMPLEMENTS_PROPOSED_REPAIR
+
+CHECKS_CHANGE_SCOPE_AND_SOURCE_EQUIVALENCE
+  → VERIFIES_EXPECTED_BEHAVIOR
+
+
+开始处理第 2 批 Window...
+[11:49:25] 处理第 11/20 个窗口：git-multibranch / window_0001
+[11:49:25] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:50:12] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:50:12] 发现候选谓词：结果检查通过，用时 46.6 秒
+[11:50:12] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:51:22] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:51:22] 与已有谓词比较：结果检查通过，用时 70.5 秒
+[11:51:22] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:51:51] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:51:51] 模型审核谓词：结果检查通过，用时 28.5 秒
+[11:51:51] 第 11/20 个窗口已保存，谓词库共有 56 个定义
+
+【Predicate Discovery】Window 11 处理完成
+
+Discovery 候选谓词：9
+Comparison：
+  EXISTING：4
+  NEW：2
+  UNCERTAIN：3
+
+Review：
+  接受新增谓词：2
+  修订已有谓词：1
+
+当前 Registry 谓词总数：56
+[11:51:51] 处理第 12/20 个窗口：git-multibranch / window_0002
+[11:51:51] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:52:40] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:52:40] 发现候选谓词：结果检查通过，用时 49.1 秒
+[11:52:40] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:54:30] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:54:30] 与已有谓词比较：结果检查通过，用时 109.6 秒
+[11:54:30] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:55:10] 模型审核谓词：已收到模型返回，正在检查结果格式
+[11:55:10] 模型审核谓词：结果检查通过，用时 39.9 秒
+[11:55:10] 第 12/20 个窗口已保存，谓词库共有 57 个定义
+
+【Predicate Discovery】Window 12 处理完成
+
+Discovery 候选谓词：10
+Comparison：
+  EXISTING：3
+  NEW：4
+  UNCERTAIN：3
+
+Review：
+  接受新增谓词：1
+  修订已有谓词：0
+
+当前 Registry 谓词总数：57
+[11:55:10] 处理第 13/20 个窗口：git-multibranch / window_0003
+[11:55:10] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:57:01] 发现候选谓词：已收到模型返回，正在检查结果格式
+[11:57:01] 发现候选谓词：结果检查通过，用时 111.0 秒
+[11:57:01] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[11:59:51] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[11:59:51] 与已有谓词比较：结果检查通过，用时 170.4 秒
+[11:59:51] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:00:33] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:00:33] 模型审核谓词：结果检查通过，用时 41.3 秒
+[12:00:33] 第 13/20 个窗口已保存，谓词库共有 59 个定义
+
+【Predicate Discovery】Window 13 处理完成
+
+Discovery 候选谓词：11
+Comparison：
+  EXISTING：3
+  NEW：3
+  UNCERTAIN：5
+
+Review：
+  接受新增谓词：2
+  修订已有谓词：0
+
+当前 Registry 谓词总数：59
+[12:00:33] 处理第 14/20 个窗口：git-multibranch / window_0004
+[12:00:33] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:01:23] 发现候选谓词：已收到模型返回，正在检查结果格式
+[12:01:23] 发现候选谓词：结果检查通过，用时 50.6 秒
+[12:01:23] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:03:42] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:03:42] 与已有谓词比较：结果检查通过，用时 138.5 秒
+[12:03:42] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:05:15] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:05:15] 模型审核谓词：结果检查通过，用时 93.4 秒
+[12:05:15] 第 14/20 个窗口已保存，谓词库共有 63 个定义
+
+【Predicate Discovery】Window 14 处理完成
+
+Discovery 候选谓词：11
+Comparison：
+  EXISTING：1
+  NEW：6
+  UNCERTAIN：4
+
+Review：
+  接受新增谓词：4
+  修订已有谓词：1
+
+当前 Registry 谓词总数：63
+[12:05:15] 处理第 15/20 个窗口：hf-model-inference / window_0001
+[12:05:16] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:06:43] 发现候选谓词：已收到模型返回，正在检查结果格式
+[12:06:43] 发现候选谓词：结果检查通过，用时 87.3 秒
+[12:06:43] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:08:48] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:08:48] 与已有谓词比较：结果检查通过，用时 125.4 秒
+[12:08:48] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:09:28] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:09:28] 模型审核谓词：结果检查通过，用时 39.9 秒
+[12:09:28] 第 15/20 个窗口已保存，谓词库共有 65 个定义
+
+【Predicate Discovery】Window 15 处理完成
+
+Discovery 候选谓词：10
+Comparison：
+  EXISTING：7
+  NEW：3
+  UNCERTAIN：0
+
+Review：
+  接受新增谓词：2
+  修订已有谓词：0
+
+当前 Registry 谓词总数：65
+[12:09:28] 处理第 16/20 个窗口：hf-model-inference / window_0002
+[12:09:28] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:11:03] 发现候选谓词：已收到模型返回，正在检查结果格式
+[12:11:03] 发现候选谓词：结果检查通过，用时 95.1 秒
+[12:11:04] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:13:23] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:13:23] 与已有谓词比较：结果检查通过，用时 139.2 秒
+[12:13:23] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:13:47] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:13:47] 模型审核谓词：结果检查通过，用时 24.6 秒
+[12:13:47] 第 16/20 个窗口已保存，谓词库共有 66 个定义
+
+【Predicate Discovery】Window 16 处理完成
+
+Discovery 候选谓词：10
+Comparison：
+  EXISTING：2
+  NEW：1
+  UNCERTAIN：7
+
+Review：
+  接受新增谓词：1
+  修订已有谓词：0
+
+当前 Registry 谓词总数：66
+[12:13:47] 处理第 17/20 个窗口：kv-store-grpc / window_0001
+[12:13:48] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:14:29] 发现候选谓词：已收到模型返回，正在检查结果格式
+[12:14:29] 发现候选谓词：结果检查通过，用时 41.4 秒
+[12:14:29] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:15:46] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:15:46] 与已有谓词比较：结果检查通过，用时 76.7 秒
+[12:15:46] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:16:07] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:16:07] 模型审核谓词：结果检查通过，用时 21.1 秒
+[12:16:07] 第 17/20 个窗口已保存，谓词库共有 67 个定义
+
+【Predicate Discovery】Window 17 处理完成
+
+Discovery 候选谓词：8
+Comparison：
+  EXISTING：3
+  NEW：1
+  UNCERTAIN：4
+
+Review：
+  接受新增谓词：1
+  修订已有谓词：1
+
+当前 Registry 谓词总数：67
+[12:16:07] 处理第 18/20 个窗口：kv-store-grpc / window_0002
+[12:16:07] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:17:36] 发现候选谓词：已收到模型返回，正在检查结果格式
+[12:17:36] 发现候选谓词：结果检查通过，用时 88.9 秒
+[12:17:36] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:19:43] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:19:43] 与已有谓词比较：结果检查通过，用时 126.9 秒
+[12:19:43] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:20:58] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:20:58] 模型审核谓词：结果检查通过，用时 75.0 秒
+[12:20:58] 第 18/20 个窗口已保存，谓词库共有 71 个定义
+
+【Predicate Discovery】Window 18 处理完成
+
+Discovery 候选谓词：10
+Comparison：
+  EXISTING：1
+  NEW：5
+  UNCERTAIN：4
+
+Review：
+  接受新增谓词：4
+  修订已有谓词：0
+
+当前 Registry 谓词总数：71
+[12:20:58] 处理第 19/20 个窗口：log-summary-date-ranges / window_0001
+[12:20:58] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:22:56] 发现候选谓词：已收到模型返回，正在检查结果格式
+[12:22:56] 发现候选谓词：结果检查通过，用时 118.5 秒
+[12:22:57] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:25:33] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:25:33] 与已有谓词比较：结果检查通过，用时 156.6 秒
+[12:25:33] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:26:14] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:26:14] 模型审核谓词：结果检查通过，用时 40.4 秒
+[12:26:14] 第 19/20 个窗口已保存，谓词库共有 73 个定义
+
+【Predicate Discovery】Window 19 处理完成
+
+Discovery 候选谓词：14
+Comparison：
+  EXISTING：5
+  NEW：5
+  UNCERTAIN：4
+
+Review：
+  接受新增谓词：2
+  修订已有谓词：0
+
+当前 Registry 谓词总数：73
+[12:26:14] 处理第 20/20 个窗口：log-summary-date-ranges / window_0002
+[12:26:14] 发现候选谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:27:54] 发现候选谓词：已收到模型返回，正在检查结果格式
+[12:27:54] 发现候选谓词：结果检查通过，用时 100.1 秒
+[12:27:54] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:31:18] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:31:18] 与已有谓词比较：模型响应未完整结束：finish_reason=length。即将重试
+
+【LLM 调用失败】
+当前 Window：xhigh__log-summary-date-ranges__window_0002
+当前阶段：Step 2 - Type Comparison
+失败原因：模型响应未完整结束：finish_reason=length
+正在进行第 1 / 3 次重试...
+[12:31:18] 与已有谓词比较：已发送请求，等待模型返回（第 2/4 次尝试）
+[12:34:01] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:34:01] 与已有谓词比较：existing 匹配的有序参数类型不兼容；请使用 new 或 uncertain。即将重试
+
+【LLM 调用失败】
+当前 Window：xhigh__log-summary-date-ranges__window_0002
+当前阶段：Step 2 - Type Comparison
+失败原因：existing 匹配的有序参数类型不兼容；请使用 new 或 uncertain
+正在进行第 2 / 3 次重试...
+[12:34:01] 与已有谓词比较：已发送请求，等待模型返回（第 3/4 次尝试）
+[12:37:22] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:37:22] 与已有谓词比较：模型响应未完整结束：finish_reason=length。即将重试
+
+【LLM 调用失败】
+当前 Window：xhigh__log-summary-date-ranges__window_0002
+当前阶段：Step 2 - Type Comparison
+失败原因：模型响应未完整结束：finish_reason=length
+正在进行第 3 / 3 次重试...
+[12:37:22] 与已有谓词比较：已发送请求，等待模型返回（第 4/4 次尝试）
+[12:40:34] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:40:34] 与已有谓词比较：existing 匹配的有序参数类型不兼容；请使用 new 或 uncertain。本阶段停止
+
+【LLM 调用失败】
+当前 Window：xhigh__log-summary-date-ranges__window_0002
+当前阶段：Step 2 - Type Comparison
+失败原因：existing 匹配的有序参数类型不兼容；请使用 new 或 uncertain
+
+【Predicate Discovery 失败】Window：xhigh__log-summary-date-ranges__window_0002
+原因：xhigh__log-summary-date-ranges__window_0002 的 Step 2 - Type Comparison 在 3 次重试后仍失败
+已保存执行状态。修复问题后使用 --resume 继续。
+[12:40:34] 运行失败：xhigh__log-summary-date-ranges__window_0002 的 Step 2 - Type Comparison 在 3 次重试后仍失败
+xhigh__log-summary-date-ranges__window_0002 的 Step 2 - Type Comparison 在 3 次重试后仍失败
+[12:40:44] 开始运行，正在读取实验输入与配置
+
+============================================================
+【Predicate Discovery】启动
+============================================================
+
+Context Window 数量：20
+人工反馈间隔：每 10 个 Window
+反馈模式：Registry Feedback
+当前 Prompt 版本：v0001
+当前 Registry：73 个谓词
+
+开始处理...
+[12:40:44] 处理第 20/20 个窗口：log-summary-date-ranges / window_0002
+[12:40:44] 与已有谓词比较：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:42:24] 与已有谓词比较：已收到模型返回，正在检查结果格式
+[12:42:24] 与已有谓词比较：结果检查通过，用时 99.8 秒
+[12:42:24] 模型审核谓词：已发送请求，等待模型返回（第 1/4 次尝试）
+[12:43:27] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:43:27] 模型审核谓词：accepted_predicates[0] 必须且只能包含字段：['assertion_conditions', 'definition', 'exclusion_conditions', 'name', 'parameters']。即将重试
+
+【LLM 调用失败】
+当前 Window：xhigh__log-summary-date-ranges__window_0002
+当前阶段：Step 3 - Type Review
+失败原因：accepted_predicates[0] 必须且只能包含字段：['assertion_conditions', 'definition', 'exclusion_conditions', 'name', 'parameters']
+正在进行第 1 / 3 次重试...
+[12:43:28] 模型审核谓词：已发送请求，等待模型返回（第 2/4 次尝试）
+[12:44:33] 模型审核谓词：已收到模型返回，正在检查结果格式
+[12:44:33] 模型审核谓词：结果检查通过，用时 65.9 秒
+[12:44:33] 第 20/20 个窗口已保存，谓词库共有 74 个定义
+
+【Predicate Discovery】Window 20 处理完成
+
+Discovery 候选谓词：8
+Comparison：
+  EXISTING：0
+  NEW：1
+  UNCERTAIN：7
+
+Review：
+  接受新增谓词：1
+  修订已有谓词：0
+
+当前 Registry 谓词总数：74
+
+============================================================
+【Predicate Discovery】第 2 批处理完成
+============================================================
+
+处理进度：20 / 20 个 Window
+本批新增谓词：20 个
+当前谓词总数：74 个
+当前 Prompt 版本：v0001
+反馈模式：Registry Feedback
+
+当前 Registry：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\predicate_registry.json
+
+本批结果：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\batches\batch_0002\review_packet.md
+
+请查看当前谓词发现结果。
+
+请输入你对当前 Predicate Registry 的自然语言反馈。
+支持输入多行内容。
+输入完成后，请单独输入 END 并按 Enter。
+
+[12:44:34] 第 2 批已完成，等待你在网页提交审核意见
+[13:05:26] 收到你的审核意见，继续处理
+[13:05:26] 根据你的反馈修改谓词库：已发送请求，等待模型返回（第 1/4 次尝试）
+[13:08:29] 根据你的反馈修改谓词库：已收到模型返回，正在检查结果格式
+[13:08:29] 根据你的反馈修改谓词库：模型响应未完整结束：finish_reason=length。即将重试
+
+【Registry Revision 失败】
+当前 Window：batch_0002
+当前阶段：Registry Revision
+失败原因：模型响应未完整结束：finish_reason=length
+正在进行第 1 / 3 次重试...
+[13:08:29] 根据你的反馈修改谓词库：已发送请求，等待模型返回（第 2/4 次尝试）
+[13:11:34] 根据你的反馈修改谓词库：已收到模型返回，正在检查结果格式
+[13:11:34] 根据你的反馈修改谓词库：模型响应未完整结束：finish_reason=length。即将重试
+
+【Registry Revision 失败】
+当前 Window：batch_0002
+当前阶段：Registry Revision
+失败原因：模型响应未完整结束：finish_reason=length
+正在进行第 2 / 3 次重试...
+[13:11:34] 根据你的反馈修改谓词库：已发送请求，等待模型返回（第 3/4 次尝试）
+[13:14:29] 根据你的反馈修改谓词库：已收到模型返回，正在检查结果格式
+[13:14:29] 根据你的反馈修改谓词库：结果检查通过，用时 174.7 秒
+
+============================================================
+【Registry Revision】完成
+============================================================
+
+反馈前谓词数量：74
+反馈后谓词数量：72
+
+本轮操作统计：
+
+  保留 KEEP：      66
+  删除 DELETE：    0
+  修订 REVISE：    6
+  合并 MERGE：     2
+
+Revision Plan：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\batches\batch_0002\registry_revision_plan.json
+
+修改后 Registry：
+  E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\predicate_registry.json
+
+【REVISE】
+
+PROBES_CAPABILITY_AVAILABILITY
+  → PROBES_CAPABILITY_AVAILABILITY
+
+SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME
+  → SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME
+
+REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT
+  → REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT
+
+SELECTS_UNDERTESTED_PATH_FOR_VERIFICATION
+  → SELECTS_UNDERTESTED_PATH_FOR_VERIFICATION
+
+EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION
+  → EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION
+
+ASSESSES_PERSISTENCE_BY_DEPLOYMENT_MECHANISM
+  → ASSESSES_PERSISTENCE_BY_DEPLOYMENT_MECHANISM
+
+【MERGE】
+
+DECLARES_TASK_COMPLETION_WITH_REQUIREMENT_MAPPING
+  → SUMMARIZES_COMPLETED_TASK_WITH_VERIFIED_OUTCOME
+
+OBSERVATION_CONTRADICTS_EXPECTATION
+  → EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION
+
+
+全部 Context Window 处理完成。
+最终谓词总数：72 个
+最终 Registry：E:\agent解释性\agentCM\graph-construction\workbench\runs\experiments\6c91df0da7a9\output\predicate_registry.json
+[13:14:29] 实验已完成，结果已保存

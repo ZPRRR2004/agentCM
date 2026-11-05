@@ -1,0 +1,281 @@
+{
+  "stage": "discovery",
+  "window_file": "xhigh__count-dataset-tokens__window_0002.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-v4.1-flash-1017",
+  "succeeded": true,
+  "completed_at": "2026-11-04T03:23:46.162373+00:00",
+  "duration_seconds": 44.422,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-04T03:23:01.731783+00:00",
+      "duration_seconds": 44.422,
+      "raw_response": {
+        "id": "chatcmpl-bfcc046b-f4a3-9773-afcc-a4efd9a23573",
+        "object": "chat.completion",
+        "created": 1793762587,
+        "model": "deepseek-v4.1-flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "reasoning_content": "We need to discover reusable predicates from this trajectory. Let's analyze the nodes.\n\nCore nodes: events 0011-0017. Overlap nodes: 0009-0010 (context).\n\nLet me identify mechanisms:\n\n1. Script failure due to incorrect filter → observation reveals no rows match \"science\"; reasoning at event-0012 interprets domain values and revises the interpretation. Mechanism: observation contradicts/refutes the assumption embedded in the executed plan (a validity failure), leading to a revised interpretation. Could define binary: REFUTES_ASSUMPTION / REVEALS_FLAW_IN_PLAN? Reasoning 0012 draws conclusion from observation 0011 that \"science\" doesn't exist as domain value and derives mapping from README. Actually, 0012's reasoning uses both the observation (domain value counts) and earlier README (overlap node 0009 observation). Interesting: the README curation recipe is used as evidence to map \"science\" to {physics, chemistry, biology}. That's a ternary: reasoning that resolves a mapping ambiguity by combining a failed-run observation with documentation evidence.\n\nLet me think about supported predicates:\n\n- Unary: IS_PLAN / PLAN_STATEMENT: reasoning 0011 \"Let's run the script\", 0013 \"Now, let's run the script\". 0012 expresses intent to update script. 0015 expresses cross-validation plan. Could define.\n\n- Unary: IS_DIAGNOSIS / IDENTIFIES_CAUSE_OF_FAILURE: reasoning 0012 identifies why the filter returned zero rows (domain values are physics/chemistry/biology, not \"science\"). That's a diagnostic reasoning node.\n\n- Unary: DERIVES_INTERPRETATION_FROM_DOCUMENTATION? Hmm.\n\n- Binary: GROUNDS_CONCLUSION_IN_OBSERVATION: reasoning 0012's conclusion that domain values lack \"science\" — supported by observation 0011. Also reasoning 0015's conclusion supported by observation 0013, etc.\n\n- Binary: REVISES_ARTIFACT_IN_RESPONSE_TO_FAILURE: action 0012 (write script) modifies the script after the failed run observation 0011. Mechanism: corrective action in response to an error observation. Parameters: action (corrective), observation (error), maybe also reasoning. Ternary? Mechanism: corrective revision. Could be ternary: correction_action, failure_observation, reasoning_identifying_cause. Hmm, granularity: maybe define binary CORRECTS_FAILURE_IN_OBSERVATION(action, observation) and separate unary diagnosis.\n\n- Ternary: TESTS_ASSUMPTION_WITH_PROBE — the example from the prompt. Here event 0014: reasoning identifies ambiguity about whether tokenizer adds BOS token; action runs a tokenizer introspection probe; observation shows add_bos_token False, no BOS. That is clearly a hypothesis-testing mechanism. Good candidate: TESTS_ASSUMPTION_WITH_PROBE.\n\n- Ternary: VERIFIES_RESULT_VIA_INDEPENDENT_METHOD: reasoning 0015 proposes cross-validation, action 0015 re-computes using datasets library, observation 0015 matches previous count → confirmation. Could be ternary: verification_action, prior_result (observation from 0013), verification_reasoning? Or define as CONFIRMS_RESULT_WITH_INDEPENDENT_RECOMPUTATION(action, observation_prior, observation_confirmation). Hmm. Perhaps binary: CROSS_VALIDATES_RESULT(verification_action, confirmation_observation) with the condition that the action independently recomputes and observation matches prior result. But the prior result is essential to the mechanism (agreement). Ternary with prior observation makes it stronger. Let's define ternary: independent_recomputation ACTION, original_result OBSERVATION, corroborating_result OBSERVATION. Semantic roles: verification action, baseline result, verification result. Assertion: baseline and verification results agree on the same quantity; the verification uses a distinct method.\n\n- Binary: SPECIFIES_CONSTRAINT_ON_COMPUTATION? Hmm.\n\n- Binary: RESOLVES_AMBIGUITY_IN_TASK_INTERPRETATION using documentation. The reasoning 0012 uses README (overlap observation 0009) to map \"science\" → sub-domains. This is \"evidential support\" again, but the distinguishing case: documentation (a reference artifact) used to disambiguate a task term. Could define: RESOLVES_TERM_AMBIGUITY_WITH_DOCUMENTATION(reasoning, observation) — the reasoning maps an underspecified task term onto concrete data values by consulting documentation evidence. Distinguishable from generic evidential support because the observation is a reference document and the reasoning establishes a term-to-data mapping. Reasonable.\n\n- Unary: VERIFIES_OUTPUT_FILE? action 0016 cat answer file, observation confirms content matches. Predicate: CHECKS_ARTIFACT_CONTENT(action, observation)? This is verification of an artifact existence/content. Maybe define binary VERIFIES_ARTIFACT_STATE(action, observation) — the action inspects a produced artifact, the observation reports its content/state, and the reasoning concludes correctness. Hmm, could be a ternary: VERIFIES_DELIVERABLE(reasoning/action/observation). Let's consider: reasoning 0016 plans to verify answer file, action 0016 reads the file, observation 0016 shows \"79586\" and file listing. Reasoning 0017 concludes. Ternary: PRODUCES_AND_VERIFIES? Hmm, keep it as binary VERIFIES_ARTIFACT(action, observation) with conditions: the action is a read/inspection of an artifact produced earlier; the observation reports its content confirming it matches the intended result.\n\nAlso there's a mechanism: reasoning 0014 hypothesizes risk (BOS token could change count) and quantifies impact (52 tokens = 26 rows × 2 fields). It's \"risk assessment\" — but that's part of hypothesis testing.\n\nAlso: reasoning 0015 identifies alternate interpretation concerns (\"could 'deepseek tokens' refer only to deepseek_reasoning?\"). Ambiguity consideration, resolved by choosing the natural reading. Unary: CONSIDERS_ALTERNATIVE_INTERPRETATIONS / EVALUATES_INTERPRETATION_ALTERNATIVES. Reasoning 0015 enumerates candidate interpretations of an underspecified quantity and selects one by naturalness. That's a reusable mechanism: ambiguity resolution by comparing interpretations. Could define unary ENUMERATES_INTERPRETATION_ALTERNATIVES.\n\nBut careful not to over-generate. Let's settle on a reasonable set.\n\nCandidate predicate list:\n\n1. IS_PLAN (unary reasoning) — expresses intended future actions. Supported by 0011, 0013, 0015.\n\n2. IDENTIFIES_CAUSE_OF_FAILURE (unary reasoning) — reasoning diagnoses the cause of an observed error/failure. Supported by 0012 (domain values lack \"science\"; attribute mismatch). Distinguish from generic conclusion.\n\n3. REVISES_APPROACH_IN_RESPONSE_TO_FAILURE (ternary: reasoning diagnosis, failure observation, corrective action) — could be binary action+observation. Let me make ternary: correction_action, failure_observation, diagnosis_reasoning. Assertion: observation reports failure/error of prior attempt; action is a modification of the artifact/approach targeted at cause; reasoning links them. Hmm, but is diagnosis essential? A corrective action could follow a failure without explicit diagnosis. Distinguishability: define binary CORRECTS_AFTER_ERROR(action, observation) — correction mechanism keyed to error evidence; separate unary diagnosis. That's cleaner and lower arity. But granularity guidance says include only essential args. I'll do binary: RECTIFIES_FAILED_ATTEMPT(action, observation). And a separate ternary version might be overkill. Actually the trajectory: reasoning 0012 explicitly diagnoses AND expresses the correction; action 0012 rewrites script. So both hold.\n\nLet me include a ternary: RESOLVES_FAILURE_WITH_CAUSE_DIRECTED_FIX(action, failure_observation, diagnosis_reasoning)? Hmm, could be seen as combination of two binaries → guidance says use separate lower-arity predicates when independently meaningful. Diagnosis and correction are independently meaningful. So use binaries: IDENTIFIES_CAUSE_OF_FAILURE (unary on reasoning) and RECTIFIES_FAILED_ATTEMPT (binary action+observation).\n\n4. TESTS_ASSUMPTION_WITH_PROBE (ternary: probe_action, assumption_reasoning, probe_result) — event 0014.\n\n5. CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION (ternary: verification_action, baseline_observation, verification_observation) — event 0015.\n\n6. MAPS_UNDERSPECIFIED_TERM_TO_DATA_VALUES (binary: reasoning, observation of documentation) — reasoning 0012 maps \"science\" to physics/chemistry/biology using README. Could also be about reasoning 0009's README observation. Yes, observation is overlap README node.\n\n7. VERIFIES_ARTIFACT_CONTENT (binary: action, observation) — event 0016.\n\n8. Maybe unary: FORMALIZES_COMPUTATION_PLAN / WRITES_EXECUTABLE_SCRIPT? That's operational (tool-specific). Skip? There is \"derives computable procedure from documentation\": reasoning 0010 → but that's overlap. Skip.\n\n9. Maybe binary: INTERPRETS_EVIDENCE_ACROSS_SOURCES? Skip.\n\n10. Ambiguity alternative enumeration unary: CONSIDERS_COMPETING_INTERPRETATIONS — reasoning 0015 weighs whether \"deepseek tokens\" means both fields or one; also 0014 weighs special-token inclusion. Actually 0014 is hypothesis about tokenizer; 0015 is about field scope. Both \"identifies underspecification with material impact on the answer.\" Define unary: IDENTIFIES_UNDERSPECIFICATION_WITH_MATERIAL_IMPACT? Hmm that's a bit abstract but reusable and evidence-based. Maybe better: ASSESSES_INTERPRETATION_AMBIGUITY — reasoning explicitly enumerates two or more readings of an underspecified requirement and considers their differing outcomes. Supported by 0014 (BOS token question, quantified +52) and 0015 (which fields). I think it's a legit mechanism and distinguishable from IS_PLAN and from TESTS_ASSUMPTION_WITH_PROBE (one is resolved by probe, other by reasoning/choice).\n\nCareful: IS_PLAN at 0014 also. Fine, non-exclusive.\n\n11. Maybe binary: DERIVES_QUANTITY_FROM_DOCUMENTED_METADATA — skip.\n\nAlso possibly a predicate about the reasoning selecting the metadata subset based on README field listing (0010, overlap). Not needed.\n\nLet's finalize 7 predicates:\n\nA. IS_PLAN\nB. IDENTIFIES_CAUSE_OF_FAILURE\nC. RECTIFIES_FAILED_ATTEMPT (binary)\nD. TESTS_ASSUMPTION_WITH_PROBE (ternary)\nE. CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION (ternary)\nF. MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES (binary: reasoning, documentation observation)\nG. VERIFIES_ARTIFACT_CONTENT (binary)\nH. ASSESSES_INTERPRETATION_AMBIGUITY (unary)\n\nThat's 8. Reasonable.\n\nWait — also GROUNDS_CONCLUSION_IN_OBSERVATION generic? F covers a specific case; a generic evidential support might be included too but the prompt example includes it. Hmm. The instructions say omit unsupported candidates rather than falling back to generic. A generic evidential support is supported (reasoning 0012 concluding from 0011's value counts; reasoning 0016 concluding from 0015's agreement). But F is more specific and covers documentation. Maybe include both a general GROUNDS_CONCLUSION_IN_OBSERVATION and the specific documentation-mapping one. Distinguishability: F's specific distinction is reference documentation used to reinterpret an underspecified task term into concrete data filter values. Keep both? I think adding the generic one plus the specific is acceptable (non-exclusivity). But risk of redundancy. I'll include generic evidential support since it's clearly present, and the specific term-mapping predicate because it captures an extra meaningful distinction (documentation-derived mapping of task vocabulary to data values). Hmm, but maybe the specific one covers it. I'll include both — it's defensible.\n\nActually, let me reduce risk of over-generation. Include GROUNDS_CONCLUSION_IN_OBSERVATION as general, and MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES as specific. Fine.\n\nNow write definitions carefully with parameters typed.\n\nParameter names unique within each predicate.\n\nLet me write JSON.\n\nA. IS_PLAN:\nparameters: [{\"name\":\"reasoning\",\"type\":\"reasoning\",...}]\nassertion: reasoning expresses at least one intended future action/steps; explicit forward-looking intent.\nexclusion: only reports completed actions or conclusion.\n\nB. IDENTIFIES_CAUSE_OF_FAILURE (unary, reasoning):\ndefinition: reasoning explains why a prior attempt or result failed, attributing the failure to an identifiable cause in the artifact, data, or assumptions.\nassertion: references a prior unsuccessful attempt/observed error and states a specific cause.\nexclusion: merely reports that something failed without attributing cause; or hypothesizes about future failures.\n\nC. RECTIFIES_FAILED_ATTEMPT (binary: action, observation):\ndefinition: the action modifies an artifact, query, or procedure in a way targeted at the cause of a failure reported by the observation, aiming to produce a successful result.\nassertion: observation reports failure/error of a prior attempt; action changes the previously failing artifact/procedure (not merely retries unchanged) and the change corresponds to the failure; shows correspondence.\nexclusion: action repeats the same attempt unchanged; action unrelated to the failure; observation not a failure.\n\nD. TESTS_ASSUMPTION_WITH_PROBE — ternary, parameters: probe_action, assumption_reasoning, probe_result.\n\nE. CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION — ternary: verification_action, baseline_observation, verification_observation. Conditions: baseline observation reports an initial computed value/result; verification action recomputes the same quantity by a substantively different route; verification observation reports a result matching the baseline.\n\nF. MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES — binary: reasoning, documentation_observation. Conditions: the task/user requirement uses a term that does not directly match any category/value in the data; the observation contains reference/documentation content enumerating categories or sources; the reasoning establishes which concrete values correspond to the term and adopts them as filter criteria. Exclusion: observation is a measurement of target data rather than a reference document; reasoning merely restates the term.\n\nHmm, but our observation 0009 README is an overlap node of type observation. Good.\n\nG. VERIFIES_ARTIFACT_CONTENT — binary: inspection_action, inspection_observation. Conditions: action reads/inspects a previously produced artifact (file/output); observation reports its actual content; the content matches what the preceding reasoning intended to be written. Wait, need to bind the intended result? Could require only that the inspection reveals content. But distinction \"verification\" needs a target. Add parameter reasoning? Ternary: verifies artifact against intended result: reasoning stating the expected deliverable, action inspecting, observation reporting content. That's nicer ternary. Let's do ternary: VERIFIES_ARTIFACT_MATCHES_EXPECTED_RESULT(action, observation, reasoning). Hmm ordering: keep semantic role order: verification_action, artifact_observation, expectation_reasoning? Ordering should be logical: reasoning (expectation) → action → observation. But examples order action first sometimes. I'll do (verification_action, expected_result_reasoning, artifact_observation).\n\nActually simpler: keep binary and allow condition \"the action inspects a produced artifact and the observation reports its content\", plus requiring that the observation shows the artifact contains the intended answer is required — that needs the intended answer... could be in the observation itself plus reasoning. I'll go ternary.\n\nHmm, but \"confirms outcome\" mechanism. Let's define:\n\nVERIFIES_PRODUCED_ARTIFACT(action, reasoning, observation):\n- reasoning states an expected artifact/result that should have been produced;\n- action inspects the artifact at its location;\n- observation reports the artifact's actual content matching the expectation.\n\nGood.\n\nH. ASSESSES_INTERPRETATION_AMBIGUITY (unary reasoning):\ndefinition: reasoning explicitly identifies that a requirement admits multiple plausible readings, enumerates at least two candidate interpretations, and evaluates their differing consequences before choosing one.\nassertion: at least two candidate readings; statement of how they differ in outcome.\nexclusion: reasoning commits to one reading without acknowledging alternatives; mere mention of uncertainty without identifying alternatives.\n\nTest on nodes: 0014 — ambiguity about special tokens, alternative counts 79586 vs 79534, quantified → yes, plus resolved by probe. 0015 — which fields; yes. 0012 — \"science\" ambiguity, resolved by README. Yes, multiple candidates? It considers \"science\" literal vs sub-domains. Yes.\n\nGood.\n\nMaybe also unary: DEFINES_COMPUTATION_PROCEDURE? skip.\n\nFinal JSON. Ensure each definition has exactly 5 fields.\n\nI'll write carefully.",
+              "content": "{\"candidate_predicates\": [\n  {\n    \"name\": \"IS_PLAN\",\n    \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent intends to carry out.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text expressing the intended future action or sequence of actions.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning explicitly identifies at least one action the agent intends to perform next, rather than one already performed.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning only reports completed actions or states a conclusion without expressing a future intention.\",\n      \"The reasoning only speculates about a hypothesis without committing to an action to take.\"\n    ]\n  },\n  {\n    \"name\": \"IDENTIFIES_CAUSE_OF_FAILURE\",\n    \"definition\": \"The reasoning explains why a prior attempt or its observed result was wrong or unsuccessful, attributing the failure to a specific identifiable cause rather than merely noting that a failure occurred.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text that diagnoses the cause of an observed failure or erroneous result.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning refers to a prior unsuccessful attempt or to an observed erroneous/empty result.\",\n      \"The reasoning states a specific cause explaining that outcome, such as a mismatched identifier, a wrong assumption about data values, or an incorrect scope.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning merely reports that an operation errored without attributing any cause.\",\n      \"The reasoning speculates about failure modes of an attempt that has not yet occurred.\"\n    ]\n  },\n  {\n    \"name\": \"RECTIFIES_FAILED_ATTEMPT\",\n    \"definition\": \"The action modifies a previously failing artifact, query, or procedure in a way directed at the cause of the failure reported by the observation, with the aim of producing a correct result, rather than repeating the same attempt unchanged.\",\n    \"parameters\": [\n      {\n        \"name\": \"corrective_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that rewrites, adjusts, or otherwise changes the previously failing artifact or procedure.\"\n      },\n      {\n        \"name\": \"failure_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the error, empty result, or other failure of the earlier attempt.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The observation reports a failure, error, or unusable result of an earlier attempt.\",\n      \"The action changes the same artifact or procedure that produced that failure, and the change corresponds to the cause of the failure rather than being an unchanged retry.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action simply re-executes the identical, unmodified attempt.\",\n      \"The action concerns an artifact or procedure unrelated to the observed failure.\",\n      \"The observation does not report a failure or unusable result.\"\n    ]\n  },\n  {\n    \"name\": \"TESTS_ASSUMPTION_WITH_PROBE\",\n    \"definition\": \"A targeted action empirically tests a specific uncertainty or assumption raised in reasoning, and the resulting observation supplies interpretable evidence that resolves or quantifies that uncertainty.\",\n    \"parameters\": [\n      {\n        \"name\": \"probe_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that performs the targeted check or probe.\"\n      },\n      {\n        \"name\": \"assumption_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning identifying the specific assumption or uncertainty being tested.\"\n      },\n      {\n        \"name\": \"probe_result\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the outcome of the probe that bears on the tested assumption.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning identifies a specific assumption or uncertainty whose truth would change the result.\",\n      \"The action is constructed to elicit the information needed to settle that assumption.\",\n      \"The observation reports a result that can be interpreted as supporting or refuting the assumption.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action is unrelated to the stated assumption.\",\n      \"The observation does not address the assumption being tested.\",\n      \"No identifiable assumption or uncertainty motivates the action.\"\n    ]\n  },\n  {\n    \"name\": \"CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION\",\n    \"definition\": \"A verification action recomputes an already obtained quantity through a substantively different procedure or data-access path, and the resulting observation agrees with the earlier result, thereby corroborating it.\",\n    \"parameters\": [\n      {\n        \"name\": \"verification_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that independently recomputes or re-derives the same quantity by a different route.\"\n      },\n      {\n        \"name\": \"baseline_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the initial computed result that is to be corroborated.\"\n      },\n      {\n        \"name\": \"corroborating_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the independently recomputed result.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The baseline observation reports a value produced by a prior computation.\",\n      \"The verification action recomputes the same quantity using a different library, route, or method than the prior computation.\",\n      \"The corroborating observation reports a value that matches the baseline value for the same quantity.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The second computation repeats the identical code path and parameters, so agreement adds no independent support.\",\n      \"The recomputed quantity differs from the baseline quantity.\",\n      \"The results disagree, or no comparison between them is available.\"\n    ]\n  },\n  {\n    \"name\": \"MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES\",\n    \"definition\": \"The reasoning resolves a term in the requirement that does not literally match any value in the data by using reference documentation content that enumerates categories or sources, and adopts the corresponding concrete values as the operative criterion.\",\n    \"parameters\": [\n      {\n        \"name\": \"mapping_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning that maps the underspecified requirement term onto concrete data values.\"\n      },\n      {\n        \"name\": \"documentation_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation containing reference or documentation content enumerating categories, sources, or fields.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The requirement uses a term that does not appear as a literal value in the data under consideration.\",\n      \"The observation contains reference or documentation content that groups or enumerates the concrete categories or sources.\",\n      \"The reasoning uses that documentation content to select the concrete values that correspond to the term and adopts them as the selection criterion.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning merely restates the requirement term without converting it into concrete values.\",\n      \"The observation reports measurements of the target data rather than reference documentation enumerating categories.\",\n      \"The documentation content does not determine which concrete values correspond to the term.\"\n    ]\n  },\n  {\n    \"name\": \"ASSESSES_INTERPRETATION_AMBIGUITY\",\n    \"definition\": \"The reasoning explicitly recognizes that a requirement admits more than one plausible reading, enumerates at least two candidate interpretations, and evaluates how they would differ in outcome before settling on one.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text that identifies and weighs competing interpretations of the requirement.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning states that the requirement or its resulting quantity is ambiguous or admits multiple readings.\",\n      \"The reasoning presents at least two candidate interpretations.\",\n      \"The reasoning characterizes how the candidate interpretations would lead to different results or procedures.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning commits to a single reading without acknowledging alternatives.\",\n      \"The reasoning merely expresses general uncertainty or doubt without identifying concrete competing interpretations.\"\n    ]\n  },\n  {\n    \"name\": \"VERIFIES_PRODUCED_ARTIFACT\",\n    \"definition\": \"After a result has been produced, an inspection action reads the produced artifact and the resulting observation reports its actual content as matching the result the reasoning expected it to contain.\",\n    \"parameters\": [\n      {\n        \"name\": \"inspection_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that reads or inspects the previously produced artifact.\"\n      },\n      {\n        \"name\": \"expectation_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning stating the expected result or deliverable that the artifact should hold.\"\n      },\n      {\n        \"name\": \"artifact_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the actual content or state of the produced artifact.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The artifact was produced by an earlier action in the trajectory.\",\n      \"The reasoning states an expected value or content for that artifact.\",\n      \"The observation reports the artifact's actual content, and that content matches the expectation.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action inspects something that was not produced by earlier actions in the trajectory.\",\n      \"The observation shows the artifact missing, empty, or containing content that contradicts the expectation.\",\n      \"The inspection is only performed without any stated expectation to compare against.\"\n    ]\n  },\n  {\n    \"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\",\n    \"definition\": \"The reasoning draws a conclusion that is supported by identifiable content of a specific observation, using that content as evidence rather than merely restating it.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning expressing the evidence-based conclusion.\"\n      },\n      {\n        \"name\": \"observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation supplying evidence for that conclusion.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning states a conclusion or decision that goes beyond the raw content of the observation.\",\n      \"Identifiable content of the observation supports that conclusion.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning merely repeats the observation without drawing a conclusion.\",\n      \"The observation is unrelated to the conclusion or provides no identifiable support.\"\n    ]\n  }\n]}"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 15297,
+          "total_tokens": 21331,
+          "completion_tokens": 6034,
+          "prompt_tokens_details": {
+            "cached_tokens": 2048,
+            "image_tokens": 0,
+            "text_tokens": 15297
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 3761,
+            "text_tokens": 2272
+          }
+        }
+      },
+      "response_content": "{\"candidate_predicates\": [\n  {\n    \"name\": \"IS_PLAN\",\n    \"definition\": \"The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent intends to carry out.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text expressing the intended future action or sequence of actions.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning explicitly identifies at least one action the agent intends to perform next, rather than one already performed.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning only reports completed actions or states a conclusion without expressing a future intention.\",\n      \"The reasoning only speculates about a hypothesis without committing to an action to take.\"\n    ]\n  },\n  {\n    \"name\": \"IDENTIFIES_CAUSE_OF_FAILURE\",\n    \"definition\": \"The reasoning explains why a prior attempt or its observed result was wrong or unsuccessful, attributing the failure to a specific identifiable cause rather than merely noting that a failure occurred.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text that diagnoses the cause of an observed failure or erroneous result.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning refers to a prior unsuccessful attempt or to an observed erroneous/empty result.\",\n      \"The reasoning states a specific cause explaining that outcome, such as a mismatched identifier, a wrong assumption about data values, or an incorrect scope.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning merely reports that an operation errored without attributing any cause.\",\n      \"The reasoning speculates about failure modes of an attempt that has not yet occurred.\"\n    ]\n  },\n  {\n    \"name\": \"RECTIFIES_FAILED_ATTEMPT\",\n    \"definition\": \"The action modifies a previously failing artifact, query, or procedure in a way directed at the cause of the failure reported by the observation, with the aim of producing a correct result, rather than repeating the same attempt unchanged.\",\n    \"parameters\": [\n      {\n        \"name\": \"corrective_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that rewrites, adjusts, or otherwise changes the previously failing artifact or procedure.\"\n      },\n      {\n        \"name\": \"failure_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the error, empty result, or other failure of the earlier attempt.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The observation reports a failure, error, or unusable result of an earlier attempt.\",\n      \"The action changes the same artifact or procedure that produced that failure, and the change corresponds to the cause of the failure rather than being an unchanged retry.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action simply re-executes the identical, unmodified attempt.\",\n      \"The action concerns an artifact or procedure unrelated to the observed failure.\",\n      \"The observation does not report a failure or unusable result.\"\n    ]\n  },\n  {\n    \"name\": \"TESTS_ASSUMPTION_WITH_PROBE\",\n    \"definition\": \"A targeted action empirically tests a specific uncertainty or assumption raised in reasoning, and the resulting observation supplies interpretable evidence that resolves or quantifies that uncertainty.\",\n    \"parameters\": [\n      {\n        \"name\": \"probe_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that performs the targeted check or probe.\"\n      },\n      {\n        \"name\": \"assumption_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning identifying the specific assumption or uncertainty being tested.\"\n      },\n      {\n        \"name\": \"probe_result\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the outcome of the probe that bears on the tested assumption.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning identifies a specific assumption or uncertainty whose truth would change the result.\",\n      \"The action is constructed to elicit the information needed to settle that assumption.\",\n      \"The observation reports a result that can be interpreted as supporting or refuting the assumption.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action is unrelated to the stated assumption.\",\n      \"The observation does not address the assumption being tested.\",\n      \"No identifiable assumption or uncertainty motivates the action.\"\n    ]\n  },\n  {\n    \"name\": \"CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION\",\n    \"definition\": \"A verification action recomputes an already obtained quantity through a substantively different procedure or data-access path, and the resulting observation agrees with the earlier result, thereby corroborating it.\",\n    \"parameters\": [\n      {\n        \"name\": \"verification_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that independently recomputes or re-derives the same quantity by a different route.\"\n      },\n      {\n        \"name\": \"baseline_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the initial computed result that is to be corroborated.\"\n      },\n      {\n        \"name\": \"corroborating_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the independently recomputed result.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The baseline observation reports a value produced by a prior computation.\",\n      \"The verification action recomputes the same quantity using a different library, route, or method than the prior computation.\",\n      \"The corroborating observation reports a value that matches the baseline value for the same quantity.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The second computation repeats the identical code path and parameters, so agreement adds no independent support.\",\n      \"The recomputed quantity differs from the baseline quantity.\",\n      \"The results disagree, or no comparison between them is available.\"\n    ]\n  },\n  {\n    \"name\": \"MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES\",\n    \"definition\": \"The reasoning resolves a term in the requirement that does not literally match any value in the data by using reference documentation content that enumerates categories or sources, and adopts the corresponding concrete values as the operative criterion.\",\n    \"parameters\": [\n      {\n        \"name\": \"mapping_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning that maps the underspecified requirement term onto concrete data values.\"\n      },\n      {\n        \"name\": \"documentation_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation containing reference or documentation content enumerating categories, sources, or fields.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The requirement uses a term that does not appear as a literal value in the data under consideration.\",\n      \"The observation contains reference or documentation content that groups or enumerates the concrete categories or sources.\",\n      \"The reasoning uses that documentation content to select the concrete values that correspond to the term and adopts them as the selection criterion.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning merely restates the requirement term without converting it into concrete values.\",\n      \"The observation reports measurements of the target data rather than reference documentation enumerating categories.\",\n      \"The documentation content does not determine which concrete values correspond to the term.\"\n    ]\n  },\n  {\n    \"name\": \"ASSESSES_INTERPRETATION_AMBIGUITY\",\n    \"definition\": \"The reasoning explicitly recognizes that a requirement admits more than one plausible reading, enumerates at least two candidate interpretations, and evaluates how they would differ in outcome before settling on one.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The agent text that identifies and weighs competing interpretations of the requirement.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning states that the requirement or its resulting quantity is ambiguous or admits multiple readings.\",\n      \"The reasoning presents at least two candidate interpretations.\",\n      \"The reasoning characterizes how the candidate interpretations would lead to different results or procedures.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning commits to a single reading without acknowledging alternatives.\",\n      \"The reasoning merely expresses general uncertainty or doubt without identifying concrete competing interpretations.\"\n    ]\n  },\n  {\n    \"name\": \"VERIFIES_PRODUCED_ARTIFACT\",\n    \"definition\": \"After a result has been produced, an inspection action reads the produced artifact and the resulting observation reports its actual content as matching the result the reasoning expected it to contain.\",\n    \"parameters\": [\n      {\n        \"name\": \"inspection_action\",\n        \"type\": \"action\",\n        \"description\": \"The action that reads or inspects the previously produced artifact.\"\n      },\n      {\n        \"name\": \"expectation_reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning stating the expected result or deliverable that the artifact should hold.\"\n      },\n      {\n        \"name\": \"artifact_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the actual content or state of the produced artifact.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The artifact was produced by an earlier action in the trajectory.\",\n      \"The reasoning states an expected value or content for that artifact.\",\n      \"The observation reports the artifact's actual content, and that content matches the expectation.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The action inspects something that was not produced by earlier actions in the trajectory.\",\n      \"The observation shows the artifact missing, empty, or containing content that contradicts the expectation.\",\n      \"The inspection is only performed without any stated expectation to compare against.\"\n    ]\n  },\n  {\n    \"name\": \"GROUNDS_CONCLUSION_IN_OBSERVATION\",\n    \"definition\": \"The reasoning draws a conclusion that is supported by identifiable content of a specific observation, using that content as evidence rather than merely restating it.\",\n    \"parameters\": [\n      {\n        \"name\": \"reasoning\",\n        \"type\": \"reasoning\",\n        \"description\": \"The reasoning expressing the evidence-based conclusion.\"\n      },\n      {\n        \"name\": \"observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation supplying evidence for that conclusion.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The reasoning states a conclusion or decision that goes beyond the raw content of the observation.\",\n      \"Identifiable content of the observation supports that conclusion.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The reasoning merely repeats the observation without drawing a conclusion.\",\n      \"The observation is unrelated to the conclusion or provides no identifiable support.\"\n    ]\n  }\n]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "candidate_predicates": [
+      {
+        "name": "IS_PLAN",
+        "definition": "The reasoning explicitly expresses an intended future action or ordered sequence of future actions that the agent intends to carry out.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text expressing the intended future action or sequence of actions."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly identifies at least one action the agent intends to perform next, rather than one already performed."
+        ],
+        "exclusion_conditions": [
+          "The reasoning only reports completed actions or states a conclusion without expressing a future intention.",
+          "The reasoning only speculates about a hypothesis without committing to an action to take."
+        ]
+      },
+      {
+        "name": "IDENTIFIES_CAUSE_OF_FAILURE",
+        "definition": "The reasoning explains why a prior attempt or its observed result was wrong or unsuccessful, attributing the failure to a specific identifiable cause rather than merely noting that a failure occurred.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that diagnoses the cause of an observed failure or erroneous result."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning refers to a prior unsuccessful attempt or to an observed erroneous/empty result.",
+          "The reasoning states a specific cause explaining that outcome, such as a mismatched identifier, a wrong assumption about data values, or an incorrect scope."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely reports that an operation errored without attributing any cause.",
+          "The reasoning speculates about failure modes of an attempt that has not yet occurred."
+        ]
+      },
+      {
+        "name": "RECTIFIES_FAILED_ATTEMPT",
+        "definition": "The action modifies a previously failing artifact, query, or procedure in a way directed at the cause of the failure reported by the observation, with the aim of producing a correct result, rather than repeating the same attempt unchanged.",
+        "parameters": [
+          {
+            "name": "corrective_action",
+            "type": "action",
+            "description": "The action that rewrites, adjusts, or otherwise changes the previously failing artifact or procedure."
+          },
+          {
+            "name": "failure_observation",
+            "type": "observation",
+            "description": "The observation reporting the error, empty result, or other failure of the earlier attempt."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a failure, error, or unusable result of an earlier attempt.",
+          "The action changes the same artifact or procedure that produced that failure, and the change corresponds to the cause of the failure rather than being an unchanged retry."
+        ],
+        "exclusion_conditions": [
+          "The action simply re-executes the identical, unmodified attempt.",
+          "The action concerns an artifact or procedure unrelated to the observed failure.",
+          "The observation does not report a failure or unusable result."
+        ]
+      },
+      {
+        "name": "TESTS_ASSUMPTION_WITH_PROBE",
+        "definition": "A targeted action empirically tests a specific uncertainty or assumption raised in reasoning, and the resulting observation supplies interpretable evidence that resolves or quantifies that uncertainty.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action that performs the targeted check or probe."
+          },
+          {
+            "name": "assumption_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning identifying the specific assumption or uncertainty being tested."
+          },
+          {
+            "name": "probe_result",
+            "type": "observation",
+            "description": "The observation reporting the outcome of the probe that bears on the tested assumption."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning identifies a specific assumption or uncertainty whose truth would change the result.",
+          "The action is constructed to elicit the information needed to settle that assumption.",
+          "The observation reports a result that can be interpreted as supporting or refuting the assumption."
+        ],
+        "exclusion_conditions": [
+          "The action is unrelated to the stated assumption.",
+          "The observation does not address the assumption being tested.",
+          "No identifiable assumption or uncertainty motivates the action."
+        ]
+      },
+      {
+        "name": "CONFIRMS_RESULT_BY_INDEPENDENT_RECOMPUTATION",
+        "definition": "A verification action recomputes an already obtained quantity through a substantively different procedure or data-access path, and the resulting observation agrees with the earlier result, thereby corroborating it.",
+        "parameters": [
+          {
+            "name": "verification_action",
+            "type": "action",
+            "description": "The action that independently recomputes or re-derives the same quantity by a different route."
+          },
+          {
+            "name": "baseline_observation",
+            "type": "observation",
+            "description": "The observation reporting the initial computed result that is to be corroborated."
+          },
+          {
+            "name": "corroborating_observation",
+            "type": "observation",
+            "description": "The observation reporting the independently recomputed result."
+          }
+        ],
+        "assertion_conditions": [
+          "The baseline observation reports a value produced by a prior computation.",
+          "The verification action recomputes the same quantity using a different library, route, or method than the prior computation.",
+          "The corroborating observation reports a value that matches the baseline value for the same quantity."
+        ],
+        "exclusion_conditions": [
+          "The second computation repeats the identical code path and parameters, so agreement adds no independent support.",
+          "The recomputed quantity differs from the baseline quantity.",
+          "The results disagree, or no comparison between them is available."
+        ]
+      },
+      {
+        "name": "MAPS_UNDERSPECIFIED_TERM_TO_CONCRETE_VALUES",
+        "definition": "The reasoning resolves a term in the requirement that does not literally match any value in the data by using reference documentation content that enumerates categories or sources, and adopts the corresponding concrete values as the operative criterion.",
+        "parameters": [
+          {
+            "name": "mapping_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that maps the underspecified requirement term onto concrete data values."
+          },
+          {
+            "name": "documentation_observation",
+            "type": "observation",
+            "description": "The observation containing reference or documentation content enumerating categories, sources, or fields."
+          }
+        ],
+        "assertion_conditions": [
+          "The requirement uses a term that does not appear as a literal value in the data under consideration.",
+          "The observation contains reference or documentation content that groups or enumerates the concrete categories or sources.",
+          "The reasoning uses that documentation content to select the concrete values that correspond to the term and adopts them as the selection criterion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely restates the requirement term without converting it into concrete values.",
+          "The observation reports measurements of the target data rather than reference documentation enumerating categories.",
+          "The documentation content does not determine which concrete values correspond to the term."
+        ]
+      },
+      {
+        "name": "ASSESSES_INTERPRETATION_AMBIGUITY",
+        "definition": "The reasoning explicitly recognizes that a requirement admits more than one plausible reading, enumerates at least two candidate interpretations, and evaluates how they would differ in outcome before settling on one.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The agent text that identifies and weighs competing interpretations of the requirement."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states that the requirement or its resulting quantity is ambiguous or admits multiple readings.",
+          "The reasoning presents at least two candidate interpretations.",
+          "The reasoning characterizes how the candidate interpretations would lead to different results or procedures."
+        ],
+        "exclusion_conditions": [
+          "The reasoning commits to a single reading without acknowledging alternatives.",
+          "The reasoning merely expresses general uncertainty or doubt without identifying concrete competing interpretations."
+        ]
+      },
+      {
+        "name": "VERIFIES_PRODUCED_ARTIFACT",
+        "definition": "After a result has been produced, an inspection action reads the produced artifact and the resulting observation reports its actual content as matching the result the reasoning expected it to contain.",
+        "parameters": [
+          {
+            "name": "inspection_action",
+            "type": "action",
+            "description": "The action that reads or inspects the previously produced artifact."
+          },
+          {
+            "name": "expectation_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning stating the expected result or deliverable that the artifact should hold."
+          },
+          {
+            "name": "artifact_observation",
+            "type": "observation",
+            "description": "The observation reporting the actual content or state of the produced artifact."
+          }
+        ],
+        "assertion_conditions": [
+          "The artifact was produced by an earlier action in the trajectory.",
+          "The reasoning states an expected value or content for that artifact.",
+          "The observation reports the artifact's actual content, and that content matches the expectation."
+        ],
+        "exclusion_conditions": [
+          "The action inspects something that was not produced by earlier actions in the trajectory.",
+          "The observation shows the artifact missing, empty, or containing content that contradicts the expectation.",
+          "The inspection is only performed without any stated expectation to compare against."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion that is supported by identifiable content of a specific observation, using that content as evidence rather than merely restating it.",
+        "parameters": [
+          {
+            "name": "reasoning",
+            "type": "reasoning",
+            "description": "The reasoning expressing the evidence-based conclusion."
+          },
+          {
+            "name": "observation",
+            "type": "observation",
+            "description": "The observation supplying evidence for that conclusion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning states a conclusion or decision that goes beyond the raw content of the observation.",
+          "Identifiable content of the observation supports that conclusion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely repeats the observation without drawing a conclusion.",
+          "The observation is unrelated to the conclusion or provides no identifiable support."
+        ]
+      }
+    ]
+  },
+  "previous_calls": []
+}

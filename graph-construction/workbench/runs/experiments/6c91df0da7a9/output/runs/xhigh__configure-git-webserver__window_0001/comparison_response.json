@@ -1,0 +1,273 @@
+{
+  "stage": "comparison",
+  "window_file": "xhigh__configure-git-webserver__window_0001.json",
+  "prompt_version": "v0001",
+  "model": "deepseek-v4.1-flash-1017",
+  "succeeded": true,
+  "completed_at": "2026-11-04T03:04:07.742449+00:00",
+  "duration_seconds": 39.656,
+  "attempt_count": 1,
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-04T03:03:28.090293+00:00",
+      "duration_seconds": 39.64,
+      "raw_response": {
+        "id": "chatcmpl-c313bcaa-9da7-9edc-855a-0edb1b410c40",
+        "object": "chat.completion",
+        "created": 1793761413,
+        "model": "deepseek-v4.1-flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "reasoning_content": "We need compare candidates to registry. Need output JSON only with existing/new/uncertain. Need classify each exactly once. Need copy full original definitions for new/uncertain. Need match existing names.\n\nLet's enumerate candidates 10:\n1 IS_PLAN\n2 EVALUATES_ALTERNATIVES\n3 IS_STATE_PROBE\n4 TESTS_ASSUMPTION_WITH_PROBE\n5 GROUNDS_CONCLUSION_IN_OBSERVATION\n6 ADAPTS_PLAN_TO_OBSERVED_STATE\n7 REALIZES_PLANNED_CHANGE\n8 CONFIRMS_ACTION_EFFECT\n9 MITIGATES_ANTICIPATED_FAILURE\n10 CHECKS_VALIDITY_BEFORE_ACTIVATION\n\nRegistry 11:\nIS_PLAN\nACTION_IMPLEMENTS_PLANNED_STEP\nDIAGNOSES_OBSERVED_ARTIFACT_DEFECT\nPROPOSES_ARTIFACT_REPAIR\nCHECKS_ENVIRONMENT_PREREQUISITE\nIMPLEMENTS_PROPOSED_REPAIR\nPRODUCES_EXPECTED_BUILD_ARTIFACT\nDIAGNOSES_ACTION_FAILURE_FROM_ERROR\nCORRECTS_FAILED_ACTION_WITH_DIAGNOSED_REVISION\nVERIFIES_ARTIFACT_CONTENT_BY_INDEPENDENT_INSPECTION\nCONCLUDES_TASK_SUCCESS_FROM_ACCUMULATED_EVIDENCE\n\nNeed classify.\n\nCandidate 1 IS_PLAN exactly existing IS_PLAN. Semantically equivalent. Parameter name differs planning_reasoning vs reasoning; types same. Existing. matched IS_PLAN.\n\nCandidate 2 EVALUATES_ALTERNATIVES unary reasoning: considers two+ viable ways, applies selection criterion, settles. Registry? No exact. Could overlap with IS_PLAN? It's deliberation/decision. Not existing. New? Need determine if distinct mechanism not represented. Registry has IS_PLAN (intended future actions), ACTION_IMPLEMENTS_PLANNED_STEP, etc. EVALUATES_ALTERNATIVES is unary property of reasoning: comparing alternatives and selecting. No registry equivalent. It is precise. New likely. But check if maybe \"IS_PLAN\" covers planning but not alternatives evaluation. Distinct truth conditions. New.\n\nCandidate 3 IS_STATE_PROBE unary action read-only inspection. Registry has CHECKS_ENVIRONMENT_PREREQUISITE (binary action+obs, specific to prerequisite availability/version) and maybe no general state probe. IS_STATE_PROBE is unary read-only inspection for info. Is it equivalent to any? CHECKS_ENVIRONMENT_PREREQUISITE is narrower and requires observation. Candidate doesn't include observation. It could be new or uncertain. It is a semantic role of action. It is distinct from CHECKS_ENVIRONMENT_PREREQUISITE because that is about prerequisite capability and includes observation; candidate just action. But is it too operational? It labels read-only inspection. Reusable role. No registry equivalent. New likely. However instructions say \"prefer uncertain when novelty not clearly established.\" Here clear enough? Need maybe uncertain due overlap with CHECKS_ENVIRONMENT_PREREQUISITE? Let's analyze. IS_STATE_PROBE: action is read-only inspection of system/environment/resource state to obtain information without intending change. CHECKS_ENVIRONMENT_PREREQUISITE: action probes execution environment for availability/identity/version of prerequisite tool/resource, and observation reports capability evidence. Different: one is unary action property, one binary action-observation specific to prerequisite. Truth conditions: IS_STATE_PROBE can hold for e.g. listing files, reading config, querying process, etc. CHECKS_ENVIRONMENT_PREREQUISITE holds only for prerequisite check plus observation. Not equivalent. Could classify new. But is there a registry predicate for unary action property? No. New.\n\nCandidate 4 TESTS_ASSUMPTION_WITH_PROBE. Registry has no exact? Let's compare. It is ternary: reasoning assumption, action test, observation evidence. Registry has CHECKS_ENVIRONMENT_PREREQUISITE (action+obs) but no reasoning assumption. DIAGNOSES... etc. No exact. The provided example in contract is exactly this candidate (with parameter names slightly different: assumption_reasoning, probe_action, probe_result). But registry does not include it. Need new? It is precise, distinct. However could be subsumed by CHECKS_ENVIRONMENT_PREREQUISITE plus something? It requires assumption and evidence. Not in registry. New. But check existing \"CHECKS_ENVIRONMENT_PREREQUISITE\" is action+observation about prerequisite, no assumption reasoning. \"DIAGNOSES_ACTION_FAILURE_FROM_ERROR\" different. No. New.\n\nCandidate 5 GROUNDS_CONCLUSION_IN_OBSERVATION. Registry? No exact. There is DIAGNOSES_OBSERVED_ARTIFACT_DEFECT (reasoning identifies artifact defect from observation) narrower. CONCLUDES_TASK_SUCCESS_FROM_ACCUMULATED_EVIDENCE: reasoning declares task success citing observations (could be grounding conclusion). But candidate is general: reasoning draws conclusion about system/environment using observation as evidence. Existing CONCLUDES_TASK_SUCCESS... is specific to success completion with observation[]. Is candidate broader, and existing specific only one-way subsumption. No general evidential support predicate. Could be new. But maybe \"DIAGNOSES_OBSERVED_ARTIFACT_DEFECT\" is a special case of grounding conclusion in observation (defect conclusion). But candidate has different truth conditions (general conclusion, not necessarily defect). New likely. Need ensure not uncertain due broad overlap. It is precise. New.\n\nCandidate 6 ADAPTS_PLAN_TO_OBSERVED_STATE. Binary reasoning+observation: reasoning changes course of action because observation reveals state differing from prior plan/constrains options. Registry has no exact. Could overlap with IS_PLAN? Not binary. ACTION_IMPLEMENTS_PLANNED_STEP? no. CORRECTS_FAILED_ACTION_WITH_DIAGNOSED_REVISION? That's 4-ary involving failed action, error, diagnosis, corrective action. Candidate is plan adaptation due observed state, not necessarily failure. Distinct. New? It is precise. New.\n\nCandidate 7 REALIZES_PLANNED_CHANGE. Binary action+reasoning: action carries out modification whose target/content specified in reasoning. Registry has ACTION_IMPLEMENTS_PLANNED_STEP: action carries out operation proposed as future step with matching purpose/target. Also IMPLEMENTS_PROPOSED_REPAIR: action applies concrete repair from reasoning, result observation confirms. Candidate is action implements planned modification/design with target and concrete content/parameters. This is very similar to ACTION_IMPLEMENTS_PLANNED_STEP? Let's compare carefully.\n\nACTION_IMPLEMENTS_PLANNED_STEP: \"A recorded action carries out an operation that a reasoning node explicitly proposed as a future step, with matching task purpose rather than merely topical or temporal adjacency.\" Parameters action, plan_reasoning. Assertion: plan_reasoning expresses intended future operation; action performs operation consistent with purpose and target. Exclusion: reasoning only past; action unrelated; connection only temporal without matching intent.\n\nREALIZES_PLANNED_CHANGE: \"The action carries out a modification whose target and concrete content or key parameters were specified in the reasoning, materializing an intended design into the environment.\" Parameters change_action, design_reasoning. Assertion: reasoning specifies what is to be created/modified, including concrete content, values, or configuration parameters. Action's arguments show modification of same target with content/parameters corresponding to specified design. Exclusions: action modifies unrelated target/details; reasoning only general goal and action specifics not traceable; action only inspects state.\n\nThis seems like a specialization of ACTION_IMPLEMENTS_PLANNED_STEP but more specific: modification with concrete content/parameters. Is it semantically equivalent? No, because ACTION_IMPLEMENTS_PLANNED_STEP can apply to any operation including inspection, not necessarily modification; REALIZES_PLANNED_CHANGE requires modification and concrete design details. Candidate could be considered new specialized predicate. But granularity rules say more specific name, tool, resource, parameter count alone doesn't establish novelty. Here additional semantic condition: modification/materializing design. Is that an essential mechanism? It distinguishes implementation of a planned change from general plan step. However, registry already has ACTION_IMPLEMENTS_PLANNED_STEP broad covering this. One-way subsumption does not establish equivalence, so candidate can be new if captures additional meaningful distinction. But is it \"clearly expresses a distinct semantic mechanism\"? It is a specific kind of action-plan alignment. The instructions: \"A precise predicate may remain new when an existing broad predicate only subsumes it. One-way subsumption does not establish semantic equivalence.\" So likely new. But need consider IMPLEMENTS_PROPOSED_REPAIR: action applies concrete correction from repair reasoning, plus observation confirms acceptance. Candidate lacks observation and is not necessarily repair; could be any planned change. Distinct. New.\n\nCandidate 8 CONFIRMS_ACTION_EFFECT. Binary observation+action: observation reports result of executed action showing whether intended effect achieved (success notice, validation verdict, state listing). Registry has? IMPLEMENTS_PROPOSED_REPAIR has observation confirming modification accepted (ternary with repair reasoning). PRODUCES_EXPECTED_BUILD_ARTIFACT: build action+observation evidence artifact generated. CONCLUDES_TASK_SUCCESS... reasoning + observations. There is no general binary \"observation confirms action effect\". Could be new. But compare IMPLEMENTS_PROPOSED_REPAIR: includes action+reasoning+observation; candidate is action+observation, no reasoning. More general. It may be subsumed by specific existing (build artifact, repair) but general predicate not existing. New? However maybe \"CONFIRMS_ACTION_EFFECT\" is broad and could overlap with PRODUCES_EXPECTED_BUILD_ARTIFACT? That's specific build. One-way. New likely. But need be careful: Could be considered uncertain because there are specific confirmation predicates but no general. Candidate is precise: observation contains status/verdict/state listing corresponding to intended effect. Does it require intended effect known? It says intended effect of action. Could be any action. New.\n\nCandidate 9 MITIGATES_ANTICIPATED_FAILURE. Binary action+reasoning: reasoning identifies specific failure mode; action implements safeguard to prevent/neutralize. Registry no exact. Could overlap with CORRECTS_FAILED_ACTION...? That's after failure. Candidate is preventive before failure. Distinct. New. Check CHECKS_VALIDITY_BEFORE_ACTIVATION maybe preventive? But candidate is general. New.\n\nCandidate 10 CHECKS_VALIDITY_BEFORE_ACTIVATION. Unary action: action validates config artifact and only activates/starts service after validation within one guarded sequence. Registry no exact. Could overlap with CHECKS_ENVIRONMENT_PREREQUISITE? That's action+observation availability/version of prerequisite. Candidate is about config validation before activation. Distinct. New? But is it too operational? It labels specific sequence config check + service activation. Might be a specific mechanism. The candidate requires action invokes config syntax/integrity check on artifact about to be applied, and activation after check gated. This is a guarded sequence. Could be considered new. But maybe uncertain because it is a very specific operational procedure and may be subsumed by something? Let's check registry existing:\n- CHECKS_ENVIRONMENT_PREREQUISITE: diagnostic query about prerequisite, observation capability evidence. Not same.\n- IMPLEMENTS_PROPOSED_REPAIR: repair.\n- PRODUCES_EXPECTED_BUILD_ARTIFACT: build.\n- CORRECTS_FAILED_ACTION_WITH_DIAGNOSED_REVISION: after failure.\nNo. It is a distinct safety/validation mechanism. New.\n\nBut we need think if any candidates should be existing due semantic equivalence with registry despite names. 1 definitely. Others maybe 4 is in example but not registry. Wait registry does not have TESTS_ASSUMPTION_WITH_PROBE. It was in prompt example but not registry. So new.\n\nPotential classification of IS_STATE_PROBE as existing? There is CHECKS_ENVIRONMENT_PREREQUISITE. Could IS_STATE_PROBE be semantically equivalent? Let's examine both directions. IS_STATE_PROBE: unary action property \"read-only inspection of system, environment, or resource state performed to obtain information, without intending to change that state.\" It requires action intent informational, no persistent modification. CHECKS_ENVIRONMENT_PREREQUISITE: binary action+observation \"An action probes the execution environment for the availability, identity, or version of a prerequisite tool or resource, and its observation reports capability evidence.\" It requires observation and specific prerequisite. Different arity, different conditions. Not equivalent. So not existing. Could be uncertain due \"state probe\" vs \"checks environment prerequisite\" overlap but candidate includes broader. I think new because clear. But instruction \"When novelty is not clearly established, prefer uncertain over new.\" Is novelty clear? The predicate is a reusable unary action role. It is distinct. I'd classify new.\n\nPotential classification of GROUNDS_CONCLUSION_IN_OBSERVATION as existing? There is DIAGNOSES_OBSERVED_ARTIFACT_DEFECT, which is reasoning interprets artifact observation and identifies defect. That's a specific kind of evidence-based conclusion. Candidate general. Could be new. There is also CONCLUDES_TASK_SUCCESS_FROM_ACCUMULATED_EVIDENCE: reasoning declares task success with observations. Candidate can be used for any conclusion about system/environment. Not equivalent. New.\n\nPotential classification of ADAPTS_PLAN_TO_OBSERVED_STATE as existing? There is no. New.\n\nPotential classification of EVALUATES_ALTERNATIVES as existing? Could IS_PLAN? No. New.\n\nNeed output JSON only. For existing: candidate_name + matched_existing_name. For new: complete original definitions. For uncertain: none likely. Need ensure copy definitions exactly from candidate list. Need include all fields. JSON valid.\n\nLet's decide if any uncertain? We should be cautious. The instructions emphasize prefer existing when differences terminological. For IS_PLAN yes. For REALIZES_PLANNED_CHANGE maybe could be existing ACTION_IMPLEMENTS_PLANNED_STEP? Let's re-evaluate. The candidate definition: \"The action carries out a modification whose target and concrete content or key parameters were specified in the reasoning, materializing an intended design into the environment.\" Existing ACTION_IMPLEMENTS_PLANNED_STEP: \"A recorded action carries out an operation that a reasoning node explicitly proposed as a future step, with matching task purpose rather than merely topical or temporal adjacency.\" It doesn't require modification or concrete content, but includes it. Is the candidate's added specificity \"modification whose target and concrete content...\" an essential distinction? It captures \"implementation of design\" vs \"any planned step.\" In registry, there is IMPLEMENTS_PROPOSED_REPAIR which is even more specific to repair and includes observation confirmation. There is no general \"implements design\" but ACTION_IMPLEMENTS_PLANNED_STEP covers. The granularity rules: \"A precise predicate may remain new when an existing broad predicate only subsumes it. One-way subsumption does not establish semantic equivalence.\" So if candidate is a precise specialization with additional meaningful semantics, new is allowed. But also \"Differences in names, wording, tools, resources, or incidental details do not automatically establish distinct mechanisms.\" Is concrete content/parameters incidental? It could be essential: materializing intended design vs generic step. The candidate specifically includes \"modification\" and \"concrete content or key parameters\" and exclusion if only general goal. Existing ACTION_IMPLEMENTS_PLANNED_STEP requires matching purpose/target but not concrete content. Could satisfy both for a modification. But candidate can fail while existing holds (e.g., action follows plan to inspect file; or action modifies but reasoning lacked concrete content). Existing can hold while candidate fails. Candidate can hold while existing? If action carries out modification specified in reasoning, that is also a planned step, so existing would hold too. Thus candidate is subset. One-way subsumption. New permitted if meaningful distinction. I think new.\n\nCONFIRMS_ACTION_EFFECT: Could be existing? No. Maybe could be \"PRODUCES_EXPECTED_BUILD_ARTIFACT\" but that's specific. New.\n\nCHECKS_VALIDITY_BEFORE_ACTIVATION: Could be \"CHECKS_ENVIRONMENT_PREREQUISITE\"? No.\n\nCould any be \"uncertain\" due overly operational/specialized? The instruction says uncertain includes \"potentially redundant specializations.\" CHECKS_VALIDITY_BEFORE_ACTIVATION is a very specific operational sequence. But it's precise and distinct. Is it task-specific? It mentions configuration artifact and service activation. That may be operational, but it's a reusable safety mechanism. However maybe \"CHECKS_VALIDITY_BEFORE_ACTIVATION\" is a specific instance of \"MITIGATES_ANTICIPATED_FAILURE\" (validating config before activation prevents invalid config taking effect). Candidate 9 is general safeguard action+reasoning; candidate 10 is unary action that validates before activation. They overlap: if reasoning identified risk of invalid config and action validates then activates, both could hold. But candidate 10 doesn't require reasoning. Is 10 a distinct mechanism? It is a guarded sequence within one action. Could be considered a specialization of MITIGATES_ANTICIPATED_FAILURE? But candidate 9 requires reasoning; candidate 10 not. Also candidate 10 is unary action. Could be new. But \"uncertain\" maybe because it's a very concrete operational procedure and might be subsumed by broader safety/validation mechanisms not in registry. Since no registry equivalent, new. But the registry has no MITIGATES_ANTICIPATED_FAILURE either (candidate 9 is new). So no existing.\n\nNeed maybe include uncertain for candidates that are broad/generic? The task wants classify against supplied registry. Since registry relatively small and none of candidate 2-10 match existing exactly, all new except IS_PLAN. But maybe some candidates are semantically equivalent to existing even if names differ? Let's scan registry for each candidate:\n- EVALUATES_ALTERNATIVES: no.\n- IS_STATE_PROBE: no (CHECKS_ENVIRONMENT_PREREQUISITE is binary, specific).\n- TESTS_ASSUMPTION_WITH_PROBE: no. Wait the registry has \"CHECKS_ENVIRONMENT_PREREQUISITE\" which is action + observation. Candidate adds assumption reasoning. Not equivalent.\n- GROUNDS_CONCLUSION_IN_OBSERVATION: no. There is DIAGNOSES_OBSERVED_ARTIFACT_DEFECT (binary reasoning+observation) but specific to defect. Candidate general. Not equivalent.\n- ADAPTS_PLAN_TO_OBSERVED_STATE: no.\n- REALIZES_PLANNED_CHANGE: no, closest ACTION_IMPLEMENTS_PLANNED_STEP but not equivalent due modification/concrete content.\n- CONFIRMS_ACTION_EFFECT: no, closest IMPLEMENTS_PROPOSED_REPAIR (ternary with repair reasoning) or PRODUCES_EXPECTED_BUILD_ARTIFACT. Not equivalent.\n- MITIGATES_ANTICIPATED_FAILURE: no.\n- CHECKS_VALIDITY_BEFORE_ACTIVATION: no.\n\nSo 1 existing, 9 new, 0 uncertain. Need ensure JSON only. Let's craft with complete original definitions exactly. Need include parameter descriptions etc. Ensure all fields.\n\nLet's produce.",
+              "content": "{\"existing\":[{\"candidate_name\":\"IS_PLAN\",\"matched_existing_name\":\"IS_PLAN\"}],\"new\":[{\"name\":\"EVALUATES_ALTERNATIVES\",\"definition\":\"The reasoning considers two or more viable ways of reaching the same goal, applies a selection criterion such as robustness, availability, or compatibility, and settles on one of them.\",\"parameters\":[{\"name\":\"deliberating_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that contrasts candidate approaches and justifies the chosen one.\"}],\"assertion_conditions\":[\"The reasoning names at least two candidate approaches, tools, or configuration choices that could serve the same purpose.\",\"The reasoning states a rationale (robustness, availability, compatibility, convenience) that favors the selected option over the alternatives.\"],\"exclusion_conditions\":[\"The reasoning describes only a single approach without contrasting it against another.\",\"The reasoning merely lists planned steps without weighing options against each other.\"]},{\"name\":\"IS_STATE_PROBE\",\"definition\":\"The action is a read-only inspection of system, environment, or resource state performed to obtain information, without intending to change that state.\",\"parameters\":[{\"name\":\"probe_action\",\"type\":\"action\",\"description\":\"The action that inspects the environment rather than modifying it.\"}],\"assertion_conditions\":[\"The action consists of inspection or query operations such as listing directories, dumping configuration, querying package or process state.\",\"The action's intent, as recorded in its own description or command composition, is informational and does not include a persistent modification.\"],\"exclusion_conditions\":[\"The action installs, creates, deletes, or reconfigures resources.\",\"An inspection command appears only incidentally inside an action whose purpose is a persistent change.\"]},{\"name\":\"TESTS_ASSUMPTION_WITH_PROBE\",\"definition\":\"The reasoning raises a specific uncertainty or tentative assumption about the environment, an inspection action is directed at that uncertainty, and the resulting observation supplies evidence that bears on the assumption.\",\"parameters\":[{\"name\":\"probe_action\",\"type\":\"action\",\"description\":\"The action that performs the targeted inspection.\"},{\"name\":\"assumption_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that states the uncertainty or tentative assumption being checked.\"},{\"name\":\"probe_observation\",\"type\":\"observation\",\"description\":\"The observation whose content addresses the stated uncertainty.\"}],\"assertion_conditions\":[\"The reasoning explicitly formulates an uncertainty or tentative assumption about the environment or resources.\",\"The action is chosen to obtain information that would discriminate between the assumption holding and not holding.\",\"The observation contains content interpretable as evidence for or against the assumption.\"],\"exclusion_conditions\":[\"No identifiable assumption or uncertainty motivates the inspection.\",\"The action inspects something unrelated to the stated assumption.\",\"The observation does not address the assumption being tested.\"]},{\"name\":\"GROUNDS_CONCLUSION_IN_OBSERVATION\",\"definition\":\"The reasoning draws a conclusion about the system or environment using identifiable content of the observation as supporting evidence.\",\"parameters\":[{\"name\":\"concluding_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that states the evidence-based conclusion.\"},{\"name\":\"evidential_observation\",\"type\":\"observation\",\"description\":\"The observation supplying the content that supports the conclusion.\"}],\"assertion_conditions\":[\"The reasoning asserts a conclusion about the state, capability, or composition of the environment.\",\"Specific content of the observation (missing entries, absence of expected items, reported versions, successful fetches) supports that conclusion.\"],\"exclusion_conditions\":[\"The reasoning merely restates the observation without drawing an inference from it.\",\"The observation is unrelated to the stated conclusion or provides no identifiable support.\"]},{\"name\":\"ADAPTS_PLAN_TO_OBSERVED_STATE\",\"definition\":\"The reasoning changes the course of action it will take because the observation reveals a system state that differs from what the prior plan assumed or that constrains the available options.\",\"parameters\":[{\"name\":\"revised_plan_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that sets out the adjusted course of action.\"},{\"name\":\"state_revealing_observation\",\"type\":\"observation\",\"description\":\"The observation that reveals the state prompting the adjustment.\"}],\"assertion_conditions\":[\"The observation reports a state that departs from the assumptions of the earlier course of action or removes options from it.\",\"The reasoning explicitly derives a different set of subsequent steps as a consequence of that observed state.\"],\"exclusion_conditions\":[\"The reasoning repeats the previous plan unchanged after the observation.\",\"The reasoning records the observed state as a fact without altering what it intends to do next.\"]},{\"name\":\"REALIZES_PLANNED_CHANGE\",\"definition\":\"The action carries out a modification whose target and concrete content or key parameters were specified in the reasoning, materializing an intended design into the environment.\",\"parameters\":[{\"name\":\"change_action\",\"type\":\"action\",\"description\":\"The action that performs the modification.\"},{\"name\":\"design_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that specifies the intended change, its target, and its content or parameters.\"}],\"assertion_conditions\":[\"The reasoning specifies what is to be created or modified, including concrete content, values, or configuration parameters.\",\"The action's arguments show a modification of that same target with content or parameters corresponding to the specified design.\"],\"exclusion_conditions\":[\"The action modifies a target or applies details unrelated to the design stated in the reasoning.\",\"The reasoning states only a general goal and the action's specifics are not traceable to it.\",\"The action only inspects state without performing the intended modification.\"]},{\"name\":\"CONFIRMS_ACTION_EFFECT\",\"definition\":\"The observation reports the result of an executed action in a form that shows whether the action's intended effect was achieved, such as a success notice, a validation verdict, or a state listing showing the resulting configuration.\",\"parameters\":[{\"name\":\"result_observation\",\"type\":\"observation\",\"description\":\"The observation reporting the outcome of the executed action.\"},{\"name\":\"executed_action\",\"type\":\"action\",\"description\":\"The action whose intended effect the observation reports on.\"}],\"assertion_conditions\":[\"The observation contains a status, verdict, or state listing that corresponds to the intended effect of the action.\",\"The correspondence between the reported content and the action's intended effect is identifiable from the content of both nodes.\"],\"exclusion_conditions\":[\"The observation reports content unrelated to what the action was meant to achieve.\",\"The observation reports only an attempt or an error surface that says nothing about the intended effect.\",\"The observation originates from a different operation than the one whose effect is claimed.\"]},{\"name\":\"MITIGATES_ANTICIPATED_FAILURE\",\"definition\":\"The reasoning identifies a specific failure mode that could prevent the goal from being reached, and the action implements a safeguard aimed at preventing or neutralizing that failure before it occurs.\",\"parameters\":[{\"name\":\"safeguard_action\",\"type\":\"action\",\"description\":\"The action that implements the preventive measure.\"},{\"name\":\"risk_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that identifies the failure mode and the reason for the safeguard.\"}],\"assertion_conditions\":[\"The reasoning names a concrete failure mode or pitfall that could block the goal.\",\"The action contains a measure whose stated or evident purpose is to prevent or neutralize that specific failure mode.\"],\"exclusion_conditions\":[\"The reasoning names no failure mode, so the measure cannot be tied to a risk.\",\"The action is ordinary setup work with no identifiable correspondence to the described failure mode.\"]},{\"name\":\"CHECKS_VALIDITY_BEFORE_ACTIVATION\",\"definition\":\"The action validates a configuration artifact for correctness and only activates or starts the corresponding service after the validation step, ordering the guarded sequence so that an invalid configuration does not take effect.\",\"parameters\":[{\"name\":\"guarded_action\",\"type\":\"action\",\"description\":\"The action that runs the validation check and then the activation within one guarded sequence.\"}],\"assertion_conditions\":[\"The action invokes a configuration syntax or integrity check on the artifact that is about to be applied.\",\"The activation or start of the service is sequenced after the check, so activation is gated on the check succeeding.\"],\"exclusion_conditions\":[\"The action activates or starts the service without any preceding validation of the configuration.\",\"A validation command is run in isolation long after the service was already activated.\"]}],\"uncertain\":[]}"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 7341,
+          "total_tokens": 13310,
+          "completion_tokens": 5969,
+          "prompt_tokens_details": {
+            "cached_tokens": 2304,
+            "image_tokens": 0,
+            "text_tokens": 7341
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 4217,
+            "text_tokens": 1751
+          }
+        }
+      },
+      "response_content": "{\"existing\":[{\"candidate_name\":\"IS_PLAN\",\"matched_existing_name\":\"IS_PLAN\"}],\"new\":[{\"name\":\"EVALUATES_ALTERNATIVES\",\"definition\":\"The reasoning considers two or more viable ways of reaching the same goal, applies a selection criterion such as robustness, availability, or compatibility, and settles on one of them.\",\"parameters\":[{\"name\":\"deliberating_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that contrasts candidate approaches and justifies the chosen one.\"}],\"assertion_conditions\":[\"The reasoning names at least two candidate approaches, tools, or configuration choices that could serve the same purpose.\",\"The reasoning states a rationale (robustness, availability, compatibility, convenience) that favors the selected option over the alternatives.\"],\"exclusion_conditions\":[\"The reasoning describes only a single approach without contrasting it against another.\",\"The reasoning merely lists planned steps without weighing options against each other.\"]},{\"name\":\"IS_STATE_PROBE\",\"definition\":\"The action is a read-only inspection of system, environment, or resource state performed to obtain information, without intending to change that state.\",\"parameters\":[{\"name\":\"probe_action\",\"type\":\"action\",\"description\":\"The action that inspects the environment rather than modifying it.\"}],\"assertion_conditions\":[\"The action consists of inspection or query operations such as listing directories, dumping configuration, querying package or process state.\",\"The action's intent, as recorded in its own description or command composition, is informational and does not include a persistent modification.\"],\"exclusion_conditions\":[\"The action installs, creates, deletes, or reconfigures resources.\",\"An inspection command appears only incidentally inside an action whose purpose is a persistent change.\"]},{\"name\":\"TESTS_ASSUMPTION_WITH_PROBE\",\"definition\":\"The reasoning raises a specific uncertainty or tentative assumption about the environment, an inspection action is directed at that uncertainty, and the resulting observation supplies evidence that bears on the assumption.\",\"parameters\":[{\"name\":\"probe_action\",\"type\":\"action\",\"description\":\"The action that performs the targeted inspection.\"},{\"name\":\"assumption_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that states the uncertainty or tentative assumption being checked.\"},{\"name\":\"probe_observation\",\"type\":\"observation\",\"description\":\"The observation whose content addresses the stated uncertainty.\"}],\"assertion_conditions\":[\"The reasoning explicitly formulates an uncertainty or tentative assumption about the environment or resources.\",\"The action is chosen to obtain information that would discriminate between the assumption holding and not holding.\",\"The observation contains content interpretable as evidence for or against the assumption.\"],\"exclusion_conditions\":[\"No identifiable assumption or uncertainty motivates the inspection.\",\"The action inspects something unrelated to the stated assumption.\",\"The observation does not address the assumption being tested.\"]},{\"name\":\"GROUNDS_CONCLUSION_IN_OBSERVATION\",\"definition\":\"The reasoning draws a conclusion about the system or environment using identifiable content of the observation as supporting evidence.\",\"parameters\":[{\"name\":\"concluding_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that states the evidence-based conclusion.\"},{\"name\":\"evidential_observation\",\"type\":\"observation\",\"description\":\"The observation supplying the content that supports the conclusion.\"}],\"assertion_conditions\":[\"The reasoning asserts a conclusion about the state, capability, or composition of the environment.\",\"Specific content of the observation (missing entries, absence of expected items, reported versions, successful fetches) supports that conclusion.\"],\"exclusion_conditions\":[\"The reasoning merely restates the observation without drawing an inference from it.\",\"The observation is unrelated to the stated conclusion or provides no identifiable support.\"]},{\"name\":\"ADAPTS_PLAN_TO_OBSERVED_STATE\",\"definition\":\"The reasoning changes the course of action it will take because the observation reveals a system state that differs from what the prior plan assumed or that constrains the available options.\",\"parameters\":[{\"name\":\"revised_plan_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that sets out the adjusted course of action.\"},{\"name\":\"state_revealing_observation\",\"type\":\"observation\",\"description\":\"The observation that reveals the state prompting the adjustment.\"}],\"assertion_conditions\":[\"The observation reports a state that departs from the assumptions of the earlier course of action or removes options from it.\",\"The reasoning explicitly derives a different set of subsequent steps as a consequence of that observed state.\"],\"exclusion_conditions\":[\"The reasoning repeats the previous plan unchanged after the observation.\",\"The reasoning records the observed state as a fact without altering what it intends to do next.\"]},{\"name\":\"REALIZES_PLANNED_CHANGE\",\"definition\":\"The action carries out a modification whose target and concrete content or key parameters were specified in the reasoning, materializing an intended design into the environment.\",\"parameters\":[{\"name\":\"change_action\",\"type\":\"action\",\"description\":\"The action that performs the modification.\"},{\"name\":\"design_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that specifies the intended change, its target, and its content or parameters.\"}],\"assertion_conditions\":[\"The reasoning specifies what is to be created or modified, including concrete content, values, or configuration parameters.\",\"The action's arguments show a modification of that same target with content or parameters corresponding to the specified design.\"],\"exclusion_conditions\":[\"The action modifies a target or applies details unrelated to the design stated in the reasoning.\",\"The reasoning states only a general goal and the action's specifics are not traceable to it.\",\"The action only inspects state without performing the intended modification.\"]},{\"name\":\"CONFIRMS_ACTION_EFFECT\",\"definition\":\"The observation reports the result of an executed action in a form that shows whether the action's intended effect was achieved, such as a success notice, a validation verdict, or a state listing showing the resulting configuration.\",\"parameters\":[{\"name\":\"result_observation\",\"type\":\"observation\",\"description\":\"The observation reporting the outcome of the executed action.\"},{\"name\":\"executed_action\",\"type\":\"action\",\"description\":\"The action whose intended effect the observation reports on.\"}],\"assertion_conditions\":[\"The observation contains a status, verdict, or state listing that corresponds to the intended effect of the action.\",\"The correspondence between the reported content and the action's intended effect is identifiable from the content of both nodes.\"],\"exclusion_conditions\":[\"The observation reports content unrelated to what the action was meant to achieve.\",\"The observation reports only an attempt or an error surface that says nothing about the intended effect.\",\"The observation originates from a different operation than the one whose effect is claimed.\"]},{\"name\":\"MITIGATES_ANTICIPATED_FAILURE\",\"definition\":\"The reasoning identifies a specific failure mode that could prevent the goal from being reached, and the action implements a safeguard aimed at preventing or neutralizing that failure before it occurs.\",\"parameters\":[{\"name\":\"safeguard_action\",\"type\":\"action\",\"description\":\"The action that implements the preventive measure.\"},{\"name\":\"risk_reasoning\",\"type\":\"reasoning\",\"description\":\"The reasoning that identifies the failure mode and the reason for the safeguard.\"}],\"assertion_conditions\":[\"The reasoning names a concrete failure mode or pitfall that could block the goal.\",\"The action contains a measure whose stated or evident purpose is to prevent or neutralize that specific failure mode.\"],\"exclusion_conditions\":[\"The reasoning names no failure mode, so the measure cannot be tied to a risk.\",\"The action is ordinary setup work with no identifiable correspondence to the described failure mode.\"]},{\"name\":\"CHECKS_VALIDITY_BEFORE_ACTIVATION\",\"definition\":\"The action validates a configuration artifact for correctness and only activates or starts the corresponding service after the validation step, ordering the guarded sequence so that an invalid configuration does not take effect.\",\"parameters\":[{\"name\":\"guarded_action\",\"type\":\"action\",\"description\":\"The action that runs the validation check and then the activation within one guarded sequence.\"}],\"assertion_conditions\":[\"The action invokes a configuration syntax or integrity check on the artifact that is about to be applied.\",\"The activation or start of the service is sequenced after the check, so activation is gated on the check succeeding.\"],\"exclusion_conditions\":[\"The action activates or starts the service without any preceding validation of the configuration.\",\"A validation command is run in isolation long after the service was already activated.\"]}],\"uncertain\":[]}",
+      "error": null
+    }
+  ],
+  "parsed_response": {
+    "existing": [
+      {
+        "candidate_name": "IS_PLAN",
+        "matched_existing_name": "IS_PLAN"
+      }
+    ],
+    "new": [
+      {
+        "name": "EVALUATES_ALTERNATIVES",
+        "definition": "The reasoning considers two or more viable ways of reaching the same goal, applies a selection criterion such as robustness, availability, or compatibility, and settles on one of them.",
+        "parameters": [
+          {
+            "name": "deliberating_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that contrasts candidate approaches and justifies the chosen one."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names at least two candidate approaches, tools, or configuration choices that could serve the same purpose.",
+          "The reasoning states a rationale (robustness, availability, compatibility, convenience) that favors the selected option over the alternatives."
+        ],
+        "exclusion_conditions": [
+          "The reasoning describes only a single approach without contrasting it against another.",
+          "The reasoning merely lists planned steps without weighing options against each other."
+        ]
+      },
+      {
+        "name": "IS_STATE_PROBE",
+        "definition": "The action is a read-only inspection of system, environment, or resource state performed to obtain information, without intending to change that state.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action that inspects the environment rather than modifying it."
+          }
+        ],
+        "assertion_conditions": [
+          "The action consists of inspection or query operations such as listing directories, dumping configuration, querying package or process state.",
+          "The action's intent, as recorded in its own description or command composition, is informational and does not include a persistent modification."
+        ],
+        "exclusion_conditions": [
+          "The action installs, creates, deletes, or reconfigures resources.",
+          "An inspection command appears only incidentally inside an action whose purpose is a persistent change."
+        ]
+      },
+      {
+        "name": "TESTS_ASSUMPTION_WITH_PROBE",
+        "definition": "The reasoning raises a specific uncertainty or tentative assumption about the environment, an inspection action is directed at that uncertainty, and the resulting observation supplies evidence that bears on the assumption.",
+        "parameters": [
+          {
+            "name": "probe_action",
+            "type": "action",
+            "description": "The action that performs the targeted inspection."
+          },
+          {
+            "name": "assumption_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that states the uncertainty or tentative assumption being checked."
+          },
+          {
+            "name": "probe_observation",
+            "type": "observation",
+            "description": "The observation whose content addresses the stated uncertainty."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning explicitly formulates an uncertainty or tentative assumption about the environment or resources.",
+          "The action is chosen to obtain information that would discriminate between the assumption holding and not holding.",
+          "The observation contains content interpretable as evidence for or against the assumption."
+        ],
+        "exclusion_conditions": [
+          "No identifiable assumption or uncertainty motivates the inspection.",
+          "The action inspects something unrelated to the stated assumption.",
+          "The observation does not address the assumption being tested."
+        ]
+      },
+      {
+        "name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+        "definition": "The reasoning draws a conclusion about the system or environment using identifiable content of the observation as supporting evidence.",
+        "parameters": [
+          {
+            "name": "concluding_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that states the evidence-based conclusion."
+          },
+          {
+            "name": "evidential_observation",
+            "type": "observation",
+            "description": "The observation supplying the content that supports the conclusion."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning asserts a conclusion about the state, capability, or composition of the environment.",
+          "Specific content of the observation (missing entries, absence of expected items, reported versions, successful fetches) supports that conclusion."
+        ],
+        "exclusion_conditions": [
+          "The reasoning merely restates the observation without drawing an inference from it.",
+          "The observation is unrelated to the stated conclusion or provides no identifiable support."
+        ]
+      },
+      {
+        "name": "ADAPTS_PLAN_TO_OBSERVED_STATE",
+        "definition": "The reasoning changes the course of action it will take because the observation reveals a system state that differs from what the prior plan assumed or that constrains the available options.",
+        "parameters": [
+          {
+            "name": "revised_plan_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that sets out the adjusted course of action."
+          },
+          {
+            "name": "state_revealing_observation",
+            "type": "observation",
+            "description": "The observation that reveals the state prompting the adjustment."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation reports a state that departs from the assumptions of the earlier course of action or removes options from it.",
+          "The reasoning explicitly derives a different set of subsequent steps as a consequence of that observed state."
+        ],
+        "exclusion_conditions": [
+          "The reasoning repeats the previous plan unchanged after the observation.",
+          "The reasoning records the observed state as a fact without altering what it intends to do next."
+        ]
+      },
+      {
+        "name": "REALIZES_PLANNED_CHANGE",
+        "definition": "The action carries out a modification whose target and concrete content or key parameters were specified in the reasoning, materializing an intended design into the environment.",
+        "parameters": [
+          {
+            "name": "change_action",
+            "type": "action",
+            "description": "The action that performs the modification."
+          },
+          {
+            "name": "design_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that specifies the intended change, its target, and its content or parameters."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning specifies what is to be created or modified, including concrete content, values, or configuration parameters.",
+          "The action's arguments show a modification of that same target with content or parameters corresponding to the specified design."
+        ],
+        "exclusion_conditions": [
+          "The action modifies a target or applies details unrelated to the design stated in the reasoning.",
+          "The reasoning states only a general goal and the action's specifics are not traceable to it.",
+          "The action only inspects state without performing the intended modification."
+        ]
+      },
+      {
+        "name": "CONFIRMS_ACTION_EFFECT",
+        "definition": "The observation reports the result of an executed action in a form that shows whether the action's intended effect was achieved, such as a success notice, a validation verdict, or a state listing showing the resulting configuration.",
+        "parameters": [
+          {
+            "name": "result_observation",
+            "type": "observation",
+            "description": "The observation reporting the outcome of the executed action."
+          },
+          {
+            "name": "executed_action",
+            "type": "action",
+            "description": "The action whose intended effect the observation reports on."
+          }
+        ],
+        "assertion_conditions": [
+          "The observation contains a status, verdict, or state listing that corresponds to the intended effect of the action.",
+          "The correspondence between the reported content and the action's intended effect is identifiable from the content of both nodes."
+        ],
+        "exclusion_conditions": [
+          "The observation reports content unrelated to what the action was meant to achieve.",
+          "The observation reports only an attempt or an error surface that says nothing about the intended effect.",
+          "The observation originates from a different operation than the one whose effect is claimed."
+        ]
+      },
+      {
+        "name": "MITIGATES_ANTICIPATED_FAILURE",
+        "definition": "The reasoning identifies a specific failure mode that could prevent the goal from being reached, and the action implements a safeguard aimed at preventing or neutralizing that failure before it occurs.",
+        "parameters": [
+          {
+            "name": "safeguard_action",
+            "type": "action",
+            "description": "The action that implements the preventive measure."
+          },
+          {
+            "name": "risk_reasoning",
+            "type": "reasoning",
+            "description": "The reasoning that identifies the failure mode and the reason for the safeguard."
+          }
+        ],
+        "assertion_conditions": [
+          "The reasoning names a concrete failure mode or pitfall that could block the goal.",
+          "The action contains a measure whose stated or evident purpose is to prevent or neutralize that specific failure mode."
+        ],
+        "exclusion_conditions": [
+          "The reasoning names no failure mode, so the measure cannot be tied to a risk.",
+          "The action is ordinary setup work with no identifiable correspondence to the described failure mode."
+        ]
+      },
+      {
+        "name": "CHECKS_VALIDITY_BEFORE_ACTIVATION",
+        "definition": "The action validates a configuration artifact for correctness and only activates or starts the corresponding service after the validation step, ordering the guarded sequence so that an invalid configuration does not take effect.",
+        "parameters": [
+          {
+            "name": "guarded_action",
+            "type": "action",
+            "description": "The action that runs the validation check and then the activation within one guarded sequence."
+          }
+        ],
+        "assertion_conditions": [
+          "The action invokes a configuration syntax or integrity check on the artifact that is about to be applied.",
+          "The activation or start of the service is sequenced after the check, so activation is gated on the check succeeding."
+        ],
+        "exclusion_conditions": [
+          "The action activates or starts the service without any preceding validation of the configuration.",
+          "A validation command is run in isolation long after the service was already activated."
+        ]
+      }
+    ],
+    "uncertain": []
+  },
+  "previous_calls": []
+}

@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 
 from .datasets import CATALOG, DatasetCatalog, content_hash
 from .trajectory_selection import trajectory_summary
-from . import splitting, preprocessing
+from . import splitting, preprocessing, clustering
 from .common import (DISCOVERY, PROMPTS, ROOT, PROMPT_FILES, PromptManager,
                      load_windows, now, read, text_field, write)
 from . import predicate_inputs
@@ -88,7 +88,10 @@ class Workspace:
         meta = read(root / 'experiment.json', {})
         registry = read(output / 'predicate_registry.json', [])
         kind = meta.get('kind', 'predicate')
-        total = meta['trajectory_count'] if kind in ('split', 'preprocess') else meta['window_count']
+        if kind not in ('preprocess', 'split', 'predicate', 'clustering'):
+            raise ValueError('无法读取未知实验类型')
+        total = (meta['predicate_count'] if kind == 'clustering' else
+                 meta['trajectory_count'] if kind in ('split', 'preprocess') else meta['window_count'])
         live = self.processes.get(identity)
         alive = live is not None and live.poll() is None
         pending = read(root / 'pending_feedback.json')
@@ -107,14 +110,15 @@ class Workspace:
                             'after': b.get('registry_size_after_feedback', b.get('registry_size', 0)),
                             'feedback': b.get('feedback_completed', False)})
         result = {**meta, 'id': identity, 'title': meta['title'],
-                  'kind': kind, 'schema': {'split': 'split-experiment/v1', 'preprocess': 'preprocess-experiment/v1'}.get(kind, meta.get('predicate_schema_version', state.get('predicate_schema_version', 'predicate-definition/v1'))),
-                  'status': status, 'completed': state.get('completed_trajectories' if kind in ('split', 'preprocess') else 'completed_windows', 0),
+                  'kind': kind, 'schema': {'clustering': clustering.SCHEMA, 'split': 'split-experiment/v1', 'preprocess': 'preprocess-experiment/v1'}.get(kind, meta.get('predicate_schema_version', state.get('predicate_schema_version', 'predicate-definition/v1'))),
+                  'status': status, 'completed': state.get('completed_predicates' if kind == 'clustering' else 'completed_trajectories' if kind in ('split', 'preprocess') else 'completed_windows', 0),
                   'total': total, 'registry_count': len(registry), 'batches': batches,
                   'stage': state.get('next_stage', ''), 'batch': state.get('current_batch_index', 1),
                   'dataset_id': meta['dataset_id'],
                   'pending': pending if alive else None,
-                  'unit': '轨迹' if kind in ('split', 'preprocess') else '窗口',
+                  'unit': '谓词' if kind == 'clustering' else '轨迹' if kind in ('split', 'preprocess') else '窗口',
                   'statistics': read(output / 'statistics.json', {}),
+                  'actual_clusters': state.get('actual_clusters'),
                   'produced_windows': state.get('window_count', 0)}
         if detail:
             reviews = read(self.data / 'reviews.json', {}).get(identity, {})
@@ -130,9 +134,16 @@ class Workspace:
                 with logfile.open('rb') as stream:
                     stream.seek(max(0, logfile.stat().st_size - 18000))
                     log = stream.read().decode('utf-8', errors='replace')
-                key = self.settings(secret=True).get('api_key', '')
-                result['log'] = log.replace(key, '[REDACTED]') if key else log
-            if kind == 'preprocess':
+                secrets = self.settings(secret=True)
+                for key in (secrets.get('api_key'), secrets.get('embedding_api_key')):
+                    if key:
+                        log = log.replace(key, '[REDACTED]')
+                result['log'] = log
+            if kind == 'clustering':
+                result['input_registry'] = read(root / 'inputs/predicate_registry.json', [])
+                result['clustering'] = read(output / 'clusters.json', {})
+                result['windows'] = []
+            elif kind == 'preprocess':
                 result['trajectories'] = preprocessing.list_trajectories(root)
                 result['selection'] = read(root / 'selection.json') if meta.get('selection_policy') else None
                 result['windows'] = []
@@ -151,6 +162,8 @@ class Workspace:
             raise ValueError('请先选择切分实验的输出窗口')
         root, output = self.paths(experiment)
         meta = read(root / 'experiment.json')
+        if meta.get('kind', 'predicate') not in ('predicate', 'split'):
+            raise ValueError('该实验类型没有谓词发现窗口')
         directory = output / 'windows' if meta.get('kind') == 'split' else root / 'inputs'
         records = load_windows(directory) if any(directory.glob('*.json')) else []
         return records, output
@@ -212,7 +225,10 @@ class Workspace:
     def settings(self, secret=False):
         values = {'model': os.getenv('DEEPSEEK_MODEL', 'deepseek-flash'),
                   'base_url': os.getenv('DEEPSEEK_BASE_URL', 'https://api.deepseek.com'),
-                  'api_key': os.getenv('DEEPSEEK_API_KEY', '')}
+                  'api_key': os.getenv('DEEPSEEK_API_KEY', ''),
+                  'embedding_model': 'qwen3.7-text-embedding',
+                  'embedding_base_url': '', 'embedding_api_key': '',
+                  'embedding_dimensions': None}
         # Read module .env in isolation so settings never mutate the server environment.
         for path in [self.discovery / 'src/.env']:
             if path.is_file():
@@ -224,10 +240,33 @@ class Workspace:
                         values[mapping[key.strip()]] = val.strip().strip('\"\'')
         values.update(read(self.data / 'settings.json', {}))
         return values if secret else values | {
+            'embedding_api_key': '',
+            'embedding_key_configured': bool(values['embedding_api_key'].strip()),
             'key_configured': bool(values['api_key'].strip())}
 
     def save_settings(self, body):
         values = self.settings(secret=True)
+        if body.get('section') == 'embedding':
+            model = text_field(body, 'embedding_model', values['embedding_model'], 200)
+            url = clustering.base_url(body.get('embedding_base_url', values['embedding_base_url']))
+            if not model:
+                raise ValueError('请填写 Embedding 模型名称')
+            dimensions = body.get('embedding_dimensions')
+            if dimensions in ('', None):
+                dimensions = None
+            else:
+                if isinstance(dimensions, str) and re.fullmatch(r'[0-9]+', dimensions):
+                    dimensions = int(dimensions)
+                clustering.positive_integer(dimensions, 'Embedding 输出维度')
+            values.update(embedding_model=model, embedding_base_url=url,
+                          embedding_dimensions=dimensions)
+            key = text_field(body, 'embedding_api_key', '', 4000)
+            if key:
+                values['embedding_api_key'] = key
+            if body.get('clear_embedding_key'):
+                values['embedding_api_key'] = ''
+            write(self.data / 'settings.json', values, private=True)
+            return self.settings()
         model = text_field(body, 'model', values['model'], 200)
         url = text_field(body, 'base_url', values['base_url'], 2000).rstrip('/')
         parsed = urlparse(url)
@@ -244,6 +283,8 @@ class Workspace:
 
     def create(self, body):
         kind = body.get('kind', 'predicate')
+        if kind == 'clustering':
+            return clustering.create(self, body)
         if kind == 'preprocess':
             return preprocessing.create(self, body)
         if kind == 'split':
@@ -325,6 +366,10 @@ class Workspace:
             raise ValueError('实验已完成；可新建实验进行对比')
         settings = self.settings(secret=True)
         meta = read(root / 'experiment.json')
+        if meta.get('kind') == 'clustering':
+            clustering.verify_inputs(root, meta)
+            if not settings['embedding_api_key'].strip():
+                raise ValueError('请先在模型设置中填写 Embedding API Key')
         if meta.get('kind', 'predicate') == 'predicate':
             predicate_inputs.verify(root, meta)
         if meta.get('kind') == 'split' and (meta.get('input_state') == 'awaiting_input' or not meta['trajectory_count']):
@@ -335,6 +380,8 @@ class Workspace:
         env = dict(os.environ, DEEPSEEK_API_KEY=settings['api_key'],
                    DEEPSEEK_MODEL=meta['model'], DEEPSEEK_BASE_URL=meta['base_url'],
                    PYTHONUNBUFFERED='1', PYTHONUTF8='1')
+        if meta.get('kind') == 'clustering':
+            env['AGENTCM_EMBEDDING_API_KEY'] = settings['embedding_api_key']
         pending = read(root / 'pending_feedback.json', {})
         submitted = read(root / 'feedback.json', {})
         if not pending or pending.get('token') != submitted.get('token'):
@@ -392,6 +439,8 @@ class Workspace:
 
     def review(self, identity, body):
         data = self.experiment(identity, detail=True)
+        if data['kind'] != 'predicate':
+            raise ValueError('只有谓词发现实验支持定义审核')
         name = text_field(body, 'name', limit=500)
         if name not in {x['name'] for x in data['registry']}:
             raise ValueError('定义不在当前 Registry 中')

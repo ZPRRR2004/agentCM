@@ -1,0 +1,485 @@
+[
+  {
+    "name": "ENACTS_DERIVED_CONSTRAINT",
+    "definition": "The reasoning derives a necessary condition that must hold for the target system to function as required, and the action performs an operation that establishes that condition.",
+    "parameters": [
+      {
+        "name": "constraint_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning stating a necessary condition or implication required for the system to work correctly, derived from requirements or observed runtime facts."
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The recorded invocation that brings about the stated necessary condition."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states a necessary condition or implication that must hold for the target system to work correctly, derived from task requirements or observed runtime facts rather than merely asserted as a goal.",
+      "The action performs an operation that establishes that condition, for example by adjusting ownership, permissions, or other required settings."
+    ],
+    "exclusion_conditions": [
+      "The reasoning states only a general goal or desired outcome without a derived necessary condition.",
+      "The action satisfies some requirement that the reasoning never expressed as a condition.",
+      "The reasoning states the condition but no corresponding action establishes it."
+    ]
+  },
+  {
+    "name": "VERIFIES_CHANGE_EFFECT",
+    "definition": "An action applies or initiates a state change on a targeted object, and the observation reports the resulting state of that same object in a form that shows whether the intended effect of the change is present.",
+    "parameters": [
+      {
+        "name": "change_action",
+        "type": "action",
+        "description": "The recorded invocation that applies or initiates the state change."
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "The observation reporting the post-change state of the targeted object."
+      }
+    ],
+    "assertion_conditions": [
+      "The action performs or initiates a state change on a targeted object, such as starting a service, writing a file, creating a resource, or altering configuration.",
+      "The observation reports the resulting state of that same targeted object in a form from which the presence or absence of the intended effect can be read."
+    ],
+    "exclusion_conditions": [
+      "The observation reports only pre-change state or output unrelated to the changed object.",
+      "The action is a pure read that changes nothing.",
+      "The observation reports that the intended effect of the change is absent."
+    ]
+  },
+  {
+    "name": "REMOVES_SUPERSEDED_ARTIFACTS_TO_RESOLVE_CONFLICT",
+    "definition": "The reasoning identifies a duplication or conflict in which redundant artifacts overlap or compete with an authoritative configuration that is to be preserved, and the action removes those redundant artifacts so that only the authoritative configuration remains in effect.",
+    "parameters": [
+      {
+        "name": "cleanup_action",
+        "type": "action",
+        "description": "The action that deletes or disables the redundant or conflicting artifacts."
+      },
+      {
+        "name": "conflict_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies the duplication or conflict, designates the authoritative configuration to keep, and prescribes removal of the redundant artifacts."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a duplication or conflict between redundant artifacts (typically those the agent itself created) and an authoritative configuration or artifact that should be preserved.",
+      "The cleanup action removes or disables those specific redundant or conflicting artifacts.",
+      "The authoritative configuration referenced in the reasoning is left in place and remains the operative one after the action."
+    ],
+    "exclusion_conditions": [
+      "The action removes artifacts without any identified duplication or conflict, such as routine tidying of unrelated files.",
+      "The action merely overwrites, patches, or reconfigures the offending artifact instead of removing or disabling it.",
+      "The reasoning identifies the conflict but no corresponding removal action is performed.",
+      "The removed artifacts are neither the agent's own redundant artifacts nor duplicates of a configuration that is being preserved."
+    ]
+  },
+  {
+    "name": "PLANS_WITH_FALLBACK",
+    "definition": "The reasoning states a primary course of action together with an explicit contingent alternative that will be used if the primary approach is unavailable, fails, or an expected enabling condition is not met, so both courses remain available rather than one being discarded.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text presenting the primary course of action and the contingent alternative held in reserve."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a primary action or approach that the agent intends to attempt.",
+      "The reasoning identifies at least one alternative action or approach explicitly conditioned on the primary approach failing, being unavailable, or its enabling condition not holding.",
+      "Both the primary and the contingent alternative are retained as viable courses of action."
+    ],
+    "exclusion_conditions": [
+      "The reasoning presents only a single course of action or an unconditional sequence of steps.",
+      "The reasoning mentions alternatives without tying them to a contingency that triggers them.",
+      "The reasoning weighs mutually exclusive candidates and selects one while abandoning the others, which is option selection rather than fallback planning."
+    ]
+  },
+  {
+    "name": "ANALYZES_EXTERNAL_VALIDATION_RISK",
+    "definition": "The reasoning models plausible procedures, assumptions, or edge cases of an external validator, test harness, or consumer of the deliverable, and identifies a specific condition under which the current or planned system state would fail that validation.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text reasoning about how an external validator might behave and where the current or planned state could fail it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning describes at least one plausible procedure, command sequence, assumption, or edge case that an external validator or consumer of the deliverable might exhibit.",
+      "The reasoning identifies a concrete condition under which the current or planned system state would fail under that validation.",
+      "The identified risk concerns externally imposed validation rather than the agent's own planned checks."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only plans the agent's own verification steps.",
+      "The reasoning expresses generic concern or uncertainty without naming a validator behavior and a corresponding failure condition.",
+      "No external validation or downstream consumer of the deliverable is under consideration.",
+      "The reasoning only explains a failure that has already been observed rather than anticipating a possible validation outcome."
+    ]
+  },
+  {
+    "name": "SELECTS_UNDERTESTED_PATH_FOR_VERIFICATION",
+    "definition": "The reasoning identifies a specific behavior, path, or condition that prior verification did not exercise and proposes an additional check for it, explaining what that check would reveal about the implementation or requirements.",
+    "parameters": [
+      {
+        "name": "selection_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning identifying an unexercised behavior, path, or condition and proposing a check for it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific behavior, path, or condition that earlier verification did not exercise.",
+      "The reasoning proposes an additional check directed at that unexercised behavior, path, or condition.",
+      "The reasoning states what the proposed check would reveal or confirm about the implementation or requirements, such as whether update or replacement logic behaves differently from initial creation.",
+      "The proposed check is treated as pending at the time of the reasoning rather than already performed and confirmed."
+    ],
+    "exclusion_conditions": [
+      "The reasoning proposes repeating a check that was already performed and confirmed.",
+      "The reasoning lists planned steps without identifying any specific untested behavior, path, or condition.",
+      "The proposed work concerns cleanup, reporting, or modification rather than verification of behavior.",
+      "No specific unexercised behavior, path, or condition is identified."
+    ]
+  },
+  {
+    "name": "MEASURES_OPERATION_LATENCY",
+    "definition": "The action instruments a specific operation with timing markers and computes or reports the elapsed duration attributable to that operation, producing a quantified latency measurement.",
+    "parameters": [
+      {
+        "name": "timed_action",
+        "type": "action",
+        "description": "The action that brackets a specific operation with timing markers and computes or reports its elapsed duration."
+      }
+    ],
+    "assertion_conditions": [
+      "The action records a time marker before and after a specific operation.",
+      "The action computes or reports the elapsed duration attributable to that operation from those markers.",
+      "The measured operation is identifiable as the interval between the timing markers."
+    ],
+    "exclusion_conditions": [
+      "The action reports a timestamp or duration without bracketing any specific operation.",
+      "The timing markers span multiple unrelated operations so the resulting value cannot be attributed to one operation.",
+      "The action does not compute or report an elapsed duration."
+    ]
+  },
+  {
+    "name": "EVALUATES_RESULT_AGAINST_ACCEPTANCE_CRITERION",
+    "definition": "The reasoning compares a concrete value, measurement, property, or outcome reported in the observation against a stated requirement, threshold, or expected property and judges whether that criterion is satisfied.",
+    "parameters": [
+      {
+        "name": "evaluation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that states the requirement, threshold, or expected property and renders a compliance judgment."
+      },
+      {
+        "name": "measured_observation",
+        "type": "observation",
+        "description": "The observation supplying the concrete value, measurement, property, or outcome being judged."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains an identifiable concrete value, measurement, property, or outcome.",
+      "The reasoning states a requirement, threshold, or expected property and explicitly relates the observed value, measurement, property, or outcome to it.",
+      "The reasoning concludes that the criterion is met or not met."
+    ],
+    "exclusion_conditions": [
+      "The reasoning cites the observed result without comparing it to any stated requirement, threshold, or expected property.",
+      "The comparison is asserted without an observed value or property to compare.",
+      "The observation lacks the value, measurement, property, or outcome that the requirement concerns.",
+      "The reasoning only restates the observation without rendering a compliance judgment."
+    ]
+  },
+  {
+    "name": "DECLARES_TASK_COMPLETION_WITH_REQUIREMENT_MAPPING",
+    "definition": "The reasoning explicitly claims that the overall task is complete and itemizes multiple stated requirements alongside the outcomes or evidence that satisfy them, forming a final accountability record rather than an interim status update.",
+    "parameters": [
+      {
+        "name": "completion_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning containing the completion claim and the requirement-to-outcome or requirement-to-evidence mapping."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly claims that the overall task is complete.",
+      "The reasoning enumerates multiple requirements taken from the task statement or specification.",
+      "Each enumerated requirement is associated with a satisfied outcome or identifiable evidence.",
+      "No requirement is presented as satisfied while also being described as unresolved."
+    ],
+    "exclusion_conditions": [
+      "The reasoning is an interim status report without a completion claim.",
+      "The reasoning asserts completion without mapping requirements to outcomes or evidence.",
+      "The reasoning lists some requirements as unresolved while still claiming full completion.",
+      "The reasoning maps only a single requirement rather than multiple stated requirements."
+    ]
+  },
+  {
+    "name": "INTERPRETS_SPECIFICATION_CONSTRAINT",
+    "definition": "The reasoning interprets a stated requirement, schema, contract, or acceptance condition and derives a concrete implementation, validation, or response decision from it, including committing to how an ambiguous requirement should be applied.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text interpreting a stated requirement or acceptance condition and deriving a concrete implementation or validation decision from it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly references a stated requirement, schema, contract, or acceptance condition.",
+      "The reasoning derives a concrete implementation, validation, response, or formatting decision from that requirement rather than merely restating it."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only restates or paraphrases a requirement without deriving any implementation or validation decision.",
+      "The reasoning makes an implementation choice without connecting it to a stated requirement or acceptance condition.",
+      "The reasoning evaluates observed results against a requirement instead of deciding how the requirement should be implemented or enforced."
+    ]
+  },
+  {
+    "name": "SELECTS_ALTERNATIVE_TOOL_AFTER_UNAVAILABILITY",
+    "definition": "An observation reports that an intended tool, command, capability, or method is unavailable or unusable, and the reasoning selects a functionally equivalent alternative approach that a subsequent action then invokes in pursuit of the same objective.",
+    "parameters": [
+      {
+        "name": "unavailability_observation",
+        "type": "observation",
+        "description": "The observation reporting that the intended tool, command, capability, or method is missing, not found, or otherwise unavailable."
+      },
+      {
+        "name": "adaptation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning selecting a functionally equivalent alternative tool or method for the same objective."
+      },
+      {
+        "name": "alternative_action",
+        "type": "action",
+        "description": "The invocation that uses the selected alternative tool or method."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports that an intended tool, command, capability, or method is missing, not found, or otherwise unavailable.",
+      "The reasoning explicitly selects a different tool, command, or method intended to accomplish the same objective.",
+      "The alternative action invokes that selected alternative rather than repeating the unavailable one."
+    ],
+    "exclusion_conditions": [
+      "The observed failure is unrelated to tool or method availability, such as an incorrect argument, a defect in the produced artifact, or a rejected input.",
+      "The reasoning only acknowledges the unavailability without selecting an alternative.",
+      "The alternative action is unrelated to the unavailable tool or does not serve the same objective.",
+      "The selection contrasts candidate approaches before any unavailability is observed, without a specific unusable tool motivating the switch."
+    ]
+  },
+  {
+    "name": "ASSESSES_PERSISTENCE_BY_DEPLOYMENT_MECHANISM",
+    "definition": "The reasoning evaluates whether a launched process or started service will survive beyond the current session or command context, justifying that assessment from properties of the deployment mechanism (such as detachment, signal handling, or output redirection) rather than from the mere fact that the process is currently executing.",
+    "parameters": [
+      {
+        "name": "persistence_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that raises the post-session survival question for a launched process or service and justifies its answer from deployment mechanics."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a persistence or lifecycle concern for a launched process or started service, such as whether it survives session termination.",
+      "The reasoning explains why the process should or should not survive by appealing to a deployment mechanism, such as detachment, ignore-signal handling, backgrounding, or output redirection.",
+      "The persistence conclusion is derived from that mechanism rather than from merely observing that the process is currently running."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only states that the process is currently running or reachable.",
+      "No durability or post-session survival question is considered.",
+      "The reasoning asserts persistence without any mechanism-based justification.",
+      "The reasoning merely plans to guard against a failure mode without assessing whether the deployed process will persist."
+    ]
+  },
+  {
+    "name": "REPORTS_EXECUTION_ERROR",
+    "definition": "The observation reports that an attempted operation did not succeed, conveying an error status, failure message, missing-tool or missing-resource fault, or rejected-request indication rather than a valid result of the requested operation.",
+    "parameters": [
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation conveying non-success of the attempted operation."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation carries an identifiable non-success indication, such as an explicit error flag, an error or failure message, a missing command or resource fault, or a rejected request.",
+      "The indication concerns the operation that was attempted, so that the attempt is not confirmed as successful."
+    ],
+    "exclusion_conditions": [
+      "The observation reports successful completion or a normal result value of the requested operation.",
+      "The observation reports a negative fact about the domain state, such as an empty directory, an absent key, or a missing artifact, while the operation itself succeeded.",
+      "The observation reports an outcome of a diagnostic check whose result is a valid, usable answer to the question posed."
+    ]
+  },
+  {
+    "name": "JUDGES_PRIOR_RESULT_INCONCLUSIVE",
+    "definition": "The reasoning assesses a prior observation as insufficient, ambiguous, or otherwise uninformative for establishing the targeted state, because its reported content is empty, errored, or cannot discriminate between the possible answers to the question posed.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that evaluates the prior observation as inconclusive for the targeted state."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The prior observation whose result is judged insufficient, ambiguous, or uninformative."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning refers to an earlier observation and characterizes its content as empty, ambiguous, failed, or otherwise unable to establish the targeted state.",
+      "The reasoning explains why that result does not settle the question, for example by noting that the content cannot distinguish between the possible conditions or that a further, different check is required."
+    ],
+    "exclusion_conditions": [
+      "The reasoning treats the prior observation as definitive confirmation or disconfirmation of the targeted state.",
+      "The reasoning does not refer to any prior observation.",
+      "The observation is unrelated to the state the reasoning is trying to establish."
+    ]
+  },
+  {
+    "name": "DISAMBIGUATES_FALSE_POSITIVE_MATCH",
+    "definition": "The reasoning explains that an apparent match or candidate present in an observation does not satisfy the sought condition because the matching content originates from incidental, contextual, or unrelated material, and thereby distinguishes it from a genuine match.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that explains why the apparent match is a false positive."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation containing the apparent match or candidate."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains at least one apparent candidate match for a sought condition or target.",
+      "The reasoning explains why that candidate does not actually satisfy the condition, citing the incidental, contextual, or unrelated origin of the matching content.",
+      "The reasoning distinguishes the false positive from a genuine match, or concludes that no genuine match exists among the apparent candidates."
+    ],
+    "exclusion_conditions": [
+      "The reasoning accepts the apparent match as genuine without explanation.",
+      "The reasoning does not identify any apparent match in the observation.",
+      "The reasoning merely states that no match is present without explaining why a candidate was misleading.",
+      "The reasoning dismisses the candidate without explaining where the matching content came from."
+    ]
+  },
+  {
+    "name": "CHECKS_REQUIREMENTS_AGAINST_OBSERVED_STATE",
+    "definition": "The reasoning enumerates multiple distinct requirements, deliverables, or acceptance conditions and treats facts drawn collectively from observations as evidence of whether each enumerated item is satisfied.",
+    "parameters": [
+      {
+        "name": "requirement_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that enumerates requirements or deliverables and assesses them against observed facts."
+      },
+      {
+        "name": "evidence_observations",
+        "type": "observation[]",
+        "description": "The observations that collectively supply facts corresponding to the enumerated requirements; support is collective."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies or enumerates multiple distinct requirements, deliverables, or acceptance conditions.",
+      "The evidence observations collectively report facts that correspond to those enumerated requirements.",
+      "The reasoning maps or assesses those observed facts against the requirements rather than merely restating the task statement."
+    ],
+    "exclusion_conditions": [
+      "The reasoning lists requirements without relating them to observed facts.",
+      "The observations do not contain facts that address the enumerated requirements.",
+      "Only a single requirement is assessed, so no multi-requirement evidence mapping is present.",
+      "The reasoning restates the task requirements without any observed evidence for their satisfaction."
+    ]
+  },
+  {
+    "name": "REVISES_BELIEF_WITH_NEW_EVIDENCE",
+    "definition": "The reasoning explicitly corrects or updates an earlier belief, interpretation, or hypothesis in response to identifiable new evidence reported by an observation, and states the revised belief.",
+    "parameters": [
+      {
+        "name": "revision_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that supersedes a prior belief and states the revised belief or interpretation."
+      },
+      {
+        "name": "evidence_observation",
+        "type": "observation",
+        "description": "The observation supplying the new evidence that motivates the revision."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning refers to a prior belief, hypothesis, or provisional interpretation and presents it as superseded or corrected.",
+      "The reasoning changes or corrects that belief in response to identifiable content of the observation.",
+      "The reasoning states what the revised belief is."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely repeats the observation without referencing a prior belief.",
+      "The observation is unrelated to the belief being revised.",
+      "No prior belief or provisional interpretation is identifiable in the reasoning.",
+      "The reasoning only revises a planned course of action rather than a belief, hypothesis, or interpretation."
+    ]
+  },
+  {
+    "name": "IDENTIFIES_DATA_AMBIGUITY",
+    "definition": "The reasoning recognizes that a token, field value, or record in the data being processed can occupy more than one semantic role or context, creating a risk that a naive extraction, count, or classification would treat an unintended occurrence as the intended one.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text identifying that a value can play competing roles in the data and that misclassification is a risk."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning points to a specific token, value, or record type that can appear in more than one role or context within the data.",
+      "The reasoning states or clearly implies that confusing those occurrences would produce an incorrect extraction, count, or classification.",
+      "The reasoning distinguishes the intended structured occurrence from the competing occurrence of the same token or value."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely describes the data format without noting any competing role for a token or value.",
+      "The reasoning selects a parsing or extraction rule without identifying any token that could be confused with another role.",
+      "The ambiguity concerns the wording of the task or requirements rather than the content of the data."
+    ]
+  },
+  {
+    "name": "OBSERVATION_CONTRADICTS_EXPECTATION",
+    "definition": "The reasoning states, presupposes, or clearly implies a specific property, condition, format, or outcome that should hold, and the observation contains identifiable content showing that this expected condition does not hold.",
+    "parameters": [
+      {
+        "name": "expectation_reasoning",
+        "type": "reasoning",
+        "description": "The agent text stating, presupposing, or clearly implying the property, condition, format, or outcome that should hold."
+      },
+      {
+        "name": "contradicting_observation",
+        "type": "observation",
+        "description": "The observation containing content that shows the stated or implied expectation is violated."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states, presupposes, or clearly implies a specific expected property, condition, format, or outcome for the artifact, result, or state under consideration.",
+      "The observation contains identifiable content showing that the expected property, condition, format, or outcome does not hold."
+    ],
+    "exclusion_conditions": [
+      "The observation is consistent with, or confirms, the stated or implied expectation.",
+      "The reasoning only registers uncertainty about the outcome and states no condition that is expected to hold.",
+      "The difference between the observation and the expectation is not identifiable or bears on something other than the stated expectation.",
+      "The reasoning draws its own explicit adverse judgment from the observation, which is a separate evaluation mechanism rather than an expectation-content contradiction."
+    ]
+  },
+  {
+    "name": "ASSERTS_TASK_COMPLETION",
+    "definition": "The reasoning makes a final claim that the overall task and its required deliverable have been completed, presenting completion as the concluded final state rather than as an intention, a plan, or an intermediate progress report.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node containing the final completion claim."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly declares the task, or its required deliverable, complete, done, or finally achieved.",
+      "The claim concerns the overall task outcome or its acceptance conditions rather than a single intermediate subtask.",
+      "The statement is presented as a conclusion about the final state rather than as an intended future action or a progress report."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only describes intended future work, cleanup, or partial progress.",
+      "The reasoning expresses unresolved uncertainty about whether the requirements have been met.",
+      "The reasoning reports completion of a subtask without claiming overall task completion.",
+      "The reasoning merely restates the task requirements without asserting that they have been satisfied."
+    ]
+  }
+]

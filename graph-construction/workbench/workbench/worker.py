@@ -64,6 +64,11 @@ def _run(root, transport, progress):
     if meta.get('kind') == 'split':
         from .splitting import run as split_run
         return split_run(root, transport=transport, progress=progress)
+    if meta.get('kind') == 'clustering':
+        from .clustering import run as clustering_run
+        return clustering_run(root, progress=progress)
+    if meta.get('kind', 'predicate') != 'predicate':
+        raise ValueError('无法运行未知实验类型')
     from .predicate_inputs import verify
     records = verify(root, meta)
     llm = PredicateDiscoveryLLM(output, model=meta['model'], base_url=meta['base_url'],
@@ -84,8 +89,11 @@ if __name__ == '__main__':
         run(root)
     except Exception as exc:
         import os
-        key = os.environ.get('DEEPSEEK_API_KEY', '')
-        error = str(exc).replace(key, '[REDACTED]') if key else str(exc)
+        error = str(exc)
+        for name in ('DEEPSEEK_API_KEY', 'AGENTCM_EMBEDDING_API_KEY'):
+            key = os.environ.get(name, '')
+            if key:
+                error = error.replace(key, '[REDACTED]')
         write(root / 'lifecycle.json', {'status': 'failed', 'error': error, 'updated_at': now()})
         print(error, flush=True)
         raise SystemExit(1)

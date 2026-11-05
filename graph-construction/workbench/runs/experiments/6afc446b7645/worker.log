@@ -1,0 +1,97 @@
+[18:20:59] 开始运行，正在读取实验输入与配置
+[18:20:59] 读取并核验 Predicate Registry 输入快照
+[18:20:59] 运行失败：聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+[18:25:00] 开始运行，正在读取实验输入与配置
+[18:25:00] 读取并核验 Predicate Registry 输入快照
+[18:25:00] 运行失败：聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+[18:25:28] 开始运行，正在读取实验输入与配置
+[18:25:28] 读取并核验 Predicate Registry 输入快照
+[18:25:28] 运行失败：聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+[18:25:39] 开始运行，正在读取实验输入与配置
+[18:25:39] 读取并核验 Predicate Registry 输入快照
+[18:25:39] 运行失败：聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+[18:25:42] 开始运行，正在读取实验输入与配置
+[18:25:42] 读取并核验 Predicate Registry 输入快照
+[18:25:42] 运行失败：聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+聚类依赖未安装，请使用工作台运行的 Python 安装 graph-construction/workbench/requirements.txt
+[18:29:25] 开始运行，正在读取实验输入与配置
+[18:29:25] 读取并核验 Predicate Registry 输入快照
+[18:29:26] 已按统一模板构造 135 段 Embedding 文本
+[18:29:26] 已生成 0 / 135 个 Embedding
+[18:29:26] 调用 Embedding API（第 1/4 次尝试）
+[18:29:31] Embedding API 网络连接失败或超时，请检查服务地址和网络，1 秒后重试
+[18:29:32] 调用 Embedding API（第 2/4 次尝试）
+[18:29:32] 保存第 1–10 个 Embedding
+[18:29:33] 已生成 10 / 135 个 Embedding
+[18:29:33] 已生成 10 / 135 个 Embedding
+[18:29:33] 调用 Embedding API（第 1/4 次尝试）
+[18:29:33] 保存第 11–20 个 Embedding
+[18:29:33] 已生成 20 / 135 个 Embedding
+[18:29:33] 已生成 20 / 135 个 Embedding
+[18:29:33] 调用 Embedding API（第 1/4 次尝试）
+[18:29:34] 保存第 21–30 个 Embedding
+[18:29:34] 已生成 30 / 135 个 Embedding
+[18:29:34] 已生成 30 / 135 个 Embedding
+[18:29:34] 调用 Embedding API（第 1/4 次尝试）
+[18:29:35] 保存第 31–40 个 Embedding
+[18:29:35] 已生成 40 / 135 个 Embedding
+[18:29:35] 已生成 40 / 135 个 Embedding
+[18:29:35] 调用 Embedding API（第 1/4 次尝试）
+[18:29:36] 保存第 41–50 个 Embedding
+[18:29:36] 已生成 50 / 135 个 Embedding
+[18:29:36] 已生成 50 / 135 个 Embedding
+[18:29:36] 调用 Embedding API（第 1/4 次尝试）
+[18:29:37] 保存第 51–60 个 Embedding
+[18:29:37] 已生成 60 / 135 个 Embedding
+[18:29:37] 已生成 60 / 135 个 Embedding
+[18:29:37] 调用 Embedding API（第 1/4 次尝试）
+[18:29:39] 保存第 61–70 个 Embedding
+[18:29:39] 已生成 70 / 135 个 Embedding
+[18:29:39] 已生成 70 / 135 个 Embedding
+[18:29:39] 调用 Embedding API（第 1/4 次尝试）
+[18:29:39] 保存第 71–80 个 Embedding
+[18:29:39] 已生成 80 / 135 个 Embedding
+[18:29:39] 已生成 80 / 135 个 Embedding
+[18:29:39] 调用 Embedding API（第 1/4 次尝试）
+[18:29:40] 保存第 81–90 个 Embedding
+[18:29:40] 已生成 90 / 135 个 Embedding
+[18:29:40] 已生成 90 / 135 个 Embedding
+[18:29:40] 调用 Embedding API（第 1/4 次尝试）
+[18:29:41] 保存第 91–100 个 Embedding
+[18:29:41] 已生成 100 / 135 个 Embedding
+[18:29:41] 已生成 100 / 135 个 Embedding
+[18:29:41] 调用 Embedding API（第 1/4 次尝试）
+[18:29:42] 保存第 101–110 个 Embedding
+[18:29:42] 已生成 110 / 135 个 Embedding
+[18:29:42] 已生成 110 / 135 个 Embedding
+[18:29:42] 调用 Embedding API（第 1/4 次尝试）
+[18:29:42] 保存第 111–120 个 Embedding
+[18:29:42] 已生成 120 / 135 个 Embedding
+[18:29:42] 已生成 120 / 135 个 Embedding
+[18:29:43] 调用 Embedding API（第 1/4 次尝试）
+[18:29:43] 保存第 121–130 个 Embedding
+[18:29:43] 已生成 130 / 135 个 Embedding
+[18:29:43] 已生成 130 / 135 个 Embedding
+[18:29:43] 调用 Embedding API（第 1/4 次尝试）
+[18:29:44] 保存第 131–135 个 Embedding
+[18:29:44] 已生成 135 / 135 个 Embedding
+[18:29:44] 保存归一化向量与稳定索引
+[18:29:44] 计算原始归一化 Embedding 空间中的 Cosine Similarity
+[18:29:44] 正在处理 Unary（1 元） · 42 个 Predicate → 15 类；已完成 0/4 个元数组
+[18:29:54] 计算 Unary（1 元） 的簇内统计与 Medoid
+[18:29:54] 已完成 1/4 个元数组
+[18:29:54] 正在处理 Binary（2 元） · 61 个 Predicate → 22 类；已完成 1/4 个元数组
+[18:29:54] 计算 Binary（2 元） 的簇内统计与 Medoid
+[18:29:54] 已完成 2/4 个元数组
+[18:29:54] 正在处理 Ternary（3 元） · 31 个 Predicate → 12 类；已完成 2/4 个元数组
+[18:29:54] 计算 Ternary（3 元） 的簇内统计与 Medoid
+[18:29:54] 已完成 3/4 个元数组
+[18:29:54] 正在处理 Quaternary（4 元） · 1 个 Predicate → 1 类；已完成 3/4 个元数组
+[18:29:54] 计算 Quaternary（4 元） 的簇内统计与 Medoid
+[18:29:54] 已完成 4/4 个元数组
+[18:29:54] 保存完整聚类定义、相似度、统计与 Predicate-Cluster 映射
+[18:29:54] 实验已完成，结果已保存

@@ -12,6 +12,13 @@ STAGES = {
     'comparison': '与已有谓词比较',
     'review': '模型审核谓词',
     'registry_revision': '根据你的反馈修改谓词库',
+    'registry_read': '读取 Predicate Registry',
+    'embedding_inputs': '构造 Embedding 输入',
+    'embedding_api': '调用 Embedding API',
+    'embedding_save': '保存 Embedding',
+    'clustering': '执行各元数组聚类',
+    'cluster_statistics': '计算 Cluster 统计',
+    'clustering_save': '保存聚类结果',
 }
 
 
@@ -31,10 +38,12 @@ class ExecutionProgress:
             message = f'{stage}：结果检查通过，用时 {fields["duration_seconds"]:.1f} 秒'
         elif event == 'model_error':
             message = f'{stage}：{fields.pop("error")}。' + ('即将重试' if fields.pop('will_retry') else '本阶段停止')
-        key = os.environ.get('DEEPSEEK_API_KEY', '')
+        keys = [os.environ.get(name, '') for name in ('DEEPSEEK_API_KEY', 'AGENTCM_EMBEDDING_API_KEY')]
         def safe(value):
             if isinstance(value, str):
-                return value.replace(key, '[REDACTED]') if key else value
+                for key in keys:
+                    if key:
+                        value = value.replace(key, '[REDACTED]')
             return value
         fields = {k: safe(v) for k, v in fields.items()}
         self.current.update(fields, event=event, message=safe(message), updated_at=now())

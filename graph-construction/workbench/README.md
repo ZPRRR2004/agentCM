@@ -1,6 +1,6 @@
 # AgentCM 本地实验工作台
 
-把轨迹预处理、轨迹切分、谓词发现、轨迹浏览、人工审核、研究任务与 Prompt 编辑放到同一个本地网站。
+把轨迹预处理、轨迹切分、谓词发现、谓词语义聚类、轨迹浏览、人工审核、研究任务与 Prompt 编辑放到同一个本地网站。
 
 ## 启动
 
@@ -55,6 +55,28 @@ Windows 使用标准库 `msvcrt` 保持单实例文件锁；实验子进程启�
 8. 对比预处理或切分实验的参数与统计，或对比谓词实验的定义库，把后续问题记入任务看板。
 
 最后一批按已有发现流程直接完成；网页继续支持保存审核意见。运行中可停止，失败或停止后可恢复到已保存阶段。
+
+### 谓词语义聚类
+
+第四种实验使用 `kind: clustering`，独立消费已有 Typed Predicate Registry。先用**启动工作台的同一个 Python 环境**安装数值计算依赖（网站本身继续使用标准库）：
+
+```powershell
+python3 -m pip install -r graph-construction/workbench/requirements.txt
+```
+
+1. 在“模型设置 → Embedding 模型”保存模型名称、Base URL、独立 API Key 和可选维度。默认模型名称为 `qwen3.7-text-embedding`，也可填写 `text-embedding-v4` 等兼容模型；仅在服务支持 `dimensions` 参数时填写维度。地址示例：`https://{WorkspaceId}.cn-beijing.maas.aliyuncs.com/compatible-mode/v1`，请替换实际工作空间与地域。Base URL 中已有的 `/v1` 会保留；允许填写末尾为 `/embeddings` 的完整接口地址，不重复追加该路径。根地址或省略 `/v1` 的 `/compatible-mode` 地址补上 `/v1`，其他自定义路径保持原样。
+2. 在“新建实验 → 04 / CLUSTER → 谓词语义聚类”选择已完成的谓词发现实验，或上传本地 Registry JSON。已完成的发现实验详情也提供“基于此定义库新建聚类实验”。上传仅接受 JSON 数组、`{"predicates": [...]}` 或 `{"registry": [...]}` 单字段包装；请求沿用 2 MB 上限，调用现有 `predicate-definition/v2` 校验器。
+3. 设置目标总类数和各元数组类数。初始值为 `min(50, 谓词总数)`；每个非空元数组至少一类。修改总数按容量约束比例分配，余数按小数部分降序、元数升序处理；修改单组只更新总数；“自动分配”可重新按当前总数分配。支持任意正元数，集合参数仍算一个参数。
+4. 选择 Agglomerative（Cosine / Average 或 Complete）或普通 K-Means（L2 归一化输入、平方欧氏距离、可配置 `n_init` 和 `random_state`）。保存草稿不调用 API，点击“开始运行”后才生成 Embedding 并按元数独立聚类。K-Means 若未达到目标类数会明确失败，系统不会自动减少类数。
+5. 在详情查看元数分布、目标与实际类数、Singleton 数量、Cluster Size 分布和完整 Cluster 成员。左侧可按元数、名称、Definition、成员数或平均相似度筛选排序；右侧展开完整原始定义，点击相似度矩阵可对照两条谓词。完成后可导出聚类 JSON 与 Predicate-Cluster 映射。
+
+Embedding 文本模板版本为 `predicate-embedding-input/v1`。文本严格使用原始 `definition` 与按顺序排列的 `parameters[].type/description`；不加入谓词名、参数名、成立或排除条件，也不调用 LLM 改写。结果保留完整五字段定义。Cosine 分数描述向量空间几何相似性；不等同于逻辑等价概率。Medoid 为真实成员，近似并列（绝对差不超过 `1e-12`）时取原 Registry 索引最小者；簇编号按元数和 Medoid 原始索引固定。Singleton 的平均/最低两两相似度为 `null`。
+
+输入和配置在 `runs/experiments/<id>/experiment.json` 与 `inputs/predicate_registry.json` 冻结。模型、规范化服务地址、输出维度、模板版本、算法参数与各元数组类数参与 Hash 校验；运行时从私有模型设置读取当前 Embedding 密钥，密钥不进入实验快照或结果。原始定义库保持完整，聚类不执行 KEEP/MERGE/REVISE/DELETE。
+
+`output/` 保存 `embedding_texts.json`、逐批 `embedding_batches/`、`embeddings.npy`、`embedding_index.json`、`similarity_matrix.npy`、逐元数 `clustering_groups/`、`clusters.json`、`statistics.json`、`predicate_cluster_mapping.json` 与 `execution_state.json`。停止/恢复复用校验通过的批次和聚类组；缓存绑定输入文本 Hash、模型、地址、维度与模板版本。默认每批 10 条，临时网络错误、限流与 5xx 最多重试 3 次；鉴权、模型、参数和向量格式错误直接停止。
+
+后端集中在 `workbench/clustering.py`，使用标准库调用 OpenAI 兼容 HTTP Embeddings API，数值计算依赖 NumPy 和 scikit-learn；前端集中在 `web/clustering.js`。相关协议见[百炼文本向量 API](https://help.aliyun.com/en/model-studio/text-embedding-synchronous-api)、[AgglomerativeClustering](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) 和 [KMeans](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)。
 
 ### 谓词审核
 

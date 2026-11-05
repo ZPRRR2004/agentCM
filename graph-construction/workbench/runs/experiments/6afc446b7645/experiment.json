@@ -1,0 +1,51 @@
+{
+  "id": "6afc446b7645",
+  "kind": "clustering",
+  "schema": "predicate-clustering/v1",
+  "title": "聚类-1",
+  "question": "",
+  "created_at": "2026-11-04T10:20:56.281149+00:00",
+  "dataset_id": "terminal-bench-2.1",
+  "dataset_name": "terminal-bench-2.1",
+  "source": {
+    "type": "experiment",
+    "experiment_id": "f94a6b7d7baa",
+    "title": "50窗口-反馈合并-人工反馈间隔10-1",
+    "dataset_id": "terminal-bench-2.1",
+    "dataset_name": "terminal-bench-2.1"
+  },
+  "source_title": "50窗口-反馈合并-人工反馈间隔10-1",
+  "source_experiment_id": "f94a6b7d7baa",
+  "input_hash": "0c129c5094a1b086f50bf96299b3cc620151418b50bbfd9c932a67557ad93815",
+  "predicate_count": 135,
+  "arity_counts": {
+    "1": 42,
+    "2": 61,
+    "3": 31,
+    "4": 1
+  },
+  "embedding": {
+    "model": "qwen3.7-text-embedding",
+    "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "dimensions": null,
+    "input_template": "predicate-embedding-input/v1",
+    "batch_size": 10,
+    "max_retries": 3,
+    "timeout_seconds": 120
+  },
+  "config": {
+    "algorithm": "agglomerative",
+    "target_clusters": 50,
+    "clusters_by_arity": {
+      "1": 15,
+      "2": 22,
+      "3": 12,
+      "4": 1
+    },
+    "metric": "cosine",
+    "linkage": "average"
+  },
+  "model": "qwen3.7-text-embedding",
+  "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+  "snapshot_hash": "e70be9275faceabdf15439df33592a22f147ecf4846ed3a38b3a23c644b044d8"
+}

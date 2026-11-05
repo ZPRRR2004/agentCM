@@ -241,7 +241,8 @@ def wait_for_prompt_edit(*, batch_index, completed_windows, total_windows,
         else:
             print(f'\nPrompt 内容未发生变化，已保存下一批 Prompt 快照：{version}。')
         print(f'\n当前 Registry 已保留，共 {len(registry)} 个谓词。')
-        print(f'开始处理第 {batch_index + 1} 批 Window...')
+        if completed_windows < total_windows:
+            print(f'开始处理第 {batch_index + 1} 批 Window...')
         return version, changed
 
 
@@ -347,7 +348,8 @@ def handle_registry_feedback(*, batch_index, completed_windows,
             print('\n【Registry Feedback】')
             print('\n本轮未输入修改意见。')
             print('当前 Registry 保持不变。')
-            print(f'\n开始处理第 {batch_index + 1} 批 Window...')
+            if completed_windows < total_windows:
+                print(f'\n开始处理第 {batch_index + 1} 批 Window...')
             return {
                 'registry': registry,
                 'prompt_version': prompt_manager.current_version,
@@ -403,7 +405,8 @@ def handle_registry_feedback(*, batch_index, completed_windows,
         registry_before=registry, revision_plan=revision_plan,
         registry_after=revised_registry, output_dir=storage.output_dir,
         batch_index=batch_index)
-    print(f'\n开始处理第 {batch_index + 1} 批 Window...')
+    if completed_windows < total_windows:
+        print(f'\n开始处理第 {batch_index + 1} 批 Window...')
     return {
         'registry': revised_registry,
         'prompt_version': prompt_manager.current_version,
@@ -458,12 +461,13 @@ def _continue_after_feedback(state, registry, records, config,
             print(f'Revision 失败记录已保存：\n\n  {error_path}')
             print('\n使用 --resume 继续。')
         raise
+    all_finished = state['completed_windows'] == len(records)
     state.update({
-        'current_batch_index': state['current_batch_index'] + 1,
+        'current_batch_index': state['current_batch_index'] + (0 if all_finished else 1),
         'completed_windows_in_batch': 0,
         'prompt_version': result['prompt_version'],
         'next_stage': 'discovery',
-        'status': 'running',
+        'status': 'completed' if all_finished else 'running',
         'pending_feedback_stage': None,
     })
     storage.save_state(state)
@@ -578,14 +582,7 @@ def process_all_windows(*, records, manifest, config, prompt_manager,
                 registry_after=registry,
                 window_records=records[batch_start - 1:state['completed_windows']],
                 feedback_mode=state['feedback_mode'],
-                feedback_required=not all_finished)
-            if all_finished:
-                state.update({
-                    'status': 'completed', 'next_stage': 'discovery',
-                    'pending_feedback_stage': None,
-                })
-                storage.save_state(state)
-                break
+                feedback_required=True)
             if state['feedback_mode'] == 'manual_prompt':
                 state.update({
                     'status': 'waiting_for_enter',

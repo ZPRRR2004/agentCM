@@ -24,6 +24,7 @@ reproductions/**/wandb/
 **/.env
 **/.env.*
 /graph-construction/workbench/runs/**/settings.json*
+/graph-construction/workbench/runs/settings copy.json
 
 # Local workbench process lock
 /graph-construction/workbench/runs/.server.lock

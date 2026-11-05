@@ -2192,3 +2192,85 @@ dialog::backdrop {
 .trajectory-node > pre { margin: 0; border: 0; border-radius: 0; padding: 16px; max-height: 360px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
 .node-connection { padding: 10px 16px; margin: 0; font-size: 12px; color: #426e99; overflow-wrap: anywhere; }
 .parameter[class*="node-"] { border-left: 3px solid var(--node-color, #dce4de); }
+
+/* Predicate semantic clustering uses the workbench's panels and review layout. */
+@media (min-width: 900px) {
+  .experiment-kinds { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+#new-clustering-form [hidden] { display: none !important; }
+.cluster-wrap, .cluster-metadata, .cluster-members, .cluster-list-item,
+.clustering-detail .page-head p { overflow-wrap: anywhere; word-break: normal; }
+.cluster-source-summary { padding: 18px; border: 1px solid #dce4d5; border-radius: 9px; background: #fafcf7; margin: 16px 0 24px; }
+.cluster-source-summary > p:last-child { margin-bottom: 0; }
+.cluster-config-panel { padding: 22px; margin-bottom: 24px; border: 1px solid #dce4d5; border-radius: 10px; min-width: 0; }
+.cluster-config-panel .panel-head { padding: 0 0 16px; flex-wrap: wrap; gap: 12px; }
+.cluster-config-panel h3, .cluster-config-panel h2 { margin-bottom: 16px; }
+.cluster-config-panel .panel-head h3 { margin: 0; }
+.cluster-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.cluster-allocation-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 16px; margin: 12px 0; }
+.cluster-allocation-summary > span { color: #7b8b75; font-size: 12px; }
+.cluster-allocation-summary strong { display: block; color: #25483d; font-size: 24px; margin-top: 10px; }
+.cluster-allocation-summary label { margin: 0; }
+.cluster-arity-target { min-width: 76px; max-width: 115px; }
+.cluster-arity-target[readonly] { background: #f0f4e9; }
+.cluster-check { display: flex; gap: 8px; align-items: center; font-size: 12px; margin: 10px 0; }
+.cluster-check input { width: 16px; height: 16px; margin: 0; flex: 0 0 16px; accent-color: #7e9e6e; }
+.cluster-overview-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; margin: 24px 0; }
+.cluster-overview-grid > section { min-width: 0; }
+.cluster-overview-grid .cluster-config-panel { margin: 0; }
+.cluster-metadata { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 24px; font-size: 12px; }
+.cluster-metadata p { min-width: 0; }
+.cluster-metadata strong { display: block; color: #7b8b75; font-weight: 500; margin-bottom: 4px; }
+.cluster-metadata a { text-decoration: underline; text-underline-offset: 3px; }
+.clustering-detail .metric-value { font-size: clamp(18px, 2.1vw, 32px); overflow-wrap: anywhere; }
+.cluster-size-bar { display: grid; grid-template-columns: 58px minmax(0, 1fr) 30px; gap: 10px; align-items: center; font-size: 12px; margin: 18px 0; }
+.cluster-size-bar > div { height: 12px; background: #eff3e9; border-radius: 4px; overflow: hidden; }
+.cluster-size-bar i { display: block; height: 100%; background: #7e9e6e; border-radius: 4px; }
+.cluster-size-bar strong { text-align: right; }
+.cluster-results { margin-top: 30px; min-width: 0; }
+.cluster-toolbar { flex-wrap: wrap; gap: 12px; }
+.cluster-toolbar input.search { flex: 1 1 240px; min-width: 150px; }
+.cluster-toolbar select { width: auto; max-width: 100%; }
+.cluster-toolbar .cluster-check { margin: 0; }
+.cluster-browser { display: grid; grid-template-columns: minmax(230px, 310px) minmax(0, 1fr); gap: 22px; align-items: start; }
+.cluster-list { max-height: 78vh; overflow: auto; }
+.cluster-list-item { width: 100%; text-align: left; }
+.cluster-list-item span, .cluster-list-item strong, .cluster-list-item small { display: block; margin-top: 7px; font-size: 11px; line-height: 1.7; }
+.cluster-list-item strong { font-weight: 500; }
+.cluster-members { min-width: 0; }
+.cluster-quality { padding: 0 24px 16px; font-size: 12px; color: #617758; }
+.cluster-member-list { padding: 0 22px; }
+.cluster-member { border: 1px solid #e0e8d5; border-radius: 8px; margin: 0 0 15px; overflow: hidden; }
+.cluster-member summary { cursor: pointer; padding: 16px; background: #f8faf4; font-size: 12px; }
+.cluster-member summary > span { overflow-wrap: anywhere; }
+.cluster-member summary small { display: block; color: #7b8b75; margin-top: 7px; }
+.cluster-member > div { padding: 18px; }
+.cluster-predicate-name { overflow-wrap: anywhere; font: 600 14px/1.7 ui-monospace, Consolas, monospace; }
+.cluster-member h4, .cluster-pair h4 { color: #6c815e; font-size: 12px; margin: 22px 0 12px; }
+.cluster-member .definition-text, .cluster-pair .definition-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.cluster-matrix-section { border-top: 1px solid #e0e8d5; padding: 24px 22px; }
+.cluster-matrix-section h3 { font-size: 14px; }
+.cluster-matrix-scroll { max-width: 100%; max-height: 480px; overflow: auto; }
+.cluster-matrix { width: max-content; min-width: 100%; border-collapse: separate; border-spacing: 2px; }
+.cluster-matrix th { max-width: 145px; min-width: 85px; white-space: normal; overflow-wrap: anywhere; background: #f5f8f0; font-size: 10px; }
+.cluster-matrix thead th { position: sticky; top: 0; z-index: 2; }
+.cluster-matrix tbody th { position: sticky; left: 0; z-index: 1; }
+.cluster-matrix td { padding: 0; }
+.cluster-matrix button { width: 100%; min-height: 38px; padding: 8px; border-radius: 4px; color: #25483d; font: 12px ui-monospace, Consolas, monospace; }
+.cluster-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.cluster-pair > article { min-width: 0; padding: 18px; border: 1px solid #e0e8d5; border-radius: 8px; }
+@media (max-width: 1000px) {
+  .cluster-overview-grid { grid-template-columns: minmax(0, 1fr); }
+  .cluster-browser { grid-template-columns: minmax(190px, 240px) minmax(0, 1fr); gap: 16px; }
+}
+@media (max-width: 720px) {
+  .cluster-allocation-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cluster-browser, .cluster-pair, .cluster-metadata { grid-template-columns: minmax(0, 1fr); }
+  .cluster-list { max-height: 320px; }
+  .cluster-toolbar > select, .cluster-toolbar input.search { width: 100%; flex: 1 1 100%; }
+  .cluster-config-panel { padding: 16px; }
+  .cluster-member-list { padding: 0 12px; }
+  .cluster-quality, .cluster-matrix-section { padding-left: 14px; padding-right: 14px; }
+  .cluster-member > div { padding: 14px; }
+  .cluster-config-panel td, .cluster-config-panel th { padding: 10px 6px; }
+}

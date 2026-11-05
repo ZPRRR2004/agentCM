@@ -1,0 +1,311 @@
+{
+  "window_file": "xhigh-rerun-prove__prove-plus-comm__window_0001.json",
+  "trajectory_id": "xhigh-rerun-prove__prove-plus-comm",
+  "window_id": "window_0001",
+  "global_index": 0,
+  "prompt_version": "v0001",
+  "registry_snapshot": [],
+  "completed_stages": [
+    "discovery",
+    "comparison",
+    "review"
+  ],
+  "accepted_predicates": [
+    {
+      "name": "IS_PLAN",
+      "definition": "The reasoning explicitly expresses at least one intended future action or sequence of actions to be taken in service of the task.",
+      "parameters": [
+        {
+          "name": "reasoning",
+          "type": "reasoning",
+          "description": "The agent text expressing an intended future action or plan."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning explicitly identifies at least one operation or sequence of operations that the agent intends to perform later.",
+        "The intended action is presented as something to be done, not merely as a completed observation or factual statement."
+      ],
+      "exclusion_conditions": [
+        "The reasoning only reports actions that have already been completed.",
+        "The reasoning states a fact or diagnosis without expressing any intended future action."
+      ]
+    },
+    {
+      "name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "definition": "A recorded action carries out an operation that a reasoning node explicitly proposed as a future step, with matching task purpose rather than merely topical or temporal adjacency.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "action",
+          "description": "The recorded tool invocation that performs the step."
+        },
+        {
+          "name": "plan_reasoning",
+          "type": "reasoning",
+          "description": "The reasoning node that proposes the future operation."
+        }
+      ],
+      "assertion_conditions": [
+        "The plan_reasoning expresses an intended future operation or set of operations.",
+        "The action performs an operation consistent with the purpose and target of the proposed step."
+      ],
+      "exclusion_conditions": [
+        "The reasoning only describes past or completed actions.",
+        "The action is unrelated to the proposed step or serves a different purpose.",
+        "The connection is based only on temporal adjacency without matching intent."
+      ]
+    },
+    {
+      "name": "DIAGNOSES_OBSERVED_ARTIFACT_DEFECT",
+      "definition": "The reasoning interprets content of an artifact exposed in an observation and identifies a specific missing, incomplete, or erroneous element that must be repaired.",
+      "parameters": [
+        {
+          "name": "diagnosis_reasoning",
+          "type": "reasoning",
+          "description": "The reasoning that identifies the artifact defect or incompleteness."
+        },
+        {
+          "name": "artifact_observation",
+          "type": "observation",
+          "description": "The observation exposing the artifact content being diagnosed."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation exposes identifiable content of an artifact.",
+        "The reasoning identifies a specific defect, gap, or incomplete element in that artifact relative to the intended requirement."
+      ],
+      "exclusion_conditions": [
+        "The reasoning merely repeats or paraphrases the artifact content without identifying a defect.",
+        "No specific missing, incomplete, or erroneous element is identified.",
+        "The observation does not expose artifact content relevant to the diagnosis."
+      ]
+    },
+    {
+      "name": "PROPOSES_ARTIFACT_REPAIR",
+      "definition": "The reasoning specifies a concrete correction or completion for an observed artifact defect, including replacement content or steps intended to make the artifact satisfy the requirement.",
+      "parameters": [
+        {
+          "name": "repair_reasoning",
+          "type": "reasoning",
+          "description": "The reasoning containing the proposed repair or completion."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning identifies at least one concrete change, replacement, or added step intended to repair or complete an artifact.",
+        "The proposed repair is tied to an identified defect or requirement rather than being a generic intention to fix something."
+      ],
+      "exclusion_conditions": [
+        "The reasoning only identifies a defect without proposing how to repair it.",
+        "The reasoning expresses only a generic intention to fix or improve without concrete content or steps."
+      ]
+    },
+    {
+      "name": "CHECKS_ENVIRONMENT_PREREQUISITE",
+      "definition": "An action probes the execution environment for the availability, identity, or version of a prerequisite tool or resource, and its observation reports capability evidence.",
+      "parameters": [
+        {
+          "name": "probe_action",
+          "type": "action",
+          "description": "The diagnostic action that queries the environment or tool availability."
+        },
+        {
+          "name": "probe_observation",
+          "type": "observation",
+          "description": "The observation reporting the presence, absence, identity, or version of the prerequisite."
+        }
+      ],
+      "assertion_conditions": [
+        "The action is a diagnostic query about a prerequisite needed for the task.",
+        "The observation reports capability evidence such as presence, availability, identity, or version of the queried prerequisite."
+      ],
+      "exclusion_conditions": [
+        "The action performs the primary task rather than checking a prerequisite.",
+        "The observation does not report any information about prerequisite capability or availability."
+      ]
+    },
+    {
+      "name": "IMPLEMENTS_PROPOSED_REPAIR",
+      "definition": "An action applies the concrete correction specified in repair reasoning to the target artifact, and its result observation confirms that the modification was accepted.",
+      "parameters": [
+        {
+          "name": "repair_action",
+          "type": "action",
+          "description": "The action that writes or applies the proposed repair to the artifact."
+        },
+        {
+          "name": "repair_reasoning",
+          "type": "reasoning",
+          "description": "The reasoning containing the concrete correction or completion to be applied."
+        },
+        {
+          "name": "application_result",
+          "type": "observation",
+          "description": "The observation confirming whether the artifact modification was accepted."
+        }
+      ],
+      "assertion_conditions": [
+        "The repair_reasoning contains a concrete correction or completion for the artifact.",
+        "The repair_action applies content or changes corresponding to that proposed repair to the target artifact.",
+        "The application_result reports successful acceptance or modification of the artifact."
+      ],
+      "exclusion_conditions": [
+        "The action is unrelated to the proposed repair.",
+        "The content applied by the action does not correspond to the proposed correction.",
+        "The result reports failure or does not confirm acceptance of the modification."
+      ]
+    },
+    {
+      "name": "PRODUCES_EXPECTED_BUILD_ARTIFACT",
+      "definition": "An action invokes a build or compilation step on a source artifact, and its observation provides evidence that the expected derived artifact was generated.",
+      "parameters": [
+        {
+          "name": "build_action",
+          "type": "action",
+          "description": "The action that runs the build or compilation process."
+        },
+        {
+          "name": "build_observation",
+          "type": "observation",
+          "description": "The observation reporting generation of the expected derived artifact."
+        }
+      ],
+      "assertion_conditions": [
+        "The action invokes a build, compilation, or equivalent transformation of a source artifact.",
+        "The observation provides evidence that the expected derived artifact was produced or exists after the build step."
+      ],
+      "exclusion_conditions": [
+        "The action only inspects files without invoking a build or compilation step.",
+        "The observation does not show that the expected derived artifact was generated.",
+        "The build or compilation reports an error preventing artifact production."
+      ]
+    },
+    {
+      "name": "DIAGNOSES_ACTION_FAILURE_FROM_ERROR",
+      "definition": "The reasoning interprets an error or non-success result reported by an observation and identifies the cause or the condition that a corrected attempt must satisfy.",
+      "parameters": [
+        {
+          "name": "diagnosis_reasoning",
+          "type": "reasoning",
+          "description": "The reasoning that interprets the failure and identifies its cause or required correction."
+        },
+        {
+          "name": "error_observation",
+          "type": "observation",
+          "description": "The observation reporting the error or non-success result."
+        }
+      ],
+      "assertion_conditions": [
+        "The observation reports an error, nonzero exit, or otherwise unsuccessful result from a prior action.",
+        "The reasoning identifies a cause, misunderstood condition, or requirement for a corrected attempt."
+      ],
+      "exclusion_conditions": [
+        "The reasoning merely repeats the error message without interpreting its cause or implications.",
+        "The reasoning retries the same operation without identifying any corrective condition.",
+        "The observation does not report an error or failure."
+      ]
+    },
+    {
+      "name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSED_REVISION",
+      "definition": "A subsequent action revises an earlier failed operation in accordance with an explicit diagnosis of the failure, rather than repeating the same operation unchanged.",
+      "parameters": [
+        {
+          "name": "failed_action",
+          "type": "action",
+          "description": "The earlier action that produced the error result."
+        },
+        {
+          "name": "error_observation",
+          "type": "observation",
+          "description": "The observation reporting the error from the failed action."
+        },
+        {
+          "name": "correction_reasoning",
+          "type": "reasoning",
+          "description": "The reasoning that diagnoses the failure and indicates the needed revision."
+        },
+        {
+          "name": "corrective_action",
+          "type": "action",
+          "description": "The subsequent action that implements the revised approach."
+        }
+      ],
+      "assertion_conditions": [
+        "The failed_action is associated with an error_observation reporting failure.",
+        "The correction_reasoning identifies a cause or required change in approach.",
+        "The corrective_action changes a relevant parameter, command, or method to address the diagnosed failure while pursuing the same goal."
+      ],
+      "exclusion_conditions": [
+        "The subsequent action repeats the failed action identically without revision.",
+        "The corrective action is unrelated to the diagnosed failure or targets a different goal.",
+        "No error observation or explicit diagnosis supports the revision."
+      ]
+    },
+    {
+      "name": "VERIFIES_ARTIFACT_CONTENT_BY_INDEPENDENT_INSPECTION",
+      "definition": "A targeted inspection or loading action retrieves the content of a produced artifact, and its observation exposes that content so the agent can confirm the artifact satisfies the intended property, not merely that it exists.",
+      "parameters": [
+        {
+          "name": "verification_intent_reasoning",
+          "type": "reasoning",
+          "description": "The reasoning indicating the need or approach for checking artifact content."
+        },
+        {
+          "name": "inspection_action",
+          "type": "action",
+          "description": "The action that loads or inspects the produced artifact's content."
+        },
+        {
+          "name": "inspection_result",
+          "type": "observation",
+          "description": "The observation exposing the inspected artifact content or signature."
+        }
+      ],
+      "assertion_conditions": [
+        "The reasoning indicates a verification goal concerning the artifact's content or meaning.",
+        "The inspection_action accesses or loads the produced artifact content rather than only checking file existence or metadata.",
+        "The inspection_result exposes content consistent with the intended property being verified."
+      ],
+      "exclusion_conditions": [
+        "The check only confirms file existence, size, or other metadata without exposing content.",
+        "The observation output is unrelated to the intended property or is inconclusive.",
+        "The inspection action fails or does not retrieve the artifact content."
+      ]
+    },
+    {
+      "name": "CONCLUDES_TASK_SUCCESS_FROM_ACCUMULATED_EVIDENCE",
+      "definition": "The reasoning declares the task successfully completed and supports that declaration by referring to one or more observed verification outcomes rather than only restating the plan or action sequence.",
+      "parameters": [
+        {
+          "name": "conclusion_reasoning",
+          "type": "reasoning",
+          "description": "The final reasoning that declares completion and cites verification evidence."
+        },
+        {
+          "name": "supporting_observations",
+          "type": "observation[]",
+          "description": "The observations collectively supplying outcome evidence for the completion claim."
+        }
+      ],
+      "assertion_conditions": [
+        "The conclusion_reasoning asserts that the task has been successfully completed.",
+        "The reasoning refers to or summarizes at least one observed outcome, such as a produced artifact or confirmed content.",
+        "The supporting_observations collectively contain verification evidence rather than only action acknowledgments or plans."
+      ],
+      "exclusion_conditions": [
+        "The reasoning merely restates plans or intermediate actions without asserting completion.",
+        "The success assertion is not supported by any observed outcome evidence.",
+        "The cited observations are unrelated to the claimed completion."
+      ]
+    }
+  ],
+  "revised_existing_predicates": [],
+  "accepted_predicate_count": 11,
+  "revised_existing_predicate_count": 0,
+  "status": "completed",
+  "created_at": "2026-11-04T03:00:11.502486+00:00",
+  "updated_at": "2026-11-04T03:02:46.318285+00:00",
+  "failed_stage": null,
+  "error": null,
+  "registry_size_after": 11,
+  "completed_at": "2026-11-04T03:02:46.318285+00:00"
+}

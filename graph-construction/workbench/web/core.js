@@ -58,6 +58,7 @@ const statusLabels = {
   review: "待 Review",
   done: "已完成",
 };
+const experimentKinds = { preprocess: '轨迹预处理', split: '轨迹切分', predicate: '谓词发现', clustering: '谓词聚类' };
 const pill = (status, text) =>
   `<span class="pill ${esc(status)}">${esc(text || statusLabels[status] || status)}</span>`;
 const btn = (label, action, style = "", attrs = "", ico = "") =>
@@ -149,8 +150,10 @@ function progress(e) {
 }
 function experimentTable(experiments) {
   if (!experiments.length)
-    return empty("创建预处理、轨迹切分或谓词发现实验。");
-  return `<div class="table-wrap"><table><thead><tr><th>实验名称</th><th>类型 / 数据集</th><th>执行进度</th><th>产物</th><th>状态</th><th>操作</th></tr></thead><tbody>${experiments.map((e) => `<tr data-experiment-id="${e.id}"><td><a class="experiment-name" href="#experiment/${e.id}">${esc(e.title)}<small>${esc(e.model || "本地处理")} · ${esc((e.prompt_hash || e.input_hash).slice(0, 8))}</small></a></td><td>${e.kind === "preprocess" ? "轨迹预处理" : e.kind === "split" ? "轨迹切分" : "谓词发现"}<small class="muted"> · ${esc(e.dataset_name)}</small></td><td>${progress(e)}<small class="muted">${e.unit}</small></td><td>${e.kind === "preprocess" ? e.completed + " 条轨迹" : e.kind === "split" ? e.produced_windows + " 窗口" : e.registry_count + " 谓词"}</td><td>${pill(e.status)}</td><td><div class="experiment-row-actions"><a class="table-action" href="#experiment/${e.id}">查看 ↗</a>${experimentDeleteButton(e, true)}</div></td></tr>`).join("")}</tbody></table></div>`;
+    return empty("创建轨迹预处理、轨迹切分、谓词发现或谓词聚类实验。");
+  const product = e => ({ preprocess: `${e.completed} 条轨迹`, split: `${e.produced_windows} 窗口`, predicate: `${e.registry_count} 谓词`,
+    clustering: `${e.predicate_count} 谓词 · 目标 ${e.config?.target_clusters} 类 / 实际 ${e.actual_clusters ?? '—'} 类` })[e.kind] || '—';
+  return `<div class="table-wrap"><table><thead><tr><th>实验名称</th><th>类型 / 来源</th><th>执行进度</th><th>产物</th><th>状态</th><th>操作</th></tr></thead><tbody>${experiments.map((e) => `<tr data-experiment-id="${e.id}"><td><a class="experiment-name" href="#experiment/${e.id}">${esc(e.title)}<small>${esc(e.model || "本地处理")} · ${esc((e.prompt_hash || e.input_hash || '').slice(0, 8))}</small></a></td><td>${esc(experimentKinds[e.kind] || '未知类型')}<small class="muted"> · ${esc(e.kind === 'clustering' ? e.source_title : e.dataset_name)}</small></td><td>${progress(e)}<small class="muted">${esc(e.unit)}</small></td><td>${esc(product(e))}</td><td>${pill(e.status)}</td><td><div class="experiment-row-actions"><a class="table-action" href="#experiment/${e.id}">查看 ↗</a>${experimentDeleteButton(e, true)}</div></td></tr>`).join("")}</tbody></table></div>`;
 }
 function chart(e) {
   if (!e?.batches.length)
@@ -173,6 +176,7 @@ export {
   icon,
   labels,
   statusLabels,
+  experimentKinds,
   pill,
   btn,
   state,

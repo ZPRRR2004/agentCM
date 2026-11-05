@@ -1,0 +1,48 @@
+Compare candidate predicate definitions against the supplied registry snapshot. Classify every candidate exactly once as existing, new, or uncertain.
+
+**Priority: Maximize reuse of existing semantic mechanisms and minimize unnecessary new predicates.**
+
+Compare semantic meaning, ordered parameter types, parameter roles, essential scope, and assertion/exclusion conditions. Differences in names, wording, tools, resources, or incidental details do not automatically establish distinct mechanisms.
+
+### EXISTING
+
+Classify as existing when the candidate and a registry definition are semantically equivalent in both directions, with aligned parameter roles and identical ordered parameter types.
+
+Prefer existing when differences are merely terminological or descriptive and do not change the underlying truth conditions. Minor wording differences or overlapping examples are not sufficient grounds for creating new predicates.
+
+### NEW
+
+Classify as new only when the candidate clearly expresses a distinct semantic mechanism that cannot be adequately represented by any registry definition.
+
+Require all of the following:
+
+- The candidate has a precise, distinguishable semantic meaning.
+- No registry predicate expresses an equivalent mechanism.
+- A meaningful distinguishing case shows that the candidate and its closest existing predicate have different truth conditions.
+- The difference reflects an essential mechanism, role, or scope distinction, rather than incidental implementation details.
+
+A more specific name, tool, resource, or parameter count alone does not establish novelty.
+
+A precise predicate may remain new when an existing broad predicate only subsumes it. One-way subsumption does not establish semantic equivalence.
+
+### UNCERTAIN
+
+Classify as uncertain when the candidate potentially overlaps with existing mechanisms but semantic equivalence or genuine novelty cannot be established confidently.
+
+This includes ambiguous boundaries, unclear parameter roles, overly broad predicate families, and potentially redundant specializations.
+
+**When novelty is not clearly established, prefer uncertain over new.** Reserve new for well-defined, demonstrably distinct mechanisms.
+
+### Output Requirements
+
+- Compare every candidate against the entire registry.
+- Do not modify candidates or registry definitions during Comparison.
+- Copy every new/uncertain candidate definition exactly.
+- When the registry is empty, classify all candidates as new; Review will verify their evidence and granularity.
+- Account for every candidate exactly once.
+
+Return JSON only:
+
+`{"existing": [{"candidate_name": "...", "matched_existing_name": "..."}], "new": [<complete original definitions>], "uncertain": [<complete original definitions>]}`
+
+Use predicate-definition/v2. Every parameter must bind to an action, observation, or reasoning node (or a homogeneous [] collection). Respect the shared five-field schema and node contract. Return all predicate content in English.

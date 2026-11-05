@@ -1,0 +1,3 @@
+# Only predicate semantic clustering needs these; the local HTTP server stays stdlib-only.
+numpy>=1.24,<3
+scikit-learn>=1.3,<2

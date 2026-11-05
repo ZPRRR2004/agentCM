@@ -1,0 +1,19 @@
+{
+  "run_id": "ffb610d5d2b24928a690a89b21d1f9cc",
+  "run_started_at": "2026-11-04T04:40:44.869142+00:00",
+  "stage": "completed",
+  "event": "completed",
+  "message": "实验已完成，结果已保存",
+  "updated_at": "2026-11-04T05:14:29.785359+00:00",
+  "window_number": 20,
+  "window_total": 20,
+  "window_id": "window_0002",
+  "trajectory_id": "xhigh__log-summary-date-ranges",
+  "title": "log-summary-date-ranges",
+  "window_name": "batch_0002",
+  "attempt": 3,
+  "attempt_limit": 4,
+  "waiting_since": "2026-11-04T05:11:34.966036+00:00",
+  "duration_seconds": 174.734,
+  "completed": 20
+}

@@ -65,6 +65,7 @@ import { scheduleSplitPreview } from "./split-preview.js";
 import { deleteExperimentDialog, deletedExperimentsDialog } from "./experiment-management.js";
 import { startBrowserSession } from "./browser-session.js";
 import { fillPredicateWindows, selectedPredicateWindows, selectPredicateTrajectory, updatePredicateSelection } from "./predicate-selection.js";
+import { clusteringActions, clusteringBody, clusteringChange, clusteringInput, validateClusteringDraft } from "./clustering.js";
 
 async function refresh() {
   const data = await api("bootstrap");
@@ -112,6 +113,7 @@ async function route() {
   }
 }
 const actions = {
+  ...clusteringActions,
   navigate: (el) => (location.hash = el.dataset.view),
   "new-experiment": newExperiment,
   "delete-experiment": (el) => deleteExperimentDialog(el.dataset.id),
@@ -280,6 +282,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 document.addEventListener("input", (event) => {
+  clusteringInput(event.target);
   const id = event.target.id;
   if (
     event.target.closest("#new-split-form") &&
@@ -299,6 +302,7 @@ document.addEventListener("input", (event) => {
 });
 document.addEventListener("change", async (event) => {
   try {
+    await clusteringChange(event.target);
     const id = event.target.id;
     if (id === "experiment-filter") filterExperiments();
     if (id === "review-experiment")
@@ -333,6 +337,15 @@ document.addEventListener("submit", async (event) => {
     submit = $(`[type=submit][form="${form.id}"]`) || $("[type=submit]", form);
   if (submit) submit.disabled = true;
   try {
+    if (form.id === "new-clustering-form") {
+      const payload = clusteringBody(form);
+      if (submit) submit.disabled = true;
+      const e = await api('experiment/create', payload);
+      closeModal();
+      await refresh();
+      location.hash = 'experiment/' + e.id;
+      toast('聚类草稿已保存，输入与配置已冻结；点击开始运行生成 Embedding');
+    }
     if (form.id === "new-preprocess-form") {
       const e = await api('experiment/create', preprocessBody(form));
       closeModal();
@@ -403,7 +416,7 @@ document.addEventListener("submit", async (event) => {
       tasks();
       toast("任务已保存");
     }
-    if (form.id === "settings-form") {
+    if (form.id === "settings-form" || form.id === "embedding-settings-form") {
       state.settings = await api("settings", body);
       nav();
       settingsView();
@@ -422,11 +435,12 @@ document.addEventListener("submit", async (event) => {
       toast("批次反馈已提交，实验继续运行");
     }
   } catch (error) {
-    const el = $("#modal-error") || $("#settings-error");
+    const el = $("#modal-error", form) || $(".form-error", form) || $("#modal-error") || $("#settings-error");
     if (el) el.textContent = error.message;
     toast(error.message, true);
   } finally {
     if (submit) submit.disabled = false;
+    if (form.id === "new-clustering-form") validateClusteringDraft();
   }
 });
 let dragged = null;

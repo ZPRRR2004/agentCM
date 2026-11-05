@@ -27,6 +27,7 @@ import { splitComparison } from "./splitting.js";
 import { cancelSplitPreview, scheduleSplitPreview } from "./split-preview.js";
 import { selectedData, datasetControls, controlValues } from "./datasets.js";
 import { fillPredicateWindows } from "./predicate-selection.js";
+import { clusteringComparison } from "./clustering.js";
 function modal(title, body, footer = "", wide = false) {
   cancelSplitPreview();
   const el = $("#modal");
@@ -42,7 +43,7 @@ function closeModal() {
 function newExperiment() {
   modal(
     "选择实验类型",
-    `<div class="experiment-kinds"><button class="experiment-kind" data-action="new-preprocess"><span class="eyebrow">01 / PREPROCESS</span><h3>轨迹预处理</h3><p>选择字段精简规则，对照处理前后的轨迹，生成后续切分的输入。</p></button><button class="experiment-kind" data-action="new-split"><span class="eyebrow">02 / SPLIT</span><h3>轨迹切分</h3><p>选择已完成的预处理结果，填写事件数与重叠事件数，预览窗口长度，再运行切分。</p></button><button class="experiment-kind" data-action="new-predicate"><span class="eyebrow">03 / DISCOVER</span><h3>谓词发现</h3><p>选择一次已完成的切分实验，固定窗口与 Prompt，发现并审核谓词。</p></button></div>`,
+    `<div class="experiment-kinds"><button class="experiment-kind" data-action="new-preprocess"><span class="eyebrow">01 / PREPROCESS</span><h3>轨迹预处理</h3><p>选择字段精简规则，对照处理前后的轨迹，生成后续切分的输入。</p></button><button class="experiment-kind" data-action="new-split"><span class="eyebrow">02 / SPLIT</span><h3>轨迹切分</h3><p>选择已完成的预处理结果，填写事件数与重叠事件数，预览窗口长度，再运行切分。</p></button><button class="experiment-kind" data-action="new-predicate"><span class="eyebrow">03 / DISCOVER</span><h3>谓词发现</h3><p>选择一次已完成的切分实验，固定窗口与 Prompt，发现并审核谓词。</p></button><button class="experiment-kind" data-action="new-clustering"><span class="eyebrow">04 / CLUSTER</span><h3>谓词语义聚类</h3><p>对已有谓词定义生成 Embedding，按照谓词元数独立聚类，发现语义相近的谓词机制群组。</p></button></div>`,
   );
 }
 async function newSplit(sourceId) {
@@ -194,6 +195,7 @@ function editTask(id) {
 function feedbackModal() {
   const e = state.detail;
   if (!e.pending) return toast("批次状态已变化，请刷新实验", true);
+  const finalBatch = e.completed === e.total;
   const notes = Object.entries(e.reviews || {})
     .filter(
       ([name, r]) =>
@@ -205,9 +207,9 @@ function feedbackModal() {
     .join("\n\n");
   modal(
     `第 ${e.batch} 批 · 人工反馈`,
-    `<form id="feedback-form"><div class="modal-error" id="modal-error"></div><p class="definition-text">下面汇总了这个实验保存的审核意见。提交后，现有流程会调用模型修订定义库，然后继续处理下一批窗口。</p><label>本批反馈<textarea name="feedback" style="min-height:230px" placeholder="写下需要调整的定义、合并关系或排除条件。留空提交表示保留当前定义库。">${esc(notes)}</textarea></label><p class="helper">本次提交会保存反馈原文和修订结果。留空提交将直接继续。</p></form>`,
+    `<form id="feedback-form"><div class="modal-error" id="modal-error"></div><p class="definition-text">下面汇总了这个实验保存的审核意见。提交后，现有流程会调用模型修订定义库，然后${finalBatch ? "保存最终结果并结束实验" : "继续处理下一批窗口"}。</p><label>本批反馈<textarea name="feedback" style="min-height:230px" placeholder="写下需要调整的定义、合并关系或排除条件。留空提交表示保留当前定义库。">${esc(notes)}</textarea></label><p class="helper">本次提交会保存反馈原文和修订结果。留空提交将${finalBatch ? "保留当前定义库并结束实验" : "直接继续"}。</p></form>`,
     btn("继续检查", "close-modal") +
-      '<button class="btn primary" type="submit" form="feedback-form">提交反馈并继续</button>',
+      `<button class="btn primary" type="submit" form="feedback-form">${finalBatch ? "提交反馈并完成实验" : "提交反馈并继续"}</button>`,
   );
 }
 async function compareModal() {
@@ -237,6 +239,14 @@ async function renderComparison() {
   }
   if (a.kind === "split") {
     $("#comparison-result").innerHTML = splitComparison(a, b);
+    return;
+  }
+  if (a.kind === "clustering") {
+    $("#comparison-result").innerHTML = clusteringComparison(a, b);
+    return;
+  }
+  if (a.kind !== "predicate") {
+    $("#comparison-result").innerHTML = empty("该实验类型不支持此对比。");
     return;
   }
   const am = new Map(a.registry.map((p) => [p.name, p])),
