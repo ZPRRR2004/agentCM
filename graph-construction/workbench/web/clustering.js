@@ -6,6 +6,9 @@ import { modal } from './forms.js';
 const arityNames = { 1: 'Unary', 2: 'Binary', 3: 'Ternary', 4: 'Quaternary' };
 const arityLabel = (arity) => `${arityNames[arity] || arity + '-ary'}（${arity} 元）`;
 const similarity = (value) => value == null ? '—' : Number(value).toFixed(4);
+const fieldOrder = ['definition', 'parameters', 'assertion', 'exclusion'];
+const fieldLabels = { definition: 'Definition', parameters: 'Parameters', assertion: 'Assertion Conditions', exclusion: 'Exclusion Conditions' };
+const defaultFieldPercentages = { definition: 50, parameters: 30, assertion: 10, exclusion: 10 };
 let draft = null;
 let sourceRevision = 0;
 let browser = { experiment: null, arity: 'all', search: '', sort: 'size-desc', singleton: false, selected: null };
@@ -13,6 +16,76 @@ let browser = { experiment: null, arity: 'all', search: '', sort: 'size-desc', s
 function embeddingSummary() {
   const s = state.settings;
   return `<strong>${esc(s.embedding_model || '尚未配置')}</strong><p class="helper cluster-wrap">${esc(s.embedding_base_url || '请先填写 Embedding API Base URL')}<br>维度：${esc(s.embedding_dimensions ?? '模型默认')} · API Key：${s.embedding_key_configured ? '已配置' : '未配置'}</p>`;
+}
+
+function representationOf(e) {
+  return e.embedding_representation || e.config?.embedding_representation || { mode: 'single_text' };
+}
+
+function representationLabel(e) {
+  return representationOf(e).mode === 'fieldwise_concat' ? '多字段加权拼接' : '单文本 Embedding（原版）';
+}
+
+function weightPercent(weight) { return Number((weight * 100).toPrecision(10)) + '%'; }
+
+function weightPanel() {
+  return `<section class="cluster-config-panel cluster-representation"><h3>Embedding 表示方式</h3>
+    <label>表示策略<select id="cluster-representation" name="embedding_representation"><option value="single_text">单文本 Embedding（原版）</option><option value="fieldwise_concat" selected>多字段加权拼接（推荐）</option></select></label>
+    <div id="cluster-field-weights"><div class="panel-head"><h3>字段权重配置</h3>${btn('恢复默认权重', 'clustering-reset-weights', 'small', 'type="button"')}</div>
+    <div class="cluster-weight-grid">${fieldOrder.map(field => `<label>${fieldLabels[field]}<span class="cluster-weight-input"><input class="cluster-field-weight" data-field="${field}" type="number" min="0" max="100" step="1" value="${defaultFieldPercentages[field]}" required aria-label="${fieldLabels[field]}权重百分比"><span>%</span></span></label>`).join('')}</div>
+    <p class="cluster-weight-total" id="cluster-weight-total" aria-live="polite">总权重：100%</p><div id="cluster-weight-error" class="form-error" role="status"></div>
+    <p class="helper">四字段独立 L2 归一化后，按原始权重的平方根加权，固定顺序拼接，再做整体 L2 归一化。空字段或零权重字段保留零块，不调用 API；总权重需为 100%。</p></div>
+    <p class="helper" id="cluster-representation-dimensions"></p></section>`;
+}
+
+function validateWeights() {
+  if (!$('#cluster-field-weights')) return '';
+  const fieldwise = $('#cluster-representation').value === 'fieldwise_concat';
+  const values = $$('.cluster-field-weight').map(input => Number(input.value));
+  const sum = values.reduce((total, value) => total + value, 0);
+  $('#cluster-weight-total').textContent = `总权重：${Number.isFinite(sum) ? Number(sum.toFixed(8)) : '—'}%`;
+  let error = '';
+  if (fieldwise) {
+    if ($$('.cluster-field-weight').some(input => !input.value || !Number.isFinite(Number(input.value)) || Number(input.value) < 0 || Number(input.value) > 100))
+      error = '每个字段权重必须是 0–100 之间的有限非负数。';
+    else if (Math.abs(sum - 100) > 1e-7) error = '四个字段权重之和必须等于 100%。';
+    else if (draft?.preview?.empty_exclusion_count && values.slice(0, 3).every(value => value === 0))
+      error = 'Registry 中存在空 Exclusion；仅给 Exclusion 配置权重会产生全零向量，请调整权重。';
+  }
+  $('#cluster-weight-error').textContent = error;
+  $('#cluster-weight-total').classList.toggle('invalid', Boolean(error));
+  return error;
+}
+
+function updateRepresentationPanel() {
+  if (!$('#new-clustering-form')) return;
+  const fieldwise = $('#cluster-representation').value === 'fieldwise_concat';
+  $('#cluster-field-weights').hidden = !fieldwise;
+  $$('.cluster-field-weight').forEach(input => { input.disabled = !fieldwise; });
+  const d = state.settings.embedding_dimensions;
+  $('#cluster-representation-dimensions').textContent = fieldwise
+    ? `每字段维度：${d ?? '模型默认，运行后确定'} · 预计拼接维度：${d ? 4 * d : '4 × 模型实际输出维度'}`
+    : `向量维度：${d ?? '模型默认，运行后确定'} · 使用原版 predicate-embedding-input/v1 模板。`;
+  validateWeights();
+}
+
+function clusteringProgress(e, p = e.execution || {}) {
+  if (representationOf(e).mode !== 'fieldwise_concat') return `已生成 ${e.completed}/${e.total} 个 Embedding`;
+  const s = e.state || {}, rep = representationOf(e);
+  const total = p.total_embedding_vectors ?? s.total_embedding_vectors ?? (e.input_registry || []).reduce((sum, predicate) => sum +
+    fieldOrder.filter(field => rep.weights[field] > 0 && (field !== 'exclusion' || predicate.exclusion_conditions.length > 0)).length, 0);
+  const current = p.current_embedding_field ?? s.current_embedding_field;
+  return `Embedding：${p.completed_embedding_vectors ?? s.completed_embedding_vectors ?? 0}/${total} 条字段向量 · ` +
+    `当前字段：${current ? current.split(', ').map(field => fieldLabels[field] || field).join(' / ') : '—'} · ` +
+    `已完成 ${e.completed}/${e.total} 个 Predicate`;
+}
+
+function representationSnapshot(e) {
+  const rep = representationOf(e), fieldwise = rep.mode === 'fieldwise_concat';
+  const d = rep.field_dimensions ?? e.state?.field_dimensions ?? (fieldwise ? e.embedding.dimensions : e.statistics.embedding_dimensions ?? e.embedding.dimensions);
+  const final = rep.final_dimensions ?? e.statistics.embedding_dimensions ?? e.state?.final_dimensions ?? (d ? (fieldwise ? 4 : 1) * d : null);
+  return `<p><strong>Embedding 策略</strong>${representationLabel(e)}</p><p><strong>${fieldwise ? '单字段维度 / 最终向量维度' : '向量维度'}</strong>${esc(fieldwise ? `${d ?? '运行后确定'} / ${final ?? '4 × 实际单字段维度'}` : final ?? '运行后确定')}</p>
+    ${fieldwise ? `<p><strong>字段顺序与权重</strong>${fieldOrder.map(field => `${fieldLabels[field]} ${weightPercent(rep.weights[field])}`).join(' → ')}</p><p><strong>归一化与加权</strong>Per-field L2 + Final L2 Normalization · Square-root Weight Concatenation<br>空字段补零，保留原始权重</p>` : '<p><strong>归一化</strong>L2 Normalization</p>'}`;
 }
 
 async function newClustering(sourceId) {
@@ -31,6 +104,7 @@ async function newClustering(sourceId) {
     <section class="cluster-source-summary" id="cluster-source-summary" aria-live="polite"></section>
     <section class="cluster-config-panel"><div class="panel-head"><h3>Embedding 模型</h3><div class="cluster-actions"><a class="btn small" href="#settings" target="_blank" rel="noopener">打开模型设置 ↗</a>${btn('刷新配置摘要', 'clustering-refresh-settings', 'small', 'type="button"')}</div></div>
       <div id="cluster-embedding-summary">${embeddingSummary()}</div><p class="helper">创建时冻结模型、地址和维度；运行时使用当前保存的 Embedding 密钥。密钥不写入实验快照。</p></section>
+    ${weightPanel()}
     <section class="cluster-config-panel"><div class="panel-head"><h3>聚类数量分配</h3>${btn('自动分配', 'clustering-allocate', 'small', 'type="button"')}</div>
       <div class="cluster-allocation-summary"><span>Predicate 总数<strong id="cluster-predicate-count">—</strong></span>
         <label>目标总类数<input id="cluster-total" name="target_clusters" type="number" min="1" value="50" step="1" required></label>
@@ -41,8 +115,9 @@ async function newClustering(sourceId) {
     <section class="cluster-config-panel"><h3>聚类算法</h3><label>算法<select id="cluster-algorithm" name="algorithm"><option value="agglomerative">Agglomerative Clustering</option><option value="kmeans">K-Means</option></select></label>
       <div id="cluster-agglomerative-options"><label>Linkage<select name="linkage"><option value="average">Average Linkage</option><option value="complete">Complete Linkage</option></select></label><p class="helper">Cosine Distance · 每个元数组独立执行。</p></div>
       <div id="cluster-kmeans-options" hidden><div class="form-row"><label>n_init<input name="n_init" type="number" min="1" max="1000" step="1" value="20" disabled required></label><label>random_state<input name="random_state" type="number" min="0" max="4294967295" step="1" value="42" disabled required></label></div><p class="helper">普通 K-Means 在 L2 归一化向量上优化簇内平方欧氏距离。结果统计统一使用 Cosine Similarity。</p></div>
-    </section><p class="helper">保存草稿不会调用 API。运行时发送统一定义文本生成 Embedding；聚类仅提供候选分组，原始定义库保持完整。</p></form>`,
+    </section><p class="helper">保存草稿不会调用 API。运行时按所选表示方式生成 Embedding，多字段模式包含成立和排除条件；聚类仅提供候选分组，原始定义库保持完整。</p></form>`,
     btn('取消', 'close-modal') + '<button class="btn primary" type="submit" form="new-clustering-form" disabled>创建聚类实验草稿</button>', true);
+  updateRepresentationPanel();
   await loadClusteringSource();
 }
 
@@ -156,6 +231,8 @@ function validateClusteringDraft() {
     $('#cluster-average').textContent = total > 0 ? (preview.predicate_count / total).toFixed(2) : '—';
   }
   if (!error && (!state.settings.embedding_base_url || !state.settings.embedding_model)) error = '请先在模型设置中保存 Embedding 模型和 API Base URL，再刷新配置摘要。';
+  const weightError = validateWeights();
+  if (weightError) error = weightError;
   if (!error && $('#cluster-algorithm').value === 'kmeans') {
     const nInit = Number($('[name="n_init"]', $('#new-clustering-form')).value);
     const seedInput = $('[name="random_state"]', $('#new-clustering-form'));
@@ -172,6 +249,9 @@ function clusteringBody(form) {
   const data = Object.fromEntries(new FormData(form));
   const config = { algorithm: data.algorithm, target_clusters: Number(data.target_clusters),
     clusters_by_arity: Object.fromEntries($$('.cluster-arity-target').map(input => [input.dataset.arity, Number(input.value)])) };
+  config.embedding_representation = data.embedding_representation === 'fieldwise_concat'
+    ? { mode: 'fieldwise_concat', weights: Object.fromEntries($$('.cluster-field-weight').map(input => [input.dataset.field, Number(input.value) / 100])) }
+    : { mode: 'single_text' };
   if (data.algorithm === 'agglomerative') config.linkage = data.linkage;
   else { config.n_init = Number(data.n_init); config.random_state = Number(data.random_state); }
   return { kind: 'clustering', title: data.title, question: data.question, ...sourceBody(),
@@ -192,6 +272,7 @@ function clusteringInput(target) {
 }
 
 async function clusteringChange(target) {
+  if (target.id === 'cluster-representation') { updateRepresentationPanel(); validateClusteringDraft(); }
   if (['cluster-source-type', 'cluster-source'].includes(target.id)) await loadClusteringSource();
   if (target.id === 'cluster-file') {
     const currentDraft = draft, revision = ++sourceRevision, file = target.files[0];
@@ -246,7 +327,7 @@ function clusteringDetail(e) {
     btn('导出聚类 JSON', 'clustering-export', '', completed ? '' : 'disabled', 'download') +
     btn('导出 Predicate-Cluster 映射', 'clustering-export-mapping', '', completed ? '' : 'disabled', 'download'), 'EXPERIMENT / PREDICATE CLUSTERING')}
     ${e.question ? `<div class="experiment-question"><span class="eyebrow">RESEARCH QUESTION</span>${esc(e.question)}</div>` : ''}
-    <div class="cards">${metric('执行状态', pill(e.status), '', `已生成 ${e.completed}/${e.total} 个 Embedding`, 'experiments')}${metric('输入谓词', e.predicate_count, '个', `${Object.keys(e.arity_counts).length} 个非空元数组`, 'data')}${metric('目标 / 实际类数', `${config.target_clusters} / ${actual ?? '—'}`, '', '不同元数严格独立聚类', 'overview')}${metric('Embedding 模型', esc(embedding.model), '', `维度：${esc(stats.embedding_dimensions ?? embedding.dimensions ?? '模型默认')}`, 'settings')}</div>
+    <div class="cards">${metric('执行状态', pill(e.status), '', esc(clusteringProgress(e)), 'experiments')}${metric('输入谓词', e.predicate_count, '个', `${Object.keys(e.arity_counts).length} 个非空元数组`, 'data')}${metric('目标 / 实际类数', `${config.target_clusters} / ${actual ?? '—'}`, '', '不同元数严格独立聚类', 'overview')}${metric('Embedding 模型', esc(embedding.model), '', `最终维度：${esc(stats.embedding_dimensions ?? e.state?.final_dimensions ?? (representationOf(e).mode === 'fieldwise_concat' ? (embedding.dimensions ? 4 * embedding.dimensions : '运行后确定') : embedding.dimensions ?? '模型默认'))}`, 'settings')}</div>
     <section class="panel cluster-config-panel"><h2>输入与配置快照</h2><div class="cluster-metadata"><p><strong>来源</strong>${e.source.experiment_id ? `<a href="#experiment/${esc(e.source.experiment_id)}">${esc(source)}</a>` : esc(source)}</p><p><strong>Embedding 服务</strong>${esc(embedding.base_url)}</p><p><strong>文本模板</strong>${esc(embedding.input_template)}</p><p><strong>算法</strong>${esc(config.algorithm)} · ${config.algorithm === 'agglomerative' ? `Cosine Distance · ${esc(config.linkage)} linkage` : `平方欧氏距离 · n_init=${config.n_init} · random_state=${config.random_state}`}</p><p class="mono"><strong>输入 SHA-256</strong>${esc(e.input_hash)}</p></div>
     <details><summary>查看完整输入 Registry · ${e.predicate_count} 个定义</summary><pre class="json cluster-wrap">${json(e.input_registry)}</pre></details></section>
     <div class="cluster-overview-grid"><section class="panel"><div class="panel-head"><h2>元数与聚类分配</h2></div><div class="table-wrap"><table><thead><tr><th>元数</th><th>谓词数</th><th>目标类数</th><th>实际类数</th><th>Singleton</th></tr></thead><tbody>${rows.map(r => `<tr><td>${arityLabel(r.arity)}</td><td>${r.predicate_count}</td><td>${r.target_clusters}</td><td>${r.actual_clusters ?? '—'}</td><td>${r.singleton_count ?? '—'}</td></tr>`).join('')}<tr><th>Total</th><td>${e.predicate_count}</td><td>${config.target_clusters}</td><td>${actual ?? '—'}</td><td>${stats.singleton_count ?? '—'}</td></tr></tbody></table></div></section>
@@ -257,6 +338,9 @@ function clusteringDetail(e) {
       <select id="cluster-arity-filter" aria-label="按元数筛选"><option value="all">全部元数</option>${Object.keys(e.arity_counts).map(a => `<option value="${a}" ${browser.arity === a ? 'selected' : ''}>${arityLabel(a)}</option>`).join('')}</select>
       <select id="cluster-sort" aria-label="聚类排序">${[['size-desc', '成员数 ↓'], ['size-asc', '成员数 ↑'], ['similarity-desc', '平均相似度 ↓'], ['similarity-asc', '平均相似度 ↑']].map(([value, label]) => `<option value="${value}" ${browser.sort === value ? 'selected' : ''}>${label}</option>`).join('')}</select><label class="cluster-check"><input id="cluster-singletons" type="checkbox" ${browser.singleton ? 'checked' : ''}>仅 Singleton</label></div>
       <div class="cluster-browser"><div class="list-pane cluster-list" id="cluster-list"></div><section class="panel cluster-members" id="cluster-detail"></section></div></section></div>`;
+  $('.cluster-metadata', $('#main')).insertAdjacentHTML('beforeend', representationSnapshot(e));
+  if (representationOf(e).mode === 'fieldwise_concat') $('.cluster-results', $('#main')).insertAdjacentHTML('afterbegin',
+    '<p class="helper cluster-representation-note">当前相似度基于多字段加权拼接并完成最终整体归一化后的向量计算。</p>');
   renderClusterBrowser();
 }
 
@@ -302,14 +386,30 @@ function renderCluster() {
     <section class="cluster-matrix-section"><h3>簇内 Cosine Similarity 矩阵</h3>${group.size === 1 ? '<p class="helper">单元素簇，无簇内两两相似度。</p>' : `<p class="helper">点击单元格，查看对应两条 Predicate 的完整定义。</p><div class="table-wrap cluster-matrix-scroll"><table class="cluster-matrix"><thead><tr><th>Predicate</th>${group.members.map(p => `<th>${esc(p.name)}</th>`).join('')}</tr></thead><tbody>${group.members.map((p, i) => `<tr><th>${esc(p.name)}</th>${group.members.map((q, j) => `<td><button type="button" data-action="clustering-pair" data-row="${i}" data-col="${j}" style="background:rgba(126,158,110,${Math.max(0, (group.similarity_matrix[i][j] + 1) / 2) * 0.65})" aria-label="${esc(p.name)} 与 ${esc(q.name)}：${similarity(group.similarity_matrix[i][j])}">${similarity(group.similarity_matrix[i][j])}</button></td>`).join('')}</tr>`).join('')}</tbody></table></div>`}</section>`;
 }
 
-function showPredicatePair(el) {
+async function showPredicatePair(el) {
   const group = state.detail.clustering.groups.find(g => g.cluster_id === browser.selected);
   if (!group) return;
   const row = Number(el.dataset.row), col = Number(el.dataset.col);
   const first = group.members[row], second = group.members[col];
   if (!first || !second) return;
+  const fieldwise = representationOf(state.detail).mode === 'fieldwise_concat';
   modal('Predicate Pair · Cosine ' + similarity(group.similarity_matrix[row][col]),
-    `<p class="helper">${esc(group.cluster_id)} · ${arityLabel(group.arity)}</p><div class="cluster-pair">${[first, ...(row === col ? [] : [second])].map(p => `<article>${predicateFields(p)}</article>`).join('')}</div>`, btn('关闭', 'close-modal'), true);
+    `<p class="helper">${esc(group.cluster_id)} · ${arityLabel(group.arity)}</p>${fieldwise ? `<div id="cluster-field-pair"><p class="helper">正在读取已保存的字段向量…</p></div>` : ''}<div class="cluster-pair">${[first, ...(row === col ? [] : [second])].map(p => `<article>${predicateFields(p)}</article>`).join('')}</div>`, btn('关闭', 'close-modal'), true);
+  if (fieldwise) {
+    const target = $('#cluster-field-pair');
+    try {
+      const result = await api('clustering/field-pair?' + query({ id: state.detail.id,
+        left: group.member_indices[row], right: group.member_indices[col] }));
+      if (target !== $('#cluster-field-pair') || !$('#modal').open) return;
+      target.innerHTML = `<p><strong>最终拼接向量相似度：${similarity(group.similarity_matrix[row][col])}</strong></p>
+        <div class="table-wrap"><table><thead><tr><th>独立字段 Cosine Similarity</th><th>权重</th><th>相似度</th></tr></thead><tbody>${fieldOrder.map(field => {
+          const value = result.fields[field];
+          return `<tr><td>${fieldLabels[field]}</td><td>${weightPercent(value.weight)}</td><td>${value.status === 'available' ? similarity(value.similarity) : value.status === 'missing' ? '无可比较字段（按缺失规则处理）' : '权重为 0，未请求字段向量'}</td></tr>`;
+        }).join('')}</tbody></table></div><p class="helper">字段分数与最终融合分数分别展示；存在空字段时，最终分数取完整拼接向量的 Cosine，不能直接套用固定权重和。</p>`;
+    } catch (error) {
+      if (target === $('#cluster-field-pair')) target.textContent = '字段相似度读取失败：' + error.message;
+    }
+  }
 }
 
 async function exportClustering(mapping = false) {
@@ -322,17 +422,22 @@ async function exportClustering(mapping = false) {
 }
 
 function clusteringComparison(a, b) {
-  return `<div class="table-wrap"><table><thead><tr><th>实验</th><th>谓词数</th><th>Embedding</th><th>算法</th><th>目标 / 实际类数</th><th>Singleton</th></tr></thead><tbody>${[a, b].map(e => `<tr><td>${esc(e.title)}</td><td>${e.predicate_count}</td><td>${esc(e.embedding.model)}</td><td>${esc(e.config.algorithm)}</td><td>${e.config.target_clusters} / ${e.actual_clusters ?? '—'}</td><td>${e.statistics.singleton_count ?? '—'}</td></tr>`).join('')}</tbody></table></div><p class="helper">输入内容摘要${a.input_hash === b.input_hash ? '一致' : '不同'}。聚类相似度仅用于语义候选分组。</p>`;
+  return `<div class="table-wrap"><table><thead><tr><th>实验</th><th>谓词数</th><th>Embedding</th><th>表示策略 / 权重</th><th>算法</th><th>目标 / 实际类数</th><th>Singleton</th></tr></thead><tbody>${[a, b].map(e => `<tr><td>${esc(e.title)}</td><td>${e.predicate_count}</td><td>${esc(e.embedding.model)}</td><td>${representationLabel(e)}${representationOf(e).mode === 'fieldwise_concat' ? `<small>${fieldOrder.map(f => weightPercent(representationOf(e).weights[f])).join(' / ')}</small>` : ''}</td><td>${esc(e.config.algorithm)}</td><td>${e.config.target_clusters} / ${e.actual_clusters ?? '—'}</td><td>${e.statistics.singleton_count ?? '—'}</td></tr>`).join('')}</tbody></table></div><p class="helper">输入内容摘要${a.input_hash === b.input_hash ? '一致' : '不同'}。聚类相似度仅用于语义候选分组。</p>`;
 }
 
 const clusteringActions = {
   'new-clustering': (el) => newClustering(el.dataset.source),
   'clustering-allocate': automaticAllocation,
+  'clustering-reset-weights': () => {
+    $$('.cluster-field-weight').forEach(input => { input.value = defaultFieldPercentages[input.dataset.field]; });
+    validateClusteringDraft();
+  },
   'clustering-refresh-settings': async () => {
     const data = await api('bootstrap');
     state.settings = data.settings;
     if ($('#cluster-embedding-summary')) {
       $('#cluster-embedding-summary').innerHTML = embeddingSummary();
+      updateRepresentationPanel();
       validateClusteringDraft();
     }
   },
@@ -343,4 +448,4 @@ const clusteringActions = {
 };
 
 export { clusteringActions, clusteringBody, clusteringChange, clusteringComparison,
-  clusteringDetail, clusteringInput, validateClusteringDraft };
+  clusteringDetail, clusteringInput, clusteringProgress, validateClusteringDraft };

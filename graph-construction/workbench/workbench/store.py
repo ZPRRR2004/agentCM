@@ -142,6 +142,9 @@ class Workspace:
             if kind == 'clustering':
                 result['input_registry'] = read(root / 'inputs/predicate_registry.json', [])
                 result['clustering'] = read(output / 'clusters.json', {})
+                # Display fallback only; do not migrate or write historical snapshots.
+                result['embedding_representation'] = result['clustering'].get(
+                    'embedding_representation', clustering.representation_config(meta['config']))
                 result['windows'] = []
             elif kind == 'preprocess':
                 result['trajectories'] = preprocessing.list_trajectories(root)

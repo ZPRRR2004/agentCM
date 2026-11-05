@@ -1,0 +1,71 @@
+{
+  "id": "f4d14cd4bbd7",
+  "kind": "clustering",
+  "schema": "predicate-clustering/v1",
+  "title": "谓词聚类-带权重-kmeans-2",
+  "question": "",
+  "created_at": "2026-11-05T11:46:24.128372+00:00",
+  "dataset_id": "terminal-bench-2.1",
+  "dataset_name": "terminal-bench-2.1",
+  "source": {
+    "type": "experiment",
+    "experiment_id": "f94a6b7d7baa",
+    "title": "50窗口-反馈合并-人工反馈间隔10-1",
+    "dataset_id": "terminal-bench-2.1",
+    "dataset_name": "terminal-bench-2.1"
+  },
+  "source_title": "50窗口-反馈合并-人工反馈间隔10-1",
+  "source_experiment_id": "f94a6b7d7baa",
+  "input_hash": "0c129c5094a1b086f50bf96299b3cc620151418b50bbfd9c932a67557ad93815",
+  "predicate_count": 135,
+  "arity_counts": {
+    "1": 42,
+    "2": 61,
+    "3": 31,
+    "4": 1
+  },
+  "embedding": {
+    "model": "qwen3.7-text-embedding",
+    "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "dimensions": null,
+    "input_template": "predicate-embedding-fields/v1",
+    "batch_size": 10,
+    "max_retries": 3,
+    "timeout_seconds": 120
+  },
+  "config": {
+    "algorithm": "kmeans",
+    "target_clusters": 50,
+    "clusters_by_arity": {
+      "1": 15,
+      "2": 22,
+      "3": 12,
+      "4": 1
+    },
+    "metric": "euclidean",
+    "n_init": 20,
+    "random_state": 42,
+    "embedding_representation": {
+      "mode": "fieldwise_concat",
+      "version": "fieldwise-concat/v1",
+      "fields": [
+        "definition",
+        "parameters",
+        "assertion",
+        "exclusion"
+      ],
+      "weights": {
+        "definition": 0.5,
+        "parameters": 0.3,
+        "assertion": 0.15,
+        "exclusion": 0.05
+      },
+      "normalization": "l2_per_field_then_l2_final",
+      "weight_application": "sqrt",
+      "empty_field_policy": "zero_block_keep_weights"
+    }
+  },
+  "model": "qwen3.7-text-embedding",
+  "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+  "snapshot_hash": "e65c8604fb746009c96d3be85a21063fa3bc12d653fe43d3de4e6ddb945edf6c"
+}

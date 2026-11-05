@@ -1,0 +1,19 @@
+{
+  "kind": "clustering",
+  "snapshot_hash": "f1e89f54c7b7f7dff7af47db11089566c8f03ced199e0576ae05b1a820e1ea13",
+  "status": "completed",
+  "completed_groups": 4,
+  "group_total": 4,
+  "next_stage": "completed",
+  "updated_at": "2026-11-05T09:32:25.533291+00:00",
+  "completed_embedding_vectors": 540,
+  "total_embedding_vectors": 540,
+  "completed_predicates": 135,
+  "total_predicates": 135,
+  "current_embedding_field": null,
+  "completed_embeddings": 540,
+  "field_dimensions": 1024,
+  "dimensions": 4096,
+  "final_dimensions": 4096,
+  "actual_clusters": 50
+}

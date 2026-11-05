@@ -2207,6 +2207,14 @@ dialog::backdrop {
 .cluster-config-panel h3, .cluster-config-panel h2 { margin-bottom: 16px; }
 .cluster-config-panel .panel-head h3 { margin: 0; }
 .cluster-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.cluster-weight-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; }
+.cluster-weight-input { display: flex; align-items: center; gap: 9px; }
+.cluster-weight-input > input { min-width: 0; flex: 1; }
+.cluster-weight-input > span { color: #7b8b75; }
+.cluster-weight-total { padding: 12px 16px; border-radius: 6px; background: #edf2e5; font-weight: 600; color: #426746; }
+.cluster-weight-total.invalid { color: #a3553d; background: #fbede6; }
+.cluster-representation-note { padding: 14px 18px; background: #edf2e5; border-radius: 8px; }
+#cluster-field-pair { margin: 15px 0 24px; padding: 16px; background: #f8faf4; border: 1px solid #e0e8d5; border-radius: 8px; }
 .cluster-allocation-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; gap: 16px; margin: 12px 0; }
 .cluster-allocation-summary > span { color: #7b8b75; font-size: 12px; }
 .cluster-allocation-summary strong { display: block; color: #25483d; font-size: 24px; margin-top: 10px; }
@@ -2265,6 +2273,7 @@ dialog::backdrop {
 }
 @media (max-width: 720px) {
   .cluster-allocation-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cluster-weight-grid { grid-template-columns: minmax(0, 1fr); }
   .cluster-browser, .cluster-pair, .cluster-metadata { grid-template-columns: minmax(0, 1fr); }
   .cluster-list { max-height: 320px; }
   .cluster-toolbar > select, .cluster-toolbar input.search { width: 100%; flex: 1 1 100%; }

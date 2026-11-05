@@ -1,0 +1,4760 @@
+{
+  "schema": "predicate-field-embeddings/v1",
+  "cache_schema": "predicate-field-embedding-cache/v1",
+  "input_hash": "0c129c5094a1b086f50bf96299b3cc620151418b50bbfd9c932a67557ad93815",
+  "snapshot_hash": "f4a97a744d8eed5a118e62a0688f4d9bbf275ace4739b01b5ff7035570f9136e",
+  "embedding_representation": {
+    "mode": "fieldwise_concat",
+    "version": "fieldwise-concat/v1",
+    "fields": [
+      "definition",
+      "parameters",
+      "assertion",
+      "exclusion"
+    ],
+    "weights": {
+      "definition": 0.5,
+      "parameters": 0.3,
+      "assertion": 0.1,
+      "exclusion": 0.1
+    },
+    "normalization": "l2_per_field_then_l2_final",
+    "weight_application": "sqrt",
+    "empty_field_policy": "zero_block_keep_weights",
+    "field_dimensions": 1024,
+    "final_dimensions": 4096
+  },
+  "items": [
+    {
+      "index": 0,
+      "predicate_name": "PLANS_NEXT_ACTION",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "e1d40cc326dfe466711f0bf1d5ec707e8a503ef545c0150feecb6a898e0d63eb",
+          "present": true,
+          "active": true,
+          "cache_key": "81eeaf9cb5e8858191c94a46ea8127e6b5a0bbc080397f5e6598fbfae465e02d",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "e437c35740789d8f5d44752fe9335b1f131fb68ca3308eaee8c27afe4a94eab3",
+          "present": true,
+          "active": true,
+          "cache_key": "fcf346fad3a3f344aa337931b2b9facbd5ca6406c9e9c5d4b2e024d0d02375fa",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "04593ba42c1189fe5bce431b9d5ac1739b8f88838b15d62df1bfa040487bf565",
+          "present": true,
+          "active": true,
+          "cache_key": "b9585d6c4ca4f0e4e58abf97cd1cfa0882d0badbe00ee2e91e5d4c91122dcba9",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "1b47cda5ecd2acd4246975d90109f0b95c5f92ced8c282f1c88142e34e7c2420",
+          "present": true,
+          "active": true,
+          "cache_key": "3ec3aee2a1eb85de95b5e9816c6dab588b840b4df945a5a3ec2c84a25c112d9e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 1,
+      "predicate_name": "IDENTIFIES_DEFECT_FROM_OBSERVATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "75cdcf5c4e93ec848a1b5ef6c4ba2e9325701eccab9418512a801db6c7b65397",
+          "present": true,
+          "active": true,
+          "cache_key": "ba84c255dbe8632ce5812a75e904f759bc1851c960acc386fa8d2b114652c09d",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "87a1c7bbfc954a7c0cc2467df6eeba6c2aaf94240cdc77c0661e3cedcce7253a",
+          "present": true,
+          "active": true,
+          "cache_key": "4597b8ed212c6865e1a288f70908da9e5fdca9b225c890c17a9057e5ca4681f1",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "47b0b8cae681e308a205f2817f475126b28dcfed9dca2f36f5162e780215d6d9",
+          "present": true,
+          "active": true,
+          "cache_key": "0647f08565e34ce48fe6fe915697d6b82cccc692219d3fa46a792aef9e0072c4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "96803c4f3168ee79a7abe3f57d6cdc31d607486a694b210a0806dc6630c7aaba",
+          "present": true,
+          "active": true,
+          "cache_key": "c00ef0abebf94c6370aac14699c5d4a61eed5235927b09b48a80ffbecced3d8e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 2,
+      "predicate_name": "FORMULATES_CORRECTIVE_SOLUTION",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "b4b129a74925837d1da3d5d5b1b0209d10f5b35f5a6e1d8c04a9c1fb8d18aab3",
+          "present": true,
+          "active": true,
+          "cache_key": "ac7a7004811589a3c8f791dc3eaf4d9259aec7e658bcfb27951e4b8e7a2c2e44",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "03542c7d4076002cbcb2cda4752b2f6760b8932b83230631d3d7daa6bb029e8f",
+          "present": true,
+          "active": true,
+          "cache_key": "991c072540a8b3b1e3fd31e6c8a5a7bb50313b6872fde4fd40136595192beb95",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "184cadc530d06b348aebb218436514cfc881cd900d6ec92690556184fbe1b70c",
+          "present": true,
+          "active": true,
+          "cache_key": "de6ba8bf977b77d362ee0fa8bc01d31111cb3db51f8b345b142be1096266dc5d",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "5ef3553c1439fa24dd9de3889521f15b912ec5666fb8af70487b87238bec9819",
+          "present": true,
+          "active": true,
+          "cache_key": "74967f0202a4b270ca4c1e091ff3cbf6062132de4aec39d201ac1d7bdb21f9c9",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 3,
+      "predicate_name": "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "263fb35600f5527e98234b0813b58c8c9f388a63f799844f5f1ab9ff1c027a58",
+          "present": true,
+          "active": true,
+          "cache_key": "07ad521d9f0861dfe322e614591e3bdbb80758e1b70a5de534424b61bd87068b",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "cbaed46faa3902441b2b8f7b8f3c234d2bedd7f92ab53b2b7b83580b2a3f44b4",
+          "present": true,
+          "active": true,
+          "cache_key": "092ab2577fd8c3a6f733ed9e13c7827da94012135e39874551de162207f40808",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b434a11b4b39658b96766305596d0a4288bf4a21f190001e74347d39ca7fd5a0",
+          "present": true,
+          "active": true,
+          "cache_key": "2ef44362e93aa7d0b9126b8e0b164cbc85c8356ad7544bd0abcb9bf8a71f6a57",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "3461c2c3c83fb664c2ac4e6234ead47d61008c45a20a818031e9381dc9f70666",
+          "present": true,
+          "active": true,
+          "cache_key": "c079fe563fe5a32f3bd1b2be7d4904276152d9b80605fd2d5f1811c5ec62e78a",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 4,
+      "predicate_name": "CHECKS_PREREQUISITE_AVAILABILITY",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "6716ea6a4a675ca2aaeca363abaed6df12a047bdfdf94c821afdaab2fa521e76",
+          "present": true,
+          "active": true,
+          "cache_key": "d56a51c5e5d20aa8e61fc686b17df2abef8469e3aea6a61c449fa8ebf57f1dc0",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a49d298467d90c4f615bf1015486877e07ac605ba756c5a973b424bc6af060bd",
+          "present": true,
+          "active": true,
+          "cache_key": "77969038f87f6c67ba2fa3601e7aa6bda6ffcd023493a5f7f7e49b0961ce1e92",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "7e7a773b41ea26c7da4611decf40cf154e61ecea81aba4b7568bf063547881bd",
+          "present": true,
+          "active": true,
+          "cache_key": "b904615164a7698c99ca505185f4133deeb9f91999bc708ac2b862e84b8fc466",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "aa6fe8255b43512441bcc6bfedc304108f37f08130ef921e711c40568efc4da0",
+          "present": true,
+          "active": true,
+          "cache_key": "6dbb0c15f739c77329392fcb175d52667793822d77fc7e23e9682833ec15bbff",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 5,
+      "predicate_name": "TESTS_ASSUMPTION_WITH_PROBE",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "fff19065ab1b22ec623a39cc5869d5e24888d268c9615f6ab3213e743ae806e3",
+          "present": true,
+          "active": true,
+          "cache_key": "029a42cb7e5152fbac543c2ddfd900d3689cc24097201c62fb0b7a61814d85f2",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "c6398f940b3ae8b6096e3049f056aa2a24176762bb45c4c4ea9b258b55932412",
+          "present": true,
+          "active": true,
+          "cache_key": "3f613a146d6ed80831767090de2ee4c5a88f034ec7e606a095af35f3c848d02b",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "9374bedd333c9e39a2b79e0fa7c4da2a15cb7f048ce2d92cd5039361b34ea6bf",
+          "present": true,
+          "active": true,
+          "cache_key": "db973f5b5526f3cca17b750f4655e94043bbc6105b612ca5e70ba672cbf40565",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "98c8344f02db405b5012b41da355032d433095ac6a091ee5a842da0268e065e7",
+          "present": true,
+          "active": true,
+          "cache_key": "e9184dfaa8f0f8ae53c5846e98e8dd1ad40e412f140b1740b32fd22ae8e603a6",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 6,
+      "predicate_name": "DIAGNOSES_FAILURE_CAUSE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "856bbea67470da9c0b923e83d6bb86ed1c8f0f1e5479f1526e0868466e89fbbf",
+          "present": true,
+          "active": true,
+          "cache_key": "baa3acd27639c5d1ce82e77e7b2a72e5040c4c373044db7092c9857a73c7fdbe",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "b901f9e0539143fc6570791de576dd1c0bec9da822c3ae0bb53701158cdd3222",
+          "present": true,
+          "active": true,
+          "cache_key": "0c71fd59cbb7b6198b40523337bb05730732b71b181b6c8c7d7a2ef8fb53a0e1",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "09b563f3bfbcf6c1db71c4f0981e3303a58212dc15ef3f6cccd4c8a8e6dcadf1",
+          "present": true,
+          "active": true,
+          "cache_key": "5f91a90561a03473e815eb1783291ad915e41e68242a891291a57758f82996be",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "29dc606d68910b0a749be2f4bcd5bf46a17cf5f5b7225334ff13b979f5713b59",
+          "present": true,
+          "active": true,
+          "cache_key": "45539b4b46050f646bbe17f07e800990fee25e207927fc94d3d1adaf9cdc3e52",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 7,
+      "predicate_name": "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "43aeb48fae0787898975096809b8ddae4913f2c5783976d330b091cd7f01622c",
+          "present": true,
+          "active": true,
+          "cache_key": "b9eddfc9a7a9e3517a83ca17e43ad925041ebc9aa340a097ead0bc9b754ea255",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "7809465c1f659f935891e2c392dba6d0ae57550cbaa08b9a86ab7dede45b1183",
+          "present": true,
+          "active": true,
+          "cache_key": "0ad856fa3928042b009d5280e3feace50ec26f4fe115529341cbeeefab7be7bd",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "289786d1531da1de9400dffd40ed41f3dbed7614ff30445b4466ecb6d4cbc7d9",
+          "present": true,
+          "active": true,
+          "cache_key": "7791d71270883301a5974be091f4e41c1af82e8fe59d0c30fc5641ec2f9eb8f8",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "7a07c65d8ff482d109511a5edc03286c55f7c0cfdab03016363d306e29eee908",
+          "present": true,
+          "active": true,
+          "cache_key": "d094657dee97a75524732a93f7b4f955857de665ebab02674e147f4ebb82b3e5",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 8,
+      "predicate_name": "CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "248378c98b443096da4ae99c68a09424663594274c5ce86574713a26634b3206",
+          "present": true,
+          "active": true,
+          "cache_key": "b877ad64974bf0cab3c3333bc1d3f3a2a23e950116a6732125d0f6188411c9a7",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "2717a896e55dcc05cc735b6b62d3c1f62dcc620eb64980c2948f6f564275cf68",
+          "present": true,
+          "active": true,
+          "cache_key": "a6589a7caea182e0e83d71a763c7059869f12e09cfb4e39f14019f9844081e72",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "486ee9e7bb9c6a40ab1bebecc0e056e62fc22d8257317f5cfb388b87dad67a59",
+          "present": true,
+          "active": true,
+          "cache_key": "61316d9f4bcad4553e29cd41ff6b83508c8bc70f2fe1ef3e417944701017026c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "78112bee52ca56eb34bb7ddbe5f359d3352316ec0d9ca6db2fec62741d57a959",
+          "present": true,
+          "active": true,
+          "cache_key": "67611c7aa101c70af368bf34a66f8d0314958710413eff921817b8fdb86a806a",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 9,
+      "predicate_name": "GROUNDS_CONCLUSION_IN_OBSERVATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "934aee5c62c2647dfa08f82e70da9b17ca54a169688b042c39e8ea6b2facabe0",
+          "present": true,
+          "active": true,
+          "cache_key": "aa7ddda5e0313e8a3a85e86d2037d4af0754493483f6e07ca6adb3fd5e4e159a",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a4b69b4e4529d437eb65c7b8d74b066a8e379aab88eb54493079c777a60c2d25",
+          "present": true,
+          "active": true,
+          "cache_key": "3f8ddac331b688592ac5a23448817970725f3eb249043f85c083e985298f87f2",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "0328fc91696d8cdd600e6aae274e5fd05c48c77b1ea8da442a6560cfcd7ddd84",
+          "present": true,
+          "active": true,
+          "cache_key": "785cd719d09e01f31803ab211f1375fc8ca2153a2754ca42008bf5a05e200829",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "d0aabda833a03435a78428c89ef5bf66272c9e7df3d54af116ee2d01bfa30df9",
+          "present": true,
+          "active": true,
+          "cache_key": "5de77c3039dba3197932f25c8cf1bea81f67c5553290178078775766df560ec5",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 10,
+      "predicate_name": "IDENTIFIES_MISSING_PREREQUISITE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "346318375f7846f6f43b95c3a5921c1e62639725d42cfc2b2bbd271d76e8efc4",
+          "present": true,
+          "active": true,
+          "cache_key": "a04c9bcb988f1ea057610e8ecf9d484fd2757b24edafefcbc2cdd6b3b81f077c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "c78a4df3e971685d20580044c067a47ac8a391192676e4a75baab96b4823f6b9",
+          "present": true,
+          "active": true,
+          "cache_key": "9efc738dd9bd4b76e0e42a37d3d5ba01c86a5489fff02fe1687984262bc2cdaf",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "8da31ca028fda9ff2672f945a04d6f7d13cf031fde23e2b596b11a074fd94ccc",
+          "present": true,
+          "active": true,
+          "cache_key": "eee02fc388e8260ae72b51759e3634de8487809cdc308bbf958c01d892005757",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "1e773c39a87c9387522014429fd6348d1bd2d5657b878a26fbd96f39c5104bc2",
+          "present": true,
+          "active": true,
+          "cache_key": "fe36240573124751a1d3ccbe26616c2d09b3dc63d190d6e2e57c6521cc3fd4c5",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 11,
+      "predicate_name": "CONFIGURES_EVENT_TRIGGERED_AUTOMATION",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "103b9831b8b46317c27c1075a6ff021492e0172c395b6731ee9f8d519fed7c01",
+          "present": true,
+          "active": true,
+          "cache_key": "4d9f0b3c4c7d2688107fd45d59be521be4051f92bf2e21d0d30b7f102239d977",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "2c17cb7b041656b5b74da0561187dde659e346498d1a679cc8bbdb1f23df11c8",
+          "present": true,
+          "active": true,
+          "cache_key": "52ef033c8a8daaf23c109085d2b847d16595f16ff82f4a6e9303d344027507c9",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b24e4b451ae09e5bef81a7806a7f0ca0ae9b9808ad75d4c3c0fc35a6cd7524d5",
+          "present": true,
+          "active": true,
+          "cache_key": "1fe8d2b117d7647cebfc9651970167203736fa818d46f4f0e0ba91807a886da9",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "ed5e31f3b2915de12855ab89defdf212cfceb7a6c790736aa102ab9ca8f56fe6",
+          "present": true,
+          "active": true,
+          "cache_key": "d3f7546555683bb0ae931f78ebf11725afaf22efcd96ee2b9da1e7a8bc107ecb",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 12,
+      "predicate_name": "MITIGATES_ANTICIPATED_FAILURE",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "246f1c9188e78db9ab87528b19d41e02ebb08fb3c1dbe546d198f2b9d6aa372e",
+          "present": true,
+          "active": true,
+          "cache_key": "251ee3f04c682b0ed1e7455707e53257935c3f40be292bba9dd9518ad4357e33",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "f03c4fef6c9abe23693471ba618880b3e87cd1bcdc344b9a9c64a92ebc1254a7",
+          "present": true,
+          "active": true,
+          "cache_key": "cb2546ec1271e074bceb6eb2c0854962259acc4d3478026799fa270e47e0698f",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "d020d445599ecaedb94f45ed6e05590b6891e90072a1d3428e722706e04e62e0",
+          "present": true,
+          "active": true,
+          "cache_key": "b7731c32aaee6ee55d33a54512c51e6fd8601c655ec445c2fc08ba4f9b345afa",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "f1f0c9c9b677a8ad9530f4dfa1d9a6c7c0664f012aaea8e2e57eaf1c139ed7aa",
+          "present": true,
+          "active": true,
+          "cache_key": "ff507a839b88a0b0d69769bb10a65e04d374c3d58273f6b7a3fe4fa5257029a7",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 13,
+      "predicate_name": "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "bee476dba656320de0c0a3db23bdf231999ee2fd53026ca3222d4f841b61029c",
+          "present": true,
+          "active": true,
+          "cache_key": "22801d03fecf0038d3d55e6a0a86376a5033294341e7041f853897eecd882702",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3bff8f56aea46271d75b4af55e43eb57e6df0a3b6d0b8e5b1bbfa8ff03829019",
+          "present": true,
+          "active": true,
+          "cache_key": "f5c56cf2faae188c82e64ba8cf76514d0b54fce9d14e3553739876499ff9c12a",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "ea859ae568bcbba991bcae6f806b71942885c06327923d918a88098dff6199d2",
+          "present": true,
+          "active": true,
+          "cache_key": "f872bc949f3e9be52d672eb1a62c4a00ed138cc10a6d79ae7100a85756251d24",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "1c081a55036ed12df98ca6d69bc57a89da154f76b75ebf6648c0bbf549ed54e1",
+          "present": true,
+          "active": true,
+          "cache_key": "aca26862564cebbdcd1b0b6f4c73bd58ea5318f0ba54d8990c5d9ee6bf09726e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 14,
+      "predicate_name": "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "ecac8f8a83f5fd785c61bada45493827c4a8d49ad35e94d752241f7af357f0e2",
+          "present": true,
+          "active": true,
+          "cache_key": "4653e0865c5fd9b53cb9ddc73abd6bee5c296ef95ba110157ea809bf51ab72f1",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "c0e7f1442e783a286322c1bba1f91e98fbf8762fa4a6e4a759b63e5560b79131",
+          "present": true,
+          "active": true,
+          "cache_key": "4fcebd2b21c43ae6e1ae23d1898a156d0347180504356202a0bb96cd481ca359",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "0d3542718130733a6d0a63f20c7513366948dcad7a293cc59977983621028a0e",
+          "present": true,
+          "active": true,
+          "cache_key": "19f206e8b5d9eaff2274f9544de9465ca2b23ef2c61afc09fee15ff805dad96c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "5b314b42c34d0d0d4700ef94a906eb27ae355f5c347c66c3182f2144a2b25595",
+          "present": true,
+          "active": true,
+          "cache_key": "978fa363acf5920abae3f99d1ebad92e947337825f65fdda35e5c552449a48b5",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 15,
+      "predicate_name": "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "88d5a659caae7b249f044b66fd12ac8fdd8795050ea722e5a813be6e0450a231",
+          "present": true,
+          "active": true,
+          "cache_key": "a2c0089ff9b3d08233e62a68419a11dfa1927c04bef6d05d1b51a6335ae9bc1b",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "d1d31bd7c5461b083e35f4370d876b7bc8d2ec2f2d32f912627e230d834cdb36",
+          "present": true,
+          "active": true,
+          "cache_key": "08ef1f53bfe33ff8c6790bc117d4c00aacdc57db8a4dee98b4b137f3ce11bbc8",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "be998a1512d65a6626badc19aaae8e2b401b366936ec43bccc1486c0e2956970",
+          "present": true,
+          "active": true,
+          "cache_key": "2f29be8b75d2851ffeffddf35e98d1c7e8750b7519e86d5a69bf08c7573b16fa",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "640de9444166ae629e0b3f4dcdf81568188ae0c2599b24ea1b655599eaf4f0ff",
+          "present": true,
+          "active": true,
+          "cache_key": "4685c433b1e37b1dd1d0383d80ffd823ab7f002aef469d6c665d0f49b814f260",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 16,
+      "predicate_name": "ENUMERATES_REQUIRED_END_STATE",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "6a26356493619af8a924e1c1b2a82053596227b55a85f73eec138f45dcb314cb",
+          "present": true,
+          "active": true,
+          "cache_key": "847ea32c77019eecafa44dccf0a0f1541045257066eb9a0ef2a2ca0997608a35",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "80f710b0c71782fa928516651c3a142a637fa1b7bd672f0a23b176838dc04ed0",
+          "present": true,
+          "active": true,
+          "cache_key": "6af4a28220addadf66c211304737ac5b8557a2db29f506a5fac6c21de655120c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "8d8a3bebcb6cc4e5909c4adaec32e0ffc40cfed9cac881ac88034953d7f5417d",
+          "present": true,
+          "active": true,
+          "cache_key": "9b83a6c82fe331bc78518c66d62029278410e9217720917116503d7ed91107ce",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "91d22fb14e21fad44d5e71828e73204555470b60147fb22caa0fba17b18e416f",
+          "present": true,
+          "active": true,
+          "cache_key": "da367e25b08442b724c3a2cf6ae5fadba39d7661717e50a456c4498291ad1bdc",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 17,
+      "predicate_name": "IMPLEMENTS_GUARDED_RECOVERY",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "0587f8e1145ea142e5f852bc7b58d3dc0dd83a6a85e1e76d2bafaf2e5b14b7a9",
+          "present": true,
+          "active": true,
+          "cache_key": "bfa8f14b8e7e99e6131860d369698e5fdc7c5176b391e5db62a10d19afcca0a8",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "5258a5688986ee109454cb476a4394b3c6833282eef1c6534244508320106799",
+          "present": true,
+          "active": true,
+          "cache_key": "0149f373f8600b2a32bc277dab9de65999326f2fe9f58473e403ad5d06fb032c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "a982f75a1c4c360e9b80f0a9f73d3fa04756d58971becbfe459b7c1c24d4761c",
+          "present": true,
+          "active": true,
+          "cache_key": "1d6b2e4b3a6b450349eba7f72e97332e8690eb94b0292ee8f24c541a1090fecc",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "c069672d8f8c8a927db005ad83d7a8f478daffb1d8f349dfe0b21b9e45d9cbe3",
+          "present": true,
+          "active": true,
+          "cache_key": "61e32f8de4d5f9b5059a905758bed6644ab43564a353c51d2ae5349f4f1bd015",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 18,
+      "predicate_name": "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "ed6867a87872f44d01f678e04b40340a93bd659579cfa092a51cdd3928f4695f",
+          "present": true,
+          "active": true,
+          "cache_key": "9f7b384d40be63d5670fef130de051f27e29a44f420653f017f84366213ce7c1",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "480f6f69d43b293497dbcdadbfe88d3dad71e4c0ce872e8c0d019f9cb22369ca",
+          "present": true,
+          "active": true,
+          "cache_key": "37b01c18dab40b1b3418de36aae1c923b37c1cd2b2ac2252a9e741b9c2b12ea4",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "d45c68d02c460f12ba3242e7a7ba958736953a51c582acaf6efe473d76ff4c77",
+          "present": true,
+          "active": true,
+          "cache_key": "7e476ab36de0a134f77e11cbfdca7feaee3ea52b66616d6f3f981acf1b4e795e",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "146a606d76ebf673a775edb758365dec74b5f2ecd51e469b1d714e7863cc7e29",
+          "present": true,
+          "active": true,
+          "cache_key": "85306da55e1d3d41d6c8f19ec1056c2e46f40df22fa962d4537462a4d067b888",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 19,
+      "predicate_name": "REPRODUCES_STIPULATED_WORKFLOW",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "e1397dedef3390eb4a61d896f509e8d25a9616097a400dadf688dbe269c69982",
+          "present": true,
+          "active": true,
+          "cache_key": "11942bd9e55330b512cd4d7a05e2c0e0a1b8c610b4c8f21f457d8de5d7455395",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "56c6a595be408ffb253449b7b0c5a76a0eda00c699f7b64f431d88bb391e93b1",
+          "present": true,
+          "active": true,
+          "cache_key": "1aaec86da4442b6c7155b633ba667812ad524f9255eae72c4e6b7399fbea5c28",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "86649522b169e5ed4ef02aaf7c4ed4add478bec4a4d3a26d06e9fadf4f7649c4",
+          "present": true,
+          "active": true,
+          "cache_key": "8cfe2fc0bb8d73bfe87e84db8d9c357cf11121cec881099e826d3565f803664e",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "12736af13b0c88e575f2ab5ba03b0bf553e50dc0b7cbc548dcbfa71f40cddd65",
+          "present": true,
+          "active": true,
+          "cache_key": "09f1ed7d891662cee16fdc2b71b8f7435d45997787fee674bab73368e1671e51",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 20,
+      "predicate_name": "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "ae17104641fba3df7b5a804aecbdbbcfb61a4a8a798ee2d05a807d72a3e5d7d4",
+          "present": true,
+          "active": true,
+          "cache_key": "b9f8782bacb1fb9550342747eff8573d2c4432d721dcdf1caa6f64894cd183ad",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3fd0b7f8cd314c0deb033575da1dd89e766645b9bab1b7f7d04b4335d7bcac68",
+          "present": true,
+          "active": true,
+          "cache_key": "de8e07744bde5e417b9d49feaa4e2fbeaa6f4aae1571998fb51c46ab5e7d3dfd",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "caf6b402b72b73dfbcbc1f1880ac519fafe3c01fc9842f5329be70bdcaa8bfcd",
+          "present": true,
+          "active": true,
+          "cache_key": "c7df1077c9415c7a4e50d77c68b4515e8479220fb2becf672852adcba996ea02",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "54550792ac6aa840d84f430deb44a6c7842b10ab64c6426e9ad62e9cb6335cab",
+          "present": true,
+          "active": true,
+          "cache_key": "e980a659ae8206fabeedda5a3fde6b73ee2e9a6cee5eed26d8185950bceaaf1c",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 21,
+      "predicate_name": "AUDITS_MULTIPLE_INVARIANTS",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "5aee0a6b625c94ebab967b13577513722d575a340d727559b34c450b0c0d444d",
+          "present": true,
+          "active": true,
+          "cache_key": "55e128c4c9aea1686552f9799b53304b3c0aa8433188d573c700ddd15051de58",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "bd3eb75a90269c568de0fda531e3d562596425129efd613e07a338929dbcd01e",
+          "present": true,
+          "active": true,
+          "cache_key": "0ad5ba5f2b3fa881bcfd1b93fc4a112bd3acc165ae5ca59c38e23562b2c622e1",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "8e1d76f9a603ceb90c3da067f2548baacf8d69b81158b074530b9dab570261f6",
+          "present": true,
+          "active": true,
+          "cache_key": "5ea51e86d721108af75626ed8bc4d597be9462b1f3e12e2df2f0f263415db139",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "abfd886e7f12bc1ec1136961f78ac38713f5bf535edf876ab2a1d1b84369aad4",
+          "present": true,
+          "active": true,
+          "cache_key": "a81fb31b8542d90c92e10278bea91bc0b63bf760baf6a8e445d086bd031c236c",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 22,
+      "predicate_name": "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "8fbbddeefe4e9cbd802fa35184cbff33fa49181fd28bb6c195239862660e8a1c",
+          "present": true,
+          "active": true,
+          "cache_key": "5ab49bb87cb148048b47f8e0de3e2604d8565cc34892d54bf94585283f5026da",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "2375c425fdb5c5749a897f364d5f47f875e5a9df44b4add0cf6d2f6ff4e09911",
+          "present": true,
+          "active": true,
+          "cache_key": "0b108dd62be802588b7bec2326a7fed25505913144bf7e2f168870613d49e042",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "5c11055b41133f3e7821d1fcac229798365c3249bff531728688a26d19549ccd",
+          "present": true,
+          "active": true,
+          "cache_key": "6e381a90b3f9677016aec158a3db4d5242d79e910be9c2ff5ce604c9afe2434e",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "460e324967927dc88660b12a5d12cc677bcc5c7a03ab88bd07a49b2e791db5a8",
+          "present": true,
+          "active": true,
+          "cache_key": "fb0d5ef8079c4bc60a698b7b851860336fd910a33c7bad5a753760755ef7efc8",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 23,
+      "predicate_name": "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "ea491ab344ebee6eae0d08492856440323cdc22daa80eea5b28227d38f725807",
+          "present": true,
+          "active": true,
+          "cache_key": "bdb1448b0d69d5abf2570c6484e77f8c26e2c9ac4b2a19bc74f2d2a4ae7df8f0",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "0ae7a5ddbb62aebb4dc2153d403f24f6db7294f5bf02c915fabc778e3e7cf651",
+          "present": true,
+          "active": true,
+          "cache_key": "92582bd0f58266f2d09615c7bed1959ef49c2e605f31f3fe3ba1a5dc55fc98db",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "f2efe588da4189fcd9441d0c6f4c888a277d5fc228405e4f901419114f11328f",
+          "present": true,
+          "active": true,
+          "cache_key": "66ab85ac87c65cca6cfa089169fa2c50919b5ca0af343278a7c2890b0cd97683",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "6323bc0439a3b3f6dbc5e21faaf1efdec970105024a13da8058ce4bf0adbcc81",
+          "present": true,
+          "active": true,
+          "cache_key": "f5e3965b46a4fa3a2b62a9a2b6732ba4706a0e6a35f782b7dca013dd83f59d62",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 24,
+      "predicate_name": "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "0329cb9c8cb6b5a67402eb0cde94421d04ef9286e6d0ad59d99999c576d3c315",
+          "present": true,
+          "active": true,
+          "cache_key": "e2ca3c3a23239244865a91c013ce1ac117b88efe6332dc24938c5506d5284090",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3d53288abcdcb867db5662133714d93493e99201da724faeec0bfa36fdc0573f",
+          "present": true,
+          "active": true,
+          "cache_key": "9a895e74c716fd9cac6577e167b9155be69eb478ea860fec0f58a7b3614dcfe2",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "6000118d7122747a7f56fb526cacd71993b929b5accfedf519ef42690159c701",
+          "present": true,
+          "active": true,
+          "cache_key": "deeea312fa4ade50fd74d2b76cf137e90cc738b3bcb36990a555184e52168b58",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "5d9ac92a5d3569c33cf1fb29a77cbfb9f42b10750ca170aa66fb62dfb5bc1f31",
+          "present": true,
+          "active": true,
+          "cache_key": "83fec450a8d483534646a8126d7317116c4fb29fbabcf17eaa7ff1818da037f1",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 25,
+      "predicate_name": "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "da55dbcee78454f93675b07b8171f8c6751756567f6cd18b2446656e20d06fca",
+          "present": true,
+          "active": true,
+          "cache_key": "914f269ed5424605f11189abcd997a727df3b6c3281356cf4d0daa8e739f4cff",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "4d256e50e609334ef6681ce5d18cffa42b5846c3f34ca7657115a12f8b6dbc8c",
+          "present": true,
+          "active": true,
+          "cache_key": "e2f701f9669743123c6c011948753764d5b8cf940e562f302bc48ca11ba1f4f0",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "87da3745f0289824ad4ea555ac359559d8a5b8e4ac694313df3686088c92a9d7",
+          "present": true,
+          "active": true,
+          "cache_key": "0f3bfd35c7e75197c148ce477508d7213c99ca8211b898a311d03532cef6f198",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "5c209d9c678b9971f078d3121f1bfbdaa55097785329bd5bb54b83a2665d63e4",
+          "present": true,
+          "active": true,
+          "cache_key": "2ce6cf84a5370bbf68b165dd8f5f1bc0f56c80e0af8dbb8ca5840601dad69443",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 26,
+      "predicate_name": "DETECTS_OBSERVED_DATA_INCONSISTENCY",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "71c6e2e4bf7e1225cc1115cd800b0d5dae1a6d092e227c61534fbe9a3d45eaa9",
+          "present": true,
+          "active": true,
+          "cache_key": "b36300a326aab4cf49f902f2cfbfd5c5b127558c284037727df8d01690a25606",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "966a13516fe51928058048a838bfbd2dabe00bdea8137ef98cc9c966c93456da",
+          "present": true,
+          "active": true,
+          "cache_key": "3cd074ac26038bdc0b99af768e32214b2b62ea20a39ced68c16bfdb2a8770b5c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "fd194b89387fb4fd86eda57bcb2c0f4a48e1147bdb5caa55a7749742d9ffb5a6",
+          "present": true,
+          "active": true,
+          "cache_key": "dd416d86d0203515fbd16b3640b7ebe62b5a4f7e9a84f3b259e48718f27f94a6",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "ec29773efb864fbecdd40a6344be87c77bfbaabb7f987728527dfdd10daf5d86",
+          "present": true,
+          "active": true,
+          "cache_key": "eb52095bbaf3b93c715047b92c696fa935f46026b7ea5c222c9637a020e672cd",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 27,
+      "predicate_name": "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "ca20fa5d2ae2c4bc4d0c8876cdbdf4f561024341a3afe5dce9eb607584086041",
+          "present": true,
+          "active": true,
+          "cache_key": "5a41015361fd8c8fbcc35885ba2ad347168be53973af4d6f0178f2bf1f076bf3",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "d9ebc4f3066efc41456fb2ab1014c4cf26d66ae9b734db50ad9c7f7de17dc83a",
+          "present": true,
+          "active": true,
+          "cache_key": "ae7f1c24de8b40d53d6b09166e024d6a078505f235a9500d46ad84d693b03d5f",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "7a473a03a8fb865e7dfb873a8c45eef78e54e317b85256b01e6b24c84f154e40",
+          "present": true,
+          "active": true,
+          "cache_key": "7fe1383d2dc90770576deab179ac2f35878f0c23b2bddcef6aaad6cf9f10e556",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "f0e21d0f3d3aad5697c158e809b7af3b315e3a803b40f05c9122848844486fcf",
+          "present": true,
+          "active": true,
+          "cache_key": "bca055905d794163d518cb7a0d494641e9487e6f375912763faab6f362a2d845",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 28,
+      "predicate_name": "DECOMPOSES_TASK_INTO_SUBGOALS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "7ce14b0f3dd477ebb507675e6c010543ce4bae4fda1e4b358f716e9693806d9f",
+          "present": true,
+          "active": true,
+          "cache_key": "541218f38e20d296549baabae325c3bdc960075574559a36381078453eec1ad5",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "6d4ea66969ad089c909bbdb4169ca5ce409126dd0d43e300332ada37fa18bc53",
+          "present": true,
+          "active": true,
+          "cache_key": "8dbbdfec803f49c68879eef19b0512659f3a406de82e84ac4338dcf22bd65c88",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "db0e45d8ead62b3cb59ce081ccfad45f666370d51718ac036f81e2c2148e9df7",
+          "present": true,
+          "active": true,
+          "cache_key": "32567fe5539bfee959e2f5adc4df1f60fea24874a8f879f85646efce579a802f",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "157f4be36f618c4ccc2ea4b27a811769573cc8c17bebb8dfd0d9e274f10247d3",
+          "present": true,
+          "active": true,
+          "cache_key": "590d65e4822a002e0727a211ff80d3a962dc9a373e0319987f774205906d3532",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 29,
+      "predicate_name": "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "6e5962cd3c8cee15abe7a457f0c7fd1569827ced12b4d4bf49ca5d933abbef2b",
+          "present": true,
+          "active": true,
+          "cache_key": "bb562fb53310262a8d6cf0de5c6180962209db2f044aa952c30c65588f606a3a",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "c9fb8b13e40450eed02138077cf4b801746981746abeee54bdd361f083f33d0a",
+          "present": true,
+          "active": true,
+          "cache_key": "33d400e25ea1196a236c2dc0e6dedf788fcb4f4ab7d1f349577111f3f6caba92",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "cd5b9a85c742e9345b71680080e6f5aa232458b095e979bb04698e24bfd055be",
+          "present": true,
+          "active": true,
+          "cache_key": "20a79d963779e7b1a1120974c8e9c5e9cd3e3bc5d2e467b88cab49a06048543a",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "7ddabe0c1c11a38b9ffab4e9d2ebbedd6cf0bc0a4eb39ce2fe4d4e36528270c0",
+          "present": true,
+          "active": true,
+          "cache_key": "db2a5c58115dcdd41c3a1a98f55f32df6d506f72ddd34806399604b6bc21ee18",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 30,
+      "predicate_name": "REMEDIES_MISSING_CAPABILITY",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "894c084e24c6aadf7a25029230470aa9c7aad49267e811bdc70fdffd5fcf4449",
+          "present": true,
+          "active": true,
+          "cache_key": "72555a96d748c782ab0658abe3294a84a44007cda56840390e2523fea881529c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "63c62993a7801c63708ac9850c439c3b5507f83ad81fbb1dddaa0d42c37922c9",
+          "present": true,
+          "active": true,
+          "cache_key": "ec13636f0be8624ffcffc8b5613a4652ec5aea790bee0af7c73cf83e68842d76",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "73e05ae0424983ffab2e86d8e709ddb0e8098d1bc0e93ea5c7532d5f4afc3f7a",
+          "present": true,
+          "active": true,
+          "cache_key": "8fb4af48994f28a112b13798805c53be9b5a023ad63df20ac4b885bbe34dafac",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "6e7f62d217a8da3084e5735cbe8de0f1791169bcbf87fc2e079dada492e670c4",
+          "present": true,
+          "active": true,
+          "cache_key": "7b24ea72d3e2f1cb43c044fd640768aec02d113250bb2f27efb68097bf1b3004",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 31,
+      "predicate_name": "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "89d86b36c01d2af246444420ee19a325c011a24e5ac9beb25ccf29c08d188238",
+          "present": true,
+          "active": true,
+          "cache_key": "a2d9d2d580b80a225259423281d4d5516a05606de0c2c1345871449776ef7490",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "aa8c5566109e340c6669ab02b1f67c7cf0d3554ddd8b4e9f9de745dfebd9eca7",
+          "present": true,
+          "active": true,
+          "cache_key": "45aae23ff749ed27b2a68f5752b769a0e744233343679b29b8d7c30b88ee739b",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "cd758ed3eb4511afe38be1551a1bb7373ebbd54a5b24482cbf0b270a5d76a02c",
+          "present": true,
+          "active": true,
+          "cache_key": "e84596054ad7d1171912489cce75474fa1e88a30ad433b1bb01f90528f4eb73c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "433ef8e09ef0c87739433aa945cb5ba401fd8699af727ed2277ee45afa900fa7",
+          "present": true,
+          "active": true,
+          "cache_key": "4f04b87b865e54a3ffabc0e2751dd86c99b034e13885b818121780fe0b9175b9",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 32,
+      "predicate_name": "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "067139e5115346043fffa5d0ce5b3e302eacb1450b155c8d5fb39e4785ec1492",
+          "present": true,
+          "active": true,
+          "cache_key": "6f47e758a179d5bb25f7bf12a62facecec823f7c89450a429759cb27796f9f56",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "4c9e46a3ad5c5f99370395f71e20fe1f765857baa46c849999aff62b2f9d4cb7",
+          "present": true,
+          "active": true,
+          "cache_key": "ece77c00f5c0956d6ab8a605d7b408d12d32d7f586e528b8fb9f1b9b7283ce3b",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "20573dee30ca5eec369ecf94a441e6f1acf3a66ad5fb20b1867f10fc24ba82fc",
+          "present": true,
+          "active": true,
+          "cache_key": "1ea6eac8d0947766640fa3d4caf1faab3b2a4c1da65f1b227d7fb8add0eb5a8a",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "405299e226f32282ec07e2c41ab0acbcd122a4795074b857e3c603c9db8c253b",
+          "present": true,
+          "active": true,
+          "cache_key": "d80b003c480afefcd5688ccb907db9aafc171be3a4aeaa9da69ab79d1afd000b",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 33,
+      "predicate_name": "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "d8009e5f6c22fb8c03c4d1b19f84e9828cccc5b5248c84b3d32bc343ed7a8db0",
+          "present": true,
+          "active": true,
+          "cache_key": "a64fbaeec4feca67b9e2f39a22d05bd11b2f54b4649de18f5bcd93fe0d5eb89a",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "011ecb9e1ca1fd4c24dd9109165b29d6b79795e236c484c427e1fcdb61f63542",
+          "present": true,
+          "active": true,
+          "cache_key": "8cdac69ea4a5a454ff1aa355c2b383e33e8ea1bc775a8dbc78a3bd8108faa964",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "c6df61cad3356534a2de978bc53b1b68289c9fc08f5cd109615311083967ce20",
+          "present": true,
+          "active": true,
+          "cache_key": "0eff585fb603ebe27cd4f1c357c084c1a7b329ab04dd58a02bcc1706ce45bb41",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "2d24a301c913db3fcb79b22c57ccba31922111e28111f137ad5adbbc200c4544",
+          "present": true,
+          "active": true,
+          "cache_key": "5522c8579fdc104de0dab8de3d39160f6188d6a32501f5322765accaadb4cbbb",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 34,
+      "predicate_name": "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "f6393d4a97d22188353725e24ed21e14b7f3b3ce9d98c7a6504a9e482e29418e",
+          "present": true,
+          "active": true,
+          "cache_key": "c15a95ab692e4c9ead1434db88fdcf3718224e34e7bff31fbd498a85aa44dc2f",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "36b2848750e6850faf656c93f857b744afef3bc2789e7b13f28b800bbf3505b1",
+          "present": true,
+          "active": true,
+          "cache_key": "59b42887e19069f6cbbb423f2caf56da797e6fb3e3e88268b266724a7e4baf07",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "86500cd644d55362132f4b58465b98047f2b0b123bd780018eaac11c5a4688f2",
+          "present": true,
+          "active": true,
+          "cache_key": "b340bb8cb03b5ddc9265cc8315403dcb249c5fe708502dea546500ae6d3f36e3",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "9a60cb7b5d6ea088ef0075137471a099a70fb2f1001277b7d6f5f8662e26b44f",
+          "present": true,
+          "active": true,
+          "cache_key": "14db6a1f47a7b5a13a51e3d5b4670d3823e272fd1c7873ce03bee648f1e71a9f",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 35,
+      "predicate_name": "CONCLUDES_WITH_FINAL_ANSWER",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "a405a3866faea3942838615789481bcd20df8bb2c2b9ab58dd99bbf50e98f3f3",
+          "present": true,
+          "active": true,
+          "cache_key": "2801e42e168c1915a8045c0f8931d6a1b20a528c8f6dfa39ba544d0bdafbcad4",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "d248dc8a8476c6eb40fd5d7c3df3a1200515b18f6d64836563aba54497c371e5",
+          "present": true,
+          "active": true,
+          "cache_key": "f4c1952a6641875100faf071955eb9ffda928d6ad70985f605da318aa0ea3a51",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "cce352e26bf746fc676acfdb85b412ded7d2633672504bcab578ea16adbe57b4",
+          "present": true,
+          "active": true,
+          "cache_key": "161340fd979dcdb39b294ec39dc7373738c5141a95f15bb1c5080f97316fbef1",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "0d1161b22935c3e81f59cc3241da9b7acda26f91d8b697c2f7f1e33682ca0f84",
+          "present": true,
+          "active": true,
+          "cache_key": "35a8c816c2346d6f4ac8a7753de7bf467d1a4b08d5691abe06df9f4a7e602c27",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 36,
+      "predicate_name": "ENUMERATES_COMPETING_EXPLANATIONS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "95a129db47762d922eca88e6883b7d535a7d21701a2f5e84332be2878ada2b21",
+          "present": true,
+          "active": true,
+          "cache_key": "ba3d843b895d074b97ddaa9712174f345c619e0236208ed9e41aedd6d6fbacc2",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "8a04f76534e3066145c51af54aa5c596d08fcf82da5b9a11e52225520be2f01b",
+          "present": true,
+          "active": true,
+          "cache_key": "7fe63efca7486cd0f3eade70ca9e36faf3a601113af688511040592fc5d74c51",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b5fa5959c9ceaa7317e90200765abee9caed411572368d211937d48fae718bad",
+          "present": true,
+          "active": true,
+          "cache_key": "4cbcd299d5d47d8b67d4e0f52ee0575a86168a526498ba452c3e5151e5d7b7b3",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "a85a141b18f0b9c239bdfccdb196ff64d191c6a3956b6d0dbb01905ab184fd2e",
+          "present": true,
+          "active": true,
+          "cache_key": "d095a85e736e95132436245f6b254cfa8cb93b5a2e55abddd7169df77585507e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 37,
+      "predicate_name": "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "f7c2287df5e4f78b990f456cab4eb3f8b6cc0892a64cfef157344274f7ade2da",
+          "present": true,
+          "active": true,
+          "cache_key": "19b41a9d2279b924bb568f2b027f9f5ff874f5bb9329a2e8f816a7db86e67609",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "cdbf1cffcdd2fb7c61d8358ca5d6e1a921a3b42aa5d14b43519b3230dc1fe7e5",
+          "present": true,
+          "active": true,
+          "cache_key": "5973fad0567d3bb4807394a13281f2340ee8b0f55622acbe7e36b824eb92c041",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "c49334dd3a154eec243823b94da0da3e361e0ab8f5cf3561fe2528b28636edd7",
+          "present": true,
+          "active": true,
+          "cache_key": "585fae5d845c7cc98a5ea3a2c6f0433ce126b4501c09bef5711668d8556566a9",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "db2ef6c8ce3d51cfecef9601249a537de22a8155ecbd521ee5afe75b652d5580",
+          "present": true,
+          "active": true,
+          "cache_key": "043e0eeb9547308255fb267be71ffc6870b3507154cc67a6284a58dac93924a3",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 38,
+      "predicate_name": "SELECTS_TARGET_AMONG_CANDIDATES",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "553d047c443ed24603d55d1927320350b06793eeab09cbde4ff4654f5b16c663",
+          "present": true,
+          "active": true,
+          "cache_key": "f241f3c5ca1f9d7641c4faec8f605c2f439087065fc3722c6587bdd6ef398776",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "ad5dc21f2690f6f3ec23b4925dd80066555d509bb4d10fe8ab3f1d93046edba7",
+          "present": true,
+          "active": true,
+          "cache_key": "7414a462a6ae8882ed3bf99df9137a1c478bf8948e68a8a2e8a08d204709a06a",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "044200711b272f081bffa90e2f793c0c280a041fef228efd054a65d28be4bf26",
+          "present": true,
+          "active": true,
+          "cache_key": "a8bb0ccd3d94f7f2b72ddd11e92ea5e8d40af99b8331119bbdf4dbd5aec210d0",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "f6ce7efba859a9d571c97f09c182ccc8c518bd103ba07cf153b2fded9bbd95b7",
+          "present": true,
+          "active": true,
+          "cache_key": "fcbbce086625e882f62ab91576007a7d5382ffbf9c396ae474b2921f857bc53d",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 39,
+      "predicate_name": "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "106288181356a5890646d0a1e6decf650893fdca88240658840353f305fa0484",
+          "present": true,
+          "active": true,
+          "cache_key": "57754ac1086073a0a68d0d11082f747e7d515c70dedc84c77448efcc35e6d4c7",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "10adb70ab0ee884f9c0230435605e3e2d8be29ec7b3ee19291cf18eec2fccdc6",
+          "present": true,
+          "active": true,
+          "cache_key": "19875786f5c38f57abdda736ab7dc118f27e12d5dabf341c559fdc0f6862765e",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "208cf434fec4c793b7875bebf538d605790ce9c567037eb44c5ef410a95debcf",
+          "present": true,
+          "active": true,
+          "cache_key": "b9d8c6f1c1446b90f28e9c5d7f2d6e9f1c3dddbcedf39e726964416942d6c22a",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "1e3290786f11e681dc90275e3f83030b0bdba4afec78e010dbc00a05792530ac",
+          "present": true,
+          "active": true,
+          "cache_key": "5d8382e1e3a4d3765ce15e58a93663dd01bd91ed3aac3c95feef58ba98063a55",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 40,
+      "predicate_name": "DIAGNOSES_ROOT_CAUSE",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "99a266f95d1bc4945cbe7b20425ce9822a39288b36b8a4b8f8236b084e614272",
+          "present": true,
+          "active": true,
+          "cache_key": "b40bdfbe190a1e3e9c38f645816f89a90447edfb94108f119f4a6dab61d82d43",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "dd3cd2b504f1989d0d7acc1ae0c6ef51896938b5d82485d6235632b12386c1a6",
+          "present": true,
+          "active": true,
+          "cache_key": "c74ecdd7b91aeaf68ef48413e585ab8ab4613ca2182109e9263b164fd58dd74c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b58c6e9402ef2bbb6210362a3a38b7d9fab062ea542a01217233faf4c41024d6",
+          "present": true,
+          "active": true,
+          "cache_key": "55cf5752e69123f0af68d9f93a3c8a5fe6b26736fa4f93616dd84c7f2777ab88",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "50ef6501fd4d95ed30fd2b7878ade9d83081460e38d2b5374d925105d9110bf0",
+          "present": true,
+          "active": true,
+          "cache_key": "b6df559d919009b3bf22b240c6a26d35caefba71a283456a728dc991f20e6034",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 41,
+      "predicate_name": "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "440c5baff0c1fa7809d77b8753624307490c0e21d6a17e4f1843aa25d9d52b36",
+          "present": true,
+          "active": true,
+          "cache_key": "aea044f7ff2e4d68e7453cb12da2f3ea85b7fc4c5cc71c44fe49745c431e2c6c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "1bb73d36b87ee15fbd6677eb38c4c45a9223622df22253eb0cb01ad8fb9feb3a",
+          "present": true,
+          "active": true,
+          "cache_key": "abbe79b4cfdde97636d6d6ba3d6ec6fb3159b2dfd64a9c401013f25431020223",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "02b54515e205b82efa6fbf83c2f8cac1210c73b9997e70fd456ee88780fd7406",
+          "present": true,
+          "active": true,
+          "cache_key": "f583af0f0f467d69546fa0a412ff39fe4ca8fdcbd66028fc78cde2642f481adb",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "160be48f3eed296e8f310abd6a7ff4f1d862b4e81783371bcfa094a6ec4ca8a6",
+          "present": true,
+          "active": true,
+          "cache_key": "8eb78b9153b3a8bd1af1b55b583c010bfc36b6004390655e3100e38d76df3f3e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 42,
+      "predicate_name": "PLANS_POST_ACTION_VERIFICATION",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "dfddf4027ca57f61f791e05b31b8ab475230bc1a6107c7650ca74076a1b08b6c",
+          "present": true,
+          "active": true,
+          "cache_key": "0691f9de0aba08aa6b519344958d045a9cc14039b2f1cf112a738a6637259ba5",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "ab8a3b334837ec142e1675f5bd6783c10760a2120e1d55e67c6fe00693d85525",
+          "present": true,
+          "active": true,
+          "cache_key": "244e74b43f85d4ee7b01f1b921c53a981adc4f15c3b452a4d04db752f5448fe7",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "87663dab2430d7c48ec26404565198be3bccfffd9d438206bed0cbf0de04ef62",
+          "present": true,
+          "active": true,
+          "cache_key": "8b5bf1d0d6969a5c0eb34add7041386292b13e10619fc6de8ff8c5f4b51953de",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "59cb778f053b2ef28a9d4a41847e747e242edb76bd2bd278ad8bc5c1c5a3289a",
+          "present": true,
+          "active": true,
+          "cache_key": "31b8d0f97ca33a5f5bcec83eaf0b6d1616a9139f48b8261b30c7fcc31c23c243",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 43,
+      "predicate_name": "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "a9f827e6f28af7a8156af4e67d43aa643ce3050f984215f47bd1fe375fcc2b14",
+          "present": true,
+          "active": true,
+          "cache_key": "ecc4082e882195b5e1386f52817107e2be87b3fb35adb223737565c07f81bcf7",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "1922940708dfb85a62a33975d7f4db0440d9a7aa16ce6cd37bb29da779c7ab83",
+          "present": true,
+          "active": true,
+          "cache_key": "1bef637fb92fc8d286a7dcafd55974c2c7951a40a293f8bde8ebcb4f8aec1299",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "d5d44cb605f58dbfaf8c1f8b70d08d6fef7f01039131ea7e738069faa045a11c",
+          "present": true,
+          "active": true,
+          "cache_key": "a59a8ffc2155b4163058b215ce73a5aa423764ebf65ea298a969412afd793c4c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "eef958857793f6430502b745ed02c18988d599074a701125a8de3601210750fe",
+          "present": true,
+          "active": true,
+          "cache_key": "457b6ce357ba7564bf0eb06c4d57b468777194087e9a4b65674d2bb95e36d5cb",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 44,
+      "predicate_name": "DERIVES_EXACTNESS_CONSTRAINT_FROM_MEASUREMENT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "4c018df2154bf8e401fe854f13e04d1119da67987d20a48f6d22412db9c2a465",
+          "present": true,
+          "active": true,
+          "cache_key": "3a3478d70817538dca8b61c9e6c4eef1e5a5f3af777cc2240d4a3529ab18b65e",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "617c9bacbb8a70386a61bbb55477ff8dd0d66a06066f429e73d886743e2f3b95",
+          "present": true,
+          "active": true,
+          "cache_key": "4cadc48e28364704f2016e3630cd673f32e1db22b9114b6cc767b7faf56c0ab8",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "56dd14b1147ca3f823019c6511f7a0c7c31ff226386f18144e232aef51febd7d",
+          "present": true,
+          "active": true,
+          "cache_key": "c496a45c92448e0bd462e7ab772dc4c934d1dc2c3308292f2667dc75a4e79c69",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "2acc2d79d2b988a8b9f5b306eaaa0cca00751c75c0cb26d1ba9d324f76ac3c6c",
+          "present": true,
+          "active": true,
+          "cache_key": "4c2a6441d9e64016995b986de56155e40199c8d279062cce801f3b7c5af863c8",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 45,
+      "predicate_name": "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "1b58bd2bd7232b6a5246da66037a465999a7e546a8e8526b379ed036cf3382f5",
+          "present": true,
+          "active": true,
+          "cache_key": "0d4f31736c368fba1d1ba4553959a54db3951787b61a0100154a4723b7787c04",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "96644af1a185e4504f9427cd14109cd2b76e3850a07ae0adfaffb19f2e1bc76e",
+          "present": true,
+          "active": true,
+          "cache_key": "a00823130ddfa1c169ce420e48b16f44c8cf4319acd3873a9f77bb1f3a2230f6",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "9d8659198d408d00c093150daf79ff7fe9b6d8889cfa144af3d5fc88e8834383",
+          "present": true,
+          "active": true,
+          "cache_key": "55633eb923b1017405c13af000831c08da0e4a7764a0ae60ff60d34326be9e66",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "bea887e01e9fffcf135a829557dbccefef950a36f7b276acdc4a3b9689dbf66b",
+          "present": true,
+          "active": true,
+          "cache_key": "ec136dc16d6fc3dd6a6aa50806cb2e8701ee8ecb083f19c2725880793f12bd4c",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 46,
+      "predicate_name": "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "d1741e79d6ebdaaf72d3fd52326a317017964dd4b6733752789761a7079e0d58",
+          "present": true,
+          "active": true,
+          "cache_key": "949bbac206f034fbd0152f91addf209ed23a679f6f65360654a66d51defe9813",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "9e90e3f88499cef7822878090b65ce0c89af7307bab0293d01795e5e01ed9b9b",
+          "present": true,
+          "active": true,
+          "cache_key": "587804ef276fc5cdba99aa94fc6fd2749d0ef75c990f2658dc55def0e75ce914",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "ae2c4100e3217377627aa23e23457a4e5f4c85155e84d16df8304c5a7972e2a2",
+          "present": true,
+          "active": true,
+          "cache_key": "d541cbffeaae34f5b0af35506d368517f5c95e05a53d51a32a21b81afa0f3a3e",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "f0dbf132fa6e64d2170626fb2cd11ed4b4a755b265780dd0745b584a8b081501",
+          "present": true,
+          "active": true,
+          "cache_key": "b66589a594ada1b74cfc1e0705e54468be747c9f92add98b5935f8a5b6925baf",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 47,
+      "predicate_name": "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "4ef9d528f562b4f53f15d0595072b492ff0597fe8185647078b842b4fe576e65",
+          "present": true,
+          "active": true,
+          "cache_key": "1523c942479eb04e5be97152d44f9e7bf0bce0ddf8a9d029402d21e7c97017c9",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "37a8272aa26780373e36e28d35e4ca1d98a3475f42d883c9a21f364b53e26e9a",
+          "present": true,
+          "active": true,
+          "cache_key": "ef2f87fc5f9a04a778a38ca8faf5e2122f3b74efe71894c3e48a1d150bf1bade",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "1dc94bb820c1e07c5223080a9b4d9e5aba8160a30569b9f0486420ccd397eb41",
+          "present": true,
+          "active": true,
+          "cache_key": "e3a4f3d6156c4c51d124e5418b8e0220438935c2c0e5d873b99d94c7419fc6a4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "7b36cf51da0f5b355f67cfb93ec39cef53c3232cd252371cfc5666a9fefa3f36",
+          "present": true,
+          "active": true,
+          "cache_key": "d82186ae8ec9a8989e4096501d47f2ddef44b6eb4eb0551d894e8bfc47689935",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 48,
+      "predicate_name": "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "43c1b8e15c519eb18c73214fde4de60d905927889798ed6927215ed9c3631e6c",
+          "present": true,
+          "active": true,
+          "cache_key": "e0bd7f7909e0298e7574fafa5d5fd3193d6e3732239cae1a3475727f3f7c47d5",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "41e454171612752440c2d43137031da7412788e973f25795d85ae54c5cffcc82",
+          "present": true,
+          "active": true,
+          "cache_key": "5a818e8f58abc15367d6cf3259125b6febcdc0f27b3087a6db036647b323b964",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "525ab1cc8efd755ae7872dd3dcba8bbe540ad9add182c903355fdc4347ca2947",
+          "present": true,
+          "active": true,
+          "cache_key": "05c0cec7486622e72ea9d8bc6f33fae1d13c21f9972597f0ae5780893d076cda",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "604ff8f1761f90cf80499396f6a52994a4b3eaccda0859bc714557779c9ef39c",
+          "present": true,
+          "active": true,
+          "cache_key": "ef472140bb99816efe41a00a595a03610f5e75958a5ed619f1961725b3402c90",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 49,
+      "predicate_name": "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "13329a8e838a0addf8fe8a29e77f22ccfe7ec7c2a8eea7d96f42fef97877f33e",
+          "present": true,
+          "active": true,
+          "cache_key": "a85a2bd6a522093d7e851ec5f1253e22499289098cd0caad66e1aaeb285d76aa",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "d72cca705a69bc82ed33df6449539fed42e3fd0919bc8ea037a99a3a98dedfee",
+          "present": true,
+          "active": true,
+          "cache_key": "421378f351b4e87d8bc6d1a13a3495a3cdaf4b6ec1fc28b713bb1643ba5bd2e8",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "2ae1d6d726141357a9035b5a453321489d70898b8cf018e165023739aac59fa3",
+          "present": true,
+          "active": true,
+          "cache_key": "e0ba0374d4b2341423228de5308f6df10cce722a8bfbdbc8db954383e1a2a46e",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "2a9a91a4ccfc0a8a936fdb6e2c4ad971bdf7429be7ac502037f91dba8e9a95f6",
+          "present": true,
+          "active": true,
+          "cache_key": "977141760f0c3734cc7b112dfb95d3cc1d8b4a1d3c66436fccbc4be526874bf8",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 50,
+      "predicate_name": "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "93d5b0ad0791295798800cf506fc25701073f010022e831a90e22d7bf3155d97",
+          "present": true,
+          "active": true,
+          "cache_key": "1128642c87c818650ce2431f7c75cc4dd8e295b796a1705b8f62a89a061d1845",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "6fd7e8f19092d5d8b58eac671ab91e70bd175631a1d819a2102c989aa396ff78",
+          "present": true,
+          "active": true,
+          "cache_key": "b9fbd127105646670912b89b98125cd5d8f5e5132171b20994586a8f9c715d8b",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "65d1ec56c0a0aefb57f8633971047cf34e4c1805d3604757c38598201618cdc4",
+          "present": true,
+          "active": true,
+          "cache_key": "8a40b8cb9a492a3d550219349793a3cc21e8664bbe5495a3b58a730b7b3ad788",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "8a4be01f957ba62caa6dbb159830df159922c181f50f71f6ffb6224ee5e37d3d",
+          "present": true,
+          "active": true,
+          "cache_key": "222dba93f7f9e15ff8182f923db7ebf5644bf5fd742046baa25149c6b76dfc97",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 51,
+      "predicate_name": "RECOGNIZES_ANOMALY_IN_OBSERVATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "c6eda74a3c0b1eac610652ecb6027d75dffe268fdc73a84e99f3df5bdc1873c1",
+          "present": true,
+          "active": true,
+          "cache_key": "4cb72e57f852dc57d0f1ccc1b2432217d35627c4ad2824093b120833449e0f4c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "5d82c496ba483a47a410b4fcbcf2042813d03a0f841f77b2f77a09e164e1ea3b",
+          "present": true,
+          "active": true,
+          "cache_key": "a5dd40931e3fa661251990fd45aec43effb8c74d9ccb00514cc61a938241aa83",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "81a28c34e43ee187bf967ddd8765991c7973c9299f5f975fa2f893ce855336d6",
+          "present": true,
+          "active": true,
+          "cache_key": "0f29bd86b600af92d1c6707b4f9f32e37a8590c9d45728a59f7324496c975b59",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "db7db7293d1ef8d496f31abd812304f0b4b37ebcaf6227e6c7971841a798f56f",
+          "present": true,
+          "active": true,
+          "cache_key": "79d277217e9e253f2f69eea2ea499b058e0f7ac4845a70c62a35c3e07c751486",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 52,
+      "predicate_name": "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "ddda2e203e71e05a77944d60e6a3520c147eda87aa3649c0ef71d9e867c5ef00",
+          "present": true,
+          "active": true,
+          "cache_key": "b1107c3e988bdd1d37f17fd48b4cb7964b8c4a2fea89c44db7468b4c87cc496c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "52eccf191679ac0e3620977da318b0059771a148827d376a0af6fc99bba9c613",
+          "present": true,
+          "active": true,
+          "cache_key": "d3c888070cebe182d168bfcdcbab871ebdc4baab1e3de441ee4889b6db124f92",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "75f520eb80b53a152c131461467f423d699310a0df0a7c22dfdec15b03afc498",
+          "present": true,
+          "active": true,
+          "cache_key": "55b9b06707f9679165e1aabc73627fa5efdf5440ecc14537e286019cca688ee4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "383a032192cc2195d1c0058cbc104e3e5efef495a4c0335f611b8136acc085fc",
+          "present": true,
+          "active": true,
+          "cache_key": "cdf8be9fe9d48d9721786fd3ea5cea65df60a2863367a36730bed150263e49a7",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 53,
+      "predicate_name": "INTERPRETS_ADVERSE_OBSERVATION_AS_BENIGN_OR_EXPECTED",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "c7e8882252f7286d2350a07c5c004cda9742bb5f061ebad10257d1886f58a6fe",
+          "present": true,
+          "active": true,
+          "cache_key": "49912c0a3314dbf92951c35d3e84fe2a964c034c8d9c96b38b54064c6c26b960",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "1b346b6959e89cc25eecdfced4af43c39acf2e2a6188f209b8ded9e069957061",
+          "present": true,
+          "active": true,
+          "cache_key": "f9a42a9cd6de427dbb4121dc25441b0e0de6a822ef58d1c9ec94659ada0acd24",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "5b853d9a96d158e8886785ddbf21f0cb2cdeafbf9becd149bd66eb190b2bba4a",
+          "present": true,
+          "active": true,
+          "cache_key": "2a0148e37c9b80a3e52c3ebfdcbc4e2f7f20f20e2008bc3f77c31a320147da94",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "6c16135263c4f1796ba6087ad56414f939cb9c0bbeb0b951514ae250d303a905",
+          "present": true,
+          "active": true,
+          "cache_key": "9b104bd4dc4bb2af2945af82f2b71ed4b5449bec81b92d810ee5dbe4bcb760da",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 54,
+      "predicate_name": "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "4c16a93675d642a0baedf88e5eca2d7b12ac2229666474a9cabc50c4d98c6b63",
+          "present": true,
+          "active": true,
+          "cache_key": "efba9b7e3916cb49498d863f083857dc3375351f77f1556ced66d6b3d3978497",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "415fe30776c9b367cff914ce219523a2341615bc6c68687c491342ffcafc9f02",
+          "present": true,
+          "active": true,
+          "cache_key": "68baddddb72e7805535775ed561952c875db3f065cade519fb62f8786acd61a1",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "0795a13207ed166f936f150f57fb8a9c5f5b8f4edcb85d8466a9aec6308d9435",
+          "present": true,
+          "active": true,
+          "cache_key": "270ba83e9871112b25c6e21c58c1cfc7055180e7a97deb613da300b029200a18",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "dee2f99fb6d670cabe7777dc22a1d2a595cc04647c31eb06da02625aafd8b2e8",
+          "present": true,
+          "active": true,
+          "cache_key": "5adeb316fce6d1f7cb0020f3ab8bfd5d9e0f43e96104e427b9b55e39d8a74925",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 55,
+      "predicate_name": "ACKNOWLEDGES_RECURRING_OWN_ERROR",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "0f4898bb3f810fda2c5fe0f1dabb3be3c326702a3975b875a7208cf6d230b942",
+          "present": true,
+          "active": true,
+          "cache_key": "ec7d16a3cd5ca7c96fe8269c4fc1d92eebbb8057fef27fddece19539be045636",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "bf0eda486c6c1594b41123d55ed9dcc614e380125d7db516aeca0cf41a126594",
+          "present": true,
+          "active": true,
+          "cache_key": "9ba938904fb37ba520df79ab2363667d64d0480e25e78703e60708e6b2913627",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "c959466f2382aaae86db6548eee9a4a200fcd995064537323a7ab4867b222c1d",
+          "present": true,
+          "active": true,
+          "cache_key": "9f25f542d2845740fbdb6dc6c010091b263cf27d6717a2f7f8032e51f9f4e9a3",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "c2d24bc3ff9e1e05565ca5819de7495285ee52de6384f644b055422d7f6b916f",
+          "present": true,
+          "active": true,
+          "cache_key": "c63c9cf24f7a99d1a75837015814b31a932c1b0ceb81d9580d595a13364b6376",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 56,
+      "predicate_name": "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "02a45ceda06c32f26725948303ef76b7b1bb22ccc09c2e87d93eafcdb2c93ec2",
+          "present": true,
+          "active": true,
+          "cache_key": "e0d910b4d7fcf25451823c1ca2e7f51e99e1354036b747ddb2c5286d7ba26464",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "38ec2e651ed9dd6b87b0899ebbbda3316cedd903e8d602f41e2db2ec3970af4c",
+          "present": true,
+          "active": true,
+          "cache_key": "69126f9b75f99b544bd1e69e61093fad299363209777b5b849a62be365a4883e",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "4ee2bb36f7a876e23c9d79ac03cd3c5866423fcca4316f4bdbc1feed05517e84",
+          "present": true,
+          "active": true,
+          "cache_key": "fb8ffec50cb743e429f331f1c046d865fa95a4675bac520b959c4f5ddbaf7ec7",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "839b9fa265ffdbde28a18a1b6bbf4a77ca346994b2f82285d454148477e09b87",
+          "present": true,
+          "active": true,
+          "cache_key": "47a391431bf8b6e6d61d8dd538ce246065944995afd1546c2e6768ac4b54bfd1",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 57,
+      "predicate_name": "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "b36f1ac2c38958258fe80148b9e08e98238998497370008cda226f16636bd1e8",
+          "present": true,
+          "active": true,
+          "cache_key": "d96d8411579fd16bd6f65708e5300c4e84789b215ef2c4aeaab995c84945486b",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "84864fd03c8c510761f6dcea9485e37e0a4d10dbf70d695d5d8cb3667bb4a48f",
+          "present": true,
+          "active": true,
+          "cache_key": "7eaf19cc56e440e3368939bfb5126abf41f918aeae44caee77fffde67eb3a565",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "0bed2ed66f589de7ffcd2251269cbd468f2173bf6e36eaec21a256b1bf40bbae",
+          "present": true,
+          "active": true,
+          "cache_key": "6d4b6f0988f5c99c98a506d83c0c06ea268219d147faf1c1dd8dd2613dc084a4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "7d73c09d59fd3762f621d33440fb0e5e40a0f1dae4b79d0d023fcdbf08410be0",
+          "present": true,
+          "active": true,
+          "cache_key": "98322249e9b9319e108a0eeef89283c3940214902183f6a0c28a6bd4c5c34f3e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 58,
+      "predicate_name": "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "50ee9c679e099712877a44654eb47c09749ecb0ab7be778faefb1cb07466028e",
+          "present": true,
+          "active": true,
+          "cache_key": "d170eaa628e3a1e42ab45bc382f0b192724a074b60b9544f1e09a9262fa30a19",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "d6b820ffe8d0cd129b1adf4e83ba413bef0437ebd7517c70a34f64d1da6d01a5",
+          "present": true,
+          "active": true,
+          "cache_key": "c005f460adfaa283764dc9476e065f6c94fdc1026e6457b0738925d26b74a9b1",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b2f8e8c8588be805f446d464914eec9c5b0af8a3b79c6986d73c67d4df59be19",
+          "present": true,
+          "active": true,
+          "cache_key": "b42bdd370756d00d56139bf57fedf36cf3f6bbe94de81280c3ab10709398d2b8",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "a4d916f574a4bc7dda4f65da7a7a818e9724cf45d11aff900a88950b95d1bb25",
+          "present": true,
+          "active": true,
+          "cache_key": "767c0af3d249b6357e48d02d9e79819764ad975ca8bdafe851e266b0a351f699",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 59,
+      "predicate_name": "LAUNCHES_PROCESS_ASYNCHRONOUSLY",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "858b185b538f6c266eb40e85791818895fd5d50d91df589cfbe38f9f2e686af3",
+          "present": true,
+          "active": true,
+          "cache_key": "ebd9f0220009b7992a970943f2ec0a90baa717b8a4195d710d815ec70b72d968",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "af527cdf80bf09a002aa97d61a27ff02d5f9fa4d8126d8a4bb66d8c726b00575",
+          "present": true,
+          "active": true,
+          "cache_key": "44a28faf228794f0a3c1f590e42c8e9b19a65ed40c5e9c4092d1936fe0409dff",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "03d42e32bd47db2487a08503677dc6d288b6456c80a3c09fe621cfba9fb9fe39",
+          "present": true,
+          "active": true,
+          "cache_key": "6e4a0438db6f484368b37b855a14d094f72b10a676510e23480074f4353b7b4e",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "c6f1cb25c9effece22d8f3937124a68ff2cbde5c3c417e4b437e9d8ea1b1b04f",
+          "present": true,
+          "active": true,
+          "cache_key": "b36b8fa72bb1207de7e779a8aa137083d8746f20b8f67b28bff4d329d88a3ca3",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 60,
+      "predicate_name": "REVEALS_UNAVAILABLE_CAPABILITY",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "a6d5a90d832877c3f4a609a56b0eff11a289aac1bb7183a52b1d63774258ae5a",
+          "present": true,
+          "active": true,
+          "cache_key": "d7440bdd8ed71e95439db731c4fb419e4d05933acde846f6c745a8ab0230a0a9",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "bc7391dd07ec23580b18397e8111348c161fed14908be7268dadcf41e34629d3",
+          "present": true,
+          "active": true,
+          "cache_key": "82b338ed067677b10302efee2da6d97e15de814269491fb5a51ff4ac3dff94d3",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "a1ec1459fda6e7c56f1032010c4060f2e831f753831550b458ab79c7779a0630",
+          "present": true,
+          "active": true,
+          "cache_key": "efbe5450db86bd278ca7e8f99eb6b92b4f2dcbeb038c23a1aecceeb6b9ab63a4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "73e8d8d08de1be33986e13e8e6dbcc5700fb5a29b81fc69011c1c3330e161adb",
+          "present": true,
+          "active": true,
+          "cache_key": "7044ad2ad13aa56e3ec3a87a2cb2a552771ad876863ce68a41dbff831ac6116f",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 61,
+      "predicate_name": "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "c3e476383685eeecf352be9c06196e0d4c22b6ec9e4e190d04b576d85525f900",
+          "present": true,
+          "active": true,
+          "cache_key": "876fcc1a123b00e58d894abdf3db57fa6c4552e5c9427a7b86d2d4f972d80562",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a5c740e6d333247f27ba475afe8a205c631e52e5a646d779d3c56cb91439cc76",
+          "present": true,
+          "active": true,
+          "cache_key": "97f4e48debb9b58450b1214be34af2f2f4dcfb3b84a7ade22cd2a1c3e38d41d9",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "32d2881f2d35275c3a551b845d0a56acc9a095fc4b630f1d8fef4fca13b4acef",
+          "present": true,
+          "active": true,
+          "cache_key": "50c329dcdb53ff382979467a7e455d346d397e40d654f47042e18ce34acc7dd6",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "ed65de208534369c45a85e1779eeb7df638415e465297b56006d314ecf201d23",
+          "present": true,
+          "active": true,
+          "cache_key": "b80893207ae3ce046bb0e1126833cc4b8cd0c0c1cad047b7d8b4baddd0c86abb",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 62,
+      "predicate_name": "VERIFIES_EFFECT_OF_PRIOR_ACTION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "c3b6e174282c62a5c858ee941ecfd0f95e34898209b9769a97f5d985c4092087",
+          "present": true,
+          "active": true,
+          "cache_key": "4a5e7307a69487b77cacc9f0aa8e30278658748c6c59b13a3871458bc9721f9d",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "f8fbb684cfc4c2e61f6b3921dfdac83f9574376672ca95d551689a430fd91fd6",
+          "present": true,
+          "active": true,
+          "cache_key": "c3c630d1461d9a2e8bde96d6153cbca59aa45a3bfc9a22c8cc0def98e9a80859",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "e28d4dc81d4bbc4daf8adb05ffa2ac21adc7b4af7ca9cee19a131d4639b1e0cc",
+          "present": true,
+          "active": true,
+          "cache_key": "5c274463b9add1a45ef53fb54985a8709000daf74a6353f0aa1a971d68ee25ba",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "801094068da9fc99ff05f8c26831bbaf8ba63c1b54e3dfec08d5e059fd933231",
+          "present": true,
+          "active": true,
+          "cache_key": "9c79e4448ad0053f4b07e1080fac34066abdd965f63de1a66242d0b62766eb8e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 63,
+      "predicate_name": "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "bcd4eb51a4dfa204dcc95887480dd8df7c7b6aa3c3852bcde87721399bedb2b5",
+          "present": true,
+          "active": true,
+          "cache_key": "d386960ce2d9213e33a9189b199c142aa9659c1e4ce49c70f33645e33d68e9f8",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "dccc8ff410e92d888144fbb5314e47060aa6fe8c737afd364293ccf0f04b4942",
+          "present": true,
+          "active": true,
+          "cache_key": "4f6fb884d82077ea0a1b6ad77f3841fffb8fce3fd4b63d49b001209f03a7554c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b04b5b0021a06497ad1ce6d411527ebe05548403ec1a820bd0cd138d78b6f82d",
+          "present": true,
+          "active": true,
+          "cache_key": "cef4e185959164294cea135bae3aba55063374f0b4b07a4537398a4468e8ca6b",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "5585eb4ba8569927484b994d5c204d06269e232dfa4b0cb8c1a997995ba26f31",
+          "present": true,
+          "active": true,
+          "cache_key": "b457548d5d01d8682b486c4e9dbf1e27c8d4b57e319f2f9ed449a8b8f2f724ce",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 64,
+      "predicate_name": "ASSESSES_REQUIREMENT_COMPLETION",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "916561283bfe34cb0107463c018e30af0437e29cf66895898671ac6edd19aaeb",
+          "present": true,
+          "active": true,
+          "cache_key": "7499e5b11db85f8b7bdc7f8ab5499b46161aee054f456a43fafb48ab3ef039e8",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "908228dd0fac7bae1e0a5cebb54812f28e37905ea70a3a95d1cf73e15451bae7",
+          "present": true,
+          "active": true,
+          "cache_key": "13e9e28d1b317c3e5dd1f1db136cd29bb077dbb1addf9e3e007903d7e2710a4e",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "0ff6dd2a8f54323c148f76b906348f707885ad20f061667c67fe3bfd5e4941f0",
+          "present": true,
+          "active": true,
+          "cache_key": "6e57d3ae66283b3e0a35049a35a9d0e65efe8e015d5e4822fdd622ee2e2b1be2",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "e47c5de0e79b5c81832856246b33f07d9d66f91a91aab35c33f21f4c73b9be2d",
+          "present": true,
+          "active": true,
+          "cache_key": "202ab36e123fa2da0dd39a38ee20bc38215964ce4a32cdbc4037dfca1927dcfa",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 65,
+      "predicate_name": "IDENTIFIES_ERROR_PITFALL",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "f2328f77cd32642a88e9a1605c2da38b0b0101fd71149c1e121607e37426b4a8",
+          "present": true,
+          "active": true,
+          "cache_key": "5859e729478775701ad40632ee3537e4de7325c17dd0f1cb0e8f96ff1da382b6",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3872224a173fa40d68103b5688f87f16eea35ccc8e6848af31d628e8dc1ebc1a",
+          "present": true,
+          "active": true,
+          "cache_key": "e1fd3e744a3e89e139c2f712c853fcc5619efe6aa539ed893e8da279016b0e04",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "9aeb1520459651839d5da69bb14b2ce6b607896644d20cffd5d41687312aedb8",
+          "present": true,
+          "active": true,
+          "cache_key": "0ae76a1215c6c652634bcef0843684a00d33c0e7fc66a5288ee5f1a2a7fb2771",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "4d116c6768630c4b8b82eff5a88c00e3f686d0ff15c3778d6971f01a4b719b0d",
+          "present": true,
+          "active": true,
+          "cache_key": "9f9a6e38d3a13f83e9c42b02b834e4d6c0c55b42e186825ee3e2ff5e1e63856c",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 66,
+      "predicate_name": "RESOLVES_CONFLICTING_INFORMATION_SOURCES",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "822257c787476ed8f59361f9a0aafdbee7034ea33b4eb24efcf9905d1920960e",
+          "present": true,
+          "active": true,
+          "cache_key": "0bdfcb967e9f2c7c088f001d232e088b3cf1cbf017f3f9224fd4d2df37018941",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "7e05e28347a660b19ead173ba6340a575b545a54995dc99463a30ec1cb87bbc1",
+          "present": true,
+          "active": true,
+          "cache_key": "261b5eb27fdaf7af6a36d3ba6866cc2a19b41eaa641b402ab36da5825eb762cf",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "85e45260eb86fda3eeef9a9d0ed6c38def7f3936dd8afe754d4704b7c3f5596c",
+          "present": true,
+          "active": true,
+          "cache_key": "a26e828679e87d5bb3af3f1ee349a3b3f70579b85a20648f926436e7757c1528",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "577ad82186c32df54546fda4e17916e7b6176f841506dbac9ebc8eb4b9a9ded2",
+          "present": true,
+          "active": true,
+          "cache_key": "bafd287d86bc89e3bd9799331119632c78e199d1e8f1ce6c6d757b4678b188e8",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 67,
+      "predicate_name": "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "d0369caa618551799aed47742756d505c90ed6963be35de99277966872d79b5f",
+          "present": true,
+          "active": true,
+          "cache_key": "ee6676c2f7a1efcf623f00fd5f473104ff7c4fc77e6350413ebe2718942b1bec",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "e4a94bffb92e680e1d406b6d07d6b84d57c44daf29a10446f03fbad0c456a559",
+          "present": true,
+          "active": true,
+          "cache_key": "50d00826957f7b0e46246edf58183307a6361b41ff395c0f1e3b6de538359258",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "9f237c1c820df85592a72830dffa325a518b7276c9249e43ac0eb5c9b50c1de8",
+          "present": true,
+          "active": true,
+          "cache_key": "a2e644c33a3eed6434bee46fa98e83d2558d164f4e58426f3ad4d9f911d299db",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "32a5ea3e36b352593b478a24fc44d8c3254b95ef49b3af77f21207ab5b88ec7f",
+          "present": true,
+          "active": true,
+          "cache_key": "969b485b86814f95299736e63b7862f5541a1dcfc9368c1f49e4a5e54058e6a6",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 68,
+      "predicate_name": "IDENTIFIES_CONFORMANCE_RISK",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "9a17fdbe2d82b2f602e0863673ef6378163c2ff8d9e4b77c01f1a10d51e8d799",
+          "present": true,
+          "active": true,
+          "cache_key": "5cd70d6e07edcade35b52e28f6bd56a89267dc851c1e96db34a15c30e83b019a",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "94e3e2a2a2ea1c2f34416bb4f4d68a30553d77c3f35d784f41cf72becdf8a18b",
+          "present": true,
+          "active": true,
+          "cache_key": "cbfb9f733cf161d30edf4dce06a44783d96f78f92f145d6cc56da514da2e350b",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "2c837f96ff976f46f7379027084c3674b1a71512ab8e107312109c7b917ecdeb",
+          "present": true,
+          "active": true,
+          "cache_key": "7f5b1236fc00ab1d147b394fb7d37269d615fc60bbd06cfd96297ccb9f2983da",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "2d0b7e70cebd4121a6475010fea849c533f1ea1b6fa3f69a4c0f667146fa34b2",
+          "present": true,
+          "active": true,
+          "cache_key": "be42a2eda47ce103b1471a4a1781e1162e58a414bf542442468291598e460421",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 69,
+      "predicate_name": "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "ddada4ff2a863659e115088e0c0075c27167044aa40ebb965f74a21dba3884ab",
+          "present": true,
+          "active": true,
+          "cache_key": "59fe48629bc35126af54a7c42bb74c94af479e6ba971710c724c369e2d492cd2",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "31a3a041aa5ad893546e21dccfe0599711e9bc156b01fad70e8fbd09fca95ff3",
+          "present": true,
+          "active": true,
+          "cache_key": "87c1770628aaf8cc40614f9a51b36a004c4421b26fa89cecffc8fd79e04d1f1f",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "54e6c15dfd28eb964d1175f5c57841cd3c17806cb331b170504b94646d8729b3",
+          "present": true,
+          "active": true,
+          "cache_key": "3d16e7f6e0eba413289bdc84a7fddd584b6ce9b4243c15e627d2b7397b2101bc",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "747d2b1d65ae0eabd6bf4516fb9a5d144d24ab4f765236d00da1e86995241799",
+          "present": true,
+          "active": true,
+          "cache_key": "a5b1ba1618eee92290a5afa5e9e7bd0f9d190392fac6f05f12e1bee3d1af1a5d",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 70,
+      "predicate_name": "ENFORCES_OUTPUT_SCOPE_CONSTRAINT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "33460b5912f501816d81488cc2139df56c240998131b55a2dd9ced43fff6488f",
+          "present": true,
+          "active": true,
+          "cache_key": "6749d4796144a4d8e0e2d57eda0f2cbc266853cc1a89d9d573776b1c6073bcb0",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "1b346a8ebff0d276b3433c8d79a660f4b647ee81cd900b06f7958e46c042da34",
+          "present": true,
+          "active": true,
+          "cache_key": "02550e1cd18216f6cd9c8191d937f8759d805011c40ad5814fc56c0dd4567c2c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b2d858de4f6bc0c0261338f414c9fd60ad70b6e7268d49c10ac5a1ccbe04923c",
+          "present": true,
+          "active": true,
+          "cache_key": "217f79a8b4808f59e5c71eb1010bf5befb7647105224540d034cd044597e011a",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "63a2c45ab0b81f19ab272e142c78338d3f2ce596f630035ef7428989213eadc1",
+          "present": true,
+          "active": true,
+          "cache_key": "c15bfa3fed4bb833ce13d7e5630bb7c11e8bd6a46d9162bbb0b37589a2e21551",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 71,
+      "predicate_name": "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "795e978211b6853c5a70eb82469e54eb817ea8d6459ad2278692b33d396c0fbc",
+          "present": true,
+          "active": true,
+          "cache_key": "2b9bf037a1aff0724024cbfb902517464d735d22a19bce254e1da98d1aab5dae",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "21874312eaf6d08006afe9d331becc9830f8fa2df0036d7644325f34d5314155",
+          "present": true,
+          "active": true,
+          "cache_key": "c95883b077693fbb1defec598e39a70eb25bcf9ace30170914240b34a4b8f2ae",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "40e12f158b1193f28ef1479490d947e7a9ac544c51ea4f620733c350b6019c1f",
+          "present": true,
+          "active": true,
+          "cache_key": "3aa8fdd01f8240fb5d08c4f9178bc0d8b0b8e43a3a07aad2b07680de156838b6",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "3ba56fa99389f565900e4b61021e075f098081629ddd6df56fdcf440c0b039b6",
+          "present": true,
+          "active": true,
+          "cache_key": "3ce1d76af8aaea199a1408c696fe3a9b706f8106d7ff9bf55a36ffcdc0dc4ee1",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 72,
+      "predicate_name": "ATTEMPTS_PREREQUISITE_PROVISIONING",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "7ab898015ba085499402c2074adbe40f803239f6807afe1473d9783bc1533ab0",
+          "present": true,
+          "active": true,
+          "cache_key": "5e68b36b909a25b7540fde47b57ed67b561f5f23591d170fe50f2a632638af43",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "0d3ee5c14c977a66857f84248c500a1c856273198d7689c2138818ed981c0304",
+          "present": true,
+          "active": true,
+          "cache_key": "44f148692af306073de692991dc75e086dbc6474fe2d13a6d69dcfc1fd8053a1",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "dca672709b7118734d1fa9ec66615b737e469c8455ea79bfab781897caa412c1",
+          "present": true,
+          "active": true,
+          "cache_key": "fae96d7b8f89eb01ec06ef2bf3d56d7436dbd8a48ea4f4d73aa157aa709f9e79",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "52c9ff40fa4014f47f984a229d527f3ec436e5673285947e81fced47a9663beb",
+          "present": true,
+          "active": true,
+          "cache_key": "7a29359b927cdfe0e9717368dbeb81534ca040775d68bdbb7f5bd0b717f1fe88",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 73,
+      "predicate_name": "VERIFICATION_CONFIRMS_REQUIRED_STATE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "c2c008e747b220020d5158501aa5cd771f968115cf800e3334501b00e9a6ac38",
+          "present": true,
+          "active": true,
+          "cache_key": "b0a766e011b923b0a40f98f77aa7a433f8625a7afd920c96a0d34db86e4a434d",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "abff553ed3b04084dc1c068137b71deedefd9c6dce2fcf4de9c81ac39195af16",
+          "present": true,
+          "active": true,
+          "cache_key": "9317d5a04a37147f7d2bbf48b8b8891bf8cb1481955a98fe9665500f6da7ff06",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "68e313792aacb231b0789108bf66b95f1d0c7248ce6faba212476c61e2221767",
+          "present": true,
+          "active": true,
+          "cache_key": "907c0338f6c53a3f3bc260dffbd92b8f80ffcf186358e6d60ad332e524492cb5",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "f30093b9726b689d9038414e591e1838904025303b4cd4f5300d8098ebf4734a",
+          "present": true,
+          "active": true,
+          "cache_key": "3bf08a7bd8476afff0b79dead213228db1a22171477138914e8f6120dcf2056e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 74,
+      "predicate_name": "EVALUATES_COMPETING_IMPLEMENTATIONS",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "7a5c519a7b50f76be14b760898debb7813c6bbb2b4cf295193d848a20ff10767",
+          "present": true,
+          "active": true,
+          "cache_key": "d4a07868b611c89456893ece3ffc719611cc6bd1fa896536f3f0efe16423693c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "6012289eedb5ab58ca1b58c8cf9ae584312957851789a155ffe3faea8712994b",
+          "present": true,
+          "active": true,
+          "cache_key": "dc77d0ab7968884452099544fbcc0adca7f714c9fe729ec131b5dc492b36ce96",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "bcabf38a557ba36cb63ffb296866c3301b5c4e24771cc05268cabb4d379f7cb7",
+          "present": true,
+          "active": true,
+          "cache_key": "788bb5196241934cf298993ed3d5ce3fd75841fffc036345c04cde6b1c28e1f2",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "d30bbe08fd0128461298e98d9c5111851e92a1d0517c31650bfc860c11cac025",
+          "present": true,
+          "active": true,
+          "cache_key": "03952dccba84144fe7d4a9a0f339380e84a3ca5ad2a456f2742682c64fd2dc78",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 75,
+      "predicate_name": "RESOLVES_CONFLICT_WITH_TARGETED_EDIT",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "dd36dbf690f36cece90a9f8578ce2466ad5a143a9e0d6aa3a46f5cbcb1606b63",
+          "present": true,
+          "active": true,
+          "cache_key": "4c240f083d118066a867df5699c4fab1453d4ae567109b5fb750a1152dba7dd6",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "535ff851dd127561a46dc0815dd09393020eb3d69eff8c38b0819c466d612af8",
+          "present": true,
+          "active": true,
+          "cache_key": "20f68dcdc9e282ea4b139f432674af642ee389c2ebb06c3328b3c528f5ac7ad2",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "f5784c9c1f4b52da9191e16b52e983ca18f14acb9a9a0c48ed34af49c7799129",
+          "present": true,
+          "active": true,
+          "cache_key": "82694a7037c3b39338cd062a6c9f2c48b5c679dfd27edaba16a84032c9f228f8",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "be889961cd89e59f1e7cee4e942cd10d5b1748a6ccc725e321c31d03013147ad",
+          "present": true,
+          "active": true,
+          "cache_key": "7603c50178ef190ac2b4cf7b4d20d542247e5af13efff1da4e9fe450ac6b1b26",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 76,
+      "predicate_name": "DERIVES_VERSION_LINEAGE_FROM_METADATA",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "73df2e5ef0ecfdb61279ac7543f44c33bcdfe63405879eee1d180d81ad65c046",
+          "present": true,
+          "active": true,
+          "cache_key": "1368b1c479b2e6198efd837e7a791bc80698f9bf9e6593ff8ba7597dd42b40b3",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "b938d11ecb8bb43e5a0d80aedace06734bc4cec72f1d7716e21c7b087158017c",
+          "present": true,
+          "active": true,
+          "cache_key": "c0db7253256fba1c6f2f9330ad82cc3bebfd4f3f850cedc1c106f3aee2e76a8d",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "a4672e5c76653416209359579d0b7ae5214f59f385bcedb6a4ca2ca87dbb05c9",
+          "present": true,
+          "active": true,
+          "cache_key": "e0546e6dedad79a40d2d9975004b42e504dda50d6c2e271b3d2d4af665056237",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "a8db5dd04f271c0dfec46e9258d064be3d15ba0b95e650b56f90584e0ca90607",
+          "present": true,
+          "active": true,
+          "cache_key": "57b31a22c43bbeb042e6bf00532350328cc4cfd646c99ecc3c06a41445052ee3",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 77,
+      "predicate_name": "CONSTRUCTS_GENERALIZATION_PROBE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "6a541eb4faa58b8d9a6fa7ad50cd8cd084917f7639eb894c4b9a0f935b62a767",
+          "present": true,
+          "active": true,
+          "cache_key": "d34e590432659a440f7c0f4dab6893aae0377ac57fcf72401c79b6b69aeb00ad",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "fcc4aad4a771e3d49e3b51890bc6b2514348f5331eb6df65981ed4d4a55fe9bf",
+          "present": true,
+          "active": true,
+          "cache_key": "72029b9aa6b087f0dceedb77f9e872ac99c1fa97ceab5ea12c7399c5e036e00d",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "0b57be73809e9bbd7003ec1435b0e0ce42055f19001759d5c294d4b12c07fe27",
+          "present": true,
+          "active": true,
+          "cache_key": "e5528fb0d7a1f6ba3fe46c1e62291af1e14baf4fc3a740192bc2e7186da8b756",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "71435add7aff3511b6d40a39b3b9ca68aef0f1167ce3a212ab3e01a95f5a3ec3",
+          "present": true,
+          "active": true,
+          "cache_key": "cb4190f85bf47cd11d4c006e2ed53c31171c1e1524a4b7226e6f6a5ace5723d9",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 78,
+      "predicate_name": "DISAMBIGUATES_COMPETING_INTERPRETATIONS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "1f089ec84196d2bc1146aa8d9ef27e94b1a5af7fc28da87919d9a1918ea2adbf",
+          "present": true,
+          "active": true,
+          "cache_key": "4e4c61bf0263c15fdad3afeb2d57b910ea98aa5fc0b85ee5ec984440caef7f90",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "f18e07267095f6a53b6eefb62dbc7ed8755dffd021f615172ef37491b67e567f",
+          "present": true,
+          "active": true,
+          "cache_key": "67ff826413ee048798fca3a8ad98b0d186b0db70738770f9f14fbf23f9fbd18f",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "7cba7c83c8b3017640e23e849f7fc46a0fc92cc8ffd023cc5afb4cf5e51ab5b0",
+          "present": true,
+          "active": true,
+          "cache_key": "e2050581253eeac1f3914592a213570ee126cdc0c8d85ff5e4f722dac85b7c6a",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "66c7d34b76de6257e92c2ad07ea37bcc63d84b240649856b0bf947c58b193724",
+          "present": true,
+          "active": true,
+          "cache_key": "369bf738a2d33067a2390b3de8b0ccff76e70262746eb806a1b10c04b44dd017",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 79,
+      "predicate_name": "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "14d53660951411b27e625621437fc043c2a3e75b08f51f1a01d388b55479364a",
+          "present": true,
+          "active": true,
+          "cache_key": "55b3a1a4b9f5a46075e18a6eed081f4544f1e2dae60c07801490e58c8f13c4b3",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "304a70fc0acdb0ffa17669ba6dc8befa1d1911ab77dd96dd974edd8848f1c83c",
+          "present": true,
+          "active": true,
+          "cache_key": "92fc159752b2b5b54260040a12e1d57c8060d863770a96e050b9fe53df2daa6d",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "4ef29ecbf34feff9ee42c33ee35a0020f2817310428a052436948e8f23044496",
+          "present": true,
+          "active": true,
+          "cache_key": "190c130d9600fb306f89041b4f6c7ed3a02406e0565dcfd8101b4beef605328c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "f8f5ba1d948883b14eb99940db791dca83612ff05be8f544e21736587a3ea5d1",
+          "present": true,
+          "active": true,
+          "cache_key": "b84baadbfb1c1ef0d6b43982ec12201c232c7263c7a4109b4950bae04aa19465",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 80,
+      "predicate_name": "CONFIRMS_OUTCOME_AGAINST_PREDICTION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "48d5113149414bab522c1dae634ee3d1461d2573467847bda3c7588f9be56a4f",
+          "present": true,
+          "active": true,
+          "cache_key": "855d2df6ef2b0599c3ddf439026fddca79d5647502e3d896c982f8f1534dd893",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "6d86e07978dacbca7c3042840c671a466573eb88d79771e2c4d534c2b5b23c37",
+          "present": true,
+          "active": true,
+          "cache_key": "bdb84b6d0ffa67b9583ac5c308905d8ce7bf7a14ff37c5d877a93f0e991e33c6",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "fae0050194336165919afc1dc4e3d068d04a652ea27bd22c7645340d3a7be160",
+          "present": true,
+          "active": true,
+          "cache_key": "de7cd9feaae43a93c9920f14a460bbf76f20295cf9a41b7535cea8a208506648",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "d7dcf1297f137c84a710db013f5bf35859ae960450a32544484ff82199eded34",
+          "present": true,
+          "active": true,
+          "cache_key": "5e8c83493255012f8095218b17011a6e4164771f02fcdd59f9ceff8e5c15c163",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 81,
+      "predicate_name": "IDENTIFIES_SPECIFICATION_AMBIGUITY",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "b28f3ace116663bda3be8cb729b92955be714e118caf3c970749988ae756e9a0",
+          "present": true,
+          "active": true,
+          "cache_key": "1009c982b63721ef1b65379721f2a46b51d17a463374af411a7b647750d90c22",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "e5f409626fc0b4f41c80d15097d5ef7dda6b120f02e3c6a4484203fa07bcf031",
+          "present": true,
+          "active": true,
+          "cache_key": "3ffc1fd10654c00d2d212fcd62e10189e149adb3fd88f34ddbe38809ec177971",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "b19020f44aa13b93278639bfe66d90eb8c376719f23350c3e4616f7e7315ccd9",
+          "present": true,
+          "active": true,
+          "cache_key": "6608e85dbe4fa8745e31cf8ebc17aeffd893300e348a5a3ed21a20730b523b4e",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "07ccd886e04ebf96917ddd0a5193b1612f65736c7c67d65d95af962aeb3d68d6",
+          "present": true,
+          "active": true,
+          "cache_key": "77f72b0123f80004d7bbc35ae29534ff306a5eb1bf9a2d488b94367c091c0a5a",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 82,
+      "predicate_name": "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "eba3837b3b36e95f74021d246008ba373fb5a51959dc945682e46e507fafe7e8",
+          "present": true,
+          "active": true,
+          "cache_key": "63c84cf99b5a5354bd1c6f36d3be06231b00e32ec5bd2309d9f614d6706184bd",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "ca2c0c7f3f860d0ac728f77958961e395a1969203e0fcbf22b656f7f5d872c20",
+          "present": true,
+          "active": true,
+          "cache_key": "9109e1092c888b429b3821378cd75733901acb7874eccd5c2c2b29a8c7cd7e21",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "082e00b0aceda6192dbda147588ffd08d736a9b2caef9cf4ac4c03490ea19e54",
+          "present": true,
+          "active": true,
+          "cache_key": "ebd65139ec50858a0151ef558809421d4401ae354eee94355b8e821dd8603298",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "73c03d3c440689cee0dbe73a8f4538ec69438690c60a76b82d3cd54c56fbdaf0",
+          "present": true,
+          "active": true,
+          "cache_key": "5c18a90c3f88adccac2dc2267cbe64135d701189c6a2e9dc232d06d45578dc8e",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 83,
+      "predicate_name": "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "e2d436b0418f2add1968da35b50ec5a0a99c5cdb670e971619054acaaf43845f",
+          "present": true,
+          "active": true,
+          "cache_key": "2e460a3053c3a27cf3ccec4aceee1bd595347bbe6ad570f0a0826d76dd538eae",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "89bb08c0bba141742e8f72fa8197d3b9a90252daa074c4af4f1fb1f714d6c448",
+          "present": true,
+          "active": true,
+          "cache_key": "94dbbc7d2a8e115d8b8456c2c615fdf99372089d449da1f8d1dab1c329e627ee",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "71fd636829cd5d4987db0381b3f676a90ca1bf88ab2ffabe79f9016837931b65",
+          "present": true,
+          "active": true,
+          "cache_key": "7043f94bfdfa9c8faafc6f228be3438a3b2a5476c83ea27d311e74c069486633",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "11cc434ecc379dd947f4f711825f02462727005aad82fdcc657f3073e67634f2",
+          "present": true,
+          "active": true,
+          "cache_key": "f01910163cbde2932dd5f3cd51a3a2ba97a29596791ab185d2341da544e03b71",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 84,
+      "predicate_name": "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "e0ee77177247c1d803a8dd91a9f95b1d0d7bf98058e4ad79066300a9f4574c8c",
+          "present": true,
+          "active": true,
+          "cache_key": "3953c0b6ae07d34eee1539cf9b13864066a9d6be74c45159327fea67aa087ecc",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3e96ea8b644a5057985f7de899af04c729f8ae1cc08d6b5ebcbe61e9cb476eb3",
+          "present": true,
+          "active": true,
+          "cache_key": "157f778ee9d15b74b61d4e7a2fc644a318e9b15a66de9ae793b54a7aeced23b2",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "ec95ded394439bd26fcb6350e973053cfbbf6170613aa5f46a0f5934f2fe9224",
+          "present": true,
+          "active": true,
+          "cache_key": "a4ab926ca2f447518efb547748da0ac3496a61367bef1f35f6b958f0939b2884",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "fbe2d849ae34dd2b12fc380f8ea0cfc4f9e6aaf7635823a6a4342efecc2e6a0f",
+          "present": true,
+          "active": true,
+          "cache_key": "8783d68a0f79da99dde4fcf75146217a69fd7585aa1bc4b7ed842cf35a00c825",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 85,
+      "predicate_name": "VERIFIES_DEPLOYED_SERVICE_WITH_REQUEST",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "87d186cb04b07a1d5fb87e4bfa2d90ddadb52e8a2e6233347062028f59603c87",
+          "present": true,
+          "active": true,
+          "cache_key": "6c493139781a4006267bca31180e2a24f83314d26545c3b9d45778e57bd3ff47",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "fe5471a38a6747009553f60a9bdeaafed3b8da686145b705c9fd86b6831e5927",
+          "present": true,
+          "active": true,
+          "cache_key": "2abad0a07ef41d466fe081bc99e2d312770b1d0afb7d55ff42008c226258ee8d",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "e1a4b29a2f83ff6f5646a43f20940eb38a08b006d81ef3c786ba95a41c9c61ca",
+          "present": true,
+          "active": true,
+          "cache_key": "141d08301299ed6e409d2355c2f2f46a89bd2477361f12221378c84c934e1ec4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "a0b6d7948439cb67a5c2ecdb200d4a73bcde6986142202f4ff8eead71dbd4c64",
+          "present": true,
+          "active": true,
+          "cache_key": "0b7b73ef3061f929ad3d57542d0e1c6fc76f179ede5fa16ea1db798464ff9593",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 86,
+      "predicate_name": "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "6218728266a2ed3bea317a89be227bdf19702363ebb02992cad645f1b5f7414e",
+          "present": true,
+          "active": true,
+          "cache_key": "df9499c2521526dc7a35293c2dfa81c788c37b61241a450e2bc7747066152fc2",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "bce37e62190d0b77e0b7cad9c03ff4c2db85f8ce95cbcb11ae042b6865f9727f",
+          "present": true,
+          "active": true,
+          "cache_key": "bd0adcd11e3efc8a3846db71f92d4d6019e0b7def095cfb02eeb16021d03a8f8",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "2f2c17515fdbda5af906c07db739f193a9c96e3e56f8b24297b3604250d9a4a8",
+          "present": true,
+          "active": true,
+          "cache_key": "8259a371e9f7de9fe209ec3fd93c6678bee33d549b5fb49528a1c6efa01b53c8",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "70fd5f8e06b2c188dc2190cab74870413fca36dcececd114db22a2d630941984",
+          "present": true,
+          "active": true,
+          "cache_key": "6ab86ae2f6b7fa5c10e7ed09ea09a997a9f082f5a6e8060cc48d902dc036d7db",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 87,
+      "predicate_name": "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "6b7b28560513198a2300a953d17dc56405288a8666d946f085112af573237d92",
+          "present": true,
+          "active": true,
+          "cache_key": "229a48aea605978fea0c67f82d4a343cbfc30e92abc4e85944739dc56d0c9030",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "46c3df21096159c56d71d22507588ccc68234456fee3861bdd616b4a93fb3bb5",
+          "present": true,
+          "active": true,
+          "cache_key": "71a530bbeff7e92df853960f366d05ef05b9f0a6b1f5ba31635223e937fdc215",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "220509f476b754dd4e8da829fc987663cd5c18aa0458e3ddd43ba36a36b6af5c",
+          "present": true,
+          "active": true,
+          "cache_key": "cad6b45a7c36672c22f933b5d02b0e0fdcedd1160eed44eeee1e4cf250a4e916",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "4b91a62bc69ec6b3f3078c44871387d4c3c19cb1e7a28787f2e7541a08691478",
+          "present": true,
+          "active": true,
+          "cache_key": "768f09bb3669322303433cc363b839d1a1e2650eae341540455df5ab1bb1ab73",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 88,
+      "predicate_name": "RESOLVES_INSTRUCTION_CONFLICT",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "07e877b6f301e6d20b405c770d7ef2c3e7d534b84c7717c3565b7f2f318d9398",
+          "present": true,
+          "active": true,
+          "cache_key": "846004d8d5fe8b43ddefb75ff366200f5eb2e8dcc7cf3116d974f849afa00ce6",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "f4ce7dd71ad999828055de09a598b89e3726a2d6c90544b2bbc46376112e6030",
+          "present": true,
+          "active": true,
+          "cache_key": "da29381e12cce111ff2e01b6179159cb29d448e6cae4cedc166cf3c393fa1747",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "758dc991b480163ac535f54bbed0c81b01519ea1a3bebc26a24922ef61eeb9e9",
+          "present": true,
+          "active": true,
+          "cache_key": "0d38879b53a4b439e71b28b4db4a975dec058b21ea34de44dc1c617b0222e4d6",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "67c04ff76236c4bc6eb201523955565074b377628d08457f1d94d3334447a476",
+          "present": true,
+          "active": true,
+          "cache_key": "c050073b334f64a3f030070f58a705fd1ba293ac1a893288497eff4afdeb7ba5",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 89,
+      "predicate_name": "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "65ebb37a9dcdae99f662ab0b670672d83329e3b2c394a6e53466a3d5cc5c0e42",
+          "present": true,
+          "active": true,
+          "cache_key": "5e8615eb44a27949d58dd7b5f4c5067b1d1302825bcbe27bf7af0b983ddf28ca",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "bfea62e145935ec89af2d54b6c5947ecc5d2e1c7ee11e253ca9b758c4a108589",
+          "present": true,
+          "active": true,
+          "cache_key": "bbf2bfaba6656815d9ad818141100d31ee684643273ca6dcbac923200c072250",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "fd4d8b3eae64fb087cf793f930288185f39d778872a331b97eb4261e1d268c5d",
+          "present": true,
+          "active": true,
+          "cache_key": "e49d8d90ffbb4e3f971f5d66e199165e6f44e098d5b25eb5e9db0d558035c9b0",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "9ac20e70945ed79f424a7ed6fea14e5965989312bb99ff0461b343c14ad99975",
+          "present": true,
+          "active": true,
+          "cache_key": "7eecb55f998f723a6e975cef337487feeed5b2dc0db53859a5c6790d646d67e5",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 90,
+      "predicate_name": "DECLARES_TASK_COMPLETION",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "5f9f814d8e2012b3310430d75d765099f02cb8128036655281ccc1f67f6dbe3e",
+          "present": true,
+          "active": true,
+          "cache_key": "fb67c84d3cdc2fd117270796f5c36487d346b142e87c2d88ba1f8a9488e93f18",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a0e01fe56809666e91ab459fb60b4bee0777a7dee791d2debacad6ab9307864d",
+          "present": true,
+          "active": true,
+          "cache_key": "0019504e502bcb1b2545a8983cb3975dfa69f287e3fe4059cd9e8676570df512",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "2536cd317c898f5f5577d20273c3f0e8816723fdb1571bf62ed2a911b6ee024d",
+          "present": true,
+          "active": true,
+          "cache_key": "34edf3df6ee82cc0fac034a20d8cad45e1f933d17056a5232c629cea2dc92869",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "339ff890b1e21c714253df6407e0075a85eeefa0d8f46eb51459c73ca61faf12",
+          "present": true,
+          "active": true,
+          "cache_key": "b5141ad0d71e4501981e1bdedd480b38638ea3acd281dcd5f57d05e980925f40",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 91,
+      "predicate_name": "PROPOSES_TESTABLE_HYPOTHESIS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "df96eda50187a39855dafb7ae2c87d1783d6f8cc6550f93c6beeb4fd52646193",
+          "present": true,
+          "active": true,
+          "cache_key": "2cc1f42c705c18ac067d19e230cf2b6526489fcbd70915707ce9fbdd3255b57c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3682681a95d9b70c995d8de7fb40d2835454e384b957dd5a70f4993089ea6376",
+          "present": true,
+          "active": true,
+          "cache_key": "06bf91666d7d89013197e2c2030898bdf75ad329890a138cf50a5836952954c8",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "22773ffd664ce0f8e36927cae9b1c0b054b8fd5dde8edcdff59b44c38014f149",
+          "present": true,
+          "active": true,
+          "cache_key": "3c2e79faeea80d30e020a26915d82f8ee5da2e6e8bf2640598a6e1f7544f6b55",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "28dee3de9856db9556084baa3aa4c5360cc35189d08892bfa7ffcff28c063c53",
+          "present": true,
+          "active": true,
+          "cache_key": "a6f206268635e928c35718c8db9e777a3e5779349f9d8956005a609996cd5944",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 92,
+      "predicate_name": "GUIDES_NEXT_INVESTIGATION_BY_OBSERVED_FEATURE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "5f7fb80c3138df49bb3e44b3cf4c7790e0409f79396d0e775223de64a21f0669",
+          "present": true,
+          "active": true,
+          "cache_key": "880013d936af9d8b1cfcfb19466e2c67c223c6cab8009f33288e51501ea26973",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "c605cc6ee7ea262440eb2fcce657bd96a5a8157b5b3182f2fe683dc6dc8af54d",
+          "present": true,
+          "active": true,
+          "cache_key": "7455b63f8e6477b283449a6dfab514cf8a9ac1363c9491ba3aec904c1cecac12",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "59007e82facc02112562ea4b33dd6969f89984df3307463611f70b19c1b3cfa0",
+          "present": true,
+          "active": true,
+          "cache_key": "6e5ea971c1787e4635c9a93de8a04eca43373db313e5bbb69956ea4b9e7645fd",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "d256f32b5a6c3beeee1378b6ddd0d4bd30513130d3242daa63608bf35c677105",
+          "present": true,
+          "active": true,
+          "cache_key": "1ea8af51da3bbdc5b82a333fff05dd2e61045da6729e6d764db7b1cd3704cdc9",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 93,
+      "predicate_name": "DISMISSES_CANDIDATE_AS_UNINFORMATIVE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "1a029fde827faf32b9494340ac5bfcfcad8245c915dac920d714e5975cb28c69",
+          "present": true,
+          "active": true,
+          "cache_key": "0545cd3b509dab90aa57c26f613e2da5324558c1538904e3e10562eaf694b865",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "29829db27bb59c65a97fa14b1201d35211e545f51ec47f2aed555bd555eaa8c9",
+          "present": true,
+          "active": true,
+          "cache_key": "d006f490bcbb30dfe63fd581f2d7f6f4720b5d8bfe484dbc2c61e12eaea0cbf2",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "71107452cc3368ca030bcf5889ac8d0637c9888283a388e8a92643561f0af023",
+          "present": true,
+          "active": true,
+          "cache_key": "bcfc9fbf512fe920c488cfd25b34edf9f2ed03bdc71fcef8dfb22087605bc69c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "75fa5e13344c7abbced004c95558b557b84c67cfe5b434d3e0cae54f29a6de36",
+          "present": true,
+          "active": true,
+          "cache_key": "616c25ec62f118cbd8ad03fc02f64bc47751d30da43ecbc2459b8a515cc6a79c",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 94,
+      "predicate_name": "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "c7bdda4becd0b460ad3696737e1e23b0cf7f02e96e5a035dafba478dda7b91b4",
+          "present": true,
+          "active": true,
+          "cache_key": "9f1f9e3e4b345f714813dacafe769ec09c7e285388c4f30ad49ff37f9cee1bce",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "2bdaf493c8d439b5282fbe16cdbc5f006b2f5a13f6c2af5b4e4609e09cfa1cbd",
+          "present": true,
+          "active": true,
+          "cache_key": "7379bfb64a10e9d739d1c6a03d053abb669f2b64f3fac9d04e2d8b2d10f25f1a",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "4cd69ed14d2e09766447e63912b49e0febaae67a75a67c7a0a57d2982b79d1dd",
+          "present": true,
+          "active": true,
+          "cache_key": "4deb23c991ee9f0f9a70430f02b0d0356af812ca1920826828a6cc9585a7ac3d",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "c8241df2987e9553fcb8ba99e1f7ce78bc1722a3f77e19227d4bc9baae744930",
+          "present": true,
+          "active": true,
+          "cache_key": "aef9faf24dcb718c85c3b49efbc02730f35c2d5bf95b75b36d75d7ca1dcf3723",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 95,
+      "predicate_name": "ASSESSES_CANDIDATE_AGAINST_CONSTRAINTS",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "a22002a279d544c0a8c4dbc22871b80bf13e384cedfa1dec17cf7fdd657e90f1",
+          "present": true,
+          "active": true,
+          "cache_key": "0d8291b02cc519427f702d0b46d3b2bd04f9313d7be8519519374c60eff128ec",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "b5a144d48efae500eb53fb312e166fff099475f37ac83a0568eb85e6eb47ae9e",
+          "present": true,
+          "active": true,
+          "cache_key": "ebb7e444b455ec757f26356b20907f6bfca8af51962adc0ea995c0b860d3c1ee",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "d89d8de7dc78217c1d2bdf83f7e85d04377a3969cdb8418b13b0e4df8416b609",
+          "present": true,
+          "active": true,
+          "cache_key": "353f68c00852dbb7153d8b7df56a38b31e843b8507a1e3adf7f391db67ac7d41",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "151f9128e76447c2693e84917f4156560605f38f3be9506c73bc897ba6ac9744",
+          "present": true,
+          "active": true,
+          "cache_key": "d718160d100bff90b2cf5ea9cc423b8c650da77c4327449ba8c279f98a393496",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 96,
+      "predicate_name": "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "ce9978234f9d8df77b877e9dfbf6a1663454bd890a010f5e0e3cf2d17550d602",
+          "present": true,
+          "active": true,
+          "cache_key": "2c2b4cc9791335c04793d945de6883e8f1225af4d6f6efe830844718d0cb4d1a",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "d1d55078552ec3e459f8a6e74b66913d5494083ad0508435214709e8cb346ebf",
+          "present": true,
+          "active": true,
+          "cache_key": "2860ff2750c4b89e532106de7a4b5c6e066c204dc47e2e6665c3bf51c2bb58bc",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "6d7808b6df1617a4a7023af828a521ddaf6030e3fb021da93589c3fdcad2cb85",
+          "present": true,
+          "active": true,
+          "cache_key": "50bc2acf7ee5008d37464a549bb9ec589fc3544b37026770276a7058585a8cde",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "05036595c97d822d830e5e18b7e5209d41508f33747bcf074751943c4c60af13",
+          "present": true,
+          "active": true,
+          "cache_key": "f775390cca0e6178ec2b35d2afc36c3b4ecfa273da6f950d6e3190e97c270f28",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 97,
+      "predicate_name": "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "5d3a776ae2634fb26c2e5b3d589ce42e53470bb4062059f90af99fe0bcf65bad",
+          "present": true,
+          "active": true,
+          "cache_key": "239a32573235b3355a4b5d5b4a2698a22e1f0bbaedc63d1a00c03266cfeed695",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "511d35e2c1855990751909d7524c29d465f89e4ad7c18252fc20fb6a0d185e17",
+          "present": true,
+          "active": true,
+          "cache_key": "3df18f524ad0dff5db363118720255e3a5350345df147a90cc606d5747175bd4",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "c9066e50111c72a22640d1e545b15212caf75db9b32888eff6a2b0a234b0e121",
+          "present": true,
+          "active": true,
+          "cache_key": "15ca7e5245cf8cba7e4c49325034dc13cee06d345e6a92c3e99a8dc2348f9396",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "32bfdd7f6d55eb4a5b1319dadb91ad35e7db711b61be9747454ff954e3226e04",
+          "present": true,
+          "active": true,
+          "cache_key": "8a6e584070395e9b6d002b5b331d2724db2b13ad67510200fe79da81bfde813c",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 98,
+      "predicate_name": "CORROBORATES_CANDIDATE_WITH_INDEPENDENT_METADATA",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "90b07eb9b5e1e17a05ba7039ca544fb16ed3610798b0cfe5e06fb169547c6bf3",
+          "present": true,
+          "active": true,
+          "cache_key": "ecf379b2ea4be1e8a90dabfa22e85f128ce14aa1cca8b4ad30b0a000f447d928",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a03a144f0a96a4fcd9f193b5f26248707066c1bc8b3e2e641a24697b45be08ac",
+          "present": true,
+          "active": true,
+          "cache_key": "6eeb8b4158ef5c6305739d6acbf435a24e8e5c2464b16dee0d9693c1a3eea32f",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "4da1f9a1e8aaee0fde2fdb74d50de8038471031e3e8eb2d120072a6d57dc161a",
+          "present": true,
+          "active": true,
+          "cache_key": "60d700935ae6213dde3ccf183fb54188d24ccfb7883c32a9832525a873a83f56",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "5ef9379efa908d84fade8295cff34a7b90450115deefb070c2b6c7b08a61ae12",
+          "present": true,
+          "active": true,
+          "cache_key": "54e8d838d0f4b965ae5595a122a0d8500275cc7ee28f2e28bce954933b94b01d",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 99,
+      "predicate_name": "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "aa274a811dc45ec77a0c498b6219c0e13f62c5ca0d76a2d7cae57f194c5343db",
+          "present": true,
+          "active": true,
+          "cache_key": "89a6320d58214dd1edf0a39429b8bffd80afbda7a36f32a0307e20094a3eb5c2",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "e426e0ca79fc06d7832884922d190243d985b3ebdb1320638159ca388602be0b",
+          "present": true,
+          "active": true,
+          "cache_key": "e7276990b8ccc134a4f9459e42784ea38939a1db130a50e7f6333c207bd0ca65",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "61ae14ddb206c6dd1b6c66b6f0cabd226156b8a9e4f3b571a996bb4cd8af69fa",
+          "present": true,
+          "active": true,
+          "cache_key": "7f05fe3560a10810223991ebc3a9e2b628b7038bf6b39dd311c65a78798c1c7c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "429072d8c2457bbd85ce45c319557ec4359089028064ab6ff168c5aa242aeef7",
+          "present": true,
+          "active": true,
+          "cache_key": "63e68c8a3bf99035ccb7ce91d90b7f2836144da00d234067dcf6c2a48b479b38",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 100,
+      "predicate_name": "FORMULATES_IMPLEMENTATION_DESIGN",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "0dab6391d918bb84f626dc4e42bcd959d5917536de311cecb12ade5bd630821a",
+          "present": true,
+          "active": true,
+          "cache_key": "f58955ee31f0fdba89a405ac7dda442ac5cd37ff96b0dffe4087108df7615fcb",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "676a3664d0792bfdbc0fbc55de8efe75156bd4c27c5ce0fae20cef674d4fb847",
+          "present": true,
+          "active": true,
+          "cache_key": "a1ddae94472ee8aab8ac2743aa8946fbd841d0a4541954afcdabf5f14a211532",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "08209bd0cdfaf5fbbd3afabfafcdf88a0f0b772a4ab78466fb8b7098a500eb36",
+          "present": true,
+          "active": true,
+          "cache_key": "e775cc963de0253e93294ae1938b4779d7ff909a80fb3dd6ad98380a698824a7",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "91458c1680857e7078c5e6cde6a4f7f1666105fcf01f710082264cd6975d4b82",
+          "present": true,
+          "active": true,
+          "cache_key": "77b492d0f05937808153211c8327cebc691177a1fa516a0cbda3e04ad95442d3",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 101,
+      "predicate_name": "VERIFIES_MULTI_INTERFACE_COMPATIBILITY",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "558dde511fc1fd829949c538ddd95e99eadf6a3a3ed2db3db2e6fc4f50adbd3c",
+          "present": true,
+          "active": true,
+          "cache_key": "b619d77c44777a1eb4a1bb704969f736934923d4830312e1ebd7080d816cfd8d",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "be6a3184eadfc036250eeeeb5a28d504b8e73e045df1003ff3379af935c2cad7",
+          "present": true,
+          "active": true,
+          "cache_key": "2f3521146a944526f413ffb2d1b6189b6c17f1c9e1a6911ac42228267ade009c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "fb8629da8abbe60e63b03a62df3fad4bad3969e5af9d2b26866289dda2c4d25a",
+          "present": true,
+          "active": true,
+          "cache_key": "d41242cbad6ed85fc7c4db7ec1ab334c0470dcb923d468466d9aa23ae582329c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "ee8f28a8d29998f59aa0e185d5920a065b42f10db036efea9c8558791e65fd9f",
+          "present": true,
+          "active": true,
+          "cache_key": "0b9f37efbabe8286d86fd8b21fe3b17c1f96b7c969b8dea26793eb7e8431c7db",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 102,
+      "predicate_name": "EXPLAINS_ARTIFACT_BEHAVIOR_FROM_SOURCE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "ca35aeb1f2d74550ca9e0c18ed51baf15f7a85fac6b451a5991b75b6f41a45a5",
+          "present": true,
+          "active": true,
+          "cache_key": "7289a01be179acedc8c52f4467ed40e27883d205257bd0770012fed93ed966f1",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a7e00bb0c9cd9ea806f653083252b4dcb78ed6cb8f4dacaab6c5edaf6ebe30dc",
+          "present": true,
+          "active": true,
+          "cache_key": "e83d10fcc21a7a84963de80bb128d2066f3ab410efd1dffb0525122a54083a60",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "e38f340378eee2876cb5c734dee0f0c7781f0053b03cc9526659d21ecda86fa9",
+          "present": true,
+          "active": true,
+          "cache_key": "561bf293aefc592a4745eb969a7c6d2f3186a49f58c8d1fa97577afdb312e0a4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "50a93c5e1b56873bdc9262a884363ef0c55ba925feb9a571c31252cd9694a87c",
+          "present": true,
+          "active": true,
+          "cache_key": "7830a0e012fc650d8edefc5afdac9e8faceae348c60ff59fbd299680e8414845",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 103,
+      "predicate_name": "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "58aa19e7432caf2f7d7543327e835a2af84aef7fb7faf3bc2923af2781e095d3",
+          "present": true,
+          "active": true,
+          "cache_key": "7f30f486494dead52ae87963385917f4adae34a27a32473afdd96748baf38779",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "64a054173bf2f9989c489f329598770ea6041d7f001087b61419c6d304d21a91",
+          "present": true,
+          "active": true,
+          "cache_key": "105b598ea3decd5e494837fcfc4fa8dc2c9ab92d067a9bce33d2864e834241fc",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "299f7d45e8834a7fe77261749270b3e9dd341782425fcfefb8b0bdbfa3cb936a",
+          "present": true,
+          "active": true,
+          "cache_key": "507eb41583c5c0b6ffabf70d66beba8a79755316d793d6b2c2a6a9cf63057eb4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "fc24420e51270d8ec7f05b43c01026e4fd02c8c71165039ea68b83703fd4f70c",
+          "present": true,
+          "active": true,
+          "cache_key": "6b0819fa61f9880e9f12a044eb415bc5abf38845c35af06ad65c8f8379f6f852",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 104,
+      "predicate_name": "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "a29c20e55944956610dcb89b3c2fdf8f833b5517ccd473ab75fd38829c136463",
+          "present": true,
+          "active": true,
+          "cache_key": "ebb800512c3ed607bacc45244e82ff6d00e9117957a2a8f1875ea1903071bff4",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "549b1f63706712f96dd5429b0f3c81b4da397f1aa14c30bea4370cf71868c701",
+          "present": true,
+          "active": true,
+          "cache_key": "a820f675ff7618ae04f346d978bbd06c350321ba7837a68f8e31b340c3e0453f",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "4f1921a6dd866ba6ee378cf7571ba6b39e459905499e4d2e54729241f8618e55",
+          "present": true,
+          "active": true,
+          "cache_key": "c630829d3c20f60a1b67593292727b724a203c67e70b21ea7d343bdf9c986375",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "86d488d28a962010ade9e502c13aaeb236398fab93bc3597be79c9390c71bc77",
+          "present": true,
+          "active": true,
+          "cache_key": "99935ff8b983d975dcf3b6e26abdd9a04d24493efe6ccad64e7914df9209a9ad",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 105,
+      "predicate_name": "MIRRORS_REFERENCE_OPERATION_ORDER",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "065b3a36e11af7b36f0611f76dd1de478b92c4be87e3f482873eebf0ec0489ad",
+          "present": true,
+          "active": true,
+          "cache_key": "786d8757f93574dda49e1878a9c9fb6ec381120e53b97e1903b74c4ae59854e4",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "c9332969d482219597654f5f76e4f5700934d54404828188d5255945283ff173",
+          "present": true,
+          "active": true,
+          "cache_key": "2f57cc2d4042498a064e99e735df944be90be204593c00d36cdb9a5e31a51b6f",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "c1f10f7f648da8128c143e2dd67881ae9d9f3404a958cffe3bcb898e91e3b722",
+          "present": true,
+          "active": true,
+          "cache_key": "a2f07729b182c387e99acc5572abc5bffef5d9df94ef43dd3cadaef4200e11f7",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "469e418b1ade3f703bc5a853e40d62b975878b039029ef0e28fa706de8975b56",
+          "present": true,
+          "active": true,
+          "cache_key": "ad36d383d2789641220ac413d3fb59229a5ac560dbe31999aa94fb03eacf56c2",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 106,
+      "predicate_name": "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "603ee491bcd000d3825915caac74c851ab8df835e17f9b8be531f443d70e3e3d",
+          "present": true,
+          "active": true,
+          "cache_key": "5d96f6a5fcaeb41dab2ee4c7105ff4c5afae60948a2644417cdd314c6260f16c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "159dc7c98c00f4e24083395ef1a8aaeb414b3b5ebe12783808639e3133d917bd",
+          "present": true,
+          "active": true,
+          "cache_key": "5fe09b6422d2814fa7c0bb88096b47fef8cc8b3f86f23156952147c7c884e168",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "5e022ebac91087bf4be8382d741d4f74c4b9a07f88bea3e719650cc6a566e766",
+          "present": true,
+          "active": true,
+          "cache_key": "7b00d8537339833296f594264bf8d2f6c4d23bdc3b620a2d36a57f6f62df3ad7",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "5d80b1b7c3bae52a8fb075f2cbf0b563b9ff59a5e81027b826054a2ea13716e5",
+          "present": true,
+          "active": true,
+          "cache_key": "dc693ce8fb29ff5d8e4dbff4721e66f1e7720990609c74605d549c775130225a",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 107,
+      "predicate_name": "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "91b40945730ba3a2cf10494f6688f93fb8b3ebf451bd8981bc5272890a1e9b09",
+          "present": true,
+          "active": true,
+          "cache_key": "8711a486a19883406d7032063958217d07a0aeb131aa3922fdda32f24b911ce9",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "f895ede45101bf6edba79a8e25e0a61aeeb436caae5e91d1e32c0b5661b6037f",
+          "present": true,
+          "active": true,
+          "cache_key": "31281fc56441f173f3e179e83f2557d50845e3b49e6b4d116ff27cf97f05bef2",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "d42c3c461a0c0de8ac370a95b2b1ad48e54672e8a01338e24b9f4619092c3484",
+          "present": true,
+          "active": true,
+          "cache_key": "acb4b53d963aab3ba4a35521da9acd172e12076d9c3a606adf67170977408518",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "4f39c5ad0ef981d7ba1fac23ee0af6fbda3dc7f6eb60e48c4bafd991de2319a7",
+          "present": true,
+          "active": true,
+          "cache_key": "78b2f00883e33b4687fe167b44c1b0d9852dbaeb3345e69ef783d6ac6ae4f45a",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 108,
+      "predicate_name": "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "84f5e350e86fdf7289a0ef1393d5d8dabde6824a8eb3aeea477c39ac1282f850",
+          "present": true,
+          "active": true,
+          "cache_key": "53040392cf7a6c1d6fc9e688ce227ce00b54393ba774898f8dd776bac39c8f5b",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3b0fc5f06ed7d6d2aa7604d4b410917bea488c001e6f75f621546de9c7087992",
+          "present": true,
+          "active": true,
+          "cache_key": "0b6c431da9cc8ed8b8c99f56b6b35a3380072f95213e3e7a00bc674e168f0826",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "3bd145a2620beb7b8df1cbadeb79b4eeef15a9dcd76f8e3ef8fcdc00e432855a",
+          "present": true,
+          "active": true,
+          "cache_key": "042e548146d89494008b4d93735342fa86af4c892af2d6b7a45f44dd02dea9c0",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "88470ceb7cce1942572906e2196648bc150fdc9e718581e0ad5ee73f0f5038e1",
+          "present": true,
+          "active": true,
+          "cache_key": "d61305dd14dbe2f736b13d928543469fe4b44b507af924c8a99d5244584c1d85",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 109,
+      "predicate_name": "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "b1d3868cfaaac7a908d0d7ae1f1d183a8088d0942b6d9840446aea7a68e23561",
+          "present": true,
+          "active": true,
+          "cache_key": "4438030f4c4d3fa099d5605e9185f63bbbf3d92fea656e85607d6a660dd90647",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a71f2a8f2f7cf380e6fce0f22d7caeb32a4094faed4e3f273f4b383083d491ce",
+          "present": true,
+          "active": true,
+          "cache_key": "b2c70b451d195379020600ea43d3ed6c076784d7b048409f48726ea35f1a2c0b",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "acbe6a00b89c3daef38e356ef78b4f49ad02e337ba940f7667c8d17918706a18",
+          "present": true,
+          "active": true,
+          "cache_key": "348314f77fb19db55ae1a6233c3c55f168d9a17a73c9fbe35e49e4202f9d71ed",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "aa56b94d5b9691a2565579a16bd905d47f3dba91408b4ffe281c789159ae34cd",
+          "present": true,
+          "active": true,
+          "cache_key": "64e677e699e017a5fa42b8adc368712dc385c53e87f870f58e52c180675ece22",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 110,
+      "predicate_name": "IDENTIFIES_PERFORMANCE_BOTTLENECK",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "3330b42e4c6916f9c97aa54ffbceef01dc5795352ff43722dc9ad894c503715e",
+          "present": true,
+          "active": true,
+          "cache_key": "ab8c83887cf54c4f4f2f7f1174a97df5bbe136a484c0a9b82fede4260fe38518",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "6a2843ed7dd4d6299a0573855958c9095a94ed9742e6ab2290b12a3e1833e498",
+          "present": true,
+          "active": true,
+          "cache_key": "fc8271ed9124cf284eec9c9d9505bea825aa2c8ec65a9d26c665447dc2c926ae",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "f05d8d54ed7ce47eb336bac05f8f1fe63dd30285dfec255e2087050acfc4e9cf",
+          "present": true,
+          "active": true,
+          "cache_key": "1b2977b3590d293f832f0cc216094e951227f5d3901d27e60e78515edd118c58",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "fcb4b540adeccb174f0a059a3a3c865a31dbee00ab17fed29cffce1233ca2084",
+          "present": true,
+          "active": true,
+          "cache_key": "ec42809aae33a0d8ed83db1ba4bc82a0301b73843cd5ebb6a268a2ad6edad1b7",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 111,
+      "predicate_name": "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "fdbe3c450f374aac073a3937d9d5b7dc40c904e23666c8646079f35dd960d214",
+          "present": true,
+          "active": true,
+          "cache_key": "426db73f517ee33e8378c00d2ac8e09f33c6cf20431e1a90f28fecbbae8eb9ce",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "578acdcdf03690ffd8131081cce64cdaca88c0dcbfa3840c289c4e973c4f7a6b",
+          "present": true,
+          "active": true,
+          "cache_key": "7fa0d5a2385778f5e4fd4a6c3ce8c079822522462b24b8b522ded5f9370d3e28",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "10bc316a4559525c8cd85b3d66e132e3780e578f190d623096d193829400aa04",
+          "present": true,
+          "active": true,
+          "cache_key": "6722f20f9e9e1ac8a0717f7c7381755f7241f0e80f6b730cf64a913a1357b402",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "946211500c6d60483649f0283467ec51f98e8531be95128f7049cf8541b1d6de",
+          "present": true,
+          "active": true,
+          "cache_key": "24642d82178730b94ece14ac16c429ca8130215500fe2e5821f5d0e59003e8ad",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 112,
+      "predicate_name": "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "df7f7271225fb822dfdb84efc187752605f068516451f58189d4c5293e46ea35",
+          "present": true,
+          "active": true,
+          "cache_key": "89a8294b2b2220c38b6f22b46ac9a1a1db02ab4e7112256b011679ae100ea886",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "e789f433acb2d1dde7f85cca3c6714e9716a9c199ad970da926fb0bbd50a8991",
+          "present": true,
+          "active": true,
+          "cache_key": "f9a1449583822537c55a04d24f1a90102eeb28740204fe04a3e3dd895ec7f44c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "d7ebfb0a62d38ff3ebd35fec4e9057e90797477f6a219261666f41096a2370a9",
+          "present": true,
+          "active": true,
+          "cache_key": "0cf93515a0035ea2d29d42255dc85f7bf11245f7c067fd0b07cc3e1ea05df37b",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "942486bb2ad95731c936f87fd431bbc608a4d0e7ffb0485f7f6fd2008c391365",
+          "present": true,
+          "active": true,
+          "cache_key": "f9a091e25398e02b408c833d0db8fcca9989978f588e952b71f9c10f101f26ec",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 113,
+      "predicate_name": "DERIVES_DECISION_FROM_MEASURED_RESULT",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "bbdea3f576405f2a42b847a83056e91e98b5f89d176b0893ea0b3755f6135c78",
+          "present": true,
+          "active": true,
+          "cache_key": "16b23f43b61cfdb2f2d380fb32779d2d21430960cbdfd0c506a2271e6632bdf6",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "9ef43f4685cfd402758064127648080466e510d430f388fdbc0e60d503f41d83",
+          "present": true,
+          "active": true,
+          "cache_key": "285b171ef82c57191bdc8615531476c1c358ff603380b7567549285496d4c40e",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "e44ee36a828a1df7df287c251993c089840aee1b4f1fb0466e45bf65c16bbd69",
+          "present": true,
+          "active": true,
+          "cache_key": "d4d333d0b9900c0c6d90df90e0cbfa5608530051cc3d70135447dc4ad851c4fb",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "4a6299a872a852368d08afb737fd77ae2bff8dda7b7e6c510443da0235fc4d81",
+          "present": true,
+          "active": true,
+          "cache_key": "a78cc557ae08c2227429c0617ad61ed66b93e1b015098fd81ab145a21ba51df6",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 114,
+      "predicate_name": "DEFINES_DETECTION_SIGNATURE",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "1ee7d78d8e11ac63847ee08100a195466d1cb1c13102b83a7e22810c89af32a8",
+          "present": true,
+          "active": true,
+          "cache_key": "5dcbf583804e6551820464d484ee059f603dbfe98c11a5081ace3f9c7dfc676f",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "8484ce297c1e0489f5b0ec24cd806e45cb14b9e87e915a41aa99a56800478966",
+          "present": true,
+          "active": true,
+          "cache_key": "c7031f28b3d6f19e2775fcceb618cf50785a06354effef5236af14cee1a4249c",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "823aa2938b8753bc4d04273ee5814f6ab31cb766b4bc63594f3f7cb87d9b858a",
+          "present": true,
+          "active": true,
+          "cache_key": "8cd93ba652de3c4162f55f46c4d1dc5be3b718c0014b445af53d044d1fafb3e4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "1d596ecf35fb4f4d82823b4fea846ac85992a028339573e702ea9b601950bec1",
+          "present": true,
+          "active": true,
+          "cache_key": "cc785766ae53f1355f015cc44058d4653c622a44f2c20852d8eda0f6085aaec8",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 115,
+      "predicate_name": "REFINES_DETECTION_CRITERIA_FROM_OBSERVATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "4c3fd6190f4943b380ecf9bcf03571eb9a1a9274ca140689fec79cf48db51458",
+          "present": true,
+          "active": true,
+          "cache_key": "524ed459367c543e292250bc745b6752d94b417dab07288b2f80c94991919497",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "a1fee659183992f22ceb765a4a0ed575d7a89de41ad8af1dcddc97509c70a40c",
+          "present": true,
+          "active": true,
+          "cache_key": "f9c46cd47ea416f5f50d3da170d94c04d3ada7ae221d2600d570e5d2676821c6",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "08e994094ca9e316a1ed5a7c27948700cb49c3da4d8ac778c0b16bc8c1adbb3e",
+          "present": true,
+          "active": true,
+          "cache_key": "f291eba5f3ac6d9ee843d19d814465470c47f68e9114120c44900d520c1c4f1a",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "172e514bb8f7895e4e517d3d7c1a96c3416e3e087f9a882077e32a1e29f4835a",
+          "present": true,
+          "active": true,
+          "cache_key": "e9493a369dbf531f57cac994e5b034546f90212c712b33b66c3822eca1f9b01d",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 116,
+      "predicate_name": "RESTRICTS_MODIFICATION_SCOPE",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "82798e4171f66fe7a36239d5bd3b1a92e95d31cbe4e43dc0473b14e6ae215978",
+          "present": true,
+          "active": true,
+          "cache_key": "80619e73bfd58d37b640b6449049050c8ab4de35edb816f7e0f03a9f0724f37e",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "181cd41847ebe65bb3ee70fd64c4b04d78b84ad6b338ca5da5ca1cd66a212caf",
+          "present": true,
+          "active": true,
+          "cache_key": "954dbb70c13f1b4fbe145843de4cc0c82893167877fb81deb80937669d23c062",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "38267367e83cd98608996dcbf6af9ad79069b689375e18d679e4aa069afa1183",
+          "present": true,
+          "active": true,
+          "cache_key": "5c73d2238a25e7eddf60cefd6348d986e33d3daae52daae379a65c08cb9faaa1",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "1292ef3d0e798d1626e4d981edb6ea3239076b861eb2322a77aa44f34bb1f6ac",
+          "present": true,
+          "active": true,
+          "cache_key": "bb22e1a513ccee303630c6f12ab24fc1301b649bb0fe4fbba9e504d77f1a9572",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 117,
+      "predicate_name": "ASSESSES_RESIDUAL_STORAGE_RISK",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "269b12ddaba6f97b453c68414f8db02d12cf91ee9228c66ad85f562d4ba93de2",
+          "present": true,
+          "active": true,
+          "cache_key": "6ca063f3d10d6e97dd4b452576fd7a9c28f1b51404257b3d397711fb57f8e09c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "69204a672d488a385c9334f6c498fa47bafce22cd9cdc7903704fd071e9b7843",
+          "present": true,
+          "active": true,
+          "cache_key": "386d443de4086dd6e29ba3bffdb15e2d1ad86b4bc8aed777d436ffec8d177c2a",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "de4fb51b0658d62ef598dc7fa03c1cbe6dec0fa168f434d0fccf7bcf91a06093",
+          "present": true,
+          "active": true,
+          "cache_key": "c02e73ee117fe7b8e47d40c2b4b5cb1774075c6737b8158b61ede13808f76e08",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "fc20d9e78bba9312e52551f567822aa7f6ef357023a7426a984b3863ab508913",
+          "present": true,
+          "active": true,
+          "cache_key": "c431384b72779fbec36fcba20a1ba122c6da2e38843fd5277ffdcc6276d391ef",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 118,
+      "predicate_name": "DISTINGUISHES_BENIGN_REFERENCES_FROM_TARGETS",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "673d949947b265ea21a1bbf78326b75680b93d26304dbd54c35909ed152c19ae",
+          "present": true,
+          "active": true,
+          "cache_key": "88ff9a2dc1b585f22e7bd167116b647b39fce37f8ba2296a14accd7c88e51d30",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "d3213e650aa088b221160583c33b0ca53d88cc70c6fe92c0cd9823029cf41bf4",
+          "present": true,
+          "active": true,
+          "cache_key": "e19b39cf299ffd029fb641500f9cb014f8b179600300b9ec93dd47e661bb8f93",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "44c82e5f641bbbef4034ab891425e7d7b9a5141f4d94ca86482aec06632c426a",
+          "present": true,
+          "active": true,
+          "cache_key": "ac594c36ecd172e3f81acd980748d3f65aa1c5be631ecc1f5de0c9d5b45e89f4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "7b68d30c9cf2c4d2db9c22213f27dd4d96dd2aab143d34299cc6e751df385d32",
+          "present": true,
+          "active": true,
+          "cache_key": "2488e5bdf62090bb8a44f07d33d2fc8a037b0e5415ba6ee0b2fd3ba60bfb53d7",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 119,
+      "predicate_name": "ESTABLISHES_PRE_MODIFICATION_BASELINE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "9386711a7e6c857458758af414b1bda792b602443372f582cf97570ccb8214bc",
+          "present": true,
+          "active": true,
+          "cache_key": "d7788601d4852cdb165ec2edcfdf74aef2430ef4f29e4113eabd876ed199d3ae",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3b387b9d7dc82afa7bc61b283edefabf8bd77eac6bb18118e7766a667a4c86c1",
+          "present": true,
+          "active": true,
+          "cache_key": "f8f8b3d267968e60d1076587920097cb3dc5a5644ebd25ac5cd8b9d5ea4c46e0",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "6fe32681f8789a79488d3b28bccb5339ab02c646424ed06e56c17348bfecee10",
+          "present": true,
+          "active": true,
+          "cache_key": "42d4f6f06f64a0f54e925db6a049fd83ad3284d80345bdf56bff058805c644ab",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "29a3d0233521e16bfb6baf10b6396f77f149e8b293dc82c256deec35e219f1ff",
+          "present": true,
+          "active": true,
+          "cache_key": "dc8d7ebaabd3e35ae6c00630f4825528844b34ea3e0e73d6aa75a23be34a6c15",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 120,
+      "predicate_name": "CONDUCTS_RESIDUAL_RISK_SWEEP",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "71d96ac0c89e10b46797cc9fee856240d83133b645a7e5ef97ae5cbcef29195f",
+          "present": true,
+          "active": true,
+          "cache_key": "62c06802d7f31d32718ac8e93b37bb3f7ae703d038605817f3d3c562e5773220",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "13bff998fedf5e28840dc017a67f0ffb4cbdd4386bbd7f11176a88df6349a332",
+          "present": true,
+          "active": true,
+          "cache_key": "571ae03cbe63014139f5ce025036f196aab6dd0dc92e419b63cb6c219ce9b1ee",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "490ae0870dd5fc4bb7badbbbc0dcff329dbc2427993b951b134c3f97ab95355a",
+          "present": true,
+          "active": true,
+          "cache_key": "5ee1891028c8aa8448581bcdcc6dfe12ed61f5fd69646589cbf5819063b193f4",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "6f106fb0d2f3361fa95b369fed7b695690b2a0dc835331dae1e631284964ba95",
+          "present": true,
+          "active": true,
+          "cache_key": "fbd3f0e96f33d2dc162f6abfb61f00f2475fd70b2c1abe7d32f080ac17774434",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 121,
+      "predicate_name": "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "9745e8a60687995c8a93ab2cd7c3d3ad24fb46de106eaf7c00a9e256f33ca06a",
+          "present": true,
+          "active": true,
+          "cache_key": "f59fc2b00c5e215319b566325bfc8601b3bdf71057ff681832332f881da03a6c",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "9f1eb3d9bb41ba99d8ae68062a4b0c9b28a390491d8edf0965c7d082ecdecdd3",
+          "present": true,
+          "active": true,
+          "cache_key": "99420a6ad5df696021bedea5ba825620bdde4e6e14001f3e395cc2623b431cd6",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "cd5235a5bc0d0f16aed63436f9f26ac28b49cf972f7cc80c6f45f47dcd0b269d",
+          "present": true,
+          "active": true,
+          "cache_key": "a92acb9336ad6b715e14aae7bb965531126cad263c756c7561a6e1dbbb289049",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "419502bc9c55c9369a3fca033cb701812566b296ca9a073809e7fe7e362a1bf1",
+          "present": true,
+          "active": true,
+          "cache_key": "27e2c79a38f1e789f4cfdff8c02320969dd84269b27efb5cb3a9d98b7d7b64d1",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 122,
+      "predicate_name": "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "648e32597d584def89fe7b627d4a473b63fbbeed9043bf6ae63f03a29be016bc",
+          "present": true,
+          "active": true,
+          "cache_key": "1f03a88f99da88a9b4824b89177cfa1a44f266c79276b018f48aec7c8f9769c7",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "170d12eb4f851213c23b531b4a4dc6dc27a390283b0edc25de64adf1030e3ae2",
+          "present": true,
+          "active": true,
+          "cache_key": "4464cee7fa03a5b7f5827f5a73e4e393652ec9276687174aeae1c1c17471c85e",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "effd1bbd4942332e53a6a8f392ddcb20aa1d80f9de9ee570320aa25b53451b34",
+          "present": true,
+          "active": true,
+          "cache_key": "3e105eab7e3ca1cfdd09bebe28614253f474ddcd7217f8ab82eae29cbff27c00",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "aec29ba05ee80aa52ef571291227c83bad5eda3b59a39391aab97912f137aee0",
+          "present": true,
+          "active": true,
+          "cache_key": "3425f6fa600bbc0126e62574b9454f0b7cebd6e649be0103f9b9872fa5ace805",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 123,
+      "predicate_name": "ADAPTS_APPROACH_AFTER_FAILURE",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "9080fb4c744c7c685d65733eb595e574138ab0fbb898ccc695260431baab6d64",
+          "present": true,
+          "active": true,
+          "cache_key": "fca2ff0bbab5b3ff20be3b1dafa53a3648fb2e7fecac80667e3fff00d008fc91",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3cbeb41a019c71b4d676f9a5d46f03cc01221385878fce2583f4368960402dbe",
+          "present": true,
+          "active": true,
+          "cache_key": "7edf85520230a687513969f2b434a4bdde2ab22d36a529c11d52e5ac136e309a",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "c0268a87be977193f233b756d58efae847d2d679712d6ac764cde84b0a2548a3",
+          "present": true,
+          "active": true,
+          "cache_key": "ac037c8d8b21aea1799292bf3d90d7bbd1e5561c376b9628c0f2bcfb4e4db982",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "a065a313c106825be0cca92e7e0afbd61d69d84f969c0e473142cc2ab5037e90",
+          "present": true,
+          "active": true,
+          "cache_key": "6b802f9cff62e55d4ff2d9ea2080fdd3f70d948b85587ba4a9d3a2d873ea5fe8",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 124,
+      "predicate_name": "PREDICTS_EXPECTED_OUTCOME",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "80f103caa6476f31300d939b8021a6b2622789d393828207eec1a6e28df0a282",
+          "present": true,
+          "active": true,
+          "cache_key": "bece7e371091781ec20c177637b19f41e10739b13309a77df2ed2e47c56401b1",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "3018dad28af667048b3d4ae942c4c04dcfeb49a38d947f74e5ae72e6db458f9b",
+          "present": true,
+          "active": true,
+          "cache_key": "fd2388bfb137d6a16ff6c685ad1d273ea2b0dae1f66e23294b1593f6fd314478",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "563d7e534ba005ee6f73ce1e3365529e50d7115f783159dba015a31ef845b6c6",
+          "present": true,
+          "active": true,
+          "cache_key": "99241ab5435537dcc41f7197f8b035ae15bb00594e9ebdac90b685b5014f8f52",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "170c7f89f1b4d2127b5080694e9fc4d6a656aeedc665fc81e8256f34a75698a2",
+          "present": true,
+          "active": true,
+          "cache_key": "419fb11eee5ce6e254033c2c0a7e441ccf210abf1819dcaf82dfad8db8142572",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 125,
+      "predicate_name": "RESOLVES_OBSERVED_FAILURE_WITH_CONFIRMED_WORKAROUND",
+      "arity": 4,
+      "fields": {
+        "definition": {
+          "text_hash": "50bc6127ba6d5b5a234562e55a2902fefbb09053d4e072f0f053c97708ab9ece",
+          "present": true,
+          "active": true,
+          "cache_key": "a6f15ef6f152ca2a9ba3c8b54b064a5217a5bdf631edd331715e7392b942a75d",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "ee93a42bcab537eaebd64d764e29ba69d718a760bc09249a001cc125b90abf63",
+          "present": true,
+          "active": true,
+          "cache_key": "9046b1f71e456f566553971d5a90c8a9ed85d7a93c4de3e4c186a8b166aa7c7d",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "1e4d36c0e8f29474c0b7b69c408a6ec88a4e673cec79a3b293578c69dc5d83a0",
+          "present": true,
+          "active": true,
+          "cache_key": "5de9054b45ca6730e2558966d00db8c328d84dbd77ff24409cf24fa6d892942a",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "a690a944628d5ffec25745d61bc0553b8ae3aa2e49d86eaa69d92624147825a6",
+          "present": true,
+          "active": true,
+          "cache_key": "a729a0291c35d6f66ebc4d066b2cf5107b54f1c24a43fe61963f2f52112a47e2",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 126,
+      "predicate_name": "VERIFIES_NEGATIVE_CONSTRAINT",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "e443dc1ab7fceae98b75c0abdf408ce8dd29d9ba7dfa92261929fa95895361aa",
+          "present": true,
+          "active": true,
+          "cache_key": "764b8a737193af29dd100ec374d5e54a18650bbaf66f06106e10ffa5ccff8b57",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "86b8e6453ff018eb48aafe7d8dde9a1dcbb45d6482f9d68e5eb8c78755f45a1f",
+          "present": true,
+          "active": true,
+          "cache_key": "0d3cce913ce949a2f4f13aa5a75992e55f8bd72e9c6c39342d5a41e9a1dde588",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "f3457d664fca98b812e96562dc47623d716dc1695fa714b8f99b34ca87548552",
+          "present": true,
+          "active": true,
+          "cache_key": "2af0c8f76d04f05c4fb6d4c0522fad7077ed4f43b299d170c015c3dba6055087",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "571cc7e6ce3e0a9f80da4c36e3fa57daad1a81ee3e41a7c52f469b32ca902b3c",
+          "present": true,
+          "active": true,
+          "cache_key": "d1f464aa4c9c5a5c3fb47b535d2c63edfc8fb487de610822db7d43d17ff1d836",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 127,
+      "predicate_name": "INTERPRETS_RAW_REPRESENTATION_AS_STRUCTURED_DATA",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "43f27690e2a3d03e0a0dac1fa78d2fbf3e81575f1de35b9c548724203a2428bb",
+          "present": true,
+          "active": true,
+          "cache_key": "03acf02473a758b773d157e8ccaf75be7f217e6e5631e7988694c50baf0ffde0",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "58c98ab15b1034c75071cc7bd2418f7f5aa636d74a7dcc12865ca156fa7e085b",
+          "present": true,
+          "active": true,
+          "cache_key": "a19336b557b9388666c8284473b10463de59fffbb34126a4dfde8e39b6b5a674",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "f961c084582e4d246f5d1325bccf073273a679f4ffc3c8c201c1e9fa25254b11",
+          "present": true,
+          "active": true,
+          "cache_key": "ff859138c6f1f397f69e4b5004fdd3ebcf2a4e9e8af21aee96ca7cf5cfefaea9",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "ed4a1c833bf12729824ca10fa366640837a0047c4006d592020a98f1aede6cc5",
+          "present": true,
+          "active": true,
+          "cache_key": "b4ab89a57710e964b2c8ca3ae01ae7f5cb3eef67b336952c8308e84017783a5b",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 128,
+      "predicate_name": "ASSESSES_COMPLETENESS_OF_RECOVERY",
+      "arity": 1,
+      "fields": {
+        "definition": {
+          "text_hash": "0785f9d3bc03f05f4e96ec268dcb5b175e551f2fdfc0bd880d77654796a4aca4",
+          "present": true,
+          "active": true,
+          "cache_key": "d439ec07e50b95b67066762351a134644053535f0d61a21cc66c4c458a6a1d2e",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "e31e4ef558721abb645b6fbc34878ac1c49902d545c0469e2718a154f3d8d992",
+          "present": true,
+          "active": true,
+          "cache_key": "59ca984c3df34ef49c77242fc84a164dd6df8408312ffbdb79febfb7fd6c3768",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "29b5bc9fdc8f6c79ac6693f439fb4782863836c99c8d9b10cc8fbf8bb40691d7",
+          "present": true,
+          "active": true,
+          "cache_key": "46f536b5d83acecf9e0173c13df6f09b73d3c0d90fdeb9b69a22f20f83bfd2ff",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "454317d00fa4b228cb74b2dbc06a3b1cedb1701fb1b08859b1fe1946d6bc2bd8",
+          "present": true,
+          "active": true,
+          "cache_key": "bed96020c6a357513bb5f9bcb6ae7e8f1450daed5e376aa47ea5615caac858f4",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 129,
+      "predicate_name": "EXPLORATORY_INSPECTION_REVEALS_CAPABILITY",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "42e63ce2669ae9fcff7257968f985742b9220d89745cc4399d4883be0aee0ba1",
+          "present": true,
+          "active": true,
+          "cache_key": "0ad0b08767eb8f684cf344fc04bef3351cb835296a63ccc3428b2e33bbe535f9",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "5ad491d8fb66eafc34a89088d0fa522da7b456ac83302f980d3a2d9626ff5d11",
+          "present": true,
+          "active": true,
+          "cache_key": "6d4e8e4b1a93ce5389f98b0f0847f7570a6dedc705d577181a43595556272390",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "98bda803b9a131e2221b45be5822fc87010810349440a6b5a9ffc9a7281e1d75",
+          "present": true,
+          "active": true,
+          "cache_key": "4a37a7af036a191be44b1808103eb67318b93c37533806bc92969c2d773da779",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "0cb7065fd78c29a04edf630f6816cefb00cc1b024505058da79bfad9b8d632f6",
+          "present": true,
+          "active": true,
+          "cache_key": "45d1030aee6ae328399e746ecfba9e4aac39373739b3579a09facc45fcc40789",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 130,
+      "predicate_name": "RECOGNIZES_INCOMPLETE_OBSERVATION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "80702e6a0486f96b8de52544ac198bfd22047e27fb1a87a05bfcf21417321649",
+          "present": true,
+          "active": true,
+          "cache_key": "fc9983be7e817f31da979ad5d53540f5474255c62a8c1738363165b2b1b755db",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "790e8995b8ac141447e5f5b99ecf2c0b2ddb7cc08adccbab72855ab1196a3799",
+          "present": true,
+          "active": true,
+          "cache_key": "769d0c6fae15200246d36103d6a21d63aa4a851466995ea1ba5c53ad4edf81f0",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "9174d8313d4e8e63951c9400ec3abd290ccb627f769b41bba06cd2cd5bd2d540",
+          "present": true,
+          "active": true,
+          "cache_key": "f7ec5b757828376bddbf3f2822932aeb81c5a0334d07fe34950426bf82348ac5",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "bb2abf84125be92dbcb4285592f66c8709f3318a0f5f86a9e6f5d5146a89f504",
+          "present": true,
+          "active": true,
+          "cache_key": "06c054f4552c053fa023013c9a5c24713a4a7d6d994df094c7ca8450ba679ee5",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 131,
+      "predicate_name": "RETRIEVES_MISSING_SECTION_WITH_FOLLOWUP",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "262f57e7446c8798700e43b8bd53150209a3c8d06bc137337a887ae1f383fed9",
+          "present": true,
+          "active": true,
+          "cache_key": "eb09e7322bf018e7b128044dd09aabb0c55d5f6050ceaeb0dec92a88eea321c0",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "4be51ceaed0b06d7ee352a1cddda88058eec7d9da56c53d0b4da767bcc918492",
+          "present": true,
+          "active": true,
+          "cache_key": "f5801d96297c295bd0b5dd1ff769ae304e82db9f3d70f0c4c8ad57119c1afea6",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "31398c9ef7c7aa758377bbace62408c73be4bf07cc39df31bc9818d7f2f36726",
+          "present": true,
+          "active": true,
+          "cache_key": "301ffd04491d652f4b3d6658d878d98720e11e6ca2cf73f9af533c11550ff17f",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "64c501441d9554c36d04e4dd314d61deae06c242d295060f5e51d057f974e733",
+          "present": true,
+          "active": true,
+          "cache_key": "305527593485f0828d44de89dc6368ca0a13e4fa0d382d72383750a1acea5427",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 132,
+      "predicate_name": "DERIVES_TRIGGER_CONDITION",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "f94e1e849d493527c2ccce487dbd7944ac42144951ea7774cfa7f411bff7b50b",
+          "present": true,
+          "active": true,
+          "cache_key": "6cc0e8acb33cb42912bff3954127b23fec8a8d6babb3c5d100724ce5381752be",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "66f10eef894cf410d71edda304c2a26258309c72d32c4fda3ab61457089ebda6",
+          "present": true,
+          "active": true,
+          "cache_key": "47ed9ee39671070314c77a63c9c9658b32ee81c5175a0cc54970e4fb71b87170",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "26db336e2ca4c74ad86da06b70f2240c2a0ccb7fe67335ec005de797271fcda5",
+          "present": true,
+          "active": true,
+          "cache_key": "c606abdf64e8124d521071e39398592486f65640b92da4b6c07b7de6ca2dcd9c",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "056a5256f658bb377c40dce343b60da914e5fc44eba7987e7903199ed36e46d3",
+          "present": true,
+          "active": true,
+          "cache_key": "f43f3b606635f46bac04ee9ade09322746192b7bee31069e6d6646c6ba67977d",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 133,
+      "predicate_name": "DERIVES_STORAGE_LOCATION_FROM_LAYOUT_METADATA",
+      "arity": 2,
+      "fields": {
+        "definition": {
+          "text_hash": "6ebbac64dc07f7ddd08e503280d6091db36d91fb16b14146fcb78499cf82bf8b",
+          "present": true,
+          "active": true,
+          "cache_key": "fe95c39e3deebf2e8d13c6d4de677cfa8286a87820ae102fbf7f75d7e3606327",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "2bba0b87cd45f2e9360d92422d42937c270808f0b99d33d1555f7b1f049e24dc",
+          "present": true,
+          "active": true,
+          "cache_key": "1fb26a9242bb5591152332a2db172278e0feb65e879622d55ec4ef7d430b7fd6",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "da78205939b41fbb2f55ff4f759cb76c0c6372c16d776b7101b8de9d661aff4a",
+          "present": true,
+          "active": true,
+          "cache_key": "e72924dcad57a1178e29ed900ea9df130086dc22d4b83c3852b336ce53fabea0",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "2396191dbe702c16361c06b9043cce507f87882405a135ee5ada0dcbfff45022",
+          "present": true,
+          "active": true,
+          "cache_key": "fb05449b3a5961f0a62dcf3e94d83518044947d3af2eff4bf347889dc1b9f73c",
+          "embedded": true
+        }
+      }
+    },
+    {
+      "index": 134,
+      "predicate_name": "DECODES_OBFUSCATED_DATA_USING_INFERRED_TRANSFORMATION",
+      "arity": 3,
+      "fields": {
+        "definition": {
+          "text_hash": "7fb82619e1f0fa285cc0a2a8e78d1cbfa0fa2a15800deaa7d0aacb68c10343bc",
+          "present": true,
+          "active": true,
+          "cache_key": "a461c6c5f9a4b51e63a45b4aa3080e4eaa2bfba679c14278d83bae88d7fcf9cf",
+          "embedded": true
+        },
+        "parameters": {
+          "text_hash": "f3bbfadbfe25a6c92d2096d28c6e615382bc2e58205ac37c80d89435c6026b66",
+          "present": true,
+          "active": true,
+          "cache_key": "d53c61507aa11d2e5cf94493342e6899782023eff2de9570411500504064b7c8",
+          "embedded": true
+        },
+        "assertion": {
+          "text_hash": "8f5bcb420f9ac716445143c38699c7054a25ad0122e01958b5b538b3f65f13d9",
+          "present": true,
+          "active": true,
+          "cache_key": "ab0625983b1d99509dbe71c3e0b3515592a9fc20f953043d1e027da371dd94f7",
+          "embedded": true
+        },
+        "exclusion": {
+          "text_hash": "2a514f7b9a7ebc2b8f1014d7a08f70e0dedf619e809d285a7ef8a40f96c8a27f",
+          "present": true,
+          "active": true,
+          "cache_key": "fc097d3cf809a55f8240d8b7aaa0c8593cd4d756f137cc53004998c9ec848ecd",
+          "embedded": true
+        }
+      }
+    }
+  ],
+  "vector_hashes": {
+    "definition": "0904c1809ca278e5c3f452804513814b092406e4317b622b19cc38b658c6ea84",
+    "parameters": "85a99c3bda8e7a42224eeedf0164d9e1983a7fb30a543976261f1236db9ceafa",
+    "assertion": "06bd1dfc42ab6901f4132f40882b4149cbb129a6e7905f9749920cabc82ccbe2",
+    "exclusion": "c712a84aa20051c602f483daf544f6fa9181e6b15580fe45f378e3f9414cffe8"
+  }
+}

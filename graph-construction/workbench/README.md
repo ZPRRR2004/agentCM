@@ -65,18 +65,55 @@ python3 -m pip install -r graph-construction/workbench/requirements.txt
 ```
 
 1. 在“模型设置 → Embedding 模型”保存模型名称、Base URL、独立 API Key 和可选维度。默认模型名称为 `qwen3.7-text-embedding`，也可填写 `text-embedding-v4` 等兼容模型；仅在服务支持 `dimensions` 参数时填写维度。地址示例：`https://{WorkspaceId}.cn-beijing.maas.aliyuncs.com/compatible-mode/v1`，请替换实际工作空间与地域。Base URL 中已有的 `/v1` 会保留；允许填写末尾为 `/embeddings` 的完整接口地址，不重复追加该路径。根地址或省略 `/v1` 的 `/compatible-mode` 地址补上 `/v1`，其他自定义路径保持原样。
-2. 在“新建实验 → 04 / CLUSTER → 谓词语义聚类”选择已完成的谓词发现实验，或上传本地 Registry JSON。已完成的发现实验详情也提供“基于此定义库新建聚类实验”。上传仅接受 JSON 数组、`{"predicates": [...]}` 或 `{"registry": [...]}` 单字段包装；请求沿用 2 MB 上限，调用现有 `predicate-definition/v2` 校验器。
+2. 在“新建实验 → 04 / CLUSTER → 谓词语义聚类”选择已完成的谓词发现实验，或上传本地 Registry JSON。已完成的发现实验详情也提供“基于此定义库新建聚类实验”。上传仅接受 JSON 数组、`{"predicates": [...]}` 或 `{"registry": [...]}` 单字段包装；请求沿用 2 MB 上限，调用现有 `predicate-definition/v2` 校验器。随后选择 Embedding 表示方式：默认“多字段加权拼接”，可切换“单文本 Embedding（原版）”；字段权重在同一弹窗中编辑，修改权重或策略不重置聚类配额。
 3. 设置目标总类数和各元数组类数。初始值为 `min(50, 谓词总数)`；每个非空元数组至少一类。修改总数按容量约束比例分配，余数按小数部分降序、元数升序处理；修改单组只更新总数；“自动分配”可重新按当前总数分配。支持任意正元数，集合参数仍算一个参数。
 4. 选择 Agglomerative（Cosine / Average 或 Complete）或普通 K-Means（L2 归一化输入、平方欧氏距离、可配置 `n_init` 和 `random_state`）。保存草稿不调用 API，点击“开始运行”后才生成 Embedding 并按元数独立聚类。K-Means 若未达到目标类数会明确失败，系统不会自动减少类数。
 5. 在详情查看元数分布、目标与实际类数、Singleton 数量、Cluster Size 分布和完整 Cluster 成员。左侧可按元数、名称、Definition、成员数或平均相似度筛选排序；右侧展开完整原始定义，点击相似度矩阵可对照两条谓词。完成后可导出聚类 JSON 与 Predicate-Cluster 映射。
 
-Embedding 文本模板版本为 `predicate-embedding-input/v1`。文本严格使用原始 `definition` 与按顺序排列的 `parameters[].type/description`；不加入谓词名、参数名、成立或排除条件，也不调用 LLM 改写。结果保留完整五字段定义。Cosine 分数描述向量空间几何相似性；不等同于逻辑等价概率。Medoid 为真实成员，近似并列（绝对差不超过 `1e-12`）时取原 Registry 索引最小者；簇编号按元数和 Medoid 原始索引固定。Singleton 的平均/最低两两相似度为 `null`。
+单文本策略的模板继续为 `predicate-embedding-input/v1`，文本逐字沿用原版：原始 `definition` 与按顺序排列的 `parameters[].type/description`，排除谓词名、参数名和成立/排除条件。多字段策略的模板为 `predicate-embedding-fields/v1`，详见下方说明。所有策略均保留完整五字段原始定义，不调用 LLM 改写。Cosine 分数描述向量空间几何相似性；不等同于逻辑等价概率。Medoid 为真实成员，近似并列（绝对差不超过 `1e-12`）时取原 Registry 索引最小者；簇编号按元数和 Medoid 原始索引固定。Singleton 的平均/最低两两相似度为 `null`。
 
 输入和配置在 `runs/experiments/<id>/experiment.json` 与 `inputs/predicate_registry.json` 冻结。模型、规范化服务地址、输出维度、模板版本、算法参数与各元数组类数参与 Hash 校验；运行时从私有模型设置读取当前 Embedding 密钥，密钥不进入实验快照或结果。原始定义库保持完整，聚类不执行 KEEP/MERGE/REVISE/DELETE。
 
 `output/` 保存 `embedding_texts.json`、逐批 `embedding_batches/`、`embeddings.npy`、`embedding_index.json`、`similarity_matrix.npy`、逐元数 `clustering_groups/`、`clusters.json`、`statistics.json`、`predicate_cluster_mapping.json` 与 `execution_state.json`。停止/恢复复用校验通过的批次和聚类组；缓存绑定输入文本 Hash、模型、地址、维度与模板版本。默认每批 10 条，临时网络错误、限流与 5xx 最多重试 3 次；鉴权、模型、参数和向量格式错误直接停止。
 
 后端集中在 `workbench/clustering.py`，使用标准库调用 OpenAI 兼容 HTTP Embeddings API，数值计算依赖 NumPy 和 scikit-learn；前端集中在 `web/clustering.js`。相关协议见[百炼文本向量 API](https://help.aliyun.com/en/model-studio/text-embedding-synchronous-api)、[AgglomerativeClustering](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) 和 [KMeans](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)。
+
+#### 多字段独立 Embedding 与加权拼接
+
+新建实验默认使用 `fieldwise_concat`，权重初始化为 Definition 50%、Parameters 30%、Assertion Conditions 10%、Exclusion Conditions 10%。四个权重可独立编辑，范围 0–100%，总和须为 100%；“恢复默认权重”只重置权重。实际权重保存在 `experiment.json` 的 `config.embedding_representation`，由原有快照 Hash 覆盖；模型设置不保存字段权重。
+
+四段文本始终按以下顺序构造，原文和数组顺序完整保留，全部排除谓词名及参数名：
+
+| 字段 | 模板与内容 |
+| --- | --- |
+| Definition | `Definition:\n` + 原始 definition |
+| Parameters | `Ordered Parameters:\n` + 按原顺序编号的 `type: description`，保留 `[]` 集合类型 |
+| Assertion | `Assertion Conditions:\n` + 按原顺序编号的成立条件 |
+| Exclusion | `Exclusion Conditions:\n` + 按原顺序编号的排除条件；空数组记录为缺失 |
+
+同一模型、地址和请求维度用于全部字段。每个实际请求的字段向量先单独 L2 归一化，再按用户冻结权重构造：
+
+```text
+z_raw = concat(sqrt(w_definition) * e_definition,
+               sqrt(w_parameters) * e_parameters,
+               sqrt(w_assertion) * e_assertion,
+               sqrt(w_exclusion) * e_exclusion)
+z = L2_normalize(z_raw)
+```
+
+固定布局为 `[Definition | Parameters | Assertion | Exclusion]`。空字段和零权重字段跳过 API，用一个长度为 `d` 的零向量块占位；配置权重保持不变，不显式重新分配。所有有效字段权重均为零的 Predicate 会在创建或恢复时明确报错。最终维度始终为 `4d`，如实际每字段返回 1024 维，最终为 4096 维；模型默认维度在收到响应前不作假定。
+
+所有正权重字段双方都存在时，最终 Cosine 等于各字段 Cosine 的加权和；存在缺失字段时，使用完整拼接向量经过整体 L2 归一化后的 Cosine。两种聚类算法、Medoid 和所有相似度统计统一使用这份最终向量，不另加降维或特征缩放。
+
+每次 API 请求仍最多 10 段文本，按 Predicate 原始索引及固定字段顺序组织，跳过空字段和零权重字段。相同字段文本可以共享向量。进度分别显示有效字段向量数和已集齐所需字段的 Predicate 数；缓存读取成功后才计入完成数量。
+
+字段缓存使用 `predicate-field-embedding-cache/v1`，绑定字段名、字段模板版本、文本 Hash、模型、地址和请求维度，**不包含权重、算法、类数或密钥**。本实验缓存保存在 `output/embedding_batches/fieldwise-v1/`，共享缓存保存在工作空间的 `embedding_cache/predicate-fields-v1/`；均逐字段原子写入并核验身份、向量 Hash、维度、有限值和单位范数。新实验优先复用共享缓存；恢复时优先使用本实验已冻结的缓存。改变权重须新建实验，可复用相同字段向量；回收站操作不删除共享缓存。
+
+多字段模式另外保存 `output/field_embeddings/{definition,parameters,assertion,exclusion}.npy` 与 `metadata.json`，按原始 Registry 索引记录是否存在、是否参与、是否实际获得向量、文本 Hash、缓存身份、维度及各矩阵 Hash。零块不标成真实 API Embedding。`embedding_index.json` 记录真实权重、固定布局、单字段/最终维度和归一化方式；`embeddings.npy` 始终保存实际传给聚类算法的最终整体归一化向量，`similarity_matrix.npy` 由其计算。
+
+详情页和 JSON 导出记录真实表示配置与维度。点击簇内相似度矩阵，可在两条完整定义上方对照最终融合分数和各字段的独立 Cosine；缺失字段或零权重字段明确标注，读取过程只使用已保存向量。
+
+历史实验没有 `config.embedding_representation` 时，自动按单文本策略读取，继续沿用旧模板、Hash、缓存目录和文件格式；不迁移或改写已完成实验。新建的显式单文本实验也使用原来的向量生成路径。此次只增加表示与缓存逻辑，不增加 Python 依赖。
 
 ### 谓词审核
 

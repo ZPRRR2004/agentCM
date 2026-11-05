@@ -144,6 +144,8 @@ def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_ti
                         value = clustering.export(workspace, query['id'])
                     elif path == '/api/clustering/mapping':
                         value = clustering.export(workspace, query['id'], mapping=True)
+                    elif path == '/api/clustering/field-pair':
+                        value = clustering.field_pair(workspace, query['id'], int(query['left']), int(query['right']))
                     else:
                         assets = {'/': 'index.html', **{'/' + name: name for name in (
                             'clustering.js', 'predicate-selection.js', 'browser-session.js', 'experiment-management.js', 'preprocessing.js', 'preprocess-selection.js', 'app.js', 'core.js', 'views.js', 'forms.js', 'datasets.js', 'splitting.js', 'split-preview.js', 'style.css')}}

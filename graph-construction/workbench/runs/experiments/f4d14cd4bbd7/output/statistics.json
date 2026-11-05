@@ -1,0 +1,79 @@
+{
+  "predicate_count": 135,
+  "target_clusters": 50,
+  "actual_clusters": 50,
+  "singleton_count": 13,
+  "arity_counts": {
+    "1": 42,
+    "2": 61,
+    "3": 31,
+    "4": 1
+  },
+  "cluster_size_distribution": {
+    "1": 13,
+    "2": 15,
+    "3": 6,
+    "4": 10,
+    "5": 4,
+    "7": 2
+  },
+  "pairwise_similarity": {
+    "pair_count": 175,
+    "mean": 0.6946720141233379,
+    "min": 0.5346252263493163
+  },
+  "arities": [
+    {
+      "arity": 1,
+      "predicate_count": 42,
+      "target_clusters": 15,
+      "actual_clusters": 15,
+      "singleton_count": 4
+    },
+    {
+      "arity": 2,
+      "predicate_count": 61,
+      "target_clusters": 22,
+      "actual_clusters": 22,
+      "singleton_count": 5
+    },
+    {
+      "arity": 3,
+      "predicate_count": 31,
+      "target_clusters": 12,
+      "actual_clusters": 12,
+      "singleton_count": 3
+    },
+    {
+      "arity": 4,
+      "predicate_count": 1,
+      "target_clusters": 1,
+      "actual_clusters": 1,
+      "singleton_count": 1
+    }
+  ],
+  "embedding_dimensions": 4096,
+  "embedding_representation": {
+    "mode": "fieldwise_concat",
+    "version": "fieldwise-concat/v1",
+    "fields": [
+      "definition",
+      "parameters",
+      "assertion",
+      "exclusion"
+    ],
+    "weights": {
+      "definition": 0.5,
+      "parameters": 0.3,
+      "assertion": 0.15,
+      "exclusion": 0.05
+    },
+    "normalization": "l2_per_field_then_l2_final",
+    "weight_application": "sqrt",
+    "empty_field_policy": "zero_block_keep_weights",
+    "field_dimensions": 1024,
+    "final_dimensions": 4096
+  },
+  "field_dimensions": 1024,
+  "final_dimensions": 4096
+}

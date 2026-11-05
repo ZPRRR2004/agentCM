@@ -25,7 +25,7 @@ import {
 } from "./core.js";
 import { preprocessDetail } from "./preprocessing.js";
 import { splitDetail } from "./splitting.js";
-import { clusteringDetail } from "./clustering.js";
+import { clusteringDetail, clusteringProgress } from "./clustering.js";
 import {
   selectedData,
   datasetControls,
@@ -144,6 +144,8 @@ const executionStages = {
   applying_revision: "保存反馈修订结果", collecting_feedback: "等待你提交审核意见",
   registry_read: "读取 Predicate Registry", embedding_inputs: "构造 Embedding 输入",
   embedding_api: "调用 Embedding API", embedding_save: "保存 Embedding",
+  embedding_field_inputs: "构造四字段 Embedding 输入", embedding_field_save: "保存字段向量",
+  embedding_concat: "生成平方根加权拼接向量并整体归一化",
   clustering: "执行各元数组聚类", cluster_statistics: "计算 Cluster 统计",
   clustering_save: "保存聚类结果",
 };
@@ -172,7 +174,7 @@ function executionConsole(e, follow) {
     ? `第 ${e.batch} 批反馈 · 已处理 ${e.completed}/${e.total} 个窗口`
     : e.kind === "predicate" && w
     ? `第 ${currentIndex + 1}/${e.total} 个窗口 · ${w.title} / ${w.window_id}`
-    : e.kind === 'clustering' ? `已生成 ${e.completed}/${e.total} 个 Embedding · 已完成 ${p.completed_groups ?? e.state?.completed_groups ?? 0}/${Object.keys(e.arity_counts).length} 个元数组`
+    : e.kind === 'clustering' ? `${clusteringProgress(e, p)} · 已完成 ${p.completed_groups ?? e.state?.completed_groups ?? 0}/${Object.keys(e.arity_counts).length} 个元数组`
     : p.trajectory_id ? `${p.trajectory_id}${p.window_id ? " / " + p.window_id : ""}`
       : `已处理 ${e.completed}/${e.total} 条轨迹`;
   const stages = ["discovery", "comparison", "review", "commit"];
@@ -565,7 +567,7 @@ function embeddingSettingsPanel() {
     <p class="helper">仅在服务与模型支持 dimensions 参数时填写维度。模型名称、地址和密钥可与实验模型分别配置。</p>
     <label class="cluster-check"><input name="clear_embedding_key" type="checkbox">清除已保存的 Embedding 密钥</label>
     <div class="form-error" id="embedding-settings-error"></div><button class="btn primary" type="submit">保存 Embedding 设置</button></form></section>
-    <aside class="side-note"><span class="eyebrow">PREDICATE SEMANTIC CLUSTERING</span><h3>OpenAI 兼容 Embeddings API</h3><p>支持百炼等兼容接口。填写你所在工作空间与地域的地址，模型可自由修改，例如 text-embedding-v4。</p><p>保存设置后，在“新建实验 → 谓词语义聚类”选择 Registry 并配置类数。运行时发送 Definition、参数类型和参数描述。</p><p>密钥沿用本机私有配置保存方式，不进入实验快照、聚类结果或导出文件。连接状态仅表示密钥已配置。</p></aside></div>`;
+    <aside class="side-note"><span class="eyebrow">PREDICATE SEMANTIC CLUSTERING</span><h3>OpenAI 兼容 Embeddings API</h3><p>支持百炼等兼容接口。填写你所在工作空间与地域的地址，模型可自由修改，例如 text-embedding-v4。</p><p>保存设置后，在“新建实验 → 谓词语义聚类”选择 Registry、表示方式并配置类数。运行时发送 Definition、参数类型和参数描述；多字段模式还发送参与计算的成立和排除条件。</p><p>密钥沿用本机私有配置保存方式，不进入实验快照、聚类结果或导出文件。连接状态仅表示密钥已配置。</p></aside></div>`;
 }
 
 export {

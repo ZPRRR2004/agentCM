@@ -25,6 +25,11 @@ from src.discover_predicates.validator import validate_registry
 
 SCHEMA = 'predicate-clustering/v1'
 INPUT_TEMPLATE = 'predicate-embedding-input/v1'
+FIELD_INPUT_TEMPLATE = 'predicate-embedding-fields/v1'
+FIELD_CACHE_SCHEMA = 'predicate-field-embedding-cache/v1'
+FIELD_ORDER = ('definition', 'parameters', 'assertion', 'exclusion')
+DEFAULT_FIELD_WEIGHTS = {'definition': 0.5, 'parameters': 0.3,
+                         'assertion': 0.1, 'exclusion': 0.1}
 DEFAULT_BATCH_SIZE = 10
 DEFAULT_MAX_RETRIES = 3
 MAX_REQUEST_BYTES = 2_000_000  # Same limit as the workbench HTTP API.
@@ -68,6 +73,69 @@ def embedding_text(predicate):
     return f'Definition: {predicate["definition"]}\n\nParameters:\n{parameters}'
 
 
+def embedding_field_texts(predicate):
+    parameters = '\n'.join(f'{i}. {p["type"]}: {p["description"]}'
+                           for i, p in enumerate(predicate['parameters'], 1))
+    assertion = '\n'.join(f'{i}. {text}' for i, text in
+                          enumerate(predicate['assertion_conditions'], 1))
+    exclusion = '\n'.join(f'{i}. {text}' for i, text in
+                          enumerate(predicate['exclusion_conditions'], 1))
+    return {'definition': 'Definition:\n' + predicate['definition'],
+            'parameters': 'Ordered Parameters:\n' + parameters,
+            'assertion': 'Assertion Conditions:\n' + assertion,
+            'exclusion': 'Exclusion Conditions:\n' + exclusion if exclusion else None}
+
+
+def validate_field_weights(weights):
+    if not isinstance(weights, dict) or set(weights) != set(FIELD_ORDER):
+        raise ValueError('必须配置 Definition、Parameters、Assertion、Exclusion 四个字段权重')
+    for field in FIELD_ORDER:
+        weight = weights[field]
+        if type(weight) not in (int, float) or not 0 <= weight <= 1 or not math.isfinite(weight):
+            raise ValueError(f'{field} 权重必须是 0–1 之间的有限非负数')
+    if not math.isclose(math.fsum(weights.values()), 1, rel_tol=0, abs_tol=1e-9):
+        raise ValueError('四个字段权重之和必须等于 1（100%）')
+    return {field: float(weights[field]) for field in FIELD_ORDER}
+
+
+def validate_embedding_representation(value):
+    if not isinstance(value, dict):
+        raise ValueError('Embedding 表示配置必须是对象')
+    mode = value.get('mode')
+    if mode == 'single_text':
+        result = {'mode': mode, 'version': 'single-text/v1'}
+    elif mode == 'fieldwise_concat':
+        result = {'mode': mode, 'version': 'fieldwise-concat/v1',
+                  'fields': list(FIELD_ORDER), 'weights': validate_field_weights(value.get('weights')),
+                  'normalization': 'l2_per_field_then_l2_final', 'weight_application': 'sqrt',
+                  'empty_field_policy': 'zero_block_keep_weights'}
+    else:
+        raise ValueError('Embedding 表示方式必须是 single_text 或 fieldwise_concat')
+    if set(value) - set(result):
+        raise ValueError('Embedding 表示配置包含不支持的字段')
+    if any(value[key] != result[key] for key in value if key != 'weights'):
+        raise ValueError('Embedding 表示版本、字段顺序或归一化策略不受支持')
+    return result
+
+
+def representation_config(config):
+    # Missing strategy is the original contract. Do not insert it into old snapshots.
+    if 'embedding_representation' not in config:
+        return {'mode': 'single_text', 'version': 'single-text/v1'}
+    return validate_embedding_representation(config['embedding_representation'])
+
+
+def validate_effective_fields(registry, representation):
+    if representation['mode'] != 'fieldwise_concat':
+        return
+    for index, predicate in enumerate(registry):
+        texts = embedding_field_texts(predicate)
+        if not any(texts[field] is not None and representation['weights'][field] > 0
+                   for field in FIELD_ORDER):
+            raise ValueError(f'Predicate {index + 1}（{predicate["name"]}）所有有效字段权重均为零，'
+                             '无法构造非零拼接向量；请调整权重后新建实验')
+
+
 def base_url(value):
     if not isinstance(value, str) or len(value) > 2000:
         raise ValueError('请填写有效的 Embedding API Base URL')
@@ -92,7 +160,7 @@ def positive_integer(value, label, low=1, high=None):
     return value
 
 
-def embedding_config(settings):
+def embedding_config(settings, representation=None):
     model = text_field(settings, 'embedding_model', 'qwen3.7-text-embedding', 200)
     if not model:
         raise ValueError('请在模型设置中填写 Embedding 模型名称')
@@ -100,7 +168,8 @@ def embedding_config(settings):
     if dimensions is not None:
         positive_integer(dimensions, 'Embedding 输出维度')
     return {'model': model, 'base_url': base_url(settings.get('embedding_base_url', '')),
-            'dimensions': dimensions, 'input_template': INPUT_TEMPLATE,
+            'dimensions': dimensions, 'input_template': FIELD_INPUT_TEMPLATE
+            if representation and representation['mode'] == 'fieldwise_concat' else INPUT_TEMPLATE,
             'batch_size': DEFAULT_BATCH_SIZE, 'max_retries': DEFAULT_MAX_RETRIES,
             'timeout_seconds': 120}
 
@@ -134,6 +203,8 @@ def validate_config(value, counts):
                                                     'random_state', 0, 2**32 - 1))
     if value.get('metric', result['metric']) != result['metric']:
         raise ValueError('聚类算法与距离配置不匹配')
+    if 'embedding_representation' in value:
+        result['embedding_representation'] = validate_embedding_representation(value['embedding_representation'])
     return result
 
 
@@ -168,6 +239,7 @@ def preview(workspace, body):
     return {'source': source, 'predicate_count': len(registry),
             'arity_counts': arity_counts(registry), 'input_hash': digest(registry),
             'validation': 'predicate-definition/v2 校验通过',
+            'empty_exclusion_count': sum(not p['exclusion_conditions'] for p in registry),
             'summary': [{'name': p['name'], 'definition': p['definition']}
                         for p in registry[:3]]}
 
@@ -186,8 +258,15 @@ def create(workspace, body):
     if body.get('input_hash') and body['input_hash'] != input_hash:
         raise ValueError('来源 Registry 已变化，请重新读取并配置类数')
     counts = arity_counts(registry)
-    config = validate_config(body.get('config'), counts)
-    embedding = embedding_config(workspace.settings(secret=True))
+    requested_config = copy.deepcopy(body.get('config'))
+    if not isinstance(requested_config, dict):
+        raise ValueError('请填写聚类配置')
+    requested_config.setdefault('embedding_representation', {
+        'mode': 'fieldwise_concat', 'weights': dict(DEFAULT_FIELD_WEIGHTS)})
+    config = validate_config(requested_config, counts)
+    representation = representation_config(config)
+    validate_effective_fields(registry, representation)
+    embedding = embedding_config(workspace.settings(secret=True), representation)
     identity = uuid.uuid4().hex[:12]
     root = workspace.data / 'experiments' / identity
     meta = {'id': identity, 'kind': 'clustering', 'schema': SCHEMA,
@@ -214,10 +293,12 @@ def verify_inputs(root, meta):
         raise ValueError('聚类输入的谓词数量或元数分布与快照不一致')
     if validate_config(meta['config'], counts) != meta['config']:
         raise ValueError('聚类配置快照无效')
+    representation = representation_config(meta['config'])
+    validate_effective_fields(registry, representation)
     embedding = meta['embedding']
     expected = embedding_config({
         'embedding_model': embedding['model'], 'embedding_base_url': embedding['base_url'],
-        'embedding_dimensions': embedding['dimensions']})
+        'embedding_dimensions': embedding['dimensions']}, representation)
     if embedding != expected or snapshot_hash(meta) != meta['snapshot_hash']:
         raise ValueError('Embedding 或聚类配置快照发生变化，拒绝复用缓存')
     return registry
@@ -346,7 +427,7 @@ def _save_array(path, value):
             os.unlink(temporary)
 
 
-def _embedding_matrix(root, registry, meta, state, checkpoint, progress):
+def _single_text_embedding_matrix(root, registry, meta, state, checkpoint, progress):
     import numpy as np
     config = meta['embedding']
     checkpoint('embedding_inputs')
@@ -405,6 +486,226 @@ def _embedding_matrix(root, registry, meta, state, checkpoint, progress):
         'vectors_hash': digest(matrix.tolist()),
         'items': [{k: v for k, v in item.items() if k != 'text'} for item in records]})
     return matrix
+
+
+def build_weighted_concat(field_vectors, weights, field_presence):
+    """Keep the four configured weights; missing/inactive blocks stay zero."""
+    import numpy as np
+    weights = validate_field_weights(weights)
+    if set(field_vectors) != set(FIELD_ORDER) or set(field_presence) != set(FIELD_ORDER):
+        raise ValueError('四字段向量及存在性掩码不完整')
+    shape = np.asarray(field_vectors['definition']).shape
+    if len(shape) != 2 or min(shape) < 1:
+        raise ValueError('字段向量必须是非空的 [Predicate 数量, 单字段维度] 矩阵')
+    n, d = shape
+    parts = []
+    for field in FIELD_ORDER:
+        vectors = np.asarray(field_vectors[field], dtype=np.float64)
+        present = np.asarray(field_presence[field], dtype=bool)
+        if vectors.shape != (n, d) or present.shape != (n,):
+            raise ValueError(f'{field} 字段向量维度或存在性标记不一致')
+        if not np.isfinite(vectors).all():
+            raise ValueError(f'{field} 字段向量包含非有限值')
+        block = np.zeros((n, d), dtype=np.float64)
+        if weights[field] > 0 and np.any(present):
+            active = _vectors(vectors[present].tolist(), int(present.sum()), d, normalized=True)
+            block[present] = math.sqrt(weights[field]) * active
+        parts.append(block)
+    raw = np.concatenate(parts, axis=1)
+    if np.any(np.max(np.abs(raw), axis=1) == 0):
+        raise ValueError('Predicate 的所有有效字段权重均为零，无法归一化全零拼接向量')
+    # The same stable L2 routine now normalizes each complete 4d concatenation.
+    # No per-predicate reweighting and no change to the frozen weights.
+    return _vectors(raw.tolist(), n, len(FIELD_ORDER) * d)
+
+
+def field_cache_binding(config, field, text_hash):
+    # Weight, algorithm, quotas, retries and API key do not identify an embedding.
+    return {'model': config['model'], 'base_url': config['base_url'],
+            'dimensions': config['dimensions'], 'field': field,
+            'template_version': FIELD_INPUT_TEMPLATE, 'text_hash': text_hash}
+
+
+def load_cached_field_embedding(path, binding, dimensions):
+    import numpy as np
+    try:
+        value = read(path)
+        if value is None:
+            return None
+        if (not isinstance(value, dict) or value.get('schema') != FIELD_CACHE_SCHEMA or
+                value.get('cache_key') != digest(binding) or value.get('binding') != binding or
+                digest(value.get('vector')) != value.get('vector_hash')):
+            raise ValueError('身份或向量 Hash 不匹配')
+        matrix = _vectors([value['vector']], 1, dimensions, normalized=True)
+        if type(value.get('dimensions')) is not int or value['dimensions'] != matrix.shape[1]:
+            raise ValueError('缓存记录维度无效')
+        return np.asarray(matrix[0], dtype=np.float64)
+    except (ValueError, KeyError, TypeError, OverflowError) as exc:
+        raise ValueError(f'{binding["field"]} 字段缓存校验失败：{exc}') from None
+
+
+def save_cached_field_embedding(path, binding, vector):
+    # Each key has its own atomic JSON document. Concurrent writers never expose
+    # partial data; read back the published value before freezing a local copy.
+    if not path.is_file():
+        values = vector.tolist()
+        write(path, {'schema': FIELD_CACHE_SCHEMA, 'cache_key': digest(binding),
+                     'binding': binding, 'dimensions': len(values),
+                     'vector': values, 'vector_hash': digest(values)})
+    return load_cached_field_embedding(path, binding, len(vector))
+
+
+def _field_embedding_matrix(root, registry, meta, state, checkpoint, progress):
+    import numpy as np
+    config = meta['embedding']
+    representation = representation_config(meta['config'])
+    weights = representation['weights']
+    n = len(registry)
+    records, aliases = [], {}
+    checkpoint('embedding_field_inputs')
+    for index, predicate in enumerate(registry):
+        fields = {}
+        texts = embedding_field_texts(predicate)
+        for field in FIELD_ORDER:
+            text = texts[field]
+            present = text is not None
+            text_hash = digest(text) if present else None
+            active = present and weights[field] > 0
+            binding = field_cache_binding(config, field, text_hash) if present else None
+            cache_key = digest(binding) if binding else None
+            fields[field] = {'text': text, 'text_hash': text_hash, 'present': present,
+                             'active': active, 'cache_key': cache_key}
+            if active:
+                aliases.setdefault(cache_key, {'binding': binding, 'text': text, 'members': []})[
+                    'members'].append((index, field))
+        records.append({'index': index, 'predicate_name': predicate['name'],
+                        'arity': len(predicate['parameters']), 'fields': fields})
+    write(root / 'output/embedding_texts.json', {
+        'schema': FIELD_INPUT_TEMPLATE, 'input_hash': meta['input_hash'], 'items': records})
+    total_vectors = sum(len(item['members']) for item in aliases.values())
+    required = [sum(record['fields'][f]['active'] for f in FIELD_ORDER) for record in records]
+    if any(count == 0 for count in required):
+        raise ValueError('Predicate 的所有有效字段权重均为零，无法构造拼接向量')
+    state.update(completed_embedding_vectors=0, total_embedding_vectors=total_vectors,
+                 completed_predicates=0, total_predicates=n, current_embedding_field=None,
+                 completed_embeddings=0)
+    dimensions = config['dimensions']
+    field_vectors = {}
+    completed = [0] * n
+    completed_keys = set()
+    local = root / 'output/embedding_batches/fieldwise-v1'
+    shared = root.parents[1] / 'embedding_cache/predicate-fields-v1'
+
+    def report(event, stage, message):
+        checkpoint(stage)
+        progress(event, stage=stage, message=message,
+                 completed_embedding_vectors=state['completed_embedding_vectors'],
+                 total_embedding_vectors=total_vectors, completed_predicates=state['completed_predicates'],
+                 total_predicates=n, current_embedding_field=state['current_embedding_field'])
+
+    def resolve(cache_key, vector):
+        nonlocal dimensions
+        if cache_key in completed_keys:
+            return
+        if dimensions is not None and len(vector) != dimensions:
+            raise ValueError('不同字段、批次或缓存的 Embedding 返回维度不一致')
+        dimensions = len(vector)
+        if not field_vectors:
+            field_vectors.update({f: np.zeros((n, dimensions), dtype=np.float64) for f in FIELD_ORDER})
+        for index, field in aliases[cache_key]['members']:
+            field_vectors[field][index] = vector
+            completed[index] += 1
+            if completed[index] == required[index]:
+                state['completed_predicates'] += 1
+            state['completed_embedding_vectors'] += 1
+        completed_keys.add(cache_key)
+        state.update(field_dimensions=dimensions, completed_embeddings=state['completed_embedding_vectors'])
+
+    report('embedding_field_inputs', 'embedding_field_inputs',
+           f'已构造四字段输入：{n} 个 Predicate，需要 {total_vectors} 条有效字段向量')
+    missing = []
+    for cache_key, item in aliases.items():
+        state['current_embedding_field'] = item['binding']['field']
+        path = local / (cache_key + '.json')
+        vector = load_cached_field_embedding(path, item['binding'], dimensions)
+        if vector is None:
+            vector = load_cached_field_embedding(shared / cache_key[:2] / (cache_key + '.json'),
+                                                  item['binding'], dimensions)
+            if vector is not None:
+                vector = save_cached_field_embedding(path, item['binding'], vector)
+        if vector is None:
+            missing.append(cache_key)
+        else:
+            resolve(cache_key, vector)
+            report('embedding_cache_hit', 'embedding_api',
+                   f'复用 {item["binding"]["field"]} 字段缓存 · '
+                   f'{state["completed_embedding_vectors"]}/{total_vectors} 条字段向量 · '
+                   f'{state["completed_predicates"]}/{n} 个 Predicate')
+    key = os.environ.get('AGENTCM_EMBEDDING_API_KEY', '').strip()
+    for start in range(0, len(missing), config['batch_size']):
+        batch = missing[start:start + config['batch_size']]
+        state['current_embedding_field'] = ', '.join(
+            field for field in FIELD_ORDER if any(aliases[k]['binding']['field'] == field for k in batch))
+        report('embedding_field_request', 'embedding_api',
+               f'字段 Embedding：{state["completed_embedding_vectors"]}/{total_vectors} · '
+               f'当前字段：{state["current_embedding_field"]}')
+        if not key:
+            raise ValueError('请在模型设置中填写 Embedding API Key')
+        try:
+            matrix = _request_embeddings([aliases[k]['text'] for k in batch], config, key, progress)
+            if dimensions is not None and matrix.shape[1] != dimensions:
+                raise ValueError('返回维度与其他字段或已保存缓存不匹配')
+        except ValueError as exc:
+            locations = ', '.join(f'{aliases[k]["members"][0][0] + 1}/{aliases[k]["binding"]["field"]}'
+                                  for k in batch)
+            raise ValueError(f'字段 Embedding 批次（Predicate 索引/字段：{locations}）失败：{exc}') from None
+        checkpoint('embedding_field_save')
+        for cache_key, vector in zip(batch, matrix):
+            item = aliases[cache_key]
+            published = save_cached_field_embedding(shared / cache_key[:2] / (cache_key + '.json'),
+                                                     item['binding'], vector)
+            frozen = save_cached_field_embedding(local / (cache_key + '.json'), item['binding'], published)
+            resolve(cache_key, frozen)
+            report('embedding_field_saved', 'embedding_field_save',
+                   f'已保存字段向量 {state["completed_embedding_vectors"]}/{total_vectors} · '
+                   f'已完成 {state["completed_predicates"]}/{n} 个 Predicate')
+    if state['completed_embedding_vectors'] != total_vectors or state['completed_predicates'] != n:
+        raise ValueError('字段 Embedding 覆盖不完整，拒绝拼接')
+    field_presence = {field: np.asarray([r['fields'][field]['present'] for r in records], dtype=bool)
+                      for field in FIELD_ORDER}
+    representation_info = {**representation, 'field_dimensions': dimensions,
+                           'final_dimensions': len(FIELD_ORDER) * dimensions}
+    items = [{**{k: v for k, v in row.items() if k != 'fields'},
+              'fields': {field: {**{k: v for k, v in row['fields'][field].items() if k != 'text'},
+                                 'embedded': row['fields'][field]['active']} for field in FIELD_ORDER}}
+             for row in records]
+    checkpoint('embedding_field_save')
+    for field in FIELD_ORDER:
+        _save_array(root / 'output/field_embeddings' / (field + '.npy'), field_vectors[field])
+    write(root / 'output/field_embeddings/metadata.json', {
+        'schema': 'predicate-field-embeddings/v1', 'cache_schema': FIELD_CACHE_SCHEMA,
+        'input_hash': meta['input_hash'], 'snapshot_hash': meta['snapshot_hash'],
+        'embedding_representation': representation_info, 'items': items,
+        'vector_hashes': {f: digest(field_vectors[f].tolist()) for f in FIELD_ORDER}})
+    report('embedding_concat', 'embedding_concat', '按冻结权重的平方根加权，固定四字段拼接，并执行整体 L2 归一化')
+    matrix = build_weighted_concat(field_vectors, weights, field_presence)
+    _save_array(root / 'output/embeddings.npy', matrix)
+    write(root / 'output/embedding_index.json', {
+        'schema': 'predicate-embedding-index/v2', 'embedding': config,
+        'input_hash': meta['input_hash'], 'snapshot_hash': meta['snapshot_hash'],
+        'input_template': FIELD_INPUT_TEMPLATE, 'embedding_representation': representation_info,
+        'field_dimensions': dimensions, 'dimensions': matrix.shape[1],
+        'vectors_hash': digest(matrix.tolist()), 'items': items})
+    state.update(dimensions=matrix.shape[1], final_dimensions=matrix.shape[1], current_embedding_field=None)
+    report('embedding_concat_done', 'embedding_concat',
+           f'已保存最终归一化拼接矩阵：{n} × {matrix.shape[1]}，每字段 {dimensions} 维')
+    return matrix
+
+
+def _embedding_matrix(root, registry, meta, state, checkpoint, progress):
+    if representation_config(meta['config'])['mode'] == 'fieldwise_concat':
+        return _field_embedding_matrix(root, registry, meta, state, checkpoint, progress)
+    return _single_text_embedding_matrix(root, registry, meta, state, checkpoint, progress)
 
 
 def _cluster_indices(matrix, indices, k, config):
@@ -541,12 +842,21 @@ def run(root, progress):
         checkpoint('clustering_save')
         statistics = _statistics(groups, meta['arity_counts'], config)
         statistics['embedding_dimensions'] = matrix.shape[1]
+        representation_info = None
+        if 'embedding_representation' in config:
+            representation_info = representation_config(config)
+            field_dimensions = matrix.shape[1] // len(FIELD_ORDER) if representation_info['mode'] == 'fieldwise_concat' else matrix.shape[1]
+            representation_info.update(field_dimensions=field_dimensions, final_dimensions=matrix.shape[1])
+            statistics.update(embedding_representation=representation_info,
+                              field_dimensions=field_dimensions, final_dimensions=matrix.shape[1])
         result = {'schema': SCHEMA, 'experiment_id': meta['id'], 'source': meta['source'],
                   'input_hash': meta['input_hash'], 'snapshot_hash': meta['snapshot_hash'],
                   'embedding': meta['embedding'], 'embedding_dimensions': matrix.shape[1],
-                  'input_template': INPUT_TEMPLATE, **config, 'similarity_metric': 'cosine',
+                  'input_template': meta['embedding']['input_template'], **config, 'similarity_metric': 'cosine',
                   'actual_clusters': len(groups), 'predicate_count': len(registry),
                   'statistics': statistics, 'groups': groups}
+        if representation_info is not None:
+            result['embedding_representation'] = representation_info
         mapping = sorted(({'predicate_name': member['name'], 'arity': group['arity'],
                            'cluster_id': group['cluster_id'], 'registry_index': index}
                           for group in groups for index, member in zip(group['member_indices'], group['members'])),
@@ -575,3 +885,44 @@ def export(workspace, identity, mapping=False):
     if read(output / 'execution_state.json', {}).get('status') != 'completed':
         raise ValueError('实验完成后才能导出聚类结果')
     return read(output / ('predicate_cluster_mapping.json' if mapping else 'clusters.json'))
+
+
+def field_pair(workspace, identity, left, right):
+    """Read saved field vectors for a pair; this endpoint never calls a provider."""
+    root, output = workspace.paths(identity)
+    meta = read(root / 'experiment.json')
+    if meta.get('kind') != 'clustering' or representation_config(meta['config'])['mode'] != 'fieldwise_concat':
+        raise ValueError('字段相似度仅适用于多字段加权拼接实验')
+    if read(output / 'execution_state.json', {}).get('status') != 'completed':
+        raise ValueError('请等待聚类实验完成后查看字段相似度')
+    registry = verify_inputs(root, meta)
+    positive_integer(left, '左侧 Predicate 索引', 0, len(registry) - 1)
+    positive_integer(right, '右侧 Predicate 索引', 0, len(registry) - 1)
+    metadata = read(output / 'field_embeddings/metadata.json', {})
+    representation = representation_config(meta['config'])
+    if (metadata.get('schema') != 'predicate-field-embeddings/v1' or
+            metadata.get('input_hash') != meta['input_hash'] or
+            metadata.get('snapshot_hash') != meta['snapshot_hash'] or
+            len(metadata.get('items', [])) != len(registry)):
+        raise ValueError('字段向量元数据与输入快照不匹配')
+    try:
+        import numpy as np
+    except ImportError:
+        raise ValueError('读取字段相似度需要在工作台 Python 环境中安装 NumPy') from None
+    dimensions = metadata['embedding_representation']['field_dimensions']
+    fields = {}
+    for field in FIELD_ORDER:
+        flags = [metadata['items'][i]['fields'][field] for i in (left, right)]
+        if not all(flag['present'] for flag in flags):
+            fields[field] = {'similarity': None, 'status': 'missing', 'weight': representation['weights'][field]}
+        elif representation['weights'][field] == 0:
+            fields[field] = {'similarity': None, 'status': 'zero_weight', 'weight': 0}
+        else:
+            values = np.load(output / 'field_embeddings' / (field + '.npy'), allow_pickle=False)
+            if (values.shape != (len(registry), dimensions) or not all(flag['embedded'] for flag in flags) or
+                    digest(values.tolist()) != metadata.get('vector_hashes', {}).get(field)):
+                raise ValueError(f'{field} 字段向量的形状、有效性或 Hash 校验失败')
+            pair = _vectors(values[[left, right]].tolist(), 2, dimensions, normalized=True)
+            fields[field] = {'similarity': float(np.clip(pair[0] @ pair[1], -1, 1)),
+                             'status': 'available', 'weight': representation['weights'][field]}
+    return {'left_index': left, 'right_index': right, 'fields': fields}

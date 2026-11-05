@@ -1,0 +1,16 @@
+{
+  "run_id": "0e998ac157b048b9b7a3b321cf847c70",
+  "run_started_at": "2026-11-05T09:32:12.865953+00:00",
+  "stage": "completed",
+  "event": "completed",
+  "message": "实验已完成，结果已保存",
+  "updated_at": "2026-11-05T09:32:25.537902+00:00",
+  "completed_embedding_vectors": 540,
+  "total_embedding_vectors": 540,
+  "completed_predicates": 135,
+  "total_predicates": 135,
+  "current_embedding_field": null,
+  "arity": 4,
+  "completed_groups": 4,
+  "group_total": 4
+}
