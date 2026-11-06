@@ -1,0 +1,38 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-015",
+  "arity": 2,
+  "source_predicate_names": [
+    "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL",
+    "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "INTEGRATES_MULTIPLE_OBSERVATIONS_INTO_UNIFIED_REPRESENTATION",
+    "definition": "The reasoning combines content from multiple distinct observations into a single integrated representation, model, summary, schema, or correspondence structure, rather than treating those observations independently. This includes deriving a unified representation by cross-referencing observed information and, where the observations expose differing fields, attributes, or schema elements, specifying how those elements correspond to or align within the common representation.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text that integrates, cross-references, or maps content from multiple observations into a unified representation or correspondence structure."
+      },
+      {
+        "name": "observations",
+        "type": "observation[]",
+        "description": "The distinct observations whose contents, structures, fields, or attributes are combined or aligned into the unified representation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning references or restates content from at least two distinct observations.",
+      "The reasoning produces a single integrated representation, model, summary, schema, or correspondence structure that combines or relates the observed information.",
+      "The reasoning cross-references or aligns elements across observations to a common representation rather than only listing the observations independently.",
+      "When the observations contain differently named fields, attributes, or schema elements, the reasoning may specify equivalences or correspondences between those elements and a common target representation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning references only one observation.",
+      "The reasoning lists observations independently without deriving any combined representation, cross-observation alignment, or correspondence.",
+      "No integrated understanding, unified model, schema, summary, or mapping to a common representation is stated."
+    ]
+  }
+}

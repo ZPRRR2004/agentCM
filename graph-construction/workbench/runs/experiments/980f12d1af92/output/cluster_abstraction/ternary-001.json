@@ -1,0 +1,46 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-001",
+  "arity": 3,
+  "source_predicate_names": [
+    "CHECKS_PREREQUISITE_AVAILABILITY",
+    "REMEDIES_MISSING_CAPABILITY",
+    "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+    "EXPLORATORY_INSPECTION_REVEALS_CAPABILITY"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RESOLVES_TASK_RELEVANT_PREREQUISITE_OR_ENVIRONMENT_STATE",
+    "definition": "The reasoning identifies or recognizes a task-relevant dependency, unknown or unchecked environment or resource condition, missing or inadequate prerequisite, or existing capability whose status matters for planning or execution; a preparatory action—such as checking availability, version, or readiness, inspecting or querying state, provisioning a missing prerequisite, or non-mutating examination—is directed at that specific condition rather than at the task's primary transformation; and the observation reports the resulting status, successful preparation, revealed state, or confirmed usable capability so that it can inform subsequent action.",
+    "parameters": [
+      {
+        "name": "task_need_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that establishes or acknowledges a task-relevant condition: a dependency or unknown or unchecked state to be resolved, a missing or inadequate prerequisite to be supplied, or a capability revealed by inspection as available and usable for the task."
+      },
+      {
+        "name": "preparatory_action",
+        "type": "action",
+        "description": "The action causally directed at the identified prerequisite, environment, resource, or capability condition, such as querying, inspecting, listing, checking, installing, fetching, refreshing, or otherwise preparing it rather than performing the task's primary substantive transformation."
+      },
+      {
+        "name": "result_observation",
+        "type": "observation",
+        "description": "The observation reporting concrete status information about the identified condition, such as availability, version, readiness, environment or resource state, successful provisioning or preparation, or an existing usable feature or capability."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning establishes or acknowledges a task-relevant condition: a dependency or unknown or unchecked state to be resolved, a missing or inadequate prerequisite, or a capability revealed by inspection as usable.",
+      "The preparatory action is causally directed at that identified condition by querying, inspecting, listing, checking, installing, fetching, refreshing, or otherwise preparing it, and the action does not itself perform the task's primary substantive transformation or final computation.",
+      "The observation reports concrete status information about the identified condition, including at least one of availability, version, readiness, environment or resource state, successful provisioning or preparation, or an existing usable feature or capability.",
+      "The reported status is consistent with the identified condition and provides information usable for subsequent planning or execution; where the action provisions something, the observation confirms that the prerequisite became available or prepared."
+    ],
+    "exclusion_conditions": [
+      "The reasoning does not identify or acknowledge any task-relevant prerequisite, environment or resource state, or capability condition to be checked, supplied, surveyed, or recognized.",
+      "The action is unrelated to the identified condition or performs substantive primary task work rather than a check, inspection, survey, or provisioning step.",
+      "The observation does not report the relevant state, availability, readiness, successful preparation, or revealed capability, or the action outcome remains unknown.",
+      "The action provisions something merely convenient rather than a prerequisite identified as required for the task, or the action and observation are not linked to the condition identified or recognized by the reasoning."
+    ]
+  }
+}

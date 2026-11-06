@@ -1,0 +1,42 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-006",
+  "arity": 2,
+  "source_predicate_names": [
+    "ACTION_IMPLEMENTS_PLANNED_STEP",
+    "CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION",
+    "GROUNDS_CONCLUSION_IN_OBSERVATION",
+    "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+    "DERIVES_TRIGGER_CONDITION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "GROUNDS_REASONING_SPECIFICATION_IN_OBSERVED_ACTION_OR_STATE",
+    "definition": "The reasoning establishes a specific, content-level connection between a specification it states or derives—such as an intended action step, an expected outcome or success criterion, a conclusion or diagnosis, the predicted consequence of a planned operation, or an input/state condition controlling behavior—and a second observed element. That observed element may be an action execution or an environmental/structural observation, and its operation, target, output, status, configuration, or data must specifically implement, confirm, support, or ground the reasoned specification. The relation is explicit and evidential or executable, not merely topical.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that states or derives the specification, expectation, conclusion, prediction, or controlling condition and explicitly relates it to the observed element."
+      },
+      {
+        "name": "observed_element",
+        "type": "observation",
+        "description": "The observation of an action execution or of environmental/structural state whose specific operation, target, result, status, configuration, or data content corresponds to and implements, confirms, supports, or grounds the reasoning's stated specification."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states a specific intended step, expected outcome or success criterion, conclusion or diagnosis, predicted consequence, or input/state condition that controls a target's behavior.",
+      "The observation contains identifiable content from an action execution or environmental/structural state, such as an operation and target, outcome or status, configuration, or data, that corresponds to the reasoned specification.",
+      "The reasoning explicitly uses that content as implementation of the planned step, confirmation of the expected outcome, evidential support for the conclusion, the state basis for the prediction, or the structural basis for the derived condition."
+    ],
+    "exclusion_conditions": [
+      "The reasoning and observed element are only topically related and lack a specific matching operation, outcome, status, structural feature, or evidential content.",
+      "The reasoning merely restates or describes the observed element without stating an intended step, expectation, conclusion, prediction, or controlling condition, or without drawing the correspondence.",
+      "The reasoning states an intention, expectation, conclusion, prediction, or condition but the observed element supplies no specific corresponding content or evidence.",
+      "The correspondence rests only on prior belief or speculation with no identifiable basis in the observed element.",
+      "The observed element is used only as an incidental input for further action and not as implementation, confirmation, support, grounding, or derivation for the reasoned specification."
+    ]
+  }
+}

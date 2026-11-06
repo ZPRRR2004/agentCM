@@ -2283,3 +2283,13 @@ dialog::backdrop {
   .cluster-member > div { padding: 14px; }
   .cluster-config-panel td, .cluster-config-panel th { padding: 10px 6px; }
 }
+.cluster-abstraction-notice,
+.cluster-abstraction-result {
+  padding: 1rem;
+  border: 1px solid #dfe5d8;
+  border-radius: 12px;
+  background: #f5f8f0;
+  overflow-wrap: anywhere;
+}
+.cluster-abstraction-result { margin-bottom: 1.25rem; min-width: 0; }
+.cluster-abstraction-result > h3 { margin-top: 0; }

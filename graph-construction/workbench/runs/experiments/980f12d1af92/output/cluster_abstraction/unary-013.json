@@ -1,0 +1,34 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-013",
+  "arity": 1,
+  "source_predicate_names": [
+    "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS",
+    "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+    "IDENTIFIES_PERFORMANCE_BOTTLENECK"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "GROUNDS_COMPUTATIONAL_ASSESSMENT_IN_QUANTITATIVE_ANALYSIS",
+    "definition": "The reasoning performs a quantitative analysis of a computational process—deriving or bounding numerical error, estimating time or resource cost from operation counts or data sizes, or using timing evidence to attribute dominant cost—and uses the quantified result to judge whether a stated numerical or performance requirement will be met, to decide how a computation should be executed, or to identify the stage or component that should be optimized.",
+    "parameters": [
+      {
+        "name": "quantitative_reasoning",
+        "type": "reasoning",
+        "description": "The agent text containing the quantitative estimate, error bound, cost calculation, timing breakdown, or dominant-cost attribution together with the judgment, execution decision, or optimization target derived from it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning supplies a quantitative estimate, bound, measured timing breakdown, or cost attribution for a computational process or component.",
+      "The reasoning explicitly relates the quantified result to a stated numerical tolerance or performance requirement, or uses it to decide execution strategy or to single out a dominant cost contributor for optimization.",
+      "The reasoning derives a conclusion or recommendation—such as equivalence acceptance, performance satisfaction or violation, execution choice, or optimization target—from that quantified result rather than from qualitative assertion alone."
+    ],
+    "exclusion_conditions": [
+      "The reasoning asserts correctness, equivalence, performance adequacy, or need for optimization without any quantitative estimate, bound, timing measurement, or cost attribution.",
+      "The quantified quantity does not concern numerical accuracy, time, resource cost, or execution-cost attribution, but some unrelated property such as monetary price or probability.",
+      "A quantitative estimate or timing measurement is mentioned but neither compared with a requirement nor used to make an execution decision or localize a dominant cost; it is only incidental information.",
+      "The error magnitude or performance number is merely reported as a final observed outcome with no derivation, bounding, estimation, comparison, or attribution to a computational component."
+    ]
+  }
+}

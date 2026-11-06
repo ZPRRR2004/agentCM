@@ -1,0 +1,38 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-007",
+  "arity": 2,
+  "source_predicate_names": [
+    "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+    "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "MATERIALIZES_SPECIFIED_CONTENT_IN_DESIGNATED_ARTIFACT",
+    "definition": "A write action supplies or persists content into a designated output artifact so that information or structure required by a governing specification is realized outside the reasoning process, while preserving the specified destination or declared interface constraints.",
+    "parameters": [
+      {
+        "name": "artifact_write_action",
+        "type": "action",
+        "description": "The action that writes or supplies content into the designated output artifact, thereby materializing the specified information or completing the specified structure."
+      },
+      {
+        "name": "guiding_specification",
+        "type": "reasoning",
+        "description": "The reasoning that identifies or interprets the content to be materialized and the artifact constraints to be honored, including either a recovered or extracted value with its output destination, or an observed artifact skeleton with declared interface elements and unfilled placeholders."
+      }
+    ],
+    "assertion_conditions": [
+      "The guiding specification identifies the content to be materialized and at least one required artifact constraint, such as an output destination, declared interface element, placeholder location, or preserved structure.",
+      "The artifact write action writes or supplies content into the designated artifact that realizes the identified content rather than merely describing or inspecting it.",
+      "The written content preserves the specified destination or declared interface constraints associated with the guiding specification."
+    ],
+    "exclusion_conditions": [
+      "The action only reads, inspects, analyzes, or verifies an artifact or information without writing or supplying the required content.",
+      "The action writes unrelated, placeholder, arbitrary, or unverified content that does not realize the guiding specification.",
+      "No guiding specification identifies required content together with a destination, interface, placeholder, or structural constraint to be honored.",
+      "The action replaces, violates, or disregards the specified destination or declared interface constraints instead of preserving them."
+    ]
+  }
+}

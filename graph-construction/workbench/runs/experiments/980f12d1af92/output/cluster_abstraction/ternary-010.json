@@ -1,0 +1,51 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-010",
+  "arity": 3,
+  "source_predicate_names": [
+    "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION",
+    "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE",
+    "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST",
+    "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS",
+    "VERIFIES_DEPLOYED_SERVICE_WITH_REQUEST",
+    "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "VERIFIES_ACTUAL_RESULT_AGAINST_EXPECTED_CRITERIA",
+    "definition": "A verification mechanism in which an expected behavior, requirement, reference value, or verification goal is established; one or more actions exercise, execute a test against, request from, or inspect a target artifact, output, configuration, or running component so that its actual state or behavior is exposed; and an observation reports the resulting content, response, status, or test outcome, which is compared against the expectation to determine whether the target conforms, is valid, or is fit to be activated or relied upon.",
+    "parameters": [
+      {
+        "name": "verification_criteria",
+        "type": "reasoning",
+        "description": "The reasoning content that states the expected behavior, requirement, reference value, or verification goal to be confirmed; it may be expressed directly or derived from a previously computed or observed reference value."
+      },
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "The action or linked sequence of actions that exercises, runs a test against, sends a request to, or inspects the target artifact, output, configuration, or running component so that its actual behavior or content can be observed."
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "The observation reporting the actual content, response, status, or test result produced by the verification action, sufficient to compare against the expected criteria and judge conformance."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states a specific expected behavior, requirement, target value, or verification goal against which the target is to be judged, whether stated directly or derived from a previously computed or observed reference value.",
+      "The verification action exercises, executes a test against, requests from, or inspects the target artifact, output, configuration, or running component rather than only generating or modifying it.",
+      "The verification observation reports actual content, response, status, or test outcome produced by the verification action and sufficient to compare with the stated expectation.",
+      "The comparison outcome confirms conformance, success, validity, or fitness for activation or reliance, or provides evidence used to make that determination."
+    ],
+    "exclusion_conditions": [
+      "The action only generates or changes output without checking it against any expected behavior, requirement, or reference value.",
+      "No expected behavior, requirement, reference value, or verification goal is established in reasoning or derivable from a prior computed observation.",
+      "The observation merely displays output, reports only a transport failure, or provides no interpretable evidence for the stated criteria.",
+      "Conformance is asserted only in reasoning and is not visible in the observation of the actual result.",
+      "A test or check is authored but never executed, or a running service is inspected only through process state, files, logs, or configuration instead of its exposed interface.",
+      "Verification stages are not linked as parts of the same verification effort, or only one of the intended stages is performed.",
+      "The verification action targets something unrelated to the stated verification goal."
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-008",
+  "arity": 3,
+  "source_predicate_names": [
+    "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION",
+    "RESOLVES_CONFLICT_WITH_TARGETED_EDIT"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RESOLVES_OBSERVED_ARTIFACT_CONFLICT_VIA_REASONED_RESOLUTION_ACTION",
+    "definition": "An observation identifies unresolved or competing content alternatives for a target artifact; reasoning determines how the conflict is to be resolved by selecting one alternative or specifying replacement content or a resolution strategy with an identifiable basis; and an action modifies, overwrites, adopts, stages, or commits the artifact so that the observed conflict is resolved in accordance with that reasoned determination.",
+    "parameters": [
+      {
+        "name": "conflict_observation",
+        "type": "observation",
+        "description": "The observation reporting unresolved conflict, conflict markers or status, or otherwise competing content alternatives for the same target artifact."
+      },
+      {
+        "name": "resolution_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that determines the resolution by selecting a competing alternative or specifying replacement content, a resolution strategy, or both, with an identifiable basis for that determination."
+      },
+      {
+        "name": "resolution_action",
+        "type": "action",
+        "description": "The action that edits, overwrites, adopts, stages, or commits the target artifact so as to apply the reasoned resolution to the observed conflict."
+      }
+    ],
+    "assertion_conditions": [
+      "The conflict_observation contains identifiable unresolved conflict or competing content alternatives for the same target artifact.",
+      "The resolution_reasoning selects one alternative or specifies replacement content or a resolution strategy that determines how the conflict is to be resolved, with an identifiable basis such as precedence, correctness, supersession, or explicit replacement content.",
+      "The resolution_action modifies, overwrites, adopts, stages, or commits the target artifact in accordance with the resolution determined by the reasoning."
+    ],
+    "exclusion_conditions": [
+      "The conflict_observation does not contain an identifiable conflict or competing content alternatives for the target artifact.",
+      "The resolution_reasoning only notes or describes the conflict without selecting an alternative or determining replacement content or a resolution strategy.",
+      "The resolution_action is unrelated to the conflicted artifact or applies a different resolution than the one determined by the reasoning.",
+      "The conflict is only discussed or described without any action applying a resolution.",
+      "The reasoning provides no identifiable selection, replacement content, or strategy that determines the resolution."
+    ]
+  }
+}

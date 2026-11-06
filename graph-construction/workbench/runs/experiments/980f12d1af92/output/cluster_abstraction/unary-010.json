@@ -1,0 +1,40 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-010",
+  "arity": 1,
+  "source_predicate_names": [
+    "CONCLUDES_WITH_FINAL_ANSWER",
+    "ASSESSES_REQUIREMENT_COMPLETION",
+    "DECLARES_TASK_COMPLETION",
+    "PREDICTS_EXPECTED_OUTCOME"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "ESTABLISHES_EVIDENCE_GROUNDED_TASK_OUTCOME_REFERENCE",
+    "definition": "The reasoning explicitly establishes a definitive, evidence-grounded reference for the task's outcome, either by presenting a final result and asserting completion, by assessing satisfaction of stated requirements or deliverables, by declaring overall task completion, or by specifying concrete expected result values that a correct solution should yield for later validation. The outcome is concrete and justified by identifiable evidence, domain facts, or per-requirement status mappings, and serves as a terminal conclusion or validation reference rather than an intermediate, exploratory, or tentative step.",
+    "parameters": [
+      {
+        "name": "outcome_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that explicitly states and justifies a definitive task-level outcome reference, including any final result, per-requirement satisfaction assessment, overall completion declaration, or concrete expected output for validation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly states a task-level outcome reference, such as a final result, a satisfaction or completion status for stated requirements or deliverables, an overall completion declaration, or concrete expected result values for a correct solution.",
+      "The outcome reference is concrete enough to identify what has been achieved or what a correct solution should produce, rather than being only a general goal or success criterion.",
+      "The outcome reference is grounded in identifiable supporting evidence, domain facts, or an explicit per-requirement mapping rather than being asserted without justification.",
+      "The reasoning presents the outcome as definitive, terminal, or a validation reference—a final answer, completion or satisfaction judgment, or expected correct output—rather than as an intermediate, exploratory, or tentative step.",
+      "Where multiple requirements or deliverables are addressed, each is given a satisfaction status, completion judgment, or supporting evidence; where overall completion is declared, the declaration covers the task as a whole or all stated requirements or deliverables rather than a single intermediate check or partial step."
+    ],
+    "exclusion_conditions": [
+      "The reasoning is intermediate, exploratory, or tentative about the result or outcome.",
+      "The reasoning only states plans, next steps, or general success criteria without a concrete final result, completion or satisfaction status, or expected output reference.",
+      "The reasoning lists requirements or deliverables without indicating whether each is satisfied or otherwise mapping them to evidence or judgment.",
+      "The reasoning reports only a single intermediate check or partial progress while remaining work or unresolved requirements are outstanding.",
+      "The reasoning's own content acknowledges that a required item remains unverified, failing, or undone, contradicting an asserted completion or satisfaction claim.",
+      "The reasoning merely reports raw observations or intermediate data without converting them into a final result, completion or satisfaction assessment, or concrete expected-output reference.",
+      "The stated outcome is presented only as a candidate still subject to further verification."
+    ]
+  }
+}

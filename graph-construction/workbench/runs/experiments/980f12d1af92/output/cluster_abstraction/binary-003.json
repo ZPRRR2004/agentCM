@@ -1,0 +1,39 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-003",
+  "arity": 2,
+  "source_predicate_names": [
+    "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT",
+    "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "IMPLEMENTS_LIMITATION_RESPONSIVE_ALTERNATIVE_APPROACH",
+    "definition": "The reasoning identifies a specific limitation, restriction, or distorting property affecting an intended operation or a prior measurement/comparison—such as an unavailable capability, an imposed rule, an unsuitable option, or a flawed technique/reference—and explains why an alternative or adjusted approach can still achieve the intended effect or yield a valid result under that condition; the associated action implements the justified alternative or adjustment in exactly the respect needed to address the identified limitation.",
+    "parameters": [
+      {
+        "name": "limitation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that names the constraining limitation or confound, weighs an alternative or adjustment, and justifies how it preserves the intended effect or measurement validity."
+      },
+      {
+        "name": "adapted_action",
+        "type": "action",
+        "description": "The action that implements the justified alternative or adjusted technique/reference in the respect required to address the identified limitation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly identifies a specific limitation, restriction, or confound affecting the intended operation or a prior measurement/comparison, rather than merely asserting a preference.",
+      "The reasoning explains or justifies an alternative or adjusted approach that addresses the identified limitation while preserving the intended effect, valid measurement, or valid comparison.",
+      "The adapted action implements the approach justified by the reasoning and differs from the blocked, restricted, or flawed approach in exactly the respect identified."
+    ],
+    "exclusion_conditions": [
+      "The reasoning describes an action without identifying any specific limitation, restriction, or confound that motivates the chosen approach.",
+      "The action does not implement the alternative or adjustment justified by the reasoning.",
+      "The approach is changed only for efficiency, convenience, or an unrelated requirement, with no limitation or confound being addressed.",
+      "The action repeats the same blocked, restricted, or flawed technique or reference without correcting the identified issue.",
+      "The reasoning merely reports that an attempt failed, was unavailable, or was unparseable without providing a justified alternative for achieving the intended effect or valid result."
+    ]
+  }
+}

@@ -1,0 +1,487 @@
+[
+  {
+    "cluster_id": "unary-001",
+    "abstracted_predicate": "CONFIGURES_EVENT_DRIVEN_AUTOMATION",
+    "arity": 1,
+    "source_predicates": [
+      "CONFIGURES_EVENT_TRIGGERED_AUTOMATION"
+    ]
+  },
+  {
+    "cluster_id": "unary-002",
+    "abstracted_predicate": "PREVENTS_SELF_CAUSED_ADVERSE_EFFECTS_THROUGH_CORRECTIVE_ACTION",
+    "arity": 1,
+    "source_predicates": [
+      "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE",
+      "ACKNOWLEDGES_RECURRING_OWN_ERROR"
+    ]
+  },
+  {
+    "cluster_id": "unary-003",
+    "abstracted_predicate": "EVALUATES_CANDIDATE_AGAINST_ENUMERATED_CONSTRAINTS_OR_SCENARIOS",
+    "arity": 1,
+    "source_predicates": [
+      "ENUMERATES_REQUIRED_END_STATE",
+      "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS"
+    ]
+  },
+  {
+    "cluster_id": "unary-004",
+    "abstracted_predicate": "RESOLVES_EVALUATED_CANDIDATE_ELEMENTS_TO_SINGLE_RESULT",
+    "arity": 1,
+    "source_predicates": [
+      "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+      "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES",
+      "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS"
+    ]
+  },
+  {
+    "cluster_id": "unary-005",
+    "abstracted_predicate": "INTERPRETS_REQUIREMENTS_FOR_ACTION_ADMISSIBILITY",
+    "arity": 1,
+    "source_predicates": [
+      "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+      "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT",
+      "IDENTIFIES_SPECIFICATION_AMBIGUITY",
+      "RESOLVES_INSTRUCTION_CONFLICT",
+      "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY"
+    ]
+  },
+  {
+    "cluster_id": "unary-006",
+    "abstracted_predicate": "INITIATES_DETACHED_ASYNCHRONOUS_EXECUTION",
+    "arity": 1,
+    "source_predicates": [
+      "LAUNCHES_PROCESS_ASYNCHRONOUSLY"
+    ]
+  },
+  {
+    "cluster_id": "unary-007",
+    "abstracted_predicate": "REPORTS_ABSENT_OR_UNAVAILABLE_CAPABILITY",
+    "arity": 1,
+    "source_predicates": [
+      "REVEALS_UNAVAILABLE_CAPABILITY"
+    ]
+  },
+  {
+    "cluster_id": "unary-008",
+    "abstracted_predicate": "IDENTIFIES_SPECIFIC_POTENTIAL_FAILURE_MODE",
+    "arity": 1,
+    "source_predicates": [
+      "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+      "IDENTIFIES_ERROR_PITFALL",
+      "IDENTIFIES_CONFORMANCE_RISK"
+    ]
+  },
+  {
+    "cluster_id": "unary-009",
+    "abstracted_predicate": "ASSESSES_COMPETING_ACCOUNTS_OF_SAME_OBSERVATION",
+    "arity": 1,
+    "source_predicates": [
+      "ENUMERATES_COMPETING_EXPLANATIONS",
+      "RESOLVES_CONFLICTING_INFORMATION_SOURCES",
+      "DISAMBIGUATES_COMPETING_INTERPRETATIONS"
+    ]
+  },
+  {
+    "cluster_id": "unary-010",
+    "abstracted_predicate": "ESTABLISHES_EVIDENCE_GROUNDED_TASK_OUTCOME_REFERENCE",
+    "arity": 1,
+    "source_predicates": [
+      "CONCLUDES_WITH_FINAL_ANSWER",
+      "ASSESSES_REQUIREMENT_COMPLETION",
+      "DECLARES_TASK_COMPLETION",
+      "PREDICTS_EXPECTED_OUTCOME"
+    ]
+  },
+  {
+    "cluster_id": "unary-011",
+    "abstracted_predicate": "FORMULATES_STRUCTURED_OPERATIVE_ACCOUNT",
+    "arity": 1,
+    "source_predicates": [
+      "PLANS_NEXT_ACTION",
+      "DECOMPOSES_TASK_INTO_SUBGOALS",
+      "DIAGNOSES_ROOT_CAUSE",
+      "PROPOSES_TESTABLE_HYPOTHESIS",
+      "ASSESSES_COMPLETENESS_OF_RECOVERY"
+    ]
+  },
+  {
+    "cluster_id": "unary-012",
+    "abstracted_predicate": "SPECIFIES_TARGET_LINKED_CONCRETE_MEANS",
+    "arity": 1,
+    "source_predicates": [
+      "FORMULATES_CORRECTIVE_SOLUTION",
+      "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+      "FORMULATES_IMPLEMENTATION_DESIGN",
+      "DEFINES_DETECTION_SIGNATURE"
+    ]
+  },
+  {
+    "cluster_id": "unary-013",
+    "abstracted_predicate": "GROUNDS_COMPUTATIONAL_ASSESSMENT_IN_QUANTITATIVE_ANALYSIS",
+    "arity": 1,
+    "source_predicates": [
+      "JUSTIFIES_NUMERICAL_EQUIVALENCE_BY_ERROR_ANALYSIS",
+      "PREDICTS_PERFORMANCE_FROM_COMPLEXITY_ESTIMATE",
+      "IDENTIFIES_PERFORMANCE_BOTTLENECK"
+    ]
+  },
+  {
+    "cluster_id": "unary-014",
+    "abstracted_predicate": "ANTICIPATES_PROSPECTIVE_VERIFICATION",
+    "arity": 1,
+    "source_predicates": [
+      "PLANS_POST_ACTION_VERIFICATION",
+      "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES",
+      "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA"
+    ]
+  },
+  {
+    "cluster_id": "unary-015",
+    "abstracted_predicate": "DELIMITS_MODIFICATION_AND_RESIDUAL_ARTIFACT_SCOPE",
+    "arity": 1,
+    "source_predicates": [
+      "RESTRICTS_MODIFICATION_SCOPE",
+      "ASSESSES_RESIDUAL_STORAGE_RISK"
+    ]
+  },
+  {
+    "cluster_id": "binary-001",
+    "abstracted_predicate": "IDENTIFIES_DEFICIENCY_OR_INCOMPLETENESS",
+    "arity": 2,
+    "source_predicates": [
+      "IDENTIFIES_DEFECT_FROM_OBSERVATION",
+      "IDENTIFIES_MISSING_PREREQUISITE",
+      "ATTEMPTS_PREREQUISITE_PROVISIONING",
+      "RECOGNIZES_INCOMPLETE_OBSERVATION"
+    ]
+  },
+  {
+    "cluster_id": "binary-002",
+    "abstracted_predicate": "REPRODUCES_SPECIFIED_PROCEDURE_OR_OPERATION_ORDER",
+    "arity": 2,
+    "source_predicates": [
+      "REPRODUCES_STIPULATED_WORKFLOW",
+      "MIRRORS_REFERENCE_OPERATION_ORDER"
+    ]
+  },
+  {
+    "cluster_id": "binary-003",
+    "abstracted_predicate": "IMPLEMENTS_LIMITATION_RESPONSIVE_ALTERNATIVE_APPROACH",
+    "arity": 2,
+    "source_predicates": [
+      "SELECTS_SUBSTITUTE_APPROACH_UNDER_CONSTRAINT",
+      "ADAPTS_PROBE_TO_ELIMINATE_IDENTIFIED_CONFOUND"
+    ]
+  },
+  {
+    "cluster_id": "binary-004",
+    "abstracted_predicate": "EXECUTES_REASONED_REMOVAL_OF_UNWANTED_STATE",
+    "arity": 2,
+    "source_predicates": [
+      "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+      "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT"
+    ]
+  },
+  {
+    "cluster_id": "binary-005",
+    "abstracted_predicate": "RESOLVES_CANDIDATE_STATUS_FROM_OBSERVED_EVIDENCE",
+    "arity": 2,
+    "source_predicates": [
+      "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+      "SELECTS_TARGET_AMONG_CANDIDATES",
+      "DISMISSES_CANDIDATE_AS_UNINFORMATIVE"
+    ]
+  },
+  {
+    "cluster_id": "binary-006",
+    "abstracted_predicate": "GROUNDS_REASONING_SPECIFICATION_IN_OBSERVED_ACTION_OR_STATE",
+    "arity": 2,
+    "source_predicates": [
+      "ACTION_IMPLEMENTS_PLANNED_STEP",
+      "CONFIRMS_EXPECTED_OUTCOME_FROM_OBSERVATION",
+      "GROUNDS_CONCLUSION_IN_OBSERVATION",
+      "PREDICTS_OUTCOME_OF_PLANNED_OPERATION",
+      "DERIVES_TRIGGER_CONDITION"
+    ]
+  },
+  {
+    "cluster_id": "binary-007",
+    "abstracted_predicate": "MATERIALIZES_SPECIFIED_CONTENT_IN_DESIGNATED_ARTIFACT",
+    "arity": 2,
+    "source_predicates": [
+      "PERSISTS_RECOVERED_VALUE_TO_OUTPUT",
+      "IMPLEMENTS_DECLARED_PLACEHOLDER_INTERFACE"
+    ]
+  },
+  {
+    "cluster_id": "binary-008",
+    "abstracted_predicate": "INTERPRETS_PROBLEMATIC_OBSERVATION_FOR_UNDERSTANDING_OR_RESPONSE",
+    "arity": 2,
+    "source_predicates": [
+      "DIAGNOSES_FAILURE_CAUSE",
+      "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+      "DETECTS_OBSERVED_DATA_INCONSISTENCY",
+      "RECOGNIZES_ANOMALY_IN_OBSERVATION",
+      "INTERPRETS_ADVERSE_OBSERVATION_AS_BENIGN_OR_EXPECTED",
+      "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION",
+      "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR",
+      "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+      "ADAPTS_APPROACH_AFTER_FAILURE"
+    ]
+  },
+  {
+    "cluster_id": "binary-009",
+    "abstracted_predicate": "GROUNDS_CONSTRAINT_OR_JUDGMENT_IN_OBSERVED_EVIDENCE",
+    "arity": 2,
+    "source_predicates": [
+      "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+      "DERIVES_EXACTNESS_CONSTRAINT_FROM_MEASUREMENT",
+      "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+      "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS",
+      "ASSESSES_CANDIDATE_AGAINST_CONSTRAINTS",
+      "CORROBORATES_CANDIDATE_WITH_INDEPENDENT_METADATA",
+      "DERIVES_DECISION_FROM_MEASURED_RESULT"
+    ]
+  },
+  {
+    "cluster_id": "binary-010",
+    "abstracted_predicate": "CONFIRMS_INTENDED_EFFECT_OR_REQUIRED_STATE_FROM_OBSERVED_RESULT",
+    "arity": 2,
+    "source_predicates": [
+      "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT",
+      "VERIFIES_EFFECT_OF_PRIOR_ACTION",
+      "VERIFICATION_CONFIRMS_REQUIRED_STATE"
+    ]
+  },
+  {
+    "cluster_id": "binary-011",
+    "abstracted_predicate": "PRESERVES_VERIFIED_SUBSTANCE_DURING_REPRESENTATIONAL_REVISION",
+    "arity": 2,
+    "source_predicates": [
+      "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION"
+    ]
+  },
+  {
+    "cluster_id": "binary-012",
+    "abstracted_predicate": "CONSTRAINT_DRIVEN_ARTIFACT_ELIMINATION_OR_REVISION",
+    "arity": 2,
+    "source_predicates": [
+      "ENFORCES_OUTPUT_SCOPE_CONSTRAINT",
+      "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION"
+    ]
+  },
+  {
+    "cluster_id": "binary-013",
+    "abstracted_predicate": "GENERALIZES_INFERRED_RULE_BEYOND_OBSERVED_EXAMPLES",
+    "arity": 2,
+    "source_predicates": [
+      "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+      "CONSTRUCTS_GENERALIZATION_PROBE"
+    ]
+  },
+  {
+    "cluster_id": "binary-014",
+    "abstracted_predicate": "RECONSTRUCTS_ANCESTRY_OR_DIVERGENCE_FROM_VERSION_IDENTIFIERS",
+    "arity": 2,
+    "source_predicates": [
+      "DERIVES_VERSION_LINEAGE_FROM_METADATA"
+    ]
+  },
+  {
+    "cluster_id": "binary-015",
+    "abstracted_predicate": "INTEGRATES_MULTIPLE_OBSERVATIONS_INTO_UNIFIED_REPRESENTATION",
+    "arity": 2,
+    "source_predicates": [
+      "SYNTHESIZES_OBSERVATIONS_INTO_UNIFIED_MODEL",
+      "DERIVES_UNIFIED_SCHEMA_MAPPING_FROM_OBSERVATIONS"
+    ]
+  },
+  {
+    "cluster_id": "binary-016",
+    "abstracted_predicate": "DIRECTS_INVESTIGATIVE_FOCUS_FROM_OBSERVED_FEATURE",
+    "arity": 2,
+    "source_predicates": [
+      "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE",
+      "GUIDES_NEXT_INVESTIGATION_BY_OBSERVED_FEATURE",
+      "REFINES_DETECTION_CRITERIA_FROM_OBSERVATION"
+    ]
+  },
+  {
+    "cluster_id": "binary-017",
+    "abstracted_predicate": "INTERPRETS_OBSERVED_CONTENT_AS_TYPED_OR_STRUCTURED_INFORMATION",
+    "arity": 2,
+    "source_predicates": [
+      "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT",
+      "INTERPRETS_RAW_REPRESENTATION_AS_STRUCTURED_DATA"
+    ]
+  },
+  {
+    "cluster_id": "binary-018",
+    "abstracted_predicate": "DERIVES_GOVERNING_ARTIFACT_JUDGMENT_FROM_OBSERVED_CONTENT",
+    "arity": 2,
+    "source_predicates": [
+      "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE",
+      "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED",
+      "EVALUATES_COMPETING_IMPLEMENTATIONS",
+      "EXPLAINS_ARTIFACT_BEHAVIOR_FROM_SOURCE"
+    ]
+  },
+  {
+    "cluster_id": "binary-019",
+    "abstracted_predicate": "DISCRIMINATES_BENIGN_REFERENCE_OCCURRENCES_FROM_ACTUAL_TARGETS",
+    "arity": 2,
+    "source_predicates": [
+      "DISTINGUISHES_BENIGN_REFERENCES_FROM_TARGETS"
+    ]
+  },
+  {
+    "cluster_id": "binary-020",
+    "abstracted_predicate": "RECORDS_DURABLE_ARTIFACT_STATE_REFERENCE_FOR_COMPARISON_OR_HISTORY",
+    "arity": 2,
+    "source_predicates": [
+      "ESTABLISHES_PRE_MODIFICATION_BASELINE",
+      "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL"
+    ]
+  },
+  {
+    "cluster_id": "binary-021",
+    "abstracted_predicate": "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE",
+    "arity": 2,
+    "source_predicates": [
+      "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE"
+    ]
+  },
+  {
+    "cluster_id": "binary-022",
+    "abstracted_predicate": "DERIVES_CONCRETE_TARGET_LOCATION_FROM_OBSERVED_LAYOUT_METADATA",
+    "arity": 2,
+    "source_predicates": [
+      "DERIVES_STORAGE_LOCATION_FROM_LAYOUT_METADATA"
+    ]
+  },
+  {
+    "cluster_id": "ternary-001",
+    "abstracted_predicate": "RESOLVES_TASK_RELEVANT_PREREQUISITE_OR_ENVIRONMENT_STATE",
+    "arity": 3,
+    "source_predicates": [
+      "CHECKS_PREREQUISITE_AVAILABILITY",
+      "REMEDIES_MISSING_CAPABILITY",
+      "SURVEYS_ENVIRONMENT_STATE_FOR_PLANNING",
+      "EXPLORATORY_INSPECTION_REVEALS_CAPABILITY"
+    ]
+  },
+  {
+    "cluster_id": "ternary-002",
+    "abstracted_predicate": "CONDUCTS_CONCERN_MOTIVATED_EVIDENCE_GATHERING",
+    "arity": 3,
+    "source_predicates": [
+      "TESTS_ASSUMPTION_WITH_PROBE",
+      "CONDUCTS_RESIDUAL_RISK_SWEEP"
+    ]
+  },
+  {
+    "cluster_id": "ternary-003",
+    "abstracted_predicate": "IMPLEMENTS_REASONED_FAILURE_OR_RISK_RESPONSE_WITH_OBSERVED_EVIDENCE",
+    "arity": 3,
+    "source_predicates": [
+      "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS",
+      "MITIGATES_ANTICIPATED_FAILURE",
+      "IMPLEMENTS_GUARDED_RECOVERY"
+    ]
+  },
+  {
+    "cluster_id": "ternary-004",
+    "abstracted_predicate": "RECOVERS_UNUSABLE_CHECK_RESULT_VIA_METHOD_DIAGNOSIS_AND_ALTERNATIVE_RETRIEVAL",
+    "arity": 3,
+    "source_predicates": [
+      "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD"
+    ]
+  },
+  {
+    "cluster_id": "ternary-005",
+    "abstracted_predicate": "CONFIRMS_ABSENCE_OF_UNWANTED_STATE_OR_CONTENT",
+    "arity": 3,
+    "source_predicates": [
+      "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION",
+      "VERIFIES_NEGATIVE_CONSTRAINT"
+    ]
+  },
+  {
+    "cluster_id": "ternary-006",
+    "abstracted_predicate": "INTERPRETS_OBSERVED_STRUCTURE_OR_INFORMATIONAL_GAP_TO_DIRECT_TARGETED_ACTION",
+    "arity": 3,
+    "source_predicates": [
+      "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+      "RETRIEVES_MISSING_SECTION_WITH_FOLLOWUP"
+    ]
+  },
+  {
+    "cluster_id": "ternary-007",
+    "abstracted_predicate": "VERIFIES_CLAIM_OR_RESULT_VIA_INDEPENDENT_COMPARISON",
+    "arity": 3,
+    "source_predicates": [
+      "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH",
+      "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION",
+      "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE"
+    ]
+  },
+  {
+    "cluster_id": "ternary-008",
+    "abstracted_predicate": "RESOLVES_OBSERVED_ARTIFACT_CONFLICT_VIA_REASONED_RESOLUTION_ACTION",
+    "arity": 3,
+    "source_predicates": [
+      "RESOLVES_OBSERVED_CONFLICT_BY_SELECTING_VERSION",
+      "RESOLVES_CONFLICT_WITH_TARGETED_EDIT"
+    ]
+  },
+  {
+    "cluster_id": "ternary-009",
+    "abstracted_predicate": "RECONCILES_PRIOR_EXPECTATION_WITH_OBSERVED_OUTCOME",
+    "arity": 3,
+    "source_predicates": [
+      "CONFIRMS_OUTCOME_AGAINST_PREDICTION",
+      "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION"
+    ]
+  },
+  {
+    "cluster_id": "ternary-010",
+    "abstracted_predicate": "VERIFIES_ACTUAL_RESULT_AGAINST_EXPECTED_CRITERIA",
+    "arity": 3,
+    "source_predicates": [
+      "VALIDATES_CONFIGURATION_BEFORE_ACTIVATION",
+      "CONFIRMS_PERSISTED_OUTPUT_MATCHES_COMPUTED_VALUE",
+      "VALIDATES_IMPLEMENTATION_WITH_EXECUTED_TEST",
+      "VERIFIES_OUTPUT_AGAINST_STATED_REQUIREMENTS",
+      "VERIFIES_DEPLOYED_SERVICE_WITH_REQUEST",
+      "STAGES_CHEAP_PROBE_BEFORE_COSTLY_VALIDATION"
+    ]
+  },
+  {
+    "cluster_id": "ternary-011",
+    "abstracted_predicate": "VERIFIES_MULTIPLE_TARGETS_VIA_COMPREHENSIVE_DISCRIMINATIVE_EVALUATION",
+    "arity": 3,
+    "source_predicates": [
+      "AUDITS_MULTIPLE_INVARIANTS",
+      "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH",
+      "VERIFIES_MULTI_INTERFACE_COMPATIBILITY"
+    ]
+  },
+  {
+    "cluster_id": "ternary-012",
+    "abstracted_predicate": "RECOVERS_OBSCURED_CONTENT_VIA_INFERRED_TRANSFORMATION",
+    "arity": 3,
+    "source_predicates": [
+      "DECODES_OBFUSCATED_DATA_USING_INFERRED_TRANSFORMATION"
+    ]
+  },
+  {
+    "cluster_id": "quaternary-001",
+    "abstracted_predicate": "RESOLVES_OBSERVED_BLOCKING_FAILURE_VIA_DIAGNOSED_ALTERNATIVE_AND_CONFIRMATION",
+    "arity": 4,
+    "source_predicates": [
+      "RESOLVES_OBSERVED_FAILURE_WITH_CONFIRMED_WORKAROUND"
+    ]
+  }
+]

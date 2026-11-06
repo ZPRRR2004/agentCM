@@ -1,0 +1,36 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-011",
+  "arity": 2,
+  "source_predicate_names": [
+    "PRESERVES_VERIFIED_CONTENT_IN_FORMAT_REMEDIATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "PRESERVES_VERIFIED_SUBSTANCE_DURING_REPRESENTATIONAL_REVISION",
+    "definition": "The action revises an artifact's incidental representational form while reproducing substantive content that the reasoning has already established as verified or correct, without recomputing, adding, or removing substantive values.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text establishing that the artifact's substantive content is already verified or correct and that only an incidental representational property requires correction."
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The artifact revision that changes the incidental representational property while preserving the already-verified substantive content."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning establishes that the substantive content or values of the artifact have already been verified or are correct, and that only an incidental representational property needs correction.",
+      "The action revises the artifact's representational form, reproducing the same substantive content while changing an incidental representational property such as formatting, encoding, layout, or presentation.",
+      "The action does not recompute, add, or remove any substantive value."
+    ],
+    "exclusion_conditions": [
+      "The action changes substantive values, or adds or removes data.",
+      "The reasoning does not establish the content as already verified or correct before the revision.",
+      "The action's purpose is to correct substantive content rather than only an incidental representational property."
+    ]
+  }
+}

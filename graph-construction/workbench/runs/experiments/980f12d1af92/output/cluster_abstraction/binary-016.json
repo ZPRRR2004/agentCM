@@ -1,0 +1,41 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-016",
+  "arity": 2,
+  "source_predicate_names": [
+    "LOCATES_TARGET_WITHIN_OBSERVED_STRUCTURE",
+    "GUIDES_NEXT_INVESTIGATION_BY_OBSERVED_FEATURE",
+    "REFINES_DETECTION_CRITERIA_FROM_OBSERVATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "DIRECTS_INVESTIGATIVE_FOCUS_FROM_OBSERVED_FEATURE",
+    "definition": "The reasoning uses one or more specific, identifiable elements, features, records, structures, results, or reported inadequacies in an observation to identify a target locus, select a next investigative target or action, or revise search or detection criteria, so that subsequent inquiry is focused or adjusted on the basis of what was observed.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that interprets the observation to pinpoint a target locus, select a next investigative step, or refine search or detection criteria."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation reporting the structure, record set, feature, artifact, result, or inadequacy from which the reasoning draws its investigative focus or adjustment."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports at least one identifiable feature, element, record, structure, result, or inadequacy that can serve as a basis for further inquiry.",
+      "The reasoning explicitly references or relies on that observed feature, element, record, structure, result, or inadequacy.",
+      "The reasoning uses it to single out a target location, source, or container, select a next investigative target or action, or propose revised search or detection criteria.",
+      "The selected target, next step, or revised criteria is connected to the observed feature rather than being unrelated background activity."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely repeats or summarizes the observation without deriving a focused target, next investigative step, or revised search or detection criteria.",
+      "The selected target, next step, or revised criteria is unrelated to any feature reported in the observation or is based only on prior knowledge or a general obligation.",
+      "The observation contains no identifiable feature, structure, record, result, or inadequacy that the reasoning uses for guidance or localization.",
+      "The reasoning states a target value or plan without relating it to a location, record, or feature visible in the observation.",
+      "The reasoning does not identify any target locus, next investigative step, or criterion adjustment from the observation."
+    ]
+  }
+}

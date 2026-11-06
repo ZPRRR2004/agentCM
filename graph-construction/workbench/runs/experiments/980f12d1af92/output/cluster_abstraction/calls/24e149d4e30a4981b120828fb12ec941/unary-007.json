@@ -1,0 +1,81 @@
+{
+  "stage": "cluster_abstraction",
+  "prompt_version": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "started_at": "2026-11-06T05:42:40.903259+00:00",
+  "completed_at": "2026-11-06T05:42:44.845480+00:00",
+  "duration_seconds": 3.953,
+  "request": {
+    "system_message": "You abstract all predicate definitions in one semantic cluster into exactly one reusable, mechanism-level predicate conforming to predicate-definition/v2.\n\nRead every member's complete definition, ordered parameters, assertion conditions, and exclusion conditions. Identify the shared underlying behavioral mechanism. Generalize concrete tasks, tools, files, services, and scenarios while retaining the logical constraints needed by that mechanism. Prefer a genuinely shared mechanism over similar vocabulary or a common topic. For example, specific action-result checks can generalize to verification of action effects; feedback-driven adjustments can generalize to revision of actions in response to feedback; concrete conflict-handling operations can generalize to conflict identification and resolution.\n\nCover the common semantics of the members with a concrete, observable, decidable mechanism. Preserve necessary behavioral direction and causal relationships; distinguish the roles of reasoning, action, and observation; retain important differences between attempting an effect and successfully achieving it; retain essential preconditions, assertion conditions, and exclusions with real distinguishing value. Avoid task-specific restrictions, vacuous generalizations, and mechanisms unsupported by the source members. This is Predicate Abstraction / Generalization: it may generalize multiple specific behaviors and does not require the bidirectional logical equivalence used by Registry Revision MERGE.\n\nAll members belong to the same arity group. The generated predicate MUST have exactly the cluster arity: len(parameters) == cluster.arity. Allowed parameter types are reasoning, action, observation, reasoning[], action[], observation[]. A homogeneous collection parameter counts as one argument. Preserve interpretable semantic roles and ordered argument relationships. You may rename parameters to express the common mechanism. Parameter names must be distinct lower_snake_case identifiers.\n\nAlways generate exactly one final predicate, including for singleton clusters and clusters with internal differences. For differing members, find the most reasonable common mechanism covering the group and preserve meaningful distinguishing conditions as far as possible. Never declare the members incompatible or impossible to merge. Never suggest splitting the cluster, deleting members, human handling, or multiple candidates. Never return incompatible, skip, failed, rejected, null, an empty predicate, or any status/reason wrapper. Do not add evaluation scores or explanations.\n\nReturn exactly one JSON object containing exactly these five fields:\n{\n  \"name\": \"UPPER_SNAKE_CASE_NAME\",\n  \"definition\": \"Complete, precise semantic definition.\",\n  \"parameters\": [\n    {\n      \"name\": \"parameter_name\",\n      \"type\": \"reasoning\",\n      \"description\": \"Precise ordered argument role.\"\n    }\n  ],\n  \"assertion_conditions\": [\"Explicit observable condition.\"],\n  \"exclusion_conditions\": [\"Distinguishing exclusion condition.\"]\n}\nThe example illustrates structure only; the actual ordered parameter count must equal the input cluster arity. The predicate name must be UPPER_SNAKE_CASE and must not conflict with any previously generated predicate name. Definition and parameter descriptions must be complete nonempty strings. Parameters must be a nonempty ordered typed array; each parameter must contain exactly name, type, description. Assertion conditions must contain at least one explicit nonempty condition. Exclusion conditions may be an empty array. Neither condition list may contain duplicates. Use English for all text. Output JSON only, with no Markdown or additional text.\n",
+    "user_message": "Abstract the following semantic predicate cluster into exactly one reusable predicate.\n\nCluster ID:\nunary-007\n\nCluster Arity:\n1\n\nCluster Members:\n[\n  {\n    \"name\": \"REVEALS_UNAVAILABLE_CAPABILITY\",\n    \"definition\": \"The observation itself reports that a command, tool, package, service, or other capability invoked by the agent is absent, not found, or otherwise unavailable, constraining the approach that can be used.\",\n    \"parameters\": [\n      {\n        \"name\": \"limitation_observation\",\n        \"type\": \"observation\",\n        \"description\": \"The observation reporting the absent or unavailable command, tool, package, service, or capability.\"\n      }\n    ],\n    \"assertion_conditions\": [\n      \"The observation explicitly indicates that a command, tool, package, service, or other capability is absent, not found, or otherwise unavailable.\",\n      \"The unavailability is stated by the observation's own content rather than only inferred by the agent in separate reasoning.\"\n    ],\n    \"exclusion_conditions\": [\n      \"The observation reports a generic failure, such as invalid arguments or a non-zero exit status, without stating that a capability is absent or unavailable.\",\n      \"The observation reports success or availability rather than absence.\",\n      \"The reported absence concerns ordinary data content rather than a command, tool, or capability the agent attempted to use.\"\n    ]\n  }\n]\n\nPreviously Generated Predicate Names:\n[\"CONFIGURES_EVENT_DRIVEN_AUTOMATION\", \"PREVENTS_SELF_CAUSED_ADVERSE_EFFECTS_THROUGH_CORRECTIVE_ACTION\", \"EVALUATES_CANDIDATE_AGAINST_ENUMERATED_CONSTRAINTS_OR_SCENARIOS\", \"RESOLVES_EVALUATED_CANDIDATE_ELEMENTS_TO_SINGLE_RESULT\", \"INTERPRETS_REQUIREMENTS_FOR_ACTION_ADMISSIBILITY\", \"INITIATES_DETACHED_ASYNCHRONOUS_EXECUTION\"]\n\nRead every member's complete definition, ordered parameters, assertion conditions, and exclusion conditions. Identify the common underlying behavioral mechanism and generate exactly one complete predicate following the system instructions. The new predicate must preserve the cluster arity. Use a unique predicate name that does not conflict with previously generated predicate names. Return only the complete five-field JSON predicate.\n",
+    "settings": {
+      "max_tokens": 32768,
+      "thinking": "enabled",
+      "reasoning_effort": "high",
+      "response_format": "json_object"
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_at": "2026-11-06T05:42:40.903259+00:00",
+      "duration_seconds": 3.937,
+      "raw_response": {
+        "id": "chatcmpl-b7acb93e-1793-9e6f-a951-e79c9f150e3d",
+        "object": "chat.completion",
+        "created": 1793943760,
+        "model": "deepseek-v4.1-flash-1017",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "reasoning_content": "The cluster has one member. Generate a generalized predicate. Arity 1, observation parameter.\n\nName: REPORTS_CAPABILITY_UNAVAILABILITY or OBSERVES_UNAVAILABLE_CAPABILITY. Must not conflict with previous names. Let's use \"REPORTS_ABSENT_OR_UNAVAILABLE_CAPABILITY\".\n\nDefinition: The observation's own content explicitly indicates that a command, tool, package, service, or other capability needed/attempted is absent, not found, or otherwise unavailable, thereby constraining the approach.\n\nAssertion conditions and exclusion conditions generalized.\n\nLet me write it.",
+              "content": "{\n  \"name\": \"REPORTS_ABSENT_OR_UNAVAILABLE_CAPABILITY\",\n  \"definition\": \"The content of an observation explicitly indicates that a command, tool, package, service, or other capability that was invoked, required, or otherwise relied upon is absent, not found, unsupported, or unavailable, thereby constraining the approach that can be used to pursue the task. The unavailability must be stated by the observation itself, not merely inferred in separate reasoning, and must concern an actionable capability rather than ordinary data content or a generic execution failure.\",\n  \"parameters\": [\n    {\n      \"name\": \"capability_limitation_observation\",\n      \"type\": \"observation\",\n      \"description\": \"The observation whose own content reports that an invoked, required, or relied-upon command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable.\"\n    }\n  ],\n  \"assertion_conditions\": [\n    \"The observation explicitly indicates that a command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable.\",\n    \"The unavailability is stated within the observation's own content rather than only inferred by the agent in separate reasoning.\",\n    \"The absent or unavailable capability is one that was invoked, required, or relied upon to pursue the task, so the observation constrains the approach that can be used.\"\n  ],\n  \"exclusion_conditions\": [\n    \"The observation reports a generic failure, such as invalid arguments, a non-zero exit status, or a runtime error, without stating that a capability is absent or unavailable.\",\n    \"The observation reports success, presence, or availability rather than absence.\",\n    \"The reported absence concerns ordinary data content or a missing data value rather than a command, tool, package, service, or capability the agent attempted or needed to use.\"\n  ]\n}"
+            },
+            "finish_reason": "stop",
+            "logprobs": null
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 1174,
+          "total_tokens": 1693,
+          "completion_tokens": 519,
+          "prompt_tokens_details": {
+            "cached_tokens": 512,
+            "image_tokens": 0,
+            "text_tokens": 1174
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 126,
+            "text_tokens": 392
+          }
+        }
+      },
+      "response_content": "{\n  \"name\": \"REPORTS_ABSENT_OR_UNAVAILABLE_CAPABILITY\",\n  \"definition\": \"The content of an observation explicitly indicates that a command, tool, package, service, or other capability that was invoked, required, or otherwise relied upon is absent, not found, unsupported, or unavailable, thereby constraining the approach that can be used to pursue the task. The unavailability must be stated by the observation itself, not merely inferred in separate reasoning, and must concern an actionable capability rather than ordinary data content or a generic execution failure.\",\n  \"parameters\": [\n    {\n      \"name\": \"capability_limitation_observation\",\n      \"type\": \"observation\",\n      \"description\": \"The observation whose own content reports that an invoked, required, or relied-upon command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable.\"\n    }\n  ],\n  \"assertion_conditions\": [\n    \"The observation explicitly indicates that a command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable.\",\n    \"The unavailability is stated within the observation's own content rather than only inferred by the agent in separate reasoning.\",\n    \"The absent or unavailable capability is one that was invoked, required, or relied upon to pursue the task, so the observation constrains the approach that can be used.\"\n  ],\n  \"exclusion_conditions\": [\n    \"The observation reports a generic failure, such as invalid arguments, a non-zero exit status, or a runtime error, without stating that a capability is absent or unavailable.\",\n    \"The observation reports success, presence, or availability rather than absence.\",\n    \"The reported absence concerns ordinary data content or a missing data value rather than a command, tool, package, service, or capability the agent attempted or needed to use.\"\n  ]\n}",
+      "error": null
+    }
+  ],
+  "succeeded": true,
+  "parsed_response": {
+    "name": "REPORTS_ABSENT_OR_UNAVAILABLE_CAPABILITY",
+    "definition": "The content of an observation explicitly indicates that a command, tool, package, service, or other capability that was invoked, required, or otherwise relied upon is absent, not found, unsupported, or unavailable, thereby constraining the approach that can be used to pursue the task. The unavailability must be stated by the observation itself, not merely inferred in separate reasoning, and must concern an actionable capability rather than ordinary data content or a generic execution failure.",
+    "parameters": [
+      {
+        "name": "capability_limitation_observation",
+        "type": "observation",
+        "description": "The observation whose own content reports that an invoked, required, or relied-upon command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation explicitly indicates that a command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable.",
+      "The unavailability is stated within the observation's own content rather than only inferred by the agent in separate reasoning.",
+      "The absent or unavailable capability is one that was invoked, required, or relied upon to pursue the task, so the observation constrains the approach that can be used."
+    ],
+    "exclusion_conditions": [
+      "The observation reports a generic failure, such as invalid arguments, a non-zero exit status, or a runtime error, without stating that a capability is absent or unavailable.",
+      "The observation reports success, presence, or availability rather than absence.",
+      "The reported absence concerns ordinary data content or a missing data value rather than a command, tool, package, service, or capability the agent attempted or needed to use."
+    ]
+  }
+}

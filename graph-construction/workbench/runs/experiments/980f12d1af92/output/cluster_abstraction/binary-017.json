@@ -1,0 +1,38 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-017",
+  "arity": 2,
+  "source_predicate_names": [
+    "INFERS_RESOURCE_TYPE_OR_STRUCTURAL_ROLE_FROM_CONTENT",
+    "INTERPRETS_RAW_REPRESENTATION_AS_STRUCTURED_DATA"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "INTERPRETS_OBSERVED_CONTENT_AS_TYPED_OR_STRUCTURED_INFORMATION",
+    "definition": "The reasoning interprets an observation of an artifact's raw, low-level, pattern-based, or metadata-bearing content by assigning higher-level semantic organization — such as a resource type, format, structural role, or decoded fields, records, layouts, or values — grounded in identifiable content features, rather than merely restating the observed content.",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that assigns an inferred resource type, format, structural role, or decoded structured meaning to the observed content."
+      },
+      {
+        "name": "content_observation",
+        "type": "observation",
+        "description": "The observation containing the raw, low-level, byte-level, character-level, pattern-based, metadata-bearing, or structurally informative content being interpreted."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains identifiable content features such as a raw or low-level representation, byte or character pattern, embedded string or artifact, occurrence pattern, size or metadata signature, or internal structure.",
+      "The reasoning assigns a specific type, format, structural role, or higher-level structured meaning to the observed content, including decoded fields, records, layouts, boundaries, or values.",
+      "The interpretation is supported by identifiable features in the observation and goes beyond merely repeating or describing the raw content."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only reports or restates raw bytes, raw content, size, existence, or metadata without using it to infer a type, format, structural role, or structured interpretation.",
+      "The stated type, role, or decoded structure is unsupported by any identifiable feature in the observation.",
+      "The observation is unrelated to the stated type, format, structural role, or structured interpretation.",
+      "The reasoning merely dismisses the content as noise, filler, or irrelevant without assigning it a type, format, structural role, or structured meaning."
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-002",
+  "arity": 1,
+  "source_predicate_names": [
+    "PREDICTS_RESIDUAL_ARTIFACT_INTERFERENCE",
+    "ACKNOWLEDGES_RECURRING_OWN_ERROR"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "PREVENTS_SELF_CAUSED_ADVERSE_EFFECTS_THROUGH_CORRECTIVE_ACTION",
+    "definition": "The reasoning identifies an adverse condition attributable to the agent's own activity, such as residual state left by its actions or a recurring mistake, links it to a concrete negative impact on a later operation, acceptance condition, or upcoming action, and uses that self-attributed risk to justify a specific preventive correction, either removing or resetting the residual state or committing to a concrete corrective rule for the upcoming action.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent reasoning that attributes an adverse condition to its own activity, links it to a concrete future operational or acceptance consequence or recurrence, and states a preventive correction or corrective rule for the next operation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific adverse condition attributable to the agent's own prior or current activity rather than to an external cause.",
+      "The reasoning links that self-caused condition to a concrete negative consequence for a later operation, acceptance condition, or upcoming action, including recurrence of the agent's own mistake.",
+      "The reasoning uses the identified risk as justification for a specific preventive correction, such as removing or resetting residual state before handoff or completion, or committing to a concrete corrective rule for the upcoming action."
+    ],
+    "exclusion_conditions": [
+      "The reasoning expresses only generic cleanliness or tidiness concerns without a predicted operational consequence or recurrence risk.",
+      "The adverse condition is attributed to the environment, tooling, or an external actor rather than to the agent's own activity.",
+      "The reasoning identifies self-caused residual state or a mistake but gives no concrete preventive correction, reset, removal, or corrective rule for the later action.",
+      "The reasoning plans cleanup solely because the state is no longer needed, with no predicted interference with a later operation or acceptance condition."
+    ]
+  }
+}

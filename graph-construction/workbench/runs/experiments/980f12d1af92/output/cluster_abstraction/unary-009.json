@@ -1,0 +1,36 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-009",
+  "arity": 1,
+  "source_predicate_names": [
+    "ENUMERATES_COMPETING_EXPLANATIONS",
+    "RESOLVES_CONFLICTING_INFORMATION_SOURCES",
+    "DISAMBIGUATES_COMPETING_INTERPRETATIONS"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "ASSESSES_COMPETING_ACCOUNTS_OF_SAME_OBSERVATION",
+    "definition": "The reasoning explicitly identifies two or more candidate accounts, such as alternative explanations, interpretations, or source-derived values, that purport to explain or characterize the same observed situation, entity, or evidence. It presents these accounts as mutually competing candidates rather than as a single settled account, and either leaves them as explicitly undetermined rivals to be resolved before action or selects one as preferred or authoritative with an identifiable distinguishing justification.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that enumerates, contrasts, and, where applicable, resolves multiple competing accounts of the same observed situation, entity, or evidence."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names or clearly describes at least two distinct candidate accounts that purport to explain or characterize the same observed situation, entity, or evidence.",
+      "The candidate accounts are presented as competing or rival possibilities rather than as sequential plan steps, independent facts, or alternative courses of action.",
+      "Where the reasoning selects a preferred or authoritative candidate, it supplies an identifiable distinguishing consideration or justification for that selection, such as greater coverage of the evidence, internal consistency, source authority, or incompatibility of a rival with the observation.",
+      "Where the reasoning does not select a preferred or authoritative candidate, it explicitly marks the alternatives as undetermined rival candidates whose truth remains to be resolved before action."
+    ],
+    "exclusion_conditions": [
+      "Only a single account, explanation, interpretation, or source-derived value is offered.",
+      "The enumerated items are steps of a plan, candidate solutions, course-of-action options, or unrelated facts rather than rival accounts of the same observation.",
+      "The alternatives concern different entities, different evidence, or different scopes, so they are not competing accounts of the same observed situation.",
+      "A discrepancy or conflict between information sources is merely noted and left unresolved without either explaining the alternatives as rival candidate accounts or selecting an authoritative value with justification.",
+      "One account is already asserted as established without acknowledging any genuine competition among alternatives."
+    ]
+  }
+}

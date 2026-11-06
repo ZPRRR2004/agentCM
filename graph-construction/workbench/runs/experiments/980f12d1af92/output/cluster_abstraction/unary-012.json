@@ -1,0 +1,37 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-012",
+  "arity": 1,
+  "source_predicate_names": [
+    "FORMULATES_CORRECTIVE_SOLUTION",
+    "APPLIES_STATED_CONSTRAINT_TO_DESIGN",
+    "FORMULATES_IMPLEMENTATION_DESIGN",
+    "DEFINES_DETECTION_SIGNATURE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "SPECIFIES_TARGET_LINKED_CONCRETE_MEANS",
+    "definition": "The reasoning formulates a concrete operational specification—such as a corrective method or step, an implementation structure or mechanism, a concrete design choice tied to a stated requirement, or a structural recognition criterion—and explicitly links that specification to an identified purpose, defect, requirement, implementation goal, or target class that it is meant to remedy, satisfy, realize, or distinguish.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that formulates a concrete operational specification and connects it to the identified defect, requirement, implementation goal, or recognition target."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a target purpose, defect, gap, stated requirement or constraint, implementation goal, or class of instances to be recognized.",
+      "The reasoning specifies at least one concrete element of operational content, such as a corrective step or method, an implementation structure or algorithm, a configuration or design choice, a parameter or value, or a structural detection criterion or signature.",
+      "The reasoning explicitly connects the concrete element to the identified target purpose, indicating how the element is intended to remedy the defect, satisfy or violate the requirement, contribute to the implementation goal, or distinguish instances of the target class.",
+      "The concrete element is specified with enough detail to guide action, implementation, or recognition rather than merely restating a goal or asserting that a correction, implementation, search, or detection is needed."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only states that a correction, implementation, search, or detection is needed without specifying any concrete step, structure, choice, parameter, value, or criterion.",
+      "The reasoning only restates or lists requirements, goals, constraints, or target categories without connecting them to a concrete operational element.",
+      "The reasoning only evaluates, summarizes, or reports an already performed action, observed result, or found instance without formulating the concrete means, design, or recognition criterion.",
+      "The reasoning proposes a concrete element that is not linked to any identified defect, requirement, implementation goal, or target class.",
+      "The reasoning only defines an abstract admissibility condition or category without any concrete implementation choice, method, or recognizable structural criterion."
+    ]
+  }
+}

@@ -1,0 +1,1406 @@
+[
+  {
+    "name": "CONFIGURES_EVENT_DRIVEN_AUTOMATION",
+    "definition": "The action creates, updates, or installs a persistent automation configuration that associates a specified event or condition with a downstream operation, so that future occurrences of that event or condition automatically invoke the operation without further manual invocation.",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The action node that writes, updates, or installs the persistent automation configuration linking an event or condition to an automatic downstream operation."
+      }
+    ],
+    "assertion_conditions": [
+      "The action creates, updates, or installs a hook, trigger, listener, job, or equivalent automation configuration artifact.",
+      "The configuration content associates a specified event or condition with a downstream operation to be performed automatically.",
+      "The configuration is intended to affect future occurrences of the event or condition rather than only the current invocation."
+    ],
+    "exclusion_conditions": [
+      "The action performs a one-off operation with no persistent trigger or automation configuration.",
+      "The action only documents a procedure for later manual execution.",
+      "The configured artifact does not connect an event or condition to an automatic response.",
+      "The action configures behavior only for the current invocation without enabling future event-driven execution."
+    ]
+  },
+  {
+    "name": "PREVENTS_SELF_CAUSED_ADVERSE_EFFECTS_THROUGH_CORRECTIVE_ACTION",
+    "definition": "The reasoning identifies an adverse condition attributable to the agent's own activity, such as residual state left by its actions or a recurring mistake, links it to a concrete negative impact on a later operation, acceptance condition, or upcoming action, and uses that self-attributed risk to justify a specific preventive correction, either removing or resetting the residual state or committing to a concrete corrective rule for the upcoming action.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent reasoning that attributes an adverse condition to its own activity, links it to a concrete future operational or acceptance consequence or recurrence, and states a preventive correction or corrective rule for the next operation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific adverse condition attributable to the agent's own prior or current activity rather than to an external cause.",
+      "The reasoning links that self-caused condition to a concrete negative consequence for a later operation, acceptance condition, or upcoming action, including recurrence of the agent's own mistake.",
+      "The reasoning uses the identified risk as justification for a specific preventive correction, such as removing or resetting residual state before handoff or completion, or committing to a concrete corrective rule for the upcoming action."
+    ],
+    "exclusion_conditions": [
+      "The reasoning expresses only generic cleanliness or tidiness concerns without a predicted operational consequence or recurrence risk.",
+      "The adverse condition is attributed to the environment, tooling, or an external actor rather than to the agent's own activity.",
+      "The reasoning identifies self-caused residual state or a mistake but gives no concrete preventive correction, reset, removal, or corrective rule for the later action.",
+      "The reasoning plans cleanup solely because the state is no longer needed, with no predicted interference with a later operation or acceptance condition."
+    ]
+  },
+  {
+    "name": "EVALUATES_CANDIDATE_AGAINST_ENUMERATED_CONSTRAINTS_OR_SCENARIOS",
+    "definition": "The reasoning enumerates two or more distinct checkable conditions that a delivered result must satisfy or hypothetical scenarios/courses of behavior under which a candidate must remain valid, then evaluates candidate states, configurations, or actions against those enumerated items and selects or favors the candidate that satisfies all, or the greatest number, of them. The enumerated items concern verifiable properties of a resulting state or possible external behaviors, rather than merely a sequence of steps to execute.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text enumerating multiple required end-state conditions or hypothetical scenarios and evaluating, selecting, or favoring a candidate state, configuration, or action based on its validity across those enumerated items."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly enumerates at least two distinct checkable conditions that a candidate must satisfy or hypothetical scenarios or external behaviors under which a candidate must remain valid.",
+      "The enumerated items are expressed as verifiable properties of a resulting state or as possible external procedures or behaviors, rather than as an action sequence alone.",
+      "The reasoning compares, selects, or favors a candidate state, configuration, or action according to whether it satisfies all, or the greatest number, of the enumerated conditions or scenarios."
+    ],
+    "exclusion_conditions": [
+      "The reasoning considers only a single expected condition or scenario, with no enumeration of multiple required properties or hypothetical behaviors.",
+      "The reasoning describes a sequence of actions to execute without stating the resulting state conditions or the possible external behaviors under which a candidate must remain valid.",
+      "The reasoning enumerates conditions or scenarios without drawing any comparative conclusion about which candidate state, configuration, or action to adopt.",
+      "The enumerated items are rival explanations for an already observed situation rather than requirements for a resulting state or hypothetical future behaviors to withstand."
+    ]
+  },
+  {
+    "name": "RESOLVES_EVALUATED_CANDIDATE_ELEMENTS_TO_SINGLE_RESULT",
+    "definition": "The reasoning evaluates a set of more than one candidate option, alternative approach, or partial segment that pertains to the same desired result, applies explicit decision criteria to them, such as stated hard requirements, comparative trade-offs, or whole-candidate constraints, and resolves the set into a single candidate outcome by rejecting violating options, committing to a preferred approach with rationale, or combining complementary parts into a candidate that is checked against at least one whole-candidate constraint.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that identifies multiple candidate options, alternative approaches, or complementary segments, evaluates them using explicit criteria, and selects, commits to, or reconstructs a single resulting candidate."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies more than one candidate option, alternative approach, or partial segment relevant to a single outcome or goal.",
+      "The reasoning applies at least one explicit criterion to the identified candidates or segments, such as a stated hard requirement, a stated comparative trade-off, or a whole-candidate constraint.",
+      "The reasoning resolves the evaluated candidates or segments into a single candidate outcome by rejecting violating candidates, committing to a preferred alternative with a stated reason, or combining complementary segments into a candidate.",
+      "The single candidate outcome is presented as selected, committed to, or validated against at least one whole-candidate constraint."
+    ],
+    "exclusion_conditions": [
+      "The reasoning considers only one candidate option, approach, or segment and does not compare or combine it with any other relevant candidate or partial segment.",
+      "The reasoning lists alternatives or segments but does not apply any explicit criterion and does not reach a selected, committed, combined, or validated candidate.",
+      "The reasoning states a selected, committed, or combined result without any stated rationale, requirement, trade-off, or whole-candidate constraint supporting it.",
+      "The candidate segments are treated as separate results rather than as parts or alternatives contributing to one resolved outcome, and no single resulting candidate is established."
+    ]
+  },
+  {
+    "name": "INTERPRETS_REQUIREMENTS_FOR_ACTION_ADMISSIBILITY",
+    "definition": "The reasoning explicitly interprets a stated requirement, specification, rule, or instruction so as to establish what is required, admissible, or in scope for a candidate action or artifact. This includes clarifying or resolving ambiguity or underspecification, deriving checkable acceptance conditions, committing to a concrete operational reading, justifying a resolution of competing instructions, or refusing an unrequested deviation to preserve fidelity. The interpretation is grounded in the stated requirements and provides a basis for judging, guiding, or constraining the action or artifact.",
+    "parameters": [
+      {
+        "name": "requirement_interpretation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that explicitly engages with a stated requirement, specification, rule, or instruction to clarify its meaning, scope, constraints, conflicts, operational interpretation, or fidelity implications."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly refers to at least one stated requirement, specification, rule, or instruction and addresses its meaning, scope, application, or satisfaction rather than merely restating it.",
+      "The reasoning performs at least one observable requirement-interpretation act: identifying an ambiguity, underspecification, or competing-instruction conflict; deriving an explicit checkable acceptance or admissibility condition; committing to a concrete operational interpretation of an underspecified aspect; stating a justified resolution of an instruction conflict; or explicitly rejecting an unrequested optional change to preserve requirement fidelity.",
+      "The reasoning identifies the affected requirement element and either the resulting condition, choice, resolution, or scope boundary, or the specific ambiguity or conflict that requires interpretation, so that admissibility, compliance, or the next action can be assessed."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only repeats or paraphrases the stated requirement verbatim without addressing ambiguity, constraints, conflict, operational meaning, or scope fidelity.",
+      "The reasoning merely lists preferences, observations, or procedural steps that are not tied to interpreting the stated requirements.",
+      "The reasoning reports that a check was performed or states a result without expressing the condition, interpretation, ambiguity, conflict resolution, or scope decision that governs admissibility.",
+      "The reasoning only notes a generic uncertainty without naming a specific requirement, specification, rule, field, or instruction affected.",
+      "When the only candidate act is rejecting a change, the rejection is based solely on performance, convenience, or technical impossibility rather than fidelity to the stated requirements."
+    ]
+  },
+  {
+    "name": "INITIATES_DETACHED_ASYNCHRONOUS_EXECUTION",
+    "definition": "The action initiates a process in a detached, background, or otherwise asynchronous execution mode so that control returns to the caller before the initiated process terminates while that process continues running independently.",
+    "parameters": [
+      {
+        "name": "initiation_action",
+        "type": "action",
+        "description": "The action that starts the process using a detached, background, or equivalent asynchronous execution mechanism."
+      }
+    ],
+    "assertion_conditions": [
+      "The action explicitly uses a background-job operator, nohup-style detachment, or equivalent asynchronous launch facility to start the process.",
+      "The invocation is structured so that control returns immediately or without waiting for process termination while the launched process continues to run.",
+      "The process is actually launched during the action rather than merely being registered or scheduled to start later."
+    ],
+    "exclusion_conditions": [
+      "The action runs the process in the foreground and waits for it to terminate before returning.",
+      "The action only registers the process to start later on an event, schedule, or restart without launching it now.",
+      "No detachment, backgrounding, or asynchronous execution mechanism is present in the action."
+    ]
+  },
+  {
+    "name": "REPORTS_ABSENT_OR_UNAVAILABLE_CAPABILITY",
+    "definition": "The content of an observation explicitly indicates that a command, tool, package, service, or other capability that was invoked, required, or otherwise relied upon is absent, not found, unsupported, or unavailable, thereby constraining the approach that can be used to pursue the task. The unavailability must be stated by the observation itself, not merely inferred in separate reasoning, and must concern an actionable capability rather than ordinary data content or a generic execution failure.",
+    "parameters": [
+      {
+        "name": "capability_limitation_observation",
+        "type": "observation",
+        "description": "The observation whose own content reports that an invoked, required, or relied-upon command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation explicitly indicates that a command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable.",
+      "The unavailability is stated within the observation's own content rather than only inferred by the agent in separate reasoning.",
+      "The absent or unavailable capability is one that was invoked, required, or relied upon to pursue the task, so the observation constrains the approach that can be used."
+    ],
+    "exclusion_conditions": [
+      "The observation reports a generic failure, such as invalid arguments, a non-zero exit status, or a runtime error, without stating that a capability is absent or unavailable.",
+      "The observation reports success, presence, or availability rather than absence.",
+      "The reported absence concerns ordinary data content or a missing data value rather than a command, tool, package, service, or capability the agent attempted or needed to use."
+    ]
+  },
+  {
+    "name": "IDENTIFIES_SPECIFIC_POTENTIAL_FAILURE_MODE",
+    "definition": "The reasoning identifies a concrete, plausible failure mode or risk that could arise under the current approach, configuration, artifact, or task, and explains the mechanism or property by which it could produce an adverse outcome such as an incorrect or misleading result, rejection or nonconformance under external validation, or an unguarded residual failure. The identified scenario must be specific to the present context rather than a generic caution, and the reasoning may additionally state a mitigation, avoidance method, or explicit decision to accept the risk.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that anticipates a specific failure mode or risk and articulates how it could adversely affect the current task, artifact, or configuration."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names a specific, plausible failure mode, error-producing mechanism, residual scenario, or conformance risk that is tied to the current task, configuration, approach, or artifact.",
+      "The reasoning explains how that named scenario or property could lead to an adverse outcome, such as incorrect or misleading results, rejection or mismatch under external validation or strict comparison, or an unguarded failure.",
+      "The identified failure mode is presented as a possibility to be anticipated or considered, rather than merely as a defect already observed after execution."
+    ],
+    "exclusion_conditions": [
+      "The reasoning offers only generic caution, quality concern, or a need for checking without naming a concrete failure mode or risk.",
+      "The reasoning reports a defect or discrepancy only after it has already been observed through execution rather than anticipating a specific possible failure mode.",
+      "The reasoning mentions a risk or problem but neither ties it to the current context nor explains how it could produce an adverse outcome.",
+      "The reasoning merely states confidence or an intention to act without identifying any specific potential failure mode or risk."
+    ]
+  },
+  {
+    "name": "ASSESSES_COMPETING_ACCOUNTS_OF_SAME_OBSERVATION",
+    "definition": "The reasoning explicitly identifies two or more candidate accounts, such as alternative explanations, interpretations, or source-derived values, that purport to explain or characterize the same observed situation, entity, or evidence. It presents these accounts as mutually competing candidates rather than as a single settled account, and either leaves them as explicitly undetermined rivals to be resolved before action or selects one as preferred or authoritative with an identifiable distinguishing justification.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that enumerates, contrasts, and, where applicable, resolves multiple competing accounts of the same observed situation, entity, or evidence."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names or clearly describes at least two distinct candidate accounts that purport to explain or characterize the same observed situation, entity, or evidence.",
+      "The candidate accounts are presented as competing or rival possibilities rather than as sequential plan steps, independent facts, or alternative courses of action.",
+      "Where the reasoning selects a preferred or authoritative candidate, it supplies an identifiable distinguishing consideration or justification for that selection, such as greater coverage of the evidence, internal consistency, source authority, or incompatibility of a rival with the observation.",
+      "Where the reasoning does not select a preferred or authoritative candidate, it explicitly marks the alternatives as undetermined rival candidates whose truth remains to be resolved before action."
+    ],
+    "exclusion_conditions": [
+      "Only a single account, explanation, interpretation, or source-derived value is offered.",
+      "The enumerated items are steps of a plan, candidate solutions, course-of-action options, or unrelated facts rather than rival accounts of the same observation.",
+      "The alternatives concern different entities, different evidence, or different scopes, so they are not competing accounts of the same observed situation.",
+      "A discrepancy or conflict between information sources is merely noted and left unresolved without either explaining the alternatives as rival candidate accounts or selecting an authoritative value with justification.",
+      "One account is already asserted as established without acknowledging any genuine competition among alternatives."
+    ]
+  },
+  {
+    "name": "ESTABLISHES_EVIDENCE_GROUNDED_TASK_OUTCOME_REFERENCE",
+    "definition": "The reasoning explicitly establishes a definitive, evidence-grounded reference for the task's outcome, either by presenting a final result and asserting completion, by assessing satisfaction of stated requirements or deliverables, by declaring overall task completion, or by specifying concrete expected result values that a correct solution should yield for later validation. The outcome is concrete and justified by identifiable evidence, domain facts, or per-requirement status mappings, and serves as a terminal conclusion or validation reference rather than an intermediate, exploratory, or tentative step.",
+    "parameters": [
+      {
+        "name": "outcome_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that explicitly states and justifies a definitive task-level outcome reference, including any final result, per-requirement satisfaction assessment, overall completion declaration, or concrete expected output for validation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly states a task-level outcome reference, such as a final result, a satisfaction or completion status for stated requirements or deliverables, an overall completion declaration, or concrete expected result values for a correct solution.",
+      "The outcome reference is concrete enough to identify what has been achieved or what a correct solution should produce, rather than being only a general goal or success criterion.",
+      "The outcome reference is grounded in identifiable supporting evidence, domain facts, or an explicit per-requirement mapping rather than being asserted without justification.",
+      "The reasoning presents the outcome as definitive, terminal, or a validation reference—a final answer, completion or satisfaction judgment, or expected correct output—rather than as an intermediate, exploratory, or tentative step.",
+      "Where multiple requirements or deliverables are addressed, each is given a satisfaction status, completion judgment, or supporting evidence; where overall completion is declared, the declaration covers the task as a whole or all stated requirements or deliverables rather than a single intermediate check or partial step."
+    ],
+    "exclusion_conditions": [
+      "The reasoning is intermediate, exploratory, or tentative about the result or outcome.",
+      "The reasoning only states plans, next steps, or general success criteria without a concrete final result, completion or satisfaction status, or expected output reference.",
+      "The reasoning lists requirements or deliverables without indicating whether each is satisfied or otherwise mapping them to evidence or judgment.",
+      "The reasoning reports only a single intermediate check or partial progress while remaining work or unresolved requirements are outstanding.",
+      "The reasoning's own content acknowledges that a required item remains unverified, failing, or undone, contradicting an asserted completion or satisfaction claim.",
+      "The reasoning merely reports raw observations or intermediate data without converting them into a final result, completion or satisfaction assessment, or concrete expected-output reference.",
+      "The stated outcome is presented only as a candidate still subject to further verification."
+    ]
+  },
+  {
+    "name": "FORMULATES_STRUCTURED_OPERATIVE_ACCOUNT",
+    "definition": "The reasoning explicitly formulates a specific, structured account that organizes information or intended activity into identifiable components and relationships, so that the account can guide or justify a subsequent action, verification, causal explanation, or assessment of a result; it goes beyond merely restating an observation, reporting completed actions, or stating only a vague goal.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that formulates the structured, operative account."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly identifies specific content components, such as intended steps, subgoals, causal events, candidate explanations, or recovered and unavailable data regions, rather than only restating an observation or general goal.",
+      "The reasoning expresses relevant relationships among those components, such as ordering, dependency, causal sequence, uncertainty requiring verification, or recovered-versus-unavailable coverage, that make the account usable for guidance or justification.",
+      "The account is sufficiently specific that at least one subsequent action, check, explanation, or justified result bound can be derived from it."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only reports, summarizes, or paraphrases completed actions, observations, or outputs without formulating a structured account that guides or justifies further action, verification, explanation, or assessment.",
+      "The reasoning states only a general goal, desired result, or restated task without identifying specific components or relationships needed to act on or assess it.",
+      "The reasoning lists unrelated facts or uncommitted possibilities that do not form an organized, usable account.",
+      "The structured content is too vague to support any identifiable subsequent action, check, explanation, or justified result bound."
+    ]
+  },
+  {
+    "name": "SPECIFIES_TARGET_LINKED_CONCRETE_MEANS",
+    "definition": "The reasoning formulates a concrete operational specification—such as a corrective method or step, an implementation structure or mechanism, a concrete design choice tied to a stated requirement, or a structural recognition criterion—and explicitly links that specification to an identified purpose, defect, requirement, implementation goal, or target class that it is meant to remedy, satisfy, realize, or distinguish.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that formulates a concrete operational specification and connects it to the identified defect, requirement, implementation goal, or recognition target."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a target purpose, defect, gap, stated requirement or constraint, implementation goal, or class of instances to be recognized.",
+      "The reasoning specifies at least one concrete element of operational content, such as a corrective step or method, an implementation structure or algorithm, a configuration or design choice, a parameter or value, or a structural detection criterion or signature.",
+      "The reasoning explicitly connects the concrete element to the identified target purpose, indicating how the element is intended to remedy the defect, satisfy or violate the requirement, contribute to the implementation goal, or distinguish instances of the target class.",
+      "The concrete element is specified with enough detail to guide action, implementation, or recognition rather than merely restating a goal or asserting that a correction, implementation, search, or detection is needed."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only states that a correction, implementation, search, or detection is needed without specifying any concrete step, structure, choice, parameter, value, or criterion.",
+      "The reasoning only restates or lists requirements, goals, constraints, or target categories without connecting them to a concrete operational element.",
+      "The reasoning only evaluates, summarizes, or reports an already performed action, observed result, or found instance without formulating the concrete means, design, or recognition criterion.",
+      "The reasoning proposes a concrete element that is not linked to any identified defect, requirement, implementation goal, or target class.",
+      "The reasoning only defines an abstract admissibility condition or category without any concrete implementation choice, method, or recognizable structural criterion."
+    ]
+  },
+  {
+    "name": "GROUNDS_COMPUTATIONAL_ASSESSMENT_IN_QUANTITATIVE_ANALYSIS",
+    "definition": "The reasoning performs a quantitative analysis of a computational process—deriving or bounding numerical error, estimating time or resource cost from operation counts or data sizes, or using timing evidence to attribute dominant cost—and uses the quantified result to judge whether a stated numerical or performance requirement will be met, to decide how a computation should be executed, or to identify the stage or component that should be optimized.",
+    "parameters": [
+      {
+        "name": "quantitative_reasoning",
+        "type": "reasoning",
+        "description": "The agent text containing the quantitative estimate, error bound, cost calculation, timing breakdown, or dominant-cost attribution together with the judgment, execution decision, or optimization target derived from it."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning supplies a quantitative estimate, bound, measured timing breakdown, or cost attribution for a computational process or component.",
+      "The reasoning explicitly relates the quantified result to a stated numerical tolerance or performance requirement, or uses it to decide execution strategy or to single out a dominant cost contributor for optimization.",
+      "The reasoning derives a conclusion or recommendation—such as equivalence acceptance, performance satisfaction or violation, execution choice, or optimization target—from that quantified result rather than from qualitative assertion alone."
+    ],
+    "exclusion_conditions": [
+      "The reasoning asserts correctness, equivalence, performance adequacy, or need for optimization without any quantitative estimate, bound, timing measurement, or cost attribution.",
+      "The quantified quantity does not concern numerical accuracy, time, resource cost, or execution-cost attribution, but some unrelated property such as monetary price or probability.",
+      "A quantitative estimate or timing measurement is mentioned but neither compared with a requirement nor used to make an execution decision or localize a dominant cost; it is only incidental information.",
+      "The error magnitude or performance number is merely reported as a final observed outcome with no derivation, bounding, estimation, comparison, or attribution to a computational component."
+    ]
+  },
+  {
+    "name": "ANTICIPATES_PROSPECTIVE_VERIFICATION",
+    "definition": "The reasoning identifies or assesses one or more prospective verification, testing, or evaluation activities aimed at confirming an action outcome, validating robustness beyond baseline coverage, or determining whether a solution would satisfy anticipated acceptance conditions. The prospective checks may include planned post-action checks, additional input variations not exercised by given tests, or unstated evaluator scenarios, provided that at least one identifiable verification target, criterion, input variation, usage pattern, or external check is present and the reasoning connects it to a validation or assurance purpose.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "Reasoning text that names or assesses prospective verification checks, test variations, usage scenarios, or evaluator conditions and relates them to confirming an outcome, reducing risk, or establishing solution adequacy."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning refers to one or more verification, testing, or evaluation activities or scenarios that are prospective relative to already completed work, rather than solely reporting past checks.",
+      "At least one identifiable verification target or criterion is present, such as an action outcome or final state, an untested input variation, an alternative usage pattern, or an unstated external evaluator check.",
+      "The reasoning links the prospective check to a validation or assurance purpose, such as confirming that an action produced the required outcome, increasing confidence in robustness beyond existing coverage, or determining whether the solution would satisfy an anticipated acceptance condition."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only describes exploratory inspection before any relevant action or implementation and does not identify a prospective verification target or validation purpose.",
+      "The reasoning only reports checks already completed or results already obtained without identifying any future, additional, or anticipated verification or evaluation target.",
+      "The reasoning states only a generic next step or action without any verification, testing, evaluation, or assurance purpose.",
+      "The reasoning describes hypothetical environment or user behavior without connecting it to verification, evaluation, or acceptance of the solution.",
+      "The reasoning merely restates specified requirements or required tests without committing to any prospective check or assessing robustness against any anticipated verification condition."
+    ]
+  },
+  {
+    "name": "DELIMITS_MODIFICATION_AND_RESIDUAL_ARTIFACT_SCOPE",
+    "definition": "The reasoning establishes and evaluates the boundary of an intended artifact modification or remediation by distinguishing affected, in-scope artifacts or values from unaffected, preserved, or out-of-scope ones and, when persistence outside the primary working set is relevant, by assessing whether affected artifacts or values may occur in non-primary, historical, cached, generated, or otherwise residual locations that must be included in or excluded from the scope.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that states the modification or remediation boundary and evaluates affected, preserved, and residual artifact or value occurrences."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies which artifacts or values are intended to be modified or remediated and which are to remain unchanged, unaffected, or outside the relevant scope.",
+      "The reasoning evaluates coverage of the stated scope by either assessing whether affected artifacts or values may persist in non-primary, historical, cached, generated, or residual locations that should be included or excluded, or explicitly confining modification or remediation to the identified affected artifacts while leaving other artifacts unchanged."
+    ],
+    "exclusion_conditions": [
+      "The reasoning enumerates artifacts, files, or storage locations without stating or evaluating whether they fall within or outside the modification or remediation scope.",
+      "The reasoning proposes changes to artifacts without distinguishing affected from unaffected or preserved artifacts.",
+      "The reasoning mentions non-primary storage only incidentally without treating it as possible residual occurrences relevant to scope."
+    ]
+  },
+  {
+    "name": "IDENTIFIES_DEFICIENCY_OR_INCOMPLETENESS",
+    "definition": "The reasoning identifies a defect, missing or insufficient prerequisite, or incompleteness in an artifact, capability, state, or body of information that matters to the current task or information need, using identifiable content of an observation as evidence; it explicitly characterizes the condition as a problem, gap, or truncation and may motivate further inspection, correction, or provisioning, without asserting that remediation was performed or succeeded.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that explicitly identifies and characterizes a task-relevant defect, missing prerequisite, or incomplete information as a problem or gap."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation whose identifiable content supplies evidence of the defective, missing, insufficient, or truncated condition relevant to the task or information need."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains identifiable evidence of a defect, missing or insufficient prerequisite, or partial or truncated information relevant to the task or information need.",
+      "The reasoning explicitly characterizes that condition as a problem, gap, defect, missing requirement, or incompleteness requiring attention, correction, or further acquisition.",
+      "The reasoning links the identified condition to a goal, requirement, or information need rather than merely repeating or describing the observation.",
+      "If the identified condition is a missing prerequisite, the reasoning identifies the prerequisite before or independently of any attempted provisioning, and the predicate does not assert that a provisioning attempt succeeded.",
+      "The observation may be partial or limited but contains enough identifiable content to ground the reasoning's identification of the gap."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely repeats, summarizes, or describes the observation without identifying a defect, gap, or incompleteness.",
+      "The observation does not contain identifiable evidence of a defect, missing item, insufficiency, or truncation.",
+      "The reasoning asserts a defect or gap that is not supported by identifiable observation content.",
+      "The observation already contains the complete information needed and is merely large or detailed.",
+      "The reasoning requests unrelated additional information without treating the observation or state as incomplete.",
+      "The identified condition is unrelated to the task, goal, or information need.",
+      "An action provisions a component without any identified deficiency, or the predicate is used to assert successful remediation rather than identification of the gap."
+    ]
+  },
+  {
+    "name": "REPRODUCES_SPECIFIED_PROCEDURE_OR_OPERATION_ORDER",
+    "definition": "The reasoning deliberately commits to reproducing the identifiable steps or operations of a stipulated workflow or reference implementation presented in the available procedure evidence, rather than substituting an equivalent check or merely aligning outcomes, so that the stipulated procedure itself is validated or the reference results are matched within the required tolerance.",
+    "parameters": [
+      {
+        "name": "reproduction_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies a stipulated procedure or reference implementation and states that its steps or operation order are to be reproduced for validation or result matching."
+      },
+      {
+        "name": "procedure_evidence",
+        "type": "observation",
+        "description": "The observed or available presentation or execution of the stipulated workflow or reference implementation, whose identifiable steps or order of operations are to be reproduced."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a stipulated procedure or reference implementation or operation order that is to be reproduced rather than replaced by an unrelated or merely equivalent proxy.",
+      "The procedure evidence presents identifiable steps, operations, or an ordering that can be followed.",
+      "The reasoning explicitly connects reproducing the same steps or operation order to validating the stipulated procedure or matching the reference results within the required tolerance."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only requires the final result to match without committing to reproducing the reference's steps or operation order.",
+      "The procedure evidence does not present an identifiable procedure, implementation, or sequence of operations.",
+      "The reasoning or resulting behavior performs only a status query, configuration inspection, or equivalent substitute that does not exercise or reproduce the stipulated workflow.",
+      "A materially different procedure or order is selected for speed or convenience without a claim that it reproduces the stipulated or reference procedure."
+    ]
+  },
+  {
+    "name": "IMPLEMENTS_LIMITATION_RESPONSIVE_ALTERNATIVE_APPROACH",
+    "definition": "The reasoning identifies a specific limitation, restriction, or distorting property affecting an intended operation or a prior measurement/comparison—such as an unavailable capability, an imposed rule, an unsuitable option, or a flawed technique/reference—and explains why an alternative or adjusted approach can still achieve the intended effect or yield a valid result under that condition; the associated action implements the justified alternative or adjustment in exactly the respect needed to address the identified limitation.",
+    "parameters": [
+      {
+        "name": "limitation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that names the constraining limitation or confound, weighs an alternative or adjustment, and justifies how it preserves the intended effect or measurement validity."
+      },
+      {
+        "name": "adapted_action",
+        "type": "action",
+        "description": "The action that implements the justified alternative or adjusted technique/reference in the respect required to address the identified limitation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly identifies a specific limitation, restriction, or confound affecting the intended operation or a prior measurement/comparison, rather than merely asserting a preference.",
+      "The reasoning explains or justifies an alternative or adjusted approach that addresses the identified limitation while preserving the intended effect, valid measurement, or valid comparison.",
+      "The adapted action implements the approach justified by the reasoning and differs from the blocked, restricted, or flawed approach in exactly the respect identified."
+    ],
+    "exclusion_conditions": [
+      "The reasoning describes an action without identifying any specific limitation, restriction, or confound that motivates the chosen approach.",
+      "The action does not implement the alternative or adjustment justified by the reasoning.",
+      "The approach is changed only for efficiency, convenience, or an unrelated requirement, with no limitation or confound being addressed.",
+      "The action repeats the same blocked, restricted, or flawed technique or reference without correcting the identified issue.",
+      "The reasoning merely reports that an attempt failed, was unavailable, or was unparseable without providing a justified alternative for achieving the intended effect or valid result."
+    ]
+  },
+  {
+    "name": "EXECUTES_REASONED_REMOVAL_OF_UNWANTED_STATE",
+    "definition": "The reasoning identifies an unwanted artifact, record, retention mechanism, or produced state to be eliminated, or justifies returning an environment to an initial clean condition for subsequent use, and indicates a cleanup or removal strategy. The action then performs a removal, emptying, elimination, or reversion operation directed at that identified unwanted state while leaving required configuration, infrastructure, or deliverables intact.",
+    "parameters": [
+      {
+        "name": "cleanup_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies the unwanted artifact, record, retention mechanism, or produced state to eliminate, and/or justifies restoring a clean initial condition for subsequent use, including the intended removal strategy."
+      },
+      {
+        "name": "removal_action",
+        "type": "action",
+        "description": "The action that removes, empties, eliminates, or reverts the identified unwanted artifact or produced state, rather than merely exploring, diagnosing, or checking, while preserving required configuration, infrastructure, or deliverables."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific unwanted artifact, record, retention mechanism, or produced state to be eliminated, or states that the environment is being returned to an initial clean condition for subsequent use.",
+      "The reasoning provides a cleanup, removal, or reversion rationale or strategy for the identified target and does not propose removing required configuration, infrastructure, or deliverables.",
+      "The action performs a removal, emptying, elimination, or reversion operation directed at the identified unwanted artifact or produced state rather than only exploring, diagnosing, or checking.",
+      "The action leaves required configuration, infrastructure, or deliverables intact when the stated purpose involves handoff, subsequent use, or targeted remediation."
+    ],
+    "exclusion_conditions": [
+      "The action is exploratory, diagnostic, verification-oriented, or unrelated maintenance and does not execute removal.",
+      "The reasoning does not identify any unwanted artifact, record, retention mechanism, or produced state and gives no rationale for restoring a clean initial condition for subsequent use.",
+      "The action removes required configuration, infrastructure, or deliverables rather than only unwanted or produced artifacts.",
+      "Removal is performed merely for tidiness without either an identified unwanted target or a subsequent-use or clean-state rationale.",
+      "The reasoning does not address the target of removal, the cleanup strategy, or the state in which the environment is left."
+    ]
+  },
+  {
+    "name": "RESOLVES_CANDIDATE_STATUS_FROM_OBSERVED_EVIDENCE",
+    "definition": "The reasoning uses identifiable content of an observation as grounds for resolving the status of a candidate explanation, target item, artifact, or information source relative to the task: selecting it as the relevant, valid, or useful candidate; eliminating it because the observation contradicts a condition it requires; or rejecting or deprioritizing it as uninformative. The conclusion is justified by discriminating, contradictory, or disqualifying observed content rather than by candidate position, recency, surface similarity, guess, or unsupported assertion.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that compares, validates, eliminates, selects, rejects, or deprioritizes a candidate on the basis of observed content."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation providing the discriminating, contradictory, or uninformative content used to resolve the candidate's status."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning refers to at least one candidate explanation, target item, artifact, or information source and concludes a resolved status for it: selected as relevant, valid, or useful; eliminated as contradicted; or rejected or deprioritized as uninformative.",
+      "The reasoning cites identifiable observation content as the basis for that status, such as a discriminating attribute among multiple candidates, content conflicting with a condition required by the candidate, or content indicating placeholder, random, unreadable, or otherwise uninformative material.",
+      "When multiple comparable candidates are considered, the observation exposes at least one attribute that differentiates the selected candidate from the others or exposes disqualifying content for a rejected candidate.",
+      "The resolved status follows from the cited observed content rather than solely from candidate position, recency, surface similarity, or unsupported preference."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only notes uncertainty, unusual content, or a possible candidate without selecting, eliminating, rejecting, or deprioritizing it.",
+      "The observation is compatible with the candidate's required condition and does not indicate uninformative content, yet the reasoning rejects or deprioritizes the candidate.",
+      "The reasoning selects a candidate solely by position, recency, surface similarity, or guess without citing discriminating observation content.",
+      "The discriminating or disqualifying attribute cited by the reasoning is not actually present in the observation.",
+      "The reasoning performs an operation on a candidate without resolving whether that candidate is relevant, valid, useful, contradicted, or uninformative."
+    ]
+  },
+  {
+    "name": "GROUNDS_REASONING_SPECIFICATION_IN_OBSERVED_ACTION_OR_STATE",
+    "definition": "The reasoning establishes a specific, content-level connection between a specification it states or derives—such as an intended action step, an expected outcome or success criterion, a conclusion or diagnosis, the predicted consequence of a planned operation, or an input/state condition controlling behavior—and a second observed element. That observed element may be an action execution or an environmental/structural observation, and its operation, target, output, status, configuration, or data must specifically implement, confirm, support, or ground the reasoned specification. The relation is explicit and evidential or executable, not merely topical.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that states or derives the specification, expectation, conclusion, prediction, or controlling condition and explicitly relates it to the observed element."
+      },
+      {
+        "name": "observed_element",
+        "type": "observation",
+        "description": "The observation of an action execution or of environmental/structural state whose specific operation, target, result, status, configuration, or data content corresponds to and implements, confirms, supports, or grounds the reasoning's stated specification."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states a specific intended step, expected outcome or success criterion, conclusion or diagnosis, predicted consequence, or input/state condition that controls a target's behavior.",
+      "The observation contains identifiable content from an action execution or environmental/structural state, such as an operation and target, outcome or status, configuration, or data, that corresponds to the reasoned specification.",
+      "The reasoning explicitly uses that content as implementation of the planned step, confirmation of the expected outcome, evidential support for the conclusion, the state basis for the prediction, or the structural basis for the derived condition."
+    ],
+    "exclusion_conditions": [
+      "The reasoning and observed element are only topically related and lack a specific matching operation, outcome, status, structural feature, or evidential content.",
+      "The reasoning merely restates or describes the observed element without stating an intended step, expectation, conclusion, prediction, or controlling condition, or without drawing the correspondence.",
+      "The reasoning states an intention, expectation, conclusion, prediction, or condition but the observed element supplies no specific corresponding content or evidence.",
+      "The correspondence rests only on prior belief or speculation with no identifiable basis in the observed element.",
+      "The observed element is used only as an incidental input for further action and not as implementation, confirmation, support, grounding, or derivation for the reasoned specification."
+    ]
+  },
+  {
+    "name": "MATERIALIZES_SPECIFIED_CONTENT_IN_DESIGNATED_ARTIFACT",
+    "definition": "A write action supplies or persists content into a designated output artifact so that information or structure required by a governing specification is realized outside the reasoning process, while preserving the specified destination or declared interface constraints.",
+    "parameters": [
+      {
+        "name": "artifact_write_action",
+        "type": "action",
+        "description": "The action that writes or supplies content into the designated output artifact, thereby materializing the specified information or completing the specified structure."
+      },
+      {
+        "name": "guiding_specification",
+        "type": "reasoning",
+        "description": "The reasoning that identifies or interprets the content to be materialized and the artifact constraints to be honored, including either a recovered or extracted value with its output destination, or an observed artifact skeleton with declared interface elements and unfilled placeholders."
+      }
+    ],
+    "assertion_conditions": [
+      "The guiding specification identifies the content to be materialized and at least one required artifact constraint, such as an output destination, declared interface element, placeholder location, or preserved structure.",
+      "The artifact write action writes or supplies content into the designated artifact that realizes the identified content rather than merely describing or inspecting it.",
+      "The written content preserves the specified destination or declared interface constraints associated with the guiding specification."
+    ],
+    "exclusion_conditions": [
+      "The action only reads, inspects, analyzes, or verifies an artifact or information without writing or supplying the required content.",
+      "The action writes unrelated, placeholder, arbitrary, or unverified content that does not realize the guiding specification.",
+      "No guiding specification identifies required content together with a destination, interface, placeholder, or structural constraint to be honored.",
+      "The action replaces, violates, or disregards the specified destination or declared interface constraints instead of preserving them."
+    ]
+  },
+  {
+    "name": "INTERPRETS_PROBLEMATIC_OBSERVATION_FOR_UNDERSTANDING_OR_RESPONSE",
+    "definition": "The reasoning interprets an observation that reports or bears on a failure, adverse or unexpected outcome, anomaly, inconsistency with expectation, ambiguity about behavior, or condition that undermines the validity of an accompanying result, by assigning that reported condition an explanation, origin, significance, validity status, ambiguity resolution, or adjusted course of action that connects it to the agent's expectations or intended outcome rather than merely recording or restating it.",
+    "parameters": [
+      {
+        "name": "interpretive_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that interprets the problematic or unexpected observation, assigning it a cause or mechanism, origin or benignity, significance, validity judgment, ambiguity resolution, or revised approach grounded in the reported result."
+      },
+      {
+        "name": "problematic_observation",
+        "type": "observation",
+        "description": "The observation reporting or providing concrete behavior relevant to the failure, adverse or unexpected result, anomaly, inconsistency, ambiguity, or validity-undermining condition being interpreted."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports or provides concrete behavior bearing on a failure, negative or adverse outcome, unexpected or anomalous result, inconsistency with expectation, ambiguity about how something behaves, or a condition that invalidates an accompanying result.",
+      "The reasoning explicitly interprets that reported condition by assigning an explanation or causal mechanism, classifying its origin or benignity, judging its significance for the intended outcome, resolving an ambiguity by observed behavior, excluding a result as invalid evidence, or proposing an adjusted course of action in response.",
+      "The interpretation or adjustment is presented as a consequence of, and is consistent with, identifiable content of the observation.",
+      "The reasoning goes beyond merely recording, quoting, or paraphrasing the observation."
+    ],
+    "exclusion_conditions": [
+      "The observation reports a clean, expected success and the reasoning treats it as ordinary success without any interpretive complication.",
+      "The reasoning only restates, summarizes, or acknowledges the observation without drawing an explanation, classification, validity judgment, ambiguity resolution, or response from it.",
+      "The claimed interpretation or response is unrelated to the observation or contradicts the facts it reports.",
+      "No failure, adverse or unexpected result, anomaly, inconsistency, ambiguity, or validity-undermining condition is at issue, and the observation is treated as an ordinary expected result."
+    ]
+  },
+  {
+    "name": "GROUNDS_CONSTRAINT_OR_JUDGMENT_IN_OBSERVED_EVIDENCE",
+    "definition": "The reasoning extracts or interprets evidence from an observation, including measured values, exact quantitative or formatting properties, related result values, independent metadata, records, or candidate occurrences or fragments, and uses that evidence to derive or establish a constraint, threshold, acceptance criterion, consistency relation, derived quantity, corroboration, selection, or numerical baseline for judging compliance or supporting a subsequent decision.",
+    "parameters": [
+      {
+        "name": "evidence_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that extracts, transforms, compares, or applies content from observed evidence to establish a constraint, requirement, consistency relation, compliance judgment, derived input, selection, or decision baseline."
+      },
+      {
+        "name": "evidence_observation",
+        "type": "observation",
+        "description": "The observation supplying the measured, quantitative, structural, relational, metadata, record, or candidate content that is used as evidence."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains identifiable evidence usable by the reasoning, such as numeric measurements, exact properties, related values, metadata, records, or candidate content or context.",
+      "The evidence_reasoning explicitly extracts, computes from, compares to, or applies at least one such observed item rather than merely restating it.",
+      "The reasoning uses the observed evidence to produce a constraint or requirement, a consistency conclusion, a compliance or violation judgment, corroboration or undermining, a derived quantity, an option selection, or a numerical baseline for a subsequent action or decision."
+    ],
+    "exclusion_conditions": [
+      "The observation supplies only general or qualitative discussion with no identifiable evidence that the reasoning extracts, compares, or applies.",
+      "The reasoning merely restates or describes the observation without deriving a constraint, relation, consistency result, judgment, selection, or decision support.",
+      "The relevant constraint, comparison, or judgment is based solely on prior knowledge or assumptions rather than on the observation's content.",
+      "The observed evidence is mentioned but not used to constrain, accept, corroborate, select among, evaluate a candidate or result, or set a baseline for any outcome.",
+      "The reasoning performs an action or reaches a decision independently of the observed evidence."
+    ]
+  },
+  {
+    "name": "CONFIRMS_INTENDED_EFFECT_OR_REQUIRED_STATE_FROM_OBSERVED_RESULT",
+    "definition": "Confirms that a target action achieved its intended effect or that a required state or precondition is present, based on an observation that reports the resulting state or a positive validation outcome. The confirmation must derive from inspection of observable evidence produced by or associated with the action, either as the action's direct result or as the result of a subsequent verification action that inspected the state produced by the action. It must not rely merely on an acknowledgment that the action was invoked or completed.",
+    "parameters": [
+      {
+        "name": "target_action",
+        "type": "action",
+        "description": "The action whose intended effect, produced state, or required precondition is to be confirmed; it may be a state-changing action, an action containing an explicit validation step, or a check whose positive outcome must be established."
+      },
+      {
+        "name": "confirmation_observation",
+        "type": "observation",
+        "description": "The observation reporting the resulting state or positive validation outcome, either as the direct result of the target action or as the outcome of a verification action that inspected the state produced by the target action."
+      }
+    ],
+    "assertion_conditions": [
+      "The target action is intended to produce a specific observable effect or to establish or check a required state or precondition.",
+      "The observation reports an outcome state or validation result that matches the target action's intended effect or required state.",
+      "The reported evidence is causally attributable to the target action's resulting state, either as its direct result or as the result of a subsequent verification action that inspected that state.",
+      "The observation contains no error, failure, absence, or contradictory state for the claimed effect or required state.",
+      "The confirmation is inferred from the reported state or validation result, not merely from an acknowledgment that the target action was invoked or completed."
+    ],
+    "exclusion_conditions": [
+      "The observation only shows that the target action was invoked or completed without evidence of its effect or required state.",
+      "The observation reports an error, failure, absence, or incomplete result for the intended effect or required state.",
+      "The observation is unrelated to the target action's intended effect, produced state, or required precondition.",
+      "A verification activity merely repeats the modification action rather than inspecting the state it produced.",
+      "The observation does not report a positive confirming result for the target action's effect or required state."
+    ]
+  },
+  {
+    "name": "PRESERVES_VERIFIED_SUBSTANCE_DURING_REPRESENTATIONAL_REVISION",
+    "definition": "The action revises an artifact's incidental representational form while reproducing substantive content that the reasoning has already established as verified or correct, without recomputing, adding, or removing substantive values.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text establishing that the artifact's substantive content is already verified or correct and that only an incidental representational property requires correction."
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The artifact revision that changes the incidental representational property while preserving the already-verified substantive content."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning establishes that the substantive content or values of the artifact have already been verified or are correct, and that only an incidental representational property needs correction.",
+      "The action revises the artifact's representational form, reproducing the same substantive content while changing an incidental representational property such as formatting, encoding, layout, or presentation.",
+      "The action does not recompute, add, or remove any substantive value."
+    ],
+    "exclusion_conditions": [
+      "The action changes substantive values, or adds or removes data.",
+      "The reasoning does not establish the content as already verified or correct before the revision.",
+      "The action's purpose is to correct substantive content rather than only an incidental representational property."
+    ]
+  },
+  {
+    "name": "CONSTRAINT_DRIVEN_ARTIFACT_ELIMINATION_OR_REVISION",
+    "definition": "The reasoning identifies an explicitly stated output, format, interface, or artifact-scope constraint that limits permissible artifact content or which artifacts may remain or be created, flags a specific artifact or artifact element as non-permitted or as risking violation, and connects a corrective action to compliance; the action removes or avoids the non-permitted artifact or produces or attempts revised artifact content in which the flagged element is removed or altered.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text identifying the explicit constraint, the specific artifact or artifact element that is non-permitted or risks violating it, and the rationale connecting the planned corrective action to compliance."
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The action that removes or avoids a non-permitted artifact, or produces or attempts to produce revised artifact content in which the flagged element is removed or altered to satisfy the cited constraint."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning cites an explicit output, format, interface, file-permission, or artifact-scope constraint that limits permissible artifact content or which artifacts may remain or be created.",
+      "The reasoning identifies a specific artifact or artifact element as non-permitted or as risking violation of the cited constraint.",
+      "The action removes or avoids the non-permitted artifact, or produces or attempts to produce revised artifact content in which the flagged element is removed or altered.",
+      "The reasoning connects the removal, avoidance, or revision to compliance with the cited constraint."
+    ],
+    "exclusion_conditions": [
+      "No explicit output, format, interface, artifact-scope, or permission constraint is identified.",
+      "A constraint is discussed but no specific artifact or artifact element is identified as non-permitted or as risking its violation.",
+      "The action is unrelated to which artifacts may remain or to whether artifact content complies with the cited constraint.",
+      "The artifact is removed, avoided, or modified only because it is no longer needed, for tidiness, to fix a functional bug, to add a feature, or for stylistic preference, without reference to constraint compliance.",
+      "The reasoning merely restates a constraint without an action that removes, avoids, or alters the artifact or flagged element."
+    ]
+  },
+  {
+    "name": "GENERALIZES_INFERRED_RULE_BEYOND_OBSERVED_EXAMPLES",
+    "definition": "The agent infers a general rule, pattern, transformation, or invariant from limited examples and extends it beyond the exact supplied cases, either by articulating predicted or parameterized behavior for unseen inputs or by grounding the construction of new probe cases or scenarios in that inferred rule. The cited observations provide the example basis and any constructed probe instances, while the reasoning must express the inferred generalization rather than merely restate, summarize, or re-run the supplied examples.",
+    "parameters": [
+      {
+        "name": "generalization_reasoning",
+        "type": "reasoning",
+        "description": "Agent text articulating or presupposing the rule, pattern, or transformation inferred from the available examples and the intended extension or generalization to cases beyond those examples."
+      },
+      {
+        "name": "example_and_probe_observations",
+        "type": "observation[]",
+        "description": "Observations supplying the concrete input-output examples, cases, or agent-constructed probe scenarios that ground the inferred rule and the beyond-example extension."
+      }
+    ],
+    "assertion_conditions": [
+      "The cited observations include at least one concrete example, case, or constructed scenario that supplies an input-output or condition-outcome regularity.",
+      "The reasoning states a general rule, procedure, transformation, or invariant that accounts for the observed example content.",
+      "The reasoning extends the rule to at least one case not identical to the supplied examples, such as predicted unseen-input behavior, a parameterized instance, or a novel probe scenario.",
+      "The beyond-example extension is supported by identifiable content of the cited observations rather than being arbitrary or unsupported.",
+      "Any probe scenarios represented in the observations are derived from the inferred rule and are intended to test whether it holds on cases beyond the supplied reference examples."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely restates, copies, or summarizes the examples without deriving a rule.",
+      "The reasoning proposes a rule that is unsupported by the cited observation content.",
+      "The reasoning describes a one-off operation rather than a generalizable transformation or rule.",
+      "The reasoning does not address how the inferred rule applies beyond the observed examples.",
+      "The cited material only re-runs or compares against supplied reference examples without yielding any new beyond-example case or prediction.",
+      "Any constructed probe is unrelated to a rule inferred from the available examples, or no inferred rule or generalization concern is expressed in the reasoning.",
+      "The cited material merely inspects or displays an artifact without providing example-based or probe-based generalization material."
+    ]
+  },
+  {
+    "name": "RECONSTRUCTS_ANCESTRY_OR_DIVERGENCE_FROM_VERSION_IDENTIFIERS",
+    "definition": "The reasoning interprets version or revision identifiers or references supplied by an observation covering multiple artifacts to reconstruct their lineage, asserting at least one relationship of shared ancestry or common base, or of descendant or divergent branching, among those versions.",
+    "parameters": [
+      {
+        "name": "lineage_reconstruction_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that interprets the supplied identifiers and asserts common ancestry or base relationships and/or descendant or divergent relationships among the versions."
+      },
+      {
+        "name": "multi_version_metadata_observation",
+        "type": "observation",
+        "description": "The observation that supplies identifiers or references for multiple versions or revisions whose lineage is to be reconstructed."
+      }
+    ],
+    "assertion_conditions": [
+      "The multi_version_metadata_observation supplies identifiers or references for two or more versions or revisions.",
+      "The lineage_reconstruction_reasoning interprets those identifiers or references to assert at least one common base or ancestral relationship or at least one descendant or divergent relationship among the versions.",
+      "The asserted ancestry or divergence relationship is grounded in the identifiers or references supplied by the observation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely lists or repeats version identifiers without interpreting ancestry or divergence.",
+      "The observation does not supply identifiers or references for multiple versions or revisions.",
+      "No common ancestry, common base, descendant, or divergence relationship among versions is asserted.",
+      "The reasoning compares versions for correctness, quality, or suitability without asserting how they are related by ancestry or divergence."
+    ]
+  },
+  {
+    "name": "INTEGRATES_MULTIPLE_OBSERVATIONS_INTO_UNIFIED_REPRESENTATION",
+    "definition": "The reasoning combines content from multiple distinct observations into a single integrated representation, model, summary, schema, or correspondence structure, rather than treating those observations independently. This includes deriving a unified representation by cross-referencing observed information and, where the observations expose differing fields, attributes, or schema elements, specifying how those elements correspond to or align within the common representation.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text that integrates, cross-references, or maps content from multiple observations into a unified representation or correspondence structure."
+      },
+      {
+        "name": "observations",
+        "type": "observation[]",
+        "description": "The distinct observations whose contents, structures, fields, or attributes are combined or aligned into the unified representation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning references or restates content from at least two distinct observations.",
+      "The reasoning produces a single integrated representation, model, summary, schema, or correspondence structure that combines or relates the observed information.",
+      "The reasoning cross-references or aligns elements across observations to a common representation rather than only listing the observations independently.",
+      "When the observations contain differently named fields, attributes, or schema elements, the reasoning may specify equivalences or correspondences between those elements and a common target representation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning references only one observation.",
+      "The reasoning lists observations independently without deriving any combined representation, cross-observation alignment, or correspondence.",
+      "No integrated understanding, unified model, schema, summary, or mapping to a common representation is stated."
+    ]
+  },
+  {
+    "name": "DIRECTS_INVESTIGATIVE_FOCUS_FROM_OBSERVED_FEATURE",
+    "definition": "The reasoning uses one or more specific, identifiable elements, features, records, structures, results, or reported inadequacies in an observation to identify a target locus, select a next investigative target or action, or revise search or detection criteria, so that subsequent inquiry is focused or adjusted on the basis of what was observed.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that interprets the observation to pinpoint a target locus, select a next investigative step, or refine search or detection criteria."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation reporting the structure, record set, feature, artifact, result, or inadequacy from which the reasoning draws its investigative focus or adjustment."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports at least one identifiable feature, element, record, structure, result, or inadequacy that can serve as a basis for further inquiry.",
+      "The reasoning explicitly references or relies on that observed feature, element, record, structure, result, or inadequacy.",
+      "The reasoning uses it to single out a target location, source, or container, select a next investigative target or action, or propose revised search or detection criteria.",
+      "The selected target, next step, or revised criteria is connected to the observed feature rather than being unrelated background activity."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely repeats or summarizes the observation without deriving a focused target, next investigative step, or revised search or detection criteria.",
+      "The selected target, next step, or revised criteria is unrelated to any feature reported in the observation or is based only on prior knowledge or a general obligation.",
+      "The observation contains no identifiable feature, structure, record, result, or inadequacy that the reasoning uses for guidance or localization.",
+      "The reasoning states a target value or plan without relating it to a location, record, or feature visible in the observation.",
+      "The reasoning does not identify any target locus, next investigative step, or criterion adjustment from the observation."
+    ]
+  },
+  {
+    "name": "INTERPRETS_OBSERVED_CONTENT_AS_TYPED_OR_STRUCTURED_INFORMATION",
+    "definition": "The reasoning interprets an observation of an artifact's raw, low-level, pattern-based, or metadata-bearing content by assigning higher-level semantic organization — such as a resource type, format, structural role, or decoded fields, records, layouts, or values — grounded in identifiable content features, rather than merely restating the observed content.",
+    "parameters": [
+      {
+        "name": "interpretation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that assigns an inferred resource type, format, structural role, or decoded structured meaning to the observed content."
+      },
+      {
+        "name": "content_observation",
+        "type": "observation",
+        "description": "The observation containing the raw, low-level, byte-level, character-level, pattern-based, metadata-bearing, or structurally informative content being interpreted."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains identifiable content features such as a raw or low-level representation, byte or character pattern, embedded string or artifact, occurrence pattern, size or metadata signature, or internal structure.",
+      "The reasoning assigns a specific type, format, structural role, or higher-level structured meaning to the observed content, including decoded fields, records, layouts, boundaries, or values.",
+      "The interpretation is supported by identifiable features in the observation and goes beyond merely repeating or describing the raw content."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only reports or restates raw bytes, raw content, size, existence, or metadata without using it to infer a type, format, structural role, or structured interpretation.",
+      "The stated type, role, or decoded structure is unsupported by any identifiable feature in the observation.",
+      "The observation is unrelated to the stated type, format, structural role, or structured interpretation.",
+      "The reasoning merely dismisses the content as noise, filler, or irrelevant without assigning it a type, format, structural role, or structured meaning."
+    ]
+  },
+  {
+    "name": "DERIVES_GOVERNING_ARTIFACT_JUDGMENT_FROM_OBSERVED_CONTENT",
+    "definition": "The reasoning interprets the substantive content of an existing artifact, configuration, or set of candidate versions exposed by one or more observations, identifies specific observed constructs, settings, structures, or alternatives, and derives an evidence-grounded judgment that governs how the artifact is understood or handled—such as explaining its behavior, determining precedence between conflicting versions, comparatively assessing candidate implementations, or treating a pre-existing configuration as intended or authoritative.",
+    "parameters": [
+      {
+        "name": "judgment_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that interprets the observed artifact content and states a supported conclusion, comparison, precedence decision, authoritative characterization, or behavioral explanation."
+      },
+      {
+        "name": "artifact_observation",
+        "type": "observation[]",
+        "description": "The observation or set of observations exposing the artifact's source, configuration, layout, versions, or candidate implementations whose identifiable content grounds the judgment."
+      }
+    ],
+    "assertion_conditions": [
+      "The cited observation or observations expose substantive artifact, source, configuration, layout, version, or implementation content rather than only a summary or result.",
+      "The reasoning references identifiable elements of the observed content, such as source constructs, settings, structures, conflicting alternatives, or distinct implementation variants.",
+      "The reasoning derives an evidence-grounded judgment about the artifact that governs its interpretation or handling, including explaining behavior, selecting a prevailing version with rationale, adopting a pre-existing structure as intended or authoritative, or comparatively judging correctness or suitability.",
+      "The derived judgment is supported by the cited observed content rather than being asserted arbitrarily or merely restating the observation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely notes, summarizes, or describes the observed artifact content without deriving any governing explanatory, comparative, precedence, or authoritative judgment.",
+      "The judgment is asserted without grounding in identifiable content from the cited observation or observations.",
+      "The observation or observations contain no substantive artifact, source, configuration, implementation, or version content to interpret.",
+      "For a comparative or conflict case, the cited observations do not expose distinct alternatives or variants to be assessed or resolved."
+    ]
+  },
+  {
+    "name": "DISCRIMINATES_BENIGN_REFERENCE_OCCURRENCES_FROM_ACTUAL_TARGETS",
+    "definition": "The reasoning uses contextual evidence in an observation to classify observed occurrences as merely benign references, such as names, examples, placeholders, unrelated prose, or other non-target mentions, rather than as actual target values or entities that are the operative objects of interest.",
+    "parameters": [
+      {
+        "name": "classification_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that evaluates observed occurrences and classifies them as benign references or actual targets."
+      },
+      {
+        "name": "occurrence_observation",
+        "type": "observation",
+        "description": "The observation showing the occurrences and the surrounding context used to discriminate benign references from actual targets."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains occurrences that could be mistaken for actual target values or entities.",
+      "The reasoning uses observed context to classify at least one observed occurrence as a benign reference, example, placeholder, name, unrelated mention, or other non-target rather than as an actual target."
+    ],
+    "exclusion_conditions": [
+      "The reasoning treats every observed occurrence as an actual target value or entity.",
+      "The reasoning does not use observed context to discriminate benign references from actual targets."
+    ]
+  },
+  {
+    "name": "RECORDS_DURABLE_ARTIFACT_STATE_REFERENCE_FOR_COMPARISON_OR_HISTORY",
+    "definition": "An action captures an identifiable reference representing the state of one or more target artifacts or an accepted set of changes at the time of recording, such as pre-change fingerprints or a version-control commit of accepted changes, and the resulting observation reports that reference together with the artifacts or change set it covers, thereby providing a recorded basis for later comparison, change detection, or historical retrieval.",
+    "parameters": [
+      {
+        "name": "recording_action",
+        "type": "action",
+        "description": "The action that computes, captures, or commits an identifiable reference representing the current or accepted state of the target artifacts or change set."
+      },
+      {
+        "name": "reference_observation",
+        "type": "observation",
+        "description": "The observation reporting the resulting reference identifier, fingerprint, commit metadata, or equivalent summary and the artifacts or changes to which it applies."
+      }
+    ],
+    "assertion_conditions": [
+      "The recording action produces an identifiable reference representing the state of at least one target artifact or of an accepted set of changes at the time of recording.",
+      "The reference_observation reports the resulting reference, such as an identifier, fingerprint, commit identifier, or equivalent summary, and identifies the artifacts or change set it covers.",
+      "The recorded reference is intended or usable for later comparison, change detection, or historical retrieval of the covered artifacts or changes."
+    ],
+    "exclusion_conditions": [
+      "The action produces no identifiable reference or recorded representation for the covered artifacts or changes.",
+      "The observation only reports that recording was attempted without reporting the resulting reference.",
+      "The recorded reference cannot be associated with the artifacts or change set to which it is supposed to apply.",
+      "The recorded values serve only an unrelated purpose and cannot support later comparison, change detection, or historical retrieval."
+    ]
+  },
+  {
+    "name": "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE",
+    "definition": "The reasoning establishes that an already validated or corrected state must be durably recorded in an authoritative store that later inspection or external queries consult, beyond any transient working copy, so that those observers reflect the validated state; the action performs that recording by writing, committing, or otherwise persisting the validated state into that authoritative store.",
+    "parameters": [
+      {
+        "name": "persistence_reasoning",
+        "type": "reasoning",
+        "description": "The agent reasoning that justifies why the validated or corrected state must be recorded in an authoritative persistent store consulted by later inspection or external queries."
+      },
+      {
+        "name": "persist_action",
+        "type": "action",
+        "description": "The action that writes, commits, or otherwise records the validated or corrected state into the authoritative persistent store."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning establishes that the validated or corrected state must be durably recorded in an authoritative store used by later inspection or external queries, rather than only in a transient working copy.",
+      "The persist_action writes, commits, or otherwise records the validated or corrected state into the authoritative store rather than merely reading, inspecting, reporting, or planning such a recording.",
+      "The content recorded by the persist_action corresponds to the validated or corrected state that the reasoning has already established or validated.",
+      "The persist_action targets the authoritative store identified by the reasoning as the durable location that subsequent inspection or queries consult."
+    ],
+    "exclusion_conditions": [
+      "The action only reads, inspects, reports, or displays state without recording changes.",
+      "The reasoning does not connect the recording operation to persistence of the validated or corrected state in an authoritative store.",
+      "The reasoning only describes the content of individual corrections or validations without addressing their durable authoritative recording.",
+      "The reasoning considers recording the validated or corrected state but decides against doing so.",
+      "The action records unrelated, unvalidated, or uncorrected content rather than the state established by the reasoning.",
+      "The action records only into a non-authoritative or transient working copy and does not persist the state to the authoritative store."
+    ]
+  },
+  {
+    "name": "DERIVES_CONCRETE_TARGET_LOCATION_FROM_OBSERVED_LAYOUT_METADATA",
+    "definition": "The reasoning computes a concrete location for a target within a structured container — such as an address, file offset, index, or path — by applying location-mapping metadata supplied by an observation, including base addresses, section or segment offsets, sizes, alignment constraints, or index-to-offset correspondences. The resulting location must be derived from the observed metadata rather than merely repeated from it.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning process that applies the observed layout metadata arithmetically or structurally to compute the concrete location of the target within the container."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation supplying identifiable location-mapping metadata for the container, such as addresses, offsets, sizes, alignment information, or index-to-offset correspondences."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation supplies identifiable location-mapping metadata for the container, such as section or segment addresses, file offsets, sizes, alignment information, or index-to-offset correspondences.",
+      "The reasoning applies that metadata arithmetically or structurally to compute a concrete location for the target within the container.",
+      "The computed location is a derived coordinate that goes beyond restating content already given as such in the observation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning names a section, region, or container without computing a concrete location for the target within it.",
+      "The observation contains no address, offset, size, alignment, or index-mapping information.",
+      "The computed location is unsupported by or inconsistent with the observation's metadata.",
+      "The reasoning only repeats a location already stated in the observation without deriving it."
+    ]
+  },
+  {
+    "name": "RESOLVES_TASK_RELEVANT_PREREQUISITE_OR_ENVIRONMENT_STATE",
+    "definition": "The reasoning identifies or recognizes a task-relevant dependency, unknown or unchecked environment or resource condition, missing or inadequate prerequisite, or existing capability whose status matters for planning or execution; a preparatory action—such as checking availability, version, or readiness, inspecting or querying state, provisioning a missing prerequisite, or non-mutating examination—is directed at that specific condition rather than at the task's primary transformation; and the observation reports the resulting status, successful preparation, revealed state, or confirmed usable capability so that it can inform subsequent action.",
+    "parameters": [
+      {
+        "name": "task_need_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that establishes or acknowledges a task-relevant condition: a dependency or unknown or unchecked state to be resolved, a missing or inadequate prerequisite to be supplied, or a capability revealed by inspection as available and usable for the task."
+      },
+      {
+        "name": "preparatory_action",
+        "type": "action",
+        "description": "The action causally directed at the identified prerequisite, environment, resource, or capability condition, such as querying, inspecting, listing, checking, installing, fetching, refreshing, or otherwise preparing it rather than performing the task's primary substantive transformation."
+      },
+      {
+        "name": "result_observation",
+        "type": "observation",
+        "description": "The observation reporting concrete status information about the identified condition, such as availability, version, readiness, environment or resource state, successful provisioning or preparation, or an existing usable feature or capability."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning establishes or acknowledges a task-relevant condition: a dependency or unknown or unchecked state to be resolved, a missing or inadequate prerequisite, or a capability revealed by inspection as usable.",
+      "The preparatory action is causally directed at that identified condition by querying, inspecting, listing, checking, installing, fetching, refreshing, or otherwise preparing it, and the action does not itself perform the task's primary substantive transformation or final computation.",
+      "The observation reports concrete status information about the identified condition, including at least one of availability, version, readiness, environment or resource state, successful provisioning or preparation, or an existing usable feature or capability.",
+      "The reported status is consistent with the identified condition and provides information usable for subsequent planning or execution; where the action provisions something, the observation confirms that the prerequisite became available or prepared."
+    ],
+    "exclusion_conditions": [
+      "The reasoning does not identify or acknowledge any task-relevant prerequisite, environment or resource state, or capability condition to be checked, supplied, surveyed, or recognized.",
+      "The action is unrelated to the identified condition or performs substantive primary task work rather than a check, inspection, survey, or provisioning step.",
+      "The observation does not report the relevant state, availability, readiness, successful preparation, or revealed capability, or the action outcome remains unknown.",
+      "The action provisions something merely convenient rather than a prerequisite identified as required for the task, or the action and observation are not linked to the condition identified or recognized by the reasoning."
+    ]
+  },
+  {
+    "name": "CONDUCTS_CONCERN_MOTIVATED_EVIDENCE_GATHERING",
+    "definition": "A reasoning process identifies a specific investigative concern—such as an uncertainty, hypothesis, property to test, or risk of overlooked instances after prior targeted work—and motivates an evidence-gathering action directed at that concern; the resulting observation is interpreted as evidence bearing on the concern, either supporting or undermining the hypothesis/property or determining whether additional actionable instances exist.",
+    "parameters": [
+      {
+        "name": "concern_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies the specific uncertainty, hypothesis, property, or residual-risk concern to be investigated and motivates evidence gathering about it."
+      },
+      {
+        "name": "evidence_gathering_action",
+        "type": "action",
+        "description": "The action directed at obtaining evidence about the identified concern, whether by probing a suspected condition or by searching a broader set of locations, patterns, or artifact classes for overlooked instances."
+      },
+      {
+        "name": "interpreted_observation",
+        "type": "observation",
+        "description": "The observation produced by the action that is interpreted as evidence bearing on the identified concern, such as confirming or refuting a hypothesis or revealing or ruling out additional actionable instances."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific uncertainty, hypothesis, property, or residual-risk concern whose status is not yet settled.",
+      "The evidence-gathering action is motivated by and directed at obtaining new evidence about that identified concern, either through a targeted probe or through a search beyond already known targets.",
+      "The observation is examined and interpreted as evidence bearing on the concern, including whether the suspected property holds or whether additional actionable instances exist."
+    ],
+    "exclusion_conditions": [
+      "No specific uncertainty, hypothesis, property, or residual-risk concern is identified to guide the action.",
+      "The action is unrelated to the identified concern or only repeats previously established target values without seeking evidence about an unresolved question.",
+      "The observation is not interpreted for its bearing on the concern being investigated.",
+      "The concern is formulated only after the result is observed, so the action did not serve as evidence gathering for it."
+    ]
+  },
+  {
+    "name": "IMPLEMENTS_REASONED_FAILURE_OR_RISK_RESPONSE_WITH_OBSERVED_EVIDENCE",
+    "definition": "An evidence-linked failure-risk response mechanism in which reasoning identifies a concrete failure condition—an observed failure and its cause, a specific foreseeable failure mode, or a required capability that must survive interruption—then an action implements a corrective change, preventive mitigation, or guarded recovery mechanism that specifically addresses that condition, and an observation supplies diagnostically relevant failure evidence or confirms the mitigated, restored, or created state.",
+    "parameters": [
+      {
+        "name": "failure_condition_reasoning",
+        "type": "reasoning",
+        "description": "Reasoning that diagnoses an observed failure and its cause, identifies a specific foreseeable failure mode that could prevent the goal, or establishes that a required capability must survive interruption or restart, thereby determining the needed response."
+      },
+      {
+        "name": "addressing_action",
+        "type": "action",
+        "description": "Action that implements the specifically reasoned change, preventive measure, or guarded recovery mechanism intended to overcome, avoid, or recover from the identified failure condition rather than merely repeating or ignoring it."
+      },
+      {
+        "name": "evidence_observation",
+        "type": "observation",
+        "description": "Observation that reports the earlier failure or error, provides evidence consistent with the preventive or recovery measure being in place, or confirms successful creation and usability of the recovery mechanism."
+      }
+    ],
+    "assertion_conditions": [
+      "The failure_condition_reasoning identifies a concrete failure condition: a diagnosed cause of an observed failure, a specific anticipated failure mode or pitfall that could prevent the goal, or a requirement that a capability survive interruption or restart.",
+      "The addressing_action is informed by that reasoning and changes the relevant parameter, resource, approach, configuration, permission, state, or mechanism to address the identified failure condition.",
+      "When the action is claimed as preventive, it is applied before the identified failure occurs and specifically targets that failure mode.",
+      "When the action is claimed as guarded recovery, the created mechanism includes a presence check that avoids duplicating or restarting an already-present capability and is designed to fail safely without disruptive output.",
+      "The evidence_observation reports the earlier failure or error, or supplies evidence consistent with the preventive measure being applied, the mitigated or restored state, or successful creation and usability of the recovery mechanism."
+    ],
+    "exclusion_conditions": [
+      "The action repeats the failed action without any relevant change or is not based on the diagnosed cause or identified failure mode.",
+      "The reasoning only mentions a vague or general risk without naming a specific failure condition and without a corresponding action.",
+      "The observation neither reports a failure or error nor provides evidence that the mitigation, restoration, or recovery mechanism was applied or created.",
+      "For a claimed guarded recovery, the mechanism unconditionally starts the capability without checking whether it is already present, can fail or emit output that disrupts the invoking context, or is merely a one-time activation with no resilience rationale.",
+      "The action addresses the failure only after it occurred when the mechanism is claimed as preventive, or the action is preventive but does not address the specific failure mode identified in the reasoning."
+    ]
+  },
+  {
+    "name": "RECOVERS_UNUSABLE_CHECK_RESULT_VIA_METHOD_DIAGNOSIS_AND_ALTERNATIVE_RETRIEVAL",
+    "definition": "An executed information-retrieval check yields no usable information; the reasoning attributes this outcome to a concrete limitation of the check's method or tooling rather than to a genuine absence or defect in the inspected state; and a follow-up action retrieves the same intended information through a materially different technique or invocation.",
+    "parameters": [
+      {
+        "name": "unusable_check_observation",
+        "type": "observation",
+        "description": "The observation reporting that the original check produced no interpretable information, including empty or missing output, an unparseable result, or an error indicating that a required command or tool is unavailable or unsupported."
+      },
+      {
+        "name": "method_limitation_diagnosis",
+        "type": "reasoning",
+        "description": "The reasoning that identifies a concrete limitation of the check's method or tooling, such as unsupported syntax, wrong format, symlink handling, or an unavailable command, as the cause of the unusable result."
+      },
+      {
+        "name": "alternative_retrieval_action",
+        "type": "action",
+        "description": "The follow-up action that targets the same intended information as the original check and uses a materially different technique or invocation to retrieve it."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports that the original check produced no usable information, such as empty output, absent entries, an unparseable result, or an error stating that the command or tool relied on is unavailable or unsupported.",
+      "The reasoning identifies a concrete limitation of the original check's method or tooling as the cause of the unusable result rather than attributing it to the inspected state.",
+      "The alternative retrieval action addresses the diagnosed limitation and retrieves the same intended information using a materially different technique or invocation.",
+      "A causal sequence is present in which the unusable check result prompts the method diagnosis, and the diagnosis motivates the alternative retrieval action."
+    ],
+    "exclusion_conditions": [
+      "The reasoning attributes the unusable result to an actual defect or genuine absence in the inspected system rather than to a limitation of the check's method or tooling.",
+      "The follow-up action repeats the same method or uses only cosmetic variations of it.",
+      "No reasoning distinguishes a tooling artifact from a genuine finding about the inspected state.",
+      "The original observation already supplies the intended information, so no alternative retrieval is required.",
+      "The follow-up action targets information different from that sought by the original check or is otherwise unrelated to the diagnosed limitation."
+    ]
+  },
+  {
+    "name": "CONFIRMS_ABSENCE_OF_UNWANTED_STATE_OR_CONTENT",
+    "definition": "The reasoning identifies a negative or preservation constraint on a target state or result: one or more protected elements, parameters, components, or artifacts must remain unaltered except for explicitly permitted changes, and/or specified items, values, or conditions must not appear. A non-mutating inspection or check action examines that target for the unwanted modification or excluded presence. The observation reports a result that confirms the unwanted state or content is absent, such as unchanged or permitted-change evidence from metadata, checksums, contents, listings, or comparisons, or an absence finding for the specified excluded items.",
+    "parameters": [
+      {
+        "name": "negative_constraint_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning identifying the negative or preservation constraint: protected elements that must remain unaltered except where explicitly permitted and/or specific items, values, or conditions that must not appear in the target state or result."
+      },
+      {
+        "name": "nonmutating_inspection_action",
+        "type": "action",
+        "description": "The non-mutating action that inspects the target or result, using a listing, status query, checksum, read, comparison, or similar check to detect unwanted modifications or specified excluded items without altering the inspected elements."
+      },
+      {
+        "name": "absence_confirmation_observation",
+        "type": "observation",
+        "description": "The observation reporting that the inspected target has not undergone unwanted modification or that none of the specified excluded items, values, or conditions are present, possibly including metadata, checksums, contents, change listings, comparison outcomes, or explicit absence findings."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies at least one negative or preservation constraint: protected elements outside an intended change set that must remain unaltered except where explicitly permitted, or at least one specific item, value, or condition that must not appear in the target state or result.",
+      "The check action is non-mutating with respect to the inspected target and is directed at detecting the identified unwanted modification or excluded item rather than producing the solution or altering the target.",
+      "The observation reports an outcome that confirms the identified unwanted state or content is absent, including unchanged or permitted-change evidence, or an explicit finding that none of the specified excluded items are present."
+    ],
+    "exclusion_conditions": [
+      "The action writes to, deletes, or otherwise alters the inspected elements or target state.",
+      "The reasoning identifies no protected element, permitted-change boundary, or specified item, value, or condition that must be absent.",
+      "No observation reports the outcome of the inspection or absence check.",
+      "The observation reports an unwanted modification or the presence of a specified excluded item, value, or condition rather than confirming its absence.",
+      "The check addresses only positive expected content and does not evaluate the specified negative or preservation constraint.",
+      "The inspection serves only to generate or transform a solution rather than to confirm the preservation or absence constraint."
+    ]
+  },
+  {
+    "name": "INTERPRETS_OBSERVED_STRUCTURE_OR_INFORMATIONAL_GAP_TO_DIRECT_TARGETED_ACTION",
+    "definition": "Reasoning interprets observed informational content that is either structural, schema, field-list, format, or documented-layout evidence about a resource, or a recognized missing or truncated portion of prior information. The reasoning thereby determines a specific required operation: the fields, parameters, or procedure to implement, or the missing information portion to retrieve. A targeted action is directed by that reasoning to create or execute the corresponding procedure or to perform a follow-up retrieval specifically aimed at the identified missing portion. The linked observation is the informational content involved: it either supplies the structural or layout evidence used by the reasoning or contains the previously missing portion returned by the targeted action. The action must operationalize or complete the interpreted informational requirement rather than merely inspect unrelated data or repeat already available information.",
+    "parameters": [
+      {
+        "name": "interpretive_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that interprets structural, schema, field-list, format, or layout evidence to determine required fields, parameters, or operations, or identifies a specific missing or truncated portion of prior information."
+      },
+      {
+        "name": "targeted_action",
+        "type": "action",
+        "description": "The action directed by the reasoning to implement or execute the corresponding procedure or to perform a follow-up retrieval aimed at the identified missing portion."
+      },
+      {
+        "name": "linked_observation",
+        "type": "observation",
+        "description": "The observation that either supplies the structural or layout evidence interpreted by the reasoning or contains the previously missing content obtained by the targeted action."
+      }
+    ],
+    "assertion_conditions": [
+      "The interpretive reasoning explicitly references structural, schema, field-list, format, or documented layout information, or identifies a specific missing or truncated portion of prior information.",
+      "The targeted action is causally linked to that interpretation, either by implementing or executing a procedure based on the structural determination or by performing a follow-up retrieval aimed at the identified missing portion rather than unrelated or duplicative retrieval.",
+      "The linked observation contains either the structural or layout evidence used by the reasoning or the missing content identified and returned by the targeted action.",
+      "The action operationalizes the interpreted requirement or obtains the identified missing portion; it does not merely inspect data unrelated to the interpretation or repeat already available information."
+    ],
+    "exclusion_conditions": [
+      "The interpretive reasoning relies only on values or results without structural, schema, field-list, format, or layout information and does not identify a specific missing or truncated portion.",
+      "The targeted action is unrelated to the identified structure or missing portion, or merely re-fetches information already available.",
+      "The linked observation contains neither structural or layout evidence used by the reasoning nor the missing content identified as missing.",
+      "For the missing-portion case, no prior observation is recognized as partial or truncated.",
+      "The action only retrieves or inspects data and neither implements a procedure derived from structural evidence nor retrieves the identified missing portion."
+    ]
+  },
+  {
+    "name": "VERIFIES_CLAIM_OR_RESULT_VIA_INDEPENDENT_COMPARISON",
+    "definition": "A previously obtained result, proposed candidate, or candidate output is checked by performing an independent comparison: recomputing the same quantity through a materially different access or implementation path, re-reading the exact claimed source location or field, or evaluating candidate and reference computations on identical inputs against a stated equality or tolerance standard. An observation then reports comparable data that confirm or refute the claim by agreement, disagreement, or quantified deviation.",
+    "parameters": [
+      {
+        "name": "verification_standard",
+        "type": "reasoning",
+        "description": "The reasoning or stated standard identifying what is being verified, including the prior result, candidate or fragment, claimed source location, reference output, quantity, or tolerance criterion against which agreement is to be judged."
+      },
+      {
+        "name": "independent_comparison_action",
+        "type": "action",
+        "description": "The action that obtains independent comparison evidence by recomputing through a materially different access or implementation path, re-extracting targeted data from the claimed source location, or evaluating candidate and reference computations on identical inputs."
+      },
+      {
+        "name": "comparison_observation",
+        "type": "observation",
+        "description": "The observation reporting the independently obtained value, data, quantified deviation, or explicit equality for the same quantity, scope, inputs, or location, sufficient to confirm or refute the target against the verification standard."
+      }
+    ],
+    "assertion_conditions": [
+      "The verification_standard identifies a specific quantity, claim, candidate, source location, reference output, or tolerance that is to be checked.",
+      "The independent_comparison_action is targeted to that verification target and obtains comparison evidence by a materially different access or implementation path, by re-reading the exact claimed source location or field, or by evaluating candidate and reference computations on identical inputs.",
+      "The comparison_observation reports a value, dataset, quantified deviation, or explicit equality directly comparable with the verification target, so agreement or disagreement can be determined.",
+      "The comparison path is materially distinct from, or specifically targeted to, the claimed source or computation being checked, making the observed agreement or disagreement informative."
+    ],
+    "exclusion_conditions": [
+      "The comparison repeats the identical code or access path, or reuses the candidate's own computation path, so agreement is not informative.",
+      "The compared quantity, scope, selection, inputs, or source location differs from the target being verified.",
+      "No baseline result, candidate, reference output, or verification criterion exists against which the comparison observation can be judged.",
+      "The action is untargeted exploration not tied to the proposed result, candidate, or claimed source location.",
+      "The observation only inspects a persisted output without recomputing or re-reading when comparable evidence from an independent or targeted path is required.",
+      "The observation reports only an unquantified pass or fail, or data that cannot be compared with the verification target."
+    ]
+  },
+  {
+    "name": "RESOLVES_OBSERVED_ARTIFACT_CONFLICT_VIA_REASONED_RESOLUTION_ACTION",
+    "definition": "An observation identifies unresolved or competing content alternatives for a target artifact; reasoning determines how the conflict is to be resolved by selecting one alternative or specifying replacement content or a resolution strategy with an identifiable basis; and an action modifies, overwrites, adopts, stages, or commits the artifact so that the observed conflict is resolved in accordance with that reasoned determination.",
+    "parameters": [
+      {
+        "name": "conflict_observation",
+        "type": "observation",
+        "description": "The observation reporting unresolved conflict, conflict markers or status, or otherwise competing content alternatives for the same target artifact."
+      },
+      {
+        "name": "resolution_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that determines the resolution by selecting a competing alternative or specifying replacement content, a resolution strategy, or both, with an identifiable basis for that determination."
+      },
+      {
+        "name": "resolution_action",
+        "type": "action",
+        "description": "The action that edits, overwrites, adopts, stages, or commits the target artifact so as to apply the reasoned resolution to the observed conflict."
+      }
+    ],
+    "assertion_conditions": [
+      "The conflict_observation contains identifiable unresolved conflict or competing content alternatives for the same target artifact.",
+      "The resolution_reasoning selects one alternative or specifies replacement content or a resolution strategy that determines how the conflict is to be resolved, with an identifiable basis such as precedence, correctness, supersession, or explicit replacement content.",
+      "The resolution_action modifies, overwrites, adopts, stages, or commits the target artifact in accordance with the resolution determined by the reasoning."
+    ],
+    "exclusion_conditions": [
+      "The conflict_observation does not contain an identifiable conflict or competing content alternatives for the target artifact.",
+      "The resolution_reasoning only notes or describes the conflict without selecting an alternative or determining replacement content or a resolution strategy.",
+      "The resolution_action is unrelated to the conflicted artifact or applies a different resolution than the one determined by the reasoning.",
+      "The conflict is only discussed or described without any action applying a resolution.",
+      "The reasoning provides no identifiable selection, replacement content, or strategy that determines the resolution."
+    ]
+  },
+  {
+    "name": "RECONCILES_PRIOR_EXPECTATION_WITH_OBSERVED_OUTCOME",
+    "definition": "A reasoning node states an identifiable expectation, hypothesis, or interpretation before or independently of an execution outcome; an observation reports the actual result produced by that execution or measurement; and a later reasoning node explicitly evaluates the observed outcome against the prior expectation, either confirming that they agree or revising or correcting the prior expectation because the observed result is incompatible with it.",
+    "parameters": [
+      {
+        "name": "prior_expectation_reasoning",
+        "type": "reasoning",
+        "description": "The earlier reasoning node that states the expectation, hypothesis, or interpretation to be evaluated against the observed outcome."
+      },
+      {
+        "name": "observed_outcome",
+        "type": "observation",
+        "description": "The observation reporting the actual result, error, or measured value produced after the prior expectation was stated."
+      },
+      {
+        "name": "expectation_evaluation_reasoning",
+        "type": "reasoning",
+        "description": "The later reasoning node that explicitly compares the observed outcome with the prior expectation and either affirms agreement or corrects the expectation in response to a discrepancy."
+      }
+    ],
+    "assertion_conditions": [
+      "The prior expectation reasoning states a specific and identifiable expected result, hypothesis, structural assumption, or interpretation rather than only a plan of action.",
+      "The observed outcome reports an actual result, error, or measured value that is relevant to and comparable with the prior expectation.",
+      "The expectation evaluation reasoning explicitly compares the observed outcome with the prior expectation and states either that they agree or that the prior expectation is changed, corrected, or replaced because of the observed result.",
+      "When correction occurs, the expectation evaluation reasoning refers to the conflicting observed result as the reason for the change rather than revising the expectation without evidential connection."
+    ],
+    "exclusion_conditions": [
+      "No identifiable prior expectation, hypothesis, or interpretation is stated before or independently of the observed outcome.",
+      "The prior statement is only a plan or intended action and does not assert an expectation or interpretation that could be confirmed or contradicted.",
+      "The observation is merely reported without being compared with the prior expectation and without causing an evidence-grounded correction.",
+      "The later reasoning restates the observed outcome or the prior expectation unchanged without stating agreement, disagreement, or revision.",
+      "The expectation is formulated only after seeing the outcome, so it cannot function as a prior expectation being evaluated.",
+      "The observed outcome and prior expectation are not comparable, so no meaningful confirmation or contradiction can be assessed."
+    ]
+  },
+  {
+    "name": "VERIFIES_ACTUAL_RESULT_AGAINST_EXPECTED_CRITERIA",
+    "definition": "A verification mechanism in which an expected behavior, requirement, reference value, or verification goal is established; one or more actions exercise, execute a test against, request from, or inspect a target artifact, output, configuration, or running component so that its actual state or behavior is exposed; and an observation reports the resulting content, response, status, or test outcome, which is compared against the expectation to determine whether the target conforms, is valid, or is fit to be activated or relied upon.",
+    "parameters": [
+      {
+        "name": "verification_criteria",
+        "type": "reasoning",
+        "description": "The reasoning content that states the expected behavior, requirement, reference value, or verification goal to be confirmed; it may be expressed directly or derived from a previously computed or observed reference value."
+      },
+      {
+        "name": "verification_action",
+        "type": "action",
+        "description": "The action or linked sequence of actions that exercises, runs a test against, sends a request to, or inspects the target artifact, output, configuration, or running component so that its actual behavior or content can be observed."
+      },
+      {
+        "name": "verification_observation",
+        "type": "observation",
+        "description": "The observation reporting the actual content, response, status, or test result produced by the verification action, sufficient to compare against the expected criteria and judge conformance."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning states a specific expected behavior, requirement, target value, or verification goal against which the target is to be judged, whether stated directly or derived from a previously computed or observed reference value.",
+      "The verification action exercises, executes a test against, requests from, or inspects the target artifact, output, configuration, or running component rather than only generating or modifying it.",
+      "The verification observation reports actual content, response, status, or test outcome produced by the verification action and sufficient to compare with the stated expectation.",
+      "The comparison outcome confirms conformance, success, validity, or fitness for activation or reliance, or provides evidence used to make that determination."
+    ],
+    "exclusion_conditions": [
+      "The action only generates or changes output without checking it against any expected behavior, requirement, or reference value.",
+      "No expected behavior, requirement, reference value, or verification goal is established in reasoning or derivable from a prior computed observation.",
+      "The observation merely displays output, reports only a transport failure, or provides no interpretable evidence for the stated criteria.",
+      "Conformance is asserted only in reasoning and is not visible in the observation of the actual result.",
+      "A test or check is authored but never executed, or a running service is inspected only through process state, files, logs, or configuration instead of its exposed interface.",
+      "Verification stages are not linked as parts of the same verification effort, or only one of the intended stages is performed.",
+      "The verification action targets something unrelated to the stated verification goal."
+    ]
+  },
+  {
+    "name": "VERIFIES_MULTIPLE_TARGETS_VIA_COMPREHENSIVE_DISCRIMINATIVE_EVALUATION",
+    "definition": "Reasoning identifies two or more distinct targets that must be evaluated together to establish a requirement—such as independent invariants, required invocation interfaces or execution paths, or competing candidate occurrences—directs a single comprehensive action to search, probe, or exercise all of those targets rather than a single known case, and interprets an observation that reports outcomes separately attributable to the individual targets as evidence that every required target is satisfied or covered, that the desired candidate is uniquely supported, or that alternatives are excluded.",
+    "parameters": [
+      {
+        "name": "multi_target_requirement_reasoning",
+        "type": "reasoning",
+        "description": "Reasoning that identifies multiple distinct conditions, interfaces, paths, or candidate alternatives to be assessed together and that interprets the resulting outcomes as satisfying, covering, or excluding those targets."
+      },
+      {
+        "name": "comprehensive_target_probe_action",
+        "type": "action",
+        "description": "A single action that comprehensively searches, probes, or exercises the multiple identified targets rather than checking only one known target."
+      },
+      {
+        "name": "target_discriminative_observation",
+        "type": "observation",
+        "description": "Observation reporting outcomes that can be attributed to the individual targets, enabling comparison of success, coverage, uniqueness, or exclusion."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning specifies at least two distinct targets to be evaluated together, such as independent invariants, required interfaces or paths, or candidate alternatives.",
+      "The action performs a combined or exhaustive search, probe, or execution that covers multiple of those specified targets rather than a single known case.",
+      "The observation reports outcomes attributable to the individual targets, not merely one undifferentiated status.",
+      "The reasoning interprets the individually attributable outcomes as confirming that all required targets hold, that each required path or interface succeeds equivalently, or that competing alternatives are excluded."
+    ],
+    "exclusion_conditions": [
+      "Only one target, condition, interface, path, or candidate alternative is evaluated.",
+      "The action does not actually search, probe, or exercise the specified targets, for example by only compiling or checking syntax without executing required paths.",
+      "The action is limited to a single known location or instance and cannot reveal or assess additional required targets or alternatives.",
+      "The observation aggregates outcomes so that results cannot be attributed to individual targets.",
+      "At least one required target fails or an additional unexcluded qualifying alternative remains, so the intended verification, compatibility, or uniqueness conclusion is not established.",
+      "The observation is not interpreted as relevant to the multi-target requirement, coverage, compatibility, or alternative exclusion."
+    ]
+  },
+  {
+    "name": "RECOVERS_OBSCURED_CONTENT_VIA_INFERRED_TRANSFORMATION",
+    "definition": "The reasoning identifies a transformation, key, substitution rule, or decoding convention inferred from analysis of the target artifact or data; an action applies that identified transformation to non-directly-readable target data; and the resulting observation reports recovered or decoded content consistent with the inferred transformation.",
+    "parameters": [
+      {
+        "name": "inferred_transformation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that specifies the transformation, key, substitution rule, or decoding convention inferred from the target artifact or data."
+      },
+      {
+        "name": "transformation_application_action",
+        "type": "action",
+        "description": "The action that applies the inferred transformation to the non-directly-readable target data rather than merely displaying or copying it."
+      },
+      {
+        "name": "recovered_content_observation",
+        "type": "observation",
+        "description": "The observation reporting the recovered or decoded content produced by the transformation and consistent with the inferred transformation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific transformation, key, substitution rule, or decoding convention inferred from the target artifact or data.",
+      "The action applies that identified transformation to non-directly-readable target data.",
+      "The observation reports recovered or decoded content consistent with the inferred transformation."
+    ],
+    "exclusion_conditions": [
+      "No transformation, key, substitution rule, or decoding convention is identified before the action.",
+      "The action does not apply a decoding or deobfuscation transformation to the target data.",
+      "The observation reports no recovered content, or the reported content is inconsistent with the inferred transformation.",
+      "The reasoning merely restates raw content that was already directly readable without any transformation."
+    ]
+  },
+  {
+    "name": "RESOLVES_OBSERVED_BLOCKING_FAILURE_VIA_DIAGNOSED_ALTERNATIVE_AND_CONFIRMATION",
+    "definition": "An observed failure, refusal, or blocking constraint is diagnosed by reasoning that identifies a cause or limiting condition and specifies a concrete alternative remedy; an action then implements that alternative rather than repeating the failed approach; and a later observation confirms that the obstacle has been overcome, consistent with the remedy having been applied.",
+    "parameters": [
+      {
+        "name": "failure_observation",
+        "type": "observation",
+        "description": "The initial observation reporting an error, refusal, or blocking constraint that prevented an intended operation."
+      },
+      {
+        "name": "diagnosis_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies a cause or limiting condition of the reported failure and specifies an alternative remedy distinct from the failed approach."
+      },
+      {
+        "name": "remediation_action",
+        "type": "action",
+        "description": "The action that executes the specified alternative remedy rather than repeating the failed approach."
+      },
+      {
+        "name": "confirmation_observation",
+        "type": "observation",
+        "description": "The later observation reporting success or removal of the obstacle, consistent with the alternative remedy having been applied."
+      }
+    ],
+    "assertion_conditions": [
+      "The failure observation reports an error, refusal, or blocking constraint that prevented an intended operation.",
+      "The diagnosis reasoning identifies a cause or limiting condition of that failure and specifies an alternative remedy that differs from the failed approach.",
+      "The remediation action executes the specified alternative remedy rather than repeating the failed approach.",
+      "The confirmation observation reports success or removal of the obstacle, consistent with the alternative remedy having been applied."
+    ],
+    "exclusion_conditions": [
+      "No failure or blocking constraint is reported by the initial observation.",
+      "The reasoning notes the failure without diagnosing a cause or specifying an alternative remedy.",
+      "The action merely repeats the failed approach or does not implement the specified remedy.",
+      "The later observation still reports failure, or is unrelated to the obstacle.",
+      "No subsequent observation confirms resolution of the obstacle."
+    ]
+  }
+]

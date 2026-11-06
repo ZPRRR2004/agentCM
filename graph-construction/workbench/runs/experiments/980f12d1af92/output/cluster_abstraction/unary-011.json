@@ -1,0 +1,36 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-011",
+  "arity": 1,
+  "source_predicate_names": [
+    "PLANS_NEXT_ACTION",
+    "DECOMPOSES_TASK_INTO_SUBGOALS",
+    "DIAGNOSES_ROOT_CAUSE",
+    "PROPOSES_TESTABLE_HYPOTHESIS",
+    "ASSESSES_COMPLETENESS_OF_RECOVERY"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "FORMULATES_STRUCTURED_OPERATIVE_ACCOUNT",
+    "definition": "The reasoning explicitly formulates a specific, structured account that organizes information or intended activity into identifiable components and relationships, so that the account can guide or justify a subsequent action, verification, causal explanation, or assessment of a result; it goes beyond merely restating an observation, reporting completed actions, or stating only a vague goal.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that formulates the structured, operative account."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly identifies specific content components, such as intended steps, subgoals, causal events, candidate explanations, or recovered and unavailable data regions, rather than only restating an observation or general goal.",
+      "The reasoning expresses relevant relationships among those components, such as ordering, dependency, causal sequence, uncertainty requiring verification, or recovered-versus-unavailable coverage, that make the account usable for guidance or justification.",
+      "The account is sufficiently specific that at least one subsequent action, check, explanation, or justified result bound can be derived from it."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only reports, summarizes, or paraphrases completed actions, observations, or outputs without formulating a structured account that guides or justifies further action, verification, explanation, or assessment.",
+      "The reasoning states only a general goal, desired result, or restated task without identifying specific components or relationships needed to act on or assess it.",
+      "The reasoning lists unrelated facts or uncommitted possibilities that do not form an organized, usable account.",
+      "The structured content is too vague to support any identifiable subsequent action, check, explanation, or justified result bound."
+    ]
+  }
+}

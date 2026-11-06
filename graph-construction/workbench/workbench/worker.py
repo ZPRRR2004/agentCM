@@ -66,7 +66,15 @@ def _run(root, transport, progress):
         return split_run(root, transport=transport, progress=progress)
     if meta.get('kind') == 'clustering':
         from .clustering import run as clustering_run
-        return clustering_run(root, progress=progress)
+        llm = None
+        if 'abstraction' in meta:
+            config = meta['abstraction']
+            llm = PredicateDiscoveryLLM(
+                output, model=config['model'], base_url=config['base_url'],
+                max_retries=config['max_retries'], max_tokens=config['max_tokens'],
+                context_tokens=config['context_tokens'], timeout=config['timeout_seconds'],
+                transport=transport, progress=progress)
+        return clustering_run(root, progress=progress, llm_client=llm)
     if meta.get('kind', 'predicate') != 'predicate':
         raise ValueError('无法运行未知实验类型')
     from .predicate_inputs import verify

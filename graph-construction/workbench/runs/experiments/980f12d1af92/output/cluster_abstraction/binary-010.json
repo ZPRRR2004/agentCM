@@ -1,0 +1,42 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-010",
+  "arity": 2,
+  "source_predicate_names": [
+    "ACTION_RESULT_CONFIRMS_INTENDED_EFFECT",
+    "VERIFIES_EFFECT_OF_PRIOR_ACTION",
+    "VERIFICATION_CONFIRMS_REQUIRED_STATE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "CONFIRMS_INTENDED_EFFECT_OR_REQUIRED_STATE_FROM_OBSERVED_RESULT",
+    "definition": "Confirms that a target action achieved its intended effect or that a required state or precondition is present, based on an observation that reports the resulting state or a positive validation outcome. The confirmation must derive from inspection of observable evidence produced by or associated with the action, either as the action's direct result or as the result of a subsequent verification action that inspected the state produced by the action. It must not rely merely on an acknowledgment that the action was invoked or completed.",
+    "parameters": [
+      {
+        "name": "target_action",
+        "type": "action",
+        "description": "The action whose intended effect, produced state, or required precondition is to be confirmed; it may be a state-changing action, an action containing an explicit validation step, or a check whose positive outcome must be established."
+      },
+      {
+        "name": "confirmation_observation",
+        "type": "observation",
+        "description": "The observation reporting the resulting state or positive validation outcome, either as the direct result of the target action or as the outcome of a verification action that inspected the state produced by the target action."
+      }
+    ],
+    "assertion_conditions": [
+      "The target action is intended to produce a specific observable effect or to establish or check a required state or precondition.",
+      "The observation reports an outcome state or validation result that matches the target action's intended effect or required state.",
+      "The reported evidence is causally attributable to the target action's resulting state, either as its direct result or as the result of a subsequent verification action that inspected that state.",
+      "The observation contains no error, failure, absence, or contradictory state for the claimed effect or required state.",
+      "The confirmation is inferred from the reported state or validation result, not merely from an acknowledgment that the target action was invoked or completed."
+    ],
+    "exclusion_conditions": [
+      "The observation only shows that the target action was invoked or completed without evidence of its effect or required state.",
+      "The observation reports an error, failure, absence, or incomplete result for the intended effect or required state.",
+      "The observation is unrelated to the target action's intended effect, produced state, or required precondition.",
+      "A verification activity merely repeats the modification action rather than inspecting the state it produced.",
+      "The observation does not report a positive confirming result for the target action's effect or required state."
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-004",
+  "arity": 3,
+  "source_predicate_names": [
+    "RECOVERS_CHECK_WITH_ALTERNATIVE_METHOD"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RECOVERS_UNUSABLE_CHECK_RESULT_VIA_METHOD_DIAGNOSIS_AND_ALTERNATIVE_RETRIEVAL",
+    "definition": "An executed information-retrieval check yields no usable information; the reasoning attributes this outcome to a concrete limitation of the check's method or tooling rather than to a genuine absence or defect in the inspected state; and a follow-up action retrieves the same intended information through a materially different technique or invocation.",
+    "parameters": [
+      {
+        "name": "unusable_check_observation",
+        "type": "observation",
+        "description": "The observation reporting that the original check produced no interpretable information, including empty or missing output, an unparseable result, or an error indicating that a required command or tool is unavailable or unsupported."
+      },
+      {
+        "name": "method_limitation_diagnosis",
+        "type": "reasoning",
+        "description": "The reasoning that identifies a concrete limitation of the check's method or tooling, such as unsupported syntax, wrong format, symlink handling, or an unavailable command, as the cause of the unusable result."
+      },
+      {
+        "name": "alternative_retrieval_action",
+        "type": "action",
+        "description": "The follow-up action that targets the same intended information as the original check and uses a materially different technique or invocation to retrieve it."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports that the original check produced no usable information, such as empty output, absent entries, an unparseable result, or an error stating that the command or tool relied on is unavailable or unsupported.",
+      "The reasoning identifies a concrete limitation of the original check's method or tooling as the cause of the unusable result rather than attributing it to the inspected state.",
+      "The alternative retrieval action addresses the diagnosed limitation and retrieves the same intended information using a materially different technique or invocation.",
+      "A causal sequence is present in which the unusable check result prompts the method diagnosis, and the diagnosis motivates the alternative retrieval action."
+    ],
+    "exclusion_conditions": [
+      "The reasoning attributes the unusable result to an actual defect or genuine absence in the inspected system rather than to a limitation of the check's method or tooling.",
+      "The follow-up action repeats the same method or uses only cosmetic variations of it.",
+      "No reasoning distinguishes a tooling artifact from a genuine finding about the inspected state.",
+      "The original observation already supplies the intended information, so no alternative retrieval is required.",
+      "The follow-up action targets information different from that sought by the original check or is otherwise unrelated to the diagnosed limitation."
+    ]
+  }
+}

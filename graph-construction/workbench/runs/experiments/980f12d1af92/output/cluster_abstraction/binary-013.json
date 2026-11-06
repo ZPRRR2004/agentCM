@@ -1,0 +1,43 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-013",
+  "arity": 2,
+  "source_predicate_names": [
+    "DERIVES_GENERAL_RULE_FROM_EXAMPLES",
+    "CONSTRUCTS_GENERALIZATION_PROBE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "GENERALIZES_INFERRED_RULE_BEYOND_OBSERVED_EXAMPLES",
+    "definition": "The agent infers a general rule, pattern, transformation, or invariant from limited examples and extends it beyond the exact supplied cases, either by articulating predicted or parameterized behavior for unseen inputs or by grounding the construction of new probe cases or scenarios in that inferred rule. The cited observations provide the example basis and any constructed probe instances, while the reasoning must express the inferred generalization rather than merely restate, summarize, or re-run the supplied examples.",
+    "parameters": [
+      {
+        "name": "generalization_reasoning",
+        "type": "reasoning",
+        "description": "Agent text articulating or presupposing the rule, pattern, or transformation inferred from the available examples and the intended extension or generalization to cases beyond those examples."
+      },
+      {
+        "name": "example_and_probe_observations",
+        "type": "observation[]",
+        "description": "Observations supplying the concrete input-output examples, cases, or agent-constructed probe scenarios that ground the inferred rule and the beyond-example extension."
+      }
+    ],
+    "assertion_conditions": [
+      "The cited observations include at least one concrete example, case, or constructed scenario that supplies an input-output or condition-outcome regularity.",
+      "The reasoning states a general rule, procedure, transformation, or invariant that accounts for the observed example content.",
+      "The reasoning extends the rule to at least one case not identical to the supplied examples, such as predicted unseen-input behavior, a parameterized instance, or a novel probe scenario.",
+      "The beyond-example extension is supported by identifiable content of the cited observations rather than being arbitrary or unsupported.",
+      "Any probe scenarios represented in the observations are derived from the inferred rule and are intended to test whether it holds on cases beyond the supplied reference examples."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely restates, copies, or summarizes the examples without deriving a rule.",
+      "The reasoning proposes a rule that is unsupported by the cited observation content.",
+      "The reasoning describes a one-off operation rather than a generalizable transformation or rule.",
+      "The reasoning does not address how the inferred rule applies beyond the observed examples.",
+      "The cited material only re-runs or compares against supplied reference examples without yielding any new beyond-example case or prediction.",
+      "Any constructed probe is unrelated to a rule inferred from the available examples, or no inferred rule or generalization concern is expressed in the reasoning.",
+      "The cited material merely inspects or displays an artifact without providing example-based or probe-based generalization material."
+    ]
+  }
+}

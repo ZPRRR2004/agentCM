@@ -148,6 +148,8 @@ const executionStages = {
   embedding_concat: "生成平方根加权拼接向量并整体归一化",
   clustering: "执行各元数组聚类", cluster_statistics: "计算 Cluster 统计",
   clustering_save: "保存聚类结果",
+  cluster_abstraction: "LLM Predicate Abstraction",
+  cluster_abstraction_save: "保存抽象 Registry 与成员映射",
 };
 function currentExecution(e) {
   const p = e.execution || {};

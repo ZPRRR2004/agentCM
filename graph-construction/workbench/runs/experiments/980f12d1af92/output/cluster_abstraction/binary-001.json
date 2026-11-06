@@ -1,0 +1,45 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-001",
+  "arity": 2,
+  "source_predicate_names": [
+    "IDENTIFIES_DEFECT_FROM_OBSERVATION",
+    "IDENTIFIES_MISSING_PREREQUISITE",
+    "ATTEMPTS_PREREQUISITE_PROVISIONING",
+    "RECOGNIZES_INCOMPLETE_OBSERVATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "IDENTIFIES_DEFICIENCY_OR_INCOMPLETENESS",
+    "definition": "The reasoning identifies a defect, missing or insufficient prerequisite, or incompleteness in an artifact, capability, state, or body of information that matters to the current task or information need, using identifiable content of an observation as evidence; it explicitly characterizes the condition as a problem, gap, or truncation and may motivate further inspection, correction, or provisioning, without asserting that remediation was performed or succeeded.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that explicitly identifies and characterizes a task-relevant defect, missing prerequisite, or incomplete information as a problem or gap."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation whose identifiable content supplies evidence of the defective, missing, insufficient, or truncated condition relevant to the task or information need."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains identifiable evidence of a defect, missing or insufficient prerequisite, or partial or truncated information relevant to the task or information need.",
+      "The reasoning explicitly characterizes that condition as a problem, gap, defect, missing requirement, or incompleteness requiring attention, correction, or further acquisition.",
+      "The reasoning links the identified condition to a goal, requirement, or information need rather than merely repeating or describing the observation.",
+      "If the identified condition is a missing prerequisite, the reasoning identifies the prerequisite before or independently of any attempted provisioning, and the predicate does not assert that a provisioning attempt succeeded.",
+      "The observation may be partial or limited but contains enough identifiable content to ground the reasoning's identification of the gap."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely repeats, summarizes, or describes the observation without identifying a defect, gap, or incompleteness.",
+      "The observation does not contain identifiable evidence of a defect, missing item, insufficiency, or truncation.",
+      "The reasoning asserts a defect or gap that is not supported by identifiable observation content.",
+      "The observation already contains the complete information needed and is merely large or detailed.",
+      "The reasoning requests unrelated additional information without treating the observation or state as incomplete.",
+      "The identified condition is unrelated to the task, goal, or information need.",
+      "An action provisions a component without any identified deficiency, or the predicate is used to assert successful remediation rather than identification of the gap."
+    ]
+  }
+}

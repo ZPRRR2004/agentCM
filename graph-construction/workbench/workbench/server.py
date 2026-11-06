@@ -11,7 +11,7 @@ from urllib.parse import parse_qs, urlparse
 
 from .common import PROMPTS, ROOT, PromptManager, read, write
 from .store import Workspace
-from . import splitting, preprocessing, experiment_lifecycle, clustering
+from . import splitting, preprocessing, experiment_lifecycle, clustering, predicate_abstraction
 from .split_preview import preview as split_preview
 from .browser_sessions import BrowserSessions
 
@@ -144,6 +144,10 @@ def make_server(port, data_dir, workspace=None, *, idle_timeout=None, startup_ti
                         value = clustering.export(workspace, query['id'])
                     elif path == '/api/clustering/mapping':
                         value = clustering.export(workspace, query['id'], mapping=True)
+                    elif path == '/api/clustering/abstracted-registry':
+                        value = predicate_abstraction.export(workspace, query['id'])
+                    elif path == '/api/clustering/abstraction-mapping':
+                        value = predicate_abstraction.export(workspace, query['id'], mapping=True)
                     elif path == '/api/clustering/field-pair':
                         value = clustering.field_pair(workspace, query['id'], int(query['left']), int(query['right']))
                     else:

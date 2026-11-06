@@ -1,0 +1,37 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-022",
+  "arity": 2,
+  "source_predicate_names": [
+    "DERIVES_STORAGE_LOCATION_FROM_LAYOUT_METADATA"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "DERIVES_CONCRETE_TARGET_LOCATION_FROM_OBSERVED_LAYOUT_METADATA",
+    "definition": "The reasoning computes a concrete location for a target within a structured container — such as an address, file offset, index, or path — by applying location-mapping metadata supplied by an observation, including base addresses, section or segment offsets, sizes, alignment constraints, or index-to-offset correspondences. The resulting location must be derived from the observed metadata rather than merely repeated from it.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning process that applies the observed layout metadata arithmetically or structurally to compute the concrete location of the target within the container."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation supplying identifiable location-mapping metadata for the container, such as addresses, offsets, sizes, alignment information, or index-to-offset correspondences."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation supplies identifiable location-mapping metadata for the container, such as section or segment addresses, file offsets, sizes, alignment information, or index-to-offset correspondences.",
+      "The reasoning applies that metadata arithmetically or structurally to compute a concrete location for the target within the container.",
+      "The computed location is a derived coordinate that goes beyond restating content already given as such in the observation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning names a section, region, or container without computing a concrete location for the target within it.",
+      "The observation contains no address, offset, size, alignment, or index-mapping information.",
+      "The computed location is unsupported by or inconsistent with the observation's metadata.",
+      "The reasoning only repeats a location already stated in the observation without deriving it."
+    ]
+  }
+}

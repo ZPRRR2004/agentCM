@@ -1,0 +1,35 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-014",
+  "arity": 1,
+  "source_predicate_names": [
+    "PLANS_POST_ACTION_VERIFICATION",
+    "BROADENS_VERIFICATION_BEYOND_REQUIRED_CASES",
+    "ANTICIPATES_UNSPECIFIED_EVALUATION_CRITERIA"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "ANTICIPATES_PROSPECTIVE_VERIFICATION",
+    "definition": "The reasoning identifies or assesses one or more prospective verification, testing, or evaluation activities aimed at confirming an action outcome, validating robustness beyond baseline coverage, or determining whether a solution would satisfy anticipated acceptance conditions. The prospective checks may include planned post-action checks, additional input variations not exercised by given tests, or unstated evaluator scenarios, provided that at least one identifiable verification target, criterion, input variation, usage pattern, or external check is present and the reasoning connects it to a validation or assurance purpose.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "Reasoning text that names or assesses prospective verification checks, test variations, usage scenarios, or evaluator conditions and relates them to confirming an outcome, reducing risk, or establishing solution adequacy."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning refers to one or more verification, testing, or evaluation activities or scenarios that are prospective relative to already completed work, rather than solely reporting past checks.",
+      "At least one identifiable verification target or criterion is present, such as an action outcome or final state, an untested input variation, an alternative usage pattern, or an unstated external evaluator check.",
+      "The reasoning links the prospective check to a validation or assurance purpose, such as confirming that an action produced the required outcome, increasing confidence in robustness beyond existing coverage, or determining whether the solution would satisfy an anticipated acceptance condition."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only describes exploratory inspection before any relevant action or implementation and does not identify a prospective verification target or validation purpose.",
+      "The reasoning only reports checks already completed or results already obtained without identifying any future, additional, or anticipated verification or evaluation target.",
+      "The reasoning states only a generic next step or action without any verification, testing, evaluation, or assurance purpose.",
+      "The reasoning describes hypothetical environment or user behavior without connecting it to verification, evaluation, or acceptance of the solution.",
+      "The reasoning merely restates specified requirements or required tests without committing to any prospective check or assessing robustness against any anticipated verification condition."
+    ]
+  }
+}

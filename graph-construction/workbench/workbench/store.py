@@ -145,6 +145,9 @@ class Workspace:
                 # Display fallback only; do not migrate or write historical snapshots.
                 result['embedding_representation'] = result['clustering'].get(
                     'embedding_representation', clustering.representation_config(meta['config']))
+                if 'abstraction' in meta:
+                    from .predicate_abstraction import results as abstraction_results
+                    result['abstraction_results'] = abstraction_results(output, state.get('abstraction_run_id'))
                 result['windows'] = []
             elif kind == 'preprocess':
                 result['trajectories'] = preprocessing.list_trajectories(root)
@@ -377,7 +380,9 @@ class Workspace:
             predicate_inputs.verify(root, meta)
         if meta.get('kind') == 'split' and (meta.get('input_state') == 'awaiting_input' or not meta['trajectory_count']):
             raise ValueError('请先接入执行轨迹，再开始切分')
-        needs_model = meta.get('kind', 'predicate') == 'predicate' or (meta.get('kind') == 'split' and splitting.uses_model(meta['config']))
+        needs_model = (meta.get('kind', 'predicate') == 'predicate' or
+                       (meta.get('kind') == 'split' and splitting.uses_model(meta['config'])) or
+                       (meta.get('kind') == 'clustering' and 'abstraction' in meta))
         if needs_model and not settings['api_key'].strip():
             raise ValueError('请先在模型设置中填写 API Key')
         env = dict(os.environ, DEEPSEEK_API_KEY=settings['api_key'],
@@ -385,6 +390,9 @@ class Workspace:
                    PYTHONUNBUFFERED='1', PYTHONUTF8='1')
         if meta.get('kind') == 'clustering':
             env['AGENTCM_EMBEDDING_API_KEY'] = settings['embedding_api_key']
+            if 'abstraction' in meta:
+                env['DEEPSEEK_MODEL'] = meta['abstraction']['model']
+                env['DEEPSEEK_BASE_URL'] = meta['abstraction']['base_url']
         pending = read(root / 'pending_feedback.json', {})
         submitted = read(root / 'feedback.json', {})
         if not pending or pending.get('token') != submitted.get('token'):

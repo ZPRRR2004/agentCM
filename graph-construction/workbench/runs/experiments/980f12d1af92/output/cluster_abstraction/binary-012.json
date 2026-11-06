@@ -1,0 +1,40 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-012",
+  "arity": 2,
+  "source_predicate_names": [
+    "ENFORCES_OUTPUT_SCOPE_CONSTRAINT",
+    "REVISES_ARTIFACT_TO_AVOID_CONSTRAINT_VIOLATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "CONSTRAINT_DRIVEN_ARTIFACT_ELIMINATION_OR_REVISION",
+    "definition": "The reasoning identifies an explicitly stated output, format, interface, or artifact-scope constraint that limits permissible artifact content or which artifacts may remain or be created, flags a specific artifact or artifact element as non-permitted or as risking violation, and connects a corrective action to compliance; the action removes or avoids the non-permitted artifact or produces or attempts revised artifact content in which the flagged element is removed or altered.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text identifying the explicit constraint, the specific artifact or artifact element that is non-permitted or risks violating it, and the rationale connecting the planned corrective action to compliance."
+      },
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The action that removes or avoids a non-permitted artifact, or produces or attempts to produce revised artifact content in which the flagged element is removed or altered to satisfy the cited constraint."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning cites an explicit output, format, interface, file-permission, or artifact-scope constraint that limits permissible artifact content or which artifacts may remain or be created.",
+      "The reasoning identifies a specific artifact or artifact element as non-permitted or as risking violation of the cited constraint.",
+      "The action removes or avoids the non-permitted artifact, or produces or attempts to produce revised artifact content in which the flagged element is removed or altered.",
+      "The reasoning connects the removal, avoidance, or revision to compliance with the cited constraint."
+    ],
+    "exclusion_conditions": [
+      "No explicit output, format, interface, artifact-scope, or permission constraint is identified.",
+      "A constraint is discussed but no specific artifact or artifact element is identified as non-permitted or as risking its violation.",
+      "The action is unrelated to which artifacts may remain or to whether artifact content complies with the cited constraint.",
+      "The artifact is removed, avoided, or modified only because it is no longer needed, for tidiness, to fix a functional bug, to add a feature, or for stylistic preference, without reference to constraint compliance.",
+      "The reasoning merely restates a constraint without an action that removes, avoids, or alters the artifact or flagged element."
+    ]
+  }
+}

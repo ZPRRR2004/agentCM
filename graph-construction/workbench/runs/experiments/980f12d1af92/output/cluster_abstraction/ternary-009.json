@@ -1,0 +1,46 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-009",
+  "arity": 3,
+  "source_predicate_names": [
+    "CONFIRMS_OUTCOME_AGAINST_PREDICTION",
+    "REVISES_HYPOTHESIS_USING_CONTRADICTING_OBSERVATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RECONCILES_PRIOR_EXPECTATION_WITH_OBSERVED_OUTCOME",
+    "definition": "A reasoning node states an identifiable expectation, hypothesis, or interpretation before or independently of an execution outcome; an observation reports the actual result produced by that execution or measurement; and a later reasoning node explicitly evaluates the observed outcome against the prior expectation, either confirming that they agree or revising or correcting the prior expectation because the observed result is incompatible with it.",
+    "parameters": [
+      {
+        "name": "prior_expectation_reasoning",
+        "type": "reasoning",
+        "description": "The earlier reasoning node that states the expectation, hypothesis, or interpretation to be evaluated against the observed outcome."
+      },
+      {
+        "name": "observed_outcome",
+        "type": "observation",
+        "description": "The observation reporting the actual result, error, or measured value produced after the prior expectation was stated."
+      },
+      {
+        "name": "expectation_evaluation_reasoning",
+        "type": "reasoning",
+        "description": "The later reasoning node that explicitly compares the observed outcome with the prior expectation and either affirms agreement or corrects the expectation in response to a discrepancy."
+      }
+    ],
+    "assertion_conditions": [
+      "The prior expectation reasoning states a specific and identifiable expected result, hypothesis, structural assumption, or interpretation rather than only a plan of action.",
+      "The observed outcome reports an actual result, error, or measured value that is relevant to and comparable with the prior expectation.",
+      "The expectation evaluation reasoning explicitly compares the observed outcome with the prior expectation and states either that they agree or that the prior expectation is changed, corrected, or replaced because of the observed result.",
+      "When correction occurs, the expectation evaluation reasoning refers to the conflicting observed result as the reason for the change rather than revising the expectation without evidential connection."
+    ],
+    "exclusion_conditions": [
+      "No identifiable prior expectation, hypothesis, or interpretation is stated before or independently of the observed outcome.",
+      "The prior statement is only a plan or intended action and does not assert an expectation or interpretation that could be confirmed or contradicted.",
+      "The observation is merely reported without being compared with the prior expectation and without causing an evidence-grounded correction.",
+      "The later reasoning restates the observed outcome or the prior expectation unchanged without stating agreement, disagreement, or revision.",
+      "The expectation is formulated only after seeing the outcome, so it cannot function as a prior expectation being evaluated.",
+      "The observed outcome and prior expectation are not comparable, so no meaningful confirmation or contradiction can be assessed."
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-006",
+  "arity": 1,
+  "source_predicate_names": [
+    "LAUNCHES_PROCESS_ASYNCHRONOUSLY"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "INITIATES_DETACHED_ASYNCHRONOUS_EXECUTION",
+    "definition": "The action initiates a process in a detached, background, or otherwise asynchronous execution mode so that control returns to the caller before the initiated process terminates while that process continues running independently.",
+    "parameters": [
+      {
+        "name": "initiation_action",
+        "type": "action",
+        "description": "The action that starts the process using a detached, background, or equivalent asynchronous execution mechanism."
+      }
+    ],
+    "assertion_conditions": [
+      "The action explicitly uses a background-job operator, nohup-style detachment, or equivalent asynchronous launch facility to start the process.",
+      "The invocation is structured so that control returns immediately or without waiting for process termination while the launched process continues to run.",
+      "The process is actually launched during the action rather than merely being registered or scheduled to start later."
+    ],
+    "exclusion_conditions": [
+      "The action runs the process in the foreground and waits for it to terminate before returning.",
+      "The action only registers the process to start later on an event, schedule, or restart without launching it now.",
+      "No detachment, backgrounding, or asynchronous execution mechanism is present in the action."
+    ]
+  }
+}

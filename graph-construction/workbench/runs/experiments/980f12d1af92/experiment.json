@@ -1,0 +1,85 @@
+{
+  "id": "980f12d1af92",
+  "kind": "clustering",
+  "schema": "predicate-clustering/v1",
+  "title": "谓词聚类-kmeans-50个cluster-llm提取",
+  "question": "",
+  "created_at": "2026-11-06T05:40:53.717240+00:00",
+  "dataset_id": "terminal-bench-2.1",
+  "dataset_name": "terminal-bench-2.1",
+  "source": {
+    "type": "experiment",
+    "experiment_id": "f94a6b7d7baa",
+    "title": "50窗口-反馈合并-人工反馈间隔10-1",
+    "dataset_id": "terminal-bench-2.1",
+    "dataset_name": "terminal-bench-2.1"
+  },
+  "source_title": "50窗口-反馈合并-人工反馈间隔10-1",
+  "source_experiment_id": "f94a6b7d7baa",
+  "input_hash": "0c129c5094a1b086f50bf96299b3cc620151418b50bbfd9c932a67557ad93815",
+  "predicate_count": 135,
+  "arity_counts": {
+    "1": 42,
+    "2": 61,
+    "3": 31,
+    "4": 1
+  },
+  "embedding": {
+    "model": "qwen3.7-text-embedding",
+    "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "dimensions": null,
+    "input_template": "predicate-embedding-fields/v1",
+    "batch_size": 10,
+    "max_retries": 3,
+    "timeout_seconds": 120
+  },
+  "config": {
+    "algorithm": "kmeans",
+    "target_clusters": 50,
+    "clusters_by_arity": {
+      "1": 15,
+      "2": 22,
+      "3": 12,
+      "4": 1
+    },
+    "metric": "euclidean",
+    "n_init": 20,
+    "random_state": 42,
+    "embedding_representation": {
+      "mode": "fieldwise_concat",
+      "version": "fieldwise-concat/v1",
+      "fields": [
+        "definition",
+        "parameters",
+        "assertion",
+        "exclusion"
+      ],
+      "weights": {
+        "definition": 0.5,
+        "parameters": 0.3,
+        "assertion": 0.1,
+        "exclusion": 0.1
+      },
+      "normalization": "l2_per_field_then_l2_final",
+      "weight_application": "sqrt",
+      "empty_field_policy": "zero_block_keep_weights"
+    }
+  },
+  "abstraction": {
+    "schema": "predicate-cluster-abstraction/v1",
+    "model": "deepseek-v4.1-flash-1017",
+    "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "max_retries": 3,
+    "max_tokens": 32768,
+    "context_tokens": 1048576,
+    "timeout_seconds": 600,
+    "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+    "prompt_hashes": {
+      "system.txt": "7a93acba42ddf24fc563e2eab7db536c442841463332e8ea4cc5beb021d11ba0",
+      "user.txt": "586b4942a83208d5e4730678788d1d9f1b1e960316d13f1105005f8c2f868195"
+    }
+  },
+  "model": "qwen3.7-text-embedding",
+  "base_url": "https://ws-d3797vjrydfu6dt3.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+  "snapshot_hash": "7f90e37122b916148e5d0575c1bcbc7eecb56e6e13c73de47603b8befc3ee464"
+}

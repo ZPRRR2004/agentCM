@@ -1,0 +1,34 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-019",
+  "arity": 2,
+  "source_predicate_names": [
+    "DISTINGUISHES_BENIGN_REFERENCES_FROM_TARGETS"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "DISCRIMINATES_BENIGN_REFERENCE_OCCURRENCES_FROM_ACTUAL_TARGETS",
+    "definition": "The reasoning uses contextual evidence in an observation to classify observed occurrences as merely benign references, such as names, examples, placeholders, unrelated prose, or other non-target mentions, rather than as actual target values or entities that are the operative objects of interest.",
+    "parameters": [
+      {
+        "name": "classification_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that evaluates observed occurrences and classifies them as benign references or actual targets."
+      },
+      {
+        "name": "occurrence_observation",
+        "type": "observation",
+        "description": "The observation showing the occurrences and the surrounding context used to discriminate benign references from actual targets."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains occurrences that could be mistaken for actual target values or entities.",
+      "The reasoning uses observed context to classify at least one observed occurrence as a benign reference, example, placeholder, name, unrelated mention, or other non-target rather than as an actual target."
+    ],
+    "exclusion_conditions": [
+      "The reasoning treats every observed occurrence as an actual target value or entity.",
+      "The reasoning does not use observed context to discriminate benign references from actual targets."
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-004",
+  "arity": 2,
+  "source_predicate_names": [
+    "RESETS_TO_PRISTINE_STATE_FOR_HANDOFF",
+    "APPLIES_REMEDIATION_TO_IDENTIFIED_ARTIFACT"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "EXECUTES_REASONED_REMOVAL_OF_UNWANTED_STATE",
+    "definition": "The reasoning identifies an unwanted artifact, record, retention mechanism, or produced state to be eliminated, or justifies returning an environment to an initial clean condition for subsequent use, and indicates a cleanup or removal strategy. The action then performs a removal, emptying, elimination, or reversion operation directed at that identified unwanted state while leaving required configuration, infrastructure, or deliverables intact.",
+    "parameters": [
+      {
+        "name": "cleanup_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies the unwanted artifact, record, retention mechanism, or produced state to eliminate, and/or justifies restoring a clean initial condition for subsequent use, including the intended removal strategy."
+      },
+      {
+        "name": "removal_action",
+        "type": "action",
+        "description": "The action that removes, empties, eliminates, or reverts the identified unwanted artifact or produced state, rather than merely exploring, diagnosing, or checking, while preserving required configuration, infrastructure, or deliverables."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific unwanted artifact, record, retention mechanism, or produced state to be eliminated, or states that the environment is being returned to an initial clean condition for subsequent use.",
+      "The reasoning provides a cleanup, removal, or reversion rationale or strategy for the identified target and does not propose removing required configuration, infrastructure, or deliverables.",
+      "The action performs a removal, emptying, elimination, or reversion operation directed at the identified unwanted artifact or produced state rather than only exploring, diagnosing, or checking.",
+      "The action leaves required configuration, infrastructure, or deliverables intact when the stated purpose involves handoff, subsequent use, or targeted remediation."
+    ],
+    "exclusion_conditions": [
+      "The action is exploratory, diagnostic, verification-oriented, or unrelated maintenance and does not execute removal.",
+      "The reasoning does not identify any unwanted artifact, record, retention mechanism, or produced state and gives no rationale for restoring a clean initial condition for subsequent use.",
+      "The action removes required configuration, infrastructure, or deliverables rather than only unwanted or produced artifacts.",
+      "Removal is performed merely for tidiness without either an identified unwanted target or a subsequent-use or clean-state rationale.",
+      "The reasoning does not address the target of removal, the cleanup strategy, or the state in which the environment is left."
+    ]
+  }
+}

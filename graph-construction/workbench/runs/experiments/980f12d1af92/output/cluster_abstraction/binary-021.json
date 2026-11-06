@@ -1,0 +1,40 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-021",
+  "arity": 2,
+  "source_predicate_names": [
+    "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "PERSISTS_VALIDATED_STATE_TO_AUTHORITATIVE_STORE",
+    "definition": "The reasoning establishes that an already validated or corrected state must be durably recorded in an authoritative store that later inspection or external queries consult, beyond any transient working copy, so that those observers reflect the validated state; the action performs that recording by writing, committing, or otherwise persisting the validated state into that authoritative store.",
+    "parameters": [
+      {
+        "name": "persistence_reasoning",
+        "type": "reasoning",
+        "description": "The agent reasoning that justifies why the validated or corrected state must be recorded in an authoritative persistent store consulted by later inspection or external queries."
+      },
+      {
+        "name": "persist_action",
+        "type": "action",
+        "description": "The action that writes, commits, or otherwise records the validated or corrected state into the authoritative persistent store."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning establishes that the validated or corrected state must be durably recorded in an authoritative store used by later inspection or external queries, rather than only in a transient working copy.",
+      "The persist_action writes, commits, or otherwise records the validated or corrected state into the authoritative store rather than merely reading, inspecting, reporting, or planning such a recording.",
+      "The content recorded by the persist_action corresponds to the validated or corrected state that the reasoning has already established or validated.",
+      "The persist_action targets the authoritative store identified by the reasoning as the durable location that subsequent inspection or queries consult."
+    ],
+    "exclusion_conditions": [
+      "The action only reads, inspects, reports, or displays state without recording changes.",
+      "The reasoning does not connect the recording operation to persistence of the validated or corrected state in an authoritative store.",
+      "The reasoning only describes the content of individual corrections or validations without addressing their durable authoritative recording.",
+      "The reasoning considers recording the validated or corrected state but decides against doing so.",
+      "The action records unrelated, unvalidated, or uncorrected content rather than the state established by the reasoning.",
+      "The action records only into a non-authoritative or transient working copy and does not persist the state to the authoritative store."
+    ]
+  }
+}

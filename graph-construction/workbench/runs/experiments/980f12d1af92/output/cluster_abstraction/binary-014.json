@@ -1,0 +1,37 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-014",
+  "arity": 2,
+  "source_predicate_names": [
+    "DERIVES_VERSION_LINEAGE_FROM_METADATA"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RECONSTRUCTS_ANCESTRY_OR_DIVERGENCE_FROM_VERSION_IDENTIFIERS",
+    "definition": "The reasoning interprets version or revision identifiers or references supplied by an observation covering multiple artifacts to reconstruct their lineage, asserting at least one relationship of shared ancestry or common base, or of descendant or divergent branching, among those versions.",
+    "parameters": [
+      {
+        "name": "lineage_reconstruction_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that interprets the supplied identifiers and asserts common ancestry or base relationships and/or descendant or divergent relationships among the versions."
+      },
+      {
+        "name": "multi_version_metadata_observation",
+        "type": "observation",
+        "description": "The observation that supplies identifiers or references for multiple versions or revisions whose lineage is to be reconstructed."
+      }
+    ],
+    "assertion_conditions": [
+      "The multi_version_metadata_observation supplies identifiers or references for two or more versions or revisions.",
+      "The lineage_reconstruction_reasoning interprets those identifiers or references to assert at least one common base or ancestral relationship or at least one descendant or divergent relationship among the versions.",
+      "The asserted ancestry or divergence relationship is grounded in the identifiers or references supplied by the observation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely lists or repeats version identifiers without interpreting ancestry or divergence.",
+      "The observation does not supply identifiers or references for multiple versions or revisions.",
+      "No common ancestry, common base, descendant, or divergence relationship among versions is asserted.",
+      "The reasoning compares versions for correctness, quality, or suitability without asserting how they are related by ancestry or divergence."
+    ]
+  }
+}

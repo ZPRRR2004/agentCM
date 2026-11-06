@@ -1,0 +1,33 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-003",
+  "arity": 1,
+  "source_predicate_names": [
+    "ENUMERATES_REQUIRED_END_STATE",
+    "ASSESSES_ROBUSTNESS_ACROSS_HYPOTHETICAL_SCENARIOS"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "EVALUATES_CANDIDATE_AGAINST_ENUMERATED_CONSTRAINTS_OR_SCENARIOS",
+    "definition": "The reasoning enumerates two or more distinct checkable conditions that a delivered result must satisfy or hypothetical scenarios/courses of behavior under which a candidate must remain valid, then evaluates candidate states, configurations, or actions against those enumerated items and selects or favors the candidate that satisfies all, or the greatest number, of them. The enumerated items concern verifiable properties of a resulting state or possible external behaviors, rather than merely a sequence of steps to execute.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The agent text enumerating multiple required end-state conditions or hypothetical scenarios and evaluating, selecting, or favoring a candidate state, configuration, or action based on its validity across those enumerated items."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly enumerates at least two distinct checkable conditions that a candidate must satisfy or hypothetical scenarios or external behaviors under which a candidate must remain valid.",
+      "The enumerated items are expressed as verifiable properties of a resulting state or as possible external procedures or behaviors, rather than as an action sequence alone.",
+      "The reasoning compares, selects, or favors a candidate state, configuration, or action according to whether it satisfies all, or the greatest number, of the enumerated conditions or scenarios."
+    ],
+    "exclusion_conditions": [
+      "The reasoning considers only a single expected condition or scenario, with no enumeration of multiple required properties or hypothetical behaviors.",
+      "The reasoning describes a sequence of actions to execute without stating the resulting state conditions or the possible external behaviors under which a candidate must remain valid.",
+      "The reasoning enumerates conditions or scenarios without drawing any comparative conclusion about which candidate state, configuration, or action to adopt.",
+      "The enumerated items are rival explanations for an already observed situation rather than requirements for a resulting state or hypothetical future behaviors to withstand."
+    ]
+  }
+}

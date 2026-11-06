@@ -1,0 +1,44 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-009",
+  "arity": 2,
+  "source_predicate_names": [
+    "DERIVES_CONSTRAINT_INPUTS_FROM_OBSERVED_RECORDS",
+    "DERIVES_EXACTNESS_CONSTRAINT_FROM_MEASUREMENT",
+    "COMPARES_MEASURED_VALUE_AGAINST_THRESHOLD",
+    "VALIDATES_RESULT_AGAINST_EXPECTED_RELATIONS",
+    "ASSESSES_CANDIDATE_AGAINST_CONSTRAINTS",
+    "CORROBORATES_CANDIDATE_WITH_INDEPENDENT_METADATA",
+    "DERIVES_DECISION_FROM_MEASURED_RESULT"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "GROUNDS_CONSTRAINT_OR_JUDGMENT_IN_OBSERVED_EVIDENCE",
+    "definition": "The reasoning extracts or interprets evidence from an observation, including measured values, exact quantitative or formatting properties, related result values, independent metadata, records, or candidate occurrences or fragments, and uses that evidence to derive or establish a constraint, threshold, acceptance criterion, consistency relation, derived quantity, corroboration, selection, or numerical baseline for judging compliance or supporting a subsequent decision.",
+    "parameters": [
+      {
+        "name": "evidence_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that extracts, transforms, compares, or applies content from observed evidence to establish a constraint, requirement, consistency relation, compliance judgment, derived input, selection, or decision baseline."
+      },
+      {
+        "name": "evidence_observation",
+        "type": "observation",
+        "description": "The observation supplying the measured, quantitative, structural, relational, metadata, record, or candidate content that is used as evidence."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation contains identifiable evidence usable by the reasoning, such as numeric measurements, exact properties, related values, metadata, records, or candidate content or context.",
+      "The evidence_reasoning explicitly extracts, computes from, compares to, or applies at least one such observed item rather than merely restating it.",
+      "The reasoning uses the observed evidence to produce a constraint or requirement, a consistency conclusion, a compliance or violation judgment, corroboration or undermining, a derived quantity, an option selection, or a numerical baseline for a subsequent action or decision."
+    ],
+    "exclusion_conditions": [
+      "The observation supplies only general or qualitative discussion with no identifiable evidence that the reasoning extracts, compares, or applies.",
+      "The reasoning merely restates or describes the observation without deriving a constraint, relation, consistency result, judgment, selection, or decision support.",
+      "The relevant constraint, comparison, or judgment is based solely on prior knowledge or assumptions rather than on the observation's content.",
+      "The observed evidence is mentioned but not used to constrain, accept, corroborate, select among, evaluate a candidate or result, or set a baseline for any outcome.",
+      "The reasoning performs an action or reaches a decision independently of the observed evidence."
+    ]
+  }
+}

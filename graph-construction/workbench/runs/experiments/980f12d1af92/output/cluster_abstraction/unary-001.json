@@ -1,0 +1,32 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-001",
+  "arity": 1,
+  "source_predicate_names": [
+    "CONFIGURES_EVENT_TRIGGERED_AUTOMATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "CONFIGURES_EVENT_DRIVEN_AUTOMATION",
+    "definition": "The action creates, updates, or installs a persistent automation configuration that associates a specified event or condition with a downstream operation, so that future occurrences of that event or condition automatically invoke the operation without further manual invocation.",
+    "parameters": [
+      {
+        "name": "action",
+        "type": "action",
+        "description": "The action node that writes, updates, or installs the persistent automation configuration linking an event or condition to an automatic downstream operation."
+      }
+    ],
+    "assertion_conditions": [
+      "The action creates, updates, or installs a hook, trigger, listener, job, or equivalent automation configuration artifact.",
+      "The configuration content associates a specified event or condition with a downstream operation to be performed automatically.",
+      "The configuration is intended to affect future occurrences of the event or condition rather than only the current invocation."
+    ],
+    "exclusion_conditions": [
+      "The action performs a one-off operation with no persistent trigger or automation configuration.",
+      "The action only documents a procedure for later manual execution.",
+      "The configured artifact does not connect an event or condition to an automatic response.",
+      "The action configures behavior only for the current invocation without enabling future event-driven execution."
+    ]
+  }
+}

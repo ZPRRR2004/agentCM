@@ -1,0 +1,31 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-007",
+  "arity": 1,
+  "source_predicate_names": [
+    "REVEALS_UNAVAILABLE_CAPABILITY"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "REPORTS_ABSENT_OR_UNAVAILABLE_CAPABILITY",
+    "definition": "The content of an observation explicitly indicates that a command, tool, package, service, or other capability that was invoked, required, or otherwise relied upon is absent, not found, unsupported, or unavailable, thereby constraining the approach that can be used to pursue the task. The unavailability must be stated by the observation itself, not merely inferred in separate reasoning, and must concern an actionable capability rather than ordinary data content or a generic execution failure.",
+    "parameters": [
+      {
+        "name": "capability_limitation_observation",
+        "type": "observation",
+        "description": "The observation whose own content reports that an invoked, required, or relied-upon command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation explicitly indicates that a command, tool, package, service, or other capability is absent, not found, unsupported, or otherwise unavailable.",
+      "The unavailability is stated within the observation's own content rather than only inferred by the agent in separate reasoning.",
+      "The absent or unavailable capability is one that was invoked, required, or relied upon to pursue the task, so the observation constrains the approach that can be used."
+    ],
+    "exclusion_conditions": [
+      "The observation reports a generic failure, such as invalid arguments, a non-zero exit status, or a runtime error, without stating that a capability is absent or unavailable.",
+      "The observation reports success, presence, or availability rather than absence.",
+      "The reported absence concerns ordinary data content or a missing data value rather than a command, tool, package, service, or capability the agent attempted or needed to use."
+    ]
+  }
+}

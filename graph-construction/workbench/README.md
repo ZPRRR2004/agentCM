@@ -68,13 +68,28 @@ python3 -m pip install -r graph-construction/workbench/requirements.txt
 2. 在“新建实验 → 04 / CLUSTER → 谓词语义聚类”选择已完成的谓词发现实验，或上传本地 Registry JSON。已完成的发现实验详情也提供“基于此定义库新建聚类实验”。上传仅接受 JSON 数组、`{"predicates": [...]}` 或 `{"registry": [...]}` 单字段包装；请求沿用 2 MB 上限，调用现有 `predicate-definition/v2` 校验器。随后选择 Embedding 表示方式：默认“多字段加权拼接”，可切换“单文本 Embedding（原版）”；字段权重在同一弹窗中编辑，修改权重或策略不重置聚类配额。
 3. 设置目标总类数和各元数组类数。初始值为 `min(50, 谓词总数)`；每个非空元数组至少一类。修改总数按容量约束比例分配，余数按小数部分降序、元数升序处理；修改单组只更新总数；“自动分配”可重新按当前总数分配。支持任意正元数，集合参数仍算一个参数。
 4. 选择 Agglomerative（Cosine / Average 或 Complete）或普通 K-Means（L2 归一化输入、平方欧氏距离、可配置 `n_init` 和 `random_state`）。保存草稿不调用 API，点击“开始运行”后才生成 Embedding 并按元数独立聚类。K-Means 若未达到目标类数会明确失败，系统不会自动减少类数。
-5. 在详情查看元数分布、目标与实际类数、Singleton 数量、Cluster Size 分布和完整 Cluster 成员。左侧可按元数、名称、Definition、成员数或平均相似度筛选排序；右侧展开完整原始定义，点击相似度矩阵可对照两条谓词。完成后可导出聚类 JSON 与 Predicate-Cluster 映射。
+5. 新实验保存原始聚类结果后，会自动使用“模型设置 → 实验模型”的 Chat LLM 逐 Cluster 抽象。Singleton 同样调用；每簇必须生成一个同元数的完整五字段谓词。全部结果通过 v2 格式、元数和名称唯一性校验后，实验才完成。请同时配置实验模型和 Embedding 模型的密钥。
+6. 在详情查看元数分布、目标与实际类数、Singleton 数量、Cluster Size 分布和完整 Cluster 成员。左侧可按元数、名称、Definition、成员数或平均相似度筛选排序；右侧上方显示本轮生成的完整抽象谓词，下方保留原始成员和相似度矩阵。原始聚类计算完成后即可导出聚类 JSON 与 Predicate-Cluster 映射；整个实验完成后可另行导出抽象 Registry 与抽象映射。
 
-单文本策略的模板继续为 `predicate-embedding-input/v1`，文本逐字沿用原版：原始 `definition` 与按顺序排列的 `parameters[].type/description`，排除谓词名、参数名和成立/排除条件。多字段策略的模板为 `predicate-embedding-fields/v1`，详见下方说明。所有策略均保留完整五字段原始定义，不调用 LLM 改写。Cosine 分数描述向量空间几何相似性；不等同于逻辑等价概率。Medoid 为真实成员，近似并列（绝对差不超过 `1e-12`）时取原 Registry 索引最小者；簇编号按元数和 Medoid 原始索引固定。Singleton 的平均/最低两两相似度为 `null`。
+单文本策略的模板继续为 `predicate-embedding-input/v1`，文本逐字沿用原版：原始 `definition` 与按顺序排列的 `parameters[].type/description`，排除谓词名、参数名和成立/排除条件。多字段策略的模板为 `predicate-embedding-fields/v1`，详见下方说明。Embedding 阶段使用完整原始文本；后续 LLM 抽象另存新定义库。Cosine 分数描述向量空间几何相似性；不等同于逻辑等价概率。Medoid 为真实成员，近似并列（绝对差不超过 `1e-12`）时取原 Registry 索引最小者；簇编号按元数和 Medoid 原始索引固定。Singleton 的平均/最低两两相似度为 `null`。
 
 输入和配置在 `runs/experiments/<id>/experiment.json` 与 `inputs/predicate_registry.json` 冻结。模型、规范化服务地址、输出维度、模板版本、算法参数与各元数组类数参与 Hash 校验；运行时从私有模型设置读取当前 Embedding 密钥，密钥不进入实验快照或结果。原始定义库保持完整，聚类不执行 KEEP/MERGE/REVISE/DELETE。
 
 `output/` 保存 `embedding_texts.json`、逐批 `embedding_batches/`、`embeddings.npy`、`embedding_index.json`、`similarity_matrix.npy`、逐元数 `clustering_groups/`、`clusters.json`、`statistics.json`、`predicate_cluster_mapping.json` 与 `execution_state.json`。停止/恢复复用校验通过的批次和聚类组；缓存绑定输入文本 Hash、模型、地址、维度与模板版本。默认每批 10 条，临时网络错误、限流与 5xx 最多重试 3 次；鉴权、模型、参数和向量格式错误直接停止。
+
+LLM 抽象由 `workbench/predicate_abstraction.py` 调用现有 `PredicateDiscoveryLLM.call()`，沿用 JSON 解析、请求参数、有限重试和调用记录。按照 `clusters.json` 的 `groups` 顺序独立处理，每次发送该簇全部成员的完整五字段定义和此前新生成的名称，不摘要、不截断、不增加二轮审核或人工确认。正常情况下 K 个 Cluster 对应 K 次请求；格式、元数、重名等校验失败会沿用现有客户端的最多 3 次重试，最终仍失败则整个实验失败，保留原始聚类结果及已完成调用的记录。
+
+源 Prompt 位于 `../predicate-discovery/src/discover_predicates/prompts/cluster_abstraction/{system,user}.txt`。创建时将两个文件独立冻结到实验的 `prompts/cluster_abstraction/`，记录各文件和整体 SHA-256，并冻结抽象 Chat Model、Base URL 和现有请求参数。运行只读取实验 Prompt 快照及当前私有设置中的 Chat 密钥，不改变 Discovery 的 Prompt 文件集合。修改源 Prompt 或模型设置只影响之后创建的实验；更换密钥可以用于已创建实验的冻结模型及地址。
+
+新增结果均位于同一实验的 `output/`：
+
+- `abstracted_registry.json`：标准五字段 Registry 数组，数量严格等于 Cluster 数量，可作为新的 Registry JSON 上传。
+- `abstraction_mapping.json`：每簇的新谓词名称、元数和全部原始成员名称。
+- `cluster_abstraction/<cluster_id>.json`：该簇生成的完整谓词、来源名称、模型、Prompt Hash 和本轮运行标识。
+- `cluster_abstraction/calls/<run_id>/<cluster_id>.json`：现有客户端生成的请求、响应、重试和 Token 使用记录，凭据脱敏；不同运行的记录分别保留。
+- `cluster_abstraction/execution.json`：本轮抽象进度。主执行状态使用 `cluster_abstraction` 与 `cluster_abstraction_save` 阶段。
+
+**抽象结果不缓存、不复用、不按已生成结果跳过。** 每次进入抽象阶段都从第一个 Cluster 重新调用全部 Cluster，并重新生成最终 Registry；逐簇文件只供查看本轮结果和追溯调用。停止后恢复仍可沿用原有 Embedding 与聚类缓存，但抽象从头开始，前端不混用上轮的抽象结果。没有 `abstraction` 配置的历史聚类实验继续沿用原流程，不迁移历史快照或添加抽象步骤。原始输入、`clusters.json`、原始成员和相似度结果始终保留。
 
 后端集中在 `workbench/clustering.py`，使用标准库调用 OpenAI 兼容 HTTP Embeddings API，数值计算依赖 NumPy 和 scikit-learn；前端集中在 `web/clustering.js`。相关协议见[百炼文本向量 API](https://help.aliyun.com/en/model-studio/text-embedding-synchronous-api)、[AgglomerativeClustering](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) 和 [KMeans](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)。
 

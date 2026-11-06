@@ -1,0 +1,49 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "quaternary-001",
+  "arity": 4,
+  "source_predicate_names": [
+    "RESOLVES_OBSERVED_FAILURE_WITH_CONFIRMED_WORKAROUND"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RESOLVES_OBSERVED_BLOCKING_FAILURE_VIA_DIAGNOSED_ALTERNATIVE_AND_CONFIRMATION",
+    "definition": "An observed failure, refusal, or blocking constraint is diagnosed by reasoning that identifies a cause or limiting condition and specifies a concrete alternative remedy; an action then implements that alternative rather than repeating the failed approach; and a later observation confirms that the obstacle has been overcome, consistent with the remedy having been applied.",
+    "parameters": [
+      {
+        "name": "failure_observation",
+        "type": "observation",
+        "description": "The initial observation reporting an error, refusal, or blocking constraint that prevented an intended operation."
+      },
+      {
+        "name": "diagnosis_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies a cause or limiting condition of the reported failure and specifies an alternative remedy distinct from the failed approach."
+      },
+      {
+        "name": "remediation_action",
+        "type": "action",
+        "description": "The action that executes the specified alternative remedy rather than repeating the failed approach."
+      },
+      {
+        "name": "confirmation_observation",
+        "type": "observation",
+        "description": "The later observation reporting success or removal of the obstacle, consistent with the alternative remedy having been applied."
+      }
+    ],
+    "assertion_conditions": [
+      "The failure observation reports an error, refusal, or blocking constraint that prevented an intended operation.",
+      "The diagnosis reasoning identifies a cause or limiting condition of that failure and specifies an alternative remedy that differs from the failed approach.",
+      "The remediation action executes the specified alternative remedy rather than repeating the failed approach.",
+      "The confirmation observation reports success or removal of the obstacle, consistent with the alternative remedy having been applied."
+    ],
+    "exclusion_conditions": [
+      "No failure or blocking constraint is reported by the initial observation.",
+      "The reasoning notes the failure without diagnosing a cause or specifying an alternative remedy.",
+      "The action merely repeats the failed approach or does not implement the specified remedy.",
+      "The later observation still reports failure, or is unrelated to the obstacle.",
+      "No subsequent observation confirms resolution of the obstacle."
+    ]
+  }
+}

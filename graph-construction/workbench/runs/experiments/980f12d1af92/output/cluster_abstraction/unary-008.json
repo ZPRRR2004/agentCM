@@ -1,0 +1,34 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-008",
+  "arity": 1,
+  "source_predicate_names": [
+    "IDENTIFIES_UNMITIGATED_RISK_AND_ACCEPTS",
+    "IDENTIFIES_ERROR_PITFALL",
+    "IDENTIFIES_CONFORMANCE_RISK"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "IDENTIFIES_SPECIFIC_POTENTIAL_FAILURE_MODE",
+    "definition": "The reasoning identifies a concrete, plausible failure mode or risk that could arise under the current approach, configuration, artifact, or task, and explains the mechanism or property by which it could produce an adverse outcome such as an incorrect or misleading result, rejection or nonconformance under external validation, or an unguarded residual failure. The identified scenario must be specific to the present context rather than a generic caution, and the reasoning may additionally state a mitigation, avoidance method, or explicit decision to accept the risk.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that anticipates a specific failure mode or risk and articulates how it could adversely affect the current task, artifact, or configuration."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning names a specific, plausible failure mode, error-producing mechanism, residual scenario, or conformance risk that is tied to the current task, configuration, approach, or artifact.",
+      "The reasoning explains how that named scenario or property could lead to an adverse outcome, such as incorrect or misleading results, rejection or mismatch under external validation or strict comparison, or an unguarded failure.",
+      "The identified failure mode is presented as a possibility to be anticipated or considered, rather than merely as a defect already observed after execution."
+    ],
+    "exclusion_conditions": [
+      "The reasoning offers only generic caution, quality concern, or a need for checking without naming a concrete failure mode or risk.",
+      "The reasoning reports a defect or discrepancy only after it has already been observed through execution rather than anticipating a specific possible failure mode.",
+      "The reasoning mentions a risk or problem but neither ties it to the current context nor explains how it could produce an adverse outcome.",
+      "The reasoning merely states confidence or an intention to act without identifying any specific potential failure mode or risk."
+    ]
+  }
+}

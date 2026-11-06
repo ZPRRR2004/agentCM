@@ -1,0 +1,47 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-007",
+  "arity": 3,
+  "source_predicate_names": [
+    "CORROBORATES_RESULT_WITH_INDEPENDENT_PATH",
+    "VERIFIES_CANDIDATE_BY_TARGETED_REEXTRACTION",
+    "VERIFIES_EQUIVALENCE_AGAINST_REFERENCE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "VERIFIES_CLAIM_OR_RESULT_VIA_INDEPENDENT_COMPARISON",
+    "definition": "A previously obtained result, proposed candidate, or candidate output is checked by performing an independent comparison: recomputing the same quantity through a materially different access or implementation path, re-reading the exact claimed source location or field, or evaluating candidate and reference computations on identical inputs against a stated equality or tolerance standard. An observation then reports comparable data that confirm or refute the claim by agreement, disagreement, or quantified deviation.",
+    "parameters": [
+      {
+        "name": "verification_standard",
+        "type": "reasoning",
+        "description": "The reasoning or stated standard identifying what is being verified, including the prior result, candidate or fragment, claimed source location, reference output, quantity, or tolerance criterion against which agreement is to be judged."
+      },
+      {
+        "name": "independent_comparison_action",
+        "type": "action",
+        "description": "The action that obtains independent comparison evidence by recomputing through a materially different access or implementation path, re-extracting targeted data from the claimed source location, or evaluating candidate and reference computations on identical inputs."
+      },
+      {
+        "name": "comparison_observation",
+        "type": "observation",
+        "description": "The observation reporting the independently obtained value, data, quantified deviation, or explicit equality for the same quantity, scope, inputs, or location, sufficient to confirm or refute the target against the verification standard."
+      }
+    ],
+    "assertion_conditions": [
+      "The verification_standard identifies a specific quantity, claim, candidate, source location, reference output, or tolerance that is to be checked.",
+      "The independent_comparison_action is targeted to that verification target and obtains comparison evidence by a materially different access or implementation path, by re-reading the exact claimed source location or field, or by evaluating candidate and reference computations on identical inputs.",
+      "The comparison_observation reports a value, dataset, quantified deviation, or explicit equality directly comparable with the verification target, so agreement or disagreement can be determined.",
+      "The comparison path is materially distinct from, or specifically targeted to, the claimed source or computation being checked, making the observed agreement or disagreement informative."
+    ],
+    "exclusion_conditions": [
+      "The comparison repeats the identical code or access path, or reuses the candidate's own computation path, so agreement is not informative.",
+      "The compared quantity, scope, selection, inputs, or source location differs from the target being verified.",
+      "No baseline result, candidate, reference output, or verification criterion exists against which the comparison observation can be judged.",
+      "The action is untargeted exploration not tied to the proposed result, candidate, or claimed source location.",
+      "The observation only inspects a persisted output without recomputing or re-reading when comparable evidence from an independent or targeted path is required.",
+      "The observation reports only an unquantified pass or fail, or data that cannot be compared with the verification target."
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-006",
+  "arity": 3,
+  "source_predicate_names": [
+    "TRANSLATES_SCHEMA_EVIDENCE_INTO_PROCESSING_PROCEDURE",
+    "RETRIEVES_MISSING_SECTION_WITH_FOLLOWUP"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "INTERPRETS_OBSERVED_STRUCTURE_OR_INFORMATIONAL_GAP_TO_DIRECT_TARGETED_ACTION",
+    "definition": "Reasoning interprets observed informational content that is either structural, schema, field-list, format, or documented-layout evidence about a resource, or a recognized missing or truncated portion of prior information. The reasoning thereby determines a specific required operation: the fields, parameters, or procedure to implement, or the missing information portion to retrieve. A targeted action is directed by that reasoning to create or execute the corresponding procedure or to perform a follow-up retrieval specifically aimed at the identified missing portion. The linked observation is the informational content involved: it either supplies the structural or layout evidence used by the reasoning or contains the previously missing portion returned by the targeted action. The action must operationalize or complete the interpreted informational requirement rather than merely inspect unrelated data or repeat already available information.",
+    "parameters": [
+      {
+        "name": "interpretive_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that interprets structural, schema, field-list, format, or layout evidence to determine required fields, parameters, or operations, or identifies a specific missing or truncated portion of prior information."
+      },
+      {
+        "name": "targeted_action",
+        "type": "action",
+        "description": "The action directed by the reasoning to implement or execute the corresponding procedure or to perform a follow-up retrieval aimed at the identified missing portion."
+      },
+      {
+        "name": "linked_observation",
+        "type": "observation",
+        "description": "The observation that either supplies the structural or layout evidence interpreted by the reasoning or contains the previously missing content obtained by the targeted action."
+      }
+    ],
+    "assertion_conditions": [
+      "The interpretive reasoning explicitly references structural, schema, field-list, format, or documented layout information, or identifies a specific missing or truncated portion of prior information.",
+      "The targeted action is causally linked to that interpretation, either by implementing or executing a procedure based on the structural determination or by performing a follow-up retrieval aimed at the identified missing portion rather than unrelated or duplicative retrieval.",
+      "The linked observation contains either the structural or layout evidence used by the reasoning or the missing content identified and returned by the targeted action.",
+      "The action operationalizes the interpreted requirement or obtains the identified missing portion; it does not merely inspect data unrelated to the interpretation or repeat already available information."
+    ],
+    "exclusion_conditions": [
+      "The interpretive reasoning relies only on values or results without structural, schema, field-list, format, or layout information and does not identify a specific missing or truncated portion.",
+      "The targeted action is unrelated to the identified structure or missing portion, or merely re-fetches information already available.",
+      "The linked observation contains neither structural or layout evidence used by the reasoning nor the missing content identified as missing.",
+      "For the missing-portion case, no prior observation is recognized as partial or truncated.",
+      "The action only retrieves or inspects data and neither implements a procedure derived from structural evidence nor retrieves the identified missing portion."
+    ]
+  }
+}

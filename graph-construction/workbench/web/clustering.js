@@ -15,7 +15,8 @@ let browser = { experiment: null, arity: 'all', search: '', sort: 'size-desc', s
 
 function embeddingSummary() {
   const s = state.settings;
-  return `<strong>${esc(s.embedding_model || '尚未配置')}</strong><p class="helper cluster-wrap">${esc(s.embedding_base_url || '请先填写 Embedding API Base URL')}<br>维度：${esc(s.embedding_dimensions ?? '模型默认')} · API Key：${s.embedding_key_configured ? '已配置' : '未配置'}</p>`;
+  return `<strong>${esc(s.embedding_model || '尚未配置')}</strong><p class="helper cluster-wrap">${esc(s.embedding_base_url || '请先填写 Embedding API Base URL')}<br>维度：${esc(s.embedding_dimensions ?? '模型默认')} · API Key：${s.embedding_key_configured ? '已配置' : '未配置'}</p>
+    <strong>LLM Predicate Abstraction：${esc(s.model || '尚未配置')}</strong><p class="helper cluster-wrap">${esc(s.base_url || '请先配置实验模型')}<br>使用“实验模型”的当前密钥，创建时冻结模型和地址。</p>`;
 }
 
 function representationOf(e) {
@@ -70,14 +71,24 @@ function updateRepresentationPanel() {
 }
 
 function clusteringProgress(e, p = e.execution || {}) {
-  if (representationOf(e).mode !== 'fieldwise_concat') return `已生成 ${e.completed}/${e.total} 个 Embedding`;
   const s = e.state || {}, rep = representationOf(e);
-  const total = p.total_embedding_vectors ?? s.total_embedding_vectors ?? (e.input_registry || []).reduce((sum, predicate) => sum +
-    fieldOrder.filter(field => rep.weights[field] > 0 && (field !== 'exclusion' || predicate.exclusion_conditions.length > 0)).length, 0);
-  const current = p.current_embedding_field ?? s.current_embedding_field;
-  return `Embedding：${p.completed_embedding_vectors ?? s.completed_embedding_vectors ?? 0}/${total} 条字段向量 · ` +
-    `当前字段：${current ? current.split(', ').map(field => fieldLabels[field] || field).join(' / ') : '—'} · ` +
-    `已完成 ${e.completed}/${e.total} 个 Predicate`;
+  let text = `已生成 ${e.completed}/${e.total} 个 Embedding`;
+  if (rep.mode === 'fieldwise_concat') {
+    const total = p.total_embedding_vectors ?? s.total_embedding_vectors ?? (e.input_registry || []).reduce((sum, predicate) => sum +
+      fieldOrder.filter(field => rep.weights[field] > 0 && (field !== 'exclusion' || predicate.exclusion_conditions.length > 0)).length, 0);
+    const current = p.current_embedding_field ?? s.current_embedding_field;
+    text = `Embedding：${p.completed_embedding_vectors ?? s.completed_embedding_vectors ?? 0}/${total} 条字段向量 · ` +
+      `当前字段：${current ? current.split(', ').map(field => fieldLabels[field] || field).join(' / ') : '—'} · ` +
+      `已完成 ${e.completed}/${e.total} 个 Predicate`;
+  }
+  if (e.abstraction) {
+    if (s.clustering_completed) text = 'Embedding：已完成';
+    const count = s.completed_abstraction_clusters ?? 0, total = e.config.target_clusters;
+    text += ` · Clustering：${s.completed_clusters ?? 0}/${total} · LLM Predicate Abstraction：${count}/${total}`;
+    if (s.current_abstraction_cluster) text += ` · 当前 Cluster：${s.current_abstraction_cluster}`;
+    text += ` · 已生成 Predicate：${s.generated_predicates ?? 0} 个`;
+  }
+  return text;
 }
 
 function representationSnapshot(e) {
@@ -115,7 +126,8 @@ async function newClustering(sourceId) {
     <section class="cluster-config-panel"><h3>聚类算法</h3><label>算法<select id="cluster-algorithm" name="algorithm"><option value="agglomerative">Agglomerative Clustering</option><option value="kmeans">K-Means</option></select></label>
       <div id="cluster-agglomerative-options"><label>Linkage<select name="linkage"><option value="average">Average Linkage</option><option value="complete">Complete Linkage</option></select></label><p class="helper">Cosine Distance · 每个元数组独立执行。</p></div>
       <div id="cluster-kmeans-options" hidden><div class="form-row"><label>n_init<input name="n_init" type="number" min="1" max="1000" step="1" value="20" disabled required></label><label>random_state<input name="random_state" type="number" min="0" max="4294967295" step="1" value="42" disabled required></label></div><p class="helper">普通 K-Means 在 L2 归一化向量上优化簇内平方欧氏距离。结果统计统一使用 Cosine Similarity。</p></div>
-    </section><p class="helper">保存草稿不会调用 API。运行时按所选表示方式生成 Embedding，多字段模式包含成立和排除条件；聚类仅提供候选分组，原始定义库保持完整。</p></form>`,
+    </section><p class="helper">保存草稿不会调用 API。运行时按所选表示方式生成 Embedding，多字段模式包含成立和排除条件；原始定义库保持完整。</p>
+    <p class="cluster-abstraction-notice">聚类完成后，系统将对每个 Cluster 独立调用 LLM，生成一个新的五字段谓词，并保存完整的抽象 Registry。包含单元素簇；每次进入抽象阶段都会重新处理全部 Cluster。</p></form>`,
     btn('取消', 'close-modal') + '<button class="btn primary" type="submit" form="new-clustering-form" disabled>创建聚类实验草稿</button>', true);
   updateRepresentationPanel();
   await loadClusteringSource();
@@ -314,6 +326,7 @@ function clusteringDetail(e) {
   } : item);
   if (browser.experiment !== e.id) browser = { experiment: e.id, arity: 'all', search: '', sort: 'size-desc', singleton: false, selected: null };
   const completed = e.status === 'completed';
+  const clusteringReady = completed || e.state?.clustering_completed;
   const active = ['running', 'waiting'].includes(e.status);
   const stats = e.statistics || {}, embedding = e.embedding, config = e.config;
   const source = e.source.type === 'upload' ? `本地 JSON · ${e.source.filename}` : `${e.source.title} · ${e.source.experiment_id}`;
@@ -324,8 +337,10 @@ function clusteringDetail(e) {
   const max = Math.max(1, ...buckets.map(b => b.count));
   $('#main').innerHTML = `<div class="experiment-detail clustering-detail">${experimentNavigation(e)}${head(e.title, '谓词语义聚类 · ' + source,
     (active ? btn('停止运行', 'stop-experiment', 'danger') : completed ? '' : btn(e.status === 'draft' ? '开始运行' : '恢复实验', 'start-experiment', 'primary', '', 'play')) +
-    btn('导出聚类 JSON', 'clustering-export', '', completed ? '' : 'disabled', 'download') +
-    btn('导出 Predicate-Cluster 映射', 'clustering-export-mapping', '', completed ? '' : 'disabled', 'download'), 'EXPERIMENT / PREDICATE CLUSTERING')}
+    btn('导出聚类 JSON', 'clustering-export', '', clusteringReady ? '' : 'disabled', 'download') +
+    btn('导出 Predicate-Cluster 映射', 'clustering-export-mapping', '', clusteringReady ? '' : 'disabled', 'download') +
+    (e.abstraction ? btn('导出抽象 Predicate Registry', 'clustering-export-abstracted', '', completed ? '' : 'disabled', 'download') +
+      btn('导出抽象映射', 'clustering-export-abstraction-mapping', '', completed ? '' : 'disabled', 'download') : ''), 'EXPERIMENT / PREDICATE CLUSTERING')}
     ${e.question ? `<div class="experiment-question"><span class="eyebrow">RESEARCH QUESTION</span>${esc(e.question)}</div>` : ''}
     <div class="cards">${metric('执行状态', pill(e.status), '', esc(clusteringProgress(e)), 'experiments')}${metric('输入谓词', e.predicate_count, '个', `${Object.keys(e.arity_counts).length} 个非空元数组`, 'data')}${metric('目标 / 实际类数', `${config.target_clusters} / ${actual ?? '—'}`, '', '不同元数严格独立聚类', 'overview')}${metric('Embedding 模型', esc(embedding.model), '', `最终维度：${esc(stats.embedding_dimensions ?? e.state?.final_dimensions ?? (representationOf(e).mode === 'fieldwise_concat' ? (embedding.dimensions ? 4 * embedding.dimensions : '运行后确定') : embedding.dimensions ?? '模型默认'))}`, 'settings')}</div>
     <section class="panel cluster-config-panel"><h2>输入与配置快照</h2><div class="cluster-metadata"><p><strong>来源</strong>${e.source.experiment_id ? `<a href="#experiment/${esc(e.source.experiment_id)}">${esc(source)}</a>` : esc(source)}</p><p><strong>Embedding 服务</strong>${esc(embedding.base_url)}</p><p><strong>文本模板</strong>${esc(embedding.input_template)}</p><p><strong>算法</strong>${esc(config.algorithm)} · ${config.algorithm === 'agglomerative' ? `Cosine Distance · ${esc(config.linkage)} linkage` : `平方欧氏距离 · n_init=${config.n_init} · random_state=${config.random_state}`}</p><p class="mono"><strong>输入 SHA-256</strong>${esc(e.input_hash)}</p></div>
@@ -339,6 +354,8 @@ function clusteringDetail(e) {
       <select id="cluster-sort" aria-label="聚类排序">${[['size-desc', '成员数 ↓'], ['size-asc', '成员数 ↑'], ['similarity-desc', '平均相似度 ↓'], ['similarity-asc', '平均相似度 ↑']].map(([value, label]) => `<option value="${value}" ${browser.sort === value ? 'selected' : ''}>${label}</option>`).join('')}</select><label class="cluster-check"><input id="cluster-singletons" type="checkbox" ${browser.singleton ? 'checked' : ''}>仅 Singleton</label></div>
       <div class="cluster-browser"><div class="list-pane cluster-list" id="cluster-list"></div><section class="panel cluster-members" id="cluster-detail"></section></div></section></div>`;
   $('.cluster-metadata', $('#main')).insertAdjacentHTML('beforeend', representationSnapshot(e));
+  if (e.abstraction) $('.cluster-metadata', $('#main')).insertAdjacentHTML('beforeend',
+    `<p><strong>抽象 Chat 模型</strong>${esc(e.abstraction.model)}<br>${esc(e.abstraction.base_url)}</p><p class="mono"><strong>抽象 Prompt SHA-256</strong>${esc(e.abstraction.prompt_hash)}</p><p class="helper">每个 Cluster 生成一个同元数谓词，包含 Singleton。恢复时重新调用全部 Cluster；原始聚类与输入保持完整。</p>`);
   if (representationOf(e).mode === 'fieldwise_concat') $('.cluster-results', $('#main')).insertAdjacentHTML('afterbegin',
     '<p class="helper cluster-representation-note">当前相似度基于多字段加权拼接并完成最终整体归一化后的向量计算。</p>');
   renderClusterBrowser();
@@ -379,7 +396,12 @@ function renderCluster() {
   const target = $('#cluster-detail');
   if (!target) return;
   if (!group) { target.innerHTML = empty('选择左侧 Cluster 查看完整定义。'); return; }
+  const abstracted = state.detail.abstraction_results?.results?.find(item => item.cluster_id === group.cluster_id);
+  const abstraction = state.detail.abstraction ? `<section class="cluster-abstraction-result"><h3>抽象后的 Predicate</h3>${abstracted
+    ? `<details class="cluster-member" open><summary>${esc(abstracted.abstracted_predicate.name)}</summary><div>${predicateFields(abstracted.abstracted_predicate)}</div></details>`
+    : '<p class="helper">本轮尚未生成此 Cluster 的抽象谓词。每次进入抽象阶段都会重新调用全部 Cluster。</p>'}</section>` : '';
   target.innerHTML = `<div class="panel-head"><div><span class="eyebrow">${esc(group.cluster_id)} · ${arityLabel(group.arity)}</span><h2>${group.size} 个 Predicate</h2></div></div>
+    ${abstraction}
     <div class="cluster-quality"><p>Medoid：<strong>${esc(group.representative)}</strong></p><p>Mean Pairwise Cosine Similarity：${similarity(group.mean_similarity)}<br>Minimum Pairwise Cosine Similarity：${similarity(group.min_similarity)}</p>
     ${group.minimum_pair ? `<p>最低相似度谓词对：<strong>${group.minimum_pair.predicates.map(esc).join(' ↔ ')}</strong> · ${similarity(group.minimum_pair.similarity)}</p>` : ''}</div>
     <div class="cluster-member-list">${group.members.map((p, index) => `<details class="cluster-member" ${p.name === group.representative ? 'open' : ''}><summary><span>${esc(p.name)}</span><small>与 Medoid ${similarity(group.member_similarities[p.name])}${p.name === group.representative ? ' · Medoid' : ''}</small></summary><div>${predicateFields(p)}</div></details>`).join('')}</div>
@@ -421,6 +443,16 @@ async function exportClustering(mapping = false) {
   toast(mapping ? 'Predicate-Cluster 映射已导出' : '聚类结果已导出');
 }
 
+async function exportAbstraction(mapping = false) {
+  const filename = mapping ? 'abstraction-mapping' : 'abstracted-registry';
+  const value = await api(`clustering/${filename}?` + query({ id: state.detail.id }));
+  const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url; link.download = `${state.detail.id}-${filename}.json`; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast(mapping ? '抽象映射已导出' : '抽象 Predicate Registry 已导出');
+}
+
 function clusteringComparison(a, b) {
   return `<div class="table-wrap"><table><thead><tr><th>实验</th><th>谓词数</th><th>Embedding</th><th>表示策略 / 权重</th><th>算法</th><th>目标 / 实际类数</th><th>Singleton</th></tr></thead><tbody>${[a, b].map(e => `<tr><td>${esc(e.title)}</td><td>${e.predicate_count}</td><td>${esc(e.embedding.model)}</td><td>${representationLabel(e)}${representationOf(e).mode === 'fieldwise_concat' ? `<small>${fieldOrder.map(f => weightPercent(representationOf(e).weights[f])).join(' / ')}</small>` : ''}</td><td>${esc(e.config.algorithm)}</td><td>${e.config.target_clusters} / ${e.actual_clusters ?? '—'}</td><td>${e.statistics.singleton_count ?? '—'}</td></tr>`).join('')}</tbody></table></div><p class="helper">输入内容摘要${a.input_hash === b.input_hash ? '一致' : '不同'}。聚类相似度仅用于语义候选分组。</p>`;
 }
@@ -445,6 +477,8 @@ const clusteringActions = {
   'clustering-pair': showPredicatePair,
   'clustering-export': () => exportClustering(),
   'clustering-export-mapping': () => exportClustering(true),
+  'clustering-export-abstracted': () => exportAbstraction(),
+  'clustering-export-abstraction-mapping': () => exportAbstraction(true),
 };
 
 export { clusteringActions, clusteringBody, clusteringChange, clusteringComparison,

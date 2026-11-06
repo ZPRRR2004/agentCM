@@ -1,0 +1,47 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-011",
+  "arity": 3,
+  "source_predicate_names": [
+    "AUDITS_MULTIPLE_INVARIANTS",
+    "EXCLUDES_ALTERNATIVE_CANDIDATES_BY_EXHAUSTIVE_SEARCH",
+    "VERIFIES_MULTI_INTERFACE_COMPATIBILITY"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "VERIFIES_MULTIPLE_TARGETS_VIA_COMPREHENSIVE_DISCRIMINATIVE_EVALUATION",
+    "definition": "Reasoning identifies two or more distinct targets that must be evaluated together to establish a requirement—such as independent invariants, required invocation interfaces or execution paths, or competing candidate occurrences—directs a single comprehensive action to search, probe, or exercise all of those targets rather than a single known case, and interprets an observation that reports outcomes separately attributable to the individual targets as evidence that every required target is satisfied or covered, that the desired candidate is uniquely supported, or that alternatives are excluded.",
+    "parameters": [
+      {
+        "name": "multi_target_requirement_reasoning",
+        "type": "reasoning",
+        "description": "Reasoning that identifies multiple distinct conditions, interfaces, paths, or candidate alternatives to be assessed together and that interprets the resulting outcomes as satisfying, covering, or excluding those targets."
+      },
+      {
+        "name": "comprehensive_target_probe_action",
+        "type": "action",
+        "description": "A single action that comprehensively searches, probes, or exercises the multiple identified targets rather than checking only one known target."
+      },
+      {
+        "name": "target_discriminative_observation",
+        "type": "observation",
+        "description": "Observation reporting outcomes that can be attributed to the individual targets, enabling comparison of success, coverage, uniqueness, or exclusion."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning specifies at least two distinct targets to be evaluated together, such as independent invariants, required interfaces or paths, or candidate alternatives.",
+      "The action performs a combined or exhaustive search, probe, or execution that covers multiple of those specified targets rather than a single known case.",
+      "The observation reports outcomes attributable to the individual targets, not merely one undifferentiated status.",
+      "The reasoning interprets the individually attributable outcomes as confirming that all required targets hold, that each required path or interface succeeds equivalently, or that competing alternatives are excluded."
+    ],
+    "exclusion_conditions": [
+      "Only one target, condition, interface, path, or candidate alternative is evaluated.",
+      "The action does not actually search, probe, or exercise the specified targets, for example by only compiling or checking syntax without executing required paths.",
+      "The action is limited to a single known location or instance and cannot reveal or assess additional required targets or alternatives.",
+      "The observation aggregates outcomes so that results cannot be attributed to individual targets.",
+      "At least one required target fails or an additional unexcluded qualifying alternative remains, so the intended verification, compatibility, or uniqueness conclusion is not established.",
+      "The observation is not interpreted as relevant to the multi-target requirement, coverage, compatibility, or alternative exclusion."
+    ]
+  }
+}

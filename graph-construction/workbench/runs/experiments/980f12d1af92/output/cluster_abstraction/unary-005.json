@@ -1,0 +1,37 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-005",
+  "arity": 1,
+  "source_predicate_names": [
+    "FORMALIZES_CONSTRAINTS_AS_CHECKABLE_CONDITIONS",
+    "OPERATIONALIZES_UNDERSPECIFIED_REQUIREMENT",
+    "IDENTIFIES_SPECIFICATION_AMBIGUITY",
+    "RESOLVES_INSTRUCTION_CONFLICT",
+    "DECLINES_OPTIONAL_CHANGE_FOR_REQUIREMENT_FIDELITY"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "INTERPRETS_REQUIREMENTS_FOR_ACTION_ADMISSIBILITY",
+    "definition": "The reasoning explicitly interprets a stated requirement, specification, rule, or instruction so as to establish what is required, admissible, or in scope for a candidate action or artifact. This includes clarifying or resolving ambiguity or underspecification, deriving checkable acceptance conditions, committing to a concrete operational reading, justifying a resolution of competing instructions, or refusing an unrequested deviation to preserve fidelity. The interpretation is grounded in the stated requirements and provides a basis for judging, guiding, or constraining the action or artifact.",
+    "parameters": [
+      {
+        "name": "requirement_interpretation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that explicitly engages with a stated requirement, specification, rule, or instruction to clarify its meaning, scope, constraints, conflicts, operational interpretation, or fidelity implications."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning explicitly refers to at least one stated requirement, specification, rule, or instruction and addresses its meaning, scope, application, or satisfaction rather than merely restating it.",
+      "The reasoning performs at least one observable requirement-interpretation act: identifying an ambiguity, underspecification, or competing-instruction conflict; deriving an explicit checkable acceptance or admissibility condition; committing to a concrete operational interpretation of an underspecified aspect; stating a justified resolution of an instruction conflict; or explicitly rejecting an unrequested optional change to preserve requirement fidelity.",
+      "The reasoning identifies the affected requirement element and either the resulting condition, choice, resolution, or scope boundary, or the specific ambiguity or conflict that requires interpretation, so that admissibility, compliance, or the next action can be assessed."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only repeats or paraphrases the stated requirement verbatim without addressing ambiguity, constraints, conflict, operational meaning, or scope fidelity.",
+      "The reasoning merely lists preferences, observations, or procedural steps that are not tied to interpreting the stated requirements.",
+      "The reasoning reports that a check was performed or states a result without expressing the condition, interpretation, ambiguity, conflict resolution, or scope decision that governs admissibility.",
+      "The reasoning only notes a generic uncertainty without naming a specific requirement, specification, rule, field, or instruction affected.",
+      "When the only candidate act is rejecting a change, the rejection is based solely on performance, convenience, or technical impossibility rather than fidelity to the stated requirements."
+    ]
+  }
+}

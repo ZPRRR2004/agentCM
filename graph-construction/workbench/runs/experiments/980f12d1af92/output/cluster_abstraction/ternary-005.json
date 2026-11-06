@@ -1,0 +1,45 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-005",
+  "arity": 3,
+  "source_predicate_names": [
+    "CHECKS_INPUT_INTEGRITY_WITHOUT_MODIFICATION",
+    "VERIFIES_NEGATIVE_CONSTRAINT"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "CONFIRMS_ABSENCE_OF_UNWANTED_STATE_OR_CONTENT",
+    "definition": "The reasoning identifies a negative or preservation constraint on a target state or result: one or more protected elements, parameters, components, or artifacts must remain unaltered except for explicitly permitted changes, and/or specified items, values, or conditions must not appear. A non-mutating inspection or check action examines that target for the unwanted modification or excluded presence. The observation reports a result that confirms the unwanted state or content is absent, such as unchanged or permitted-change evidence from metadata, checksums, contents, listings, or comparisons, or an absence finding for the specified excluded items.",
+    "parameters": [
+      {
+        "name": "negative_constraint_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning identifying the negative or preservation constraint: protected elements that must remain unaltered except where explicitly permitted and/or specific items, values, or conditions that must not appear in the target state or result."
+      },
+      {
+        "name": "nonmutating_inspection_action",
+        "type": "action",
+        "description": "The non-mutating action that inspects the target or result, using a listing, status query, checksum, read, comparison, or similar check to detect unwanted modifications or specified excluded items without altering the inspected elements."
+      },
+      {
+        "name": "absence_confirmation_observation",
+        "type": "observation",
+        "description": "The observation reporting that the inspected target has not undergone unwanted modification or that none of the specified excluded items, values, or conditions are present, possibly including metadata, checksums, contents, change listings, comparison outcomes, or explicit absence findings."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies at least one negative or preservation constraint: protected elements outside an intended change set that must remain unaltered except where explicitly permitted, or at least one specific item, value, or condition that must not appear in the target state or result.",
+      "The check action is non-mutating with respect to the inspected target and is directed at detecting the identified unwanted modification or excluded item rather than producing the solution or altering the target.",
+      "The observation reports an outcome that confirms the identified unwanted state or content is absent, including unchanged or permitted-change evidence, or an explicit finding that none of the specified excluded items are present."
+    ],
+    "exclusion_conditions": [
+      "The action writes to, deletes, or otherwise alters the inspected elements or target state.",
+      "The reasoning identifies no protected element, permitted-change boundary, or specified item, value, or condition that must be absent.",
+      "No observation reports the outcome of the inspection or absence check.",
+      "The observation reports an unwanted modification or the presence of a specified excluded item, value, or condition rather than confirming its absence.",
+      "The check addresses only positive expected content and does not evaluate the specified negative or preservation constraint.",
+      "The inspection serves only to generate or transform a solution rather than to confirm the preservation or absence constraint."
+    ]
+  }
+}

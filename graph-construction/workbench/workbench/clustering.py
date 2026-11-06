@@ -1,7 +1,7 @@
 """Snapshot-based predicate embedding and independent clustering by arity.
 
-No discovery/revision calls and no writes to a source registry. Heavy numerical
-dependencies are imported only in the worker, so other experiments stay usable.
+New experiments abstract each finished cluster through the existing chat client.
+Source registries remain unchanged. Numerical imports stay inside the worker.
 """
 import copy
 import hashlib
@@ -245,7 +245,10 @@ def preview(workspace, body):
 
 
 def snapshot_hash(meta):
-    return digest({key: meta[key] for key in ('input_hash', 'embedding', 'config')})
+    fields = {key: meta[key] for key in ('input_hash', 'embedding', 'config')}
+    if 'abstraction' in meta:
+        fields['abstraction'] = meta['abstraction']
+    return digest(fields)
 
 
 def create(workspace, body):
@@ -266,9 +269,12 @@ def create(workspace, body):
     config = validate_config(requested_config, counts)
     representation = representation_config(config)
     validate_effective_fields(registry, representation)
-    embedding = embedding_config(workspace.settings(secret=True), representation)
+    settings = workspace.settings(secret=True)
+    embedding = embedding_config(settings, representation)
     identity = uuid.uuid4().hex[:12]
     root = workspace.data / 'experiments' / identity
+    from .predicate_abstraction import snapshot as abstraction_snapshot
+    abstraction = abstraction_snapshot(settings, root)
     meta = {'id': identity, 'kind': 'clustering', 'schema': SCHEMA,
             'title': title, 'question': question, 'created_at': now(),
             'dataset_id': source['dataset_id'], 'dataset_name': source['dataset_name'],
@@ -276,6 +282,7 @@ def create(workspace, body):
             'source_experiment_id': source.get('experiment_id'),
             'input_hash': input_hash, 'predicate_count': len(registry),
             'arity_counts': counts, 'embedding': embedding, 'config': config,
+            'abstraction': abstraction,
             'model': embedding['model'], 'base_url': embedding['base_url']}
     meta['snapshot_hash'] = snapshot_hash(meta)
     write(root / 'inputs/predicate_registry.json', registry)
@@ -301,6 +308,9 @@ def verify_inputs(root, meta):
         'embedding_dimensions': embedding['dimensions']}, representation)
     if embedding != expected or snapshot_hash(meta) != meta['snapshot_hash']:
         raise ValueError('Embedding 或聚类配置快照发生变化，拒绝复用缓存')
+    if 'abstraction' in meta:
+        from .predicate_abstraction import load_snapshot
+        load_snapshot(root, meta['abstraction'])
     return registry
 
 
@@ -774,7 +784,7 @@ def _statistics(groups, counts, config):
                         for a, count in counts.items()]}
 
 
-def run(root, progress):
+def run(root, progress, llm_client=None):
     meta = read(root / 'experiment.json')
     progress('registry_read', stage='registry_read', message='读取并核验 Predicate Registry 输入快照')
     registry = verify_inputs(root, meta)
@@ -784,6 +794,13 @@ def run(root, progress):
         raise ValueError('执行状态与聚类输入或配置不一致，拒绝恢复')
     state.update(kind='clustering', snapshot_hash=meta['snapshot_hash'],
                  status='running', completed_groups=0, group_total=len(meta['arity_counts']))
+    if 'abstraction' in meta:
+        if llm_client is None:
+            raise ValueError('新建聚类实验需要抽象 Chat 模型客户端')
+        state.update(clustering_completed=False, completed_clusters=0,
+                     completed_abstraction_clusters=0, generated_predicates=0,
+                     abstraction_total_clusters=meta['config']['target_clusters'],
+                     current_abstraction_cluster=None, abstraction_run_id=None)
 
     def checkpoint(stage):
         state.update(next_stage=stage, updated_at=now())
@@ -832,6 +849,8 @@ def run(root, progress):
                 group['cluster_id'] = f'{prefix}-{number:03d}'
             groups.extend(descriptions)
             state['completed_groups'] = group_number
+            if 'abstraction' in meta:
+                state['completed_clusters'] = len(groups)
             checkpoint('clustering')
             progress('clustering_group_done', stage='clustering', completed_groups=group_number,
                      message=f'已完成 {group_number}/{len(meta["arity_counts"])} 个元数组')
@@ -865,6 +884,20 @@ def run(root, progress):
         write(root / 'output/predicate_cluster_mapping.json',
               [{k: v for k, v in item.items() if k != 'registry_index'} for item in mapping])
         write(root / 'output/statistics.json', statistics)
+        if 'abstraction' in meta:
+            from .predicate_abstraction import abstract_clusters, load_snapshot
+            state.update(clustering_completed=True, completed_clusters=len(groups),
+                         actual_clusters=len(groups), completed_predicates=len(registry))
+            checkpoint('cluster_abstraction')
+
+            def abstraction_progress(event, **fields):
+                state.update({key: value for key, value in fields.items()
+                              if key not in ('stage', 'message')})
+                checkpoint(fields['stage'])
+                progress(event, **fields)
+
+            abstract_clusters(groups, llm_client, load_snapshot(root, meta['abstraction']),
+                              root / 'output', abstraction_progress)
         state.update(status='completed', actual_clusters=len(groups), completed_predicates=len(registry))
         checkpoint('completed')
         return result
@@ -882,8 +915,9 @@ def export(workspace, identity, mapping=False):
     root, output = workspace.paths(identity)
     if read(root / 'experiment.json').get('kind') != 'clustering':
         raise ValueError('请选择谓词聚类实验')
-    if read(output / 'execution_state.json', {}).get('status') != 'completed':
-        raise ValueError('实验完成后才能导出聚类结果')
+    state = read(output / 'execution_state.json', {})
+    if state.get('status') != 'completed' and not state.get('clustering_completed'):
+        raise ValueError('聚类计算完成后才能导出聚类结果')
     return read(output / ('predicate_cluster_mapping.json' if mapping else 'clusters.json'))
 
 
@@ -893,8 +927,9 @@ def field_pair(workspace, identity, left, right):
     meta = read(root / 'experiment.json')
     if meta.get('kind') != 'clustering' or representation_config(meta['config'])['mode'] != 'fieldwise_concat':
         raise ValueError('字段相似度仅适用于多字段加权拼接实验')
-    if read(output / 'execution_state.json', {}).get('status') != 'completed':
-        raise ValueError('请等待聚类实验完成后查看字段相似度')
+    state = read(output / 'execution_state.json', {})
+    if state.get('status') != 'completed' and not state.get('clustering_completed'):
+        raise ValueError('请等待聚类计算完成后查看字段相似度')
     registry = verify_inputs(root, meta)
     positive_integer(left, '左侧 Predicate 索引', 0, len(registry) - 1)
     positive_integer(right, '右侧 Predicate 索引', 0, len(registry) - 1)

@@ -1,0 +1,41 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-018",
+  "arity": 2,
+  "source_predicate_names": [
+    "ESTABLISHES_CONFLICT_RESOLUTION_PRECEDENCE",
+    "ADOPTS_PREEXISTING_CONFIGURATION_AS_INTENDED",
+    "EVALUATES_COMPETING_IMPLEMENTATIONS",
+    "EXPLAINS_ARTIFACT_BEHAVIOR_FROM_SOURCE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "DERIVES_GOVERNING_ARTIFACT_JUDGMENT_FROM_OBSERVED_CONTENT",
+    "definition": "The reasoning interprets the substantive content of an existing artifact, configuration, or set of candidate versions exposed by one or more observations, identifies specific observed constructs, settings, structures, or alternatives, and derives an evidence-grounded judgment that governs how the artifact is understood or handled—such as explaining its behavior, determining precedence between conflicting versions, comparatively assessing candidate implementations, or treating a pre-existing configuration as intended or authoritative.",
+    "parameters": [
+      {
+        "name": "judgment_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that interprets the observed artifact content and states a supported conclusion, comparison, precedence decision, authoritative characterization, or behavioral explanation."
+      },
+      {
+        "name": "artifact_observation",
+        "type": "observation[]",
+        "description": "The observation or set of observations exposing the artifact's source, configuration, layout, versions, or candidate implementations whose identifiable content grounds the judgment."
+      }
+    ],
+    "assertion_conditions": [
+      "The cited observation or observations expose substantive artifact, source, configuration, layout, version, or implementation content rather than only a summary or result.",
+      "The reasoning references identifiable elements of the observed content, such as source constructs, settings, structures, conflicting alternatives, or distinct implementation variants.",
+      "The reasoning derives an evidence-grounded judgment about the artifact that governs its interpretation or handling, including explaining behavior, selecting a prevailing version with rationale, adopting a pre-existing structure as intended or authoritative, or comparatively judging correctness or suitability.",
+      "The derived judgment is supported by the cited observed content rather than being asserted arbitrarily or merely restating the observation."
+    ],
+    "exclusion_conditions": [
+      "The reasoning merely notes, summarizes, or describes the observed artifact content without deriving any governing explanatory, comparative, precedence, or authoritative judgment.",
+      "The judgment is asserted without grounding in identifiable content from the cited observation or observations.",
+      "The observation or observations contain no substantive artifact, source, configuration, implementation, or version content to interpret.",
+      "For a comparative or conflict case, the cited observations do not expose distinct alternatives or variants to be assessed or resolved."
+    ]
+  }
+}

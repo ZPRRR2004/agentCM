@@ -1,0 +1,15 @@
+Abstract the following semantic predicate cluster into exactly one reusable predicate.
+
+Cluster ID:
+{{cluster_id}}
+
+Cluster Arity:
+{{arity}}
+
+Cluster Members:
+{{cluster_members}}
+
+Previously Generated Predicate Names:
+{{existing_names}}
+
+Read every member's complete definition, ordered parameters, assertion conditions, and exclusion conditions. Identify the common underlying behavioral mechanism and generate exactly one complete predicate following the system instructions. The new predicate must preserve the cluster arity. Use a unique predicate name that does not conflict with previously generated predicate names. Return only the complete five-field JSON predicate.

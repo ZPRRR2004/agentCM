@@ -1,0 +1,38 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-020",
+  "arity": 2,
+  "source_predicate_names": [
+    "ESTABLISHES_PRE_MODIFICATION_BASELINE",
+    "PERSISTS_ACCEPTED_CHANGES_WITH_VERSION_CONTROL"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RECORDS_DURABLE_ARTIFACT_STATE_REFERENCE_FOR_COMPARISON_OR_HISTORY",
+    "definition": "An action captures an identifiable reference representing the state of one or more target artifacts or an accepted set of changes at the time of recording, such as pre-change fingerprints or a version-control commit of accepted changes, and the resulting observation reports that reference together with the artifacts or change set it covers, thereby providing a recorded basis for later comparison, change detection, or historical retrieval.",
+    "parameters": [
+      {
+        "name": "recording_action",
+        "type": "action",
+        "description": "The action that computes, captures, or commits an identifiable reference representing the current or accepted state of the target artifacts or change set."
+      },
+      {
+        "name": "reference_observation",
+        "type": "observation",
+        "description": "The observation reporting the resulting reference identifier, fingerprint, commit metadata, or equivalent summary and the artifacts or changes to which it applies."
+      }
+    ],
+    "assertion_conditions": [
+      "The recording action produces an identifiable reference representing the state of at least one target artifact or of an accepted set of changes at the time of recording.",
+      "The reference_observation reports the resulting reference, such as an identifier, fingerprint, commit identifier, or equivalent summary, and identifies the artifacts or change set it covers.",
+      "The recorded reference is intended or usable for later comparison, change detection, or historical retrieval of the covered artifacts or changes."
+    ],
+    "exclusion_conditions": [
+      "The action produces no identifiable reference or recorded representation for the covered artifacts or changes.",
+      "The observation only reports that recording was attempted without reporting the resulting reference.",
+      "The recorded reference cannot be associated with the artifacts or change set to which it is supposed to apply.",
+      "The recorded values serve only an unrelated purpose and cannot support later comparison, change detection, or historical retrieval."
+    ]
+  }
+}

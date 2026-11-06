@@ -22,6 +22,8 @@ STAGES = {
     'clustering': '执行各元数组聚类',
     'cluster_statistics': '计算 Cluster 统计',
     'clustering_save': '保存聚类结果',
+    'cluster_abstraction': 'LLM Predicate Abstraction',
+    'cluster_abstraction_save': '保存抽象 Registry 与成员映射',
 }
 
 

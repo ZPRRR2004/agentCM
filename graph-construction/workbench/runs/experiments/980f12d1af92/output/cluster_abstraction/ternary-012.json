@@ -1,0 +1,42 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-012",
+  "arity": 3,
+  "source_predicate_names": [
+    "DECODES_OBFUSCATED_DATA_USING_INFERRED_TRANSFORMATION"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RECOVERS_OBSCURED_CONTENT_VIA_INFERRED_TRANSFORMATION",
+    "definition": "The reasoning identifies a transformation, key, substitution rule, or decoding convention inferred from analysis of the target artifact or data; an action applies that identified transformation to non-directly-readable target data; and the resulting observation reports recovered or decoded content consistent with the inferred transformation.",
+    "parameters": [
+      {
+        "name": "inferred_transformation_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that specifies the transformation, key, substitution rule, or decoding convention inferred from the target artifact or data."
+      },
+      {
+        "name": "transformation_application_action",
+        "type": "action",
+        "description": "The action that applies the inferred transformation to the non-directly-readable target data rather than merely displaying or copying it."
+      },
+      {
+        "name": "recovered_content_observation",
+        "type": "observation",
+        "description": "The observation reporting the recovered or decoded content produced by the transformation and consistent with the inferred transformation."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific transformation, key, substitution rule, or decoding convention inferred from the target artifact or data.",
+      "The action applies that identified transformation to non-directly-readable target data.",
+      "The observation reports recovered or decoded content consistent with the inferred transformation."
+    ],
+    "exclusion_conditions": [
+      "No transformation, key, substitution rule, or decoding convention is identified before the action.",
+      "The action does not apply a decoding or deobfuscation transformation to the target data.",
+      "The observation reports no recovered content, or the reported content is inconsistent with the inferred transformation.",
+      "The reasoning merely restates raw content that was already directly readable without any transformation."
+    ]
+  }
+}

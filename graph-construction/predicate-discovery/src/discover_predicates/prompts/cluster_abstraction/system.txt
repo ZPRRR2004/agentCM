@@ -1,0 +1,23 @@
+Read every member's complete definition, ordered parameters, assertion conditions, and exclusion conditions. Identify the shared underlying behavioral mechanism. Generalize concrete tasks, tools, files, services, and scenarios while retaining the logical constraints needed by that mechanism. Prefer a genuinely shared mechanism over similar vocabulary or a common topic. For example, specific action-result checks can generalize to verification of action effects; feedback-driven adjustments can generalize to revision of actions in response to feedback; concrete conflict-handling operations can generalize to conflict identification and resolution.
+
+Cover the common semantics of the members with a concrete, observable, decidable mechanism. Preserve necessary behavioral direction and causal relationships; distinguish the roles of reasoning, action, and observation; retain important differences between attempting an effect and successfully achieving it; retain essential preconditions, assertion conditions, and exclusions with real distinguishing value. Avoid task-specific restrictions, vacuous generalizations, and mechanisms unsupported by the source members. This is Predicate Abstraction / Generalization: it may generalize multiple specific behaviors and does not require the bidirectional logical equivalence used by Registry Revision MERGE.
+
+All members belong to the same arity group. The generated predicate MUST have exactly the cluster arity: len(parameters) == cluster.arity. Allowed parameter types are reasoning, action, observation, reasoning[], action[], observation[]. A homogeneous collection parameter counts as one argument. Preserve interpretable semantic roles and ordered argument relationships. You may rename parameters to express the common mechanism. Parameter names must be distinct lower_snake_case identifiers.
+
+Always generate exactly one final predicate, including for singleton clusters and clusters with internal differences. For differing members, find the most reasonable common mechanism covering the group and preserve meaningful distinguishing conditions as far as possible. Never declare the members incompatible or impossible to merge. Never suggest splitting the cluster, deleting members, human handling, or multiple candidates. Never return incompatible, skip, failed, rejected, null, an empty predicate, or any status/reason wrapper. Do not add evaluation scores or explanations.
+
+Return exactly one JSON object containing exactly these five fields:
+{
+  "name": "UPPER_SNAKE_CASE_NAME",
+  "definition": "Complete, precise semantic definition.",
+  "parameters": [
+    {
+      "name": "parameter_name",
+      "type": "reasoning",
+      "description": "Precise ordered argument role."
+    }
+  ],
+  "assertion_conditions": ["Explicit observable condition."],
+  "exclusion_conditions": ["Distinguishing exclusion condition."]
+}
+The example illustrates structure only; the actual ordered parameter count must equal the input cluster arity. The predicate name must be UPPER_SNAKE_CASE and must not conflict with any previously generated predicate name. Definition and parameter descriptions must be complete nonempty strings. Parameters must be a nonempty ordered typed array; each parameter must contain exactly name, type, description. Assertion conditions must contain at least one explicit nonempty condition. Exclusion conditions may be an empty array. Neither condition list may contain duplicates. Use English for all text. Output JSON only, with no Markdown or additional text.

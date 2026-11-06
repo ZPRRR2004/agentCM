@@ -1,0 +1,35 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-004",
+  "arity": 1,
+  "source_predicate_names": [
+    "SELECTS_CANDIDATE_BY_CONSTRAINT_ELIMINATION",
+    "SELECTS_APPROACH_FROM_CONSIDERED_ALTERNATIVES",
+    "RECONSTRUCTS_CANDIDATE_FROM_COMPLEMENTARY_FRAGMENTS"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RESOLVES_EVALUATED_CANDIDATE_ELEMENTS_TO_SINGLE_RESULT",
+    "definition": "The reasoning evaluates a set of more than one candidate option, alternative approach, or partial segment that pertains to the same desired result, applies explicit decision criteria to them, such as stated hard requirements, comparative trade-offs, or whole-candidate constraints, and resolves the set into a single candidate outcome by rejecting violating options, committing to a preferred approach with rationale, or combining complementary parts into a candidate that is checked against at least one whole-candidate constraint.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning text that identifies multiple candidate options, alternative approaches, or complementary segments, evaluates them using explicit criteria, and selects, commits to, or reconstructs a single resulting candidate."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies more than one candidate option, alternative approach, or partial segment relevant to a single outcome or goal.",
+      "The reasoning applies at least one explicit criterion to the identified candidates or segments, such as a stated hard requirement, a stated comparative trade-off, or a whole-candidate constraint.",
+      "The reasoning resolves the evaluated candidates or segments into a single candidate outcome by rejecting violating candidates, committing to a preferred alternative with a stated reason, or combining complementary segments into a candidate.",
+      "The single candidate outcome is presented as selected, committed to, or validated against at least one whole-candidate constraint."
+    ],
+    "exclusion_conditions": [
+      "The reasoning considers only one candidate option, approach, or segment and does not compare or combine it with any other relevant candidate or partial segment.",
+      "The reasoning lists alternatives or segments but does not apply any explicit criterion and does not reach a selected, committed, combined, or validated candidate.",
+      "The reasoning states a selected, committed, or combined result without any stated rationale, requirement, trade-off, or whole-candidate constraint supporting it.",
+      "The candidate segments are treated as separate results rather than as parts or alternatives contributing to one resolved outcome, and no single resulting candidate is established."
+    ]
+  }
+}

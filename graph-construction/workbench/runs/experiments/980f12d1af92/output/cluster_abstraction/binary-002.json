@@ -1,0 +1,38 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-002",
+  "arity": 2,
+  "source_predicate_names": [
+    "REPRODUCES_STIPULATED_WORKFLOW",
+    "MIRRORS_REFERENCE_OPERATION_ORDER"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "REPRODUCES_SPECIFIED_PROCEDURE_OR_OPERATION_ORDER",
+    "definition": "The reasoning deliberately commits to reproducing the identifiable steps or operations of a stipulated workflow or reference implementation presented in the available procedure evidence, rather than substituting an equivalent check or merely aligning outcomes, so that the stipulated procedure itself is validated or the reference results are matched within the required tolerance.",
+    "parameters": [
+      {
+        "name": "reproduction_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies a stipulated procedure or reference implementation and states that its steps or operation order are to be reproduced for validation or result matching."
+      },
+      {
+        "name": "procedure_evidence",
+        "type": "observation",
+        "description": "The observed or available presentation or execution of the stipulated workflow or reference implementation, whose identifiable steps or order of operations are to be reproduced."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a stipulated procedure or reference implementation or operation order that is to be reproduced rather than replaced by an unrelated or merely equivalent proxy.",
+      "The procedure evidence presents identifiable steps, operations, or an ordering that can be followed.",
+      "The reasoning explicitly connects reproducing the same steps or operation order to validating the stipulated procedure or matching the reference results within the required tolerance."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only requires the final result to match without committing to reproducing the reference's steps or operation order.",
+      "The procedure evidence does not present an identifiable procedure, implementation, or sequence of operations.",
+      "The reasoning or resulting behavior performs only a status query, configuration inspection, or equivalent substitute that does not exercise or reproduce the stipulated workflow.",
+      "A materially different procedure or order is selected for speed or convenience without a claim that it reproduces the stipulated or reference procedure."
+    ]
+  }
+}

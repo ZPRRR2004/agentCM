@@ -1,0 +1,47 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-003",
+  "arity": 3,
+  "source_predicate_names": [
+    "CORRECTS_FAILED_ACTION_WITH_DIAGNOSIS",
+    "MITIGATES_ANTICIPATED_FAILURE",
+    "IMPLEMENTS_GUARDED_RECOVERY"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "IMPLEMENTS_REASONED_FAILURE_OR_RISK_RESPONSE_WITH_OBSERVED_EVIDENCE",
+    "definition": "An evidence-linked failure-risk response mechanism in which reasoning identifies a concrete failure condition—an observed failure and its cause, a specific foreseeable failure mode, or a required capability that must survive interruption—then an action implements a corrective change, preventive mitigation, or guarded recovery mechanism that specifically addresses that condition, and an observation supplies diagnostically relevant failure evidence or confirms the mitigated, restored, or created state.",
+    "parameters": [
+      {
+        "name": "failure_condition_reasoning",
+        "type": "reasoning",
+        "description": "Reasoning that diagnoses an observed failure and its cause, identifies a specific foreseeable failure mode that could prevent the goal, or establishes that a required capability must survive interruption or restart, thereby determining the needed response."
+      },
+      {
+        "name": "addressing_action",
+        "type": "action",
+        "description": "Action that implements the specifically reasoned change, preventive measure, or guarded recovery mechanism intended to overcome, avoid, or recover from the identified failure condition rather than merely repeating or ignoring it."
+      },
+      {
+        "name": "evidence_observation",
+        "type": "observation",
+        "description": "Observation that reports the earlier failure or error, provides evidence consistent with the preventive or recovery measure being in place, or confirms successful creation and usability of the recovery mechanism."
+      }
+    ],
+    "assertion_conditions": [
+      "The failure_condition_reasoning identifies a concrete failure condition: a diagnosed cause of an observed failure, a specific anticipated failure mode or pitfall that could prevent the goal, or a requirement that a capability survive interruption or restart.",
+      "The addressing_action is informed by that reasoning and changes the relevant parameter, resource, approach, configuration, permission, state, or mechanism to address the identified failure condition.",
+      "When the action is claimed as preventive, it is applied before the identified failure occurs and specifically targets that failure mode.",
+      "When the action is claimed as guarded recovery, the created mechanism includes a presence check that avoids duplicating or restarting an already-present capability and is designed to fail safely without disruptive output.",
+      "The evidence_observation reports the earlier failure or error, or supplies evidence consistent with the preventive measure being applied, the mitigated or restored state, or successful creation and usability of the recovery mechanism."
+    ],
+    "exclusion_conditions": [
+      "The action repeats the failed action without any relevant change or is not based on the diagnosed cause or identified failure mode.",
+      "The reasoning only mentions a vague or general risk without naming a specific failure condition and without a corresponding action.",
+      "The observation neither reports a failure or error nor provides evidence that the mitigation, restoration, or recovery mechanism was applied or created.",
+      "For a claimed guarded recovery, the mechanism unconditionally starts the capability without checking whether it is already present, can fail or emit output that disrupts the invoking context, or is merely a one-time activation with no resilience rationale.",
+      "The action addresses the failure only after it occurred when the mechanism is claimed as preventive, or the action is preventive but does not address the specific failure mode identified in the reasoning."
+    ]
+  }
+}

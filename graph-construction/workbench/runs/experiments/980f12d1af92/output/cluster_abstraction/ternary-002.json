@@ -1,0 +1,43 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "ternary-002",
+  "arity": 3,
+  "source_predicate_names": [
+    "TESTS_ASSUMPTION_WITH_PROBE",
+    "CONDUCTS_RESIDUAL_RISK_SWEEP"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "CONDUCTS_CONCERN_MOTIVATED_EVIDENCE_GATHERING",
+    "definition": "A reasoning process identifies a specific investigative concern—such as an uncertainty, hypothesis, property to test, or risk of overlooked instances after prior targeted work—and motivates an evidence-gathering action directed at that concern; the resulting observation is interpreted as evidence bearing on the concern, either supporting or undermining the hypothesis/property or determining whether additional actionable instances exist.",
+    "parameters": [
+      {
+        "name": "concern_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that identifies the specific uncertainty, hypothesis, property, or residual-risk concern to be investigated and motivates evidence gathering about it."
+      },
+      {
+        "name": "evidence_gathering_action",
+        "type": "action",
+        "description": "The action directed at obtaining evidence about the identified concern, whether by probing a suspected condition or by searching a broader set of locations, patterns, or artifact classes for overlooked instances."
+      },
+      {
+        "name": "interpreted_observation",
+        "type": "observation",
+        "description": "The observation produced by the action that is interpreted as evidence bearing on the identified concern, such as confirming or refuting a hypothesis or revealing or ruling out additional actionable instances."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies a specific uncertainty, hypothesis, property, or residual-risk concern whose status is not yet settled.",
+      "The evidence-gathering action is motivated by and directed at obtaining new evidence about that identified concern, either through a targeted probe or through a search beyond already known targets.",
+      "The observation is examined and interpreted as evidence bearing on the concern, including whether the suspected property holds or whether additional actionable instances exist."
+    ],
+    "exclusion_conditions": [
+      "No specific uncertainty, hypothesis, property, or residual-risk concern is identified to guide the action.",
+      "The action is unrelated to the identified concern or only repeats previously established target values without seeking evidence about an unresolved question.",
+      "The observation is not interpreted for its bearing on the concern being investigated.",
+      "The concern is formulated only after the result is observed, so the action did not serve as evidence gathering for it."
+    ]
+  }
+}

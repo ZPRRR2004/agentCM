@@ -1,0 +1,31 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "unary-015",
+  "arity": 1,
+  "source_predicate_names": [
+    "RESTRICTS_MODIFICATION_SCOPE",
+    "ASSESSES_RESIDUAL_STORAGE_RISK"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "DELIMITS_MODIFICATION_AND_RESIDUAL_ARTIFACT_SCOPE",
+    "definition": "The reasoning establishes and evaluates the boundary of an intended artifact modification or remediation by distinguishing affected, in-scope artifacts or values from unaffected, preserved, or out-of-scope ones and, when persistence outside the primary working set is relevant, by assessing whether affected artifacts or values may occur in non-primary, historical, cached, generated, or otherwise residual locations that must be included in or excluded from the scope.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that states the modification or remediation boundary and evaluates affected, preserved, and residual artifact or value occurrences."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning identifies which artifacts or values are intended to be modified or remediated and which are to remain unchanged, unaffected, or outside the relevant scope.",
+      "The reasoning evaluates coverage of the stated scope by either assessing whether affected artifacts or values may persist in non-primary, historical, cached, generated, or residual locations that should be included or excluded, or explicitly confining modification or remediation to the identified affected artifacts while leaving other artifacts unchanged."
+    ],
+    "exclusion_conditions": [
+      "The reasoning enumerates artifacts, files, or storage locations without stating or evaluating whether they fall within or outside the modification or remediation scope.",
+      "The reasoning proposes changes to artifacts without distinguishing affected from unaffected or preserved artifacts.",
+      "The reasoning mentions non-primary storage only incidentally without treating it as possible residual occurrences relevant to scope."
+    ]
+  }
+}

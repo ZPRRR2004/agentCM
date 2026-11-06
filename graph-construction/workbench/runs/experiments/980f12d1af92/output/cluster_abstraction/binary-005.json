@@ -1,0 +1,41 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-005",
+  "arity": 2,
+  "source_predicate_names": [
+    "ELIMINATES_EXPLANATION_WITH_CONTRARY_EVIDENCE",
+    "SELECTS_TARGET_AMONG_CANDIDATES",
+    "DISMISSES_CANDIDATE_AS_UNINFORMATIVE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "RESOLVES_CANDIDATE_STATUS_FROM_OBSERVED_EVIDENCE",
+    "definition": "The reasoning uses identifiable content of an observation as grounds for resolving the status of a candidate explanation, target item, artifact, or information source relative to the task: selecting it as the relevant, valid, or useful candidate; eliminating it because the observation contradicts a condition it requires; or rejecting or deprioritizing it as uninformative. The conclusion is justified by discriminating, contradictory, or disqualifying observed content rather than by candidate position, recency, surface similarity, guess, or unsupported assertion.",
+    "parameters": [
+      {
+        "name": "reasoning",
+        "type": "reasoning",
+        "description": "The reasoning node that compares, validates, eliminates, selects, rejects, or deprioritizes a candidate on the basis of observed content."
+      },
+      {
+        "name": "observation",
+        "type": "observation",
+        "description": "The observation providing the discriminating, contradictory, or uninformative content used to resolve the candidate's status."
+      }
+    ],
+    "assertion_conditions": [
+      "The reasoning refers to at least one candidate explanation, target item, artifact, or information source and concludes a resolved status for it: selected as relevant, valid, or useful; eliminated as contradicted; or rejected or deprioritized as uninformative.",
+      "The reasoning cites identifiable observation content as the basis for that status, such as a discriminating attribute among multiple candidates, content conflicting with a condition required by the candidate, or content indicating placeholder, random, unreadable, or otherwise uninformative material.",
+      "When multiple comparable candidates are considered, the observation exposes at least one attribute that differentiates the selected candidate from the others or exposes disqualifying content for a rejected candidate.",
+      "The resolved status follows from the cited observed content rather than solely from candidate position, recency, surface similarity, or unsupported preference."
+    ],
+    "exclusion_conditions": [
+      "The reasoning only notes uncertainty, unusual content, or a possible candidate without selecting, eliminating, rejecting, or deprioritizing it.",
+      "The observation is compatible with the candidate's required condition and does not indicate uninformative content, yet the reasoning rejects or deprioritizes the candidate.",
+      "The reasoning selects a candidate solely by position, recency, surface similarity, or guess without citing discriminating observation content.",
+      "The discriminating or disqualifying attribute cited by the reasoning is not actually present in the observation.",
+      "The reasoning performs an operation on a candidate without resolving whether that candidate is relevant, valid, useful, contradicted, or uninformative."
+    ]
+  }
+}

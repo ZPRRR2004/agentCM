@@ -1,0 +1,46 @@
+{
+  "run_id": "24e149d4e30a4981b120828fb12ec941",
+  "cluster_id": "binary-008",
+  "arity": 2,
+  "source_predicate_names": [
+    "DIAGNOSES_FAILURE_CAUSE",
+    "ATTRIBUTES_FAILURE_TO_TEST_HARNESS_ARTIFACT",
+    "DETECTS_OBSERVED_DATA_INCONSISTENCY",
+    "RECOGNIZES_ANOMALY_IN_OBSERVATION",
+    "INTERPRETS_ADVERSE_OBSERVATION_AS_BENIGN_OR_EXPECTED",
+    "DISCARDS_EVIDENCE_FROM_FAILED_OPERATION",
+    "RESOLVES_AMBIGUITY_BY_OBSERVED_BEHAVIOR",
+    "EXPLAINS_ANOMALOUS_RESULT_WITH_CAUSAL_HYPOTHESIS",
+    "ADAPTS_APPROACH_AFTER_FAILURE"
+  ],
+  "prompt_hash": "025e94522286bd66c607d669d022e9cc6b44f239c4dc018a18c2b0aef2307c40",
+  "model": "deepseek-v4.1-flash-1017",
+  "abstracted_predicate": {
+    "name": "INTERPRETS_PROBLEMATIC_OBSERVATION_FOR_UNDERSTANDING_OR_RESPONSE",
+    "definition": "The reasoning interprets an observation that reports or bears on a failure, adverse or unexpected outcome, anomaly, inconsistency with expectation, ambiguity about behavior, or condition that undermines the validity of an accompanying result, by assigning that reported condition an explanation, origin, significance, validity status, ambiguity resolution, or adjusted course of action that connects it to the agent's expectations or intended outcome rather than merely recording or restating it.",
+    "parameters": [
+      {
+        "name": "interpretive_reasoning",
+        "type": "reasoning",
+        "description": "The reasoning that interprets the problematic or unexpected observation, assigning it a cause or mechanism, origin or benignity, significance, validity judgment, ambiguity resolution, or revised approach grounded in the reported result."
+      },
+      {
+        "name": "problematic_observation",
+        "type": "observation",
+        "description": "The observation reporting or providing concrete behavior relevant to the failure, adverse or unexpected result, anomaly, inconsistency, ambiguity, or validity-undermining condition being interpreted."
+      }
+    ],
+    "assertion_conditions": [
+      "The observation reports or provides concrete behavior bearing on a failure, negative or adverse outcome, unexpected or anomalous result, inconsistency with expectation, ambiguity about how something behaves, or a condition that invalidates an accompanying result.",
+      "The reasoning explicitly interprets that reported condition by assigning an explanation or causal mechanism, classifying its origin or benignity, judging its significance for the intended outcome, resolving an ambiguity by observed behavior, excluding a result as invalid evidence, or proposing an adjusted course of action in response.",
+      "The interpretation or adjustment is presented as a consequence of, and is consistent with, identifiable content of the observation.",
+      "The reasoning goes beyond merely recording, quoting, or paraphrasing the observation."
+    ],
+    "exclusion_conditions": [
+      "The observation reports a clean, expected success and the reasoning treats it as ordinary success without any interpretive complication.",
+      "The reasoning only restates, summarizes, or acknowledges the observation without drawing an explanation, classification, validity judgment, ambiguity resolution, or response from it.",
+      "The claimed interpretation or response is unrelated to the observation or contradicts the facts it reports.",
+      "No failure, adverse or unexpected result, anomaly, inconsistency, ambiguity, or validity-undermining condition is at issue, and the observation is treated as an ordinary expected result."
+    ]
+  }
+}
